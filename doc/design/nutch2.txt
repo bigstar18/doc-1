@@ -1,0 +1,27 @@
+1. 安装VMware，输入注册号；
+2. 安装centos（阿里云下载，5.11），更新yum的源为http://mirrors.163.com/.help/CentOS5-Base-163.repo
+3. 安装jdk，修改系统时间，关闭防火墙，配置hosts文件，关闭ipv6；
+4. 安装hbase，hadoop，修改hbase的配置文件（regionserver，zookeeper，）；
+5. gora sql0.3的mysql功能没有实现，Very Old SQL is deprecated in Nutch 2.X
+
+
+
+
+
+
+开机自动启动mongodb
+vi /etc/rc.d/rc.local
+mongod -f /root/mongodb/conf/mongodb.conf
+
+
+
+
+使用yum，如何安装iostat  sysstat 使用yum安装
+#yum install sysstat
+
+在CentOS 5中关闭IPv6的方法：
+首先修改/etc/modprobe.conf文件，在此文件中加入：
+alias net-pf-10 off
+alias ipv6 off
+然后修改/etc/sysconfig/network文件，修改”NETWORKING_IPV6″一行为：
+NETWORKING_IPV6=no

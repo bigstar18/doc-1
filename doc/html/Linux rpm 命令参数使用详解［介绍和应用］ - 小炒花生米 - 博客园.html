@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Linux rpm 命令参数使用详解［介绍和应用］ - 小炒花生米 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=VDh8zSH1vx51MDqRT7hK220akQ58FjlaaeGuWBPhfOA1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/nature/bundle-nature.css?v=SMSmqROZamyrz003uRLsZZQqisVE_ymEDyPy07GKHPw1"/>
+<link type="text/css" rel="stylesheet" href="/blog/customcss/69974.css?v=dfl9j6QnS42iiny468oXFsPRaFc%3d"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/xiaochaohuashengmi/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/xiaochaohuashengmi/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/xiaochaohuashengmi/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'xiaochaohuashengmi', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=kg4eH0I4kCxkpJz04h1o6y1_tlMoYMYUM47AnqNPO6k1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<!--PageBeginHtml Block Begin-->
+<!--<div id="wangluomen">
+   <a href="http://www.sn03.com" target="_blank"  title="桑拿人生（中国最大的桑拿、按摩交流平台）">
+   <img class="wlmlogo" src="http://images.cnblogs.com/cnblogs_com/wangluomen/289194/o_sn03avartar.jpg" title="桑拿人生（中国最大的桑拿、按摩交流平台）"/>
+   </a>
+<div>-->
+<!--PageBeginHtml Block End-->
+
+<!--done-->
+<div id="banner"><div id="bnr_pic">
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/xiaochaohuashengmi/">小炒花生米</a><br>
+	</div><br>
+	<div class="headerDis"><div style="color:red;font-size:13px;font-weight:bold;padding:3px">
+    友情链接：
+	<a href="http://blog.snsgou.com/" target="_blank">asp.net博客</a>&nbsp;&nbsp;
+	<a href="http://blog.snsgou.com/" target="_blank">php博客</a>&nbsp;&nbsp;
+	<a href="http://blog.snsgou.com/" target="_blank">52linux</a>&nbsp;&nbsp;
+	<a href="http://main.tianya.cn/bbs/hot/1.shtml" target="_blank">天涯热帖区</a>
+	&nbsp;&nbsp;
+	<a href="http://www.cnblogs.com/xiaochaohuashengmi/archive/2010/04/29/1724178.html">常用链接</a>&nbsp;&nbsp;
+	<a style='color:blue;font-weight:bold;' href="http://www.cnblogs.com/xiaochaohuashengmi/archive/2011/10/14/2211202.html">vi操作笔记</a>&nbsp;&nbsp;
+	<a style='color:blue;font-weight:bold;' href="http://www.cnblogs.com/xiaochaohuashengmi/archive/2011/10/14/2211248.html">vim操作笔记</a>
+</div></div>
+</div>
+</div></div>
+<div id="main">
+	<!-- left starts -->
+	<div id="left">
+		<DIV id="mystats">
+			<br/>
+				
+<!--done-->
+<div class="blogStats">
+随笔 - 493&nbsp;
+文章 - 0&nbsp;
+评论 - 129&nbsp;
+
+</div>
+			
+		</DIV>
+		<div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/xiaochaohuashengmi/">首页</a>&nbsp;&nbsp;<a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;&nbsp;&nbsp;<a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a>&nbsp;&nbsp;<a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/xiaochaohuashengmi/rss">订阅</a>&nbsp;<a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/xiaochaohuashengmi/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a></div>
+		<div id="topics">
+			
+<div id="post_detail">
+<div class="post">
+	<div class="postTitle">
+		<h1><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/xiaochaohuashengmi/archive/2011/10/08/2203153.html">Linux rpm 命令参数使用详解［介绍和应用］</a></h1>
+	</div>
+	<div id="cnblogs_post_body"><div style="line-height: 1.3" id="detail" class="detail">
+<p>
+</p><p><strong>RPM是RedHat Package Manager（RedHat软件包管理工具）类似Windows里面的&#8220;添加/删除程序&#8221;</strong></p>
+<p>rpm 执行安装包<br />二进制包（Binary）以及源代码包（Source）两种。二进制包可以直接安装在计算机中，而源代码包将会由RPM自动编译、安装。源代码包经常以src.rpm作为后缀名。</p>
+<p>常用命令组合：</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<div>－ivh：安装显示安装进度--install--verbose--hash<br />－Uvh：升级软件包--Update；<br />－qpl：列出RPM软件包内的文件信息[Query&nbsp;Package&nbsp;list]；<br />－qpi：列出RPM软件包的描述信息[Query&nbsp;Package&nbsp;install&nbsp;package(s)]；<br />－qf：查找指定文件属于哪个RPM软件包[Query&nbsp;File]；<br />－Va：校验所有的RPM软件包，查找丢失的文件[View&nbsp;Lost]；<br />－e：删除包</div></div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<div>rpm&nbsp;-q&nbsp;samba&nbsp;<span style="color: #008000">//</span><span style="color: #008000">查询程序是否安装</span><span style="color: #008000"><br /></span><br />rpm&nbsp;-ivh&nbsp;&nbsp;/media/cdrom/RedHat/RPMS/samba-<span style="color: #800080">3.0</span>.<span style="color: #800080">10</span>-<span style="color: #800080">1</span>.4E.i386.rpm&nbsp;<span style="color: #008000">//</span><span style="color: #008000">按路径安装并显示进度</span><span style="color: #008000"><br /></span>rpm&nbsp;-ivh&nbsp;--relocate&nbsp;/=/opt/gaim&nbsp;gaim-<span style="color: #800080">1.3</span>.<span style="color: #800080">0</span>-<span style="color: #800080">1</span>.fc4.i386.rpm&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #008000">//</span><span style="color: #008000">指定安装目录</span><span style="color: #008000"><br /></span><br />rpm&nbsp;-ivh&nbsp;--test&nbsp;gaim-<span style="color: #800080">1.3</span>.<span style="color: #800080">0</span>-<span style="color: #800080">1</span>.fc4.i386.rpm　　　&nbsp;<span style="color: #008000">//</span><span style="color: #008000">用来检查依赖关系；并不是真正的安装；</span><span style="color: #008000"><br /></span>rpm&nbsp;-Uvh&nbsp;--oldpackage&nbsp;gaim-<span style="color: #800080">1.3</span>.<span style="color: #800080">0</span>-<span style="color: #800080">1</span>.fc4.i386.rpm&nbsp;<span style="color: #008000">//</span><span style="color: #008000">新版本降级为旧版本</span><span style="color: #008000"><br /></span><br />rpm&nbsp;-qa&nbsp;|&nbsp;grep&nbsp;httpd　　　　　&nbsp;＃[搜索指定rpm包是否安装]--all搜索*httpd*<br />rpm&nbsp;-ql&nbsp;httpd　　　　　　　　　＃[搜索rpm包]--list所有文件安装目录<br /><br />rpm&nbsp;-qpi&nbsp;Linux-<span style="color: #800080">1.4</span>-<span style="color: #800080">6</span>.i368.rpm　＃[查看rpm包]--query--package--install&nbsp;package信息<br />rpm&nbsp;-qpf&nbsp;Linux-<span style="color: #800080">1.4</span>-<span style="color: #800080">6</span>.i368.rpm　＃[查看rpm包]--file<br />rpm&nbsp;-qpR&nbsp;file.rpm　　　　　　　＃[查看包]依赖关系<br />rpm2cpio&nbsp;file.rpm&nbsp;|cpio&nbsp;-div&nbsp;&nbsp;&nbsp;&nbsp;＃[抽出文件]<br /><br />rpm&nbsp;-ivh&nbsp;file.rpm&nbsp;　＃[安装新的rpm]--install--verbose--hash<br />rpm&nbsp;-ivh<br /><br />rpm&nbsp;-Uvh&nbsp;file.rpm&nbsp;&nbsp;&nbsp;&nbsp;＃[升级一个rpm]--upgrade<br />rpm&nbsp;-e&nbsp;file.rpm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;＃[删除一个rpm包]--erase</div></div>
+<p>常用参数：</p>
+<p>Install/Upgrade/Erase options:<br /><strong></strong></p>
+<div class="cnblogs_code">
+<div>-i,&nbsp;--install&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;install&nbsp;package(s)<br />-v,&nbsp;--verbose&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;provide&nbsp;more&nbsp;detailed&nbsp;output<br />-h,&nbsp;--hash&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;hash&nbsp;marks&nbsp;<span style="color: #0000ff">as</span>&nbsp;package&nbsp;installs&nbsp;(good&nbsp;with&nbsp;-v)<br />-e,&nbsp;--erase&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;erase&nbsp;(uninstall)&nbsp;package<br />-U,&nbsp;--upgrade=&lt;packagefile&gt;+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;upgrade&nbsp;package(s)<br />－-replacepkge&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无论软件包是否已被安装，都强行安装软件包<br />--test&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;安装测试，并不实际安装<br />--nodeps&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;忽略软件包的依赖关系强行安装<br />--force&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;忽略软件包及文件的冲突<br /><br />Query&nbsp;options&nbsp;(with&nbsp;-q&nbsp;or&nbsp;--query):<br />-a,&nbsp;--all&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;query/verify&nbsp;all&nbsp;packages<br />-p,&nbsp;--package&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;query/verify&nbsp;a&nbsp;package&nbsp;file<br />-l,&nbsp;--list&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;files&nbsp;<span style="color: #0000ff">in</span>&nbsp;package<br />-d,&nbsp;--docfiles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;all&nbsp;documentation&nbsp;files<br />-f,&nbsp;--file&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;query/verify&nbsp;package(s)&nbsp;owning&nbsp;file</div></div>
+<p><strong>RPM源代码包装安装</strong></p>
+<p>.src.rpm结尾的文件，这些文件是由软件的源代码包装而成的，用户要安装这类RPM软件包，必须使用命令：</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<div>rpm　--recompile　vim-<span style="color: #800080">4.6</span>-<span style="color: #800080">4</span>.src.rpm&nbsp;&nbsp;&nbsp;＃这个命令会把源代码解包并编译、安装它，如果用户使用命令：<br /><br />rpm　--rebuild　vim-<span style="color: #800080">4.6</span>-<span style="color: #800080">4</span>.src.rpm　　＃在安装完成后，还会把编译生成的可执行文件重新包装成i386.rpm的RPM软件包。</div></div>
+<p>&nbsp;</p>
+<p><strong>偶不喜欢写比较复杂的东东，麻烦的话`不过做为参考`偶还素转了一位哒人的`写的真很全面`</strong></p>
+<p><strong></strong></p>
+<p><strong>作者：</strong>北南南北<br /><strong>来自：</strong>LinuxSir.Org<br /><strong>提要：</strong>RPM 是 Red Hat Package Manager 的缩写，原意是Red Hat 软件包管理；本文介绍RPM，并结合实例来解说RPM手工安装、查询等应用；</p>
+<p><strong><br />++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++<br />正文：<br />++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++<br /></strong></p>
+<p>RPM 是 Red Hat Package Manager 的缩写，本意是Red Hat 软件包管理，顾名思义是Red Hat 贡献出来的软件包管理；在Fedora 、Redhat、Mandriva、SuSE、YellowDog等主流发行版本，以及在这些版本基础上二次开发出来的发行版采用；</p>
+<p>RPM包里面都包含什么？里面包含可执行的二进制程序，这个程序和Windows的软件包中的.exe文件类似是可执行的；RPM包中还包括程序运行时所需要的文件，这也和Windows的软件包类似，Windows的程序的运行，除了.exe文件以外，也有其它的文件；</p>
+<p>一个RPM 包中的应用程序，有时除了自身所带的附加文件保证其正常以外，还需要其它特定版本文件，这就是软件包的依赖关系；依赖关系并不是Linux特有的， Windows操作系统中也是同样存在的；比如我们在Windows系统中运行3D游戏，在安装的时候，他可能会提示，要安装Direct 9 ；Linux和Windows原理是差不多的；</p>
+<p>软件安装流程图：</p>
+<p>&nbsp;</p>
+<p><strong><img alt="" src="http://images.cnblogs.com/cnblogs_com/xiaochaohuashengmi/268758/o_packageinstalllinuxsir_org0000.jpg" border="0" /><br />本文使用范围：<br /></strong><br />1、本文是对RPM管理的软件的说明，对通过file.tar.gz 或file.tar.bz2源码包用 make ;make install 安装的软件无效；<br />2、安装软件时，最好用各自发行版所提供的系统软件包管理工具，对于Fedora/Redhat 您可以参考如下文章；</p>
+<p>1）Fedora 系统管理软件包工具 system-config-packages，方便的添加和移除系统安装盘提供的软件包，详情请看<a href="http://blog.chinaunix.net/link.php?url=http://fedora.linuxsir.org%2Fmain%2F%3Fq%3Dnode%2F48"> 《Fedora 软件包管理器system-config-packages》</a></p>
+<p>2）Redhat 系统管理软件包工具,新一点的系统应该是 redhat-config-packages ，用法和<a href="http://blog.chinaunix.net/link.php?url=http://fedora.linuxsir.org%2Fmain%2F%3Fq%3Dnode%2F48"> 《Fedora 软件包管理器system-config-packages》</a> 一样；</p>
+<p>3）apt + synaptic 软件包在线安装、移除、升级工具； 用法：<a href="http://blog.chinaunix.net/link.php?url=http://fedora.linuxsir.org%2Fmain%2F%3Fq%3Dnode%2F31">《用apt+synaptic 在线安装或升级Fedora core 4.0 软件包》</a><br />4）yum 软件包在线安装、升级、移除工具；用法：<a href="http://blog.chinaunix.net/link.php?url=http://fedora.linuxsir.org%2Fmain%2F%3Fq%3Dnode%2F31">《Fedora/Redhat 在线安装更新软件包，yum 篇》</a></p>
+<p>5）所有的yum和apt 教程 <a href="http://blog.chinaunix.net/link.php?url=http://fedora.linuxsir.org%2Fmain%2F%3Fq%3Dtaxonomy%2Fterm%2F19%2F9">《apt and yum》</a></p>
+<p>目前 apt和yum 已经极为成熟了，建议我们安装软件时，采用 apt或者yum ；如果安装系统盘提供的软件包，可以用 system-config-packages 或redhat-config-packages ；</p>
+<p><strong><br />一、RPM包管理的用途；<br /></strong></p>
+<p>1、可以安装、删除、升级和管理软件；当然也支持在线安装和升级软件；<br />2、通过RPM包管理能知道软件包包含哪些文件，也能知道系统中的某个文件属于哪个软件包；<br />3、可以在查询系统中的软件包是否安装以及其版本；<br />4、作为开发者可以把自己的程序打包为RPM 包发布；<br />5、软件包签名GPG和MD5的导入、验证和签名发布<br />6、依赖性的检查，查看是否有软件包由于不兼容而扰乱了系统；</p>
+<p><strong><br />二、RPM 的使用权限；<br /></strong><br />RPM软件的安装、删除、更新只有root权限才能使用；对于查询功能任何用户都可以操作；如果普通用户拥有安装目录的权限，也可以进行安装；</p>
+<p><strong><br />三、rpm 的一点简单用法；<br /></strong><br />我们除了软件包管理器以外，还能通过rpm 命令来安装；是不是所有的软件包都能通过rpm 命令来安装呢？不是的，文件以.rpm 后缀结尾的才行；有时我们在一些网站上找到file.rpm ，都要用 rpm 来安装；<br /><font color="#0000ff"><strong><br />一）初始化rpm 数据库；<br /></strong></font><br />通过rpm 命令查询一个rpm 包是否安装了，也是要通过rpm 数据库来完成的；所以我们要经常用下面的两个命令来初始化rpm 数据库；<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost beinan]# rpm --initdb<br />[root@localhost beinan]# rpm --rebuilddb 注：这个要花好长时间；</font></code></div>
+<p>注：这两个参数是极为有用，有时rpm 系统出了问题，不能安装和查询，大多是这里出了问题；<br /><font color="#0000ff"><strong><br />二）RPM软件包管理的查询功能：<br /></strong></font><br />命令格式<br /></p>
+<div class="codeblock"><code><font face="NSimsun">rpm {-q|--query} [select-options] [query-options]</font></code></div>
+<p>RPM的查询功能是极为强大，是极为重要的功能之一；举几个常用的例子，更为详细的具体的，请参考#man rpm<br /><font color="#0000ff"><br />1、对系统中已安装软件的查询；<br /></font></p>
+<p>1）查询系统已安装的软件；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法：rpm -q 软件名</font></code></div>
+<p>举例：</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost beinan]# rpm -q gaim<br />gaim-1.3.0-1.fc4</font></code></div>
+<p>-q就是 --query ，中文意思是&#8220;问&#8221;，此命令表示的是，是不是系统安装了gaim ；如果已安装会有信息输出；如果没有安装，会输出gaim 没有安装的信息；</p>
+<p>查看系统中所有已经安装的包，要加 -a 参数 ；<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qa</font></code></div><br />如果分页查看，再加一个管道 |和more命令；<br />
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qa |more</font></code></div>
+<p>在所有已经安装的软件包中查找某个软件，比如说 gaim ；可以用 grep 抽取出来；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qa |grep gaim</font></code></div>
+<p>上面这条的功能和 rpm -q gaim 输出的结果是一样的；</p>
+<p>2）查询一个已经安装的文件属于哪个软件包；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法 rpm -qf 文件名</font></code></div><br />注：文件名所在的绝对路径要指出 
+<p>&nbsp;</p>
+<p>举例：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qf /usr/lib/libacl.la<br />libacl-devel-2.2.23-8</font></code></div>
+<p>3）查询已安装软件包都安装到何处；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法：rpm -ql 软件名 或 rpm rpmquery -ql 软件名</font></code></div>
+<p>举例：</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -ql lynx<br />[root@localhost RPMS]# rpmquery -ql lynx</font></code></div>
+<p>4）查询一个已安装软件包的信息 </p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法格式： rpm -qi 软件名</font></code></div>
+<p>举例：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qi lynx</font></code></div>
+<p>5）查看一下已安装软件的配置文件；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法格式：rpm -qc 软件名</font></code></div>
+<p>举例：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qc lynx</font></code></div>
+<p>6）查看一个已经安装软件的文档安装位置：</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法格式： rpm -qd 软件名</font></code></div>
+<p>举例：</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qd lynx</font></code></div>
+<p>7）查看一下已安装软件所依赖的软件包及文件；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法格式： rpm -qR 软件名</font></code></div>
+<p>举例：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost beinan]# rpm -qR rpm-python</font></code></div>
+<p>查询已安装软件的总结：对于一个软件包已经安装，我们可以把一系列的参数组合起来用；比如 rpm -qil ；比如：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qil lynx</font></code></div>
+<p><font color="#0000ff"><br />2、对于未安装的软件包的查看：<br /></font><br />查看的前提是您有一个.rpm 的文件，也就是说对既有软件file.rpm的查看等；</p>
+<p>1）查看一个软件包的用途、版本等信息；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法： rpm -qpi file.rpm</font></code></div>
+<p>举例：</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qpi lynx-2.8.5-23.i386.rpm</font></code></div>
+<p>2）查看一件软件包所包含的文件；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法： rpm -qpl file.rpm</font></code></div>
+<p>举例：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qpl lynx-2.8.5-23.i386.rpm</font></code></div>
+<p>3）查看软件包的文档所在的位置；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法： rpm -qpd file.rpm</font></code></div>
+<p>举例：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qpd lynx-2.8.5-23.i386.rpm</font></code></div>
+<p>5）查看一个软件包的配置文件；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法： rpm -qpc file.rpm</font></code></div>
+<p>举例：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qpc lynx-2.8.5-23.i386.rpm</font></code></div>
+<p>4）查看一个软件包的依赖关系</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">语法： rpm -qpR file.rpm</font></code></div>
+<p>举例：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost archives]# rpm -qpR yumex_0.42-3.0.fc4_noarch.rpm<br />/bin/bash<br />/usr/bin/python<br />config(yumex) = 0.42-3.0.fc4<br />pygtk2<br />pygtk2-libglade<br />rpmlib(CompressedFileNames) &lt;= 3.0.4-1<br />rpmlib(PayloadFilesHavePrefix) &lt;= 4.0-1<br />usermode<br />yum &gt;= 2.3.2</font></code></div>
+<p><strong><br />三）软件包的安装、升级、删除等；<br /></strong></p>
+<p><font color="#0000ff"><br />1、安装和升级一个rpm 包；<br /></font></p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost beinan]#rpm -vih file.rpm 注：这个是用来安装一个新的rpm 包；<br />[root@localhost beinan]#rpm -Uvh file.rpm 注：这是用来升级一个rpm 包；</font></code></div>
+<p>如果有依赖关系的，请解决依赖关系，其实软件包管理器能很好的解决依赖关系，请看前面的软件包管理器的介绍；如果您在软件包管理器中也找不到依赖关系的包；那只能通过编译他所依赖的包来解决依赖关系，或者强制安装；</p>
+<p>语法结构：</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost beinan]# rpm -ivh file.rpm --nodeps --force<br />[root@localhost beinan]# rpm -Uvh file.rpm --nodeps --force</font></code></div>
+<p>更多的参数，请查看 man rpm </p>
+<p>举例应用：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -ivh lynx-2.8.5-23.i386.rpm<br />Preparing... ########################################### [100%]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1:lynx ########################################### [100%]<br />[root@localhost RPMS]# rpm -ivh --replacepkgs lynx-2.8.5-23.i386.rpm<br />Preparing... ########################################### [100%]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1:lynx ########################################### [100%]</font></code></div>
+<p>注： --replacepkgs 参数是以已安装的软件再安装一次；有时没有太大的必要；</p>
+<p>测试安装参数 --test ，用来检查依赖关系；并不是真正的安装；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -ivh --test gaim-1.3.0-1.fc4.i386.rpm<br />Preparing... ########################################### [100%]</font></code></div>
+<p>由新版本降级为旧版本，要加 --oldpackage 参数；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -qa gaim<br />gaim-1.5.0-1.fc4<br />[root@localhost RPMS]# rpm -Uvh --oldpackage gaim-1.3.0-1.fc4.i386.rpm<br />Preparing... ########################################### [100%]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1:gaim ########################################### [100%]<br />[root@localhost RPMS]# rpm -qa gaim<br />gaim-1.3.0-1.fc4</font></code></div>
+<p>为软件包指定安装目录：要加 -relocate 参数；下面的举例是把gaim-1.3.0-1.fc4.i386.rpm指定安装在 /opt/gaim 目录中； </p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -ivh --relocate /=/opt/gaim gaim-1.3.0-1.fc4.i386.rpm<br />Preparing... ########################################### [100%]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1:gaim ########################################### [100%]<br />[root@localhost RPMS]# ls /opt/<br />gaim</font></code></div>
+<p>为软件包指定安装目录：要加 -relocate 参数；下面的举例是把lynx-2.8.5-23.i386.rpm 指定安装在 /opt/lynx 目录中； </p>
+<p><br />[root@localhost RPMS]# rpm -ivh --relocate /=/opt/lynx --badreloc lynx-2.8.5-23.i386.rpm<br />Preparing... ########################################### [100%]<br />1:lynx ########################################### [100%]<br /></p>
+<p>我们安装在指定目录中的程序如何调用呢？一般执行程序，都放在安装目录的bin或者sbin目录中；看下面的例子；如果有错误输出，就做相应的链接，用 ln -s ；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# /opt/lynx/usr/bin/lynx<br />Configuration file /etc/lynx.cfg is not available.<br />[root@localhost RPMS]# ln -s /opt/lynx/etc/lynx.cfg /etc/lynx.cfg<br />[root@localhost RPMS]# /opt/lynx/usr/bin/lynx www.linuxsir.org</font></code></div>
+<p><font color="#0000ff"><br />2、删除一个rpm 包；<br /></font></p>
+<p>首先您要学会查询rpm 包 ；请看前面的说明；</p>
+<p>[root@localhost beinan]#rpm -e 软件包名 </p>
+<p>举例：我想移除lynx 包，完整的操作应该是：<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -e lynx</font></code></div>
+<p>如果有依赖关系，您也可以用--nodeps 忽略依赖的检查来删除。但尽可能不要这么做，最好用软件包管理器 systerm-config-packages 来删除或者添加软件；</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost beinan]# rpm -e lynx --nodeps</font></code></div>
+<p><strong><br />四、导入签名：<br /></strong><br />[root@localhost RPMS]# rpm --import 签名文件 </p>
+<p>举例：</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost fc40]# rpm --import RPM-GPG-KEY<br />[root@localhost fc40]# rpm --import RPM-GPG-KEY-fedora</font></code></div>
+<p>关于RPM的签名功能，详情请参见 man rpm<br /><strong><br />五、RPM管理包管理器支持网络安装和查询；<br /></strong><br />比如我们想通过 Fedora Core 4.0 的一个镜像查询、安装软件包；</p>
+<p>地址：<br />http://mirrors.kernel.org/fedora/core/4/i386/os/Fedora/RPMS/</p>
+<p>举例：</p>
+<p>命令格式：</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">rpm 参数 rpm包文件的http或者ftp的地址</font></code></div>
+<div class="codeblock"><code><font face="NSimsun"># rpm -qpi http://mirrors.kernel.org/fedora/core/4/i386/os/ Fedora/RPMS/gaim-1.3.0-1.fc4.i386.rpm<br /># rpm -ivh http://mirrors.kernel.org/fedora/core/4/i386/os/ Fedora/RPMS/gaim-1.3.0-1.fc4.i386.rpm</font></code></div>
+<p>举一反三吧；</p>
+<p><strong><br />六、对已安装软件包查询的一点补充；<br /></strong><br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# updatedb<br />[root@localhost RPMS]# locate 软件名或文件名</font></code></div>
+<p>通过updatedb，我们可以用 locate 来查询一些软件安装到哪里了；系统初次安装时要执行updatedb ，每隔一段时间也要执行一次；以保持已安装软件库最新；updatedb 是slocate软件包所有；如果您没有这个命令，就得安装slocate ；</p>
+<p>举例：</p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# locate gaim</font></code></div><br /><strong><br />七、从rpm软件包抽取文件；<br /></strong><br />
+<div class="codeblock"><code><font face="NSimsun">命令格式： rpm2cpio file.rpm |cpio -div</font></code></div><br />举例：<br />
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm2cpio gaim-1.3.0-1.fc4.i386.rpm |cpio -div</font></code></div>
+<p>抽取出来的文件就在当用操作目录中的 usr 和etc中；</p>
+<p>其实这样抽到文件不如指定安装目录来安装软件来的方便；也一样可以抽出文件；</p>
+<p>为软件包指定安装目录：要加 -relocate 参数；下面的举例是把gaim-1.3.0-1.fc4.i386.rpm指定安装在 /opt/gaim 目录中； </p>
+<p>&nbsp;</p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# rpm -ivh --relocate /=/opt/gaim gaim-1.3.0-1.fc4.i386.rpm<br />Preparing... ########################################### [100%]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1:gaim ########################################### [100%]<br />[root@localhost RPMS]# ls /opt/<br />gaim</font></code></div>
+<p>这样也能一目了然；gaim的所有文件都是安装在 /opt/gaim 中，我们只是把gaim 目录备份一下，然后卸掉gaim；这样其实也算提取文件的一点用法；</p>
+<p><strong><br />八、RPM的配置文件；<br /></strong><br />RPM包管理，的配置文件是 rpmrc ，我们可以在自己的系统中找到；比如Fedora Core 4.0中的rpmrc 文件位于；<br /></p>
+<div class="codeblock"><code><font face="NSimsun">[root@localhost RPMS]# locate rpmrc<br />/usr/lib/rpm/rpmrc<br />/usr/lib/rpm/redhat/rpmrc</font></code></div>
+<p>我们可以通过 rpm --showrc 查看；具体的还得我们自己来学习。呵。。。不要问我，我也不懂；只要您看了这篇文章，认为对您有用，您的水平就和我差不多；咱们水平是一样的，所以我不能帮助您了；请理解；<br /><strong><br />九、src.rpm的用法：<br /></strong><br /><a href="http://blog.chinaunix.net/link.php?url=http://fedora.linuxsir.org%2Fmain%2F%3Fq%3Dsrc.spec.html">《file.src.rpm 使用方法的简介》</a></p>
+<p><strong><br />后记：</strong>Fedora/Redhat 入门教程中的软件包管理篇，我已经写了很多了；目前还缺少通过源码包安装软件我方法以及一篇总结性的文档；我想在最近两天补齐，这两篇我以前写过；重新整理一下贴出来就行了；</p>
+<p>以我的水平来看，写Fedora 入门教程是极为费力气的，只能一点一点的完善和补充；我所写的教程是面对的是对Linux一无所知新手；教程中实例应用占大部份；我发现没有实例的情况下，新手不如看man ；能看man了，当然也不是什么新手；</p>
+<p>经常在论坛上看一些弟兄的提问，虽然一问话解说过去也能应付；但想让大家更方便一点，不如写系统入门教程；虽然所花的时间要长一点；</p><font size="4"><strong><br /></strong></font>
+<p>&nbsp;</p></div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2011-10-08 23:50</span> <a href='http://www.cnblogs.com/xiaochaohuashengmi/'>小炒花生米</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=2203153" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2203153);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=69974,cb_entryId=2203153,cb_blogApp=currentBlogApp,cb_blogUserGuid='c379961d-5953-df11-ba8f-001cf0cd104b',cb_entryCreatedDate='2011/10/8 23:50:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = canShowAdsense(); 
+    fixPostBodyFormat();
+</script>
+<script type='text/javascript'>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+    (function () {
+        if (enableGoogleAd) {
+            var gads = document.createElement('script');
+            gads.async = true;
+            gads.type = 'text/javascript';
+            var useSSL = 'https:' == document.location.protocol;
+            gads.src = (useSSL ? 'https:' : 'http:') +
+              '//www.googletagservices.com/tag/js/gpt.js';
+            var node = document.getElementsByTagName('script')[0];
+            node.parentNode.insertBefore(gads, node);
+        }
+  })();
+</script>
+<script type='text/javascript'>
+    try {
+        if (enableGoogleAd) {
+            googletag.cmd.push(function() {
+            googletag.defineSlot('/1090369/cnblogs_blogpost_C2', [468, 60], 'div-gpt-ad-1433581717989-0').addService(googletag.pubads());
+            googletag.defineSlot('/1090369/cnblogs_blogpost_C1_sitehome', [300, 250], 'div-gpt-ad-1433581717989-1').addService(googletag.pubads());
+            googletag.pubads().enableSingleRequest();
+            googletag.pubads().collapseEmptyDivs();
+            googletag.enableServices();
+            });
+        };
+    } catch (e) { }
+</script>
+<div id="google_ad_c1" class="c_ad_block">
+    <div id='div-gpt-ad-1433581717989-1' style='height:250px; width:300px;'>
+    <script type='text/javascript'>
+        try {
+            if (enableGoogleAd) {
+                googletag.cmd.push(function () { googletag.display('div-gpt-ad-1433581717989-1'); });
+            } else {
+                $('#div-gpt-ad-1433581717989-1').hide();
+            }
+    } catch (e) { }
+    </script>
+    </div>
+</div>
+<div id="under_post_news"></div>
+<div id="google_ad_c2" class="c_ad_block">
+<div id='div-gpt-ad-1433581717989-0' style='height:60px; width:468px;'>
+<script type='text/javascript'>
+try {
+    if (enableGoogleAd) {
+        googletag.cmd.push(function () { googletag.display('div-gpt-ad-1433581717989-0'); });
+    } else {
+        $('#div-gpt-ad-1433581717989-0').hide();
+    }
+} catch (e) { }
+</script>
+</div>
+</div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script>
+</div>
+
+		</div>
+	</div>
+	<!-- left ends -->
+	<!-- right starts -->
+	<div id="right">
+		<!-- 右侧工具部分 -->
+		<div id="right_content">
+	
+			
+<!--done-->
+<h2 class="listtitle">公告</h2>
+<div class="newsItem">
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+	
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+				<DIV id="leftcontentcontainer">
+					<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+				</DIV>
+			
+		</div>
+		<!-- //右侧工具部分 -->
+		<div id="footer">
+			
+<!--done-->
+Copyright &copy;2015 小炒花生米
+		</div>
+	</div>
+	<!-- right ends -->
+	<div class="clear"></div>
+	
+</div>
+
+</body>
+</html>

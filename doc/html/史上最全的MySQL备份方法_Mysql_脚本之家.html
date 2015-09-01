@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>史上最全的MySQL备份方法_Mysql_脚本之家</title>
+<meta http-equiv="Content-Language" content="zh-CN" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta http-equiv="mobile-agent" content="format=html5; url=http://m.jb51.net/article/22730.htm">
+<meta http-equiv="mobile-agent" content="format=xhtml; url=http://m.jb51.net/article/22730.htm">
+<script type="text/javascript">
+if((navigator.userAgent.match(/(iPhone|iPod|Android|ios)/i)))
+{
+    location.replace("http://m.jb51.net/article/22730.htm");
+}
+</script>
+<meta name="keywords" content="MySQL,备份" />
+<meta name="description" content="史上最全的MySQL备份方法，需要的朋友可以参考下。" />
+<link rel="stylesheet" href="http://img.jb51.net/skin/blue/global.css" type="text/css" media="all" />
+<link rel="stylesheet" href="http://img.jb51.net/skin/blue/content.css" type="text/css" media="all" />
+<link type="text/css" rel="stylesheet" href="/jslib/syntaxhighlighter/styles/shCore.css" />
+<link type="text/css" rel="Stylesheet" href="/jslib/syntaxhighlighter/styles/shThemeDefault.css" />
+<script type="text/javascript" src="http://img.jb51.net/js/function.js"></script>
+</head>
+<body>
+<DIV id=topnav>
+<div class="wrap">
+<DIV id=toptext>脚 本 之 家 www.jb51.net</DIV>
+<UL id=topnavlist>
+<script type="text/javascript" charset="gb2312">dy("top");</script>
+</UL>
+</div>
+</DIV>
+<div class="wrap">
+<div id="dxy_logo">
+<div id="logo_l"><a href="http://www.jb51.net" title="脚本之家" target="_blank"><img src="http://www.jb51.net/images/logo.gif" alt="脚本之家" /></a></div>
+<div id="logo_m"></div>
+<div id="logo_r"></div>
+</div><!--导航开始-->
+<div id="nav_top">
+<ul>
+<li class="current"><a href="http://www.jb51.net">首页</a></li>
+<li><a href="http://www.jb51.net/web/">网页制作</a></li>
+<li><a href="http://www.jb51.net/list/index_96.htm">脚本专栏</a></li>
+<li><a href="http://www.jb51.net/jiaoben/">脚本下载</a></li>
+<li><a href="http://www.jb51.net/list/index_1.htm">网络编程</a></li>
+<li><a href="http://www.jb51.net/list/index_104.htm">数据库</a></li>
+<li><a href="http://www.jb51.net/cms/">CMS教程</a></li>
+<li><a href="http://www.jb51.net/books/">电子书籍</a></li>
+<li><a href="http://www.jb51.net/pingmian/">平面设计</a></li>
+<li><a href="http://www.jb51.net/media/">媒体动画</a></li>
+<li><a href="http://www.jb51.net/os/">操作系统</a></li>
+<li><a href="http://www.jb51.net/yunying/">网站运营</a></li>
+<li class="last"><a href="http://www.jb51.net/hack/">网络安全</a></li>
+</ul>
+</div><!--导航结束-->
+<div class=blank3></div>
+<div class="subnav">
+<ul><li><a href='/list/list_113_1.htm' title="MsSql">MsSql</a></li>
+<li><a href='/list/list_112_1.htm' title="Mysql">Mysql</a></li>
+<li><a href='/list/list_105_1.htm' title="Access">Access</a></li>
+<li><a href='/list/list_154_1.htm' title="oracle">oracle</a></li>
+<li><a href='/list/list_155_1.htm' title="DB2">DB2</a></li>
+<li><a href='/list/list_236_1.htm' title="mssql2008">mssql2008</a></li>
+<li><a href='/list/list_210_1.htm' title="mssql2005">mssql2005</a></li>
+<li><a href='/list/list_215_1.htm' title="SQLite">SQLite</a></li>
+<li><a href='/list/list_224_1.htm' title="PostgreSQL">PostgreSQL</a></li>
+<li><a href='/list/list_239_1.htm' title="MongoDB">MongoDB</a></li>
+<li><a href='/list/list_242_1.htm' title="Redis">Redis</a></li>
+<li><a href='/list/list_132_1.htm' title="数据库文摘">数据库文摘</a></li>
+<li><a href='/list/list_133_1.htm' title="数据库其它">数据库其它</a></li>
+</ul>
+</div>
+<div class=blank3></div>
+<DIV class="search">
+<UL><LI class=search-hot><SPAN>特色栏目：</SPAN>
+<A href="http://www.jb51.net/list/list_114_1.htm" target='_blank'>vbscript</A> 
+<A href="http://www.jb51.net/list/list_6_1.htm" target='_blank'>正则表达式</A> 
+<A href="http://www.jb51.net/list/list_3_1.htm" target='_blank'>javascript</A>
+<A href="http://www.jb51.net/list/list_106_1.htm" target='_blank'>批处理</A>
+<A href="http://s.jb51.net">服务器软件</A> 
+<A href="http://sc.jb51.net/?txt" target="_blank" style="color:red">素材下载</A> 
+</LI><LI class=search-box>
+<div class="sall">
+<form action="http://so.jb51.net/cse/search" target="_blank">
+    <input type="hidden" name="s" value="10520733385329581432">
+    <input type="hidden" name="ie" value="gbk">
+    <input type="text" name="q" class="keyword_input">
+    <input type="submit" value="搜索" class="s_btn">
+</form></div>
+</LI></UL>
+</div>
+<div class=blank3></div>
+<DIV class="tonglanad">
+<script type="text/javascript">var tougao="mdxy-dxy";var lmname="Mysql";dy("bdtl");</script>
+</div>
+<div class=blank3></div>
+<div id="tonglan1"></div>
+<div class=blank3></div>
+<div class="dxy_main">
+<div class="dxy_main_l">
+<div id="art_con">
+<div id="daohang">页面导航：  <a href='/'>首页</a> → <a href="/list/index_104.htm" title="数据库">数据库</a> → <a href="/list/list_112_1.htm" title="Mysql">Mysql</a> → 正文内容 MySQL 备份<div class="blank3"></div></div>
+<div class=blank3></div>
+<h1>史上最全的MySQL备份方法</h1>
+<div id="art_info">
+作者：  字体：[<a href="javascript:turnbig()">增加</a> <a href="javascript:turnsmall()">减小</a>] 类型：转载 
+</div><!--end art_info-->
+<div class=blank3></div>
+<div id="art_demo">史上最全的MySQL备份方法，需要的朋友可以参考下。</div>
+<div class=blank3></div>
+<div id="con_all">
+<script type="text/javascript">dy("bcall");</script>
+</div>
+<div id="art_content">
+<!--NEWSZW_HZH_BEGIN-->
+本人曾经 <BR>用过的备份方式有:mysqldump、mysqlhotcopy、BACKUP TABLE 、SELECT INTO <BR>OUTFILE，又或者备份二进制日志（binlog），还可以是直接拷贝数据文件和相关的配置文件。MyISAM <BR>表是保存成文件的形式，因此相对比较容易备份，上面提到的几种方法都可以使用。Innodb 所有的表都保存在同一个数据文件 ibdata1 <BR>中（也可能是多个文件，或者是独立的表空间文件），相对来说比较不好备份，免费的方案可以是拷贝数据文件、备份 binlog，或者用 <BR>mysqldump。 <br><br><STRONG>1.mysqldump备份</STRONG> <br><br>mysqldump 是采用SQL级别的备份机制，它将数据表导成 SQL 脚本文件，在不同的 MySQL 版本之间升级时相对比较合适，这也是最常用的备份方法。 <BR>示例:mysqldump -uroot -p database table &gt; /home/jobs/back.sql <BR>mysqldump也可做增量备份,mysqldump相关参数网上较多,就不在此一一赘述了 <br><br><STRONG>2.mysqlhotcopy备份</STRONG> <br><br>mysqlhotcopy 是一个 PERL 程序。它使用 LOCK TABLES、FLUSH <BR>TABLES 和 cp 或 scp <BR>来快速备份数据库。它是备份数据库或单个表的最快的途径，但它只能运行在数据库文件（包括数据表定义文件、数据文件、索引文件）所在的机器上。 <BR>mysqlhotcopy 只能用于备份 MyISAM，并且只能运行在 类Unix 和 NetWare 系统上。 <BR>mysqlhotcopy 支持一次性拷贝多个数据库，同时还支持正则表达。 <BR>示例： root#/usr/local/mysql/bin/mysqlhotcopy -h=localhost -u=root <BR>-p=123456 database /tmp (把数据库目录 database 拷贝到 /tmp <BR>下)root#/usr/local/mysql/bin/mysqlhotcopy -h=localhost -u=root -p=123456 <BR>db_name_1 ... db_name_n /tmproot#/usr/local/mysql/bin/mysqlhotcopy <BR>-h=localhost -u=root -p=123456 db_name./regex/ <BR>/tmp更详细的使用方法请查看手册，或者调用下面的命令来查看 mysqlhotcopy 的帮助： <BR>perldoc /usr/local/mysql/bin/mysqlhotcopy注意，想要使用 mysqlhotcopy，必须要有 <BR>SELECT、RELOAD(要执行 FLUSH TABLES) 权限，并且还必须要能够有读取 datadir/db_name 目录的权限。 <br><br>还原mysqlhotcopy 备份出来的是整个数据库目录，使用时可以直接拷贝到 mysqld <BR>指定的 datadir (在这里是 /usr/local/mysql/data/)目录下即可，同时要注意权限的问题，如下例： root#cp <BR>-rf db_name /usr/local/mysql/data/root#chown -R nobody:nobody <BR>/usr/local/mysql/data/ (将 db_name 目录的属主改成 mysqld 运行用户) <br><br><STRONG>3.SQL 语法备份</STRONG> <br><br>3.1 备份BACKUP TABLE 语法其实和 mysqlhotcopy <BR>的工作原理差不多，都是锁表，然后拷贝数据文件。它能实现在线备份，但是效果不理想，因此不推荐使用。它只拷贝表结构文件和数据文件，不同时拷贝索引文 <BR>件，因此恢复时比较慢。例子： BACK TABLE tbl_name TO '/tmp/db_name/';注意，必须要有 FILE <BR>权限才能执行本SQL，并且目录 /tmp/db_name/ 必须能被 mysqld 用户可写，导出的文件不能覆盖已经存在的文件，以避免安全问题。 <BR>恢复用 BACKUP TABLE 方法备份出来的文件，可以运行 RESTORE TABLE 语句来恢复数据表。例子： RESTORE TABLE FROM '/tmp/db_name/';权限要求类似上面所述。 <br><br>3.2 SELECT INTO OUTFILE 则是把数据导出来成为普通的文本文件，可以自定义字段间隔的方式，方便处理这些数据。例子： <BR>SELECT INTO OUTFILE '/tmp/db_name/tbl_name.txt' FROM tbl_name;注意，必须要有 <BR>FILE 权限才能执行本SQL，并且文件 /tmp/db_name/tbl_name.txt 必须能被 mysqld <BR>用户可写，导出的文件不能覆盖已经存在的文件，以避免安全问题。 <BR>用 SELECT INTO OUTFILE 方法备份出来的文件，可以运行 LOAD DATA INFILE 语句来恢复数据表。例子： LOAD <BR>DATA INFILE '/tmp/db_name/tbl_name.txt' INTO TABLE <BR>tbl_name;权限要求类似上面所述。倒入数据之前，数据表要已经存在才行。如果担心数据会发生重复，可以增加 REPLACE <BR>关键字来替换已有记录或者用 IGNORE 关键字来忽略他们。 <br><br><STRONG>4.启用二进制日志(binlog)</STRONG> <br><br>采用 binlog 的方法相对来说更灵活，省心省力，而且还可以支持增量备份。 <BR>启用 binlog 时必须要重启 mysqld。首先，关闭 mysqld，打开 my.cnf，加入以下几行： <BR>server-id = 1 <BR>log-bin = binlog <BR>log-bin-index = binlog.index <BR>然后启动 mysqld 就可以了。运行过程中会产生 binlog.000001 以及 binlog.index，前面的文件是 mysqld <BR>记录所有对数据的更新操作，后面的文件则是所有 binlog 的索引，都不能轻易删除。关于 binlog 的信息请查看手册。 <BR>需要备份时，可以先执行一下 SQL 语句，让 mysqld 终止对当前 binlog <BR>的写入，就可以把文件直接备份，这样的话就能达到增量备份的目的了： FLUSH LOGS;如果是备份复制系统中的从服务器，还应该备份 <BR>master.info 和 relay-log.info 文件。 <BR>备份出来的 binlog 文件可以用 MySQL 提供的工具 mysqlbinlog 来查看，如： <BR>/usr/local/mysql/bin/mysqlbinlog /tmp/binlog.000001该工具允许你显示指定的数据库下的所有 <BR>SQL 语句，并且还可以限定时间范围，相当的方便，详细的请查看手册。 <BR>恢复时，可以采用类似以下语句来做到： /usr/local/mysql/bin/mysqlbinlog /tmp/binlog.000001 <BR>| mysql -uyejr -pyejr db_name把 mysqlbinlog 输出的 SQL 语句直接作为输入来执行它。 <BR>如果你有空闲的机器，不妨采用这种方式来备份。由于作为 slave 的机器性能要求相对不是那么高，因此成本低，用低成本就能实现增量备份而且还能分担一部分数据查询压力，何乐而不为呢？ <br><br><STRONG>5.拷贝文件</STRONG> <br><br>直接备份数据文件相较前几种方法，备份数据文件最为直接、快速、方便，缺点是基本上不能实现增量备份。 <BR>为了保证数据的一致性，需要在靠背文件前，执行以下 SQL 语句： FLUSH TABLES WITH READ <BR>LOCK;也就是把内存中的数据都刷新到磁盘中，同时锁定数据表，以保证拷贝过程中不会有新的数据写入。这种方法备份出来的数据恢复也很简单，直接拷贝回 <BR>原来的数据库目录下即可。 <BR>注意，对于 Innodb 类型表来说，还需要备份其日志文件，即 ib_logfile* 文件。因为当 Innodb 表损坏时，就可以依靠这些日志文件来恢复。 <br><br><STRONG>6.利用rsync备份</STRONG> <BR>rsync作为同步工具也可以用来做备份,但要配置服务器端和客户端 <BR>示例rsync -vzrtopg --progress --delete root@192.168.1.3::root /tmp/ <BR>相关rsync配置可参考http://fanqiang.chinaunix.net/a6/b7/20010908/1305001258.html <BR>缺点是rsync是根据文件修改时间做的增量备份,所以备份数据库都是全备,并且配置比较麻烦. <br><br>当然也可以参考下面的这篇文章<BR><A href="http://www.jb51.net/article/22727.htm" target=_blank>mysql 数据库备份和还原方法集锦</A>
+<!--NEWSZW_HZH_END-->
+
+<div id="art_xg">
+<h4>您可能感兴趣的文章:</h4><ul><li><a href="/article/41570.htm" title="mysql备份的三种方式详解" target="_blank">mysql备份的三种方式详解</a></li><li><a href="/article/38436.htm" title="mysql备份与恢复详解" target="_blank">mysql备份与恢复详解</a></li><li><a href="/article/22183.htm" title="在Win下mysql备份恢复命令" target="_blank">在Win下mysql备份恢复命令</a></li><li><a href="/article/42214.htm" title="mysql备份脚本以及删除前5天的备份文件" target="_blank">mysql备份脚本以及删除前5天的备份文件</a></li></ul>
+<div id="con_da2">
+<script type="text/javascript">dy("baidu580");</script>
+</div>
+</div>
+<div id="con_bo"></div>
+</div>
+<div class=blank3></div>
+<div id="shoucang">
+    <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+        <a class="bds_qzone">QQ空间</a>
+        <a class="bds_tsina">新浪微博</a>
+        <a class="bds_tqq">腾讯微博</a>
+        <a class="bds_tsohu">搜狐微博</a>
+        <a class="bds_renren">人人网</a>
+        <a class="bds_kaixin001">开心网</a>
+        <a class="bds_baidu">百度搜藏</a>
+        <span class="bds_more">更多</span>
+		<a class="shareCount"></a>
+    </div>
+</div>
+<div class=blank3></div>
+<div class="tags">
+<strong>Tags：</strong><a href="http://img.jb51.net/tag/MySQL/1.htm" target="_blank" title="搜索关于MySQL的文章">MySQL</a> <a href="http://img.jb51.net/tag/%B1%B8%B7%DD/1.htm" target="_blank" title="搜索关于备份的文章">备份</a> 
+</div>
+<div class=blank3></div>
+<div class="con_ff">
+<A title=复制本文链接发给你QQ/MSN上的好友 href="javascript: copyUserHomeToClipBoard()" 
+rel=nofollow class=button_link>复制链接</A><a href="javascript:addBookmark(document.title,document.location.href)" class=button_link>收藏本文</a><a href="javascript:doPrint();" class="button_link">打印本文</a><a href="javascript:closeWindow()" class="button_link">关闭本文</a><a href='/index.htm' class=button_link>返回首页</a>
+</div>
+<div id="prenext">
+<div id='prv'>上一篇：<a href='/article/22729.htm' title='svm各种工具箱 方法以后查找'>svm各种工具箱 方法以后查找</a></div><div id='next'>下一篇：<a href='/article/63047.htm'>MySql insert插入操作的3个小技巧分享</a></div>
+</div>
+<div class=blank3></div>
+<DIV id=relatedarticle>
+<H2>相关文章</H2>
+<ul><li><span>2010-03-03</span><a href="/article/22728.htm" title="mysql 获取当天发布的信息的语句" target="_blank">mysql 获取当天发布的信息的语句</a></li><li><span>2013-06-06</span><a href="/article/38436.htm" title="mysql备份与恢复详解" target="_blank">mysql备份与恢复详解</a></li><li><span>2008-06-06</span><a href="/article/15015.htm" title="Lost connection to MySQL server during query的解决" target="_blank">Lost connection to MySQL server during query的解决</a></li><li><span>2010-12-12</span><a href="/article/25692.htm" title="VPS下修改MySQL root用户密码的方法" target="_blank">VPS下修改MySQL root用户密码的方法</a></li><li><span>2014-12-12</span><a href="/article/58073.htm" title="MySQL创建和删除表操作命令实例讲解" target="_blank">MySQL创建和删除表操作命令实例讲解</a></li><li><span>2013-06-06</span><a href="/article/37998.htm" title="PHP之Mysql常用SQL语句示例的深入分析" target="_blank">PHP之Mysql常用SQL语句示例的深入分析</a></li><li><span>2011-08-08</span><a href="/article/27913.htm" title="彻底卸载MySQL的方法分享" target="_blank">彻底卸载MySQL的方法分享</a></li><li><span>2015-01-01</span><a href="/article/59623.htm" title="对MySQL几种联合查询的通俗解释" target="_blank">对MySQL几种联合查询的通俗解释</a></li><li><span>2011-05-05</span><a href="/article/27086.htm" title="Mysql limit 优化，百万至千万级快速分页 复合索引的引用并应用于轻量级框架" target="_blank">Mysql limit 优化，百万至千万级快速分页 复合索引的引用并应用于</a></li><li><span>2013-06-06</span><a href="/article/38946.htm" title="解析Mysql多表查询的实现" target="_blank">解析Mysql多表查询的实现</a></li></ul>
+<DIV class=clear></DIV></DIV>
+<div class="sm"><script type="text/javascript" charset="gb2312">dy("bdtxt");</script></div>
+<DIV id=comments>
+<H2>文章评论</H2>
+<div id="commentList">
+<div class="ds-thread" data-category="" data-thread-key="art_22730" data-title="史上最全的MySQL备份方法" data-author-key="" data-url="http://www.jb51.net/article/22730.htm"></div>
+</div>
+</div>
+<div class=blank3></div>
+<div class="sm"><script type="text/javascript" charset="gb2312">dy("sm");</script></div>
+<div class=blank3></div>
+<div id="hm_t_3717"></div>
+<div class=blank3></div>
+</div>
+</div><!--end dxy_mainl-->
+<div class="dxy_main_r">
+<div class="rbg" id="art_1"><script type="text/javascript">dy("r1");</script></div>
+<div class=blank3></div>
+<DIV class="r_title"><H6>最 近 更 新</H6></div>
+<div class="rightContent">
+<ul><li><a href="/article/31615.htm" title="mysql导入导出数据中文乱码解决方法小结" target="_blank">mysql导入导出数据中文乱码解决方法小结</a></li><li><a href="/article/29961.htm" title="MySql 备忘录" target="_blank">MySql 备忘录</a></li><li><a href="/article/46565.htm" title="MySQL连接无法解析HOST主机名的解决方法" target="_blank">MySQL连接无法解析HOST主机名的解决方法</a></li><li><a href="/article/25360.htm" title="MySQL中show命令方法得到表列及整个库的详细信息(精品珍藏)" target="_blank">MySQL中show命令方法得到表列及整个库的详</a></li><li><a href="/article/28217.htm" title="MySQL简化输入小技巧" target="_blank">MySQL简化输入小技巧</a></li><li><a href="/article/5048.htm" title="MySQL 常用命令" target="_blank">MySQL 常用命令</a></li><li><a href="/article/15011.htm" title="mysql忘记密码的解决方法" target="_blank">mysql忘记密码的解决方法</a></li><li><a href="/article/44376.htm" title="mysql实现本地keyvalue数据库缓存示例" target="_blank">mysql实现本地keyvalue数据库缓存示例</a></li><li><a href="/article/27206.htm" title="windows环境下mysql数据库的主从同步备份步骤(单向同步)" target="_blank">windows环境下mysql数据库的主从同步备份</a></li><li><a href="/article/25875.htm" title="mysql下优化表和修复表命令使用说明(REPAIR TABLE和OPTIMIZE TABLE)" target="_blank">mysql下优化表和修复表命令使用说明(REPA</a></li></ul>
+</div>
+<div class=blank3></div>
+<div id="art_2"><script type="text/javascript">dy("r2");</script></div>
+<div class=blank3></div>
+<DIV class="r_title"><H6>热 点 排 行</H6></div>
+<div class="hotContent">
+<ul class="toplist"><li class="light"><SPAN class=r_num>1</SPAN><a href="/article/23876.htm" title="mysql安装图解 mysql图文安装教程(详细说明)" target="_blank">mysql安装图解 mysql图文安装教程</a></li><li class="light"><SPAN class=r_num>2</SPAN><a href="/article/26505.htm" title="Can''t connect to MySQL server on localhost (10061)解决方法" target="_blank">Can''t connect to MySQL server</a></li><li class="light"><SPAN class=r_num>3</SPAN><a href="/article/15386.htm" title="超详细mysql left join,right join,inner join用法分析" target="_blank">超详细mysql left join,right jo</a></li><li><SPAN class=r_num>4</SPAN><a href="/article/22734.htm" title="Mysql命令行导入sql数据" target="_blank">Mysql命令行导入sql数据</a></li><li><SPAN class=r_num>5</SPAN><a href="/article/27458.htm" title="Mysql字符串截取函数SUBSTRING的用法说明" target="_blank">Mysql字符串截取函数SUBSTRING的</a></li><li><SPAN class=r_num>6</SPAN><a href="/article/25686.htm" title="MySQL数据库备份与恢复方法" target="_blank">MySQL数据库备份与恢复方法</a></li><li><SPAN class=r_num>7</SPAN><a href="/article/25257.htm" title="MYSQL 数据库导入导出命令" target="_blank">MYSQL 数据库导入导出命令</a></li><li><SPAN class=r_num>8</SPAN><a href="/article/23966.htm" title="MySQL日期数据类型、时间类型使用总结" target="_blank">MySQL日期数据类型、时间类型使用</a></li><li><SPAN class=r_num>9</SPAN><a href="/article/23781.htm" title="MySQL server has gone away 问题的解决方法" target="_blank">MySQL server has gone away 问题</a></li><li><SPAN class=r_num>10</SPAN><a href="/article/21984.htm" title="windows下mysql忘记root密码的解决方法" target="_blank">windows下mysql忘记root密码的解</a></li></ul>
+</div>
+<div class=blank3></div>
+<div id="art_3"><script type="text/javascript">dy("r3");</script></div>
+<div class=blank3></div>
+<div id="baidu300"><script type="text/javascript">dy("baidu300_2");</script></div>
+</DIV><!--end mainr-->
+<div class=clear></div>
+</div><!--end main2-->
+</div>
+<div class="blank3"></div>
+
+<div id="footer">
+  <div id="footerinfo">
+   <div id="footercontent"><a href="http://www.jb51.net/about.htm" target="_blank">关于我们</a> - <a href="http://www.jb51.net/support.htm" target="_blank">广告合作</a> - <a href="http://www.jb51.net/linkus.htm" target="_blank">联系我们</a> -  <a href="http://www.jb51.net/sm.htm" target="_blank">免责声明</a> -  <a href="http://www.jb51.net/sitemap.htm" target="_blank">网站地图</a> - <a href="tencent://message/?uin=461478385&Site=http://www.jb51.net" target="_blank">投诉建议</a> - <a href="http://www.jb51.net/up.htm" target="_blank">在线投稿</a></div>
+    <div id="footercopyrights">CopyRight &copy; 2006-2015 <a href="http://www.jb51.net">脚本之家</a> JB51.Net , All Rights Reserved</div>
+  </div>
+  <DIV class=ewm><IMG alt="脚本之家官方微信" src="http://img.jb51.net/images/weixin_jb51.gif"></DIV>
+</div>
+<!-- Baidu Button BEGIN -->
+<div id="logo_m_tp"><script type="text/javascript">dy("logo_m");</script></div>
+<div id="logo_r_tp"><script type="text/javascript">dy("logo_r");</script></div>
+<div id="tonglan1_tp"><script type="text/javascript">dy("tonglan1");</script></div>
+<script type="text/javascript" src="http://img.jb51.net/jslib/jquery/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="http://img.jb51.net/js/foot.js"></script>
+<script type="text/javascript" src="/jslib/syntaxhighlighter/scripts/shCore.js"></script>
+<script type="text/javascript" src="/jslib/syntaxhighlighter/scripts/shAutoloader.js"></script>
+<script type="text/javascript"> 
+SyntaxHighlighter.autoloader(
+	'applescript			/jslib/syntaxhighlighter/scripts/shBrushAppleScript.js',
+	'actionscript3 as3		/jslib/syntaxhighlighter/scripts/shBrushAS3.js',
+	'bash shell				/jslib/syntaxhighlighter/scripts/shBrushBash.js',
+	'coldfusion cf			/jslib/syntaxhighlighter/scripts/shBrushColdFusion.js',
+	'cpp c					/jslib/syntaxhighlighter/scripts/shBrushCpp.js',
+	'obj-c objc				/jslib/syntaxhighlighter/scripts/shBrushObjC.js',
+	'c# c-sharp csharp		/jslib/syntaxhighlighter/scripts/shBrushCSharp.js',
+	'css					/jslib/syntaxhighlighter/scripts/shBrushCss.js',
+	'delphi pascal			/jslib/syntaxhighlighter/scripts/shBrushDelphi.js',
+	'diff patch pas			/jslib/syntaxhighlighter/scripts/shBrushDiff.js',
+	'erl erlang				/jslib/syntaxhighlighter/scripts/shBrushErlang.js',
+	'groovy					/jslib/syntaxhighlighter/scripts/shBrushGroovy.js',
+	'haxe hx				/jslib/syntaxhighlighter/scripts/shBrushHaxe.js',
+	'java					/jslib/syntaxhighlighter/scripts/shBrushJava.js',
+	'jfx javafx				/jslib/syntaxhighlighter/scripts/shBrushJavaFX.js',
+	'js jscript javascript	/jslib/syntaxhighlighter/scripts/shBrushJScript.js',
+	'perl pl				/jslib/syntaxhighlighter/scripts/shBrushPerl.js',
+	'php					/jslib/syntaxhighlighter/scripts/shBrushPhp.js',
+	'text plain				/jslib/syntaxhighlighter/scripts/shBrushPlain.js',
+	'py python				/jslib/syntaxhighlighter/scripts/shBrushPython.js',
+	'ruby rails ror rb		/jslib/syntaxhighlighter/scripts/shBrushRuby.js',
+	'scala					/jslib/syntaxhighlighter/scripts/shBrushScala.js',
+	'sql					/jslib/syntaxhighlighter/scripts/shBrushSql.js',
+	'vb vbnet				/jslib/syntaxhighlighter/scripts/shBrushVb.js',
+	'xml xhtml xslt html	/jslib/syntaxhighlighter/scripts/shBrushXml.js'
+);
+SyntaxHighlighter.all();
+</script>
+<div class="tongji"><script type="text/javascript" src="http://img.jb51.net/inc/tongji.js"></script></div>
+<script type="text/javascript" src="http://www.jb51.net/pl.asp?id=22730"></script>
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=50347" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<!-- Baidu Button END -->
+<!-- Duoshuo Comment BEGIN -->
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?t=" + new Date().getHours();
+var duoshuoQuery = {short_name:"jb51"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = 'http://static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		|| document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- Duoshuo Comment END -->
+</body>
+</html>
+<!-- published at 2015-4-1 16:32:53By dxycms qq:461478385  -->

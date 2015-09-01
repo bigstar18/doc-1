@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html>
+<head>
+                    <title>Maven Jetty Plugin - Jetty - Codehaus</title>
+    
+        
+
+                        
+    
+                        
+    
+
+                
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE,chrome=IE7">
+<meta charset="UTF-8">
+<meta id="confluence-context-path" name="confluence-context-path" content="">
+<meta id="confluence-base-url" name="confluence-base-url" content="http://docs.codehaus.org">
+
+<meta id="atlassian-token" name="atlassian-token" content="24eda956aac15fdf66120006f977ec5d48d20827">
+
+<meta id="confluence-space-key" name="confluence-space-key" content="JETTY">
+<script type="text/javascript">
+        var contextPath = '';
+</script>
+
+    
+
+    <meta name="confluence-request-time" content="1432630424782">
+        
+    
+        
+            <meta name="ajs-is-confluence-admin" content="false">
+            <meta name="ajs-connection-timeout" content="10000">
+            <meta name="ajs-discovered-plugin-features" content="$discoveredList">
+            <meta name="ajs-use-keyboard-shortcuts" content="true">
+            <meta name="ajs-keyboardshortcut-hash" content="8bd679e6af00329bfe9043b66b5aa290">
+            <meta name="gliffy-license-type" content="TRIAL">
+<meta name="gliffy-license-quantity" content="10000000">
+
+            <script type="text/x-template" title="gliffy-webpanel-footer">
+        <div class="gliffy-webpanel-footer"><span>Your free trial of <strong>Gliffy</strong> has <strong>expired</strong>. To create additional diagrams and support the development of this product	please purchase a license.</span></div>
+</script>
+
+
+            <style>.ia-fixed-sidebar, .ia-splitter-left {width: 285px;}.theme-default .ia-splitter #main {margin-left: 285px;}.ia-fixed-sidebar {visibility: hidden;}</style>
+            
+
+    
+            
+    
+    
+            <meta name="ajs-page-id" content="79473">
+            <meta name="ajs-content-type" content="page">
+            <meta name="ajs-page-title" content="Maven Jetty Plugin">
+            <meta name="ajs-parent-page-title" content="Jetty Documentation">
+            <meta name="ajs-parent-page-id" content="45913">
+            <meta name="ajs-space-key" content="JETTY">
+            <meta name="ajs-space-name" content="Jetty">
+            <meta name="ajs-editor.loader.comment.resources" content="&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/79c2af74b871a8ac163bf4de66da38c6/_/download/contextbatch/css/comment-editor/batch.css&quot; media=&quot;all&quot;&gt;
+">
+            <meta name="ajs-context-path" content="">
+            <meta name="ajs-base-url" content="http://docs.codehaus.org">
+            <meta name="ajs-version-number" content="5.5.2">
+            <meta name="ajs-build-number" content="5510">
+            <meta name="ajs-remote-user" content="">
+            <meta name="ajs-current-user-fullname" content="">
+            <meta name="ajs-current-user-avatar-url" content="">
+            <meta name="ajs-static-resource-url-prefix" content="/s/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/_">
+            <meta name="ajs-global-settings-attachment-max-size" content="10485760">
+            <meta name="ajs-user-locale" content="en_GB">
+            <meta name="ajs-enabled-dark-features" content="">
+            <meta name="ajs-atl-token" content="24eda956aac15fdf66120006f977ec5d48d20827">
+            <meta name="ajs-confluence-flavour" content="VANILLA">
+            <meta name="ajs-user-date-pattern" content="dd MMM yyyy">
+            <meta name="ajs-editor.loader.resources" content="&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;/s/cb3964e91f626a4c4ead3551e7d30512/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/4e4abbbcde4923ebde599ed1697a878c/_/download/contextbatch/css/editor,macro-browser,fullpage-editor,-atl.general/batch.css&quot; media=&quot;all&quot;&gt;
+&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;/s/cb3964e91f626a4c4ead3551e7d30512/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/4e4abbbcde4923ebde599ed1697a878c/_/download/contextbatch/css/editor,macro-browser,fullpage-editor,-atl.general/batch.css?media=%28max-width%3A+1450px%29&quot; media=&quot;(max-width: 1450px)&quot;&gt;
+&lt;!--[if lt IE 9]&gt;
+&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;/s/cb3964e91f626a4c4ead3551e7d30512/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/4e4abbbcde4923ebde599ed1697a878c/_/download/contextbatch/css/editor,macro-browser,fullpage-editor,-atl.general/batch.css?conditionalComment=lt+IE+9&quot; media=&quot;all&quot;&gt;
+&lt;![endif]--&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;/s/cb3964e91f626a4c4ead3551e7d30512/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/4e4abbbcde4923ebde599ed1697a878c/_/download/contextbatch/js/editor,macro-browser,fullpage-editor,-atl.general/batch.js&quot; &gt;&lt;/script&gt;
+">
+            <meta name="ajs-date.format" content="MMM dd, yyyy">
+    
+    <link rel="shortcut icon" href="/s/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/_/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/s/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/_/favicon.ico">
+
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch/osd.action" title="Codehaus"/>
+
+<link type="text/css" rel="stylesheet" href="/s/31cde46325daad2d30e402e583fbcdc4/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/451/_/download/superbatch/css/batch.css" media="all">
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/451/_/download/superbatch/css/batch.css?media=print" media="print">
+<!--[if lt IE 9]>
+<link type="text/css" rel="stylesheet" href="/s/7dcedd99a419c253534da3d78ef64274/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/451/_/download/superbatch/css/batch.css?conditionalComment=lt+IE+9" media="all">
+<![endif]-->
+<!--[if lte IE 8]>
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/451/_/download/superbatch/css/batch.css?conditionalComment=lte+IE+8" media="all">
+<![endif]-->
+<!--[if lte IE 9]>
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/451/_/download/superbatch/css/batch.css?conditionalComment=lte+IE+9" media="all">
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/5852690d8f4964ff5ab69d7a1961f6f3/_/download/contextbatch/css/main/batch.css" media="all">
+<link type="text/css" rel="stylesheet" href="/s/bac40823239132f76e53b5878b126700/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/8b94dc4cdfbf875c1ebf420d1e891cec/_/download/contextbatch/css/atl.general/batch.css" media="all">
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/2.0.22/_/download/batch/confluence.extra.information:information-plugin-adg-styles/confluence.extra.information:information-plugin-adg-styles.css" media="all">
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/2.1.3/_/download/batch/com.atlassian.confluence.ext.newcode-macro-plugin:syntaxhighlighter/com.atlassian.confluence.ext.newcode-macro-plugin:syntaxhighlighter.css" media="all">
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/2.1.3/_/download/batch/com.atlassian.confluence.ext.newcode-macro-plugin:sh-theme-confluence/com.atlassian.confluence.ext.newcode-macro-plugin:sh-theme-confluence.css" media="all">
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/7.0.1/_/download/batch/com.atlassian.confluence.plugins.confluence-space-ia:spacesidebar/com.atlassian.confluence.plugins.confluence-space-ia:spacesidebar.css" media="all">
+<!--[if lt IE 9]>
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/7.0.1/_/download/batch/com.atlassian.confluence.plugins.confluence-space-ia:spacesidebar/com.atlassian.confluence.plugins.confluence-space-ia:spacesidebar.css?conditionalComment=lt+IE+9" media="all">
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/5.5.4/_/download/batch/confluence.extra.jira:web-resources-adg/confluence.extra.jira:web-resources-adg.css" media="all">
+<script type="text/javascript" src="/s/41158c3aaa437c5396627543dc8ef6fa/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/451/_/download/superbatch/js/batch.js" ></script>
+<!--[if lte IE 8]>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/451/_/download/superbatch/js/batch.js?conditionalComment=lte+IE+8" ></script>
+<![endif]-->
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/d1ebdce407db3357279dd6ae37eefdc3/_/download/contextbatch/js/atl.comments/batch.js" ></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/5852690d8f4964ff5ab69d7a1961f6f3/_/download/contextbatch/js/main/batch.js" ></script>
+<script type="text/javascript" src="/s/bac40823239132f76e53b5878b126700/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/8b94dc4cdfbf875c1ebf420d1e891cec/_/download/contextbatch/js/atl.general/batch.js" ></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/2.1.3/_/download/batch/com.atlassian.confluence.ext.newcode-macro-plugin:syntaxhighlighter/com.atlassian.confluence.ext.newcode-macro-plugin:syntaxhighlighter.js" ></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/2.1.3/_/download/batch/com.atlassian.confluence.ext.newcode-macro-plugin:syntaxhighlighter-brushes/com.atlassian.confluence.ext.newcode-macro-plugin:syntaxhighlighter-brushes.js" ></script>
+<script type="text/javascript" src="/s/7dcedd99a419c253534da3d78ef64274/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/7.0.1/_/download/batch/com.atlassian.confluence.plugins.confluence-space-ia:soy-resources/com.atlassian.confluence.plugins.confluence-space-ia:soy-resources.js" ></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/5.5.2/_/download/batch/com.atlassian.confluence.plugins.editor-loader:background-loading-editor/com.atlassian.confluence.plugins.editor-loader:background-loading-editor.js" ></script>
+<script type="text/javascript" src="/s/d41d8cd98f00b204e9800998ecf8427e/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/7.0.1/_/download/batch/com.atlassian.confluence.plugins.confluence-space-ia:spacesidebar/com.atlassian.confluence.plugins.confluence-space-ia:spacesidebar.js" ></script>
+<script type="text/javascript" src="/s/7dcedd99a419c253534da3d78ef64274/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/2.0.3/_/download/batch/com.atlassian.mywork.mywork-confluence-host-plugin:mw-header-anchor/com.atlassian.mywork.mywork-confluence-host-plugin:mw-header-anchor.js" ></script>
+<link type="text/css" rel="stylesheet" href="/s/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/12/_/styles/colors.css?spaceKey=JETTY" media="all">
+<link type="text/css" rel="stylesheet" href="/s/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/1.0/_/download/resources/com.atlassian.confluence.themes.default:styles/default-theme.css" media="all">
+
+
+        
+        
+
+    
+</head>
+
+<body             onload="placeFocus()"
+     id="com-atlassian-confluence" class="theme-default  aui-layout aui-theme-default">
+
+        
+    <ul id="assistive-skip-links" class="assistive">
+    <li><a href="#title-heading">Skip to content</a></li>
+    <li><a href="#breadcrumbs">Skip to breadcrumbs</a></li>
+    <li><a href="#header-menu-bar">Skip to header menu</a></li>
+    <li><a href="#navigation">Skip to action menu</a></li>
+    <li><a href="#quick-search-query">Skip to quick search</a></li>
+</ul>
+<div id="page">
+<div id="full-height-container">
+    <div id="header-precursor">
+        <div class="cell">
+            
+                            </div>
+    </div>
+    
+
+
+
+<header id="header" role="banner">
+    <nav class="aui-header aui-dropdown2-trigger-group" role="navigation"><div class="aui-header-inner"><div class="aui-header-before"><a class="aui-dropdown2-trigger app-switcher-trigger" aria-owns="app-switcher" aria-haspopup="true" tabindex="0"><span class="aui-icon aui-icon-small aui-iconfont-appswitcher">Linked Applications</span></a><div id="app-switcher" class="aui-dropdown2 aui-style-default"><div class="app-switcher-loading">Loading&hellip;</div></div><script>
+            (function (NL) {
+                var initialise = function () {
+                    // For some milestones of AUI, the atlassian soy namespace was renamed to aui. Handle that here by ensuring that window.atlassian is defined.
+                    window.atlassian = window.atlassian || window.aui;
+                    new NL.AppSwitcher({
+                        dropdownContents: '#app-switcher'
+                    });
+                };
+                if (NL.AppSwitcher) {
+                    initialise();
+                } else {
+                    NL.onInit = initialise;
+                }
+            }(window.NL = (window.NL || {})));
+            window.NL.isUserAdmin = false</script></div><div class="aui-header-primary"><h1 id="logo" class="aui-header-logo aui-header-logo-custom"><a href="/"><img src="/s/en_GB/5510/701ab0bfc8a95d65a5559a923f8ed8badd272d36.15/_/images/logo/confluence-logo.png" alt="Codehaus" /></a></h1><ul class="aui-nav">
+                            <li>
+            
+        
+        
+<a  id="space-directory-link" href="/spacedirectory/view.action"  class=" aui-nav-imagelink"   title="Spaces">
+            <span>Spaces</span>
+    </a>
+        </li>
+                        </ul>
+</div><div class="aui-header-secondary"><ul class="aui-nav">
+                        <li>
+        <form id="quick-search" class="aui-quicksearch dont-default-focus header-quicksearch" action="/dosearchsite.action" method="get"><fieldset><label for="quick-search-query" class="assistive">Quick Search</label><input id="quick-search-query" class="text app-search search quick-search-query" type="text" accessKey="q" autocomplete="off" name="queryString" title="Quick Search" placeholder="Search" /><input id="quick-search-submit" class="quick-search-submit" type="submit" value="Search"/><div class="aui-dd-parent quick-nav-drop-down"></div></fieldset></form>
+    </li>
+        <li>
+            
+        <a id="help-menu-link" class="aui-nav-link aui-dropdown2-trigger" href="#" aria-haspopup="true" aria-owns="help-menu-link-content" title="Help">
+        <span class="aui-icon aui-icon-small aui-iconfont-help">Help</span>
+    </a>
+    <nav id="help-menu-link-content" class="aui-dropdown2 aui-style-default" aria-hidden="true">
+                    <div class="aui-dropdown2-section">
+                                    <strong></strong>
+                                <ul  id="help-menu-link-leading" class="aui-list-truncate section-leading first">
+                                            <li>
+        
+            
+<a  id="confluence-help-link" href="https://docs.atlassian.com/confluence/docs-55/Getting+Help+And+Support" class="    "      title="Visit the Confluence documentation home"  target="_blank"
+>
+        Online Help
+</a>
+</li>
+                                            <li>
+    
+                
+<a  id="keyboard-shortcuts-link" href="#" class="    "      title="View available keyboard shortcuts" >
+        Keyboard Shortcuts
+</a>
+</li>
+                                            <li>
+    
+            
+<a  id="feed-builder-link" href="/dashboard/configurerssfeed.action" class="    "      title="Create your custom RSS feed." >
+        Feed Builder
+</a>
+</li>
+                                            <li>
+    
+            
+<a  id="whats-new-menu-link" href="https://docs.atlassian.com/confluence/docs-55/whatsnew/iframe" class="    "      title="" >
+        What’s new
+</a>
+</li>
+                                            <li>
+    
+                
+<a  id="gadget-directory-link" href="#" class="   user-item administration-link "      title="Browse gadgets provided by Confluence" >
+        Available Gadgets
+</a>
+</li>
+                                            <li>
+    
+            
+<a  id="confluence-about-link" href="/aboutconfluencepage.action" class="    "      title="Get more information about Confluence" >
+        About Confluence
+</a>
+</li>
+                                    </ul>
+            </div>
+            </nav>
+    
+    </li>
+        <li>
+                
+    
+    </li>
+        <li>
+            
+    </li>
+        <li>
+                                            <li>
+        
+            
+<a  id="login-link" href="/login.action?os_destination=%2Fdisplay%2FJETTY%2FMaven%2BJetty%2BPlugin" class="   user-item login-link "      title="" >
+        Log in
+</a>
+</li>
+                        
+    </li>
+    </ul>
+</div></div><!-- .aui-header-inner--></nav><!-- .aui-header -->
+    <br class="clear">
+</header>
+
+        <!-- \#header -->
+
+        
+        <div id="main" class=" aui-page-panel">
+                <div id="main-header">
+            
+    <div id="navigation" class="content-navigation view">
+                    <ul class="ajs-menu-bar">
+                                    
+                    
+        <li class="normal ajs-menu-item">
+        <a id="action-menu-link" class="action ajs-menu-title aui-dropdown2-trigger" href="#" aria-haspopup="true" aria-owns="action-menu" data-container="#navigation"><span><span>Tools</span></span></a>         <div id="action-menu" class="aui-dropdown2 aui-style-default">
+                            <ul  id="action-menu-primary"                     class="section-primary first aui-dropdown2-section">
+                                            <li>
+
+    
+        
+                            
+    
+    
+    <a  id="view-attachments-link" href="/pages/viewpageattachments.action?pageId=79473" rel="nofollow"  class="action-view-attachments"  accessKey="t"  title="View Attachments">
+                <span>A<u>t</u>tachments (0)</span>    </a>
+</li>
+                                        <li>
+
+    
+        
+                            
+    
+    
+    <a  id="action-view-history-link" href="/pages/viewpreviousversions.action?pageId=79473" rel="nofollow"  class="action-view-history"   title="">
+                <span>Page History</span>    </a>
+</li>
+                                        <li>
+
+    
+        
+                            
+    
+    
+    <a  id="action-page-permissions-link" href="/pages/viewinfo.action?pageId=79473" rel="nofollow"  class="action-page-permissions"   title="Edit restrictions">
+                <span>Restrictions</span>    </a>
+</li>
+                                </ul>
+                            <ul  id="action-menu-secondary"                     class="section-secondary aui-dropdown2-section">
+                                            <li>
+
+    
+        
+                            
+    
+    
+    <a  id="view-page-info-link" href="/pages/viewinfo.action?pageId=79473" rel="nofollow"  class="action-view-info"   title="">
+                <span>Page Information</span>    </a>
+</li>
+                                        <li>
+
+    
+        
+                            
+    
+    
+    <a  id="link-to-page-link" href="/pages/viewinfo.action?pageId=79473" rel="nofollow"  class=""   title="Link to this Page">
+                <span>Link to this Page…</span>    </a>
+</li>
+                                        <li>
+
+    
+        
+                            
+    
+    
+    <a  id="view-in-hierarchy-link" href="/pages/reorderpages.action?key=JETTY&amp;openId=79473#selectedPageInHierarchy" rel="nofollow"  class=""   title="">
+                <span>View in Hierarchy</span>    </a>
+</li>
+                                        <li>
+
+    
+        
+                            
+    
+    
+    <a  id="action-view-source-link" href="/plugins/viewsource/viewpagesrc.action?pageId=79473" rel="nofollow"  class="action-view-source popup-link"   title="">
+                <span>View Source</span>    </a>
+</li>
+                                        <li>
+
+    
+        
+                            
+    
+    
+    <a  id="action-export-pdf-link" href="/spaces/flyingpdf/pdfpageexport.action?pageId=79473" rel="nofollow"  class=""   title="">
+                <span>Export to PDF</span>    </a>
+</li>
+                                        <li>
+
+    
+        
+                            
+    
+    
+    <a  id="action-export-word-link" href="/exportword?pageId=79473" rel="nofollow"  class="action-export-word"   title="">
+                <span>Export to Word</span>    </a>
+</li>
+                                </ul>
+                            <ul  id="action-menu-modify"                     class="section-modify aui-dropdown2-section">
+                                            <li>
+
+    
+        
+                            
+    
+    
+    <a  id="treecopy-action" href="/plugins/treecopy/setnames.action?pageId=79473" rel="nofollow"  class=""   title="">
+                <span>Copy Page Tree</span>    </a>
+</li>
+                                </ul>
+                    </div>
+    </li>
+            </ul>
+    </div>
+
+            
+            <div id="title-heading" class="pagetitle with-breadcrumbs">
+                
+                                    <div id="breadcrumb-section">
+                        
+    
+    
+    <ol id="breadcrumbs">
+                    
+                
+        <li class="first" >
+                
+
+                    <span class=""><a href="/collector/pages.action?key=JETTY">Pages</a></span>
+                            
+                
+        <li>
+                
+
+                    <span class=""><a href="/display/JETTY/Jetty+Wiki">Jetty Wiki</a></span>
+                            
+                
+        <li>
+                
+
+                    <span class=""><a href="/display/JETTY/Jetty+Documentation">Jetty Documentation</a></span>
+                </ol>
+
+
+                    </div>
+                
+                
+
+                <h1 id="title-text" class="with-breadcrumbs">
+                                                <a href="/display/JETTY/Maven+Jetty+Plugin">Maven Jetty Plugin</a>
+                                    </h1>
+            </div>
+        </div><!-- \#main-header -->
+        
+        
+
+        <div id="sidebar-container">
+                                                </div><!-- \#sidebar-container -->
+
+        
+    
+
+        
+
+
+
+
+        
+
+    
+    
+        
+    
+    
+     
+
+
+<div id="content" class="page view">
+     
+<div id="action-messages">
+                        </div>
+
+          
+     
+         <div style="background-color: #F79F81; text-align: left; font-size:100%; font-family: arial, sans; border:thin dotted red; padding: 4px; ">
+    <span style="font-variant:small-caps;font-size: 300%;font-weight:bold">Jetty has moved!</span>
+<br/>
+Jetty is a project at the Eclipse Foundation.
+<table>
+<tr>
+<td>Homepage:</td><td><a href="http://www.eclipse.org/jetty">http://www.eclipse.org/jetty</a></td>
+</tr>
+<tr>
+<td>Downloads:</td> <td><a href="http://download.eclipse.org/jetty/">http://download.eclipse.org/jetty/</a></td>
+</tr>
+<tr>
+<td>Documentation:</td><td><a href="http://www.eclipse.org/jetty/documentation/current/">http://www.eclipse.org/jetty/documentation/current/</a></td>
+</tr>
+<tr>
+<td>About:</td><td><a href="http://www.eclipse.org/jetty/about.php">http://www.eclipse.org/jetty/about.php</a></td>
+</tr>
+<tr>
+<td>Jetty Powered:</td><td><a href="http://www.eclipse.org/jetty/powered/">http://www.eclipse.org/jetty/powered/</a></td>
+</tr>
+</table>
+   </div>
+  <div style="background-color: #DFF2FD; text-align: left; font-size:100%; font-family: arial, sans; border:thin dotted blue; padding: 4px; margin-top:4px ">
+    <span style="font-variant: small-caps; font-weight: bold">
+        <a href="http://www.webtide.com/support.jsp" style="text-decoration:none">Contact the core Jetty developers at 
+          <span style="color:#fd360b"> www.webtide.com</span>
+        </a>
+    </span>
+    <br/>
+    <span  style="font-style:oblique;font-size: 80%">
+ private support for your internal/customer projects ... custom extensions and distributions ... versioned snapshots for indefinite support ...
+ scalability guidance for your apps and Ajax/Comet projects ... development services from 1 day to full product delivery
+    </span>
+    </div>
+
+                      
+
+         
+         <a href="#page-metadata-end" class="assistive">Skip to end of metadata</a>
+<div id="page-metadata-start" class="assistive"></div>
+
+    <div class="page-metadata">
+        <ul>
+            <li class="page-metadata-modification-info">
+                
+        
+    
+        
+    
+        
+        
+            Created by <span class='author'>     <a href="    /display/~janb@mortbay.com
+"
+                       class="url fn"
+                            >Jan Bartel</a></span>, last modified on <a class='last-modified' title='Nov 30, 2011 16:23' href='/pages/diffpagesbyversion.action?pageId=79473&amp;selectedPageVersions=37&amp;selectedPageVersions=38'>Nov 30, 2011</a>
+                </li>
+        </ul>
+    </div>
+
+
+<a href="#page-metadata-start" class="assistive">Go to start of metadata</a>
+<div id="page-metadata-end" class="assistive"></div>
+         
+         <div class="wiki-content">
+                            
+            <div class="aui-message success shadowed information-macro">
+                    <p class="title">Jetty Version Information</p>
+                            <span class="aui-icon icon-success">Icon</span>
+                <div class="message-content">
+                            
+<p>Jetty7 - This plugin was renamed to jetty-maven-plugin to better conform to maven2 convention. The Jetty 7 version of the plugin has also undergone substantial changes in configuration. For more information, see <a href="http://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin" class="external-link" rel="nofollow">the Jetty 7 Maven Plugin feature guide</a>.</p>
+
+<p>For rapid application development with webapp overlays, see <a href="/display/JETTY/Multiple+WebApp+Source+Directory">Multiple WebApp Source Directory</a></p>
+                    </div>
+    </div>
+
+
+<h1 id="MavenJettyPlugin-MavenJettyPluginConfigurationGuide">Maven Jetty Plugin Configuration Guide</h1>
+
+<p>In order to run Jetty on a webapp project which is structured according to the usual Maven defaults (resources in <code>${basedir}/src/main/webapp</code>, classes in <code>${project.build.outputDirectory</code>} and the <code>web.xml</code> descriptor at <code>${basedir}/src/main/webapp/WEB-INF/web.xml</code>, you don't need to configure anything.</p>
+
+<p>Simply type:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[
+mvn jetty:run
+]]></script>
+</div></div>
+<p>This will start Jetty running on port <code>8080</code> and serving your project. Jetty will continue to run until the plugin is explicitly stopped, for example, by a <code>&lt;cntrl-c&gt;</code>. You can also use the <a href="#MavenJettyPlugin-stop">mvn jetty:stop</a> command.</p>
+
+<p>It is extremely convenient to leave the plugin running because it can be configured to periodically scan for changes and automatically redeploy the webapp. This makes the development cycle much more productive by eliminating the build and deploy steps: you use your IDE to make changes to the project and the running web container will automatically pick them up, allowing you to test them straight away.</p>
+
+<p>If, for whatever reason, you cannot run on an unassembled webapp, the plugin also supports the <code>jetty:run-war</code> and <code>jetty:run-exploded</code> goals which are discussed below.</p>
+
+<p>More information on each of the goals is available at <a href="http://jetty.mortbay.org/maven-plugin/run-mojo.html" class="external-link" rel="nofollow">mvn jetty:run page</a>, <a href="http://jetty.mortbay.org/maven-plugin/run-exploded-mojo.html" class="external-link" rel="nofollow">mvn jetty:run-exploded page</a>, <a href="http://jetty.mortbay.org/maven-plugin/run-war-mojo.html" class="external-link" rel="nofollow">mvn jetty:run-war page</a> and the <a href="/display/JETTY/Jetty+Documentation">Jetty Documentation</a>.</p>
+
+<h6 id="MavenJettyPlugin-Automaticexecutionoftheplugin">Automatic execution of the plugin</h6>
+
+<p>Sometimes, for example when doing integration testing, you'd like to be able to automatically have your webapp started at the beginning of the tests, and stopped at the end rather than manually executing <code>mvn jetty:run</code> on the command line.</p>
+
+<p>To do this, you need to set up a couple of <code>&lt;execution&gt;</code> scenarios for the jetty plugin and use the <code>&lt;daemon&gt;true&lt;/daemon&gt;</code> configuration option to prevent jetty running indefinitely and force it to only execute while maven is running.</p>
+
+<p>The <code>pre-integration-test</code> and <code>post-integration-test</code> maven build phases can be used to trigger the execution and termination of jetty like so:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[
+&lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;version&gt;6.1.10&lt;/version&gt;
+        &lt;configuration&gt;
+                &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
+                &lt;stopKey&gt;foo&lt;/stopKey&gt;
+                &lt;stopPort&gt;9999&lt;/stopPort&gt;
+        &lt;/configuration&gt;
+        &lt;executions&gt;
+                &lt;execution&gt;
+                        &lt;id&gt;start-jetty&lt;/id&gt;
+                        &lt;phase&gt;pre-integration-test&lt;/phase&gt;
+                        &lt;goals&gt;
+                                &lt;goal&gt;run&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                                &lt;scanIntervalSeconds&gt;0&lt;/scanIntervalSeconds&gt;
+                                &lt;daemon&gt;true&lt;/daemon&gt;
+                        &lt;/configuration&gt;
+                &lt;/execution&gt;
+                &lt;execution&gt;
+                        &lt;id&gt;stop-jetty&lt;/id&gt;
+                        &lt;phase&gt;post-integration-test&lt;/phase&gt;
+                        &lt;goals&gt;
+                                &lt;goal&gt;stop&lt;/goal&gt;
+                        &lt;/goals&gt;
+                &lt;/execution&gt;
+        &lt;/executions&gt;
+&lt;/plugin&gt;
+]]></script>
+</div></div>
+<ul>
+	<li>Note: Maven by default looks for plugins with a groupId of org.apache.maven.plugins, even if the groupId is declared differently as above. In order to instruct it to look for the plugin in the groupId as defined, one can set a plugin group in a profile in settings.xml like so: 
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;profile&gt;
+  ...
+  &lt;pluginGroups&gt;
+    &lt;pluginGroup&gt;org.mortbay.jetty&lt;/pluginGroup&gt;
+  &lt;/pluginGroups&gt;
+&lt;/profile&gt;
+]]></script>
+</div></div>
+  <span class="confluence-anchor-link" id="MavenJettyPlugin-stop"></span></li>
+	<li>Note 2: When running with this configuration, the &quot;stopPort&quot; must be free on the machine you are running on. If this is not the case, you will be getting an &quot;address already in use&quot; from the maven plugin, which appears *after* the &quot;Started SelectedChannelConnector ...&quot; message. If you run with the mvn -X option, you'll see org.mortbay.jetty.plugin.util.Monitor is part of the causing stacktrace.</li>
+</ul>
+
+
+<h2 id="MavenJettyPlugin-Howtostopthepluginfromthecommandline">How to stop the plugin from the command line</h2>
+
+<p>The <code>run</code>, <code>run-war</code> and <code>run-exploded</code> goals leave the plugin running indefinitely. You can terminate it with a <code>&lt;cntrl-c&gt;</code> in the controlling terminal window, or by executing the <code>stop</code> goal in another terminal window. If you wish to be able to use <code>mvn jetty:stop</code> then you need to configure the plugin with a special port number and key that you also supply on the <code>stop</code> command:</p>
+
+<p>Here's an example configuration:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;version&gt;6.1.10&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;stopPort&gt;9966&lt;/stopPort&gt;
+          &lt;stopKey&gt;foo&lt;/stopKey&gt;
+        &lt;/configuration&gt;
+&lt;/plugin&gt;
+]]></script>
+</div></div>
+<p>To start:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[
+mvn jetty:start
+]]></script>
+</div></div>
+<p>To stop:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[
+mvn jetty:stop
+]]></script>
+</div></div>
+
+<h2 id="MavenJettyPlugin-Howtoconfiguretheplugin">How to configure the plugin</h2>
+
+
+<h3 id="MavenJettyPlugin-Configurationcommontorun,run-warandrun-explodedgoals">Configuration common to run, run-war and run-exploded goals</h3>
+
+<p>Regardless of which jetty goal you execute, the following configuration parameters are common to all. They are divided into configuration that applies to the container as a whole, and configuration that applies specifically to the webapp:</p>
+
+<h5 id="MavenJettyPlugin-ContainerConfiguration">Container Configuration</h5>
+
+<ul>
+	<li><strong>connectors</strong> <em>Optional</em>. A list of <a href="http://jetty.mortbay.org/xref/org/mortbay/jetty/Connector.html" class="external-link" rel="nofollow">org.mortbay.jetty.Connector</a> objects, which are the port listeners for jetty. If you don't specify any, an NIO <a href="http://jetty.mortbay.org/xref/org/mortbay/jetty/nio/SelectChannelConnector.html" class="external-link" rel="nofollow">org.mortbay.jetty.nio.SelectChannelConnector</a> will be configured on port 8080. You can change this default port number by using the system property <code>jetty.port</code> on the command line. Eg &quot;mvn -D jetty.port=9999 jetty:run&quot;. Alternatively, you can specify as many connectors as you like.</li>
+</ul>
+
+
+<ul>
+	<li><strong>jettyConfig</strong> <em>Optional</em>. The location of a jetty.xml file that will be applied in addition to any plugin configuration parameters. You might use it if you have other webapps, handlers etc to be deployed, or you have other jetty objects that cannot be configured from the plugin.</li>
+</ul>
+
+
+<ul>
+	<li><strong>scanIntervalSeconds</strong> <em>Optional</em>. The pause in seconds between sweeps of the webapp to check for changes and automatically hot redeploy if any are detected. By default this is 0, which disables hot deployment scanning. A number greater than 0 enables it.</li>
+</ul>
+
+
+<ul>
+	<li><strong>systemProperties</strong> <em>Optional</em>. These allow you to configure System properties that will be set for the execution of the plugin. More information can be found on them at <a href="#MavenJettyPlugin-sysprops">Setting System Properties</a>.</li>
+</ul>
+
+
+<ul>
+	<li><strong>systemPropertiesFile</strong> <em>Optional</em>. This is a file containing System properties that will be set for the execution of the plugin. They will not override any system properties that have been set on the command line, by the JVM, or in the POM via <strong>systemProperties</strong>. Available from Jetty 6.1.15rc4</li>
+</ul>
+
+
+<ul>
+	<li><strong>userRealms</strong> <em>Optional</em>. A list of <a href="http://jetty.mortbay.org/xref/org/mortbay/jetty/security/UserRealm.html" class="external-link" rel="nofollow">org.mortbay.jetty.security.UserRealm</a> implementations. Note that there is no default realm. If you use a realm in your web.xml you can specify a corresponding realm here.</li>
+</ul>
+
+
+<ul>
+	<li><strong>requestLog</strong> <em>Optional</em>. An implementation of the <a href="http://jetty.mortbay.org/xref/org/mortbay/jetty/RequestLog.html" class="external-link" rel="nofollow">org.mortbay.jetty.RequestLog</a> request log interface. An implementation that respects the NCSA format is available as <a href="http://jetty.mortbay.org/xref/org/mortbay/jetty/NCSARequestLog.html" class="external-link" rel="nofollow">org.mortbay.jetty.NCSARequestLog</a>. 
+    <div class="aui-message success shadowed information-macro">
+                    <p class="title">&quot;Manual Reloading&quot;</p>
+                            <span class="aui-icon icon-success">Icon</span>
+                <div class="message-content">
+                            <p>As of Jetty <strong>6.2.0pre0</strong> a new feature to control webapp redeployment will be available.
+<br class="atl-forced-newline" />
+The configuration parameter is: &lt;reload&gt;[manual|automatic]&lt;/reload&gt;
+<br class="atl-forced-newline" />
+When set to <strong>manual</strong>, no automatic scanning and redeployment of the webapp is done. Rather, the user can control when the webapp is reloaded by tapping the carriage return key. Set to <strong>automatic</strong> the scanning and automatic redeployment is performed at intervals controlled by the <strong>scanIntervalSeconds</strong> parameter. The choice of reloading paradigm can also be configured on the command line by use of the <strong>-Djetty.reload</strong> system parameter.
+<br class="atl-forced-newline" />
+For example: &quot;mvn -Djetty.reload=manual jetty:run&quot; would force manual reloading, regardless of what is configured in the project pom. Similarly: &quot;mvn -Djetty.reload=automatic -Djetty.scanIntervalSeconds=10 jetty:run&quot; will force automatic background reloading with a sweep every 10 seconds, regardless of the configuration in the project pom. </p>
+                    </div>
+    </div>
+</li>
+</ul>
+
+
+<h5 id="MavenJettyPlugin-WebappConfiguration">Webapp Configuration</h5>
+
+<ul>
+	<li><strong>contextPath</strong> <em>Optional</em>. The context path for your webapp. By default, this is set to the <code>&lt;artifactId&gt;</code> from the project's pom.xml. You can override it and set it to anything you like here.</li>
+</ul>
+
+
+<ul>
+	<li><strong>tmpDir</strong> <em>Optional</em>. The temporary directory to use for the webapp. This is set to {<code>${basedir}/target</code>} by default but can be changed here.</li>
+</ul>
+
+
+<ul>
+	<li><strong>overrideWebXml</strong> <em>Optional</em>. A web.xml file which will be applied AFTER the webapp's web.xml. This file can be stored anywhere. It is used to add or modify the configuration of a web.xml for different environments eg test, production etc.</li>
+	<li><strong>webDefaultXml</strong> <em>Optional</em>. A webdefault.xml file to use instead of the supplied jetty default for the webapp.</li>
+</ul>
+
+
+<p>As of release 6.1.6rc0, an alternative and more flexible way to configure the webapp is to use the <strong>webAppConfig</strong> element <em>instead</em> of the individual parameters listed above. With the <strong>webAppConfig</strong> element, you can effectively call any of the setter methods on the <a href="http://jetty.mortbay.org/apidocs/org/mortbay/jetty/webapp/WebAppContext.html" class="external-link" rel="nofollow">org.mortbay.jetty.webapp.WebAppContext</a> class, an instance of which represents your webapp. The example below shows how to use this element to configure the same parameters as above (but of course there are many more you can set):</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;project&gt;
+  ...
+  &lt;plugins&gt;
+    ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+
+          &lt;scanIntervalSeconds&gt;10&lt;/scanIntervalSeconds&gt;
+
+          &lt;!-- Configure the webapp --&gt;
+          &lt;contextPath&gt;/biggerstrongerbetterfaster&lt;/contextPath&gt;
+          &lt;tmpDir&gt;target/not/necessary&lt;/tmpDir&gt;
+          &lt;webDefaultXml&gt;src/main/resources/webdefault.xml&lt;/webDefaultXml&gt;
+          &lt;overrideWebXml&gt;src/main/resources/override-web.xml&lt;/overrideWebXml&gt;
+
+          &lt;!-- OR, as of jetty6.1.6rc0, you can use the webAppConfig element instead
+          &lt;webAppConfig&gt;
+            &lt;contextPath&gt;/test&lt;/contextPath&gt;
+            &lt;tempDirectory&gt;${project.build.directory}/work&lt;/tempDirectory&gt;
+            &lt;defaultsDescriptor&gt;src/main/resources/webdefault.xml&lt;/defaultsDescriptor&gt;
+            &lt;overrideDescriptor&gt;src/main/resources/override-web.xml&lt;/overrideDescriptor&gt;
+          &lt;/webAppConfig&gt;
+          --&gt;
+
+          &lt;!-- configure the container                 --&gt;
+          &lt;jettyConfig&gt;/my/special/jetty.xml&lt;/jettyConfig&gt;
+         &lt;connectors&gt;
+            &lt;connector implementation=&quot;org.mortbay.jetty.nio.SelectChannelConnector&quot;&gt;
+              &lt;port&gt;9090&lt;/port&gt;
+              &lt;maxIdleTime&gt;60000&lt;/maxIdleTime&gt;
+            &lt;/connector&gt;
+          &lt;/connectors&gt;
+          &lt;userRealms&gt;
+            &lt;userRealm implementation=&quot;org.mortbay.jetty.security.HashUserRealm&quot;&gt;
+              &lt;name&gt;Test Realm&lt;/name&gt;
+              &lt;config&gt;etc/realm.properties&lt;/config&gt;
+            &lt;/userRealm&gt;
+          &lt;/userRealms&gt;
+          &lt;requestLog implementation=&quot;org.mortbay.jetty.NCSARequestLog&quot;&gt;
+            &lt;filename&gt;target/yyyy_mm_dd.request.log&lt;/filename&gt;
+            &lt;retainDays&gt;90&lt;/retainDays&gt;
+            &lt;append&gt;true&lt;/append&gt;
+            &lt;extended&gt;false&lt;/extended&gt;
+            &lt;logTimeZone&gt;GMT&lt;/logTimeZone&gt;
+          &lt;/requestLog&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/project&gt;
+]]></script>
+</div></div>
+
+<h3 id="MavenJettyPlugin-Configurationforthejetty:runGoal">Configuration for the jetty:run Goal</h3>
+
+<p>The <code>run</code> goal allows you to deploy your unassembled webapp to jetty, based on the locations of its constituent parts in your pom.xml. The following extra configuration parameters are available:</p>
+<ul>
+	<li><strong>classesDirectory</strong> This is the location of your compiled classes for the webapp. You should rarely need to set this parameter. Instead, you should set <code>&lt;build&gt;&lt;outputDirectory&gt;</code> in your <code>pom.xml</code>.</li>
+</ul>
+
+
+<ul>
+	<li><strong>webAppSourceDirectory</strong> By default, this is set to <code>${basedir}/src/main/webapp</code>. If your static sources are in a different location, set this parameter accordingly. See also <a href="/display/JETTY/Multiple+WebApp+Source+Directory">Multiple WebApp Source Directory</a> for how to configure multiple source directories.</li>
+</ul>
+
+
+<ul>
+	<li><strong>webXml</strong> By default, this is set to either the variable <code>${maven.war.webxml</code>} or <code>${basedir}/src/main/webapp/WEB-INF/web.xml</code>, whichever is not null. If neither of these are appropriate, set this parameter.</li>
+</ul>
+
+
+<ul>
+	<li><strong>jettyEnvXml</strong> <em>Optional</em>. it is the location of a <code>jetty-env.xml</code> file, which allows you to make JNDI bindings that will satisfy &lt;env-entry&gt;, &lt;resource-env-ref&gt; and &lt;resource-ref&gt; linkages in the <code>web.xml</code> that are scoped only to the webapp and not shared with other webapps that you may be deploying at the same time (eg by using a <code>jettyConfig</code> file).</li>
+</ul>
+
+
+<ul>
+	<li><strong>scanTargets</strong> <em>Optional</em>.A list of files and directories to also periodically scan in addition to those automatically scanned by the plugin.</li>
+</ul>
+
+
+<ul>
+	<li><strong>scanTargetPatterns</strong> <em>Optional</em>. If you have a long list of extra files you want scanned, it is more convenient to use pattern matching expressions to specify them instead of enumerating them with the &lt;scanTargets&gt; parameter. This parameter is a list of &lt;scanTargetPattern&gt;s, each consisting of a &lt;directory&gt; and &lt;includes&gt; and/or &lt;excludes&gt; parameters to specify the file matching patterns.</li>
+</ul>
+
+
+<p>Here's an example of setting all of these parameters:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;project&gt;
+  ...
+  &lt;plugins&gt;
+    ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;webAppSourceDirectory&gt;${basedir}/src/staticfiles&lt;/webAppSourceDirectory&gt;
+          &lt;webXml&gt;${basedir}/src/over/here/web.xml&lt;/webXml&gt;
+          &lt;jettyEnvXml&gt;${basedir}/src/over/here/jetty-env.xml&lt;/jettyEnvXml&gt;
+          &lt;classesDirectory&gt;${basedir}/somewhere/else&lt;/classesDirectory&gt;
+          &lt;scanTargets&gt;
+            &lt;scanTarget&gt;src/mydir&lt;/scanTarget&gt;
+            &lt;scanTarget&gt;src/myfile.txt&lt;/scanTarget&gt;
+          &lt;/scanTargets&gt;
+          &lt;scanTargetPatterns&gt;
+            &lt;scanTargetPattern&gt;
+              &lt;directory&gt;src/other-resources&lt;/directory&gt;
+              &lt;includes&gt;
+                &lt;include&gt;**/*.xml&lt;/include&gt;
+                &lt;include&gt;**/*.properties&lt;/include&gt;
+              &lt;/includes&gt;
+              &lt;excludes&gt;
+                &lt;exclude&gt;**/myspecial.xml&lt;/exclude&gt;
+                &lt;exclude&gt;**/myspecial.properties&lt;/exclude&gt;
+              &lt;/excludes&gt;
+            &lt;/scanTargetPattern&gt;
+          &lt;/scanTargetPatterns&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/project&gt;
+]]></script>
+</div></div>
+<p>See also the <a href="http://jetty.mortbay.org/maven-plugin/run-mojo.html" class="external-link" rel="nofollow">jetty:run parameter reference</a>.</p>
+
+<h3 id="MavenJettyPlugin-Configurationforthejetty:run-warGoal">Configuration for the jetty:run-war Goal</h3>
+
+<p>This goal will first package your webapp as a war file and then deploy it to Jetty. If you set a non-zero scanInterval Jetty will watch your pom.xml and the war file and if either changes, it will redeploy the war.</p>
+
+<p>The configuration parameters specific to this goal are:</p>
+<ul>
+	<li><strong>webApp</strong> The location of the built war file. This defaults to <code>${project.build.directory}/${project.build.finalName}.war</code>. If this is not sufficient, set it to your custom location.</li>
+</ul>
+
+
+<p>Here's how you would set it:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;project&gt;
+  ...
+  &lt;plugins&gt;
+    ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;webApp&gt;${basedir}/target/mycustom.war&lt;/webApp&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/project&gt;
+]]></script>
+</div></div>
+<p>See also the <a href="http://jetty.mortbay.org/maven-plugin/run-war-mojo.html" class="external-link" rel="nofollow">jetty:run-war parameter reference</a>.</p>
+
+<h3 id="MavenJettyPlugin-Configurationforthejetty:run-explodedGoal">Configuration for the jetty:run-exploded Goal</h3>
+
+<p>This goal first assembles your webapp into an exploded war file and then deploys it to Jetty. If you set a non-zero scanInterval, Jetty will watch your <code>pom.xml</code>, <code>WEB-INF/lib</code>, <code>WEB-INF/classes</code> and <code>WEB-INF/web.xml</code> for changes and redeploy when necessary.</p>
+
+<p>The configuration parameters specific to this goal are:</p>
+<ul>
+	<li><strong>webApp</strong> The location of the exploded war. This defaults to <code>${project.build.directory}/${project.build.finalName</code>} but can be overridden by setting this parameter.</li>
+</ul>
+
+
+<p>Here's how you would set it:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;project&gt;
+  ...
+  &lt;plugins&gt;
+    ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;webApp&gt;${basedir}/target/myfunkywebapp&lt;/webApp&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/project&gt;
+]]></script>
+</div></div>
+<p>See also the <a href="http://jetty.mortbay.org/maven-plugin/run-exploded-mojo.html" class="external-link" rel="nofollow">jetty:run-exploded parameter reference</a>.</p>
+
+<h3 id="MavenJettyPlugin-Configurationforthejetty:deploy-warGoal">Configuration for the jetty:deploy-war Goal</h3>
+
+<p>This is basically the same as jetty:run-war but without assembling the war of the current module.<br />
+Unlike run-war, the phase in which this plugin executes will not be bound to the &quot;package&quot; phase.</p>
+
+<p>For example, you want to start jetty on the test-compile phase and stop jetty on the test-phase.<br />
+Here's the configuration:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;project&gt;
+  ...
+  &lt;plugins&gt;
+    ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;webApp&gt;${basedir}/target/mycustom.war&lt;/webApp&gt;
+        &lt;/configuration&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;start-jetty&lt;/id&gt;
+            &lt;phase&gt;test-compile&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;deploy-war&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+              &lt;daemon&gt;true&lt;/daemon&gt;
+              &lt;reload&gt;manual&lt;/reload&gt;
+            &lt;/configuration&gt;
+          &lt;/execution&gt;
+          &lt;execution&gt;
+            &lt;id&gt;stop-jetty&lt;/id&gt;
+            &lt;phase&gt;test&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;stop&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/project&gt;
+]]></script>
+</div></div>
+<p><span class="confluence-anchor-link" id="MavenJettyPlugin-sysprops"></span></p>
+
+<h3 id="MavenJettyPlugin-RunningMultipleWebapps">Running Multiple Webapps</h3>
+
+<p>Sometimes you need to deploy a number of webapps, not just the webapp under development. You can do this with the <code>mvn jetty:run</code> goal by supplying extra <code>contextHandlers</code> in the pom configuration. </p>
+
+<p>Here's an example of setting up an extra webapp to run in the same jetty instance as the webapp under development:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;project&gt;
+  ...
+  &lt;plugins&gt;
+    ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+          &lt;webApp&gt;${basedir}/target/myfunkywebapp&lt;/webApp&gt;
+          &lt;contextHandlers&gt;            
+            &lt;contextHandler implementation=&quot;org.mortbay.jetty.webapp.WebAppContext&quot;&gt;
+              &lt;war&gt;${basedir}../../myother.war&lt;/war&gt;
+              &lt;contextPath&gt;/other&lt;/contextPath&gt;
+            &lt;/contextHandler&gt;
+          &lt;/contextHandlers&gt;  
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/project&gt;
+]]></script>
+</div></div>
+
+<p>This would deploy both the webapp under development - unassembled - at the context path &quot;/&quot; and a second webapp at the contex path &quot;/other&quot;.</p>
+
+<h3 id="MavenJettyPlugin-SettingSystemProperties">Setting System Properties</h3>
+
+<p><br />
+You may specify property name/value pairs that will be set as <code>System</code> properties for the execution of the plugin. Note that if a System property is found that is already set (eg from the command line or by the JVM itself), then these configured properties DO NOT override them. This feature is useful to tidy up the command line and save a lot of typing. For example, to set up Commons logging you would usually need to type:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[
+mvn -Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog jetty:run
+]]></script>
+</div></div>
+<p>Using the <code>systemProperty</code> configuration the command line can again be shorted to <code>mvn jetty:run</code> by placing the following in the pom.xml:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;project&gt;
+  ...
+  &lt;plugins&gt;
+    ...
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+         ...
+         &lt;systemProperties&gt;
+            &lt;systemProperty&gt;
+              &lt;name&gt;org.apache.commons.logging.Log&lt;/name&gt;
+               &lt;value&gt;org.apache.commons.logging.impl.SimpleLog&lt;/value&gt;
+            &lt;/systemProperty&gt;
+            ...
+         &lt;/systemProperties&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/project&gt;
+]]></script>
+</div></div>
+<p><em>Note:</em> You can use either &lt;name&gt; or &lt;key&gt; to specify the name of a &lt;systemProperty&gt;. Use whichever you prefer.</p>
+
+<h3 id="MavenJettyPlugin-Logging">Logging</h3>
+
+<p>Jetty itself has no dependencies on a particular logging framework, using a built-in logger which outputs to stderr. However, to allow jetty to integrate with other logging mechanisms, if an <a href="http://www.slf4j.org" class="external-link" rel="nofollow">SLF4J</a> log implementation is detected in the classpath, it will use it in preference to the built-in logger.</p>
+
+<p>The JSP engine used by jetty does however have logging dependencies. If you are using JSP 2.0 (ie you are running in a JVM version &lt; 1.5), the JSP engine depends on commons-logging. A default commons-logging logger will be provided by the plugin using a combination of the <a href="http://www.slf4j.org/manual.html#gradual" class="external-link" rel="nofollow">jcl04-over-slf4j</a> and the <a href="http://www.slf4j.org/api/org/slf4j/impl/SimpleLogger.html" class="external-link" rel="nofollow">simple-slf4j</a> implementation, which logs all messages <code>INFO</code> level and above. You can override this and provide your own commons-logging delegated logger by following these steps:</p>
+<ol>
+	<li>Use plugin &lt;dependencies&gt; add commons-logging and a commons-logging impl such as log4j onto the plugin classpath. Note that if you want the Jetty container log to also be routed to this log, you should also add the <a href="http://www.slf4j.org/manual.html#gradual" class="external-link" rel="nofollow">slf4j-jcl</a> bridge jar:
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;plugin&gt;
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+        &lt;version&gt;6.0-SNAPSHOT&lt;/version&gt;
+        &lt;configuration&gt;
+          &lt;scanIntervalSeconds&gt;5&lt;/scanIntervalSeconds&gt;
+        &lt;/configuration&gt;
+       &lt;dependencies&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;commons-logging&lt;/groupId&gt;
+          &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;
+          &lt;version&gt;1.1&lt;/version&gt;
+          &lt;type&gt;jar&lt;/type&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+          &lt;artifactId&gt;slf4j-jcl&lt;/artifactId&gt;
+          &lt;version&gt;1.0.1&lt;/version&gt;
+          &lt;type&gt;jar&lt;/type&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+          &lt;groupId&gt;log4j&lt;/groupId&gt;
+          &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+          &lt;version&gt;1.2.13&lt;/version&gt;
+          &lt;type&gt;jar&lt;/type&gt;
+        &lt;/dependency&gt;
+       &lt;/dependencies&gt;
+&lt;/plugin&gt;
+]]></script>
+</div></div></li>
+	<li>Run the plugin with the system property <code>-Dslf4j=false</code> :
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[
+mvn -Dslf4j=false jetty:run
+]]></script>
+</div></div>
+<em>Note:</em> if you are using log4j you will need to tell the log4j discovery mechanism where your configuration properties file is. For example:
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: java; gutter: false"><![CDATA[
+mvn -Dslf4j=false -Dlog4j.configuration=file:./target/classes/log4j.properties jetty:run
+]]></script>
+</div></div></li>
+</ol>
+
+
+<p>If you are using JSP2.1 (ie you are running in a JVM &gt;= 1.5), then rejoice because the JSP engine has no particular logging dependencies.</p>
+
+<h4 id="MavenJettyPlugin-Logback-ClassicastheloggingbackendfortheJSPEngine">Logback-Classic as the logging backend for the JSP Engine</h4>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;project&gt;
+... 
+      &lt;plugin&gt; 
+        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt; 
+        &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt; 
+        &lt;configuration&gt; 
+          &lt;systemProperties&gt; 
+            &lt;systemProperty&gt; 
+              &lt;name&gt;logback.configurationFile&lt;/name&gt; 
+              &lt;value&gt;./src/etc/logback.xml&lt;/value&gt; 
+            &lt;/systemProperty&gt; 
+          &lt;/systemProperties&gt; 
+        &lt;/configuration&gt; 
+        &lt;dependencies&gt;
+          &lt;dependency&gt; 
+            &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt; 
+            &lt;artifactId&gt;logback-classic&lt;/artifactId&gt; 
+            &lt;version&gt;0.9.15&lt;/version&gt; 
+          &lt;/dependency&gt; 
+        &lt;/dependencies&gt; 
+      &lt;/plugin&gt;
+...
+&lt;project&gt;
+]]></script>
+</div></div>
+
+<h3 id="MavenJettyPlugin-HowtoenableJSP2.0withJDK1.5">How to enable JSP2.0 with JDK1.5</h3>
+
+<p>By default Jetty maven plugin loads JSP2.1 libraries with JDK1.5. But some times you need to test web applications which require JSP2.0 (eg. because you are running it inside old JSP and Servler engine like tomcat 5.5 or weblogic 9.x)<br />
+Here are the steps which I did to make it happen:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script type="syntaxhighlighter" class="theme: Confluence; brush: xml; gutter: false"><![CDATA[
+&lt;plugin&gt;
+                &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-jetty-plugin&lt;/artifactId&gt;
+                &lt;version&gt;6.1.14&lt;/version&gt;
+&lt;dependencies&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+                        &lt;artifactId&gt;jsp-api-2.0&lt;/artifactId&gt;
+                        &lt;version&gt;6.1.14&lt;/version&gt;
+
+                    &lt;/dependency&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;tomcat&lt;/groupId&gt;
+                        &lt;artifactId&gt;jasper-compiler-jdt&lt;/artifactId&gt;
+                        &lt;version&gt;5.5.15&lt;/version&gt;
+                    &lt;/dependency&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;tomcat&lt;/groupId&gt;
+                        &lt;artifactId&gt;jasper-compiler&lt;/artifactId&gt;
+                        &lt;version&gt;5.5.15&lt;/version&gt;
+                    &lt;/dependency&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;tomcat&lt;/groupId&gt;
+                        &lt;artifactId&gt;jasper-runtime&lt;/artifactId&gt;
+                        &lt;version&gt;5.5.15&lt;/version&gt;
+                    &lt;/dependency&gt;
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+                        &lt;artifactId&gt;jsp-2.1&lt;/artifactId&gt;
+                        &lt;version&gt;6.1.14&lt;/version&gt;
+                        &lt;scope&gt;provided&lt;/scope&gt;
+                        &lt;exclusions&gt;
+                            &lt;exclusion&gt;
+                                &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+                                &lt;artifactId&gt;jsp-api-2.1&lt;/artifactId&gt;
+                            &lt;/exclusion&gt;
+                            &lt;exclusion&gt;
+                                &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+                                &lt;artifactId&gt;start&lt;/artifactId&gt;
+                            &lt;/exclusion&gt;
+                            &lt;exclusion&gt;
+                                &lt;groupId&gt;org.mortbay.jetty&lt;/groupId&gt;
+                                &lt;artifactId&gt;jetty-annotations&lt;/artifactId&gt;
+                            &lt;/exclusion&gt;
+                        &lt;/exclusions&gt;
+                    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+....
+&lt;/plugin&gt;
+]]></script>
+</div></div>
+
+                
+        
+    
+         </div>
+
+         <!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+         <rdf:Description
+    rdf:about="http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin"
+    dc:identifier="http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin"
+    dc:title="Maven Jetty Plugin"
+    trackback:ping="http://docs.codehaus.org/rpc/trackback/79473"/>
+</rdf:RDF>
+-->
+
+             
+    
+
+
+
+<div id="labels-section" class="pageSection group">
+    <div class="labels-section-content content-column" entityid="79473" entitytype="page">
+	<div class="labels-content">
+		
+    <ul class="label-list label-list-right ">
+            <li class="no-labels-message">
+            No labels
+        </li>
+            </ul>
+
+    </div>
+</div></div>
+
+             
+             
+
+
+
+
+            
+    
+
+
+
+
+
+
+
+
+                    
+    
+<div id="comments-section" class="pageSection group">
+    
+    
+    
+    
+            <div class="bottom-comment-panels comment-panels">
+                                    
+    
+
+
+    
+            </div>
+    
+    </div>
+
+
+               
+</div>
+
+
+  <div style="background-color: #DFF2FD; text-align: left; font-size:100%; font-family: arial, sans; border:thin dotted blue; padding: 4px; ">
+    <span style="font-variant: small-caps; font-weight: bold">
+        <a href="http://www.webtide.com/support.jsp" style="text-decoration:none">Contact the core Jetty developers at 
+          <span style="color:#fd360b"> www.webtide.com</span>
+        </a>
+    </span>
+    <br/>
+    <span  style="font-style:oblique;font-size: 80%">
+ private support for your internal/customer projects ... custom extensions and distributions ... versioned snapshots for indefinite support ...
+ scalability guidance for your apps and Ajax/Comet projects ... development services from 1 day to full product delivery
+    </span>
+   </div>
+
+
+    
+
+
+
+
+    
+    
+
+    
+    
+    
+
+
+
+
+
+
+
+    </div><!-- \#main -->
+        
+    
+        
+            
+<div id="footer" role="contentinfo">
+    <section class="footer-body">
+
+                                                                    <p class="license license-opensource">
+                        Powered by a free <b>Atlassian Confluence Open Source Project License</b> granted to Codehaus. <a href="http://www.atlassian.com/c/conf/11461">Evaluate Confluence today</a>.<br>
+                    </p>
+                                    
+        
+
+        <ul id="poweredby">
+            <li class="noprint">Powered by <a href="http://www.atlassian.com/software/confluence" class="hover-footer-link">Atlassian Confluence</a> <span id='footer-build-information'>5.5.2</span>, <a href="http://www.atlassian.com/software/confluence/overview/team-collaboration-software?utm_source=confluence-footer" class="hover-footer-link">Team Collaboration Software</a></li>
+            <li class="print-only">Printed by Atlassian Confluence 5.5.2, Team Collaboration Software.</li>
+            <li class="noprint"><a href="https://jira.atlassian.com/browse/CONF" class="hover-footer-link">Report a bug</a></li>
+            <li class="noprint"><a href="http://www.atlassian.com/about/connected.jsp?s_kwcid=Confluence-stayintouch" class="hover-footer-link">Atlassian News</a></li>
+        </ul>
+
+        
+
+        <div id="footer-logo"><a href="http://www.atlassian.com/">Atlassian</a></div>
+
+                    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-150515-7', 'codehaus.org');
+  ga('send', 'pageview');
+</script>
+        
+    </section>
+</div>
+
+            
+    
+
+</div><!-- \#full-height-container -->
+</div><!-- \#page -->
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Language" content="UTF-8" />
+<meta content="all" name="robots" />
+<meta name="author" content="快乐无极的博客" />
+<meta name="description" content="问题：打开很多网站都要花很长时间解析域名解决方法：修改/etc/host.conforder hosts,bind&amp;nbsp;&amp;nbsp; [color=#FF0000](有的这一...快乐无极的博客" />
+<meta name="keywords" content="centos,dns,解析,解决,快乐无极,博客,IT,新闻,技巧,软件" />
+<base href="http://it.oyksoft.com/" />
+<link rel="alternate" title="快乐无极的博客" href="feed.php" type="application/rss+xml" />
+<link rel="stylesheet" rev="stylesheet" href="template/neowin/styles.css" type="text/css" media="all" />
+
+<title>CentOS域名解析慢的处理方法 - 快乐无极的博客</title>
+<script type="text/javascript" src="images/js/common.js?jsver=2.1.1.3626.3"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://it.oyksoft.com/inc/rsd.php" />
+<script type="text/javascript" src="lang/zh-cn/jslang.js?jsver=2.1.1.3626.3"></script>
+<script type="text/javascript" src="images/js/ajax.js?jsver=2.1.1.3626.3"></script>
+<script type="text/javascript" src="images/js/swfobject.js?jsver=2.1.1.3626.3"></script>
+<script type="text/javascript">
+//<![CDATA[
+var moreimagepath="template/neowin/images";
+var shutajax=0;
+var absbaseurl='http://it.oyksoft.com/';
+//]]>
+</script>
+<link title="搜索 快乐无极的博客" rel="search"  type="application/opensearchdescription+xml"  href="http://it.oyksoft.com/inc/opensearch.php" />
+<link rel="canonical" href="http://it.oyksoft.com/post/6126/" />
+
+
+</head>
+<body id="pagelocation-index">
+<div id="wrapper">
+        <div id="header">
+            <div id="header-r">
+                <div id="header-l">
+                    <div id="innerHeader">
+                        <div id="blogLogo">
+                        </div>
+                        <div class="blog-header">
+                            <h1 class="blog-title"><a href="/">快乐无极的博客</a></h1>
+                            <div class="blog-desc">世间没有奇迹，踏实的人生最美丽</div>
+                        </div>
+                        <div id="header-search">
+                            <form action="visit.php" method="post">
+                            <div id="header-search-box">
+                            <input type="hidden" value="search" name="job" />
+                            <input type="hidden" value="2" name="searchmethod" />
+                            <input type="text" name="keyword" value="Search Blog" maxlength="255" size="31" onfocus="if(this.value=='Search Blog') this.value='';" onblur="if(this.value=='') this.value='Search Blog';" />
+                            </div>
+                            </form>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="header-bot">
+                        <div id="header-nav">
+                            <ul id="nav">
+                            <li><span id="nav_index" class="activepage"><a href="index.php" ><span id="navitem_index" class="activepageitem">首页</span></a></span></li>
+<li><span id="nav_feed"><a href="feed.php"  target="_blank"><span id="navitem_feed">RSS</span></a></span></li>
+<li><span id="nav_tag"><a href="tag.php" ><span id="navitem_tag">标签</span></a></span></li>
+<li><span id="nav_guestbook"><a href="guestbook.php" ><span id="navitem_guestbook">留言</span></a></span></li>
+<li><span id="nav_links"><a href="links.php" ><span id="navitem_links">链接</span></a></span></li>
+<li><span id="nav_archive"><a href="archive.php" ><span id="navitem_archive">归档</span></a></span></li>
+<li><span id="nav_http_3A_2F_2Fwww.oyksoft.com"><a href="http://www.oyksoft.com"  target="_blank"><span id="navitem_http_3A_2F_2Fwww.oyksoft.com">下载</span></a></span></li>
+<li><span id="nav_http_3A_2F_2Fbbs.oyksoft.com"><a href="http://bbs.oyksoft.com"  target="_blank"><span id="navitem_http_3A_2F_2Fbbs.oyksoft.com">论坛</span></a></span></li>
+                            <li id="nav-rss"><a href="feed.php" target="_blank"><span>RSS</span></a></li>
+                            </ul>
+                        </div>
+                        <div id="header-userbar">
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-box-tbar">
+            <div class="content-box-tbar-r">
+            <div class="content-box-tbar-l">
+            <span class="right-links"></span>
+            </div>
+            </div>
+        </div>
+		<div id="mainWrapper">
+			<div id="content" class="content">
+				<div id="innerContent">
+					<div class="announce" style="display: none">
+						<div class="announce-content">
+						
+						</div>
+					</div>
+					<div class="article-top" style="display: none">
+						<div class="pages">
+							
+						</div>
+					</div>
+					<div class="textbox">
+	<div class="textbox-title">
+		<h4>
+		CentOS域名解析慢的处理方法   
+		</h4>
+		<div class="textbox-label">
+		 <a href="user/1/" target="_blank">快乐无极</a> , 2012/08/01  01:05 , <a href="category/Server/" title="查看分类： 服务器">服务器</a> &raquo; <a href="category/Linux/" title="查看分类： Linux">Linux</a> , <a href="post/6126/#reply" title="发表您的评论">评论(0)</a> , <a href="post/6126/">阅读(13695)</a> ,  Via 本站原创 <span class="text-label-indented"><img src="template/neowin/images/toolbar_fontsize.gif" alt='' title="字体大小" border='0'/> <a href="javascript: doZoom(16);">大</a> | <a href="javascript: doZoom(14);">中</a> | <a href="javascript: doZoom(12);">小</a> <a href="feed.php?go=entry_6126"><img src="template/neowin/images/toolbar_rss.gif" alt='' title="订阅本文" border='0'/></a> <a href="read.php?save_6126"><img src="template/neowin/images/toolbar_save.gif" alt='' title="保存本文为文本文档" border='0'/></a></span>
+		</div>
+	</div>
+	<div id="tb6126" style="display: none;" class="textbox-tburl"><strong>引用功能被关闭了。</strong></div>
+	
+	<div class="textbox-content" id="zoomtext">
+	 	问题：打开很多网站都要花很长时间解析域名<br/><br/>解决方法：<br/><br/>修改/etc/host.conf<br/>order hosts,bind&nbsp;&nbsp; <span style="color: #FF0000;">(有的这一句没有！请手动添加后面一句）</span><br/>改成<br/>order bind,hosts<br/><br/><div class="quote"><div class="quote-title">引用</div><div class="quote-content">/etc/host.conf文件有三个东东可配置：<br/>order&nbsp;&nbsp;bind,hosts<br/>multi&nbsp;&nbsp;on<br/>nospoof&nbsp;&nbsp;on<br/> “order&nbsp;&nbsp;bind,hosts”指定主机名查询顺序，这里规定先使用DNS来解析域名，然后再查询“/etc/hosts”文件(也可以相反)。<br/> “multi&nbsp;&nbsp;on”指定是否“/etc/hosts”文件中指定的主机可以有多个地址，拥有多个IP地址的主机一般称为多穴主机。<br/> “nospoof&nbsp;&nbsp;on”指不允许对该服务器进行IP地址欺骗。IP欺骗是一种攻击系统安全的手段，通过把IP地址伪装成别的计算机，来取得其它计算机的信任。</div></div><br/><br/>若以上无效，请检查 resolv.conf 中的DNS服务器设置是否正常。<br/>很多时候是使用DHCP自动获取IP和DNS设置，但DHCP返回过来的DNS服务器，并不一定就可用。这一点CentOS没Windows那么智能，因为很多情况下，DHCP会返回两个DNS IP地址。当第一个IP对应的DNS服务器无响应（或者根本就不是DNS服务器）时，Windows会自动跳过，然后以后都会记住这个顺序，从第二个DNS 进行解析。CentOS则总是从头到尾，且在第一个DNS IP上浪费不少时间，请求不顺后才会跳到第二个去，之后顺利地解析到了域名的IP地址。因为，<span style="color: #FF0000;">在CentOS中，第一个DNS IP的设置是相当重要的！</span>请确保第一个DNS是最为可用、最快的IP，那么打开网站也就不会在域名解析上花费大量无谓的时间了。<!--RelatedTopic--><div style='clear: both; text-align: left; margin-top: 12px; padding: 5px; margin-bottom: 15px;'><strong>相关日志</strong><br/><a href="post/6868/">CentOS7下安装Vmware Tools及拼音输入法、五笔输入法</a><br/><a href="QuickSetDNS/">快速设置DNS 使用QuickSetDNS </a><br/><a href="post/6780/">阿里DNS 223.5.5.5&nbsp;&nbsp;223.6.6.6</a><br/><a href="post/6635/">MySQL 句柄数占用过多的解决方法</a><br/><a href="post/6595/">eclipse提示ambiguous 的解决方法</a><br/></div><!--RelatedTopic over--> 
+	</div>
+	<div class="textbox-bottom">
+	</div>
+	<div class="tags" style="display: block"> Tags:  <a href="tags/centos/" title="Tags:  centos" rel="tag">centos</a> , <a href="tags/dns/" title="Tags:  dns" rel="tag">dns</a> , <a href="tags/%25E8%25A7%25A3%25E6%259E%2590/" title="Tags:  解析" rel="tag">解析</a> , <a href="tags/%25E8%25A7%25A3%25E5%2586%25B3/" title="Tags:  解决" rel="tag">解决</a>
+	</div>
+</div>
+<div class="article-top">
+	<div class="prev-article"><a href="post/6125/" title="上一篇 tar 压缩、解压缩命令"><img src="template/neowin/images/toolbar_previous.gif" alt='' border='0'/>tar 压缩、解压缩命令</a></div>
+	<div class="next-article"><a href="post/6147/" title="下一篇 CentOS不用编译安装配置Nginx和FastCGI+"><img src="template/neowin/images/toolbar_next.gif" alt='' border='0'/>CentOS不用编译安装配置Nginx和FastCGI+</a></div>
+</div>
+<div id="commentWrapper" class="comment-wrapper">
+	<a name="topreply"></a>
+	<div id="addnew"></div>	<div class="comment-pages">
+	
+	</div>
+</div>
+  <a name="reply"></a>
+  <div id="commentForm">
+    <form name="visitorinput" id="visitorinput" method="post" action="javascript: ajax_submit('addreply');">
+    <div class="formbox-comment">
+      <div class="formbox-comment-title">发表评论</div>
+      <div class="formbox-comment-content">
+        
+        <div class="formbox-comment-input">
+					<p class="in"><input name="v_replier" id="v_replier" type="text" size="32" class="text" value="" />  昵称</p>			
+					<p class="in"><input name="v_repurl" id="v_repurl" type="text" size="32" class="text" value="" />  网址</p>				
+					<p class="in"><input name="v_repemail" id="v_repemail" type="text" size="32" class="text"  value="" />  电邮</p>
+					<input name="v_password" id="v_password" type="hidden" size="12" class="text"  value="" />
+        </div>
+        
+
+        <!--
+		<div id="commentbox-openid" style="padding-bottom:5px">
+		<strong>您也可用<a href="http://www.openid.net.cn/" target="_blank">OpenID</a>登入:</strong> <br/>
+		<input name="openid_url" id="openid_url" type="text" size="44" class="text" value="" {disable_openurl}/>
+		</div>
+        -->
+
+        <div class="formbox-comment-tool">
+          <input name="stat_html" id="stat_html" type="checkbox" value="1" disabled='disabled' /> 打开HTML
+          <input name="stat_ubb" id="stat_ubb" type="checkbox" value="0" onclick="showhidediv('ubbid')"/> 打开UBB 
+          <input name="stat_emot" id="stat_emot" type="checkbox" value="1" checked='checked'/> 打开表情<img src="template/neowin/images/arrows/singledown.gif" alt="" title="表情" style="cursor: pointer;" onclick="showhidediv('emotid')" align="absmiddle" />
+          <input name="stat_property" id="stat_property" type="checkbox" value="1" onclick="promptreppsw();"/> 隐藏
+          
+          <input name="stat_rememberme" id="stat_rememberme" type="checkbox" value="1"  onclick="quickremember();"/>  记住我 <a href="login.php">[登入]</a> <a href="login.php?job=register" title="注册">[注册]</a>
+          </div>
+        <div id="ubbid" class="formbox-comment-ubb" style="display: none;"><script type="text/javascript" src="editor/ubb/ubbeditor_tiny.js"></script><div style="margin: 4px 0px 4px 0px;"><img src="editor/ubb/images/bar.gif" alt=''/> &nbsp;<a href="javascript: bold();"><img border='0' title="粗体" src="editor/ubb/images/bold.gif" alt=''/></a> &nbsp;<a href="javascript: italicize();"><img border='0' title="斜体" src="editor/ubb/images/italic.gif" alt=''/></a> &nbsp;<a href="javascript: underline();"><img border='0' title="下划线" src="editor/ubb/images/underline.gif"  alt=''/></a> &nbsp;<img src="editor/ubb/images/bar.gif" alt=''/> &nbsp;<a href="javascript: image();"><img border='0' title="插入图片" src="editor/ubb/images/insertimage.gif" alt=''/></a> &nbsp;<a href="javascript: hyperlink();"><img border='0' title="插入超链接" src="editor/ubb/images/url.gif" alt=''/></a> &nbsp;<a href="javascript: email();"><img border='0' title="插入邮件地址" src="editor/ubb/images/email.gif"  alt=''/></a> &nbsp;<a href="javascript: quoteme();"><img border='0' title="插入引用文字" src="editor/ubb/images/quote.gif" alt=''/></a></div></div>
+        <div id="emotid" class="panel-smilies" style="display: none;" onclick="showhidediv('emotid')">
+            <div class="panel-smilies-content">
+            <a href="javascript: insertemot('anger');"><img src="images/emot/thumbnail/anger.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('bad');"><img src="images/emot/thumbnail/bad.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('cool');"><img src="images/emot/thumbnail/cool.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('cry');"><img src="images/emot/thumbnail/cry.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('dog');"><img src="images/emot/thumbnail/coffee.gif" alt='emot' border='0'/></a><br/><a href="javascript: insertemot('envy');"><img src="images/emot/thumbnail/envy.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('fear');"><img src="images/emot/thumbnail/fear.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('grin');"><img src="images/emot/thumbnail/grin.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('kill');"><img src="images/emot/thumbnail/kill.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('love');"><img src="images/emot/thumbnail/love.gif" alt='emot' border='0'/></a><br/><a href="javascript: insertemot('pig');"><img src="images/emot/thumbnail/ok.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('puke');"><img src="images/emot/thumbnail/puke.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('question');"><img src="images/emot/thumbnail/question.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('shock');"><img src="images/emot/thumbnail/shock.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('shuai');"><img src="images/emot/thumbnail/shuai.gif" alt='emot' border='0'/></a><br/><a href="javascript: insertemot('shy');"><img src="images/emot/thumbnail/shy.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('sleepy');"><img src="images/emot/thumbnail/sleepy.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('smile');"><img src="images/emot/thumbnail/smile.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('smoke');"><img src="images/emot/thumbnail/hamarneh.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('stupid');"><img src="images/emot/thumbnail/stupid.gif" alt='emot' border='0'/></a><br/><a href="javascript: insertemot('sweat');"><img src="images/emot/thumbnail/sweat.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('thumbdown');"><img src="images/emot/thumbnail/thumbdown.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('unhappy');"><img src="images/emot/thumbnail/unhappy.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('uplook');"><img src="images/emot/thumbnail/uplook.gif" alt='emot' border='0'/></a><a href="javascript: insertemot('zan');"><img src="images/emot/thumbnail/zan.gif" alt='emot' border='0'/></a><br/>
+            </div>
+        </div>
+        <script type="text/javascript">securitycodejs="验证码 <span id='securityimagearea'><img src='inc/securitycode.php?rand=3344' alt='' title='请输入验证码' style='cursor: pointer;' onclick=\"refreshsecuritycode('securityimagearea', 'v_security');\"/></span> <input name='v_security' id='v_security' type='text' size='4' maxlength='4' class='text' style='ime-mode: disabled' /> ";</script>  
+        <textarea name="v_content" id="v_content" cols="75" rows="10" onkeydown="ctrlenterkey(event);" onfocus="if (securitycodejs!=null) {document.getElementById('showsecuritycode').innerHTML=securitycodejs; securitycodejs=null;}"></textarea> <br/>  <span id="showsecuritycode"></span>
+        <div style="padding-top:10px">
+        <input type="hidden" name="v_id" id="v_id" value="6126" /><input type="hidden" name="v_reppsw" id="v_reppsw" value="" />
+        <input type="button" name="btnSubmit" id="btnSubmit" value="提交" class="button" onclick="ajax_submit('addreply'); return false;"/>&nbsp;
+        <input name="reset" id="reset" type="reset" value="重置" class="button" />
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+					<div class="article-bottom" style="display: none">
+						<div class="pages">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		<div id="sidebar" class="sidebar">
+			<div id="innerSidebar">
+				<div id="innerSidebarOne">
+					<div class="panel">
+<h5 onclick='showhidediv("sidebar_entries");'>最新日志</h5>
+<div class="panel-content" id="sidebar_entries" style="display: block">
+<ul><li class='rowcouple'><a href="post/6885/" title="Win10开机黑屏问题解决 之 AMD+Intel双显卡情形">Win10开机黑屏问题解决 之 AMD+Intel双显卡情形</a></li><li class='rowodd'><a href="post/6884/" title="Win10正式版发布 开机黑屏两分钟遭用户猛吐槽">Win10正式版发布 开机黑屏两分钟遭用户猛吐槽</a></li><li class='rowcouple'><a href="post/6883/" title="Foobar2000通过asio proxy播放DSD音频文件">Foobar2000通过asio proxy播放DSD音频文件</a></li><li class='rowodd'><a href="post/6882/" title="redis安装使用配置">redis安装使用配置</a></li><li class='rowcouple'><a href="win10RTM-10176/" title="Windows 10 RTM Build 10176 泄露 Win10正式版来了！">Windows 10 RTM Build 10176 泄露 Win10正式版来了！</a></li><li class='rowodd'><a href="post/6880/" title="Windows10中的IIS10安装php manager和IIS URL Rewrite 2.0组件的方法">Windows10中的IIS10安装php manager和IIS URL Rewrite 2.0组件的方法</a></li><li class='rowcouple'><a href="post/6879/" title="太极发布iOS越狱2.3版 修复setreuid漏洞">太极发布iOS越狱2.3版 修复setreuid漏洞</a></li><li class='rowodd'><a href="post/6878/" title="微软放弃自家视频插件Silverlight 将转向HTML5">微软放弃自家视频插件Silverlight 将转向HTML5</a></li><li class='rowcouple'><a href="post/6877/" title="Windows 10 10130 已经比较稳定">Windows 10 10130 已经比较稳定</a></li><li class='rowodd'><a href="post/6876/" title="iOS 8出现短信崩溃bug 可致设备死机">iOS 8出现短信崩溃bug 可致设备死机</a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_replies");'>最新评论</h5>
+<div class="panel-content" id="sidebar_replies" style="display: block">
+<ul><li class='rowcouple'><a href="post/6880/#blogcomment42413" title="[xs] - Windows10中的IIS10安装php manager和IIS URL Rewrite 2.0组件的方法">已转载到http://www.jinyazhou....</a></li><li class='rowodd'><a href="post/3158/#blogcomment42411" title="[G] - php $_SERVER中的SERVER_NAME 和HTTP_HOST的区别">说的很清楚，很有用！顺便补充一下刚才测试的一点：如...</a></li><li class='rowcouple'><a href="office2013-activation/#blogcomment42409" title="[szron] - Office 2013 批量版激活">Reg.bat 在哪里。。。下了没找到。</a></li><li class='rowodd'><a href="WindowsServer2008R2CHS/#blogcomment42407" title="[路过] - Windows Server 2008 R2 With SP1简体中文版 + 破解补丁">好人还是多</a></li><li class='rowcouple'><a href="WindowsServer2008R2CHS/#blogcomment42406" title="[游客] - Windows Server 2008 R2 With SP1简体中文版 + 破解补丁">谢谢分享</a></li><li class='rowodd'><a href="post/3372/#blogcomment42405" title="[损坏] - 如何清除360流氓软件？">还要清理注册表</a></li><li class='rowcouple'><a href="win10RTM-10176/#blogcomment42404" title="[zstxzy] - Windows 10 RTM Build 10176 泄露 Win10正式版来了！">RTM候选分支吧，应该还不是正式版</a></li><li class='rowodd'><a href="post/6877/#blogcomment42393" title="[winuxer] - Windows 10 10130 已经比较稳定">我们等着用windows 10.1，win10就算...</a></li><li class='rowcouple'><a href="post/6725/#blogcomment42392" title="[winuxer] - 没有盗版Windows，中国人本来能用上廉价的国产软件">最昂贵的是免费。。。。</a></li><li class='rowodd'><a href="Rogue360/#blogcomment42343" title="[sunny] - 360是中国最大的流氓软件 谨防360窃取您的上网隐私">360 就是整个一个流氓软件，以前刚做的时候很正规...</a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_calendar");'>日历</h5>
+<div class="panel-content" id="sidebar_calendar" style="display: block">
+<table id="calendar" cellspacing="1" width="100%">
+<tbody><tr><td colspan="7" class="calendar-top">
+<a href="archiver/8/2014/" rel="noindex,nofollow">&lt;</a>
+<a href="archive.php" rel="noindex,nofollow"><span class="calendar-year">2015</span></a>
+<a href="archiver/8/2016/" rel="noindex,nofollow">&gt;</a>
+	&nbsp;&nbsp;
+<a href="archiver/7/2015/" rel="noindex,nofollow">&lt;</a>
+<a href="archiver/8/2015/" rel="noindex,nofollow"><span class="calendar-month">8</span></a>
+<a href="archiver/9/2015/" rel="noindex,nofollow">&gt;</a>
+</td></tr>
+<tr class="calendar-weekdays">
+	<td class="calendar-weekday-cell">日</td>
+	<td class="calendar-weekday-cell">一</td>
+	<td class="calendar-weekday-cell">二</td>
+	<td class="calendar-weekday-cell">三</td>
+	<td class="calendar-weekday-cell">四</td>
+	<td class="calendar-weekday-cell">五</td>
+	<td class="calendar-weekday-cell">六</td>
+</tr>
+<tr class="calendar-weekdays"><td class="calendar-sunday"></td><td class="calendar-day"></td><td class="calendar-day"></td><td class="calendar-day"></td><td class="calendar-day"></td><td class="calendar-day"></td><td id="cal1" class="calendar-saturday"><a href="date/2015/8/1/" rel="noindex,nofollow">1</a></td></tr><tr class="calendar-weekdays"><td id="cal2" class="calendar-sunday"><a href="date/2015/8/2/" rel="noindex,nofollow">2</a></td><td id="cal3" class="calendar-day">3</td><td id="cal4" class="calendar-day">4</td><td id="cal5" class="calendar-day">5</td><td id="cal6" class="calendar-day">6</td><td id="cal7" class="calendar-day">7</td><td id="cal8" class="calendar-saturday">8</td></tr><tr class="calendar-weekdays"><td id="cal9" class="calendar-sunday">9</td><td id="cal10" class="calendar-day">10</td><td id="cal11" class="calendar-today">11</td><td id="cal12" class="calendar-day">12</td><td id="cal13" class="calendar-day">13</td><td id="cal14" class="calendar-day">14</td><td id="cal15" class="calendar-saturday">15</td></tr><tr class="calendar-weekdays"><td id="cal16" class="calendar-sunday">16</td><td id="cal17" class="calendar-day">17</td><td id="cal18" class="calendar-day">18</td><td id="cal19" class="calendar-day">19</td><td id="cal20" class="calendar-day">20</td><td id="cal21" class="calendar-day">21</td><td id="cal22" class="calendar-saturday">22</td></tr><tr class="calendar-weekdays"><td id="cal23" class="calendar-sunday">23</td><td id="cal24" class="calendar-day">24</td><td id="cal25" class="calendar-day">25</td><td id="cal26" class="calendar-day">26</td><td id="cal27" class="calendar-day">27</td><td id="cal28" class="calendar-day">28</td><td id="cal29" class="calendar-saturday">29</td></tr><tr class="calendar-weekdays"><td id="cal30" class="calendar-sunday">30</td><td id="cal31" class="calendar-day">31</td><td class="calendar-day"></td><td class="calendar-day"></td><td class="calendar-day"></td><td class="calendar-day"></td><td class="calendar-saturday"></td></tr>
+</tbody></table>
+</div>
+</div>
+				</div>
+				<div id="innerSidebarTwo">
+					<div id='panelCategory' class="panel">
+<h5 style="cursor: pointer" onclick='showhidediv("sideblock_category");'>分类</h5>
+<div class="panel-content" id="sideblock_category" style="display: block">
+<ul><li><a href="category/note/" title="随手笔记">随手笔记</a> [261] <a href="feed.php?go=category_3"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/diy/" title="DIY 作品">DIY 作品</a> [316] <a href="feed.php?go=category_1"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/hh/" title="汉化作品">汉化作品</a> [36] <a href="feed.php?go=category_2"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/12/" title="应用文档">应用文档</a> [101] <a href="feed.php?go=category_12"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/news/" title="业界新闻">业界新闻</a> [3048] <a href="feed.php?go=category_4"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/netcollect/" title="网络搜集">网络搜集</a> [312] <a href="feed.php?go=category_13"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/soft/" title="软件推荐">软件推荐</a> [1215] <a href="feed.php?go=category_5"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/DataBase/" title="Oracle、MySQL、MSSQL等数据库研究">数据库</a> [5] <a href="feed.php?go=category_25"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li class="indent"><a href="category/MySQL/" title="MySQL数据库研究">MySQL</a> [5] <a href="feed.php?go=category_26"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/Server/" title="服务器">服务器</a> [37] <a href="feed.php?go=category_18"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li class="indent"><a href="category/Linux/" title="Linux相关">Linux</a> [19] <a href="feed.php?go=category_21"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li class="indent"><a href="category/IIS/" title="IIS">IIS</a> [10] <a href="feed.php?go=category_20"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li class="indent"><a href="category/Apache/" title="Apache">Apache</a> [3] <a href="feed.php?go=category_19"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/Firefox/" title=" ">Firefox</a> [158] <a href="feed.php?go=category_17"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/7/" title="安装制作">安装制作</a> [16] <a href="feed.php?go=category_7"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/6/" title="杂乱无章">杂乱无章</a> [42] <a href="feed.php?go=category_6"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/8/" title="影音娱乐">影音娱乐</a> [152] <a href="feed.php?go=category_8"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/QQ/" title="与 QQ  相关的东西">QQ 相关</a> [505] <a href="feed.php?go=category_9"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/10/" title="网站建设">网站建设</a> [40] <a href="feed.php?go=category_10"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/11/" title="开发文档">开发文档</a> [125] <a href="feed.php?go=category_11"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li class="indent"><a href="category/PHP/" title="PHP技术文章">PHP</a> [9] <a href="feed.php?go=category_27"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/phone/" title="手机相关">手机相关</a> [464] <a href="feed.php?go=category_14"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li class="indent"><a href="category/iPhone/" title="iPhone手机相关消息">iPhone</a> [267] <a href="feed.php?go=category_22"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li class="indent"><a href="category/Android/" title="Android">Android</a> [14] <a href="feed.php?go=category_24"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li class="indent"><a href="category/HTC6950/" title="HTC6950">HTC6950</a> [8] <a href="feed.php?go=category_16"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li><li><a href="category/23/" title="iPad">iPad</a> [23] <a href="feed.php?go=category_23"><img src="template/neowin/images/rss.png" border="0" alt="RSS" title="追踪这个分类的RSS" /></a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_link");'>链接</h5>
+<div class="panel-content" id="sidebar_link" style="display: block">
+<ul><li><strong>快乐无极网站</strong></li><li class="indent"><a href="http://www.oyksoft.com" target="_blank" title="快乐无极软件园 - 快乐无极软件园 精品软件下载基地">快乐无极软件园</a></li><li class="indent"><a href="http://bbs.oyksoft.com/" target="_blank" title="快乐无极论坛 - 快乐无极论坛">快乐无极论坛</a></li><li class="indent"><a href="http://ip.oyksoft.com" target="_blank" title="快乐无极工具箱 - 常用工具">快乐无极工具箱</a></li><li class="indent"><a href="http://taobao.oyksoft.com/" target="_blank" title="淘宝热卖 - 淘宝热卖">淘宝热卖</a></li><li class="indent"><a href="http://weibo.com/oyksoft" target="_blank" title="快乐无极新浪微博 - 快乐无极的新浪微博">快乐无极新浪微博</a></li><li><strong>快乐无极QQ下载</strong></li><li class="indent"><a href="http://www.oyksoft.com/soft/26533.html" target="_blank" title="QQ2013 - ">QQ2013</a></li><li><strong>快乐无极修改软件</strong></li><li class="indent"><a href="http://www.oyksoft.com/soft/1897.html" target="_blank" title="迅雷7去广告绿色版 - ">迅雷7去广告绿色版</a></li><li class="indent"><a href="http://www.oyksoft.com/soft/23746.html" target="_blank" title="酷狗2012去广告版 - 酷狗2012去广告版">酷狗2012去广告版</a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_archive");'>归档</h5>
+<div class="panel-content" id="sidebar_archive" style="display: block">
+<ul><li><a href="archiver/8/2015/" rel="noindex,nofollow">2015/08</a></li>
+<li><a href="archiver/7/2015/" rel="noindex,nofollow">2015/07</a></li>
+<li><a href="archiver/6/2015/" rel="noindex,nofollow">2015/06</a></li>
+<li><a href="archiver/5/2015/" rel="noindex,nofollow">2015/05</a></li>
+<li><a href="archiver/4/2015/" rel="noindex,nofollow">2015/04</a></li></ul>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_statistics");'>统计</h5>
+<div class="panel-content" id="sidebar_statistics" style="display: block">
+访问次数 41916052<br/>今日访问 2583<br/>日志数量 6856<br/><a href="view.php?go=comment">评论数量 6151</a><br/><a href="guestbook.php">留言数量 1537</a><br/><a href="view.php?go=userlist">注册用户 4922</a><br/>在线人数 97<br/>
+</div>
+</div><div class="panel">
+<h5 onclick='showhidediv("sidebar_misc");'>其他</h5>
+<div class="panel-content" id="sidebar_misc" style="display: block">
+<a href='login.php'>登入</a><br/><a href='login.php?job=register'>注册</a><br/><a href='login.php?job=applylink'>申请链接</a><br/>RSS： <a href='feed.php'>日志</a> | <a href='feed.php?go=comment'>评论</a><br/>编码：UTF-8<br/><a href="http://validator.w3.org/check?uri=referer" target="_blank">XHTML 1.0</a>
+</div>
+</div>
+				</div>
+                <div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+        <div class="content-box-b">
+            <div class="content-box-b-r">
+            <div class="content-box-b-l"></div>
+            </div>
+        </div>
+		<div id="footer">
+            <div id="footer-r">
+                <div id="footer-l">
+                    <div id="footer-misc">
+                        <a href="http://www.oyksoft.com/" target="_blank">欢迎您访问快乐无极网站</a><br/>
+                        Copyright&copy; 2003~2010
+                    </div>
+                    <div id="footer-copyright">
+                        <script type="text/javascript">
+/*博客120*270，创建于2012-12-27*/
+var cpro_id = "u1174146";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script>
+湘ICP备05008174号
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F81c4ab590d069520c2ca8a04ca86cf97' type='text/javascript'%3E%3C/script%3E"));
+</script>
+                        <div id="processtime">
+				        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+		</div>
+</div>
+<script type="text/javascript">
+loadSidebar();
+</script>
+</body>
+</html>

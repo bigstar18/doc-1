@@ -1,0 +1,994 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>   
+    
+     
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+     <script id="allmobilize" charset="utf-8" src="http://a.yunshipei.com/46aae4d1e2371e4aa769798941cef698/allmobilize.min.js"></script>
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>How to add a Linux service - finewings的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="http://www.phppan.com/2009/08/chorus-formation/" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://static.csdn.net/public/common/toolbar/css/index.css">        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/finewings/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+</head>
+<body>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://static.csdn.net/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/finewings">finewings的专栏</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/finewings?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/finewings?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/finewings/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "finewings";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/finewings";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "huangxx";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://blog.csdn.net/column/details/spring-detail.html"><font color=red>
+【马海旭】倾情奉献的Spring教程</font></a>
+&nbsp;&nbsp;&nbsp;
+  
+
+<a href="http://huiyi.csdn.net/activity/product/goods_list?project_id=2215">
+<font color=blue>Android开发，8月14开课啦！
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://bss.csdn.net/m/product/blog_essay">
+<font color=red>聊聊高效编程，送800元大奖
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://www.csdn.net/app/">
+<font color=blue>CSDN移动客户端，下载送50C币
+</font></a>
+&nbsp;&nbsp;&nbsp;</div>                        </div>
+                        
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/finewings/article/details/8582779">
+        How to add a Linux service            
+        </a>
+        </span>
+    </h1>
+</div>
+
+   
+
+    <div class="article_manage">
+    <span class="link_postdate">2013-02-16 14:28</span>
+    <span class="link_view" title="阅读次数">610人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle('How to add a Linux service','8582779');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:report(8582779,2);return false;" title="举报">举报</a></span>
+    
+</div>
+<div class="tag2box"><a href='http://www.csdn.net/tag/linux' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">linux</a><a href='http://www.csdn.net/tag/Linux' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">Linux</a><a href='http://www.csdn.net/tag/LINUX' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">LINUX</a></div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<p>1. Create a service script file under /etc/init.d/. Sample file abc attached below.</p>
+<p>Pay&nbsp;attention&nbsp;to the comment line starting with &quot;chkconfig&quot;. It specify the run level, start priority and terminate priority.</p>
+<p>In the sample, &quot;chkconfig: 5 99 01&quot; means only activated at run level 5 and it is last started and first terminated.</p>
+<p>2. Add a service by:<span style="white-space:pre"> </span>sudo chkconfig --add abc</p>
+<p>3. Enable the service by:<span style="white-space:pre"> </span>sudo chkconfig abc on</p>
+<p><br>
+</p>
+<p><span style="font-size:18px; color:rgb(255,0,0)">TIPS: When adding a Linux service, never use a init script with same name as the main program.&nbsp;</span><span style="color:rgb(255,0,0); font-size:18px">For example, the init script's name of abc service can
+ be anything rather than &quot;abcd&quot; which is the name of the service program.&nbsp;</span><span style="color:rgb(255,0,0); font-size:18px">Otherwise when you want kill the program by &nbsp;</span><span style="color:rgb(255,0,0); font-size:18px; font-family:'Arial Black'">kill
+ `ps -C abcd -o pid=`</span><span style="color:rgb(255,0,0); font-size:18px">, not only it will kill the service program but also kill the service control script.</span></p>
+<p><br>
+</p>
+<p><span style="font-family:'Courier New'; background-color:rgb(255,255,255)"><span style="color:#3366ff">######################### Content of /etc/init.d/abc&nbsp;</span></span></p>
+<p><span style="font-family:'Courier New'; background-color:rgb(255,255,255)"><span style="color:#3366ff">#!/bin/sh<br>
+#&nbsp;<br style="color:rgb(51,102,255); font-family:'Courier New'">
+<span style="color:rgb(51,102,255); font-family:'Courier New'"># chkconfig: 5 99 01</span><br>
+# description: Starts and stops the abc service<br>
+#<br>
+</span></span><span style="font-family:'Courier New'"><span style="color:#3366ff">RETVAL=0</span></span></p>
+<p><span style="font-family:'Courier New'"><span style="color:#3366ff">SERVICE_NAME=abc</span></span></p>
+<p><span style="color:rgb(51,102,255); font-family:'Courier New'">START_SERVICE_PROG=&quot;/usr/bin/abcd&quot;</span></p>
+<p><span style="color:rgb(51,102,255); font-family:'Courier New'">SERVICE_PROG_PID=`ps -C abcd -o pid=`</span><span style="font-family:'Courier New'"><span style="color:#3366ff"><br>
+<br>
+start() {<br>
+<span style="white-space:pre"></span>echo -n &quot;Starting $<span style="color:rgb(51,102,255); font-family:'Courier New'">SERVICE_NAME&nbsp;</span>service: &quot;<br>
+<span style="white-space:pre"></span>[ -n &quot;$<span style="color:rgb(51,102,255); font-family:'Courier New'">SERVICE_PROG_PID</span>&quot; ] &amp;&amp; echo -n &quot;Already running: &quot; || $<span style="color:rgb(51,102,255); font-family:'Courier New'">START_SERVICE_PROG</span><br>
+<span style="white-space:pre"></span>RETVAL=$?<br>
+<span style="white-space:pre"></span>[ $RETVAL -eq 0 ] &amp;&amp; echo &quot;OK&quot; || echo &quot;Failed&quot;<br>
+<span style="white-space:pre"></span>return $RETVAL<br>
+}<span style="white-space:pre"> </span><br>
+<br>
+stop() {<br>
+<span style="white-space:pre"></span>echo -n &quot;Shutting down $<span style="color:rgb(51,102,255); font-family:'Courier New'">SERVICE_NAME&nbsp;</span>service: &quot;<br>
+<span style="white-space:pre"></span>[ -n &quot;$<span style="color:rgb(51,102,255); font-family:'Courier New'">SERVICE_PROG_PID</span>&quot; ] &amp;&amp; kill
+<span style="color:rgb(51,102,255); font-family:'Courier New'">$</span><span style="color:rgb(51,102,255); font-family:'Courier New'">SERVICE_PROG_PID</span>&nbsp;|| echo -n &quot;Not running: &quot;<br>
+<span style="white-space:pre"></span>RETVAL=$?<br>
+<span style="white-space:pre"></span>[ $RETVAL -eq 0 ] &amp;&amp; echo &quot;OK&quot; || echo &quot;Failed&quot;<br>
+<span style="white-space:pre"></span>return $RETVAL<br>
+}<span style="white-space:pre"> </span><br>
+<br>
+restart() {<br>
+<span style="white-space:pre"></span>stop<br>
+<span style="white-space:pre"></span>start<br>
+}<span style="white-space:pre"> </span><br>
+<br>
+case &quot;$1&quot; in<br>
+&nbsp; start)<br>
+&nbsp; <span style="white-space:pre"></span>start<br>
+<span style="white-space:pre"></span>;;<br>
+&nbsp; stop)<br>
+&nbsp; <span style="white-space:pre"></span>stop<br>
+<span style="white-space:pre"></span>;;<br>
+&nbsp; restart)<br>
+&nbsp; <span style="white-space:pre"></span>restart<br>
+<span style="white-space:pre"></span>;;<br>
+&nbsp; *)<br>
+<span style="white-space:pre"></span>echo $&quot;Usage: $0 {start|stop|restart}&quot;<br>
+<span style="white-space:pre"></span>exit 2<br>
+esac<br>
+<br>
+exit $?</span></span><br>
+</p>
+    
+        <div  style="padding-top:20px">         
+            <p  style="font-size:12px;" >版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox" style="float: right;">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--192.168.100.36-->
+<ul class="article_next_prev">
+            <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/finewings/article/details/8233389';">上一篇</span><a href="/finewings/article/details/8233389" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">解决Chrome中打不开Google搜索结果链接</a></li>
+            <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/finewings/article/details/9064543';">下一篇</span><a href="/finewings/article/details/9064543" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">键盘上的标点符号的中英文名称对照表</a></li>
+</ul>
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+      
+</div>
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/finewings/svc/GetSuggestContent/8582779",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(../images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "8582779",
+                username: "huangxx",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+<div id="job_blog_reco">
+<script src="http://c.csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script>
+   
+     <script type="text/javascript">
+         csdn.position.show({
+         sourceType: "blog",
+         tplType: "blogDetail",
+         searchType: "detail",
+         searchKey: "8582779",
+             username: "huangxx",
+         containerId: "job_blog_reco"
+        }); 
+    </script>
+
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'How to add a Linux service' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>   
+
+    <div id="ad_cen">
+   
+          <script type="text/javascript">
+              new Ad(4, 'ad_cen');
+          </script>
+    </div>
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '8582779';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+    <script type="text/javascript">
+        setTimeout(function(){
+            new Ad(5, 'ad_bot');
+        },500);  
+    </script>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/finewings/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });
+        },200);  
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }    
+
+</script>
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+                        <div id="Profile"></div>
+                         <script  language="javascript" type='text/javascript'>
+                             $(function () {
+                                 var time ='0';
+                                 setTimeout(function () {
+                                     $.get("/finewings/svc/GetColumnByTypeContent?ColumnType=profile&UserName=finewings", function (data) {
+                                         $("#Profile").html(data);
+                                         if ('profile' == 'profile')
+                                         {
+                                              var un = getUN().toLowerCase();
+                                                 if (un == _blogger.toLowerCase()) {
+                                                     $('.interact').hide();
+                                                 } else if (un) {
+                                                     set_guanzhu_status(un);
+                                                 } else {
+                                                     if (un != "") {
+                                                         $('#span_add_follow')[0].onclick = (function() {
+                                                             loginto(0);
+                                                         });
+                                                     }
+                                                 }
+                                         }
+                                         else if ('profile' == 'search')
+                                         {
+                                             $("#btnSubmit").click(function () {
+                                                 var key = $("#inputSearch").val();
+                                                 if (key == "") {
+                                                     alert("请输入搜索关键字");
+                                                     $("#inputSearch").focus();
+                                                     return false;
+                                                 }
+                                                 $("#inputQ").val('blog:' + username + ' ' + key);
+                                                 return true;
+                                             });                                            
+                                         }
+                                         else if ('profile' == 'archive')
+                                         {                                           
+                                             initArchives();                                          
+                                         }
+                                         });
+                                     },parseInt(time));
+                                 });                                 
+                          </script>   
+                        <div id="Search"></div>
+                         <script  language="javascript" type='text/javascript'>
+                             $(function () {
+                                 var time ='100';
+                                 setTimeout(function () {
+                                     $.get("/finewings/svc/GetColumnByTypeContent?ColumnType=search&UserName=finewings", function (data) {
+                                         $("#Search").html(data);
+                                         if ('search' == 'profile')
+                                         {
+                                              var un = getUN().toLowerCase();
+                                                 if (un == _blogger.toLowerCase()) {
+                                                     $('.interact').hide();
+                                                 } else if (un) {
+                                                     set_guanzhu_status(un);
+                                                 } else {
+                                                     if (un != "") {
+                                                         $('#span_add_follow')[0].onclick = (function() {
+                                                             loginto(0);
+                                                         });
+                                                     }
+                                                 }
+                                         }
+                                         else if ('search' == 'search')
+                                         {
+                                             $("#btnSubmit").click(function () {
+                                                 var key = $("#inputSearch").val();
+                                                 if (key == "") {
+                                                     alert("请输入搜索关键字");
+                                                     $("#inputSearch").focus();
+                                                     return false;
+                                                 }
+                                                 $("#inputQ").val('blog:' + username + ' ' + key);
+                                                 return true;
+                                             });                                            
+                                         }
+                                         else if ('search' == 'archive')
+                                         {                                           
+                                             initArchives();                                          
+                                         }
+                                         });
+                                     },parseInt(time));
+                                 });                                 
+                          </script>   
+                        <div id="SpecialColumn"></div>
+                         <script  language="javascript" type='text/javascript'>
+                             $(function () {
+                                 var time ='200';
+                                 setTimeout(function () {
+                                     $.get("/finewings/svc/GetColumnByTypeContent?ColumnType=specialcolumn&UserName=finewings", function (data) {
+                                         $("#SpecialColumn").html(data);
+                                         if ('specialcolumn' == 'profile')
+                                         {
+                                              var un = getUN().toLowerCase();
+                                                 if (un == _blogger.toLowerCase()) {
+                                                     $('.interact').hide();
+                                                 } else if (un) {
+                                                     set_guanzhu_status(un);
+                                                 } else {
+                                                     if (un != "") {
+                                                         $('#span_add_follow')[0].onclick = (function() {
+                                                             loginto(0);
+                                                         });
+                                                     }
+                                                 }
+                                         }
+                                         else if ('specialcolumn' == 'search')
+                                         {
+                                             $("#btnSubmit").click(function () {
+                                                 var key = $("#inputSearch").val();
+                                                 if (key == "") {
+                                                     alert("请输入搜索关键字");
+                                                     $("#inputSearch").focus();
+                                                     return false;
+                                                 }
+                                                 $("#inputQ").val('blog:' + username + ' ' + key);
+                                                 return true;
+                                             });                                            
+                                         }
+                                         else if ('specialcolumn' == 'archive')
+                                         {                                           
+                                             initArchives();                                          
+                                         }
+                                         });
+                                     },parseInt(time));
+                                 });                                 
+                          </script>   
+                        <div id="Category"></div>
+                         <script  language="javascript" type='text/javascript'>
+                             $(function () {
+                                 var time ='300';
+                                 setTimeout(function () {
+                                     $.get("/finewings/svc/GetColumnByTypeContent?ColumnType=category&UserName=finewings", function (data) {
+                                         $("#Category").html(data);
+                                         if ('category' == 'profile')
+                                         {
+                                              var un = getUN().toLowerCase();
+                                                 if (un == _blogger.toLowerCase()) {
+                                                     $('.interact').hide();
+                                                 } else if (un) {
+                                                     set_guanzhu_status(un);
+                                                 } else {
+                                                     if (un != "") {
+                                                         $('#span_add_follow')[0].onclick = (function() {
+                                                             loginto(0);
+                                                         });
+                                                     }
+                                                 }
+                                         }
+                                         else if ('category' == 'search')
+                                         {
+                                             $("#btnSubmit").click(function () {
+                                                 var key = $("#inputSearch").val();
+                                                 if (key == "") {
+                                                     alert("请输入搜索关键字");
+                                                     $("#inputSearch").focus();
+                                                     return false;
+                                                 }
+                                                 $("#inputQ").val('blog:' + username + ' ' + key);
+                                                 return true;
+                                             });                                            
+                                         }
+                                         else if ('category' == 'archive')
+                                         {                                           
+                                             initArchives();                                          
+                                         }
+                                         });
+                                     },parseInt(time));
+                                 });                                 
+                          </script>   
+                        <div id="Archive"></div>
+                         <script  language="javascript" type='text/javascript'>
+                             $(function () {
+                                 var time ='400';
+                                 setTimeout(function () {
+                                     $.get("/finewings/svc/GetColumnByTypeContent?ColumnType=archive&UserName=finewings", function (data) {
+                                         $("#Archive").html(data);
+                                         if ('archive' == 'profile')
+                                         {
+                                              var un = getUN().toLowerCase();
+                                                 if (un == _blogger.toLowerCase()) {
+                                                     $('.interact').hide();
+                                                 } else if (un) {
+                                                     set_guanzhu_status(un);
+                                                 } else {
+                                                     if (un != "") {
+                                                         $('#span_add_follow')[0].onclick = (function() {
+                                                             loginto(0);
+                                                         });
+                                                     }
+                                                 }
+                                         }
+                                         else if ('archive' == 'search')
+                                         {
+                                             $("#btnSubmit").click(function () {
+                                                 var key = $("#inputSearch").val();
+                                                 if (key == "") {
+                                                     alert("请输入搜索关键字");
+                                                     $("#inputSearch").focus();
+                                                     return false;
+                                                 }
+                                                 $("#inputQ").val('blog:' + username + ' ' + key);
+                                                 return true;
+                                             });                                            
+                                         }
+                                         else if ('archive' == 'archive')
+                                         {                                           
+                                             initArchives();                                          
+                                         }
+                                         });
+                                     },parseInt(time));
+                                 });                                 
+                          </script>   
+                        <div id="ViewCountArticles"></div>
+                         <script  language="javascript" type='text/javascript'>
+                             $(function () {
+                                 var time ='500';
+                                 setTimeout(function () {
+                                     $.get("/finewings/svc/GetColumnByTypeContent?ColumnType=viewcountarticles&UserName=finewings", function (data) {
+                                         $("#ViewCountArticles").html(data);
+                                         if ('viewcountarticles' == 'profile')
+                                         {
+                                              var un = getUN().toLowerCase();
+                                                 if (un == _blogger.toLowerCase()) {
+                                                     $('.interact').hide();
+                                                 } else if (un) {
+                                                     set_guanzhu_status(un);
+                                                 } else {
+                                                     if (un != "") {
+                                                         $('#span_add_follow')[0].onclick = (function() {
+                                                             loginto(0);
+                                                         });
+                                                     }
+                                                 }
+                                         }
+                                         else if ('viewcountarticles' == 'search')
+                                         {
+                                             $("#btnSubmit").click(function () {
+                                                 var key = $("#inputSearch").val();
+                                                 if (key == "") {
+                                                     alert("请输入搜索关键字");
+                                                     $("#inputSearch").focus();
+                                                     return false;
+                                                 }
+                                                 $("#inputQ").val('blog:' + username + ' ' + key);
+                                                 return true;
+                                             });                                            
+                                         }
+                                         else if ('viewcountarticles' == 'archive')
+                                         {                                           
+                                             initArchives();                                          
+                                         }
+                                         });
+                                     },parseInt(time));
+                                 });                                 
+                          </script>   
+                        <div id="CommentCountArticles"></div>
+                         <script  language="javascript" type='text/javascript'>
+                             $(function () {
+                                 var time ='600';
+                                 setTimeout(function () {
+                                     $.get("/finewings/svc/GetColumnByTypeContent?ColumnType=commentcountarticles&UserName=finewings", function (data) {
+                                         $("#CommentCountArticles").html(data);
+                                         if ('commentcountarticles' == 'profile')
+                                         {
+                                              var un = getUN().toLowerCase();
+                                                 if (un == _blogger.toLowerCase()) {
+                                                     $('.interact').hide();
+                                                 } else if (un) {
+                                                     set_guanzhu_status(un);
+                                                 } else {
+                                                     if (un != "") {
+                                                         $('#span_add_follow')[0].onclick = (function() {
+                                                             loginto(0);
+                                                         });
+                                                     }
+                                                 }
+                                         }
+                                         else if ('commentcountarticles' == 'search')
+                                         {
+                                             $("#btnSubmit").click(function () {
+                                                 var key = $("#inputSearch").val();
+                                                 if (key == "") {
+                                                     alert("请输入搜索关键字");
+                                                     $("#inputSearch").focus();
+                                                     return false;
+                                                 }
+                                                 $("#inputQ").val('blog:' + username + ' ' + key);
+                                                 return true;
+                                             });                                            
+                                         }
+                                         else if ('commentcountarticles' == 'archive')
+                                         {                                           
+                                             initArchives();                                          
+                                         }
+                                         });
+                                     },parseInt(time));
+                                 });                                 
+                          </script>   
+                        <div id="HomePageArticles"></div>
+                         <script  language="javascript" type='text/javascript'>
+                             $(function () {
+                                 var time ='700';
+                                 setTimeout(function () {
+                                     $.get("/finewings/svc/GetColumnByTypeContent?ColumnType=homepagearticles&UserName=finewings", function (data) {
+                                         $("#HomePageArticles").html(data);
+                                         if ('homepagearticles' == 'profile')
+                                         {
+                                              var un = getUN().toLowerCase();
+                                                 if (un == _blogger.toLowerCase()) {
+                                                     $('.interact').hide();
+                                                 } else if (un) {
+                                                     set_guanzhu_status(un);
+                                                 } else {
+                                                     if (un != "") {
+                                                         $('#span_add_follow')[0].onclick = (function() {
+                                                             loginto(0);
+                                                         });
+                                                     }
+                                                 }
+                                         }
+                                         else if ('homepagearticles' == 'search')
+                                         {
+                                             $("#btnSubmit").click(function () {
+                                                 var key = $("#inputSearch").val();
+                                                 if (key == "") {
+                                                     alert("请输入搜索关键字");
+                                                     $("#inputSearch").focus();
+                                                     return false;
+                                                 }
+                                                 $("#inputQ").val('blog:' + username + ' ' + key);
+                                                 return true;
+                                             });                                            
+                                         }
+                                         else if ('homepagearticles' == 'archive')
+                                         {                                           
+                                             initArchives();                                          
+                                         }
+                                         });
+                                     },parseInt(time));
+                                 });                                 
+                          </script>   
+                        <div id="NewComments"></div>
+                         <script  language="javascript" type='text/javascript'>
+                             $(function () {
+                                 var time ='800';
+                                 setTimeout(function () {
+                                     $.get("/finewings/svc/GetColumnByTypeContent?ColumnType=newcomments&UserName=finewings", function (data) {
+                                         $("#NewComments").html(data);
+                                         if ('newcomments' == 'profile')
+                                         {
+                                              var un = getUN().toLowerCase();
+                                                 if (un == _blogger.toLowerCase()) {
+                                                     $('.interact').hide();
+                                                 } else if (un) {
+                                                     set_guanzhu_status(un);
+                                                 } else {
+                                                     if (un != "") {
+                                                         $('#span_add_follow')[0].onclick = (function() {
+                                                             loginto(0);
+                                                         });
+                                                     }
+                                                 }
+                                         }
+                                         else if ('newcomments' == 'search')
+                                         {
+                                             $("#btnSubmit").click(function () {
+                                                 var key = $("#inputSearch").val();
+                                                 if (key == "") {
+                                                     alert("请输入搜索关键字");
+                                                     $("#inputSearch").focus();
+                                                     return false;
+                                                 }
+                                                 $("#inputQ").val('blog:' + username + ' ' + key);
+                                                 return true;
+                                             });                                            
+                                         }
+                                         else if ('newcomments' == 'archive')
+                                         {                                           
+                                             initArchives();                                          
+                                         }
+                                         });
+                                     },parseInt(time));
+                                 });                                 
+                          </script>   
+    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=707387"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript" src="http://zz.csdn.net/js/count.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a>"
+                    + "<a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+    });
+</script>
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://static.csdn.net/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+</body>
+</html>   
+ 

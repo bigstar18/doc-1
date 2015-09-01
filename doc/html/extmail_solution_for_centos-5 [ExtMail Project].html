@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh"
+ lang="zh" dir="ltr">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>
+    extmail_solution_for_centos-5    [ExtMail Project]
+  </title>
+
+  <meta name="generator" content="DokuWiki Release 2006-11-06" />
+<meta name="robots" content="index,follow" />
+<meta name="date" content="2012-11-02T14:07:41+0800" />
+<meta name="keywords" content="extmail_solution_for_centos-5" />
+<link rel="start" href="/" />
+<link rel="contents" href="/extmail_solution_for_centos-5?do=index" title="索引" />
+<link rel="alternate" type="application/rss+xml" title="Recent Changes" href="/feed.php" />
+<link rel="alternate" type="application/rss+xml" title="Current Namespace" href="/feed.php?mode=list&amp;ns=" />
+<link rel="alternate" type="text/html" title="Plain HTML" href="/_export/xhtml/extmail_solution_for_centos-5" />
+<link rel="alternate" type="text/plain" title="Wiki Markup" href="/_export/raw/extmail_solution_for_centos-5" />
+<link rel="stylesheet" media="screen" type="text/css" href="/lib/exe/css.php" />
+<link rel="stylesheet" media="print" type="text/css" href="/lib/exe/css.php?print=1" />
+<script type="text/javascript" charset="utf-8" src="/lib/exe/js.php?edit=0&amp;write=0" ></script>
+
+  <link rel="shortcut icon" href="/lib/tpl/default/images/favicon.ico" />
+
+  </head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+      <div class="pagename">
+        [[<a href="/extmail_solution_for_centos-5?do=backlink" >extmail_solution_for_centos-5</a>]]
+      </div>
+      <div class="logo">
+        <a href="/"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[ALT+H]">ExtMail Project</a>      </div>
+
+      <div class="clearer"></div>
+    </div>
+
+    
+    <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button" method="post" action="/extmail_solution_for_centos-5"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="submit" value="显示源文件" class="button" accesskey="v" title="显示源文件 [ALT+V]" /></div></form>        <form class="button" method="get" action="/extmail_solution_for_centos-5"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="submit" value="修订记录" class="button" accesskey="o" title="修订记录 [ALT+O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button" method="get" action="/"><div class="no"><input type="hidden" name="do" value="recent" /><input type="submit" value="最近更改" class="button" accesskey="r" title="最近更改 [ALT+R]" /></div></form>        <form action="/" accept-charset="utf-8" class="search" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" class="edit" title="[ALT+F]" /><input type="submit" value="搜索" class="button" title="搜索" /><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+
+        <div class="breadcrumbs">
+      您的足迹: <span class="bcsep">&raquo;</span> <a href="/%E4%BA%94%E3%80%81%E9%85%8D%E7%BD%AEcourier-authlib"  class="breadcrumbs" title="五、配置courier-authlib">五、配置courier-authlib</a> <span class="bcsep">&raquo;</span> <a href="/%E5%85%AD%E3%80%81%E9%85%8D%E7%BD%AEmaildrop"  class="breadcrumbs" title="六、配置maildrop">六、配置maildrop</a> <span class="bcsep">&raquo;</span> <a href="/%E4%B8%83%E3%80%81%E9%85%8D%E7%BD%AEapache"  class="breadcrumbs" title="七、配置apache">七、配置apache</a> <span class="bcsep">&raquo;</span> <a href="/%E4%B9%9D%E3%80%81%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0-extman"  class="breadcrumbs" title="九、配置管理后台-extman">九、配置管理后台-extman</a> <span class="bcsep">&raquo;</span> <a href="/extmail_solution_for_linux"  class="breadcrumbs" title="extmail_solution_for_linux">extmail_solution_for_linux</a> <span class="bcsep">&raquo;</span> <a href="/Main_Page"  class="breadcrumbs" title="Main_Page">Main_Page</a> <span class="bcsep">&raquo;</span> <a href="/emos_install_howto"  class="breadcrumbs" title="emos_install_howto">emos_install_howto</a> <span class="bcsep">&raquo;</span> <a href="/%E5%A3%B9%E3%80%81extmail_solution%E6%A6%82%E8%BF%B0"  class="breadcrumbs" title="壹、extmail_solution概述">壹、extmail_solution概述</a> <span class="bcsep">&raquo;</span> <a href="/%E8%B4%B0%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85"  class="breadcrumbs" title="贰、操作系统安装">贰、操作系统安装</a> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/extmail_solution_for_centos-5"  class="breadcrumbs" title="extmail_solution_for_centos-5">extmail_solution_for_centos-5</a></span>          </div>
+    
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<h4><a name="文档目录" id="文档目录">文档目录</a></h4>
+<div class="level4">
+
+<p>
+ <a href="/%E5%A3%B9%E3%80%81extmail_solution%E6%A6%82%E8%BF%B0" class="wikilink1" title="壹、extmail_solution概述">壹、ExtMail Solution概述</a>
+</p>
+
+<p>
+<a href="/%E8%B4%B0%E3%80%81%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85" class="wikilink1" title="贰、操作系统安装">贰、操作系统安装</a>
+</p>
+
+<p>
+<a href="/%E5%8F%81%E3%80%81%E5%88%B6%E4%BD%9C_yum_%E4%BB%93%E5%BA%93" class="wikilink1" title="叁、制作_yum_仓库">叁、制作 yum 仓库</a>
+</p>
+
+<p>
+<a href="/%E8%82%86%E3%80%81%E9%85%8D%E7%BD%AEmta-postfix" class="wikilink1" title="肆、配置mta-postfix">肆、配置MTA-Postfix</a>
+</p>
+
+<p>
+<a href="/%E4%BC%8D%E3%80%81%E9%85%8D%E7%BD%AEcourier-authlib" class="wikilink1" title="伍、配置courier-authlib">伍、配置Courier-Authlib</a>
+</p>
+
+<p>
+<a href="/%E9%99%86%E3%80%81%E9%85%8D%E7%BD%AEmaildrop" class="wikilink1" title="陆、配置maildrop">陆、配置maildrop</a>
+</p>
+
+<p>
+<a href="/%E6%9F%92%E3%80%81%E9%85%8D%E7%BD%AEapache" class="wikilink1" title="柒、配置apache">柒、配置Apache</a>
+</p>
+
+<p>
+<a href="/%E6%8D%8C%E3%80%81%E9%85%8D%E7%BD%AEwebmail-extmail" class="wikilink1" title="捌、配置webmail-extmail">捌、配置Webmail-ExtMail</a>
+</p>
+
+<p>
+<a href="/%E7%8E%96%E3%80%81%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0-extman" class="wikilink1" title="玖、配置管理后台-extman">玖、配置管理后台-ExtMan</a>
+</p>
+
+<p>
+<a href="/%E6%8B%BE%E3%80%81%E9%85%8D%E7%BD%AEcyrus-sasl" class="wikilink1" title="拾、配置cyrus-sasl">拾、配置Cyrus-SASL</a>
+</p>
+
+<p>
+<a href="/%E6%8B%BE%E5%A3%B9%E3%80%81%E9%85%8D%E7%BD%AEcourier-imap" class="wikilink1" title="拾壹、配置courier-imap">拾壹、配置Courier-IMAP</a>
+</p>
+
+<p>
+<a href="/%E6%8B%BE%E8%B2%B3%E3%80%81%E9%85%8D%E7%BD%AE%E5%86%85%E5%AE%B9%E3%80%81%E7%97%85%E6%AF%92%E8%BF%87%E6%BB%A4" class="wikilink1" title="拾貳、配置内容、病毒过滤">拾貳、配置内容、病毒过滤</a>
+</p>
+
+<p>
+<a href="/%E6%8B%BE%E5%8F%81%E3%80%81%E9%85%8D%E7%BD%AEspam_locker" class="wikilink1" title="拾叁、配置spam_locker">拾叁、配置Spam Locker</a>
+</p>
+
+<p>
+<a href="/%E6%8B%BE%E8%82%86%E3%80%81%E9%85%8D%E7%BD%AEdspam" class="wikilink1" title="拾肆、配置dspam">拾肆、配置DSpam</a>
+</p>
+
+<p>
+<a href="/%E6%8B%BE%E4%BC%8D%E3%80%81%E8%A1%A5%E5%85%85%E8%AE%BE%E7%BD%AE" class="wikilink1" title="拾伍、补充设置">拾伍、补充设置</a>
+</p>
+
+</div>
+
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+      <div class="doc">
+        extmail_solution_for_centos-5.txt &middot; 最后更改: 2012/11/02 14:07 由 shaobo      </div>
+    </div>
+
+   
+    <div class="bar" id="bar__bottom">
+      <div class="bar-left" id="bar__bottomleft">
+        <form class="button" method="post" action="/extmail_solution_for_centos-5"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="submit" value="显示源文件" class="button" accesskey="v" title="显示源文件 [ALT+V]" /></div></form>        <form class="button" method="get" action="/extmail_solution_for_centos-5"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="submit" value="修订记录" class="button" accesskey="o" title="修订记录 [ALT+O]" /></div></form>      </div>
+      <div class="bar-right" id="bar__bottomright">
+                                <form class="button" method="get" action="/extmail_solution_for_centos-5"><div class="no"><input type="hidden" name="do" value="login" /><input type="submit" value="登录" class="button" title="登录" /></div></form>        <form class="button" method="get" action="/extmail_solution_for_centos-5"><div class="no"><input type="hidden" name="do" value="index" /><input type="submit" value="索引" class="button" accesskey="x" title="索引 [ALT+X]" /></div></form>        <a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="到顶部" onclick="window.scrollTo(0, 0)" title="到顶部" /></a>&nbsp;
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footerinc">
+  <a  href="/feed.php" title="Recent changes RSS feed"><img src="/lib/tpl/default/images/button-rss.png" width="80" height="15" alt="Recent changes RSS feed" /></a>
+
+  <a  href="http://creativecommons.org/licenses/by-nc-sa/2.0/" rel="license" title="Creative Commons License"><img src="/lib/tpl/default/images/button-cc.gif" width="80" height="15" alt="Creative Commons License" /></a>
+
+  <a  href="https://www.paypal.com/xclick/business=andi%40splitbrain.org&amp;item_name=DokuWiki+Donation&amp;no_shipping=1&amp;no_note=1&amp;tax=0&amp;currency_code=EUR&amp;lc=US" title="Donate"><img src="/lib/tpl/default/images/button-donate.gif" alt="Donate" width="80" height="15" /></a>
+
+  <a  href="http://www.php.net" title="Powered by PHP"><img src="/lib/tpl/default/images/button-php.gif" width="80" height="15" alt="Powered by PHP" /></a>
+
+  <a  href="http://validator.w3.org/check/referer" title="Valid XHTML 1.0"><img src="/lib/tpl/default/images/button-xhtml.png" width="80" height="15" alt="Valid XHTML 1.0" /></a>
+
+  <a  href="http://jigsaw.w3.org/css-validator/check/referer" title="Valid CSS"><img src="/lib/tpl/default/images/button-css.png" width="80" height="15" alt="Valid CSS" /></a>
+
+  <a  href="http://wiki.splitbrain.org/wiki:dokuwiki" title="Driven by DokuWiki"><img src="/lib/tpl/default/images/button-dw.png" width="80" height="15" alt="Driven by DokuWiki" /></a>
+
+
+
+<!--
+
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="">
+   <dc:type rdf:resource="http://purl.org/dc/dcmitype/Text" />
+   <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/2.0/" />
+</Work>
+
+<License rdf:about="http://creativecommons.org/licenses/by-nc-sa/2.0/">
+   <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+   <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+   <requires rdf:resource="http://web.resource.org/cc/Notice" />
+   <requires rdf:resource="http://web.resource.org/cc/Attribution" />
+   <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
+   <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+   <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
+</License>
+
+</rdf:RDF>
+
+-->
+
+
+</div>
+
+<div class="no"><img src="/lib/exe/indexer.php?id=extmail_solution_for_centos-5&amp;1439092189" width="1" height="1" alt=""  /></div>
+</body>
+</html>

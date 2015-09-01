@@ -1,0 +1,354 @@
+﻿
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<title>CentOS安装Apache的FastCGI模块（mod_fastcgi）_服务器应用_Linux公社-Linux系统门户网站</title>
+<meta http-equiv="content-type" content="text/html;charset=utf-8"/>
+<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+<link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon"/>
+<meta name="description" content="有很多关于Apache的fastcgi模块安装说明的文章，大部分都是基于Apache源码编译的，如果是通过yum install方式安装httpd的话，直接"/>
+<meta name="keywords" content="CentOS安装Apache,FastCGI模块,CentOS安装Apache的FastCGI模块（mod_fastcgi）,服务器,Linux服务器,Apache,Hadoop,集群,分布式,Nginx,Tomcat,分布式系统"/>
+<link rel="canonical" href="http://www.linuxidc.com/Linux/2013-08/88571.htm"/>
+<meta name="generator" content="Linux公社"/>
+<meta name="generator" content="Linux"/>
+<link rel="stylesheet" href="../../style/systems/style.css" type="text/css"/>
+<meta name="generator" content="专业的Linux网站"/>
+<script type="text/javascript" src="../../inc/jquery.js"></script>
+<script type="text/javascript" src="../../inc/iwms.js"></script>
+<script type="text/javascript">iwms.urlPrefix="../../";</script>
+
+<script type="text/javascript" src="../../inc/show.js"></script>
+</head>
+<body>
+<div class="topBar">
+	<div class="twidth">
+	
+	<div style="float:right">
+		<script type="text/javascript" src="../../inc/language.js"></script>
+	</div>
+	
+	<div id="topUser">你好，游客 <a href="#" onclick="iwms.logPop()">登录</a>
+	<a href="../../memberreg.aspx" rel="nofollow">注册</a>
+	<a href="../../search.aspx" rel="nofollow">搜索</a>
+	</div>
+	</div>
+</div>
+<div class="twidth">
+<div id="sitehead">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<table width="100%">
+	<tr align="center"><td width="160">
+	<a href="http://www.linuxidc.com/"><img style="filter: chroma(color=#FFFFFF);" src="../../pic/logo.jpg" alt="Linux公社" width="155" height="53" border="0" /></a>
+	</td><td>
+	<div align="center"><script src="/linuxfile/linux.js" type="text/javascript" language="javaScript"></script></div>
+	</td>
+	</tr></table>
+</div>
+</div>
+<div id="navbar">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<a href="../../index.htm" class="first">首页</a><a href="../../it/">Linux新闻</a><a href="../../Linuxit/">Linux教程</a><a href="../../MySql/">数据库技术</a><a href="../../RedLinux/">Linux编程</a><a href="../../Apache/" class="thisclass">服务器应用</a><a href="../../Unix/">Linux安全</a><a href="../../download/">Linux下载</a><a href="../../Linuxrz/">Linux认证</a><a href="../../theme/">Linux主题</a><a href="../../Linuxwallpaper/">Linux壁纸</a><a href="../../linuxsoft/">Linux软件</a><a href="../../digi/">数码</a><a href="../../mobile/">手机</a><a href="../../diannao/">电脑</a>
+
+</div>
+</div>
+
+<div id="navsub">
+<div class="l"></div>
+<div class="r"></div>
+<div class="m">
+	<a href="../../index.htm">首页</a> → <a href="../../Apache/">服务器应用</a>
+</div>
+</div>
+<div class="linuxe1"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxe1.js"></script></div>
+<div class="linux1"><script type="text/javascript" language="javaScript" src="/linuxfile/linux1.js"></script></div>
+<div class="linuxa"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxa.js"></script></div>
+<div class="linuxa1"><script type="text/javascript" language="javaScript" src="/linuxfile/linuxa1.js"></script></div>
+<table id="middle" width="100%" cellspacing="0" cellpadding="0" style="table-layout:fixed">
+<tr valign="top"><td>
+
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<div class="moreR">
+			背景：<script type="text/javascript">WriteBg()</script>
+		</div>
+		<span class="tt">阅读新闻</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm" id="bodyTd">
+		<div id="printBody" style="word-break:break-all;">
+			<div style="text-align:center"><h1 class="aTitle">CentOS安装Apache的FastCGI模块（mod_fastcgi）</h1></div>
+			
+			<table width="97%" align="center">
+				<tr>
+				<td width="140">[日期：2013-08-11]</td>
+				<td align="center">来源：oschina.net&nbsp;
+				作者：alanlqc</td>
+				<td width="160" align="right">[字体：<a href="javascript:ContentSize(16)">大</a> <a href="javascript:ContentSize(0)">中</a> <a href="javascript:ContentSize(12)">小</a>]
+				</td></tr>
+			</table>
+<div id="li_all">
+<div id="li_1"><script type="text/javascript" src="/linuxfile/linux201.js"></script></div>
+<div id="li_2"><script type="text/javascript" src="/linuxfile/linux2.js"></script></div>
+</div>
+			<div id="content"><div class="linux19"><script type="text/javascript" language="javaScript" src="/linuxfile/linux19.js"></script></div> <p><span style="font-family: Microsoft YaHei;">网上有很多篇关于Apache的fastcgi模块安装说明的文章，大部分都是基于Apache源码编译的，如果是通过yum install方式安装httpd的话，直接依葫芦画瓢必然会遇到各种各样的编译问题，通过查阅老外写的一些关于<a href="http://www.linuxidc.com/topicnews.aspx?tid=14" target="_blank" title="CentOS">CentOS</a>下Apache的FastCGI模块（mod_fastcgi）的安装文档，我大致重新整理了一下。</span></p>
+<p><span style="font-family: 'Microsoft YaHei'; font-size: 16px;"><strong>1. 安装编译相关的依赖包</strong></span></p>
+<p><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';"># yum install httpd-devel apr apr-devel libtool</span></p>
+<p><span style="font-size: 14px;"><strong><span style="font-family: 'Microsoft YaHei'; font-size: 16px;">2. 下载</span><span style="line-height: normal; background-color: #ffffff; font-family: 'Microsoft YaHei'; color: #333333; font-size: 16px;">mod_fastcgi源代码</span></strong></span></p>
+<p><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';"># wget http://www.fastcgi.com/dist/mod_fastcgi-current.tar.gz</span></p>
+<p><strong><span style="font-family: 'Microsoft YaHei'; font-size: 16px;">3. 解压并进行编译安装</span></strong></p>
+<p><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';"># tar zxvf mod_fastcgi-2.4.6.tar.gz</span><br /><span style="background-color: #cccccc;"><span style="font-family: Microsoft YaHei;"># cd mod_fastcgi-2.4.6</span></span><br /><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';"># cp Makefile.AP2 Makefile</span><br /><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';"># vim Makefile</span><br /><span style="font-family: Microsoft YaHei;">修改top_dir目录，64位系统的路径为lib64,32位系统的路径为</span><span style="line-height: 18px; font-family: 'Microsoft YaHei'; font-size: 12px;">/usr/lib/httpd</span></p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td><span style="font-family: Microsoft YaHei;">top_dir = /usr/lib64/httpd</span></td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<p><span style="font-family: Microsoft YaHei;">保存退出后，开始进行编译安装。</span><br /><span style="line-height: 1.5; background-color: #cccccc; font-size: 10pt;"><span style="font-family: Microsoft YaHei;"># make</span><br /></span><span style="line-height: 1.5; background-color: #cccccc; font-family: 'Microsoft YaHei'; font-size: 10pt;"># make install</span></p>
+<p>&nbsp;</p>
+<p><strong><span style="font-family: 'Microsoft YaHei'; font-size: 16px;">4. 加载模块</span></strong></p>
+<p><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';"># vim </span><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';">/etc/httpd/conf/httpd.conf</span><br /><span style="font-family: Microsoft YaHei;">找到LoadModule部分，添加一行加载语句</span></p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td><span style="font-family: Microsoft YaHei;">...</span><br />
+<p><span style="font-family: Microsoft YaHei;">LoadModule fastcgi_module modules/mod_fastcgi.so</span><br /><span style="font-family: Microsoft YaHei;">...</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong><span style="font-family: 'Microsoft YaHei'; font-size: 16px;"><br />5. 重启服务</span></strong></p>
+<p><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';"># </span><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';">/etc/init.d/httpd restart</span></p>
+<p><span style="font-family: Microsoft YaHei;">如果能正常启动，则log里面将显示以下信息 </span></p>
+<p><span style="background-color: #cccccc; font-family: 'Microsoft YaHei';"># grep -i "FastCGI" /var/log/httpd/error_log</span></p>
+<p><span style="font-family: Microsoft YaHei;">[Mon Jul 29 06:54:27 2013] [notice] FastCGI: process manager initialized (pid 2098) </span><br /><span style="font-family: Microsoft YaHei;">[Mon Jul 29 06:54:27 2013] [notice] Apache/2.2.15 (Unix) DAV/2 mod_fastcgi/2.4.6 configured -- resuming normal operations</span></p>
+<p><br /><strong><span style="font-family: 'Microsoft YaHei'; font-size: 16px;">6. 安装FPM（FastCGI进程管理器）</span></strong></p>
+<p><span style="font-family: 'Microsoft YaHei'; font-size: 16px;"><span style="line-height: 18px; font-family: 'Microsoft YaHei'; font-size: 12px;">FPM（FastCGI 进程管理器）用于替换 PHP FastCGI 的大部分附加功能，对于高负载网站是非常有用的。<br /><span style="background-color: #cccccc;"># yum install php-fpm</span><br /><span style="background-color: #cccccc;"># /etc/init.d/php-fpm start</span><br /><span style="background-color: #cccccc;"># chkconfig php-fpm on</span><br /><span style="background-color: #cccccc;"># netstat -anp |grep php</span><br />tcp 0 0 127.0.0.1:9000 0.0.0.0:* LISTEN 2575/php-fpm <br />unix 3 [ ] STREAM CONNECTED 25812 2575/php-fpm <br />unix 3 [ ] STREAM CONNECTED 25811 2575/php-fpm </span></span></p>
+<p><strong><span style="font-family: 'Microsoft YaHei'; font-size: 16px;">7. 修改配置</span></strong></p>
+<p><span style="font-family: 'Microsoft YaHei'; font-size: 16px;"><span style="font-size: 14px;"><span style="font-size: 12px;">新建一个配置文件/etc/httpd/conf.d/fastcgi.php.conf<br /></span></span></span></p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="2">
+<tbody>
+<tr>
+<td>DirectoryIndex index.html index.shtml index.cgi index.php<br />AddHandler php5-fcgi .php<br />Action php5-fcgi /php5-fcgi<br />Alias /php5-fcgi /var/www/cgi-bin/php5-fcgi<br />FastCgiExternalServer /var/www/cgi-bin/php5-fcgi -idle-timeout 60 -host 127.0.0.1:9000 -pass-header Authorization</td>
+</tr>
+</tbody>
+</table>
+<p><br />重启Apache和FPM： <br /><span style="background-color: #cccccc;"># service httpd restart</span> <br /><span style="background-color: #cccccc;"># service php-fpm restart</span> <br /><br />测试phpinfo()页面，配置成功则显示为： <br />... <br />Server API FPM/FastCGI <br />...</p>
+<p><strong>推荐阅读：</strong></p>
+<p><a href="http://www.linuxidc.com/topicnews.aspx?tid=2" target="_blank" title="Ubuntu">Ubuntu</a> Apache FastCGI 虚拟主机安装 <a href="../../Linux/2013-06/86691.htm">http://www.linuxidc.com/Linux/2013-06/86691.htm</a></p>
+<p>LNMP基于FastCGI实现Nginx,PHP,MySQL的分离 <a href="../../Linux/2012-11/73993.htm">http://www.linuxidc.com/Linux/2012-11/73993.htm</a></p>
+<p>搭建 Nginx+FastCGI+Webpy 平台开发Python Web应用 <a href="../../Linux/2012-08/69306.htm">http://www.linuxidc.com/Linux/2012-08/69306.htm</a></p>
+<p>RHEL5.8上安装Nginx+php(FastCGI)+MySQL 构建高效Web服务器 <a href="../../Linux/2012-08/68090.htm">http://www.linuxidc.com/Linux/2012-08/68090.htm</a></p>
+<p>两台Web服务器 实现负载均衡 +FastCGI模块+MySQL实现分布式架构 <a href="../../Linux/2012-07/65855.htm">http://www.linuxidc.com/Linux/2012-07/65855.htm</a></p>
+<p><span><span style="color: #ff0000;">更多CentOS相关信息见</span><a href="../../topicnews.aspx?tid=14" target="_self"><span style="color: #0000ff;">CentOS</span></a><span style="color: #ff0000;"> 专题页面 </span><span style="color: #0000ff;"><a title="CentOS" href="../../topicnews.aspx?tid=14" target="">http://www.linuxidc.com/topicnews.aspx?tid=14</a></span></span></p><a href="http://www.linuxidc.com" target="_blank"><img src="/linuxfile/logo.gif" alt="linux" width="15" height="17" /></div>
+<div class="linux301"><script type="text/javascript" src="/linuxfile/linux301.js"></script></div>
+<div class="linux3"><script type="text/javascript" src="/linuxfile/linux3.js"></script></div>
+<div class="linux302"><script type="text/javascript" src="/linuxfile/linux302.js"></script></div>		
+			
+			
+		</div>
+		<div style="padding:0 15px">
+			<ul id="digg" class="digg">
+				<li class="digg1">0</li>
+				<li class="digg2"><a href="###" onclick="iwms.diggIt(this,iwms.aId)">顶一下</a></li>
+			</ul>	
+		</div>
+<div class="linuxfx"><script type="text/javascript" language="javaScript" src="/linuxfile/fx.js"></script></div>	
+<div class="linux8"><script type="text/javascript" language="javaScript" src="/linuxfile/linux8.js"></script></div>
+<div class="linux801"><script type="text/javascript" language="javaScript" src="/linuxfile/linux801.js"></script></div>
+		<div class="nearNews">
+			<div class="prevNews"><a href="../../Linux/2013-08/88570.htm">Nginx+Apache实现网页动静分离</a></div>
+			<div class="nextNews"><a href="../../Linux/2013-08/88590.htm">Spark，一种快速数据分析替代方案</a></div>
+		</div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">相关资讯</span> &nbsp; &nbsp; &nbsp;
+		<a href="../../search.aspx?where=nkey&amp;keyword=18615" target="_blank">CentOS安装Apache</a>&nbsp; <a href="../../search.aspx?where=nkey&amp;keyword=23639" target="_blank">FastCGI模块</a>&nbsp; 
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<table width='100%'><tr><td width='50%' valign='top'><ul class='nl'><li><a href="../../Linux/2015-08/121073.htm"  target="_blank"  title="CentOS 6.5 平台离线安装 Apache2.4">CentOS 6.5 平台离线安装 Apache2.</a>&nbsp; <span class="gray">(<span class="time">今 15:47</span>)</span></li>
+<li><a href="../../Linux/2014-01/95256.htm"  target="_blank" >CentOS Apache服务器安装与配置</a>&nbsp; <span class="gray">(01/15/2014 16:22:45)</span></li>
+<li><a href="../../Linux/2013-02/78930.htm"  target="_blank" >CentOS下源码安装PHP+Apache+MySQL</a>&nbsp; <span class="gray">(02/02/2013 13:49:32)</span></li>
+</ul></td><td width='50%' valign='top'><ul class='nl'><li><a href="../../Linux/2014-09/107342.htm"  target="_blank"  title="CentOS-6.4-minimal版中源码安装Apache-2.2.29">CentOS-6.4-minimal版中源码安装</a>&nbsp; <span class="gray">(09/28/2014 11:31:36)</span></li>
+<li><a href="../../Linux/2013-12/93940.htm"  target="_blank"  title="CentOS 6.5 安装Apache服务器后无法访问解决方法">CentOS 6.5 安装Apache服务器后无</a>&nbsp; <span class="gray">(12/12/2013 20:10:11)</span></li>
+</ul></td></tr></table>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">图片资讯</span> &nbsp; &nbsp; &nbsp;
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+<div class="imgList"><ul><li style="width:100%"><a href="../../Linux/2013-12/93940.htm"  target="_blank"  title="CentOS 6.5 安装Apache服务器后无法访问解决方法"><img src="../../upload/2013_12/13121220143053t.jpg" alt="CentOS 6.5 安装Apache服务器后无法访问解决方法" width="120" height="90"/>CentOS 6.5 安装</a></li></ul></div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+	
+	<div class="mframe mR">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">本文评论</span>
+		 	　　<a href="../../remark.aspx?id=88571" target="_blank">查看全部评论</a> <span class="gray">(0)</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<table width="100%" style="margin:6px">		
+		<tr><td width="100%">
+			<form action="" name="fmRemarkSt" onsubmit="return remark.post(this);">
+			<input type="hidden" value="1" name="face"/>
+			表情： <img src="../../pic/b.gif" alt="表情" class="face1" style="cursor:pointer;vertical-align:middle" onclick="remark.dispFace(this)" onmouseout="remark.hideFace()"/>
+			姓名： <input type="text" name="username" value="" maxlength="15" style="width:60px" class="inputbg"/>
+			<input type="checkbox" id="rmAnonymitySt" onclick="remark.anony(this)"/><label for="rmAnonymitySt">匿名</label>
+			字数 <input type="text" id="bodyLen" size="3" readonly="readonly" style="border-width:0;background:transparent;vertical-align:middle" value="0"/>
+			<br/>
+			<textarea name="body" cols="40" rows="4" onkeydown="remark.dispLen(this)" onkeyup="remark.handle(event,this);remark.dispLen(this)" style="width:40em;height:100px;margin:3px 0;overflow-y:auto"></textarea>
+				<br/>
+		　　　<input type="checkbox" checked="checked" id="rmAgreeSt"/><label for="rmAgreeSt">同意评论声明</label>
+		　　　<button type="submit" style="width:50px">发表</button>
+			</form>
+		</td></tr>
+		<tr><td width="100%">
+			评论声明
+			<ul style="list-style-type:square;margin:5px 0 0 1em;padding:0">
+			<li>尊重网上道德，遵守中华人民共和国的各项有关法律法规</li>
+			<li>承担一切因您的行为而直接或间接导致的民事或刑事法律责任</li>
+			<li>本站管理人员有权保留或删除其管辖留言中的任意内容</li>
+			<li>本站有权在网站内转载或引用您的评论</li>
+			<li>参与本评论即表明您已经阅读并接受上述条款</li>
+			</ul>
+		</td></tr>
+		</table>
+		<script type="text/javascript" src="../../inc/remark.js"></script>
+		<script type="text/javascript">
+			remark.maxSize=500;
+			remark.minSize=2;
+			remark.sourceEle=$(document.fmRemarkSt).find("button").get(0);
+			iwms.vCode="D2BDA41E";
+			iwms.user.name.length==0 ? $i("rmAnonymitySt").click() : $i("rmAnonymitySt").form.username.value=iwms.user.name;
+		</script>
+		
+		<div class="reCont" id="reContainer"></div>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	
+</td><td width="300" valign="top">
+<div class="linux901"><script type="text/javascript" language="javaScript" src="/linuxfile/linux901.js"></script></div>
+<div class="linux902"><script type="text/javascript" language="javaScript" src="/linuxfile/linux902.js"></script></div>
+<div class="linux903"><script type="text/javascript" language="javaScript" src="/linuxfile/linux903.js"></script></div>
+<div class="linux905"><script type="text/javascript" language="javaScript" src="/linuxfile/linux905.js"></script></div>
+	
+	<div class="lframe">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">最新资讯</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<ul class="nl">
+<li><a href="../../Linux/2015-08/121073.htm" target="_blank">CentOS 6.5 平台离线安装 Apache2.4</a></li>
+<li><a href="../../Linux/2015-08/121072.htm" target="_blank">PHP编译选项 详述</a></li>
+<li><a href="../../Linux/2015-08/121071.htm" target="_blank">CentOS 6.5 平台离线编译安装 PHP5.6.6</a></li>
+<li><a href="../../Linux/2015-08/121070.htm" target="_blank">CentOS 6.5 平台离线编译安装 MySQL 5.6.22</a></li>
+<li><a href="../../Linux/2015-08/121069.htm" target="_blank">CentOS 下 MySQL root 密码重置</a></li>
+<li><a href="../../Linux/2015-08/121068.htm" target="_blank" title="Siemens RuggedCom ROS及ROX设备中间人信息泄露漏洞">Siemens RuggedCom ROS及ROX设备中间人信息泄露</a></li>
+<li><a href="../../Linux/2015-08/121067.htm" target="_blank" title="OpenSSH MaxAuthTries限制绕过漏洞(CVE-2015-5600)">OpenSSH MaxAuthTries限制绕过漏洞(CVE-2015-</a></li>
+<li><a href="../../Linux/2015-08/121066.htm" target="_blank" title="OpenSSH 'x11_open_helper()'函数安全限制绕过漏洞(CVE-2015-5352)">OpenSSH 'x11_open_helper()'函数安全限制绕过</a></li>
+<li><a href="../../Linux/2015-08/121065.htm" target="_blank">Nurse：LinkedIn的运维自动化修复系统</a></li>
+<li><a href="../../Linux/2015-08/121064.htm" target="_blank" title="苹果向开发者发布 OS X El Capitan 第六个测试版">苹果向开发者发布 OS X El Capitan 第六个测试</a></li>
+</ul>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+
+	<div class="lframe">
+	<div class="tl"></div>
+	<div class="tr"></div>
+	<div class="tm">
+		<span class="tt">本周热门</span>
+	</div>
+	<div class="wrapper">
+	<div class="ml"></div>
+	<div class="mr"></div>
+	<div class="mm">
+		<ul class="nl">
+<li><a href="../../Linux/2014-07/104470.htm" target="_blank">Kafka使用入门教程</a></li>
+<li><a href="../../Linux/2013-08/88186.htm" target="_blank">OpenStack云计算快速入门教程</a></li>
+<li><a href="../../Linux/2015-01/112029.htm" target="_blank" title="Ubuntu14.04安装配置Hadoop2.6.0（完全分布式）与 wordcount实例运行">Ubuntu14.04安装配置Hadoop2.6.0（完全分布式）</a></li>
+<li><a href="../../Linux/2012-07/66918.htm" target="_blank">Cacti安装配置</a></li>
+<li><a href="../../Linux/2010-08/27874.htm" target="_blank">解决Nginx 504 Gateway Time-out的一些方法</a></li>
+<li><a href="../../Linux/2014-05/101830.htm" target="_blank">Git 服务器搭建与客户端安装</a></li>
+<li><a href="../../Linux/2014-01/95493.htm" target="_blank">实例讲解Nginx下的rewrite规则</a></li>
+<li><a href="../../Linux/2013-06/85827.htm" target="_blank">Ubuntu 下Apache安装和配置</a></li>
+<li><a href="../../Linux/2013-08/89154.htm" target="_blank">Ubuntu 12.04下NFS安装配置图解</a></li>
+<li><a href="../../Linux/2014-03/98978.htm" target="_blank" title="Hadoop生态上几个技术的关系与区别：hive、pig、hbase 关系与区别">Hadoop生态上几个技术的关系与区别：hive、pig</a></li>
+</ul>
+	</div>
+	</div>
+	<div class="bl"></div>
+	<div class="br"></div>
+	<div class="bm"></div>
+	</div>
+	<div class="linuxy9"><script type="text/javascript" language="javaScript" src="/linuxfile/y9.js"></script></div>	
+</td></tr>
+</table>
+<div class="linux906"><script type="text/javascript" language="javaScript" src="/linuxfile/linux906.js"></script></div>
+<div id="footer">
+<a href="http://www.linuxidc.com/aboutus.htm">Linux公社简介</a> - <a href="http://www.linuxidc.com/adsense.htm">广告服务</a> - <a href="http://www.linuxidc.com/sitemap.aspx">网站地图</a> - <a href="http://www.linuxidc.com/help.htm">帮助信息</a> - <a href="http://www.linuxidc.com/contactus.htm">联系我们</a><br />本站（LinuxIDC）所刊载文章不代表同意其说法或描述，仅为提供更多信息，也不构成任何建议。<br /><script type="text/javascript" language="javaScript" src="/linuxfile/qq.js"></script><br />
+<script type="text/javascript" language="javaScript" src="/linuxfile/foot.js"></script><br />Copyright &copy; 2006-2015　<a href="http://www.linuxidc.com/">Linux公社</a>　All rights reserved 沪ICP备15008072号-1号
+	<script type="text/javascript">iwms.aId=88571;$(function(){iwms.imgCont=$i('content');iwms.imgResize();InitContStyle();iwms.getVars();})</script>
+	
+</div>
+</div>
+<script type="text/javascript" language="javaScript" src="/linuxren/linuxren1.js"></script>
+<script type="text/javascript" language="javaScript" src="/linuxren/linuxren2.js"></script>
+<script type="text/javascript" language="javaScript" src="/linuxren/linuxren3.js"></script>
+</body>
+</html>

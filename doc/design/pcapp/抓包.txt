@@ -1,0 +1,11 @@
+谷歌chrome浏览器自带http抓包工具
+chrome://net-internals/
+谷歌chrome浏览器http请求模拟插件：postman
+
+
+Fiddler是一个C#实现的浏览器抓包和调试工具，fiddler启用后作为一个proxy存在于浏览器和服务器之间，从中监测浏览器与服务器之间的http/https级别的网络交互。目前可以支持各种主要浏览器如IE, Chrome, FireFox, Safari, Opera。本文主要介绍fiddler对IE浏览器调试的基本使用方法。
+第一个是国产的WSockExpert。以前大家上网漏洞的时候很多时候都用到他。易上网，功能一般。但自身dll文件容易被认为木马删除。适用于特定程序提交的分析。
+第二个是HttpWatch。一种内嵌于IE内的抓包程序。可以清楚看到post头和返回值。比较合适WEB整站数据的分析。
+第三个是HttpAnalyzerStdV2，也是我现在最喜欢的一个抓包工具。分两种形式，有一种模式类似于HttpWatch，可嵌套IE。另一种模式是独立的EXE，可以抓取所有WEB请求，包括EXE向WEB的请求，这一点就有很多效用了。有时候也可以用来判断是否EXE可能中马（虽然机率小），另一种就是可以通过他来抓包分析一些注入工具的数据包。比起WSockExpert，可以更加便捷的抓取到每次提交时的数据。从而可以更加方便的分析出原来nbsi，阿D等相关SQL注入工具关于验证和列目录等功能的SQL语句。
+
+

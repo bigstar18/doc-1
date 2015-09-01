@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>WiFi无线网络的几种认证与加密方式 - 尺树寸泓 - 博客频道 - CSDN.NET</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="一、Open System&#160;　　完全不认证也不加密，任何人都可以连到无线基地台使用网络。&#160;　　二、WEP (Wired Equivalent Privacy)&#160;有线等效加密&#160;　　最基本的加密技术，手机用户、笔记型计算机与无线网络的Access Point（网络金钥AP）拥有相同的网络金钥，才能解读互相传递的数据。这金钥分为64bits及128bits两种，最多可设定四组不同" />
+<script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+<link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+<link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/chaehom/rss/list" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+</head>
+<body>
+<script src="http://csdnimg.cn/pubnav/js/pub_topnav_2011.js"type="text/javascript"></script>
+<div id="container">
+<div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h1><a href="/chaehom">尺树寸泓</a></h1>
+            <h2></h2>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg"></div>
+    <div class="navigator">
+        <ul>
+            <li id="btnContents"><a href="/chaehom?viewmode=contents"><span><img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+            <li id="btnView"><a href="/chaehom?viewmode=list"><span><img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+            <li id="btnRss"><a href="/chaehom/rss/list"><span><img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>
+</ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "chaehom";
+    var blog_address = "http://blog.csdn.net/chaehom";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";
+</script>
+        
+<div id="body">
+<div id="main">
+<div class="main">
+<div class="notice"> 
+
+<a href="http://surveies.csdn.net/survey/comein/546" target="_blank">
+<font color=blue>CSDN客服工作问卷调查   </font></a>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/blogdevteam/article/details/8572108
+" target="_blank"><font color=red>社区专家谈 12306</font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://bbs.csdn.net/topics/390373496
+" target="_blank"><font color=red>CSDN社区程序员回乡见闻活动火爆开始！
+
+</font></a>
+
+<br />
+
+
+
+
+
+<a href="http://www.csdn.net/article/2013-02-17/2814150"target="_blank">
+<font color=red>专访王豫翔：编程道路上的“三少三多” </font></a>
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://blog.csdn.net/csdnstudent/article/details/8077932"target="_blank">
+<font color=red>2013年全国百所高校巡讲讲师招募  </font></a>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<a href="http://bbs.csdn.net/topics/390366069
+" target="_blank"><font color=red>CSDN社区“海外程序员经验谈”活动正式上线 
+</font></a>
+
+</div><div id="article_details" class="details">
+    <div class="article_title">
+    <span class="ico ico_type_Repost"></span>
+    <h3>
+        <span class="link_title"><a href="/chaehom/article/details/8151009">
+        WiFi无线网络的几种认证与加密方式
+        </a></span>
+    </h3>
+</div>
+
+        
+    <div class="article_manage">
+    <span class="link_postdate">2012-11-05 23:32</span>
+    <span class="link_view" title="阅读次数">381人阅读</span>
+    <span class="link_comments" title="评论次数"><a href="#comments">评论</a>(0)</span>
+    <span class="link_collect"><a href="javascript:void(0);" onclick="javascript:collectArticle('WiFi无线网络的几种认证与加密方式','8151009');return false;" title="收藏">收藏</a></span>
+    <span class="link_report"><a href="#report"  onclick="javascript:report(8151009,2);return false;" title="举报">举报</a></span>
+    
+</div>
+
+
+    
+<div id="article_content" class="article_content">
+
+<span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">一、Open System</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　完全不认证也不加密，任何人都可以连到无线基地台使用网络。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">二、WEP (Wired Equivalent Privacy)&nbsp;有线等效加密</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　最基本的加密技术，手机用户、笔记型计算机与无线网络的Access Point（网络金钥AP）拥有相同的网络金钥，才能解读互相传递的数据。这金钥分为64bits及128bits两种，最多可设定四组不同的金钥。当用户端进入WLAN前必须输入正确的金钥才能进行连接。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　WEP加密方法很脆弱。网络上每个客户或者计算机都使用了相同的保密字，这种方法使网络偷听者能刺探你的密钥，偷走数据并且在网络上造成混乱。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">三、WPA (Wi-Fi Protected Access)&nbsp;商务宝采用的加密方式</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　由Wi-Fi Alliance (http://www.wi-fi.com/)所提出的无线安全标准，有分成家用的WPA-PSK (Pre-Shared Key)与企业用的WPA-Enterprise版本。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">1、WPA-PSK</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　为了堵塞WEP的漏洞而发展的加密技术，使用方法与WEP相&#20284;。无线基地台与笔记型计算机必须设定相同的Key，计算机才可以连入基地台。但其进入WLAN时以更长词组或字串作为网络金钥。并且WPA-PSK运用了TKIP (Temporal Key Integrity Protocol)技术，因此比WEP难被破解而更加安全。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　WPA-PSK通过为每个客户分配唯一的密钥而工作，但需要给雇员密码以便登陆系统。这样，外部的人可通过他们享用网络资源。如果你希望修改密码（建议每隔一段时间修改密码以防止偷听者解码），你可能得跑到每台电脑前去输入新的密码。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">2、WPA-Enterprise</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　采用IEEE 802.1x则需要有另一台储存无线使用者账户数据的RADIUS (Remote Authentication Dial-In User Service)服务器，当笔记型计算机连入无线基地台时，无线基地台会要求使用者输入账号密码、或是自动向笔记型计算机索取储存在计算机硬盘的使用者数字凭证，然后向RADIUS服务器确认使用者的身分。而用来加密无线封包的加密金钥(Key)，也是在认证的过程中自动产生，并且每一次联机所产生的金钥都不同(专业术语称为Session
+ Key)，因此非常难被破解。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　用用户名和密码安全登陆网络后，每个客户会自动得到一个唯一的密钥，密钥很长并且每隔一段时间就会被更新。这样wi-Fi监听者就不能获取足够的数据包来解码密钥。即使一个密钥因为某种原因被解码了，富于经验的黑客有可能发现新的密钥，但是加密锁已经变了。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　一但应用了WPA-Enterprise，不像WPA-PSK那样，雇员将不会知道密码。这样，外部的人&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　就不能通过他们享用网络资源。WPA-Enterprise还可以节约你大量的时间；你无需花费大量的时间去人工更换客户的密码。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">四、WPA2</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　WPA2顾名思义就是WPA的加强版，也就是IEEE 802.11i无线网络标准。同样有家用的PSK版本与企业的IEEE 802.1x版本。WPA2与WPA的差别在于，它使用更安全的加密技术AES (Advanced Encryption Standard)，因此比WPA更难被破解、更安全。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">五、MAC ACL (Access Control List)</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　MAC ACL只能用于认证而不能用于加密。在无线基地台输入允许被连入的无线网卡MAC地址，不在此清单的无线网卡无法连入无线基地台。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">六、Web Redirection</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　这种方式是WISP (Wireless Internet Service Provider，例如统一安源WiFly)最常用的方式。无线基地台设定成Open System，但是另外在后台利用存取控制网关器(Access Control Gateway, ACG)，拦截笔记型计算机发出的Web封包(开启浏览器尝试上网)，并强制重导到认证网页要求输入账号密码，然后ACG向RADIUS认证服务器来确认使用者的身分，认证通过才可以自由到其它的网站。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px"></span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px"></span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">七、各种加密方式对比</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px"></span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;WEP安全加密方式</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　WEP特性里使用了rsa数据安全性公司开发的rc4 prng算法。全称为有线对等保密(Wired Equivalent Privacy，WEP)是一种数据加密算法，用于提供等同于有线局域网的保护能力。使用了该技术的无线局域网，所有客户端与无线接入点的数据都会以一个共享的密钥进行加密，密钥的长度有40位至256位两种，密钥越长，黑客就需要更多的时间去进行破解，因此能够提供更好的安全保护。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">WPA安全加密方式</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　WPA加密即Wi-Fi Protected Access，其加密特性决定了它比WEP更难以入侵，所以如果对数据安全性有很高要求，那就必须选用WPA加密方式了(Windows XP SP2已经支持WPA加密方式)。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　WPA作为IEEE 802.11通用的加密机制WEP的升级版，在安全的防护上比WEP更为周密，主要体现在身份认证、加密机制和数据包检查等方面，而且它还提升了无线网络的管理能力。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">WPA、WEP对比</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　WPA与WEP不同，WEP使用一个静态的密钥来加密所有的通信。WPA不断的转换密钥。WPA采用有效的密钥分发机制，可以跨越不同厂商的无线网卡实现应用。另外WPA的另一个优势是，它使公共场所和学术环境安全地部署无线网络成为可能。而在此之前，这些场所一直不能使用WEP。WEP的缺陷在于其加密密钥为静态密钥而非动态密钥。这意味着，为了更新密钥，IT人员必须亲自访问每台机器，而这在学术环境和公共场所是不可能的。另一种办法是让密钥保持不变，而这会使用户容易受到攻击。由于互操作问题，学术环境和公共场所一直不能使用专有的安全机制。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　</span><span style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">WPA2：目前最强的无线加密技术</span><span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　WPA2是WiFi联盟验证过的IEEE 802.11i标准的认证形式，WPA2实现了802.11i的强制性元素，特别是Michael算法被公认彻底安全的CCMP(计数器模式密码块链消息完整码协议)讯息认证码所取代、而RC4加密算法也被AES所取代。&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　在WPA/WPA2中，PTK的生成是依赖于PMK的，而PMK的方式有两种，一种是PSK方式，也就是预共享密钥模式(pre-shared key，PSK，又称为个人模式)，在这种方式中PMK=PSK;而另一种方式则需要认证服务器和站点进行协商来产生PMK。下面我们通过公式来看看WPA和WPA2的区别：&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　WPA = IEEE 802.11i draft 3 = IEEE 802.1X/EAP &#43; WEP(选择性项目)/TKIP&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　WPA2 = IEEE 802.11i = IEEE 802.1X/EAP &#43; WEP(选择性项目)/TKIP/CCMP&nbsp;</span><br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<br style="margin:0px; padding:0px; font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">
+<span style="font-family:Verdana,Tahoma,sans-serif; font-size:14px; line-height:22px">　　　　目前WPA2加密方式的安全防护能力非常出色，只要你的无线设备均支持WPA2加密，那你将体验到最安全的无线网络生活。即使是目前最热的“蹭网卡”也难以蹭入你的无线网络，用户大可放心使用。&nbsp;</span>
+
+</div>
+<div class="share_buttons" id="sharePanel"></div>
+<!--192.168.1.236-->
+<div class="article_next_prev">
+    <li class="prev_article"><span>上一篇：</span><a href="/chaehom/article/details/8131824">kzalloc()</a></li>
+    <li class="next_article"><span>下一篇：</span><a href="/chaehom/article/details/8161413">mksquash_lzma-3.2 编译调试记录</a></li>
+</div>
+
+
+    
+</div>
+<div id="ad_cen"></div>
+<script type="text/javascript">
+    new Ad(4, 'ad_cen');
+</script>
+<div id="comment_title" class="panel_head">查看评论<a name="comments"></a></div>
+<div id="comment_list"></div>
+<div id="comment_bar"></div>
+<div id="comment_form"></div>
+<div class="announce">* 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+<script type="text/javascript">
+    var fileName = '8151009';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js?v=1.8"></script>
+<div id="ad_bot"></div>
+<script type="text/javascript">
+    new Ad(5, 'ad_bot');
+</script>
+<div id="report_dialog"></div>
+
+<div id="d-top" style="display:none;">
+<a id="d-top-a" href="#" title="回到顶部">
+<img src="http://static.blog.csdn.net/images/top.png" alt="TOP" /></a>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var d_top=$('#d-top');
+        document.onscroll=function(){
+            var scrTop=(document.body.scrollTop||document.documentElement.scrollTop);
+            if(scrTop>500){
+                d_top.show();
+            }else{
+                d_top.hide();
+            }
+        }
+        $('#d-top-a').click(function(){
+            scrollTo(0,0);
+            this.blur();
+            return false;
+        });
+    });
+</script>
+
+
+
+<div class="clear"></div>
+</div>
+</div>
+
+<div id="side">
+<div class="side">
+<div id="panel_Profile" class="panel">
+    <ul class="panel_head"><span>个人资料</span></ul>
+    <ul class="panel_body profile">
+        <div id="blog_userface">
+            <a href="http://my.csdn.net/chaehom" target="_blank">
+            <img src="http://avatar.csdn.net/C/E/5/1_chaehom.jpg" title="访问我的空间" style="max-width:90%"/>
+            </a>
+            <br />
+            <span><a href="http://my.csdn.net/chaehom" class="user_name" target="_blank">chaehom</a></span>
+        </div>
+<div class="interact">
+<!--<a href="#" class="attented" title="已关注"></a>-->
+<a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+<a href="javascript:void(0);" class="letter" onclick="loginto(1)" title="[发私信]"></a>
+</div>
+        <div id="blog_medal">
+        </div>
+        <ul id="blog_rank">
+            <li>访问：<span>12093次</span></li>
+            <li>积分：<span>516分</span></li>
+            <li>排名：<span>千里之外</span></li>
+        </ul>
+        <ul id="blog_statistics">
+            <li>原创：<span>38篇</span></li>
+            <li>转载：<span>16篇</span></li>
+            <li>译文：<span>0篇</span></li>
+            <li>评论：<span>5条</span></li>
+        </ul>
+    </ul>
+</div>
+<script type="text/javascript">
+    var _blogger = 'chaehom';
+</script>
+
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="submit" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div><div id="panel_Category" class="panel">
+    <ul class="panel_head"><span>文章分类</span></ul>
+    <ul class="panel_body">
+        <li>
+        <a href="http://blog.csdn.net/chaehom/article/category/1178473">coding</a><span>(16)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/chaehom/article/category/1178526">linux</a><span>(34)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/chaehom/article/category/1185850">web</a><span>(10)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/chaehom/article/category/1189130">AJAX</a><span>(3)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/chaehom/article/category/1198931">shell</a><span>(5)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/chaehom/article/category/1270284">module</a><span>(3)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/chaehom/article/category/1270382">kernel</a><span>(4)</span>
+        </li>
+        <li>
+        <a href="http://blog.csdn.net/chaehom/article/category/1309088">record</a><span>(3)</span>
+        </li>
+    </ul>
+</div><div id="panel_Archive" class="panel">
+    <ul class="panel_head"><span>文章存档</span></ul>
+    <ul class="panel_body">
+        <div id="archive_list">
+        <!--归档统计-->
+        <li><a href="http://blog.csdn.net/chaehom/article/month/2013/01">2013年01月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2012/12">2012年12月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2012/11">2012年11月</a><span>(6)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2012/10">2012年10月</a><span>(7)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2012/09">2012年09月</a><span>(5)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2012/08">2012年08月</a><span>(4)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2012/07">2012年07月</a><span>(15)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2012/06">2012年06月</a><span>(1)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2009/03">2009年03月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2009/02">2009年02月</a><span>(3)</span></li><li><a href="http://blog.csdn.net/chaehom/article/month/2009/01">2009年01月</a><span>(1)</span></li>
+        </div>
+    </ul>
+</div>
+<div id="hotarticls" class="panel">
+    <ul class="panel_head"><span>阅读排行</span></ul>
+    <ul class="panel_body itemlist">
+        <li>
+            <a href="/chaehom/article/details/3900772" title="Fedora 10 网络配置">Fedora 10 网络配置</a><span>(3183)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/3985913" title="RHEL5 中文显示问题解决">RHEL5 中文显示问题解决</a><span>(632)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8108095" title="WLAN用户接入流程">WLAN用户接入流程</a><span>(558)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8064750" title="用tc+iptables+HTB解决ADSL宽带速度瓶颈技术">用tc+iptables+HTB解决ADSL宽带速度瓶颈技术</a><span>(493)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/7846683" title="javascript 改元素的CSS">javascript 改元素的CSS</a><span>(431)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/3936246" title="codeblocks运行console的问题">codeblocks运行console的问题</a><span>(424)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8115305" title="ubuntu 12.10 显示GRUB界面">ubuntu 12.10 显示GRUB界面</a><span>(411)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/4006171" title="NetworkManager重装后引发的问题">NetworkManager重装后引发的问题</a><span>(404)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8151009" title="WiFi无线网络的几种认证与加密方式">WiFi无线网络的几种认证与加密方式</a><span>(381)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/7743311" title="Web前端：11个让你代码整洁的原则">Web前端：11个让你代码整洁的原则</a><span>(364)</span>
+        </li>
+    </ul>
+</div>
+<div id="hotarticls2" class="panel">
+    <ul class="panel_head"><span>评论排行</span></ul>
+    <ul class="panel_body itemlist">
+        <li>
+            <a href="/chaehom/article/details/3833605" title="Ubuntu No.1">Ubuntu No.1</a><span>(2)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8191930" title="Ralink_ApSoC_SDK编译">Ralink_ApSoC_SDK编译</a><span>(2)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/3985913" title="RHEL5 中文显示问题解决">RHEL5 中文显示问题解决</a><span>(1)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8151009" title="WiFi无线网络的几种认证与加密方式">WiFi无线网络的几种认证与加密方式</a><span>(0)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8131824" title="kzalloc()">kzalloc()</a><span>(0)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8131381" title="模块Makefile模板">模块Makefile模板</a><span>(0)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8131283" title="设置vim缩进">设置vim缩进</a><span>(0)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8128766" title="Http协议中的各种长度限制总结">Http协议中的各种长度限制总结</a><span>(0)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8115305" title="ubuntu 12.10 显示GRUB界面">ubuntu 12.10 显示GRUB界面</a><span>(0)</span>
+        </li>
+        <li>
+            <a href="/chaehom/article/details/8108095" title="WLAN用户接入流程">WLAN用户接入流程</a><span>(0)</span>
+        </li>
+    </ul>
+</div>
+<div id="homepageArticles" class="panel">
+    <ul class="panel_head"><span>推荐文章</span></ul>
+    <ul class="panel_body" id="ad_commend">
+    </ul>
+</div>
+<script type="text/javascript">
+    new Ad(12, 'ad_commend');
+</script><div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+    <a href="/chaehom/article/details/8191930#comments">Ralink_ApSoC_SDK编译</a>
+    <p style="margin:0px;"><a href="/cxg111_IT" class="user_name">cxg111_IT</a>:
+请问哪里买到RT3050 的开发板？
+    </p>
+    </li>
+    <li>
+    <a href="/chaehom/article/details/8191930#comments">Ralink_ApSoC_SDK编译</a>
+    <p style="margin:0px;"><a href="/wuxinhope111" class="user_name">wuxinhope111</a>:
+大侠你的Ralink_ApSoC_SDK_3600_20110715.tar.bz2在哪里可以下载到...
+    </p>
+    </li>
+    <li>
+    <a href="/chaehom/article/details/3985913#comments">RHEL5 中文显示问题解决</a>
+    <p style="margin:0px;"><a href="/yahreso" class="user_name">yahreso</a>:
+膜拜天王 下次把这东西和fedora一起刻张盘给在下 我就不用载了 噶噶噶~
+    </p>
+    </li>
+    <li>
+    <a href="/chaehom/article/details/3833605#comments">Ubuntu No.1</a>
+    <p style="margin:0px;"><a href="/chaehom" class="user_name">chaehom</a>:
+还有个问题就是分辨率调完后，窗口的边框有时候会出现失真。。。
+    </p>
+    </li>
+    <li>
+    <a href="/chaehom/article/details/3833605#comments">Ubuntu No.1</a>
+    <p style="margin:0px;"><a href="/yahreso" class="user_name">yahreso</a>:
+拜见大侠来了……
+    </p>
+    </li>
+    <li>
+    <a href="/chaehom/article/details/2612982#comments">第一次仔细观察这里</a>
+    <p style="margin:0px;"><a href="/chaehom" class="user_name">chaehom</a>:
+我来做俯卧撑的
+    </p>
+    </li>
+    <li>
+    <a href="/chaehom/article/details/2612982#comments">第一次仔细观察这里</a>
+    <p style="margin:0px;"><a href="/yahreso" class="user_name">yahreso</a>:
+雷了 = A = ||
+    </p>
+    </li>
+</ul>
+</div>
+</div>
+<div class="clear"></div>
+</div>
+
+<div class="clear"></div>
+</div>
+
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=367872"></script>
+
+<script type="text/javascript" src="http://csdnimg.cn/pubfooter/js/publib_footer.js"></script>
+
+<script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+
+
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+</div>
+</body>
+</html>

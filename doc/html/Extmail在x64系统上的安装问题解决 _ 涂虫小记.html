@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
+  "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-hans" version="XHTML+RDFa 1.0" dir="ltr">
+
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="http://tilt.lib.tsinghua.edu.cn/files/favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="shortlink" href="/node/397" />
+<link rel="canonical" href="/node/397" />
+<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
+  <title>Extmail在x64系统上的安装问题解决 | 涂虫小记</title>
+  <link type="text/css" rel="stylesheet" href="http://tilt.lib.tsinghua.edu.cn/files/css/css_xE-rWrJf-fncB6ztZfd2huxqgxu4WO-qwma6Xer30m4.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://tilt.lib.tsinghua.edu.cn/files/css/css_UiwJn6TN5_as4AlP_Ebb5QeVZqhwgwa7wUTiVi6ypFw.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://tilt.lib.tsinghua.edu.cn/files/css/css_Hj-L7XQcE0qfyJRECGV_H0uiR6AMwoPoTuTUbvzzim0.css" media="screen" />
+<link type="text/css" rel="stylesheet" href="http://tilt.lib.tsinghua.edu.cn/files/css/css_WQh4s2Yd3AZkoJ-2KGYZENmskdvBzcmhTkpVog99f3E.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://tilt.lib.tsinghua.edu.cn/files/css/css_MnXiytJtb186Ydycnpwpw34cuUsHaKc80ey5LiQXhSY.css" media="all" />
+<link type="text/css" rel="stylesheet" href="http://tilt.lib.tsinghua.edu.cn/files/css/css_Vknj1C97X338nT1YHfanAoEgWU181mNIlUXbjxOjvmQ.css" media="all" />
+  <script type="text/javascript" src="http://tilt.lib.tsinghua.edu.cn/files/js/js_xAPl0qIk9eowy_iS9tNkCWXLUVoat94SQT48UBCFkyQ.js"></script>
+<script type="text/javascript" src="http://tilt.lib.tsinghua.edu.cn/files/js/js_jVS1HK4n41oKdBx6JpBvNvNHEvmBuBjMOqu68Ga1fss.js"></script>
+<script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"bluemarine","theme_token":"D8kuNe9hyuAR-cCbaLQ1cD-U8Z1RF60MTIhh9jH8NB4","js":{"misc\/jquery.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/admin_menu\/admin_devel\/admin_devel.js":1,"sites\/all\/modules\/codefilter\/codefilter.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/book\/book.css":1,"sites\/all\/modules\/codefilter\/codefilter.css":1,"modules\/comment\/comment.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/poll\/poll.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/themes\/bluemarine\/style.css":1}}});
+//--><!]]>
+</script>
+</head>
+<body class="html not-front not-logged-in two-sidebars page-node page-node- page-node-397 node-type-blog" >
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+    <div id="header" class="clearfix">
+
+    <div class="region region-search">
+    <div id="block-search-form" class="block block-search">
+
+      
+  <div class="content">
+    <form action="/node/397" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" class="form-text" />
+</div>
+<div class="form-actions form-wrapper" id="edit-actions--2"><input type="submit" id="edit-submit--2" name="op" value="Search" class="form-submit" /></div><input type="hidden" name="form_build_id" value="form-BdP8ZEYsJPAEmOdQ-jMjreThJfoI-WJkqj42OcrG3JQ" />
+<input type="hidden" name="form_id" value="search_block_form" />
+</div>
+</div></form>  </div>
+</div>
+  </div>
+
+      <a href="/" title="Home" rel="home" id="logo">
+      <img src="http://tilt.lib.tsinghua.edu.cn/sites/all/themes/bluemarine/logo.png" alt="Home" />
+    </a>
+              <div id="site-name"><strong>
+        <a href="/" title="Home" rel="home"><span>涂虫小记</span></a>
+      </strong></div>
+        
+  <div id="menu">
+        <h2 class="element-invisible">Main menu</h2><ul id="navlist" class="links"><li class="menu-206 first last"><a href="http://tilt.lib.tsinghua.edu.cn/taxonomy/term/4" title="">关于我们</a></li>
+</ul>  </div>
+
+  
+</div>
+
+<div class="layout-columns clearfix">
+
+    <div class="region region-sidebar-first column">
+    <div id="block-user-login" class="block block-user">
+
+        <h2 class="title">用户登录</h2>
+    
+  <div class="content">
+    <form action="/node/397?destination=node/397" method="post" id="user-login-form" accept-charset="UTF-8"><div><div class="form-item form-type-textfield form-item-name">
+  <label for="edit-name">Username <span class="form-required" title="This field is required.">*</span></label>
+ <input type="text" id="edit-name" name="name" value="" size="15" maxlength="60" class="form-text required" />
+</div>
+<div class="form-item form-type-password form-item-pass">
+  <label for="edit-pass">Password <span class="form-required" title="This field is required.">*</span></label>
+ <input type="password" id="edit-pass" name="pass" size="15" maxlength="128" class="form-text required" />
+</div>
+<div class="item-list"><ul><li class="first last"><a href="/user/password" title="Request new password via e-mail.">Request new password</a></li>
+</ul></div><input type="hidden" name="form_build_id" value="form-422PO_8NFnEg2WU-kWQAK2XjmuS4y4TH6mcoDFKo7PY" />
+<input type="hidden" name="form_id" value="user_login_block" />
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="Log in" class="form-submit" /></div></div></form>  </div>
+</div>
+<div id="block-menu-menu-category" class="block block-menu">
+
+        <h2 class="title">分类</h2>
+    
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="http://tilt.lib.tsinghua.edu.cn/taxonomy/term/17" title="">Family</a></li>
+<li class="collapsed"><a href="/taxonomy/term/4" title="">Library</a></li>
+<li class="last collapsed"><a href="/taxonomy/term/6" title="">Tech</a></li>
+</ul>  </div>
+</div>
+<div id="block-menu-menu-relatedlinks" class="block block-menu">
+
+        <h2 class="title">友情链接</h2>
+    
+  <div class="content">
+    <ul class="menu"><li class="first leaf"><a href="http://picasaweb.google.com/yinuochen" title="小北的相册">小北的相册</a></li>
+<li class="leaf"><a href="http://blog.sciencenet.cn/blog-213646-846563.html" title="本信息在《[转载]图书、情报、档案类（附非核心图书情报类）投稿介绍》（http://blog.sciencenet.cn/blog-91591-607753.html）基础上进行了进一步的更新。圕人堂成员林中小鸟等对本信息辑录有贡献。本信息不一定准确，仅供参考。欢迎批评指正，以利进一步修订完善。">图情类期刊投稿信息</a></li>
+<li class="last leaf"><a href="http://bt.neu6.edu.cn/?fromuid=169364" title="东北大学IPv6交流平台，需使用IPv6地址访问">六维空间</a></li>
+</ul>  </div>
+</div>
+  </div>
+
+  <div id="main" class="column">
+    
+    <div class="inner">
+      <h2 class="element-invisible">You are here</h2><div class="breadcrumb"><a href="/">Home</a> » <a href="/blog">Blogs</a> » <a href="/blog/1">tlbluestar&#039;s blog</a></div>            <h1 class="title" id="page-title">Extmail在x64系统上的安装问题解决</h1>            <div class="tabs"></div>                          <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+
+      
+  <div class="content">
+    <div id="node-397" class="node node-blog node-promoted clearfix">
+
+  
+      
+      <span class="submitted">Fri, 12/26/2008 - 14:32 - <span class="username">tlbluestar</span></span>
+  
+  <div class="content">
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even"><p>系统环境：CentOS 5.2 x64，extmail 1.0.5，extman 1.0.5<br />
+安装参考文档： <a href="http://www.yiyou.org/docs/centos_extmail_01/">http://www.yiyou.org/docs/centos_extmail_01/</a>  (<a href="/docs/tech/Linux/ExtMail_on_CentOS_5.2.html">本地副本</a>）<br />
+问题：在第9步测试postfix时smtp认证发生错误。</p>
+<h3>1. 首先检查日志的错误信息：</h3>
+<p>在/var/log/maillog中包含如下内容：</p>
+<div class="codeblock"><code>Dec 26 11:11:05 xenhost3 postfix/smtpd[439]: connect from localhost.localdomain[127.0.0.1]<br />Dec 26 11:11:27 xenhost3 postfix/smtpd[439]: warning: localhost.localdomain[127.0.0.1]: SASL login authentication failed: aut<br />hentication failure<br />Dec 26 11:11:29 xenhost3 postfix/smtpd[439]: disconnect from localhost.localdomain[127.0.0.1]</code></div>
+<p>在/var/log/messages中包含如下内容：</p>
+<div class="codeblock"><code>Dec 26 11:11:27 xenhost3 saslauthd[32486]: do_auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : auth failure: [user=postmaster] [service=smtp] [realm=extmail.org] [mech=pam] [reason=PAM auth error]</code></div>
+<p>因为前面pop3测试可以正常通过，所以数据库内容和数据库连接应该没有问题，pop3也采用authdaemon，所以authdaemon的配置应该也没有问题。问题可能是由于不正确的认证机制引起，似乎是saslauth与authdaemon的配合有问题。在网上搜索到了一篇相关文章“<a href="http://www.extmail.org/forum/viewthread.php?tid=439&amp;highlight=">Postfix + SASL2 + Authdaemon认证死活不过的解决办法</a>，其中提示这种情况下最好记录更加详细的日志，包括数据库查询日志。<br />
+根据其中的提示，在/etc/syslog.conf文件中添加</p>
+<div class="codeblock"><code>*.debug&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /var/log/debug.log</code></div>
+<p>以记录调试信息，并且在mysql启动时添加--log="/var/log/mysql-query.log"参数，以记录数据库查询日志。<br />
+然后再次进行测试，得到如下日志信息。在/var/log/debug.log中包含如下内容：</p>
+<div class="codeblock"><code>Dec 26 11:11:05 xenhost3 postfix/smtpd[439]: connect from localhost.localdomain[127.0.0.1]<br />Dec 26 11:11:27 xenhost3 saslauthd[32486]: DEBUG: auth_pam: pam_authenticate failed: Authentication failure<br />Dec 26 11:11:27 xenhost3 saslauthd[32486]: do_auth&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : auth failure: [user=postmaster] [service=smtp] [realm=extmail.org] [mech=pam] [reason=PAM auth error]<br />Dec 26 11:11:27 xenhost3 postfix/smtpd[439]: warning: localhost.localdomain[127.0.0.1]: SASL login authentication failed: authentication failure<br />Dec 26 11:11:29 xenhost3 postfix/smtpd[439]: disconnect from localhost.localdomain[127.0.0.1]</code></div>
+<p>在/var/log/mysql-query.log文件中包含如下内容：</p>
+<div class="codeblock"><code>081226 11:12:34&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 Connect&nbsp;&nbsp;&nbsp;&nbsp; Access denied for user 'UNKNOWN_MYSQL_US'@'localhost' (using password: NO)</code></div>
+<p>从上面信息来看，sasl根本就没有调用authdaemond。再仔细检查sasl的smtp配置文件/usr/lib/sasl2/smtpd.conf：</p>
+<div class="codeblock"><code>pwcheck_method:authdaemond<br />log_level:3<br />mech_list:PLAIN LOGIN<br />authdaemond_path:/var/spool/authdaemon/socket</code></div>
+<p>确认其配置没有问题。那么为什么sasl不去读取这个配置文件？开始以为自己的安装的sasl因为版本不正确，导致不能读取适当的配置文件。尝试重新安装相应的sasl软件：</p>
+<div class="codeblock"><code>[root@xenhost3 ~]# cd /usr/src/redhat/RPMS/x86_64 <br />[root@xenhost3 x86_64]# rpm -Uvh cyrus-sasl-2.1.22-8.x86_64.rpm cyrus-sasl-devel-2.1.22-8.x86_64.rpm cyrus-sasl-lib-2.1.22-8.x86_64.rpm cyrus-sasl-plain-2.1.22-8.x86_64.rpm<br />Preparing...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ########################################### [100%]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; package cyrus-sasl-lib-2.1.22-8 is already installed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; package cyrus-sasl-2.1.22-8 is already installed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; package cyrus-sasl-devel-2.1.22-8 is already installed<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; package cyrus-sasl-plain-2.1.22-8 is already installed<br />[root@xenhost3 x86_64]# rpm -e --nodeps cyrus-sasl-2.1.22-8.x86_64 cyrus-sasl-devel-2.1.22-8.x86_64 cyrus-sasl-lib-2.1.22-8.x86_64 cyrus-sasl-plain-2.1.22-8.x86_64<br />[root@xenhost3 x86_64]# rpm -Uvh cyrus-sasl-2.1.22-8.x86_64.rpm cyrus-sasl-devel-2.1.22-8.x86_64.rpm cyrus-sasl-lib-2.1.22-8.x86_64.rpm cyrus-sasl-plain-2.1.22-8.x86_64.rpm</code></div>
+<p>检查文件的属性，发现可执行文件的日期时间已经更新，但是/usr/lib/sasl2/目录下的库文件日期时间并没有发生变化。查看是否存在对应的x64目录：</p>
+<div class="codeblock"><code>[root@xenhost3 x86_64]# ls -alcrt /usr/lib64/sasl2/</code></div>
+<p>至此找到原因，修改/usr/lib/sasl2/smtpd.conf，并重新启动sasld：</p>
+<div class="codeblock"><code>[root@xenhost3 x86_64]# mv /usr/lib64/sasl2/smtpd.conf /usr/lib64/sasl2/smthd.conf.orig<br />[root@xenhost3 x86_64]# cp -f /usr/lib/sasl2/smtpd.conf /usr/lib64/sasl2/<br />[root@xenhost3 x86_64]# /etc/init.d/saslauthd restart</code></div>
+<p>重新进行smtp测试，成功！</p>
+</div></div></div><div class="field field-name-taxonomy-vocabulary-1 field-type-taxonomy-term-reference field-label-above"><div class="field-label">Topics:&nbsp;</div><div class="field-items"><div class="field-item even"><a href="/taxonomy/term/22">Mail</a></div></div></div>  </div>
+      <div class="links">&raquo;<ul class="links inline"><li class="blog_usernames_blog first"><a href="/blog/1" title="Read tlbluestar&#039;s latest blog entries.">tlbluestar&#039;s blog</a></li>
+<li class="comment-add last"><a href="/comment/reply/397#comment-form" title="Share your thoughts and opinions related to this posting.">Add new comment</a></li>
+</ul></div>
+  
+  
+</div>
+  </div>
+</div>
+  </div>
+          </div>
+  </div>
+
+    <div class="region region-sidebar-second column">
+    <div id="block-aggregator-feed-1" class="block block-aggregator">
+
+        <h2 class="title">Library Technology Guides</h2>
+    
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="http://librarytechnology.org/news/pr.pl?id=20920">Fowler Public Library goes live on the CLiC AspenCat LibLime Koha Union Catalog</a>
+</li>
+<li><a href="http://librarytechnology.org/news/pr.pl?id=20921">SkyRiver adds 3.5 million Records from the British Library</a>
+</li>
+<li><a href="http://librarytechnology.org/news/pr.pl?id=20918">Alexander Mitchell Public Library (SD) selects the Polaris ILS</a>
+</li>
+<li><a href="http://librarytechnology.org/news/pr.pl?id=20919">HBCU Library Alliance Elects New Board Members</a>
+</li>
+<li class="last"><a href="http://librarytechnology.org/news/pr.pl?id=20917">Demographic Group Terms available through the LC Linked Data Service</a>
+</li>
+</ul></div><div class="more-link"><a href="/aggregator/sources/1" title="View this feed&#039;s recent news.">More</a></div>  </div>
+</div>
+  </div>
+
+</div>
+
+<div id="footer">
+    <div class="region region-footer">
+    <div id="block-system-powered-by" class="block block-system">
+
+      
+  <div class="content">
+    <span>Powered by <a href="https://www.drupal.org">Drupal</a></span>  </div>
+</div>
+  </div>
+</div>
+  </body>
+</html>

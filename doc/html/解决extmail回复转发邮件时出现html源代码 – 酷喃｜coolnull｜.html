@@ -1,0 +1,401 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=10,IE=9,IE=8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>解决extmail回复转发邮件时出现html源代码 &#8211; 酷喃｜coolnull｜</title>
+<script>
+window._deel = {
+    name: '酷喃｜coolnull｜',
+    url: 'http://coolnull.com/wp-content/themes/d8',
+    rss: '',
+    ajaxpager: '',
+    maillist: '',
+    maillistCode: '',
+    commenton: 1,
+    roll: [0,0]
+}
+</script>
+<link rel='stylesheet' id='style-css'  href='http://coolnull.com/wp-content/themes/d8/style.css?ver=3.0' type='text/css' media='all' />
+<script type='text/javascript' src='http://coolnull.com/wp-content/themes/d8/js/jquery.js?ver=3.0'></script>
+<link rel='prev' title='申请startssl一年免费ssl证书' href='http://coolnull.com/3423.html' />
+<link rel='next' title='mysql重置root密码' href='http://coolnull.com/3464.html' />
+<link rel='canonical' href='http://coolnull.com/3451.html' />
+<link rel='shortlink' href='http://coolnull.com/?p=3451' />
+<link rel="stylesheet" type="text/css" href="http://coolnull.com/wp-content/plugins/wp-code-highlight/css/wp-code-highlight.css" media="screen" />
+<meta name="keywords" content="extmail, html, 回复, 源码, 转发, application, postfix">
+<meta name="description" content="说明： extmail回复转发邮件时候，邮件都会出现html源代码。使用chrome时候，每次回复转发都会出现html源代码，而使用ie则不会出现html源代码，使用firefox、foxmail的话一切正常，很明显是webmail的问题。如下   解决： 登陆邮箱，选择个人偏好设置-->常规设置-->写邮件设置--> RTF邮件-->取消勾选“是否打开RTF（富文本格式）编辑器？勾选将在编写邮件时打开”   补充： 但如果用户数较多，">
+<!--[if lt IE 9]><script src="http://coolnull.com/wp-content/themes/d8/js/html5.js"></script><![endif]-->
+</head>
+<body class="single single-post postid-3451 single-format-standard">
+<header class="header">
+	<div class="navbar">
+		<div class="logo"><a href="http://coolnull.com" title="酷喃｜coolnull｜-分享 快乐 记录 成长">酷喃｜coolnull｜</a></div>
+		<ul class="nav">
+			<li id="menu-item-2870" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-2870"><a href="http://coolnull.com/category/basic">basic</a>
+<ul class="sub-menu">
+	<li id="menu-item-2871" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2871"><a href="http://coolnull.com/category/basic/command">command</a></li>
+	<li id="menu-item-2872" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2872"><a href="http://coolnull.com/category/basic/hardware">hardware</a></li>
+	<li id="menu-item-2873" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2873"><a href="http://coolnull.com/category/basic/in">IN</a></li>
+	<li id="menu-item-2875" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2875"><a href="http://coolnull.com/category/basic/shell">shell</a></li>
+	<li id="menu-item-2876" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2876"><a href="http://coolnull.com/category/basic/wordpress">wordpress</a></li>
+	<li id="menu-item-2874" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2874"><a href="http://coolnull.com/category/basic/jwplayer">jwplayer</a></li>
+</ul>
+</li>
+<li id="menu-item-2862" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-2862"><a href="http://coolnull.com/category/application">application</a>
+<ul class="sub-menu">
+	<li id="menu-item-2863" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2863"><a href="http://coolnull.com/category/application/apache">apache</a></li>
+	<li id="menu-item-2864" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2864"><a href="http://coolnull.com/category/application/memcache">memcache</a></li>
+	<li id="menu-item-2865" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2865"><a href="http://coolnull.com/category/application/mysql">mysql</a></li>
+	<li id="menu-item-2866" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2866"><a href="http://coolnull.com/category/application/nginx">nginx</a></li>
+	<li id="menu-item-2867" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2867"><a href="http://coolnull.com/category/application/php">php</a></li>
+	<li id="menu-item-2868" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2868"><a href="http://coolnull.com/category/application/svn">svn</a></li>
+	<li id="menu-item-2869" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2869"><a href="http://coolnull.com/category/application/vsftp">vsftp</a></li>
+</ul>
+</li>
+<li id="menu-item-2886" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-2886"><a href="http://coolnull.com/category/yoli">yoli</a>
+<ul class="sub-menu">
+	<li id="menu-item-2887" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2887"><a href="http://coolnull.com/category/yoli/ab">ab</a></li>
+	<li id="menu-item-2888" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2888"><a href="http://coolnull.com/category/yoli/webbench">webbench</a></li>
+</ul>
+</li>
+<li id="menu-item-2878" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-2878"><a href="http://coolnull.com/category/monitor">monitor</a>
+<ul class="sub-menu">
+	<li id="menu-item-2879" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2879"><a href="http://coolnull.com/category/monitor/cacti">cacti</a></li>
+	<li id="menu-item-2880" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2880"><a href="http://coolnull.com/category/monitor/nagios">nagios</a></li>
+	<li id="menu-item-2881" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2881"><a href="http://coolnull.com/category/monitor/zabbix">zabbix</a></li>
+</ul>
+</li>
+<li id="menu-item-2882" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-2882"><a href="http://coolnull.com/category/security">security</a>
+<ul class="sub-menu">
+	<li id="menu-item-3964" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3964"><a href="http://coolnull.com/category/security/charles">charles</a></li>
+	<li id="menu-item-2883" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2883"><a href="http://coolnull.com/category/security/iptables">iptables</a></li>
+	<li id="menu-item-2884" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2884"><a href="http://coolnull.com/category/security/log-analysis">log analysis</a></li>
+	<li id="menu-item-2885" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2885"><a href="http://coolnull.com/category/security/ssh">ssh</a></li>
+</ul>
+</li>
+<li id="menu-item-2877" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-2877"><a href="http://coolnull.com/category/lovelife">lovelife</a></li>
+<li id="menu-item-2984" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2984"><a href="http://coolnull.com/about-me">about me</a></li>
+		</ul>
+		<div class="menu pull-right">
+			<form method="get" class="dropdown search-form" action="http://coolnull.com/" >
+				<input class="search-input" name="s" type="text" placeholder="输入关键字搜索" autofocus="" x-webkit-speech=""><input class="btn btn-success search-submit" type="submit" value="搜索">
+				<ul class="dropdown-menu search-suggest"></ul>
+			</form>
+			<div class="btn-group pull-left">
+				<button class="btn btn-primary" data-toggle="modal" data-target="#feed">订阅</button>
+							</div>
+		</div>
+	</div>
+	<div class="speedbar">
+				<div class="toptip"><strong class="text-success">最新消息：</strong>其实接手服务器，最最最重要的还是要看下数据库、文件备份情况！！！非常重要！！！</div>
+	</div>
+</header>
+<section class="container">
+	<div class="content-wrap">
+	<div class="content">
+		<div class="breadcrumbs">你的位置：<a href="http://coolnull.com">酷喃｜coolnull｜</a> <small>></small> <a href="http://coolnull.com/category/application" title="查看 application 中的全部文章">application</a> <small>></small> <span class="muted">解决extmail回复转发邮件时出现html源代码</span></div>
+				<header class="article-header">
+			<h1 class="article-title"><a href="http://coolnull.com/3451.html">解决extmail回复转发邮件时出现html源代码</a></h1>
+			<div class="meta">
+				<span class="muted"><a href="http://coolnull.com/category/application"><i class="icon-list-alt icon12"></i> application</a></span>				<span class="muted"><i class="icon-user icon12"></i> <a href="http://coolnull.com/author/youknow">shang</a></span>
+				<time class="muted"><i class="ico icon-time icon12"></i> 10个月前 (10-15)</time>
+				<span class="muted"><i class="ico icon-eye-open icon12"></i> 953浏览</span>
+				<span class="muted"><i class="icon-comment icon12"></i> <a href="http://coolnull.com/3451.html#comments">0评论</a></span>							</div>
+		</header>
+
+				
+		<article class="article-content">
+			<p><strong>说明：</strong><br />
+extmail回复转发邮件时候，邮件都会出现html源代码。使用chrome时候，每次回复转发都会出现html源代码，而使用ie则不会出现html源代码，使用firefox、foxmail的话一切正常，很明显是webmail的问题。如下<br />
+<a href="http://coolnull.com/wp-content/uploads/2014/10/extmail1.jpg"><img src="http://coolnull.com/wp-content/uploads/2014/10/extmail1.jpg" alt="extmail1" width="597" height="462" class="alignnone size-full wp-image-3455" /></a><br />
+<br />
+<strong>解决：</strong><br />
+登陆邮箱，选择个人偏好设置&#8211;>常规设置&#8211;>写邮件设置&#8211;> RTF邮件&#8211;>取消勾选“是否打开RTF（富文本格式）编辑器？勾选将在编写邮件时打开”<br />
+<a href="http://coolnull.com/wp-content/uploads/2014/10/extmail2.jpg"><img src="http://coolnull.com/wp-content/uploads/2014/10/extmail2-1024x358.jpg" alt="extmail2" width="1024" height="358" class="alignnone size-large wp-image-3456" /></a><br />
+<br />
+<strong>补充：</strong><br />
+但如果用户数较多，那怎么办。要一个个修改嘛？有的邮箱我们根本没有账号，怎么登陆改？<br />
+其实，extmail用户的这个是否打开RTF功能，是以文件的形式/var/vmail/coolnull.com/solar/Maildir/user.cf保存在用户邮箱目录的，</p>
+<pre class="wp-code-highlight prettyprint">
+# cat /var/vmail/coolnull.com/solar/Maildir/user.cf
+ccsent = 1
+pop_on = 0
+nick_name = 
+compose_html = 1   //这个，1表示开启RTF功能，0表示关闭
+pop_files = 30
+conv_link = 1
+delmode = on
+pop_timeout = 30
+template = default
+timezone = +0800
+lang = zh_CN
+charset = UTF-8
+trylocal = 1
+addr2abook = 1
+page_size = 10
+sort = Dt
+show_html = 1
+screen = auto
+full_header = 0
+</pre>
+<p>&nbsp;<br />
+登陆用户目录去一个个改也比较慢，因此写了个shell。它会遍历/var/vmail/coolnull.com这个目录，<br />
+如果用户已经有配置过“个人偏好设置”，那用户邮箱里就有user.cf，shell脚本就只修改compose_html 这个参数，确保不会覆盖用户其它设置<br />
+如果用户没有配置过“个人偏好设置”，那用户邮箱里里就不会有user.cfshell脚本就在用户邮箱目录里创建user.cf</p>
+<pre class="wp-code-highlight prettyprint">
+#!/bin/bash
+#
+# carl 20141015 1
+# PATH
+
+filepath=&quot;/var/vmail/coolnull.com&quot;
+
+for user in `ls ${filepath}`
+do
+        if [ -f ${filepath}/$user/Maildir/user.cf ]
+        then
+                echo &quot;existing!!!&quot;
+                sed -i &#039;s/compose_html = 1/compose_html = 0/&#039; ${filepath}/$user/Maildir/user.cf
+        else
+                echo &quot;None&quot;
+                cat &gt;${filepath}/$user/Maildir/user.cf&lt;&lt;\eof
+ccsent = 1
+pop_on = 0
+nick_name =
+compose_html = 0
+pop_files = 30
+conv_link = 1
+delmode = on
+pop_timeout = 30
+template = default
+timezone = +0800
+lang = zh_CN
+charset = UTF-8
+trylocal = 1
+addr2abook = 1
+page_size = 100
+sort = Dt
+show_html = 1
+screen = auto
+full_header = 0
+eof
+                chown vmail.vmail ${filepath}/$user/Maildir/user.cf
+        fi
+done
+</pre>
+<p>转载请注明：<a href="http://coolnull.com">酷喃｜coolnull｜</a> &raquo; <a href="http://coolnull.com/3451.html">解决extmail回复转发邮件时出现html源代码</a></p>		</article>
+
+		
+		<footer class="article-footer">
+			<div class="article-tags">继续浏览有关 <a href="http://coolnull.com/tag/extmail" rel="tag">extmail</a><a href="http://coolnull.com/tag/html" rel="tag">html</a><a href="http://coolnull.com/tag/%e5%9b%9e%e5%a4%8d" rel="tag">回复</a><a href="http://coolnull.com/tag/%e6%ba%90%e7%a0%81" rel="tag">源码</a><a href="http://coolnull.com/tag/%e8%bd%ac%e5%8f%91" rel="tag">转发</a> 的文章</div>					</footer>
+
+		<nav class="article-nav">
+			<span class="article-nav-prev">上一篇 <a href="http://coolnull.com/3423.html" rel="prev">申请startssl一年免费ssl证书</a></span>
+			<span class="article-nav-next"><a href="http://coolnull.com/3464.html" rel="next">mysql重置root密码</a> 下一篇</span>
+		</nav>
+
+		<div class="relates">
+			<h3>与本文相关的文章</h3>
+			<ul>
+<li><a href="http://coolnull.com/3401.html">解决extmail接收qq邮件中文显示乱码</a></li><li><a href="http://coolnull.com/3322.html">iptables实现端口映射</a></li><li><a href="http://coolnull.com/3168.html">extmail Session expired, please login again!</a></li><li><a href="http://coolnull.com/1803.html">wkhtmltoimage将html页面输出为jpg</a></li><li><a href="http://coolnull.com/3942.html">samba出现open_rpc_pipe_p: copy_serverinfo failed解决</a></li><li><a href="http://coolnull.com/3934.html">命令行查看mysql数据库、表大小</a></li><li><a href="http://coolnull.com/3872.html">开启php-fpm状态页及pm.status_path状态详解</a></li><li><a href="http://coolnull.com/3777.html">mysql show status解释</a></li><li><a href="http://coolnull.com/3772.html">通过show status 来优化MySQL数据库</a></li><li><a href="http://coolnull.com/3758.html">MySQL server has gone away问题的解决方法</a></li><li><a href="http://coolnull.com/3726.html">回收MySQL InnoDB独立表空间</a></li><li><a href="http://coolnull.com/3685.html">PHP去掉诡异的BOM \ufeff</a></li></ul>		</div>
+
+		
+		<div id="respond" class="no_webshot">
+		<form action="http://coolnull.com/wp-comments-post.php" method="post" id="commentform">
+		
+		<div class="comt-title">
+			<div class="comt-avatar pull-left">
+				<img alt='' src='http://0.gravatar.com/avatar/?d=http://coolnull.com/wp-content/themes/d8/img/default.png&#038;s=28' class='avatar avatar-28 photo avatar-default' height='28' width='28' />			</div>
+			<div class="comt-author pull-left">
+			发表我的评论			</div>
+			<a id="cancel-comment-reply-link" class="pull-right" href="javascript:;">取消评论</a>
+		</div>
+		
+		<div class="comt">
+			<div class="comt-box">
+				<textarea placeholder="写点什么..." class="input-block-level comt-area" name="comment" id="comment" cols="100%" rows="3" tabindex="1" onkeydown="if(event.ctrlKey&amp;&amp;event.keyCode==13){document.getElementById('submit').click();return false};"></textarea>
+				<div class="comt-ctrl">
+					<button class="btn btn-primary pull-right" type="submit" name="submit" id="submit" tabindex="5"><i class="icon-ok-circle icon-white icon12"></i> 提交评论</button>
+					<div class="comt-tips pull-right"><input type='hidden' name='comment_post_ID' value='3451' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="dc9550d769" /></p></div>
+					<span data-type="comment-insert-smilie" class="muted comt-smilie"><i class="icon-thumbs-up icon12"></i> 表情</span>
+					<span class="muted comt-mailme"><label for="comment_mail_notify" class="checkbox inline" style="padding-top:0"><input type="checkbox" name="comment_mail_notify" id="comment_mail_notify" value="comment_mail_notify" checked="checked"/>有人回复时邮件通知我</label></span>
+				</div>
+			</div>
+
+												<div class="comt-comterinfo" id="comment-author-info" >
+						<h4>Hi，您需要填写昵称和邮箱！</h4>
+						<ul>
+							<li class="form-inline"><label class="hide" for="author">昵称</label><input class="ipt" type="text" name="author" id="author" value="" tabindex="2" placeholder="昵称"><span class="help-inline">昵称 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="email">邮箱</label><input class="ipt" type="text" name="email" id="email" value="" tabindex="3" placeholder="邮箱"><span class="help-inline">邮箱 (必填)</span></li>
+							<li class="form-inline"><label class="hide" for="url">网址</label><input class="ipt" type="text" name="url" id="url" value="" tabindex="4" placeholder="网址"><span class="help-inline">网址</span></li>
+						</ul>
+					</div>
+									</div>
+
+		
+	</form>
+	</div>
+
+		
+	</div>
+</div>
+<aside class="sidebar">	
+		<div class="widget widget_recent_entries">		<h3 class="widget_tit">近期文章</h3>		<ul>
+					<li>
+				<a href="http://coolnull.com/4074.html">我知道的电脑抓取手机包的几种方式</a>
+						</li>
+					<li>
+				<a href="http://coolnull.com/4061.html">win7开启无线软AP模式,共享有线网络</a>
+						</li>
+					<li>
+				<a href="http://coolnull.com/4050.html">mysql什么情况下删除数据会释放空间</a>
+						</li>
+					<li>
+				<a href="http://coolnull.com/4042.html">curl常见返回错误码</a>
+						</li>
+					<li>
+				<a href="http://coolnull.com/4038.html">关闭rpc.statd服务</a>
+						</li>
+				</ul>
+		</div><div class="widget widget_archive"><h3 class="widget_tit">文章归档</h3>		<ul>
+			<li><a href='http://coolnull.com/date/2015/08'>2015 年八月</a></li>
+	<li><a href='http://coolnull.com/date/2015/07'>2015 年七月</a></li>
+	<li><a href='http://coolnull.com/date/2015/06'>2015 年六月</a></li>
+	<li><a href='http://coolnull.com/date/2015/05'>2015 年五月</a></li>
+	<li><a href='http://coolnull.com/date/2015/04'>2015 年四月</a></li>
+	<li><a href='http://coolnull.com/date/2015/03'>2015 年三月</a></li>
+	<li><a href='http://coolnull.com/date/2015/02'>2015 年二月</a></li>
+	<li><a href='http://coolnull.com/date/2015/01'>2015 年一月</a></li>
+	<li><a href='http://coolnull.com/date/2014/12'>2014 年十二月</a></li>
+	<li><a href='http://coolnull.com/date/2014/11'>2014 年十一月</a></li>
+	<li><a href='http://coolnull.com/date/2014/10'>2014 年十月</a></li>
+	<li><a href='http://coolnull.com/date/2014/09'>2014 年九月</a></li>
+	<li><a href='http://coolnull.com/date/2014/08'>2014 年八月</a></li>
+	<li><a href='http://coolnull.com/date/2014/07'>2014 年七月</a></li>
+	<li><a href='http://coolnull.com/date/2014/06'>2014 年六月</a></li>
+	<li><a href='http://coolnull.com/date/2014/04'>2014 年四月</a></li>
+	<li><a href='http://coolnull.com/date/2014/03'>2014 年三月</a></li>
+	<li><a href='http://coolnull.com/date/2014/02'>2014 年二月</a></li>
+	<li><a href='http://coolnull.com/date/2014/01'>2014 年一月</a></li>
+	<li><a href='http://coolnull.com/date/2013/12'>2013 年十二月</a></li>
+	<li><a href='http://coolnull.com/date/2013/11'>2013 年十一月</a></li>
+	<li><a href='http://coolnull.com/date/2013/10'>2013 年十月</a></li>
+	<li><a href='http://coolnull.com/date/2013/09'>2013 年九月</a></li>
+	<li><a href='http://coolnull.com/date/2013/08'>2013 年八月</a></li>
+	<li><a href='http://coolnull.com/date/2013/07'>2013 年七月</a></li>
+	<li><a href='http://coolnull.com/date/2013/06'>2013 年六月</a></li>
+	<li><a href='http://coolnull.com/date/2013/05'>2013 年五月</a></li>
+	<li><a href='http://coolnull.com/date/2013/04'>2013 年四月</a></li>
+	<li><a href='http://coolnull.com/date/2013/03'>2013 年三月</a></li>
+	<li><a href='http://coolnull.com/date/2013/02'>2013 年二月</a></li>
+	<li><a href='http://coolnull.com/date/2013/01'>2013 年一月</a></li>
+	<li><a href='http://coolnull.com/date/2012/12'>2012 年十二月</a></li>
+	<li><a href='http://coolnull.com/date/2012/11'>2012 年十一月</a></li>
+	<li><a href='http://coolnull.com/date/2012/10'>2012 年十月</a></li>
+		</ul>
+</div><div class="widget widget_categories"><h3 class="widget_tit">分类目录</h3>		<ul>
+	<li class="cat-item cat-item-28"><a href="http://coolnull.com/category/yoli/ab" title="查看 ab 下的所有文章">ab</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://coolnull.com/category/application/apache" title="查看 apache 下的所有文章">apache</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://coolnull.com/category/application" title="查看 application 下的所有文章">application</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://coolnull.com/category/basic" title="查看 basic 下的所有文章">basic</a>
+</li>
+	<li class="cat-item cat-item-21"><a href="http://coolnull.com/category/monitor/cacti" title="查看 cacti 下的所有文章">cacti</a>
+</li>
+	<li class="cat-item cat-item-781"><a href="http://coolnull.com/category/security/charles" title="查看 charles 下的所有文章">charles</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="http://coolnull.com/category/basic/command" title="查看 command 下的所有文章">command</a>
+</li>
+	<li class="cat-item cat-item-364"><a href="http://coolnull.com/category/basic/hardware" title="查看 hardware 下的所有文章">hardware</a>
+</li>
+	<li class="cat-item cat-item-12"><a href="http://coolnull.com/category/basic/in" title="查看 IN 下的所有文章">IN</a>
+</li>
+	<li class="cat-item cat-item-92"><a href="http://coolnull.com/category/security/iptables" title="查看 iptables 下的所有文章">iptables</a>
+</li>
+	<li class="cat-item cat-item-147"><a href="http://coolnull.com/category/basic/jwplayer" title="查看 jwplayer 下的所有文章">jwplayer</a>
+</li>
+	<li class="cat-item cat-item-111"><a href="http://coolnull.com/category/security/log-analysis" title="查看 log analysis 下的所有文章">log analysis</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://coolnull.com/category/lovelife" title="查看 lovelife 下的所有文章">lovelife</a>
+</li>
+	<li class="cat-item cat-item-136"><a href="http://coolnull.com/category/application/memcache" title="查看 memcache 下的所有文章">memcache</a>
+</li>
+	<li class="cat-item cat-item-58"><a href="http://coolnull.com/category/application/mongdb" title="查看 mongoDB 下的所有文章">mongoDB</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://coolnull.com/category/monitor" title="查看 monitor 下的所有文章">monitor</a>
+</li>
+	<li class="cat-item cat-item-18"><a href="http://coolnull.com/category/application/mysql" title="查看 mysql 下的所有文章">mysql</a>
+</li>
+	<li class="cat-item cat-item-338"><a href="http://coolnull.com/category/monitor/nagios" title="查看 nagios 下的所有文章">nagios</a>
+</li>
+	<li class="cat-item cat-item-34"><a href="http://coolnull.com/category/application/nginx" title="查看 nginx 下的所有文章">nginx</a>
+</li>
+	<li class="cat-item cat-item-59"><a href="http://coolnull.com/category/application/php" title="查看 php 下的所有文章">php</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://coolnull.com/category/application/postfix" title="查看 postfix 下的所有文章">postfix</a>
+</li>
+	<li class="cat-item cat-item-166"><a href="http://coolnull.com/category/basic/python" title="查看 python 下的所有文章">python</a>
+</li>
+	<li class="cat-item cat-item-56"><a href="http://coolnull.com/category/application/rsync" title="查看 rsync 下的所有文章">rsync</a>
+</li>
+	<li class="cat-item cat-item-578"><a href="http://coolnull.com/category/application/samba" title="查看 samba 下的所有文章">samba</a>
+</li>
+	<li class="cat-item cat-item-411"><a href="http://coolnull.com/category/security" title="查看 security 下的所有文章">security</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://coolnull.com/category/basic/shell" title="查看 shell 下的所有文章">shell</a>
+</li>
+	<li class="cat-item cat-item-83"><a href="http://coolnull.com/category/security/ssh" title="查看 ssh 下的所有文章">ssh</a>
+</li>
+	<li class="cat-item cat-item-54"><a href="http://coolnull.com/category/application/svn" title="查看 svn 下的所有文章">svn</a>
+</li>
+	<li class="cat-item cat-item-143"><a href="http://coolnull.com/category/application/vsftp" title="查看 vsftp 下的所有文章">vsftp</a>
+</li>
+	<li class="cat-item cat-item-101"><a href="http://coolnull.com/category/basic/vsphere-4-1" title="查看 vsphere 4.1 下的所有文章">vsphere 4.1</a>
+</li>
+	<li class="cat-item cat-item-238"><a href="http://coolnull.com/category/yoli/webbench" title="查看 webbench 下的所有文章">webbench</a>
+</li>
+	<li class="cat-item cat-item-128"><a href="http://coolnull.com/category/basic/wordpress" title="查看 wordpress 下的所有文章">wordpress</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://coolnull.com/category/yoli" title="查看 yoli 下的所有文章">yoli</a>
+</li>
+	<li class="cat-item cat-item-77"><a href="http://coolnull.com/category/monitor/zabbix" title="查看 zabbix 下的所有文章">zabbix</a>
+</li>
+		</ul>
+</div><div class="widget widget_meta"><h3 class="widget_tit">功能</h3>			<ul>
+						<li><a href="http://coolnull.com/wp-login.php">登录</a></li>
+			<li><a href="http://coolnull.com/feed" title="使用 RSS 2.0 订阅本站点内容">文章 <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://coolnull.com/comments/feed" title="使用 RSS 订阅本站点的所有文章的近期评论">评论 <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://cn.wordpress.org/" title="基于 WordPress，一个优美、先进的个人信息发布平台。">WordPress.org</a></li>						</ul>
+</div></aside>	<!--WP Code Highlight_start-->
+	<script type="text/javascript">
+		window.onload = function(){prettyPrint();};
+	</script>
+	<script type="text/javascript" src="http://coolnull.com/wp-content/plugins/wp-code-highlight/js/wp-code-highlight.js"></script>
+	<!--WP Code Highlight_end-->
+</section>
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="copyright pull-left">
+            基于 <a rel="nofollow" target="_blank" href="http://cn.wordpress.org/">WordPress</a> 技术构建  |  <a href="http://coolnull.com/sitemap.xml" title="站点地图">站点地图</a>  |  <a rel="nofollow" target="_blank" href="http://www.coolnull.com/">闽ICP备12025040号</a>  |  本站使用 <a rel="nofollow" target="_blank" href="http://www.aliyun.com">阿里云主机</a>
+        </div>
+        <div class="trackcode pull-right">
+            <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fcfaea243c1db59c300cdec15f9f7c386' type='text/javascript'%3E%3C/script%3E"));
+</script>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
+
+<!-- Dynamic page generated in 0.169 seconds. -->
+<!-- Cached page generated by WP-Super-Cache on 2015-08-25 13:54:44 -->
+
+<!-- super cache -->

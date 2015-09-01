@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html class="no-js" lang="zh-CN">
+	<head>
+				<link rel="profile" href="http://gmpg.org/xfn/11" />
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<title>数据挖掘-分词入门 | 严澜(lanceyan)的博客 - 技术分享 框架交流 大数据处理 架构搭建 机器人</title>
+		
+				<link rel="alternate" type="application/rss+xml" title="严澜(lanceyan)的博客 - 技术分享 框架交流 大数据处理 架构搭建 机器人 &raquo; Feed" href="http://www.lanceyan.com/feed" />
+<link rel="alternate" type="application/rss+xml" title="严澜(lanceyan)的博客 - 技术分享 框架交流 大数据处理 架构搭建 机器人 &raquo; 评论Feed" href="http://www.lanceyan.com/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="严澜(lanceyan)的博客 - 技术分享 框架交流 大数据处理 架构搭建 机器人 &raquo; 数据挖掘-分词入门评论Feed" href="http://www.lanceyan.com/tech/datadig_segment_step1.html/feed" />
+<style type="text/css">.codecolorer-containter  {text-indent: 0;}</style>
+<link rel='stylesheet' id='tw-bootstrap-css'  href='http://www.lanceyan.com/wp-content/themes/the-bootstrap/css/bootstrap.min.css?ver=2.0.3' type='text/css' media='all' />
+<link rel='stylesheet' id='the-bootstrap-css'  href='http://www.lanceyan.com/wp-content/themes/the-bootstrap/style.min.css?ver=2.0.1' type='text/css' media='all' />
+<link rel='stylesheet' id='codecolorer-css'  href='http://www.lanceyan.com/wp-content/plugins/codecolorer/codecolorer.css?ver=0.9.9' type='text/css' media='screen' />
+<script type="text/javascript">
+var duoshuoQuery = {"short_name":"lanceyan","sso":{"login":"http:\/\/www.lanceyan.com\/wp-login.php?action=duoshuo_login","logout":"http:\/\/www.lanceyan.com\/wp-login.php?action=logout&_wpnonce=b48e0dd5cd"},"theme":"default","stylePatch":"wordpress\/The_Bootstrap"};
+duoshuoQuery.sso.login += '&redirect_to=' + encodeURIComponent(window.location.href);
+duoshuoQuery.sso.logout += '&redirect_to=' + encodeURIComponent(window.location.href);
+</script>
+<script type="text/javascript" src="http://static.duoshuo.com/embed.js" charset="UTF-8" async="async"></script>
+<script type='text/javascript' src='http://www.lanceyan.com/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
+<script type='text/javascript' src='http://www.lanceyan.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.lanceyan.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.lanceyan.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='搭建高可用mongodb集群（四）—— 分片' href='http://www.lanceyan.com/tech/arch/mongodb_shard1.html' />
+<meta name="generator" content="WordPress 3.9.6" />
+<link rel='shortlink' href='http://www.lanceyan.com/?p=704' />
+
+<!-- All in One SEO Pack 2.0 by Michael Torbert of Semper Fi Web Design[222,361] -->
+<meta name="description" content="数据挖掘-分词入门by lanceyan,严澜的博客" />
+
+<meta name="keywords" content="数据挖掘,分词,正向最大匹配,语义,技术,算法" />
+
+<link rel="canonical" href="http://www.lanceyan.com/tech/datadig_segment_step1.html" />
+<!-- /all in one seo pack -->
+<style type="text/css" media="screen">body{position:relative}#dynamic-to-top{display:none;overflow:hidden;width:auto;z-index:90;position:fixed;bottom:20px;right:20px;top:auto;left:auto;font-family:sans-serif;font-size:1em;color:#fff;text-decoration:none;text-shadow:0 1px 0 #333;font-weight:bold;padding:20px 15px;border:2px solid #2a58a2;background:#174d82;-webkit-background-origin:border;-moz-background-origin:border;-icab-background-origin:border;-khtml-background-origin:border;-o-background-origin:border;background-origin:border;-webkit-background-clip:padding-box;-moz-background-clip:padding-box;-icab-background-clip:padding-box;-khtml-background-clip:padding-box;-o-background-clip:padding-box;background-clip:padding-box;-webkit-box-shadow:0 1px 3px rgba( 0, 0, 0, 0.4 ), inset 0 0 0 1px rgba( 0, 0, 0, 0.2 ), inset 0 1px 0 rgba( 255, 255, 255, .4 ), inset 0 10px 10px rgba( 255, 255, 255, .1 );-ms-box-shadow:0 1px 3px rgba( 0, 0, 0, 0.4 ), inset 0 0 0 1px rgba( 0, 0, 0, 0.2 ), inset 0 1px 0 rgba( 255, 255, 255, .4 ), inset 0 10px 10px rgba( 255, 255, 255, .1 );-moz-box-shadow:0 1px 3px rgba( 0, 0, 0, 0.4 ), inset 0 0 0 1px rgba( 0, 0, 0, 0.2 ), inset 0 1px 0 rgba( 255, 255, 255, .4 ), inset 0 10px 10px rgba( 255, 255, 255, .1 );-o-box-shadow:0 1px 3px rgba( 0, 0, 0, 0.4 ), inset 0 0 0 1px rgba( 0, 0, 0, 0.2 ), inset 0 1px 0 rgba( 255, 255, 255, .4 ), inset 0 10px 10px rgba( 255, 255, 255, .1 );-khtml-box-shadow:0 1px 3px rgba( 0, 0, 0, 0.4 ), inset 0 0 0 1px rgba( 0, 0, 0, 0.2 ), inset 0 1px 0 rgba( 255, 255, 255, .4 ), inset 0 10px 10px rgba( 255, 255, 255, .1 );-icab-box-shadow:0 1px 3px rgba( 0, 0, 0, 0.4 ), inset 0 0 0 1px rgba( 0, 0, 0, 0.2 ), inset 0 1px 0 rgba( 255, 255, 255, .4 ), inset 0 10px 10px rgba( 255, 255, 255, .1 );box-shadow:0 1px 3px rgba( 0, 0, 0, 0.4 ), inset 0 0 0 1px rgba( 0, 0, 0, 0.2 ), inset 0 1px 0 rgba( 255, 255, 255, .4 ), inset 0 10px 10px rgba( 255, 255, 255, .1 );-webkit-border-radius:12px;-moz-border-radius:12px;-icab-border-radius:12px;-khtml-border-radius:12px;border-radius:12px}#dynamic-to-top:hover{background:#4d9ee4;background:#174d82 -webkit-gradient( linear, 0% 0%, 0% 100%, from( rgba( 255, 255, 255, .2 ) ), to( rgba( 0, 0, 0, 0 ) ) );background:#174d82 -webkit-linear-gradient( top, rgba( 255, 255, 255, .2 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -khtml-linear-gradient( top, rgba( 255, 255, 255, .2 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -moz-linear-gradient( top, rgba( 255, 255, 255, .2 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -o-linear-gradient( top, rgba( 255, 255, 255, .2 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -ms-linear-gradient( top, rgba( 255, 255, 255, .2 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -icab-linear-gradient( top, rgba( 255, 255, 255, .2 ), rgba( 0, 0, 0, 0 ) );background:#174d82 linear-gradient( top, rgba( 255, 255, 255, .2 ), rgba( 0, 0, 0, 0 ) );cursor:pointer}#dynamic-to-top:active{background:#174d82;background:#174d82 -webkit-gradient( linear, 0% 0%, 0% 100%, from( rgba( 0, 0, 0, .3 ) ), to( rgba( 0, 0, 0, 0 ) ) );background:#174d82 -webkit-linear-gradient( top, rgba( 0, 0, 0, .1 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -moz-linear-gradient( top, rgba( 0, 0, 0, .1 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -khtml-linear-gradient( top, rgba( 0, 0, 0, .1 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -o-linear-gradient( top, rgba( 0, 0, 0, .1 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -ms-linear-gradient( top, rgba( 0, 0, 0, .1 ), rgba( 0, 0, 0, 0 ) );background:#174d82 -icab-linear-gradient( top, rgba( 0, 0, 0, .1 ), rgba( 0, 0, 0, 0 ) );background:#174d82 linear-gradient( top, rgba( 0, 0, 0, .1 ), rgba( 0, 0, 0, 0 ) )}#dynamic-to-top,#dynamic-to-top:active,#dynamic-to-top:focus,#dynamic-to-top:hover{outline:none}#dynamic-to-top span{display:block;overflow:hidden;width:14px;height:12px;background:url( http://www.lanceyan.com/wp-content/plugins/dynamic-to-top/css/images/up.png )no-repeat center center}</style><style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #efefef; }
+</style>
+	<!--[if lt IE 9]>
+		<script src="http://www.lanceyan.com/wp-content/themes/the-bootstrap/js/html5shiv.min.js" type="text/javascript"></script>
+		<script src="http://www.lanceyan.com/wp-content/themes/the-bootstrap/js/respond.min.js" type="text/javascript"></script>
+	<![endif]-->
+	<style type="text/css" id="syntaxhighlighteranchor"></style>
+	</head>
+	
+	<body class="single single-post postid-704 single-format-standard custom-background content-sidebar">
+		<div class="container">
+			<div id="page" class="hfeed row">
+								<header id="branding" role="banner" class="span12">
+										<hgroup>
+						<h1 id="site-title">
+							<a href="http://www.lanceyan.com/" title="严澜(lanceyan)的博客 &#8211; 技术分享 框架交流 大数据处理 架构搭建 机器人" rel="home">
+								Lanceyan
+							</a>
+						</h1>
+						<h2 id="site-description">观澜而索源 化繁为简 化简为易</h2>
+					</hgroup>
+					
+					
+					<nav id="access" role="navigation">
+						<h3 class="assistive-text">Main menu</h3>
+						<div class="skip-link"><a class="assistive-text" href="#content" title="Skip to primary content">Skip to primary content</a></div>
+						<div class="skip-link"><a class="assistive-text" href="#secondary" title="Skip to secondary content">Skip to secondary content</a></div>
+												<div class="navbar navbar-inverse">
+							<div class="navbar-inner">
+								<div class="container">
+									<!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+									<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+										<span class="icon-bar"></span>
+									</a>
+																		<div class="nav-collapse">
+										<div class="menu-%e5%b8%b8%e7%94%a8-container"><ul id="menu-%e5%b8%b8%e7%94%a8" class="nav"><li id="menu-item-248" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-248"><a href="http://www.lanceyan.com/">首页</a></li>
+<li id="menu-item-238" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-238"><a href="http://www.lanceyan.com/about">关于</a></li>
+</ul></div>										 
+										 <ul>
+										 
+										 </ul>
+										 
+								    </div>
+								</div>
+								
+								<div style="clear:both"></div>
+							</div>
+						</div>
+											</nav><!-- #access -->
+									</header><!-- #branding -->
+<section id="primary" class="span8">
+	
+		<div id="content" role="main">
+		<article id="post-704" class="post-704 post type-post status-publish format-standard hentry category-tech category-algorithm tag-85 tag-84 tag-86 tag-87">
+		
+	<header class="page-header">
+		<h3 class="entry-title">数据挖掘-分词入门</h3>		<div class="entry-meta"><span class="sep">Posted on </span><a href="http://www.lanceyan.com/tech/datadig_segment_step1.html" title="11:38 下午" rel="bookmark"><time class="entry-date" datetime="2014-09-14T23:38:18+00:00" pubdate>14 九月, 2014</time></a><span class="by-author"> <span class="sep"> by </span> <span class="author vcard"><a class="url fn n" href="http://www.lanceyan.com/author/lanceyan" title="View all posts by lanceyan" rel="author">lanceyan</a></span></span>		<span class="sep"> | </span>
+		<span class="comments-link">
+			<a href="http://www.lanceyan.com/tech/datadig_segment_step1.html#comments" class="ds-thread-count" data-thread-key="704" title="《数据挖掘-分词入门》上的评论"><strong>6</strong> Replies</a>		</span>
+		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content clearfix">
+		<p>谷歌4亿英镑收购人工智能公司DeepMind，百度目前正推进“百度大脑”项目，腾讯、阿里等各大巨头布局深度学习。随着社会化数据大量产生，硬件速度上升、成本降低，大数据技术的落地实现，让冷冰冰的数据具有智慧逐渐成为新的热点。要从数据中发现有用的信息就要用到数据挖掘技术，不过买来的数据挖掘书籍一打开全是大量的数学公式，而课本知识早已还给老师了，难以下手、非常头大！</p>
+<p>      我们可以跳过数学公式，先看看我们了解数据挖掘的目的：发现数据中价值。这个才是关键，如何发现数据中的价值。那什么是数据呢？比如大家要上网首先需要输入网址，打开网页后会自动判断哪些是图片、哪些是新闻、哪些是用户名称、游戏图标等。人大脑可以存储大量的信息，包括文字、声音、视频、图片等，每一个都可以转换数据存储在电脑。人的大脑可以根据输入自动进行判断，电脑可以通过输入判断吗？答案是肯定的! 不过需要我们编写程序来判断每一种信息，就拿文字识别来说吧，怎么从一个人在社交网络的言论判断他今天的心情是高兴还是愤怒！比如：“你假如上午没给我吃冰淇淋，我绝对会不happy的。”  信息发布时间为下午2点。对于我们人类一看这个句子就知道他是吃过冰淇淋了，心情肯定不会是愤怒。那计算机怎么知道呢？</p>
+<p>      这就是今天的主题，要让计算机理解句子的语义，必须要有个程序，上面的句子和发布时间是输入，输出就是 “高兴”。要得到“高兴”就要建立 “高兴”的规则，可以建一个感情色彩词库，比如 高兴（识别词是高兴、happy），愤怒（识别词是愤怒、生气）。这里的识别词就是输入中出现的词语，比如上面的句子中的“happy”就识别出了“高兴”这个感情色彩词。但是光识别出“happy”肯定是不行的，前面的“假如。。。没。。。，我。。。不。。。”等关键词都需要识别出来，才能完整判断一个句子的意思。为了达到这个效果，就必须要用分词技术了。</p>
+<p>      我们先人工对上面的句子来进行一下切词，使用斜线分割：“你/假如/上午/没/给/我/吃/冰淇淋/，/我/绝对/会/不/happy/的/。/”。但是程序如何做到自动切分？这个其实中国的前辈们已经做了很多中文分词的研究，常见的分词算法有：</p>
+<p>      <strong>1、基于词典的分词</strong>，需要先预设一个分词词典，比如上面句子切分出来的“假如、上午”这些词先存放在词典，然后把句子切分成单字组合成词语去词典里查找，匹配上了就挑选出来一个词。没有匹配上的就切分成单字。</p>
+<p>      <strong>2、基于统计的分词</strong>，需要先获取大量的文本语料库（比如新闻、微博等），然后统计文本里相邻的字同时出现的次数，次数越多就越可能构成一个词。当达到一定次数时就构成了一个词即可形成语料概率库。再对上面句子进行单字切分，把字与字结合后在语料概率库里查找对应的概率，如果概率大于一定值就挑选出来形成一个词。这个是大概描述，实际生产环境中还需要对句子的上下文进行结合才能更准确的分词。</p>
+<p>      <strong>3、基于语义的分词</strong>，简而言之就是模拟人类对句子的理解来进行分词。需要先整理出中文语句的句法、语义信息作为知识库，然后结合句子的上下文，对句子进行单字切分后组合成词逐个带入知识库进行识别，识别出来就挑选出一个词。目前还没有特别成熟的基于语义的分词系统。</p>
+<p>      为了让大家快速的了解分词技术，我们采用第一个方式来做测试：基于词典的分词，这种方式简单暴力可以解决百分之七八十的问题。基于词典的分词大概分为以下几种方式：</p>
+<p>       <strong>1、正向最大匹配</strong>，沿着我们看到的句子逐字拆分后组合成词语到词典里去匹配，直到匹配不到词语为止。举个实际的例子：“人民大会堂真雄伟”，我们先拆分为单字“人”去词典里去查找，发现有“人”这个词，继续组合句子里的单字组合“人民”去词典里查找，发现有“人民”这个词，以此类推发现到“人民大会堂”，然后会结合“人民大会堂真”去词典里查找没有找到这个词，第一个词“人民大会堂”查找结束。最终分词的结果为：“人民大会堂/真/雄伟”。</p>
+<p><a class="thumbnail" href="http://www.lanceyan.com/wp-content/uploads/2014/09/segment1.png"><img src="http://www.lanceyan.com/wp-content/uploads/2014/09/segment1.png" alt="segment" width="445" height="480" class="alignleft size-full wp-image-707" /></a></p>
+<p>       <strong>2、逆向最大匹配</strong>，这个和上面相反，就是倒着推理。比如“沿海南方向”，我们按正向最大匹配来做就会切分成 “沿海/南方/向”，这样就明显不对。采用逆向最大匹配法则来解决这个问题，从句子的最后取得“方向”这两个字查找词典找到“方向”这个词。再加上“南方向”组成三字组合查找词典没有这个词，查找结束，找到“方向”这个词。以此类推，最终分出“沿/海南/方向”。</p>
+<p>       <strong>3、双向最大匹配</strong>，顾名思义就是结合正向最大匹配和逆向最大匹配，最终取其中合理的结果。最早由哈工大王晓龙博士理论化的取最小切分词数，比如“我在中华人民共和国家的院子里看书”，正向最大匹配切分出来为“我/在/中华人民共和国/家/的/院子/里/看书”工8个词语，逆向最大匹配切分出来为“我/在/中华/人民/共/和/国家/的/院子/里/看书”共11个词语。取正向最大匹配切出来的结果就是正确的。但是如果把上面那个例子“沿海南方向”双向切分，都是3个词语，改如何选择？看第4个《最佳匹配法则》。</p>
+<p>       <strong>4、最佳匹配法则</strong>，先准备一堆文本语料库、一个词库，统计词库里的每一个词在语料库里出现的次数记录下来。最后按照词频高的优先选出，比如“沿海南方向”，正向切分为：“沿海/南方/向”，逆向切分为：“沿/海南/方向”。其中“海南”的频度最高，优先取出来。剩下“沿”、“方向”也就正常切分了。是不是这就是基于词典分词的最佳方案？比如数学之美中提到的：“把手抬起来” 和 “这扇门的把手”，可以分为“把”、“手”、“把手”，不管怎么分总有一句话的意思不对。后续再介绍如何通过统计的分词处理这些问题。</p>
+<p>       说了这么多，我们来实战一下如何基于词典的分词：</p>
+<div class="codecolorer-container java railscasts" style="overflow:auto;white-space:nowrap;width:660px;"><div class="java codecolorer"><span class="kw1">public</span> <span class="kw1">class</span> TestPositiveMatch <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a><span class="br0">&#91;</span><span class="br0">&#93;</span> args<span class="br0">&#41;</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> str <span class="sy0">=</span> <span class="st0">&quot;我爱这个中华人民共和国大家庭&quot;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> normalDict <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; normalDict.<span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; normalDict.<span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;爱&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; normalDict.<span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;中华&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span> &nbsp; <span class="co1">//测试词库里有中华和中华人民共和国，按照最大匹配应该匹配出中华人民共和国</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; normalDict.<span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;中华人民共和国&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> strLen <span class="sy0">=</span> str.<span class="me1">length</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> &nbsp;<span class="co1">//传入字符串的长度</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> j <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> matchWord <span class="sy0">=</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span> <span class="co1">//根据词库里识别出来的词</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> matchPos <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> <span class="co1">//根据词库里识别出来词后当前句子中的位置</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">while</span> <span class="br0">&#40;</span>j <span class="sy0">&lt;</span> strLen<span class="br0">&#41;</span> <span class="br0">&#123;</span> &nbsp; &nbsp; &nbsp;<span class="co1">//从0字符匹配到字符串结束</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> matchPosTmp <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> &nbsp; <span class="co1">//截取字符串的位置</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">while</span> <span class="br0">&#40;</span>matchPosTmp <span class="sy0">&lt;</span> strLen<span class="br0">&#41;</span> <span class="br0">&#123;</span> &nbsp; <span class="co1">//从当前位置直到整句结束，匹配最大长度</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchPosTmp <span class="sy0">=</span> i <span class="sy0">+</span> j<span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> keyTmp <span class="sy0">=</span> str.<span class="me1">substring</span><span class="br0">&#40;</span>j, matchPosTmp<span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//切出最大字符串</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>normalDict.<span class="me1">contains</span><span class="br0">&#40;</span>keyTmp<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="co1">//判断当前字符串是否在词典中</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchWord <span class="sy0">=</span> keyTmp<span class="sy0">;</span> &nbsp;<span class="co1">//如果在词典中匹配上了就赋值</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchPos <span class="sy0">=</span> matchPosTmp<span class="sy0">;</span> <span class="co1">//同时保存好匹配位置</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; i<span class="sy0">++;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>matchWord.<span class="me1">isEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//有匹配结果就输出最大长度匹配字符串</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; j <span class="sy0">=</span> matchPos<span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//保存位置，下次从当前位置继续往后截取</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asystem+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">System</span></a>.<span class="me1">out</span>.<span class="me1">print</span><span class="br0">&#40;</span>matchWord <span class="sy0">+</span> <span class="st0">&quot; &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//从当前词开始往后都没有能够匹配上的词，则按照单字切分的原则切分</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asystem+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">System</span></a>.<span class="me1">out</span>.<span class="me1">print</span><span class="br0">&#40;</span>str.<span class="me1">substring</span><span class="br0">&#40;</span>j, <span class="sy0">++</span>j<span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot; &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchWord <span class="sy0">=</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; <span class="br0">&#125;</span><br />
+<span class="br0">&#125;</span></div></div>
+<p>输出结果为： 我 爱 这 个 中华人民共和国 大 家 庭   </p>
+<p>按照这样我们一个基本的分词程序开发完成。</p>
+<p>对于文章一开始提到的问题还没解决，如何让程序识别文本中的感情色彩。现在我们先要构建一个感情色彩词库“高兴”，修饰词库“没”、&#8221;不”。再完善一下我们的程序：</p>
+<div class="codecolorer-container java railscasts" style="overflow:auto;white-space:nowrap;width:660px;height:600px;"><div class="java codecolorer"><span class="kw1">public</span> <span class="kw1">class</span> TestSentimentPositiveMatch <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a><span class="br0">&#91;</span><span class="br0">&#93;</span> args<span class="br0">&#41;</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> str <span class="sy0">=</span> <span class="st0">&quot;你假如上午没给我吃冰淇淋，我绝对会不happy的。&quot;</span><span class="sy0">;</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//语义映射</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; Map<span class="sy0">&lt;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a>, String<span class="sy0">&gt;</span> sentimentMap <span class="sy0">=</span> <span class="kw1">new</span> HashMap<span class="sy0">&lt;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a>, String<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; sentimentMap.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;happy&quot;</span>, <span class="st0">&quot;高兴&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//情感词库</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> sentimentDict <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; sentimentDict.<span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;happy&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//修饰词</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> decorativeDict <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; decorativeDict.<span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;不&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; decorativeDict.<span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;没&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//修饰词衡量分数</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; Map<span class="sy0">&lt;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a>, Double<span class="sy0">&gt;</span> decorativeScoreMap <span class="sy0">=</span> <span class="kw1">new</span> HashMap<span class="sy0">&lt;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a>, Double<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; decorativeScoreMap.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;不&quot;</span>, <span class="sy0">-</span><span class="nu0">0.5</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; decorativeScoreMap.<span class="me1">put</span><span class="br0">&#40;</span><span class="st0">&quot;没&quot;</span>, <span class="sy0">-</span><span class="nu0">0.5</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; List<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span> decorativeWordList <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>String<span class="sy0">&gt;</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> &nbsp;<span class="co1">//修饰词</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> sentimentResult <span class="sy0">=</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span> <span class="co1">//情感结果</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> strLen <span class="sy0">=</span> str.<span class="me1">length</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> &nbsp;<span class="co1">//传入字符串的长度</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> j <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> matchSentimentWord <span class="sy0">=</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span> <span class="co1">//根据词库里识别出来的情感词</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> matchDecorativeWord <span class="sy0">=</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span> <span class="co1">//根据词库里识别出来的修饰词</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> matchPos <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> <span class="co1">//根据词库里识别出来词后当前句子中的位置</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">while</span> <span class="br0">&#40;</span>j <span class="sy0">&lt;</span> strLen<span class="br0">&#41;</span> <span class="br0">&#123;</span> &nbsp; &nbsp; &nbsp;<span class="co1">//从0字符匹配到字符串结束</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> matchPosTmp <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> &nbsp; <span class="co1">//截取字符串的位置</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">while</span> <span class="br0">&#40;</span>matchPosTmp <span class="sy0">&lt;</span> strLen<span class="br0">&#41;</span> <span class="br0">&#123;</span> &nbsp; <span class="co1">//从当前位置直到整句结束，匹配最大长度</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchPosTmp <span class="sy0">=</span> i <span class="sy0">+</span> j<span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> keyTmp <span class="sy0">=</span> str.<span class="me1">substring</span><span class="br0">&#40;</span>j, matchPosTmp<span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//切出最大字符串</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>sentimentDict.<span class="me1">contains</span><span class="br0">&#40;</span>keyTmp<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="co1">//判断当前字符串是否在词典中</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchSentimentWord <span class="sy0">=</span> keyTmp<span class="sy0">;</span> &nbsp;<span class="co1">//如果在词典中匹配上了就赋值</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchPos <span class="sy0">=</span> matchPosTmp<span class="sy0">;</span> <span class="co1">//同时保存好匹配位置</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>decorativeDict.<span class="me1">contains</span><span class="br0">&#40;</span>keyTmp<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="co1">//判断当前字符串是否在词典中</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchDecorativeWord <span class="sy0">=</span> keyTmp<span class="sy0">;</span> &nbsp;<span class="co1">//如果在词典中匹配上了就赋值</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchPos <span class="sy0">=</span> matchPosTmp<span class="sy0">;</span> <span class="co1">//同时保存好匹配位置</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; i<span class="sy0">++;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>matchSentimentWord.<span class="me1">isEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//有匹配结果就输出最大长度匹配字符串</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; j <span class="sy0">=</span> matchPos<span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//保存位置，下次从当前位置继续往后截取</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asystem+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">System</span></a>.<span class="me1">out</span>.<span class="me1">print</span><span class="br0">&#40;</span>matchSentimentWord <span class="sy0">+</span> <span class="st0">&quot; &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; sentimentResult <span class="sy0">=</span> sentimentMap.<span class="me1">get</span><span class="br0">&#40;</span>matchSentimentWord<span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>matchDecorativeWord.<span class="me1">isEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//有匹配结果就输出最大长度匹配字符串</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; j <span class="sy0">=</span> matchPos<span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//保存位置，下次从当前位置继续往后截取</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asystem+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">System</span></a>.<span class="me1">out</span>.<span class="me1">print</span><span class="br0">&#40;</span>matchDecorativeWord <span class="sy0">+</span> <span class="st0">&quot; &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; decorativeWordList.<span class="me1">add</span><span class="br0">&#40;</span>matchDecorativeWord<span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="co1">//从当前词开始往后都没有能够匹配上的词，则按照单字切分的原则切分</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asystem+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">System</span></a>.<span class="me1">out</span>.<span class="me1">print</span><span class="br0">&#40;</span>str.<span class="me1">substring</span><span class="br0">&#40;</span>j, <span class="sy0">++</span>j<span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot; &quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchSentimentWord <span class="sy0">=</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; matchDecorativeWord <span class="sy0">=</span> <span class="st0">&quot;&quot;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw4">double</span> totalScore <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">for</span> <span class="br0">&#40;</span><a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Astring+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">String</span></a> decorativeWord <span class="sy0">:</span> decorativeWordList<span class="br0">&#41;</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Adouble+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">Double</span></a> scoreTmp <span class="sy0">=</span> decorativeScoreMap.<span class="me1">get</span><span class="br0">&#40;</span>decorativeWord<span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; totalScore <span class="sy0">*=</span> scoreTmp<span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+<br />
+&nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asystem+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">System</span></a>.<span class="me1">out</span>.<span class="me1">print</span><span class="br0">&#40;</span><span class="st0">&quot;<span class="es0">\r</span><span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="kw1">if</span> <span class="br0">&#40;</span>totalScore <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asystem+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">System</span></a>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;当前心情是：&quot;</span> <span class="sy0">+</span> sentimentResult<span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="http://www.google.com/search?hl=en&amp;q=allinurl%3Asystem+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky"><span class="kw3">System</span></a>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;当前心情是：不&quot;</span> <span class="sy0">+</span> sentimentResult<span class="br0">&#41;</span><span class="sy0">;</span><br />
+&nbsp; &nbsp; &nbsp; &nbsp; <span class="br0">&#125;</span><br />
+&nbsp; &nbsp; <span class="br0">&#125;</span><br />
+<span class="br0">&#125;</span></div></div>
+<p>通过传入“你假如上午没给我吃冰淇淋，我绝对会不happy的。”，结果输出为：“当前心情是：高兴”。当然你也可以改变其中的修饰词，比如改为：“你假如上午没给我吃冰淇淋，我绝对会happy的。”，结果输出为：“当前心情是：不高兴”。</p>
+<p>机器再也不是冷冰冰的，看起来他能读懂你的意思了。不过这只是一个开始，抛出几个问题：</p>
+<p>1、如何让程序识别句子中的时间？比如“上午”、“下午2点”。<br />
+2、如何处理“把手抬起来” 和 “这扇门的把手”中的“把”与“手”的问题？<br />
+3、如何构建海量的知识库，让程序从“婴儿”变成“成年人”？<br />
+4、如何使用有限的存储空间海量的知识库？<br />
+5、如何提高程序在海量知识库中查找定位信息的效率？<br />
+6、如何识别新词、人名、新鲜事物等未知领域？</p>
+<p><a class="thumbnail" href="http://www.lanceyan.com/wp-content/uploads/2014/09/univers_brain1.jpg"><img src="http://www.lanceyan.com/wp-content/uploads/2014/09/univers_brain1.jpg" alt="univers_brain" width="399" height="274" class="alignleft size-full wp-image-717" /></a></p>
+<p>这是《纽约时报》刊登的2张照片，一张是老鼠的脑细胞(左)，一张是宇宙(右)。早期宇宙中星系互连关系，和大脑神经元相互连接，几乎无法分辨两张图之间的不同，大脑细胞与整个宇宙拥有一样的结构。</p>
+<p>宇宙芸芸众生都是相通的，大脑也许就是一个小宇宙，在这个小宇宙又有很多星球、住着很多生物。而电脑也是宇宙中地球上的一个产物，只要存储计算速度发展到足够强大一定可以构建成一个强大的大脑。</p>
+<p>你看这个单词 &#8220;testaword&#8221; 认识吗？可能不认识，因为我们五官先获取到的信息，然后根据大脑以往学习的经验做出判断。但是你看这个短语 &#8221; test a word&#8221; 认识吗？再看看开始那个单词“testaword”是不是就亲切多了？
+<div style="margin-top: 15px; font-style: italic">
+<p><strong>原创文章，转载请注明：</strong> 转载自<a href="http://www.lanceyan.com/">LANCEYAN.COM</a></p>
+<p><strong>本文链接地址:</strong> <a href="http://www.lanceyan.com/tech/datadig_segment_step1.html">数据挖掘-分词入门</a></p>
+</div>
+		
+		<!-- Baidu Button BEGIN -->
+<div id="bdshare" class="bdshare_t bds_tools_32 get-codes-bdshare">
+<a class="bds_qzone"></a>
+<a class="bds_tsina"></a>
+<a class="bds_tqq"></a>
+<a class="bds_renren"></a>
+<a class="bds_t163"></a>
+<span class="bds_more"></span>
+</div>
+<script type="text/javascript" id="bdshare_js" data="type=tools&uid=6724339" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+	</div><!-- .entry-content -->
+
+
+	<footer class="entry-footer">
+		<span class="cat-links block">分类： <a href="http://www.lanceyan.com/category/tech" title="查看技术中的全部文章" rel="category tag">技术</a>, <a href="http://www.lanceyan.com/category/tech/algorithm" title="查看算法中的全部文章" rel="category tag">算法</a>.</span><span class="tag-links block">标签： <a href="http://www.lanceyan.com/tag/%e5%88%86%e8%af%8d" rel="tag">分词</a>, <a href="http://www.lanceyan.com/tag/%e6%95%b0%e6%8d%ae%e6%8c%96%e6%8e%98" rel="tag">数据挖掘</a>, <a href="http://www.lanceyan.com/tag/%e6%ad%a3%e5%90%91%e6%9c%80%e5%a4%a7%e5%8c%b9%e9%85%8d" rel="tag">正向最大匹配</a>, <a href="http://www.lanceyan.com/tag/%e8%af%ad%e4%b9%89" rel="tag">语义</a>.</span>	</footer><!-- .entry-footer -->
+	
+	</article><!-- #post-704 -->
+<a name="comments"></a>
+
+<div class="ds-thread" data-thread-key="704" data-author-key="2" data-title="数据挖掘-分词入门" data-url="http://www.lanceyan.com/tech/datadig_segment_step1.html"></div>
+
+<script type="text/javascript">
+	if (typeof DUOSHUO !== 'undefined')
+		DUOSHUO.EmbedThread('.ds-thread');
+</script>
+	<div id="ds-ssr">
+
+		
+            <ol id="commentlist">
+                		<li class="comment even thread-even depth-1" id="li-comment-1886">
+			<article id="comment-1886" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">数据</span> on <a rel="nofollow" href="http://www.lanceyan.com/tech/datadig_segment_step1.html/comment-page-1#comment-1886"><time pubdate datetime="2014-09-29T13:21:33+00:00">29 九月, 2014 at 1:21 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>原来完整版在这里</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-1888">
+			<article id="comment-1888" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn">数据</span> on <a rel="nofollow" href="http://www.lanceyan.com/tech/datadig_segment_step1.html/comment-page-1#comment-1888"><time pubdate datetime="2014-09-29T22:57:15+00:00">29 九月, 2014 at 10:57 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>原来完整版在这里</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-1889">
+			<article id="comment-1889" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://t.qq.com/likehua2736' rel='external nofollow' class='url'>李克华</a></span> on <a rel="nofollow" href="http://www.lanceyan.com/tech/datadig_segment_step1.html/comment-page-1#comment-1889"><time pubdate datetime="2014-09-30T11:43:04+00:00">30 九月, 2014 at 11:43 上午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>希望楼主能够持续更新，写更多的专题文章！</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment byuser comment-author-lanceyan bypostauthor odd alt thread-odd thread-alt depth-1" id="li-comment-1890">
+			<article id="comment-1890" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://weibo.com/lanceyan' rel='external nofollow' class='url'>lanceyan</a></span> on <a rel="nofollow" href="http://www.lanceyan.com/tech/datadig_segment_step1.html/comment-page-1#comment-1890"><time pubdate datetime="2014-09-30T20:55:02+00:00">30 九月, 2014 at 8:55 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>好，会努力的</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="li-comment-1892">
+			<article id="comment-1892" class="comment">
+				<footer class="comment-meta">
+					<cite class="comment-author vcard">
+						<span class="fn"><a href='http://t.qq.com/zzp6347097' rel='external nofollow' class='url'>小柒</a></span> on <a rel="nofollow" href="http://www.lanceyan.com/tech/datadig_segment_step1.html/comment-page-1#comment-1892"><time pubdate datetime="2014-10-23T13:31:52+00:00">23 十月, 2014 at 1:31 下午</time></a> <span class="says">said:</span>					</cite><!-- .comment-author .vcard -->
+				</footer>
+	
+				<div class="comment-content"><p>真技术在这里最近研究solr</p>
+</div>
+				
+			</article><!-- #comment-## -->
+		</li><!-- #comment-## -->
+		<li class="post pingback">
+			<p>Pingback: <a href='http://blog.chedushi.com/archives/9807' rel='external nofollow' class='url'>数据挖掘-分词入门 | 岭南六少 - 一朵在LAMP架构下挣扎的云</a></p>
+		</li><!-- #comment-## -->
+            </ol>
+
+		            
+    </div>		
+		<nav id="nav-single" class="pager">
+			<h3 class="assistive-text"> </h3>
+			<span class="next"></span>
+			<span class="previous"><a href="http://www.lanceyan.com/tech/arch/mongodb_shard1.html" rel="prev"><span class="meta-nav">&larr;</span> Previous Post</a></span>
+		</nav><!-- #nav-single -->
+		
+			</div><!-- #content -->
+	</section><!-- #primary -->
+
+<section id="secondary" class="widget-area span4" role="complementary">
+	<aside id="text-3" class="widget well widget_text"><h3 class="widget-title">订阅</h3>			<div class="textwidget"><div class="subscribe textwidget">
+<a href="http://weibo.com/lanceyan" target="_blank" title="新浪微博"><img src="http://www.lanceyan.com/wp-content/uploads/2013/05/tsina.png">
+</a>
+<a href="http://t.qq.com/lanceyan" target="_blank" title="腾迅微博"><img src="http://www.lanceyan.com/wp-content/uploads/2013/05/tqq.gif">
+</a>
+<a href="http://lanceyan.com/feed" target="_blank" title="RSS订阅"><img src="http://www.lanceyan.com/wp-content/uploads/2013/05/rss.png">
+</a></div>
+
+<p>
+<h3>微信二维码</h3>
+<img width="180px" height="180px" src="http://www.lanceyan.com/wp-content/uploads/2013/05/weixin_180.jpg">
+</p?</div>
+		</aside><aside id="search-4" class="widget well widget_search"><h3 class="widget-title">搜一下</h3><form method="get" id="searchform" class="form-search" action="http://www.lanceyan.com/">
+	<label for="s" class="assistive-text hidden">Search</label>
+	<div class="input-append">
+		<input id="s" class="span2 search-query" type="search" name="s" placeholder="Search"><!--
+	 --><button class="btn btn-primary" name="submit" id="searchsubmit" type="submit">Go</button>
+   	</div>
+</form>
+</aside><aside id="ilwp_tag_cloud-2" class="widget well ilwp_widget_tag_cloud"><h3 class="widget-title">标签云</h3><div class='colored-tag-cloud'><a href='http://www.lanceyan.com/tag/%e5%a5%87%e6%95%b0' class='tag-link-79' title='1 post is tagged with &ldquo;奇数&rdquo;' rel="tag" style='font-size: 10px;  color: navy;'>奇数</a>
+<a href='http://www.lanceyan.com/tag/%e4%ba%a7%e5%93%81' class='tag-link-36' title='2 posts are tagged with &ldquo;产品&rdquo;' rel="tag" style='font-size: 16px;  color: purple;'>产品</a>
+<a href='http://www.lanceyan.com/tag/%e5%88%86%e7%89%87' class='tag-link-81' title='1 post is tagged with &ldquo;分片&rdquo;' rel="tag" style='font-size: 10px;  color: purple;'>分片</a>
+<a href='http://www.lanceyan.com/tag/%e8%b4%9f%e8%bd%bd%e5%9d%87%e8%a1%a1' class='tag-link-83' title='1 post is tagged with &ldquo;负载均衡&rdquo;' rel="tag" style='font-size: 10px;  color: purple;'>负载均衡</a>
+<a href='http://www.lanceyan.com/tag/%e6%89%a7%e8%a1%8c%e5%8a%9b' class='tag-link-40' title='1 post is tagged with &ldquo;执行力&rdquo;' rel="tag" style='font-size: 10px;  color: olive;'>执行力</a>
+<a href='http://www.lanceyan.com/tag/tech' class='tag-link-9' title='6 posts are tagged with &ldquo;技术&rdquo;' rel="tag" style='font-size: 40px;  color: navy;'>技术</a>
+<a href='http://www.lanceyan.com/tag/agile-2' class='tag-link-43' title='1 post is tagged with &ldquo;agile&rdquo;' rel="tag" style='font-size: 10px;  color: red;'>agile</a>
+<a href='http://www.lanceyan.com/tag/%e7%ae%a1%e7%90%86%ef%bc%8c%e5%90%88%e4%bc%99%e4%ba%ba' class='tag-link-37' title='1 post is tagged with &ldquo;管理，合伙人&rdquo;' rel="tag" style='font-size: 10px;  color: green;'>管理，合伙人</a>
+<a href='http://www.lanceyan.com/tag/%e5%90%8c%e6%ad%a5' class='tag-link-80' title='1 post is tagged with &ldquo;同步&rdquo;' rel="tag" style='font-size: 10px;  color: teal;'>同步</a>
+<a href='http://www.lanceyan.com/tag/%e5%9b%a2%e9%98%9f' class='tag-link-41' title='1 post is tagged with &ldquo;团队&rdquo;' rel="tag" style='font-size: 10px;  color: maroon;'>团队</a>
+<a href='http://www.lanceyan.com/tag/%e6%b5%b7%e9%87%8f%e6%95%b0%e6%8d%ae' class='tag-link-69' title='2 posts are tagged with &ldquo;海量数据&rdquo;' rel="tag" style='font-size: 16px;  color: fuchsia;'>海量数据</a>
+<a href='http://www.lanceyan.com/tag/similarity' class='tag-link-68' title='2 posts are tagged with &ldquo;Similarity&rdquo;' rel="tag" style='font-size: 16px;  color: teal;'>Similarity</a>
+<a href='http://www.lanceyan.com/tag/%e6%95%85%e9%9a%9c%e8%bd%ac%e7%a7%bb' class='tag-link-73' title='3 posts are tagged with &ldquo;故障转移&rdquo;' rel="tag" style='font-size: 22px;  color: blue;'>故障转移</a>
+<a href='http://www.lanceyan.com/tag/java' class='tag-link-13' title='5 posts are tagged with &ldquo;java&rdquo;' rel="tag" style='font-size: 34px;  color: blue;'>java</a>
+<a href='http://www.lanceyan.com/tag/%e6%95%b0%e6%8d%ae%e6%8c%96%e6%8e%98' class='tag-link-84' title='1 post is tagged with &ldquo;数据挖掘&rdquo;' rel="tag" style='font-size: 10px;  color: teal;'>数据挖掘</a>
+<a href='http://www.lanceyan.com/tag/%e5%88%86%e8%af%8d' class='tag-link-85' title='1 post is tagged with &ldquo;分词&rdquo;' rel="tag" style='font-size: 10px;  color: black;'>分词</a>
+<a href='http://www.lanceyan.com/tag/%e9%94%80%e5%94%ae' class='tag-link-39' title='1 post is tagged with &ldquo;销售&rdquo;' rel="tag" style='font-size: 10px;  color: green;'>销售</a>
+<a href='http://www.lanceyan.com/tag/hamming_distance' class='tag-link-63' title='2 posts are tagged with &ldquo;Hamming_distance&rdquo;' rel="tag" style='font-size: 16px;  color: olive;'>Hamming_distance</a>
+<a href='http://www.lanceyan.com/tag/simhash' class='tag-link-62' title='2 posts are tagged with &ldquo;simhash&rdquo;' rel="tag" style='font-size: 16px;  color: green;'>simhash</a>
+<a href='http://www.lanceyan.com/tag/solr' class='tag-link-24' title='1 post is tagged with &ldquo;solr&rdquo;' rel="tag" style='font-size: 10px;  color: teal;'>solr</a></div>
+</aside>
+
+<aside id="categories-3" class="widget well widget_categories"><h3 class="widget-title">文章分类</h3>		<ul>
+	<li class="cat-item cat-item-36"><a href="http://www.lanceyan.com/category/%e4%ba%a7%e5%93%81" title="查看产品下的所有文章">产品</a> (4)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.lanceyan.com/category/chuangye" title="创业路上的事情、心得">创业</a> (11)
+</li>
+	<li class="cat-item cat-item-9"><a href="http://www.lanceyan.com/category/tech" title="查看技术下的所有文章">技术</a> (21)
+<ul class='children'>
+	<li class="cat-item cat-item-32"><a href="http://www.lanceyan.com/category/tech/hadoop" title="查看hadoop下的所有文章">hadoop</a> (2)
+</li>
+	<li class="cat-item cat-item-13"><a href="http://www.lanceyan.com/category/tech/java" title="查看java下的所有文章">java</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="http://www.lanceyan.com/category/tech/jeecrawler" title="查看jeecrawler下的所有文章">jeecrawler</a> (2)
+</li>
+	<li class="cat-item cat-item-10"><a href="http://www.lanceyan.com/category/tech/jeeframework" title="查看jeeframework框架下的所有文章">jeeframework框架</a> (4)
+</li>
+	<li class="cat-item cat-item-70"><a href="http://www.lanceyan.com/category/tech/mongodb" title="查看mongodb下的所有文章">mongodb</a> (4)
+</li>
+	<li class="cat-item cat-item-17"><a href="http://www.lanceyan.com/category/tech/mysql" title="一些mysql数据库的文章">mysql</a> (1)
+</li>
+	<li class="cat-item cat-item-20"><a href="http://www.lanceyan.com/category/tech/search" title="查看搜索下的所有文章">搜索</a> (1)
+</li>
+	<li class="cat-item cat-item-18"><a href="http://www.lanceyan.com/category/tech/agile" title="敏捷开发相关文章">敏捷</a> (2)
+</li>
+	<li class="cat-item cat-item-4"><a href="http://www.lanceyan.com/category/tech/arch" title="查看架构下的所有文章">架构</a> (12)
+</li>
+	<li class="cat-item cat-item-19"><a href="http://www.lanceyan.com/category/tech/algorithm" title="查看算法下的所有文章">算法</a> (4)
+</li>
+</ul>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://www.lanceyan.com/category/life" title="查看生活下的所有文章">生活</a> (2)
+</li>
+	<li class="cat-item cat-item-15"><a href="http://www.lanceyan.com/category/management" title="查看管理下的所有文章">管理</a> (7)
+</li>
+		</ul>
+</aside><aside id="views-2" class="widget well widget_views"><h3 class="widget-title">热门文章</h3><ul>
+<li><a href="http://www.lanceyan.com/tech/arch/snscrawler.html"  title="社会化海量数据采集爬虫框架搭建">社会化海量数据采集爬虫框架搭建</a> - 17,809 views</li><li><a href="http://www.lanceyan.com/tech/mongodb/mongodb_repset1.html"  title="搭建高可用mongodb集群（二）&mdash;&mdash; 副本集">搭建高可用mongodb集群（二）&mdash;&mdash; 副本集</a> - 16,140 views</li><li><a href="http://www.lanceyan.com/tech/mongodb/mongodb_cluster_1.html"  title="搭建高可用mongodb集群（一）&mdash;&mdash;配置mongodb">搭建高可用mongodb集群（一）&mdash;&mdash;配置mongodb</a> - 15,399 views</li><li><a href="http://www.lanceyan.com/tech/arch/simhash_hamming_distance_similarity.html"  title="海量数据相似度计算之simhash和海明距离">海量数据相似度计算之simhash和海明距离</a> - 12,580 views</li><li><a href="http://www.lanceyan.com/tech/arch/mongodb_shard1.html"  title="搭建高可用mongodb集群（四）&mdash;&mdash; 分片">搭建高可用mongodb集群（四）&mdash;&mdash; 分片</a> - 11,181 views</li><li><a href="http://www.lanceyan.com/tech/arch/java_threadpool_cloud_arch.html"  title="JAVA线程池管理及分布式HADOOP调度框架搭建">JAVA线程池管理及分布式HADOOP调度框架搭建</a> - 10,746 views</li><li><a href="http://www.lanceyan.com/tech/mongodb_repset2.html"  title="搭建高可用mongodb集群（三）&mdash;&mdash; 深入副本集内部机制">搭建高可用mongodb集群（三）&mdash;&mdash; 深入副本集内部机制</a> - 8,408 views</li><li><a href="http://www.lanceyan.com/tech/arch/simhash_hamming_distance_similarity2-html.html"  title="海量数据相似度计算之simhash短文本查找">海量数据相似度计算之simhash短文本查找</a> - 7,812 views</li><li><a href="http://www.lanceyan.com/tech/arch/consistenthashing_and_solr.html"  title="一致性hash和solr千万级数据分布式搜索引擎中的应用">一致性hash和solr千万级数据分布式搜索引擎中的应用</a> - 7,434 views</li><li><a href="http://www.lanceyan.com/chuangye/chuangye_agile_scrum.html"  title="创业公司如何实施敏捷开发">创业公司如何实施敏捷开发</a> - 7,200 views</li></ul>
+</aside>		<aside id="recent-posts-3" class="widget well widget_recent_entries">		<h3 class="widget-title">近期文章</h3>		<ul>
+					<li>
+				<a href="http://www.lanceyan.com/tech/datadig_segment_step1.html">数据挖掘-分词入门</a>
+							<span class="post-date">14 九月, 2014</span>
+						</li>
+					<li>
+				<a href="http://www.lanceyan.com/tech/arch/mongodb_shard1.html">搭建高可用mongodb集群（四）—— 分片</a>
+							<span class="post-date">29 三月, 2014</span>
+						</li>
+					<li>
+				<a href="http://www.lanceyan.com/tech/mongodb_repset2.html">搭建高可用mongodb集群（三）—— 深入副本集内部机制</a>
+							<span class="post-date">17 二月, 2014</span>
+						</li>
+					<li>
+				<a href="http://www.lanceyan.com/tech/mongodb/mongodb_repset1.html">搭建高可用mongodb集群（二）—— 副本集</a>
+							<span class="post-date">30 十二月, 2013</span>
+						</li>
+					<li>
+				<a href="http://www.lanceyan.com/tech/mongodb/mongodb_cluster_1.html">搭建高可用mongodb集群（一）——配置mongodb</a>
+							<span class="post-date">17 十一月, 2013</span>
+						</li>
+				</ul>
+		</aside><aside id="ds-recent-comments-2" class="widget well ds-widget-recent-comments"><h3 class="widget-title">最新评论</h3><ul class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-avatar-size="30" data-excerpt-length="70"></ul></aside><script>
+if (typeof DUOSHUO !== 'undefined')
+	DUOSHUO.RecentComments && DUOSHUO.RecentComments('.ds-recent-comments');
+</script></section><!-- #secondary .widget-area -->
+				<footer id="colophon" role="contentinfo" class="span12">
+										<div id="page-footer" class="well clearfix">
+						<span class="credits alignleft">&copy; 2015 <a href="http://www.lanceyan.com/">严澜(lanceyan)的博客 - 技术分享 框架交流 大数据处理 架构搭建 机器人</a>, all rights reserved.</span>						<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F6320c724251fb56447f49a20d74dc8fd' type='text/javascript'%3E%3C/script%3E"));
+</script>
+						<script src="http://s9.cnzz.com/stat.php?id=5380772&web_id=5380772&show=pic1" language="JavaScript"></script>
+
+					</div><!-- #page-footer .well .clearfix -->
+									</footer><!-- #colophon -->
+							</div><!-- #page -->
+		</div><!-- .container -->
+	<!-- 58 queries. 0.616 seconds. -->
+	<script type="text/javascript"><!--//--><![CDATA[//><!--
+var cf = document.getElementById("commentform");
+if(cf){
+	var msghtml = "<strong>NOTICE:</strong> You should type some Chinese word (like “你好”) in your comment to pass the spam-check, thanks for your patience!";
+	if(cf.insertAdjacentHTML){
+		cf.insertAdjacentHTML("afterEnd", msghtml);
+	}else{/* FireFox */
+		var range = cf.ownerDocument.createRange();
+		range.setStartAfter(cf);
+		var frag = range.createContextualFragment(msghtml);
+		cf.parentNode.insertBefore(frag, cf.nextSibling);
+	}
+}
+//--><!]]></script><script type='text/javascript'>
+/* <![CDATA[ */
+var viewsCacheL10n = {"admin_ajax_url":"http:\/\/www.lanceyan.com\/wp-admin\/admin-ajax.php","post_id":"704"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.lanceyan.com/wp-content/plugins/wp-postviews/postviews-cache.js?ver=1.64'></script>
+<script type='text/javascript' src='http://www.lanceyan.com/wp-content/themes/the-bootstrap/js/bootstrap.min.js?ver=2.0.3'></script>
+<script type='text/javascript' src='http://www.lanceyan.com/wp-content/themes/the-bootstrap/js/the-bootstrap.min.js?ver=2.0.1'></script>
+<script type='text/javascript' src='http://www.lanceyan.com/wp-content/plugins/dynamic-to-top/js/libs/jquery.easing.js?ver=1.3'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var mv_dynamic_to_top = {"text":"To Top","version":"0","min":"100","speed":"400","easing":"easeInElastic","margin":"20"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.lanceyan.com/wp-content/plugins/dynamic-to-top/js/dynamic.to.top.min.js?ver=3.4.2'></script>
+	</body>
+</html>
+
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+ Served from: www.lanceyan.com @ 2015-07-22 11:27:46 by W3 Total Cache -->

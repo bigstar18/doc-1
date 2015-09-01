@@ -1,0 +1,651 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>linux中如何删除rpm -e删除不了的包_51运维网--专注Linux/Unix系统安全运维_51OU.COM</title>
+<meta name="keywords" content="linux,如何,删除,了的" />
+<meta name="description" content="linux中如何删除rpm -e删除不了的包，我们可以采用强制卸载的方法 1、如果在删除包之前删除了包的目录 rpm -e --noscripts 示例： [root@localhost /]# rpm -e -" />
+<link rel="stylesheet" href="http://www.51ou.com/templets/51ou/css_mubanzhijia_com/style.css" type="text/css" />
+<link rel="stylesheet" href="http://www.51ou.com/templets/51ou/css_mubanzhijia_com/page.css" type="text/css" />
+<link rel="stylesheet" href="http://www.51ou.com/templets/51ou/css_mubanzhijia_com/layout.css" type="text/css" />
+<script language="javascript" type="text/javascript" src="http://www.51ou.com/include/dedeajax2.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+function CheckLogin(){
+	  var taget_obj = document.getElementById('_ajax_feedback');
+	  myajax = new DedeAjax(taget_obj,false,false,'','','');
+	  myajax.SendGet2("http://www.51ou.com/member/ajax_feedback.php");
+	  DedeXHTTP = null;
+}
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("http://www.51ou.com/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+}
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "http://www.51ou.com/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("http://www.51ou.com/plus/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+function check(){
+		if(document.formsearch.searchtype.value=="")
+		document.formsearch.action="http://www.google.cn/custom"
+		else
+		document.formsearch.action="http://www.51ou.com/plus/search.php"
+	} 
+-->
+</script>
+</head>
+<body class="Mubanzhijia_Com">
+<div class="Top">
+	<span><a href="http://www.51ou.com/browse/linuxdownload/60041.html" style="color:red" target="_blank" >Centos系统下载大全</a> | <a href="http://www.51ou.com/browse/linuxdownload/60042.html" style="color:red" target="_blank">Redhat系统下载大全</a> | <a href="http://www.51ou.com/browse/2012/59980.html" target="_blank" >Windows2012系统下载大全</a> | <a href="http://www.51ou.com/browse/2008/59990.html" target="_blank" >Windows2008系统下载大全</a>| <a href="http://www.51ou.com/browse/jianzhan/" target="_blank">CMS教程</a> | <a href="http://www.51ou.com/data/sitemap.html" target="_blank">网站地图</a></span>
+    51运维网-专注Linux/Unix系统安全运维！
+</div>
+<div class="Head">
+	<div class="logo FL"><h1><a href="http://www.51ou.com"  target="_blank" ><img src="http://www.51ou.com/templets/51ou/css_mubanzhijia_com/images/logo.gif" alt="51运维网--专注Linux/Unix系统安全运维_51OU.COM" /></a></h1></div>
+
+    <div class="ad_468 FR">
+   </div>
+
+</div>
+<div class="Nav">
+	<a href='http://www.51ou.com/'  target="_blank" >主页</a>
+    <a href='http://www.51ou.com/browse/rumen/'  rel='dropmenu1' class='hover'>入门</a>
+    <a href='http://www.51ou.com/browse/jiaocheng/'  rel='dropmenu2' target="_blank" >教程</a>
+    
+    <a href='http://www.51ou.com/browse/jiankong/'  rel='dropmenu3' target="_blank" >监控</a>
+    
+    <a href='http://www.51ou.com/browse/jiagou/'  rel='dropmenu5' target="_blank" >架构</a>
+    
+    <a href='http://www.51ou.com/browse/anquan/'  rel='dropmenu6' target="_blank" >安全</a>
+    
+    <a href='http://www.51ou.com/browse/nahe/'  rel='dropmenu7' target="_blank" >内核</a>
+    
+    <a href='http://www.51ou.com/browse/Webqianduan/'  rel='dropmenu227' target="_blank" >Web前端</a>
+    
+    <a href='http://www.51ou.com/browse/biancheng/'  rel='dropmenu8' target="_blank" >编程</a>
+    
+    <a href='http://www.51ou.com/browse/shujuku/'  rel='dropmenu9' target="_blank" >数据库</a>
+    
+    <a href='http://www.51ou.com/browse/shebei/'  rel='dropmenu10' target="_blank" >设备</a>
+    
+    <a href='http://www.51ou.com/browse/weiruan/'  rel='dropmenu16' target="_blank" >微软</a>
+    
+    <a href='http://www.51ou.com/browse/shiping/'  rel='dropmenu15' target="_blank" >视频</a>
+    
+    <a href='http://www.51ou.com/browse/spe/'  rel='dropmenu13' target="_blank" >专题</a>
+    
+    <a href='http://www.51ou.com/browse/xitong/'  rel='dropmenu257' target="_blank" >系统</a>
+    
+    <a href='http://www.51ou.com/browse/renzheng/'  rel='dropmenu266' target="_blank" >认证</a>
+    
+</div>
+<!--
+<div class="Nav_box">
+	<div class="tag FL">
+    	热门搜索：
+        
+        <a href='http://www.51ou.com/tags.php?/linux/'>linux</a>
+        
+        <a href='http://www.51ou.com/tags.php?/%B5%D8%B7%BD/'>地方</a>
+        
+        <a href='http://www.51ou.com/tags.php?/%CA%B9%D3%C3/'>使用</a>
+        
+        <a href='http://www.51ou.com/tags.php?/%D5%FD/'>正</a>
+        
+        <a href='http://www.51ou.com/tags.php?/%CF%B5%CD%B3/'>系统</a>
+        
+        <a href='http://www.51ou.com/tags.php?/%BD%F1%CC%EC/'>今天</a>
+        
+        <a href='http://www.51ou.com/tags.php?/%B3%CC%D0%F2%BF%AA%B7%A2/'>程序开发</a>
+        
+        <a href='http://www.51ou.com/tags.php?/%C9%F9%C3%F7/'>声明</a>
+        
+        <a href='http://www.51ou.com/tags.php?/%B7%FE%CE%F1%C6%F7/'>服务器</a>
+        
+        <a href='http://www.51ou.com/tags.php?/%CA%FD%BE%DD%BF%E2/'>数据库</a>
+        
+    </div>
+    <div class="so FR">
+    	<form action="http://www.51ou.com/plus/search.php" name="formsearch">
+           <input type="hidden" name="kwtype" value="0" />
+           <input name="keyword" type="text" class="search-keyword FL" id="search-keyword" value="在这里搜索..." onfocus="if(this.value=='在这里搜索...'){this.value='';}"  onblur="if(this.value==''){this.value='在这里搜索...';}"/>
+          <button type="submit" class="search-submit FL">搜索</button>
+        </form>
+    </div>
+</div>
+-->
+
+    <div class="Nav_box">
+          <script type="text/javascript">document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://rp.baidu.com/rp3w/3w.js?sid=11954642741492327386') + '&t=' + (Math.ceil(new Date()/3600000)) + unescape('"%3E%3C/script%3E'));</script>
+    </div><!-- //search -->
+
+<div class="flink">
+    <ul class="f5"> 
+	 <li><a href="http://www.51ou.com/browse/linuxrm/52205.html" target="_blank"><font color="red">Linux入门</font></a></li>  
+	 <li><a href="http://www.51ou.com/browse/linuxjc/52068.html" target="_blank">linux基础知识</a></li>  
+	 <li><a href="http://www.51ou.com/browse/linuxrm/52105.html" target="_blank">linux基础</a></li>  
+	 <li><a href="http://www.51ou.com/browse/xitongguanli/52092.html" target="_blank">linux运维</a></li>  
+	 <li><a href="http://www.51ou.com/browse/xitongguanli/52082.html" target="_blank"><font color="red">linux系统管理</font></a></li>  
+	 <li><a href="http://www.51ou.com/browse/linuxjc/59807.html" target="_blank">Linux入门教程</a></li> 
+	 <li><a href="http://www.51ou.com/browse/redhat/59944.html" target="_blank"><font color="red">RHEL5教程</font></a></li>  
+	 <li><a href="http://www.51ou.com/browse/shell/52067.html" target="_blank">shell教程 </a></li>  
+	 <li><a href="http://www.51ou.com/browse/oracle/52013.html" target="_blank">linux安装oracle</a></li>  
+	 <li><a href="http://www.51ou.com/browse/xen/58315.html"  target="_blank">XenServer6.2教程</a></li>  
+	 <li><a href="http://www.51ou.com/browse/MongoDB/57857.html"  target="_blank">MariaDB教程</a></li>  
+	 <li><a href="http://www.51ou.com/browse/MongoDB/51837.html "  target="_blank">mongodb教程</a></li>
+	 <li><a href="http://www.51ou.com/browse/nagios/52001.html" target="_blank"><font color="red">零基础学习Nagios</font></a></li>  
+	 <li><a href="http://www.51ou.com/browse/nagios/58965.html"  target="_blank">nagios教程</a></li>  
+	 <li><a href="http://www.51ou.com/browse/nagios/51988.html" target="_blank">Nagios安装配置教程</a></li>  
+	 <li><a href="http://www.51ou.com/browse/zabbix/33039.html" target="_blank"><font color="red">zabbix安装教程</font></a></li>  
+	 <li><a href="http://www.51ou.com/browse/Tomcat/58954.html"  target="_blank">Tomcat教程</a></li>  
+	 <li><a href="http://www.51ou.com/browse/xen/58322.html" target="_blank">SolusVM的安装使用</a></li> 
+	 <li><a href="http://www.51ou.com/browse/centos/60144.html" target="_blank"><font color="red">Centos学习教程</font></a></li>  
+	 <li><a href="http://www.51ou.com/browse/ruby/58848.html" target="_blank">Ruby新手教程</a></li>  
+	 <li><a href="http://www.51ou.com/browse/Objective_C/58817.html"  target="_blank">Objective-C教程</a></li>  
+	 <li><a href="http://www.51ou.com/browse/homeroute/58381_2.html" target="_blank"><font color="red">WiFi密码破解</font></a></li>  
+	 <li><a href="http://www.51ou.com/browse/exchange/32948.html" target="_blank"> Exchange教程</a></li>  
+	 <li><a href="http://www.51ou.com/browse/officejc/60043.html" target="_blank">Office下载大全</a></li> 
+	 <li><a href="http://www.51ou.com/browse/jianzhan/" target="_blank">CMS教程</a></li>  
+	 <li><a href="http://www.51ou.com/browse/Windows7/60038.html"  target="_blank">ghostWin7大全</a></li>  
+	 <li><a href="http://www.51ou.com/browse/xp/60039.html" target="_blank">GhostXP大全</a></li>  
+	 <li><a href="http://www.51ou.com/browse/Windows8/60040.html" target="_blank">GHOSTwin8大全</a></li>  
+	 <li><a href="http://www.51ou.com/browse/linuxrz/" target="_blank"><font color="red">Linux系统认证</font></a></li>
+         <li><a href="http://www.51ou.com/browse/linuxdownload/" target="_blank"><font color="red"><B>Linux系统下载</B></font></a></li>  
+	 </ul>
+</div>
+
+<div class="ad_960">
+</div>
+<SCRIPT language=javascript> 
+<!--
+window.onerror=function(){return true;} 
+-->
+</SCRIPT> 
+
+<!-- /header -->
+<div class="ad_960">
+</div>
+<div class="main4">
+	<div class="m4_left FL">
+    	<div class="m4_t1">当前位置：<a href='http://www.51ou.com/'>51运维网</a> > <a href='http://www.51ou.com/browse/rumen/'>入门</a> > <a href='http://www.51ou.com/browse/linuxrm/'>Linux入门</a> >  正文</div>
+        <div class="m4_box3">
+
+        	<!-- Baidu Button BEGIN -->
+            <div id="bdshare" class="bdshare_b" style="line-height: 12px;"><img src="http://bdimg.share.baidu.com/static/images/type-button-5.jpg" />
+            </div>
+			<script type="text/javascript" id="bdshare_js" data="type=button&uid=336026" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+            </script>
+            <!-- Baidu Button END -->
+
+        </div>
+        <h2 class="m4_box4">linux中如何删除rpm -e删除不了的包</h2>
+
+        <div class="m4_box5">时间：2013-09-26 00:11 来源：网络整理 作者：51ou.com 阅读：<script src="http://www.51ou.com/plus/count.php?view=yes&aid=10933&mid=1" type='text/javascript' language="javascript"></script>次</div>
+
+<div class="m4_box4">
+<script type="text/javascript">
+    /*580*90 创建于 2015-06-04*/
+    var cpro_id = "u2136710";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+        <div class="m4_box6">
+        	<p>
+<p>
+linux中如何删除rpm -e删除不了的包
+</p>
+<p>
+2013-06-20 15:18来源:风信网 作者:末信 点击:次 
+</p>
+<p>
+TAG标签： Linux RPM
+</p>
+<p>摘要：linux中如何删除rpm -e删除不了的包，我们可以采用强制卸载的方法 1、如果在删除包之前删除了包的目录 rpm -e --noscripts 示例： [root@localhost /]# rpm -e --noscripts vsftpd 2、如果系统里一个包被装两次（由于某些异常引起的） rpm -e multi-installe</p>
+<p>
+<p>linux中如何删除rpm -e删除不了的包，我们可以采用强制卸载的方法</p>
+<p>1、如果在删除包之前删除了包的目录</p>
+<p>rpm -e --noscripts</p>
+<p>示例：</p>
+<p>[root@localhost /]# rpm -e --noscripts vsftpd</p>
+<p>2、如果系统里一个包被装两次（由于某些异常引起的）</p>
+<p>rpm -e multi-installed-pkgs &ndash;allmatches</p>
+<p>示例：</p>
+<p>[root@localhost /]# rpm -e multi-installed-pkgs &ndash;allmatches vsftpd</p>
+</p>
+<p>
+linux,rpm的相关阅读：
+</p>
+
+<p>
+<p>
+<p>顶一下</p>
+<p>(0)</p>
+<p>
+
+<p>0%</p>
+</p>
+</p>
+<p>
+<p>踩一下</p>
+<p>(0)</p>
+<p>
+
+<p>0%</p>
+</p>
+</p>
+</p>
+<p>
+本站文章《linux中如何删除rpm -e删除不了的包》除注明转载外，均为本站原创或编译<br/>
+转载请注明：本文由风信网()提供欢迎免费转载，转载时请保留该信息，谢谢合作！
+</p>
+<p>
+------分隔线----------------------------
+</p>
+<p>
+<p>
+
+<li>上一篇：查看当前登陆Linux系统的身份 </li>
+<li>下一篇：Linux中如何定制用户登录时显示的信息 </li>
+
+</p>
+<p>
+<span>【返回风信网首页】【进入风信社区】</span>
+</p>
+</p>
+		</p>
+        </div>
+<div class="m4_box4">
+<script type="text/javascript">
+    /*580*90 创建于 2015-06-04*/
+    var cpro_id = "u2136907";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+        <div class="dede_pagess">
+			<ul class="pagelist">
+        	
+			</ul>
+		</div>
+        <div class="newdigg" id="newdigg">
+				<div class="diggbox digg_good" onmousemove="this.style.backgroundPosition='left bottom';" onmouseout="this.style.backgroundPosition='left top';" onclick="javascript:postDigg('good',10933)">
+					<div class="digg_act">顶一下</div>
+					<div class="digg_num">(0)</div>
+					<div class="digg_percent">
+						<div class="digg_percent_bar"><span style="width:0%"></span></div>
+						<div class="digg_percent_num">0%</div>
+					</div>
+				</div>
+				<div class="diggbox digg_bad" onmousemove="this.style.backgroundPosition='right bottom';" onmouseout="this.style.backgroundPosition='right top';" onclick="javascript:postDigg('bad',10933)">
+					<div class="digg_act">踩一下</div>
+					<div class="digg_num">(0)</div>
+					<div class="digg_percent">
+						<div class="digg_percent_bar"><span style="width:0%"></span></div>
+						<div class="digg_percent_num">0%</div>
+					</div>
+				</div>
+			</div>
+			 <script language="javascript" type="text/javascript">getDigg(10933);</script>
+        <div class="m4_box7">
+        	上一篇：<a href='http://www.51ou.com/browse/linuxrm/10932.html'>查看当前登陆Linux系统的身份</a> <br />
+			下一篇：<a href='http://www.51ou.com/browse/linuxrm/10934.html'>Linux中如何定制用户登录时显示的信息</a> 
+        </div>
+        <div class="m4_box8">
+        	<div class="m4_t2">相关内容</div>
+            <ul>
+            	<li>·<a href="http://www.51ou.com/browse/linuxrm/64640.html" target="_blank" >老式机安装64位Ubuntu Kylin 15.04 致新</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64639.html" target="_blank" >Linux发行版是什么，它又与Linux内核有什</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64638.html" target="_blank" >安装Fedora 22后要做的事情</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64637.html" target="_blank" >在linux上使用交换文件扩展交换空间</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64636.html" target="_blank" >Linux运维工程师的十个基本技能点</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64635.html" target="_blank" >Linux终端界面的字体颜色设置</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64485.html" target="_blank" >Xshell实现Windows上传文件到Linux主机</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64486.html" target="_blank" >Linux虚拟机采用NAT方式时如何能在虚拟机</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64487.html" target="_blank" >初来乍到Linux? 你需要知道的5款好应用</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64489.html" target="_blank" >如何在Fedora或CentOS上使用Samba共享文</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64490.html" target="_blank" >从Fedora 21升级到Fedora 22</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64488.html" target="_blank" >在Linux下体验谷歌Material风格的GTK和图</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64484.html" target="_blank" >在debian 8下安装ubuntukylin软件中心</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64450.html" target="_blank" >Linux系统入门学习：如何在VPS上安装和访</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64449.html" target="_blank" >Linux操作系统启动管理器-GRUB</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64448.html" target="_blank" >Linux下Samba服务端的搭建和客户端的使用</a></li>
+
+                <div class="clear"></div>
+            </ul>
+        </div>
+    </div>
+    <div class="m4_right FR">
+
+    	<div class="ad_300">
+<script type="text/javascript">
+    /*300*250 创建于 2015-06-04*/
+    var cpro_id = "u2136711";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+
+        <div class="m4_box2">
+        	<div class="m4_t2">最新内容</div>
+            <ul>
+                <li>·<a href="http://www.51ou.com/browse/linuxrm/64640.html" target="_blank" >老式机安装64位Ubuntu Kylin 15.04 致新手</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64639.html" target="_blank" >Linux发行版是什么，它又与Linux内核有什么</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64638.html" target="_blank" >安装Fedora 22后要做的事情</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64637.html" target="_blank" >在linux上使用交换文件扩展交换空间</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64636.html" target="_blank" >Linux运维工程师的十个基本技能点</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64635.html" target="_blank" >Linux终端界面的字体颜色设置</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64485.html" target="_blank" >Xshell实现Windows上传文件到Linux主机</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64486.html" target="_blank" >Linux虚拟机采用NAT方式时如何能在虚拟机中</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64487.html" target="_blank" >初来乍到Linux? 你需要知道的5款好应用</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/64489.html" target="_blank" >如何在Fedora或CentOS上使用Samba共享文件</a></li>
+
+            </ul>
+        </div>
+        <div class="m4_box2">
+        	<div class="m4_t2">推荐内容</div>
+            <ul>
+                <li>·<a href="http://www.51ou.com/browse/linuxrm/61352.html" target="_blank" >Linux中各种终端的解释</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/61342.html" target="_blank" >什么关机命令使Linux能自动关闭电源</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/60959.html" target="_blank" >Linux中关于路径的理解</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/60972.html" target="_blank" >Linux下定位问题的几个工具</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/60971.html" target="_blank" >Linux上的Shebang符号(#!)</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/60895.html" target="_blank" >Linux快速复制大量小文件方法nc+tar</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/60898.html" target="_blank" >GNU Linux下方便的块设备查看工具lsblk</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/60902.html" target="_blank" >VirtualBox下Fedora访问Windows下的共享文</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/60915.html" target="_blank" >Fedora安装Chrome</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/60918.html" target="_blank" >Linux文件系统的主要目录结构说明及分区方</a></li>
+
+            </ul>
+        </div>
+        <div class="m4_box2">
+        	<div class="m4_t2">热点内容</div>
+            <ul>
+                <li>·<a href="http://www.51ou.com/browse/linuxrm/30380.html" target="_blank" >salt stack入门（环境部署，安装文档，使用</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/56891.html" target="_blank" >Yum编译安装Error Downloading Packages报</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/11.html" target="_blank" >GNS3 无法显示以太网 NIO处理办法</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/33042.html" target="_blank" > Linux 运维自动化之Cobbler的管理与使用详</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/30539.html" target="_blank" >安装oracle11g r2时提示pdksh conflicts wi</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/45209.html" target="_blank" >CentOS6.5下做DNS服务器</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/2540.html" target="_blank" >Linux 系统 autofs与automount作用</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/2548.html" target="_blank" >Linux 系统 virbr0 虚拟网卡卸载方法</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/52205.html" target="_blank" >Linux入门</a></li>
+<li>·<a href="http://www.51ou.com/browse/linuxrm/58590.html" target="_blank" >CentOS下安装Opencv2.4.9</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="m_pinglun FL">
+    	<!-- //AJAX评论区 -->
+        <!-- //主模板必须要引入http://www.51ou.com/include/dedeajax2.js -->
+<a name='postform'></a>
+<div class="mt1">
+		<dl class="tbox">
+			<dt>
+				<strong>发表评论</strong>
+				<span class="more"></span>
+			</dt>
+			<dd>
+				<div class="dede_comment_post">
+          <form action="#" method="post" name="feedback">
+          <input type="hidden" name="dopost" value="send" />
+          <input type="hidden" name="comtype" value="comments">
+          <input type="hidden" name="aid" value="10933" />
+          <input type="hidden" name="fid" id='feedbackfid' value="0" />
+          <div class="dcmp-title">
+						<small>请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。</small>
+					</div><!-- /dcmp-title -->
+					<!-- <div class="dcmp-stand">
+						<strong>评价:</strong>
+							<input type="radio" name="feedbacktype" checked="1" value="feedback" id="dcmp-stand-neu" /><label for="dcmp-stand-neu"><img src="http://www.51ou.com/templets/51ou/images/cmt-neu.gif" />中立</label>
+							<input type="radio" name="feedbacktype" value="good" id="dcmp-stand-good" /><label for="dcmp-stand-good"><img src="http://www.51ou.com/templets/51ou/images/cmt-good.gif" />好评</label>
+							<input type="radio" name="feedbacktype" value="bad" id="dcmp-stand-bad" /><label for="dcmp-stand-bad"><img src="http://www.51ou.com/templets/51ou/images/cmt-bad.gif" />差评</label>
+					</div>/dcmp-stand -->
+                    <!--<div class="clr"></div>
+                    <div class="dcmp-mood">
+						<ul>                               
+                                <li><input type="radio" name="face" value="1" checked="1" /><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-1.gif" /></li>
+                                <li><input type="radio" name="face" value="2"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-2.gif" /></li>
+                                <li><input type="radio" name="face" value="3"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-3.gif" /></li>
+                                <li><input type="radio" name="face" value="4"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-4.gif" /></li>
+                                <li><input type="radio" name="face" value="5"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-5.gif" /></li>
+                                <li><input type="radio" name="face" value="6"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-6.gif" /></li>
+                                <li><input type="radio" name="face" value="7"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-7.gif" /></li>
+                                <li><input type="radio" name="face" value="8"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-8.gif" /></li> 
+                                <li><input type="radio" name="face" value="9"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-9.gif" /></li>
+                                <li><input type="radio" name="face" value="10"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-10.gif" /></li>
+                                <li><input type="radio" name="face" value="11"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-11.gif" /></li> 
+                                <li><input type="radio" name="face" value="12"/><img src="http://www.51ou.com/templets/51ou/images/mood/ico-mood-12.gif" /></li>
+						</ul>
+					</div> /dcmp-mood -->
+					<div class="dcmp-content">
+						<textarea cols="60" name="msg" rows="5" class="ipt-txt"></textarea>
+					</div><!-- /dcmp-content -->
+					<div class="dcmp-post"><!--未登陆-->
+							<div class="dcmp-userinfo" id="_ajax_feedback">
+								
+                                验证码:<input type="text" name="validate" size="4" class="ipt-txt" style="text-transform:uppercase;"/><img src= "/include/vdimgck.php" id="validateimg" style="cursor:pointer" onclick="this.src=this.src+'?'" width="60" height="24"  title="点击我更换图片" alt="点击我更换图片" />
+                <input type="checkbox" name="notuser" id="dcmp-submit-guest" /><label for="dcmp-submit-guest" />匿名? </label>
+							</div>
+              
+							<div class="dcmp-submit">
+								<button type="button" onClick='PostComment()'>发表评论</button>
+							</div>
+						</div>
+        </form>
+				</div>
+			</dd>
+		</dl>
+	</div><!-- //评论表单区结束 -->
+
+<!-- //评论内容区 -->
+	<a name='commettop'></a>
+	<div class="mt1">
+			<dl class="tbox">
+				<dt>
+					<strong>最新评论</strong>
+					<span class="more"><a href="http://www.51ou.com/plus/feedback.php?aid=10933">进入详细评论页&gt;&gt;</a></span>
+				</dt>
+				<!-- //这两个ID的区块必须存在，否则JS会出错 -->
+				<dd id='commetcontentNew'></dd>
+				<dd id='commetcontent'></dd>
+			</dl>
+	</div>
+<!--
+//由于评论载入时使用异步传输，因此必须在最后一步加载（DIGG和评论框须放在评论内容前面）
+//如果一定需要提前的把myajax.SendGet改为myajax.SendGet2，但可能会引起页面阻滞
+-->
+<script language='javascript'>
+function LoadCommets(page)
+{
+		var taget_obj = document.getElementById('commetcontent');
+		var waithtml = "<div style='line-height:50px'><img src='http://www.51ou.com/images/loadinglit.gif' />评论加载中...</div>";
+		var myajax = new DedeAjax(taget_obj, true, true, '', 'x', waithtml);
+		myajax.SendGet2("http://www.51ou.com/plus/feedback_ajax.php?dopost=getlist&aid=10933&page="+page);
+		DedeXHTTP = null;
+}
+function PostComment()
+{
+		var f = document.feedback;
+		var nface = '6';
+		var nfeedbacktype = 'feedback';
+		var nvalidate = '';
+		var nnotuser = '';
+		var nusername = '';
+		var npwd = '';
+		var taget_obj = $DE('commetcontentNew');
+		var waithtml = "<div style='line-height:30px'><img src='http://www.51ou.com/images/loadinglit.gif' />正在发送中...</div>";
+		if(f.msg.value=='')
+		{
+			alert("评论内容不能为空！");
+			return;
+		}
+		if(f.validate)
+		{
+			if(f.validate.value=='') {
+				alert("请填写验证码！");
+				return;
+			}
+			else {
+				nvalidate = f.validate.value;
+			}
+		}
+		if(f.msg.value.length > 500)
+		{
+			alert("你的评论是不是太长了？请填写500字以内的评论。");
+			return;
+		}
+		if(f.feedbacktype) {
+			for(var i=0; i < f.feedbacktype.length; i++)
+				if(f.feedbacktype[i].checked) nfeedbacktype = f.feedbacktype[i].value;
+		}
+		if(f.face) {
+			for(var j=0; j < f.face.length; j++)
+				if(f.face[j].checked) nface = f.face[j].value;
+		}
+		if(f.notuser.checked) nnotuser = '1';
+		if(f.username) nusername = f.username.value;
+		if(f.pwd) npwd = f.pwd.value;
+		
+		var myajax = new DedeAjax(taget_obj, false, true, '', '', waithtml);
+		myajax.sendlang = 'gb2312';
+		myajax.AddKeyN('dopost', 'send');
+		myajax.AddKeyN('aid', '10933');
+		myajax.AddKeyN('fid', f.fid.value);
+		myajax.AddKeyN('face', nface);
+		myajax.AddKeyN('feedbacktype', nfeedbacktype);
+		myajax.AddKeyN('validate', nvalidate);
+		myajax.AddKeyN('notuser', nnotuser);
+		myajax.AddKeyN('username', nusername);
+		myajax.AddKeyN('pwd', npwd);
+		myajax.AddKeyN('msg', f.msg.value);
+		myajax.SendPost2('http://www.51ou.com/plus/feedback_ajax.php');
+		f.msg.value = '';
+		f.fid.value = 0;
+		if(f.validate)
+		{
+			if($DE('validateimg')) $DE('validateimg').src = "http://www.51ou.com/include/vdimgck.php?"+f.validate.value;
+			f.validate.value = '';
+		}
+}
+function quoteCommet(fid)
+{
+	document.feedback.fid.value = fid;
+}
+LoadCommets(1);
+</script><!-- //评论内容区结束 -->
+
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="footer">
+	<p>
+        <a href="http://www.51ou.com/about/about.html" target="_blank" >关于网站</a>  |  
+        <a href="http://www.51ou.com/about/sitemap.html" target="_blank" >网站地图</a>  |  
+        <a href="http://www.51ou.com/about/help.html" target="_blank" >网站帮助</a>  |  
+        <a href="http://www.51ou.com/about/terms.html" target="_blank" >使用条款</a>  |  
+        <a href="http://www.51ou.com/about/ads.html" target="_blank" >广告服务</a>  |  
+        <a href="http://www.51ou.com/about/contact.html" target="_blank" >联系我们</a>  |  
+        <a href="http://www.51ou.com/" target="_blank" >返回首页</a>
+    </p>
+    <p>Copyright &#169; 2002-2011 DEDECMS. 织梦科技 版权所有 Power by DedeCms</p>
+	<p><a href="http://www.51ou.com" target="_blank">51运维网</a> 版权所有 
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?f685b93481c40daac879d4d16b58c2b3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</p>
+</div>
+
+<script type="text/javascript">
+    /*120*270 创建于 2015-06-04*/
+var cpro_id = "u2136728";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    /*为了保证用户体验及收益，图片大小不得小于：200*180*/
+    /* 创建于 2015-06-04*/
+var cpro_id = "u2136874";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/i.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    /* 创建于 2015-06-08*/
+    var cpro_id = "u2145497";
+</script>
+<script src=" http://su.bdimg.com/static/dspui/js/uf.js" type="text/javascript"></script>
+
+
+<!-- /footer -->
+
+</body>
+</html>
