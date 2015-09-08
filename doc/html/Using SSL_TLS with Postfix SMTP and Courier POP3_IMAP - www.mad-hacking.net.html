@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" xmlns:dms="http://www.mad-hacking.net/schema/dms/1.0" xmlns:doc="http://www.mad-hacking.net/schema/dms/1.0/documents.xsd" xmlns:comp="http://www.mad-hacking.net/schema/dms/1.0/modules/comp/general-1.0.xsd" xmlns:db="http://www.mad-hacking.net/schema/dms/1.0/modules/comp/db-1.0.xsd" xmlns:linux="http://www.mad-hacking.net/schema/dms/1.0/modules/comp/linux-1.0.xsd" xmlns:advertising="http://www.mad-hacking.net/schema/dms/ext/advertising" xmlns:analytics="http://www.mad-hacking.net/schema/dms/ext/analytics" xmlns:social="http://www.mad-hacking.net/schema/dms/ext/social" xmlns:g="http://apis.google.com" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="en" lang="en"><head><title>Using SSL/TLS with Postfix SMTP and Courier POP3/IMAP - www.mad-hacking.net</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" type="text/css" href="/style/site/css/page-layout.css" /><link rel="stylesheet" type="text/css" href="/style/site/css/header-footer.css" /><link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" /><script type="text/javascript">
+			window.google_analytics_uacct = "UA-19774649-1";
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-19774649-1']);
+			_gaq.push(['_setDomainName', '.mad-hacking.net']);
+			_gaq.push(['_trackPageview']);
+			
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script><meta property="og:site_name" content="www.mad-hacking.net" /><meta property="fb:admins" content="671885212" /><meta property="fb:app_id" content="138824569533853" /><meta property="og:type" content="article" /><meta property="og:title" content="E-mail virtual-hosting system using Postfix and CourierIMAP" /><meta property="og:url" content="//www.mad-hacking.net/documentation/linux/applications/mail/index.xml" /><meta property="og:description" content="How to install and configure an Internet mail system capable of sending and receiving email, relaying email on behalf of other servers and user agents, as well as as allowing users access to stored email, all using the most common standard protocols. As the focus is on security and stability there are also sections devoted to spam prevention and attachment scanning, for viruses as well as unauthorised content." /><meta property="og:image" content="//www.mad-hacking.net/style/site/icons/favicon128.png" /><link rel="stylesheet" type="text/css" href="/style/dms/css/navigation/main-menu.css" /><link rel="stylesheet" type="text/css" href="/style/dms/css/navigation/breadcrumbs.css" /><link rel="stylesheet" type="text/css" href="/style/dms/css/navigation/chapter.css" /><link rel="stylesheet" type="text/css" href="/style/dms/css/base/text-styling.css" /><link rel="stylesheet" type="text/css" href="/style/dms/css/base/tables.css" /><link rel="stylesheet" type="text/css" href="/style/dms/css/modules/comp/linux/typed.css" /><link rel="stylesheet" type="text/css" href="/style/dms/css/extra/advertising.css" /><link rel="stylesheet" type="text/css" href="/style/dms/css/extra/social-networking.css" /><script type="text/javascript">
+				    window.cookieconsent_options = {"message":"This website uses cookies to ensure you get the best experience on our website","dismiss":"Got it!","learnMore":"More info","link":null,"theme":"dark-top"};
+				</script><script type="text/javascript" src="//s3.amazonaws.com/cc.silktide.com/cookieconsent.latest.min.js"></script></head><body><div id="container"><div id="header" class="header"><a href="/"><span class="www">www</span><span class="dot">.</span><span class="hacking">mad</span><span class="dash">-</span><span class="hacking">hacking</span><span class="dot">.</span><span class="www">net</span></a></div><div id="main-menu" class="main-menu"><ul><li><a href="/index.xml">Home</a></li><li><a href="/about/index.xml">About</a></li><li><a href="http://bugs.mad-hacking.net">Bugs</a></li><li class="selected"><a href="/documentation/index.xml">Documentation</a></li><li><a href="/software/index.xml">GPL Software</a></li><li><a href="/site-index.xml">Index</a></li></ul></div><div id="breadcrumbs"><ul><li class="first"><a href="/index.xml">Home</a></li><li><a href="/documentation/index.xml">Documentation</a></li><li><a href="/documentation/linux/applications/index.xml">Applications</a></li><li><a href="/documentation/linux/applications/mail/index.xml">E-mail Server</a></li><li>Using SSL/TLS with Postfix SMTP and Courier POP3/IMAP</li></ul></div><div class="navigation-top"><div class="floating"><div><div><a href="mail-relaying.xml"><img src="/style/site/icons/left.png" alt="Previous chapter" /></a></div></div><div class="limit"><div><a href="mail-relaying.xml">Providing mail relay services using SMTP<br /></a></div></div><div class="middle"><div><a href="/documentation/linux/applications/mail/index.xml"><img src="/style/site/icons/up.png" alt="Index" /></a></div></div><div class="limit"><div class="right"><a href="basic-spam-prevention.xml">Simple spam prevention<br /></a></div></div><div><div><a href="basic-spam-prevention.xml"><img src="/style/site/icons/right.png" alt="Next chapter" /></a></div></div></div></div><div id="maincontent" class="maincontent"><div id="dms-base-document" class="dms-base-chapter"><h1 class="block">Using SSL/TLS with Postfix SMTP and Courier POP3/IMAP</h1><h2 id="why-ssl-tls-postfix-courier">Why should I use SSL/TLS to secure our mail servers?</h2><p>
+			In previous sections we mentioned that, due to the fact we are storing our passwords in encrypted form in
+			our	database, some of the more advanced authentication methods such as <span class="mono">DIGEST-MD5</span> were
+			unavailable to us.  This resulted in us being forced to use authentication methods which require plain
+			text passwords to be transmitted over the network, which in a hostile environment such as the Internet is
+			probably not a very wise idea.  At the time we rather glossed over this fact, mainly because we are going
+			to address it in this section in a manner which is far more secure than any of the authentication methods
+			currently supported by the common standard mail protocols.
+		</p><div class="advertising"><script type="text/javascript">
+					google_ad_client = "ca-pub-7020239835850624";
+					/* First ad unit */
+					google_ad_slot = "9761667323";
+					google_ad_width = 728;
+					google_ad_height = 90;
+				</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script></div><h2 id="get-ssl-certs-postfix-courier">Obtaining certificates for use with Postfix and Courier</h2><p>
+			Before we can secure either Postfix or Courier using SSL/TLS we need to obtain some certificates.  These
+			can either be self-signed test-certificates generated for immediate use, certificates signed by an
+			organisational root certificate authority or certificates signed by a third-party root certificate
+			authority.  Whichever type of certificate you decide to use we shall assume that you have the relevant
+			certificate and private-key files installed in <span class="mono nowrap">/etc/ssl/</span> as usual.
+		</p><p>
+			As the purpose of this guide is the installation and configuration of a mail server, and not a guide to
+			SSL certificates, certificate authorities or certificate manipulation operations, we shall not be covering
+			this here.  If you require more information regarding these matters then you may be interested in the
+			<a href="/documentation/linux/security/ssl-tls/index.xml"><span class="linktext">Securing network traffic using SSL/TLS</span></a> guide.			
+		</p><div class="advertising"><script type="text/javascript">
+					google_ad_client = "ca-pub-7020239835850624";
+					/* First ad unit */
+					google_ad_slot = "9761667323";
+					google_ad_width = 728;
+					google_ad_height = 90;
+				</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script></div><h2 id="using-tls-postfix">Configuring Postfix to use TLS</h2><p>
+			Once we have obtained our signed certificates we can configure Postfix to use them to secure all user
+			communications with our server so that not only are user authentication details secured but the contents
+			of the relayed email messages are also secured.  To enable TLS in Postfix we need to add the following
+			lines to our configuration file.
+		</p><div class="typed-file">/etc/postfix/main.cf</div><div class="typed"><pre>smtpd_use_tls = yes<br />smtpd_tls_auth_only = yes<br />smtpd_tls_received_header = yes<br /><br />smtpd_tls_cert_file = /etc/ssl/misc/mail.cert.pem<br />smtpd_tls_key_file = /etc/ssl/private/mail.key.pem<br /><br />smtpd_tls_session_cache_timeout = 3600s<br />smtpd_tls_loglevel = 3<br />tls_random_source = dev:/dev/urandom<br /></pre></div><p>
+			As usual we have broken down our configuration into logical blocks to aid description.  The effect of the
+			first block in our example configuration should be obvious.  The first line is trivial and merely enables
+			the use of TLS.  The second line configures Postfix to require that a secure connection be established
+			<em>before</em> any	authentication details are received.  The final line indicates that we wish to 
+			include a <span class="mono">received</span> header in our messages to indicate that they were received over
+			a secure link.
+		</p><p>
+			The second block of our example configuration provides the path to the certificate file and the private
+			key file respectively.  Postfix expects these the certificate and private key to be contained in separate
+			files however if they have been made into a combined certificate and key then both configuration entries
+			should point to the	same file.
+		</p><p>
+			The final block in our example sets the timeout for the TLS session cache, which can provide a marginal
+			performance improvement, the level of logging for TLS negotiations and the source of random numbers to
+			use for the cryptographic operations associated with TLS.  We have decided to use <span class="mono">/dev/urandom</span>
+			as our random number source as the <span class="mono">/dev/random</span> source can become quickly exhausted on
+			a busy mail server.
+		</p><p>
+			With the certificate and private key in place and sufficient configuration added to the Postfix configuration
+			file all that remains is to instruct the Postfix daemon to reload its configuration so that our changes
+			take effect.  This can be performed using the <span class="mono">reload</span> option of the init script as shown
+			below.
+		</p><div class="typed"><span class="roothost">lisa </span><span class="dir">~ </span><span class="prompt"># </span><span class="command">/etc/init.d/postfix reload</span><br /></div><div class="advertising"><script type="text/javascript">
+					google_ad_client = "ca-pub-7020239835850624";
+					/* First ad unit */
+					google_ad_slot = "9761667323";
+					google_ad_width = 728;
+					google_ad_height = 90;
+				</script><script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script></div><h2 id="testing-tls-postfix">Testing our Postfix TLS configuration</h2><p>
+			Once we have reloaded the Postfix configuration we can test that it has worked using the
+			<span class="mono nowrap">telnet</span> application as in previous sections.  As you can see from the example
+			session shown below we have again issued an <span class="mono">EHLO</span> greeting although this time, instead
+			of being offered the option to authenticate using the <span class="mono">PLAIN</span> or <span class="mono">LOGIN</span>
+			methods, we are being offered the <span class="mono">STARTTLS</span> option.
+		</p><div xmlns:net="http://www.mad-hacking.net/schema/dms/1.0/modules/comp/net-1.0.xsd" class="typed"><span class="roothost">lisa </span><span class="prompt">~ # </span>telnet
+			localhost 25<pre class="existing">Trying 127.0.0.1... </pre><pre class="existing">Connected to mail.hacking.co.uk. </pre><pre class="existing">Escape character is '^]'. </pre><pre class="existing">220 mail.hacking.co.uk ESMTP Postfix </pre><pre>EHLO client.example.com </pre><pre class="existing">250-mail.localdomain </pre><pre class="existing">250-PIPELINING </pre><pre class="existing">250-SIZE 10240000 </pre><pre class="existing">250-VRFY </pre><pre class="existing">250-ETRN </pre><pre class="existing">250-STARTTLS </pre><pre class="existing">250-ENHANCEDSTATUSCODES </pre><pre class="existing">250-8BITMIME </pre><pre class="existing">250 DSN </pre><pre>QUIT </pre><pre class="existing">221 2.0.0 Bye </pre><pre class="existing">Connection closed by foreign host. </pre></div><p>
+			Assuming your test session produced similar output to that shown in the above example then your Postfix
+			server is correctly configured to use TLS for authenticated transactions and will refuse to authenticate
+			unless a TLS session has been started.
+		</p><h2 id="using-ssl-tls-courier">Configuring Courier POP3 and IMAP to use SSL/TLS</h2><p>
+			Unlike the Postfix daemon the Courier POP3 and IMAP daemons require the certificate and key to have
+			been combined into a single file.  We can combine the certificate and private key we used earlier into
+			a single file using the commands below.  Remember that this file now contains private information and
+			should not be readable by anyone other than the <span class="mono">root</span> user.
+		</p><div class="typed"><span class="roothost">lisa </span><span class="dir">~ </span><span class="prompt"># </span><span class="command">cd /etc/ssl</span><br /><span class="roothost">lisa </span><span class="dir">ssl </span><span class="prompt"># </span><span class="command">cat private/mail.key.pem misc/mail.cert.pem &gt;&gt; private/mail.combined.pem</span><br /></div><p>
+			The above commands are sufficient if you are using the default <span class="mono">RSA</span> encryption routines
+			however if you are using the less common <span class="mono">DSA</span> standard you will need to add a set of
+			Diffie-Hellman parameters to the combined key using the command below.  If you do not know which type of
+			cryptography you are using it is safe to run this command on either type of certificate.
+		</p><div class="typed"><span class="roothost">lisa </span><span class="dir">ssl </span><span class="prompt"># </span><span class="command">openssl dhparam 1024 &gt;&gt; private/mail.combined.pem</span><br /><pre>Generating DH parameters, 1024 bit long safe prime, generator 2 </pre><pre>This is going to take a long time </pre></div><p>
+			Now that we have combined our certificate and key files, and appended Diffie-Hellman parameters if required,
+			we can configure the Courier POP3 daemon.  The listing below shows which lines will need to be modified
+			in the default configuration to enable the Courier POP3 daemon to locate the SSL certificate and require
+			that TLS is negotiated <em>before</em> any authentication details are exchanged.
+		</p><div class="typed-file">/etc/courier-imap/pop3d-ssl</div><div class="typed"><pre><span class="removed">POP3_TLS_REQUIRED=0<br /></span>POP3_TLS_REQUIRED=1<br /><br /><span class="removed">TLS_CERTFILE=/etc/courier-imap/pop3d.pem<br /></span>TLS_CERTFILE=/etc/ssl/private/mail.combined.pem<br /></pre></div><p>
+			Now that we have configured the Courier POP3 daemon to require TLS security we need to restart it before
+			we can perform a basic test to ensure that our configuration is working as expected.  As usual the init
+			script provides a <span class="mono">restart</span> function which can be used as shown below.
+		</p><div class="typed"><span class="roothost">lisa </span><span class="dir">~ </span><span class="prompt"># </span><span class="command">/etc/init.d/courier-pop3d restart</span><br /></div><p>
+			As before, when we tested TLS on the Postfix daemon, we shall use the <span class="mono nowrap">telnet</span>
+			application to ensure that we are being forced to use TLS before submitting any authentication details
+			and also that the TLS can be started successfully.
+		</p><div xmlns:net="http://www.mad-hacking.net/schema/dms/1.0/modules/comp/net-1.0.xsd" class="typed"><span class="roothost">lisa </span><span class="prompt">~ # </span>telnet
+			mail 110<pre class="existing">Trying 127.0.0.1... </pre><pre class="existing">Connected to mail.hacking.co.uk. </pre><pre class="existing">Escape character is '^]'. </pre><pre class="existing">+OK Hello there. </pre><pre>USER spamcatcher@hacking.co.uk </pre><pre class="existing">-ERR TLS required to log in. </pre><pre>STLS </pre><pre class="existing">+OK Begin SSL/TLS negotiation now. </pre><pre>QUIT </pre><pre class="existing">Connection closed by foreign host. </pre></div><p>
+			The Courier POP3 daemon can also offer a secure connection from the start of communications using the
+			SSL standard.  If you wish to offer this service then you will need to start the Courier POP3-SSL service
+			and add it to the default run level as shown in the example below.
+		</p><div class="typed"><span class="roothost">lisa </span><span class="dir">~ </span><span class="prompt"># </span><span class="command">/etc/init.d/courier-pop3d-ssl start</span><br /><span class="roothost">lisa </span><span class="dir">~ </span><span class="prompt"># </span><span class="command">rc-update add courier-pop3d-ssl default</span><br /></div><p>
+			We can configure the Courier IMAP daemon to require the use of TLS before authentication information will
+			be accepted in a similar way.  The changes required to the default configuration file are outlined in the
+			listing below.
+		</p><div class="typed-file">/etc/courier-imap/imapd-ssl</div><div class="typed"><pre><span class="removed">IMAP_TLS_REQUIRED=0<br /></span>IMAP_TLS_REQUIRED=1<br /><br /><span class="removed">TLS_CERTFILE=/etc/courier-imap/imapd.pem<br /></span>TLS_CERTFILE=/etc/ssl/private/mail.combined.pem<br /></pre></div><p>
+			Once you have made the above modifications to the Courier IMAP configuration files you will need to 
+			restart the service for those changes to take effect.  This can be done using the command shown below.
+		</p><div class="typed"><span class="roothost">lisa </span><span class="dir">~ </span><span class="prompt"># </span><span class="command">/etc/init.d/courier-imapd restart</span><br /></div><p>
+			Just like the Courier POP3 daemon the Courier IMAP daemon can also offer a secure connection from the
+			start of communications using the SSL standard.  If you wish to offer this service then you will need to
+			start the Courier IMAP-SSL service and add it to the default run level as shown in the example below.
+		</p><div class="typed"><span class="roothost">lisa </span><span class="dir">~ </span><span class="prompt"># </span><span class="command">/etc/init.d/courier-imapd-ssl start</span><br /><span class="roothost">lisa </span><span class="dir">~ </span><span class="prompt"># </span><span class="command">rc-update add courier-imapd-ssl default</span><br /></div><div class="social-networking"><span class="google-like"><g:plusone size="medium" count="true"> </g:plusone></span><span class="twitter-tweet"><script type="text/javascript" src="http://platform.twitter.com/widgets.js"> </script><a href="http://twitter.com/share?url=//www.mad-hacking.net/documentation/linux/applications/mail/index.xml" class="twitter-share-button" data-count="horizontal" data-text="E-mail virtual-hosting system using Postfix and CourierIMAP" data-url="//www.mad-hacking.net/documentation/linux/applications/mail/index.xml"> </a></span><span class="reddit-this"><script type="text/javascript">
+				reddit_url = "//www.mad-hacking.net/documentation/linux/applications/mail/index.xml";
+				reddit_title = "E-mail virtual-hosting system using Postfix and CourierIMAP";
+				reddit_newwindow = '1';
+			</script><script type="text/javascript" src="http://www.reddit.com/static/button/button1.js"> </script></span><span class="stumble-upon"><script src="http://www.stumbleupon.com/hostedbadge.php?s=1&amp;r=//www.mad-hacking.net/documentation/linux/applications/mail/index.xml"> </script></span><span class="fb-root-span"><fb:like layout="button_count" href="//www.mad-hacking.net/documentation/linux/applications/mail/index.xml" send="true"></fb:like></span></div></div></div><div id="dms-hidden-html"><script type="text/javascript" src="http://apis.google.com/js/plusone.js">{ lang: 'en-GB' }</script><div id="fb-root"> </div><script>
+				window.fbAsyncInit = function()
+				{
+					FB.init(
+					{
+						appId      : '138824569533853',
+						channelUrl : '//www.mad-hacking.net/channel.html', // Channel File
+						status     : true, // check login status
+						cookie     : true, // enable cookies to allow the server to access the session
+						xfbml      : true  // parse XFBML
+				    });
+				};
+				// Load the SDK Asynchronously
+				(function(d)
+				{
+					var js, id = 'facebook-jssdk'; 
+					if (d.getElementById(id)) {return;}
+					js = d.createElement('script');
+					js.id = id; js.async = true;
+					js.src = "//connect.facebook.net/en_GB/all.js";
+					d.getElementsByTagName('head')[0].appendChild(js);
+				}(document));
+			</script>
+			 
+		</div><div id="footer" class="footer"><div class="navigation-bottom"><div class="floating"><div><div><a href="mail-relaying.xml"><img src="/style/site/icons/left.png" alt="Previous chapter" /></a></div></div><div class="limit"><div><a href="mail-relaying.xml">Providing mail relay services using SMTP<br /></a></div></div><div class="middle"><div><a href="/documentation/linux/applications/mail/index.xml"><img src="/style/site/icons/up.png" alt="Index" /></a></div></div><div class="limit"><div class="right"><a href="basic-spam-prevention.xml">Simple spam prevention<br /></a></div></div><div><div><a href="basic-spam-prevention.xml"><img src="/style/site/icons/right.png" alt="Next chapter" /></a></div></div></div></div><div class="tagline clear"><span class="left">Strict XHTML</span><span class="right"><a href="/about/legal.xml">© 2010-2014 MAD Hacking</a></span></div></div></div></body></html>

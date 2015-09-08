@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="gbk">
+        <link href="http://s.zol-img.com.cn/d/Jishu/Jishu_index.css?v=3881" rel="stylesheet" type="text/css" />
+        <title>用unix socket加速php-fpm、mysql、redis的连接-ZOL技术频道</title>
+        <meta name="keywords" content="用unix socket加速php-fpm、mysql、redis的连接"/>
+        <meta name="description" content="图虫的服务器长期是单机运行。估计除了mysql之"/>
+        <base target="_blank"/>
+    </head>
+    <body>
+        <div class="zhead-wrap">
+            <div id="zhead" class="clearfix">
+                <div class="zlogin"></div>
+
+                <ul class="zmore_list" style="display: none;" id="menu_more_list" onmouseover="__mores()" onmouseout="__moreh()">
+                    <li><a target="_self" href="http://zj.zol.com.cn/">模拟攒机</a></li>
+                    <li><a target="_self" href="http://zdc.zol.com.cn/">ZDC调研中心</a></li>
+                    <li><a target="_self" href="http://2.zol.com.cn/">二手</a></li>
+                    <li><a target="_self" href="http://top.zol.com.cn/">排行榜</a></li>
+                    <li class="zline"><a href="http://www.zol.com/" target="_self">中关村商城</a></li>
+                    <li><a target="_self" href="http://photo.zol.com.cn/">相册</a></li>
+                    <li><a target="_self" class="zeroc" href="http://v.zol.com.cn/">视频</a></li>
+                    <li class="all_li"><a target="_self" href="http://www.zol.com.cn/webcenter/map.html">全部 &gt;&gt;</a></li>
+                </ul>
+
+
+                <div class="znav"><a target="_self" href="http://www.zol.com.cn/">ZOL首页</a>|&nbsp;&nbsp;<a target="_self" href="http://detail.zol.com.cn/">产品报价</a>|&nbsp;&nbsp;<a target="_self" href="http://bbs.zol.com.cn/">论坛</a>|&nbsp;&nbsp;<a target="_self" href="http://dealer.zol.com.cn/">经销商</a>|&nbsp;&nbsp;<a target="_self" href="http://xiazai.zol.com.cn/">软件下载</a>|&nbsp;&nbsp;<a href="http://ask.zol.com.cn/">问答堂</a>|&nbsp;&nbsp;<a class="zask" href="http://news.zol.com.cn/">新闻中心</a>|&nbsp;&nbsp;<a href="http://www.zol.com.cn/all.html" class="zmore2" id="menu_more" onmouseover="__mores()" onmouseout="__moreh()">更多</a> </div>
+
+            </div>
+
+        </div>
+        <script language="javascript" type="text/javascript"> 
+            function __ms(obj){obj.className='zact';}
+            function __mh(obj){obj.className='';}
+            function __mores(obj){document.getElementById("menu_more").className='zmore';document.getElementById("menu_more_list").style.display='';}
+            function __moreh(obj){document.getElementById("menu_more").className='zmore2';document.getElementById("menu_more_list").style.display='none';}
+            function __morexs(obj){document.getElementById("am").className='am2';document.getElementById("uCent").style.display='';}
+            function __morexh(obj){document.getElementById("am").className='am';document.getElementById("uCent").style.display='none';}
+        </script>
+<div class="g-header-wrap">
+    <div class="global-header clearfix">
+        <div class="logo-box">
+            <a target="_self" href="/" class="logo">技术频道</a>
+        </div>	
+        <ul class="g-nav">
+
+            <li><a target="_self" href="http://jishu.zol.com.cn">首页</a></li><li><a  target="_self" href="/new/">最新文章</a></li><li><h4>开发</h4></li><li><a  target="_self" href="/list_3_1.html">数据库</a></li><li><a  target="_self" href="/list_4_1.html">系统</a></li><li><a  target="_self" href="/list_5_1.html">服务器</a></li>
+        </ul>
+        <div class="search-box">
+           <form id="searchform" method="get" action="http://search.zol.com.cn/s/search.php">
+                <input id="J_keywords" type="text" class="skey" name="kword" autocomplete="off" onclick="JavaScript:if(this.value=='请输入关键词'){this.value='';this.style.color='#000'};" value="请输入关键词">
+                <input type="submit" class="sbtn" value="搜索" />
+            </form>
+        </div>    </div>	
+</div>
+<div class="wrapper">
+    <div class="crumbs">
+                <a href="http://jishu.zol.com.cn">技术频道首页</a>&gt;<a href="/list_2_1.html">开发</a>&gt;<span>正文</span>
+    </div>	
+    <div class="content clearfix">
+        <div class="main">
+            <div class="article article-cont">
+                <div class="article-header"><h1>用unix socket加速php-fpm、mysql、redis的连接</h1>
+                    <div class="text clearfix">
+                        <div class="font-change"> 
+                            <a onclick="showLow();" class="font-down " id="fontdown" style="cursor: pointer;">A-</a> 
+                            <a onclick="showUp();" class="font-up"  id="fontup" style="cursor: pointer;">A+</a>
+                        </div>
+                        <div class="date-share">
+                            <span><em class="date">2013-08-07 00:48</em>|</span> 
+                            <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare share-btns">  
+                                <span>分享到：</span>
+                                <a class="bds_tqq" href="javascript:;" target="_self" rel="用unix socket加速php-fpm、mysql、redis的连接:　　图虫的服务器长期是单机运行。估计除了mysql之外，php-fpm和redis还可以在单机上共存很长时间。(多说服务器早就达成了单机每日2000万+动态请求，所以我对单"></a> 
+                                <a class="bds_qzone" href="javascript:;" target="_self" rel="用unix socket加速php-fpm、mysql、redis的连接:　　图虫的服务器长期是单机运行。估计除了mysql之外，php-fpm和redis还可以在单机上共存很长时间。(多说服务器早就达成了单机每日2000万+动态请求，所以我对单"></a> 
+                                <a class="bds_tsina" href="javascript:;" target="_self" rel="用unix socket加速php-fpm、mysql、redis的连接:　　图虫的服务器长期是单机运行。估计除了mysql之外，php-fpm和redis还可以在单机上共存很长时间。(多说服务器早就达成了单机每日2000万+动态请求，所以我对单"></a> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="articlebox">
+                    <div class="article-main" id="contentBox">
+                        <p>　　图虫的服务器长期是单机运行。估计除了mysql之外，php-fpm和redis还可以在单机上共存很长时间。(多说服务器早就达成了单机每日2000万+动态请求，所以我对单机搞定图虫的大流量非常乐观)</p><p>　　如果是单机服务，其实就不需要用IP哪怕是127.0.0.1这样的IP去连接mysql/redis/php了，因为即使是127.0.0.1也是要走TCP/IP层的。</p><p>　　unix提供的unix socket来实现单机的端口访问，很多文章提到用unix socket可以提升连接速度。</p><p>　　我简单测试了一下，200次redis请求的耗时38ms，如果改成unix socket方式，立刻降到27ms。这简直是立竿见影啊，10ms的差距足以让我们有动力把IP方式改成unix socket方式。</p><p>　　<strong>Mysql(PDO)启用unix socket的方法</strong></p><p>　　1.在PDO的DSN里面：原来写host:xxx，改成unix_socket:/var/run/mysqld/mysqld.sock (当然你可以在my.cnf里面设置成别的)</p><p>　　2.给mysql的用户名@localhost，设置访问权限。由于unix_socket并不是主机，所以用unix socket方式连接mysql，mysql会强制认为用户是来自于localhost，所以一定要给username@localhost设置权限，而不是username@’%’</p><p>　　<strong>redis(phpredis)启用unix socket的方法</strong></p><p>　　1.redis 默认没有开启unix socket，需要在/etc/redis/redis.conf中修改。注意unixsocketperm 777</p><pre>unixsocket /var/run/redis/redis.sockunixsocketperm 777</pre><p>　　2.用phpredis连接：</p><pre>$redis-&gt;connect('/var/run/redis/redis.sock')</pre><p>　　<strong>nginx + php-fpm启用unix socket的方法</strong></p><p>　　1.php-fpm 的pool配置文件中：</p><pre>listen = /var/run/php5-fpm.sock;</pre><p>　　2.nginx sites的配置文件中：</p><pre>fastcgi_pass   unix:/var/run/php5-fpm.sock;</pre><p>　　由于redis连接次数很多，因此redis使用unix socket的效果最明显，mysql其次，php基本上没有用不用sock都差不多<br /></p>                        <div class="source">来自blogread</div>
+                        <div class="other">
+                            <div class="date-share">
+                                <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare share-btns">  
+                                    <span>分享到：</span>
+                                    <a class="bds_tqq" href="javascript:;" target="_self" rel="用unix socket加速php-fpm、mysql、redis的连接:　　图虫的服务器长期是单机运行。估计除了mysql之外，php-fpm和redis还可以在单机上共存很长时间。(多说服务器早就达成了单机每日2000万+动态请求，所以我对单"></a> 
+                                    <a class="bds_qzone" href="javascript:;" target="_self" rel="用unix socket加速php-fpm、mysql、redis的连接:　　图虫的服务器长期是单机运行。估计除了mysql之外，php-fpm和redis还可以在单机上共存很长时间。(多说服务器早就达成了单机每日2000万+动态请求，所以我对单"></a> 
+                                    <a class="bds_tsina" href="javascript:;" target="_self" rel="用unix socket加速php-fpm、mysql、redis的连接:　　图虫的服务器长期是单机运行。估计除了mysql之外，php-fpm和redis还可以在单机上共存很长时间。(多说服务器早就达成了单机每日2000万+动态请求，所以我对单"></a> 
+                                </div>
+                            </div>
+                            <div class="tags">
+                                标签：<a href="/php/">PHP</a><a href="/mysql/">Mysql</a><a href="/unix/">Unix</a>                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="module about-news">
+
+                <div class="header">
+                    <a target="_self" href="http://jishu.zol.com.cn" class="backto-home">返回首页</a>
+                    <span>相关新闻</span>
+                </div>
+                <div class="pic-news-list">
+                    <a href="/228917.html" class="pic"><img src="http://i0.doc.fd.zol-img.com.cn/t_s240x160/g1/M04/09/0D/Cg-4jlL6JhGIIlubAAByRPUIzFgAAGnHgFydUEAAHJc386.jpg" alt="4月？Windows 8.1 Update 1未发布先跳票"   /><span class="txt">4月？Windows 8.1 Update 1未发布先跳票</span></a><ul class="news-list"><li><a href="/228913.html">美的台式饮水机天猫85元包邮 24点开卖</a></li><li><a href="/228918.html">2013网络安全盘点与展望之展望篇</a></li><li><a href="/228861.html">TCL 516升 对开门冰箱京东3098元包邮（3098-300）浙江、辽宁、河北、内蒙</a></li><li><a href="/228916.html">大数据落地什么较困难，是业务整合还是文化采纳?</a></li><li><a href="/228874.html">Snapchat被曝致命漏洞 可令iPhone崩溃</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="sidebar">
+
+            <!-- 广告位 -->
+            <div class="ad-div">
+                <div class="weibo">
+             <ul class="wbul">
+                <li class="wbli">技术频道官方微信</li>
+                <li>请用微信扫一扫</li>
+                <li>微信号：技术人</li>
+            </ul>
+            <img width="100" height="100" src="http://icon.zol-img.com.cn/technology/img/qrcode.jpg">
+        </div>            </div>
+                            <div class="module">
+	<div class="header">热词</div>
+	<div class="hot-words">
+            <a target="_self" href="/java/">JAVA</a><a target="_self" href="/android/">Android</a><a target="_self" href="/php/">PHP</a><a target="_self" href="/javascript/">JavaScript</a><a target="_self" href="/ios/">iOS</a><a target="_self" href="/jiagou/">架构</a><a target="_self" href="/css/">CSS</a><a target="_self" href="/iphone/">iPhone</a><a target="_self" href="/python/">Python</a><a target="_self" href="/html5/">HTML5</a><a target="_self" href="/jquery/">jQuery</a><a target="_self" href="/suanfa/">算法</a><a target="_self" href="/bianchengyuyan/">编程语言</a><a target="_self" href="/qianduan/">前端</a><a target="_self" href="/hadoop/">Hadoop</a><a target="_self" href="/cplus/">C++</a><a target="_self" href="/git/">Git</a><a target="_self" href="/api/">API</a><a target="_self" href="/http/">HTTP</a><a target="_self" href="/vim/">vim</a>					
+	</div>
+	</div>
+                        <!-- 一周精选 -->
+            <div class="module choice-week">
+                <div class="header">一周精选</div>
+                <ol class="rank">
+                                    </ol>
+            </div>
+
+            <!-- 名人热点 -->
+            <div class="module star">
+                <div class="header"><a class="more" href="http://news.zol.com.cn/tech/">more</a>名人热点</div>
+                <ul class="said-list">
+                    <li><a href="http://news.zol.com.cn/article/470751.html" class="pic"><img src="http://techdoc.fd.zol-img.com.cn/t_s80x80c/g4/M09/08/00/Cg-4WVGU7d2IDnFgAAAUe_0l32sAAIfagIRxM0AABST490.jpg" alt="小米最强性价比机要玩自杀style" width="46" height="46" /></a><div class="txt"><a href="http://news.zol.com.cn/article/470751.html">小米最强性价比机要玩自杀style</a></div></li><li><a href="http://news.zol.com.cn/article/471452.html" class="pic"><img src="http://techdoc.fd.zol-img.com.cn/t_s80x80c/g3/M04/07/0F/Cg-4WFGU1eCIEXx2AAAPMyk-L6oAAIfQQJVpxoAAA9L441.jpg" alt="英国男子连续47小时玩足球电子游戏打破世界纪录" width="46" height="46" /></a><div class="txt"><a href="http://news.zol.com.cn/article/471452.html">英国男子连续47小时玩足球电子游戏打破世界纪录</a></div></li><li><a href="http://news.zol.com.cn/article/471574.html" class="pic"><img src="http://techdoc.fd.zol-img.com.cn/t_s80x80c/g4/M0B/08/00/Cg-4WlGU66qIYM2eAAAibYuvnyoAAIfYAN54VsAACKF816.jpg" alt="盖茨：气候变暖贫穷农民受伤最深" width="46" height="46" /></a><div class="txt"><a href="http://news.zol.com.cn/article/471574.html">盖茨：气候变暖贫穷农民受伤最深</a></div></li>                </ul>
+            </div>
+
+            <!-- 名人热点 -->
+            <div class="module" id="focus_look_div">
+                <div class="header">
+                    <a  class="change focus_update">换一换</a>
+                    大家都在看
+                </div>
+                <ul class="focus-news-list">	
+                    
+                </ul>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<div class="hot-tech-article">
+    <div class="inner" node-type="sbox">
+        <div class="header">科技热文</div>	
+        <span class="prev box-prev"></span>
+        <span class="next box-next"></span>
+        <div class="box">
+            <div class="box-silder">
+                <ul>
+                    <li><a href="http://news.zol.com.cn/article/471662.html"><img src="http://i5.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJ1XuKIiIcCSIAAC6kZpKFCYAACYVQIqHEcAALqp315.jpg" alt="Lumia 950或为微软在移动市场最后的机会"  width="156" height="116" /><span>Lumia 950或为微软在移动市场最后的机会</span></a></li><li><a href="http://news.zol.com.cn/article/471655.html"><img src="http://i2.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJlXuKISIeb3vAABnR_VR2IsAACYVQIYhcQAAGdf488.jpg" alt="苹果外壳供应商营收猛增 为iPhone 6s上市做准备"  width="156" height="116" /><span>苹果外壳供应商营收猛增 为iPhone 6s上市做准备</span></a></li><li><a href="http://news.zol.com.cn/article/471660.html"><img src="http://i3.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJlXuKIiIUrx9AAB2_jjzyGcAACYVQIo4X8AAHcW873.jpg" alt="希捷NAS用户请速更新固件 以便修复多个安全性漏洞"  width="156" height="116" /><span>希捷NAS用户请速更新固件 以便修复多个安全性漏洞</span></a></li><li><a href="http://news.zol.com.cn/article/471601.html"><img src="http://i4.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJ1XuKImIS8N5AACYvw__an8AACYVQJE_qsAAJjX77.jpeg" alt="科学家借助行星表面反光可发现宜居海洋星球"  width="156" height="116" /><span>科学家借助行星表面反光可发现宜居海洋星球</span></a></li><li><a href="http://news.zol.com.cn/article/471652.html"><img src="http://i1.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJ1XuKIWIMhg1AAB1ElNOULUAACYVQIY7SMAAHUq757.jpg" alt="网友提供非官方版Windows10 Media Center安装方法"  width="156" height="116" /><span>网友提供非官方版Windows10 Media Center安装方法</span></a></li></ul><ul><li><a href="http://news.zol.com.cn/article/471661.html"><img src="http://i1.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJ1XuKIiIPj7dAADDmuu0cEwAACYVQIpWJUAAMOy151.jpg" alt="纽约市启动&quot;Drive Smart&quot;项目，追踪司机驾驶习惯"  width="156" height="116" /><span>纽约市启动&quot;Drive Smart&quot;项目，追踪司机驾驶习惯</span></a></li><li><a href="http://news.zol.com.cn/article/471608.html"><img src="http://i3.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJlXuKIqIXIkzAACA4nkMoSQAACYVQJGzBkAAID6743.jpg" alt="苹果21年前曾建网上“电子城市” 现已成废墟"  width="156" height="116" /><span>苹果21年前曾建网上“电子城市” 现已成废墟</span></a></li><li><a href="http://news.zol.com.cn/article/471643.html"><img src="http://i2.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJ1XuKIWIRV94AALZ-sqQHUIAACYVQIbtsUAAtoS948.gif" alt="[图]Windows 10首个功能更新:优化UI 带来全新图标"  width="156" height="116" /><span>[图]Windows 10首个功能更新:优化UI 带来全新图标</span></a></li><li><a href="http://news.zol.com.cn/article/471593.html"><img src="http://i3.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJ1XuKJOIQKm6AABizdLZQS0AACYVQKdE2sAAGLl089.jpg" alt="微软将收购以色列云网络安全初创企业Adallom"  width="156" height="116" /><span>微软将收购以色列云网络安全初创企业Adallom</span></a></li><li><a href="http://news.zol.com.cn/article/471592.html"><img src="http://i4.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJlXuKJOIMQuZAAC5aeSh-dEAACYVQKZomEAALmB354.jpg" alt="火星大气丢失的二氧化碳或困于矿物中"  width="156" height="116" /><span>火星大气丢失的二氧化碳或困于矿物中</span></a></li></ul><ul><li><a href="http://news.zol.com.cn/article/471589.html"><img src="http://i0.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJlXuKIyIXfccAADpDa4B4ycAACYVQJNIsAAAOkl806.jpg" alt="美对撞机模拟宇宙大爆炸 创造&quot;完美液体&quot;"  width="156" height="116" /><span>美对撞机模拟宇宙大爆炸 创造&quot;完美液体&quot;</span></a></li><li><a href="http://news.zol.com.cn/article/471595.html"><img src="http://i3.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJ1XuKIyITUd0AADFU1s8dtsAACYVQJLmxgAAMVr389.jpg" alt="在国际空间站上网是什么感受？速度快延迟高"  width="156" height="116" /><span>在国际空间站上网是什么感受？速度快延迟高</span></a></li><li><a href="http://news.zol.com.cn/article/471590.html"><img src="http://i3.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/09/0A/ChMkJ1Xe4yuIACoGAACDRPK0gPwAABmRAFwiOgAAINc393.jpg" alt="HTC正式被踢出“台湾50”指数 重演诺基亚悲剧"  width="156" height="116" /><span>HTC正式被踢出“台湾50”指数 重演诺基亚悲剧</span></a></li><li><a href="http://news.zol.com.cn/article/471606.html"><img src="http://i4.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJlXuKIqIRCVHAADZJ-LF8dAAACYVQJFl4IAANk_96.jpeg" alt="考古学家在英国最新发现“2号史前巨石阵”"  width="156" height="116" /><span>考古学家在英国最新发现“2号史前巨石阵”</span></a></li><li><a href="http://news.zol.com.cn/article/471659.html"><img src="http://i4.doc.fd.zol-img.com.cn/t_s156x116c/g5/M00/06/02/ChMkJlXuKImIPflfAAM5BfwfqI0AACYVQI4n4kAAzkd904.png" alt="苹果官网照片泄露iPhone 6S、6S Plus更多信息"  width="156" height="116" /><span>苹果官网照片泄露iPhone 6S、6S Plus更多信息</span></a></li>                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+</div>
+<a href="javascript:;"  target="_self" id="returnTop" class="backtop" style="display:none;">返回顶部</a>
+<script type="text/javascript" src="http://s.zol-img.com.cn/d/Jishu/Jishu_index.js?v=3881" charset="gbk"></script>
+<div class="wrapper footer" >
+<script>var no_cbsi_site=1;</script><script language="JavaScript" type="text/javascript" src="http://icon.zol-img.com.cn/public/js/web_footc.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://icon.zol-img.com.cn/public/js/web_foot.js"></script>
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F4e43c1cfb0b8f5d8e9454598b28a9d38' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</div></body>
+</html>
+

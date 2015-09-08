@@ -1,0 +1,19 @@
+http://www.sonatype.org/nexus/go/
+
+wget https://sonatype-download.global.ssl.fastly.net/nexus/oss/nexus-latest-bundle.tar.gz
+wget https://github.com/sonatype/nexus-oss/archive/nexus-2.11.4-01.tar.gz
+
+bin/jsw/conf/wrapper.conf
+wrapper.java.command=/home/yrdce1/jdk1.7.0_80/bin/java
+
+nexus { console | start | stop | restart | status | dump }
+./nexus start   ./nexus stop
+
+echo "/home/yrdce1/nexus-2.11.3-01-bundle/nexus-2.11.3-01/bin/nexus start" >> /etc/rc.d/rc.local
+
+
+http://10.0.100.178:8081/nexus/
+默认账户：admin/admin123 
+
+http://repository.jboss.com/maven2/
+http://repository.sonatype.org/content/groups/public/

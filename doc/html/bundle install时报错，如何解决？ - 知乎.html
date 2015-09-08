@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dropEffect="none" class="no-js">
+<head>
+<meta charset="utf-8" />
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="renderer" content="webkit" />
+
+<title>
+
+bundle install时报错，如何解决？ - 知乎
+
+</title>
+
+<meta name="apple-itunes-app" content="app-id=432274380, app-argument=zhihu://questions/28804331">
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta http-equiv="mobile-agent" content="format=html5;url=http://www.zhihu.com/question/28804331">
+<meta id="znonce" name="znonce" content="ff8502fe5b66403aa9d62cf2e5c5c4ff">
+<link rel="apple-touch-icon-precomposed" href="http://static.zhihu.com/static/img/ios/zhihu(57px).png" />
+<link rel="apple-touch-icon-precomposed" href="http://static.zhihu.com/static/img/ios/zhihu(72px).png" sizes="72x72" />
+<link rel="apple-touch-icon-precomposed" href="http://static.zhihu.com/static/img/ios/zhihu(76px).png" sizes="76x76" />
+<link rel="apple-touch-icon-precomposed" href="http://static.zhihu.com/static/img/ios/zhihu(114px).png" sizes="114x114" />
+<link rel="apple-touch-icon-precomposed" href="http://static.zhihu.com/static/img/ios/zhihu(120px).png" sizes="120x120" />
+<link rel="apple-touch-icon-precomposed" href="http://static.zhihu.com/static/img/ios/zhihu(152px).png" sizes="152x152" />
+
+
+<link rel="shortcut icon" href="http://static.zhihu.com/static/favicon.ico" type="image/x-icon">
+
+<link rel="search" type="application/opensearchdescription+xml" href="http://static.zhihu.com/static/search.xml" title="知乎" />
+<link rel="stylesheet" href="http://static.zhihu.com/static/ver/85e77d740895e62464193574a534b538.z.css">
+
+
+
+<!--[if lt IE 9]>
+<script src="http://static.zhihu.com/static/components/respond/dest/respond.min.js"></script>
+<link href="http://static.zhihu.com/static/components/respond/cross-domain/respond-proxy.html" id="respond-proxy" rel="respond-proxy" />
+<link href="/static/components/respond/cross-domain/respond.proxy.gif" id="respond-redirect" rel="respond-redirect" />
+<script src="/static/components/respond/cross-domain/respond.proxy.js"></script>
+<![endif]-->
+
+<script src="http://static.zhihu.com/static/ver/881eced7455dbba5c51d3fa98ba6666d.instant.min.js"></script>
+
+
+
+
+</head>
+
+<body class="zhi">
+<div role="navigation" class="zu-top">
+<div class="zg-wrap modal-shifting" id="zh-top-inner">
+<a href="/" class="zu-top-link-logo" id="zh-top-link-logo">知乎</a>
+
+<div class="top-nav-profile">
+<a href="/people/hxxxiao-xin" class="zu-top-nav-userinfo ">
+<span class="name">hxx小新</span>
+<img class="avatar avatar-s" alt="hxx小新" src="//pic3.zhimg.com/b02c6d375b477a407eb1abc8e5320706_s.jpg" srcset="//pic3.zhimg.com/b02c6d375b477a407eb1abc8e5320706_xs.jpg 2x" />
+<span id="zh-top-nav-new-pm" class="zg-noti-number zu-top-nav-pm-count"
+style="visibility:hidden" data-count="0">
+
+</span>
+</a>
+<ul class="top-nav-dropdown" id="top-nav-profile-dropdown">
+<li>
+<a href="/people/hxxxiao-xin">
+<i class="zg-icon zg-icon-dd-home"></i>我的主页
+</a>
+</li>
+
+<li>
+<a href="/inbox">
+<i class="zg-icon zg-icon-dd-pm"></i>私信
+<span id="zh-top-nav-pm-count" class="zu-top-nav-pm-count zg-noti-number"
+style="visibility:hidden" data-count="0">
+
+</span>
+</a>
+</li>
+<li>
+<a href="/settings">
+<i class="zg-icon zg-icon-dd-settings"></i>设置
+</a>
+</li>
+<li>
+<a href="/logout">
+<i class="zg-icon zg-icon-dd-logout"></i>退出
+</a>
+</li>
+</ul>
+
+</div>
+
+
+<div role="search" id="zh-top-search" class="zu-top-search">
+<form method="GET" action="/search" id="zh-top-search-form" class="zu-top-search-form form-with-magnify">
+
+<input type="text" class="zu-top-search-input" id="q" name="q" autocomplete="off" value="" placeholder="搜索话题、问题或人…" />
+<input type="hidden" name="type" value="question" />
+<label for="q" class="hide-text">知乎搜索</label>
+<button type="submit" class="magnify-button"><i class="icon icon-magnify-q"></i><span class="hide-text">搜索</span></button>
+</form>
+<button class="zu-top-add-question" id="zu-top-add-question">提问</button>
+</div>
+
+
+
+<div id="zg-top-nav" class="zu-top-nav">
+<ul class="zu-top-nav-ul zg-clear">
+
+<li class="zu-top-nav-li " id="zh-top-nav-home">
+<a class="zu-top-nav-link" href="/" id="zh-top-link-home">首页</a>
+</li>
+<li class="top-nav-topic-selector zu-top-nav-li " id="zh-top-nav-topic">
+<a class="zu-top-nav-link" href="/topic" id="top-nav-dd-topic">话题</a>
+
+</li>
+<li class="zu-top-nav-li " id="zh-top-nav-explore">
+<a class="zu-top-nav-link" href="/explore">发现</a>
+</li>
+
+<li class="top-nav-noti zu-top-nav-li ">
+<a class="zu-top-nav-link" href="javascript:;" id="zh-top-nav-count-wrap" role="button"><span class="mobi-arrow"></span>消息</a>
+</li>
+
+
+
+</ul>
+<div class="zu-top-nav-live zu-noti7-popup zg-r5px no-hovercard" id="zh-top-nav-live-new" role="popup" tabindex="0">
+<div class="zu-top-nav-live-inner zg-r5px">
+<div class="zu-top-live-icon">&nbsp;</div>
+<div class="zu-home-noti-inner" id="zh-top-nav-live-new-inner">
+<div class="zm-noti7-popup-tab-container clearfix" tabindex="0">
+<button class="zm-noti7-popup-tab-item message">
+<span class="icon">消息</span>
+</button>
+<button class="zm-noti7-popup-tab-item user">
+<span class="icon">用户</span>
+</button>
+<button class="zm-noti7-popup-tab-item thanks">
+<span class="icon">赞同和感谢</span>
+</button>
+</div>
+</div>
+<div class="zm-noti7-frame-border top"></div>
+<div class="zm-noti7-frame">
+<div class="zm-noti7-content">
+<div class="zm-noti7-content-inner">
+<div class="zm-noti7-popup-refresh" style="display:none;">
+<img class="noti-spinner" src="/static/img/spinner2.gif" />
+</div>
+<div class="zm-noti7-content-body">
+<div class="zm-noti7-popup-loading">
+<img class="noti-spinner" src="/static/img/noti-loading.gif" />
+</div>
+</div>
+</div>
+</div>
+<div class="zm-noti7-content" style="display:none;">
+<div class="zm-noti7-content-inner">
+<div class="zm-noti7-popup-refresh" style="display:none;">
+<img class="noti-spinner" src="/static/img/spinner2.gif" />
+</div>
+<div class="zm-noti7-content-body">
+<div class="zm-noti7-popup-loading">
+<img class="noti-spinner" src="/static/img/noti-loading.gif" />
+</div>
+</div>
+</div>
+</div>
+<div class="zm-noti7-content" style="display:none;">
+<div class="zm-noti7-content-inner">
+<div class="zm-noti7-popup-refresh" style="display:none;">
+<img class="noti-spinner" src="/static/img/spinner2.gif" />
+</div>
+<div class="zm-noti7-content-body">
+<div class="zm-noti7-popup-loading">
+<img class="noti-spinner" src="/static/img/noti-loading.gif" />
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="zm-noti7-frame-border bottom"></div>
+<div class="zm-noti7-popup-footer">
+<a href="/notifications" class="zm-noti7-popup-footer-all zg-right">查看全部 &raquo;</a>
+<a href="/settings/notification" class="zm-noti7-popup-footer-set" title="通知设置" ><i class="zg-icon zg-icon-settings"></i></a>
+</div>
+</div>
+</div>
+
+</div>
+
+
+</div>
+</div>
+
+<div class="zu-global-notify" id="zh-global-message" style="display:none">
+<div class="zg-wrap">
+<div class="zu-global-nitify-inner">
+<a class="zu-global-notify-close" href="javascript:;" title="关闭" name="close">x</a>
+<span class="zu-global-notify-icon"></span>
+<span class="zu-global-notify-msg"></span>
+</div>
+</div>
+</div>
+
+
+
+<div class="zu-global-notify zu-global-notify-info" id="zh-question-redirect-info" style="display:none"></div>
+
+
+<div class="zu-global-notify zu-global-notify-info" id="zh-question-notification-summary" style="display:none;">
+<div class="zg-wrap">
+<div class="zu-global-nitify-inner">
+<span class="zu-global-notify-icon"></span>
+<ul class="zu-question-notify-wrap">
+</ul>
+</div>
+</div>
+</div>
+<div class="zg-wrap zu-main question-page" itemscope itemtype="http://schema.org/Question" id="zh-single-question-page"
+data-urltoken="28804331">
+<meta itemprop="isTopQuestion" content="false" />
+<meta itemprop="visitsCount" content="1479" />
+<div class="zu-main-content">
+<div class="zu-main-content-inner with-indention-votebar">
+
+
+
+
+<div class="zm-tag-editor zg-section">
+<div class="zm-tag-editor-labels zg-clear">
+
+<a class="zm-item-tag"
+href="/topic/19552831"
+data-tip="t$b$19552831" data-token="19552831" data-topicid="871">
+Ruby
+</a>
+
+</div>
+</div>
+<div id="zh-question-title" data-editable="true">
+
+<h2 class="zm-item-title zm-editable-content">
+
+bundle install时报错，如何解决？
+
+</h2>
+</div>
+<div id="zh-question-detail" class="zm-item-rich-text" data-resourceid="3704685" data-action="/question/detail">
+
+<div class="zm-editable-content">在安装gitlab，执行到sudo -u git -H bundle install --deployment --without development test postgres时，报错：<br>[root@gitlab-7 gitlab]# sudo -u git -H bundle install --deployment --without development test postgres<br>Fetching gem metadata from <a href="https://rubygems.org/" class=" wrap external" target="_blank" rel="nofollow noreferrer">RubyGems.org<i class="icon-external"></i></a>.......<br>Fetching version metadata from <a href="https://rubygems.org/" class=" wrap external" target="_blank" rel="nofollow noreferrer">RubyGems.org<i class="icon-external"></i></a>...<br>Fetching dependency metadata from <a href="https://rubygems.org/" class=" wrap external" target="_blank" rel="nofollow noreferrer">RubyGems.org<i class="icon-external"></i></a>..<br><br>Gem::RemoteFetcher::FetchError: Errno::ETIMEDOUT: Connection timed out - connect(2) (<a href="https://rubygems.org/gems/rake-10.1.0.gem" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">https://</span><span class="visible">rubygems.org/gems/rake-</span><span class="invisible">10.1.0.gem</span><span class="ellipsis"></span><i class="icon-external"></i></a>)<br>An error occurred while installing rake (10.1.0), and Bundler cannot continue.<br>Make sure that `gem install rake -v '10.1.0'` succeeds before bundling.<br><br> rake -v '10.1.0' 这个版本绝对有，而且哪怕执行了一遍也还是报这个错。<br><br>这不科学，因为我已经把gem source更改为淘宝的了：<br>[root@gitlab-7 gitlab]# gem source -l<br>*** CURRENT SOURCES ***<br>https:/<a href="http://ruby.taobao.org" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">ruby.taobao.org</span><span class="invisible"></span><i class="icon-external"></i></a>（https:后面故意少个/，不然直接帮我翻译成了<a href="https://ruby.taobao.org/" class=" wrap external" target="_blank" rel="nofollow noreferrer">RubyGems 镜像<i class="icon-external"></i></a>）<br>gem源已经设置成国内的淘宝了，为毛还会去访问国外的（老实说，技术网站也要墙，这种什么素质）？</div>
+
+
+</div>
+<div class="zm-item-meta zm-item-comment-el clearfix" id="zh-question-meta-wrap">
+<div class="zm-meta-panel">
+
+<a href="#" name="report-question" class="report zg-right">
+<i class="z-icon-no-help"></i>举报</a>
+
+<a href="#" name="addcomment" class="toggle-comment meta-item">
+<i class="z-icon-comment"></i>添加评论
+</a>
+<a href="#" name="share" class="share meta-item">
+<i class="z-icon-share"></i>分享
+</a>
+
+
+<span class="zg-bull">&bull;</span>
+<a href="#" name="invite" class="meta-item">邀请回答</a>
+
+
+
+
+</div>
+<div class="panel-container">
+
+</div>
+</div>
+
+<div class="zh-answers-title clearfix">
+
+<div id="zh-answers-filter" class="answers-sorter">
+
+<span class="lbl">按投票排序</span>
+<a class="lbl" href="/question/28804331?sort=created">按时间排序</a>
+
+<i class="zg-icon zg-icon-double-arrow"></i>
+</div>
+
+<h3 data-num="4" id="zh-question-answer-num">4 个回答</h3>
+</div>
+<div class="zh-question-answer-summary-wrap zm-item-rich-text" id="zh-question-answer-summary-wrap" style="display:none;">
+<h3>
+<a href="http://www.zhihu.com/question/20014415" target="_blank" class="zg-right zg-link-litblue" style="font-weight:normal">什么是答案总结？</a>
+答案总结</h3>
+<div id="zh-question-answer-summary" class="zg-section"
+data-resourceid="3704685" data-action="/question/summary">
+
+<div class="zm-editable-content"></div>
+
+</div>
+</div>
+
+<div id="zh-question-answer-wrap" data-pagesize="50" class="zh-question-answer-wrapper" data-widget="navigable" data-navigable-options="{&quot;items&quot;: &quot;&gt;.zm-item-answer&quot;}" data-init="{&quot;params&quot;: {&quot;url_token&quot;: 28804331, &quot;pagesize&quot;: 50, &quot;offset&quot;: 0}, &quot;nodename&quot;: &quot;QuestionAnswerListV2&quot;}" data-fixed-summary="1">
+
+
+<div tabindex="-1" class="zm-item-answer "
+
+itemprop="topAnswer"
+
+itemscope itemtype="http://schema.org/Answer"
+data-aid="12262190"
+data-atoken="42173033"
+data-collapsed="0"
+data-created="1426508172"
+data-deleted="0"
+data-helpful="1"
+data-isowner="0"
+data-copyable="1"
+
+
+>
+<a class="zg-anchor-hidden" name="answer-12262190"></a>
+
+
+<div class="zm-votebar">
+<button class="up ">
+<i class="icon vote-arrow"></i>
+<span class="label">赞同</span>
+<span class="count">5</span>
+</button>
+<button class="down ">
+<i class="icon vote-arrow"></i>
+<span class="label">反对</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+<h3 class="zm-item-answer-author-wrap">
+
+
+<a data-tip="p$t$filow"
+class="zm-item-link-avatar"
+href="/people/filow">
+<img src="//pic2.zhimg.com/a8737f32c4c11611d1c522e06bce0439_s.jpg"
+class="zm-list-avatar"
+data-source="//pic2.zhimg.com/a8737f32c4c11611d1c522e06bce0439_s.jpg" />
+</a>
+
+
+
+<a data-tip="p$t$filow" href="/people/filow">李仁海</a>，<strong title="前端工程师" class="zu-question-my-bio">前端工程师</strong>
+
+</h3>
+<a href="javascript:;" name="collapse" class="collapse meta-item zg-right"><i class="z-icon-fold"></i>收起</a>
+</div>
+<div class="zm-item-vote-info " data-votecount="5">
+
+<span class="voters">
+<span class="user-block"><a data-tip="p$t$dglzs" href="http://www.zhihu.com/people/dglzs" class="zg-link" title="林先生">林先生</a>、</span><span class="user-block"><a data-tip="p$t$kgra" href="http://www.zhihu.com/people/kgra" class="zg-link" title="kgra">kgra</a>、</span><span class="user-block"><a data-tip="p$t$JetMuffin" href="http://www.zhihu.com/people/JetMuffin" class="zg-link" title="陈洁">陈洁</a></span>
+</span>
+
+
+<a href="javascript:;" class="more"> 等人赞同</a>
+
+
+</div>
+</div>
+<div class="zm-item-rich-text" data-resourceid="3704685" data-action="/answer/content">
+
+<div class=" zm-editable-content clearfix">在gem source内设置的是全局默认源，Gemfile内设置的地址是一个局部的源地址，优先级高于gem source才是正常的.<br><br>想象一下有些时候你需要统一项目的gem源地址，又不可能让每个人都设置一遍gem source，比如开源项目，你就知道这样做的意义了。<br><br>关于技术网站也被block的问题，其原因是他们使用了amazon s3存储服务，是这个服务因为某些原因间歇性服务异常。在国外使用aws的网站很多，所以....嗯。
+
+
+</div>
+
+</div>
+<a class="zg-anchor-hidden ac" name="12262190-comment"></a>
+<div class="zm-item-meta zm-item-comment-el answer-actions clearfix">
+<div class="zm-meta-panel">
+
+<span class="answer-date-link-wrap">
+<a class="answer-date-link last_updated meta-item" data-tip="s$t$发布于 2015-03-16" target="_blank" href="/question/28804331/answer/42173033">编辑于 2015-03-16</a>
+</span>
+
+<a href="#" name="addcomment" class=" meta-item toggle-comment">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="#" class="meta-item zu-autohide" name="thanks" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="#" class="meta-item zu-autohide" name="share">
+<i class="z-icon-share"></i>分享</a>
+<a href="#" class="meta-item zu-autohide" name="favo">
+<i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">&bull;</span>
+
+<a href="#" name="nohelp" class="meta-item zu-autohide">没有帮助</a>
+
+<span class="zg-bull zu-autohide">&bull;</span>
+<a href="#" name="report" class="meta-item zu-autohide">举报</a>
+
+
+
+<span class="zg-bull">&bull;</span>
+
+<a href="/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+
+</div>
+</div>
+</div>
+
+<div tabindex="-1" class="zm-item-answer "
+
+itemscope itemtype="http://schema.org/Answer"
+data-aid="12252726"
+data-atoken="42149386"
+data-collapsed="0"
+data-created="1426490644"
+data-deleted="0"
+data-helpful="1"
+data-isowner="0"
+data-copyable="1"
+
+
+>
+<a class="zg-anchor-hidden" name="answer-12252726"></a>
+
+
+<div class="zm-votebar">
+<button class="up ">
+<i class="icon vote-arrow"></i>
+<span class="label">赞同</span>
+<span class="count">5</span>
+</button>
+<button class="down ">
+<i class="icon vote-arrow"></i>
+<span class="label">反对</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+<h3 class="zm-item-answer-author-wrap">
+
+
+<a data-tip="p$t$kyuubi"
+class="zm-item-link-avatar"
+href="/people/kyuubi">
+<img src="//pic2.zhimg.com/77321c6b9c893448e6b91e32ef1cf821_s.jpg"
+class="zm-list-avatar"
+data-source="//pic2.zhimg.com/77321c6b9c893448e6b91e32ef1cf821_s.jpg" />
+</a>
+
+
+
+<a data-tip="p$t$kyuubi" href="/people/kyuubi">九尾</a>，<strong title="亦正亦邪，阳谋春秋" class="zu-question-my-bio">亦正亦邪，阳谋春秋</strong>
+
+</h3>
+<a href="javascript:;" name="collapse" class="collapse meta-item zg-right"><i class="z-icon-fold"></i>收起</a>
+</div>
+<div class="zm-item-vote-info " data-votecount="5">
+
+<span class="voters">
+<span class="user-block"><a data-tip="p$t$mikelao-ba" href="http://www.zhihu.com/people/mikelao-ba" class="zg-link" title="Mike老爸">Mike老爸</a>、</span><span class="user-block"><a data-tip="p$t$kgra" href="http://www.zhihu.com/people/kgra" class="zg-link" title="kgra">kgra</a>、</span><span class="user-block"><a data-tip="p$t$zi-you-97" href="http://www.zhihu.com/people/zi-you-97" class="zg-link" title="自由">自由</a></span>
+</span>
+
+
+<a href="javascript:;" class="more"> 等人赞同</a>
+
+
+</div>
+</div>
+<div class="zm-item-rich-text" data-resourceid="3704685" data-action="/answer/content">
+
+<div class=" zm-editable-content clearfix"> Gemfile 里面改成<br><br><br>http: //<a href="http://ruby.taobao.org" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">ruby.taobao.org</span><span class="invisible"></span><i class="icon-external"></i></a>
+
+
+</div>
+
+</div>
+<a class="zg-anchor-hidden ac" name="12252726-comment"></a>
+<div class="zm-item-meta zm-item-comment-el answer-actions clearfix">
+<div class="zm-meta-panel">
+
+<span class="answer-date-link-wrap">
+<a class="answer-date-link last_updated meta-item" data-tip="s$t$发布于 2015-03-16" target="_blank" href="/question/28804331/answer/42149386">编辑于 2015-03-16</a>
+</span>
+
+<a href="#" name="addcomment" class=" meta-item toggle-comment">
+<i class="z-icon-comment"></i>5 条评论</a>
+
+
+<a href="#" class="meta-item zu-autohide" name="thanks" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="#" class="meta-item zu-autohide" name="share">
+<i class="z-icon-share"></i>分享</a>
+<a href="#" class="meta-item zu-autohide" name="favo">
+<i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">&bull;</span>
+
+<a href="#" name="nohelp" class="meta-item zu-autohide">没有帮助</a>
+
+<span class="zg-bull zu-autohide">&bull;</span>
+<a href="#" name="report" class="meta-item zu-autohide">举报</a>
+
+
+
+<span class="zg-bull">&bull;</span>
+
+<a href="/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+
+</div>
+</div>
+</div>
+
+<div tabindex="-1" class="zm-item-answer "
+
+itemscope itemtype="http://schema.org/Answer"
+data-aid="12415157"
+data-atoken="42554734"
+data-collapsed="0"
+data-created="1426862741"
+data-deleted="0"
+data-helpful="1"
+data-isowner="0"
+data-copyable="1"
+
+
+>
+<a class="zg-anchor-hidden" name="answer-12415157"></a>
+
+
+<div class="zm-votebar">
+<button class="up ">
+<i class="icon vote-arrow"></i>
+<span class="label">赞同</span>
+<span class="count">0</span>
+</button>
+<button class="down ">
+<i class="icon vote-arrow"></i>
+<span class="label">反对</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+<h3 class="zm-item-answer-author-wrap">
+
+
+<a data-tip="p$t$hongshumo"
+class="zm-item-link-avatar"
+href="/people/hongshumo">
+<img src="//pic3.zhimg.com/b574cafd0798742753207138b9f36fde_s.jpg"
+class="zm-list-avatar"
+data-source="//pic3.zhimg.com/b574cafd0798742753207138b9f36fde_s.jpg" />
+</a>
+
+
+
+<a data-tip="p$t$hongshumo" href="/people/hongshumo">hongshumo</a>，<strong title="热爱互联网、体育、美剧… 兴趣广泛" class="zu-question-my-bio">热爱互联网、体育、美剧…
+兴趣广泛</strong>
+
+</h3>
+<a href="javascript:;" name="collapse" class="collapse meta-item zg-right"><i class="z-icon-fold"></i>收起</a>
+</div>
+<div class="zm-item-vote-info empty" data-votecount="0">
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text" data-resourceid="3704685" data-action="/answer/content">
+
+<div class=" zm-editable-content clearfix">创建项目的时候rails new project --skip-bundle，然后进去项目目录，更改Gemfile文件的gem sources为<a href="http://mirrors.aliyun.com/rubygems/" class=" external" target="_blank" rel="nofollow noreferrer"><span class="invisible">http://</span><span class="visible">mirrors.aliyun.com/ruby</span><span class="invisible">gems/</span><span class="ellipsis"></span><i class="icon-external"></i></a>,最后执行bundle install
+
+
+</div>
+
+</div>
+<a class="zg-anchor-hidden ac" name="12415157-comment"></a>
+<div class="zm-item-meta zm-item-comment-el answer-actions clearfix">
+<div class="zm-meta-panel">
+
+<span class="answer-date-link-wrap">
+<a class="answer-date-link meta-item" target="_blank" href="/question/28804331/answer/42554734">发布于 2015-03-20</a>
+</span>
+
+<a href="#" name="addcomment" class=" meta-item toggle-comment">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="#" class="meta-item zu-autohide" name="thanks" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="#" class="meta-item zu-autohide" name="share">
+<i class="z-icon-share"></i>分享</a>
+<a href="#" class="meta-item zu-autohide" name="favo">
+<i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">&bull;</span>
+
+<a href="#" name="nohelp" class="meta-item zu-autohide">没有帮助</a>
+
+<span class="zg-bull zu-autohide">&bull;</span>
+<a href="#" name="report" class="meta-item zu-autohide">举报</a>
+
+
+
+<span class="zg-bull">&bull;</span>
+
+<a href="/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+
+</div>
+</div>
+</div>
+
+<div tabindex="-1" class="zm-item-answer "
+
+itemscope itemtype="http://schema.org/Answer"
+data-aid="18875835"
+data-atoken="58667536"
+data-collapsed="0"
+data-created="1439257525"
+data-deleted="0"
+data-helpful="1"
+data-isowner="0"
+data-copyable="1"
+
+
+>
+<a class="zg-anchor-hidden" name="answer-18875835"></a>
+
+
+<div class="zm-votebar">
+<button class="up ">
+<i class="icon vote-arrow"></i>
+<span class="label">赞同</span>
+<span class="count">0</span>
+</button>
+<button class="down ">
+<i class="icon vote-arrow"></i>
+<span class="label">反对</span>
+</button>
+</div>
+
+
+<div class="answer-head">
+<div class="zm-item-answer-author-info">
+<h3 class="zm-item-answer-author-wrap">
+
+
+<a data-tip="p$t$aster0id"
+class="zm-item-link-avatar"
+href="/people/aster0id">
+<img src="//pic2.zhimg.com/5838a6a137e2970fa6bc41fd393438c1_s.jpg"
+class="zm-list-avatar"
+data-source="//pic2.zhimg.com/5838a6a137e2970fa6bc41fd393438c1_s.jpg" />
+</a>
+
+
+
+<a data-tip="p$t$aster0id" href="/people/aster0id">Aster0id</a>，<strong title="iOS Developer" class="zu-question-my-bio">iOS Developer</strong>
+
+</h3>
+<a href="javascript:;" name="collapse" class="collapse meta-item zg-right"><i class="z-icon-fold"></i>收起</a>
+</div>
+<div class="zm-item-vote-info empty" data-votecount="0">
+
+
+
+</div>
+</div>
+<div class="zm-item-rich-text" data-resourceid="3704685" data-action="/answer/content">
+
+<div class=" zm-editable-content clearfix">其实是被墙的缘故，翻墙安装就没问题了
+
+
+</div>
+
+</div>
+<a class="zg-anchor-hidden ac" name="18875835-comment"></a>
+<div class="zm-item-meta zm-item-comment-el answer-actions clearfix">
+<div class="zm-meta-panel">
+
+<span class="answer-date-link-wrap">
+<a class="answer-date-link meta-item" target="_blank" href="/question/28804331/answer/58667536">发布于 2015-08-11</a>
+</span>
+
+<a href="#" name="addcomment" class=" meta-item toggle-comment">
+<i class="z-icon-comment"></i>添加评论</a>
+
+
+<a href="#" class="meta-item zu-autohide" name="thanks" data-thanked="false"><i class="z-icon-thank"></i>感谢</a>
+
+
+
+<a href="#" class="meta-item zu-autohide" name="share">
+<i class="z-icon-share"></i>分享</a>
+<a href="#" class="meta-item zu-autohide" name="favo">
+<i class="z-icon-collect"></i>收藏</a>
+
+
+
+
+<span class="zg-bull zu-autohide">&bull;</span>
+
+<a href="#" name="nohelp" class="meta-item zu-autohide">没有帮助</a>
+
+<span class="zg-bull zu-autohide">&bull;</span>
+<a href="#" name="report" class="meta-item zu-autohide">举报</a>
+
+
+
+<span class="zg-bull">&bull;</span>
+
+<a href="/terms#sec-licence-1" target="_blank" class="meta-item copyright"> 作者保留权利 </a>
+
+
+
+</div>
+</div>
+</div>
+
+
+</div>
+
+
+<div id="zh-question-collapsed-link" class="zu-question-collap-title" style="display:none" >
+<a href="javascript:;" name="expand" class="zg-link-gray" id="zh-question-collapsed-switcher">
+<span id="zh-question-collapsed-num">0</span> 个回答被折叠
+</a>
+（<a target="_blank" href="http://www.zhihu.com/question/20120168" class="zg-link-gray">为什么？</a>）
+</div>
+<div id="zh-question-collapsed-wrap" class="zh-question-answer-wrapper" style="display:none"></div>
+<a name="draft"></a>
+<div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
+<div class="zm-editable-tip"></div>
+<div class="zm-editable-content"></div>
+</div>
+<div class="shameimaru-placeholder" data-class="QuestionBottomShameimaruV2" data-params='{&quot;token&quot;:28804331}'></div>
+<!-- end of content -->
+</div>
+</div>
+<div class="zu-main-sidebar">
+
+
+
+
+<div class="zm-side-section">
+<div class="zm-side-section-inner" id="zh-question-side-header-wrap">
+<button data-follow="q:m:button" class="follow-button zg-follow zg-btn-green" data-id="3704685">关注问题</button>
+
+<div class="zg-btn-white" id="zh-question-operation-menu"
+>
+<i class="zg-icon-dropdown-menu zg-icon"></i><b class="hide-text">设置</b>
+</div>
+
+<div class="zh-question-followers-sidebar">
+<div class="zg-gray-normal">
+
+<a href="/question/28804331/followers"><strong>8</strong></a>
+人关注该问题
+
+</div>
+
+<div class="list zu-small-avatar-list zg-clear">
+
+<a title="李仁海"
+data-tip="p$t$filow"
+class="zm-item-link-avatar"
+href="/people/filow">
+<img src="//pic2.zhimg.com/a8737f32c4c11611d1c522e06bce0439_s.jpg" class="zm-item-img-avatar">
+</a>
+
+<a title="每天阳光"
+data-tip="p$t$gangcai"
+class="zm-item-link-avatar"
+href="/people/gangcai">
+<img src="//pic2.zhimg.com/1e5998321_s.jpg" class="zm-item-img-avatar">
+</a>
+
+<a title="杨磊"
+data-tip="p$t$yang-lei-43-75"
+class="zm-item-link-avatar"
+href="/people/yang-lei-43-75">
+<img src="//pic1.zhimg.com/8c821c340_s.jpg" class="zm-item-img-avatar">
+</a>
+
+<a title="Aster0id"
+data-tip="p$t$aster0id"
+class="zm-item-link-avatar"
+href="/people/aster0id">
+<img src="//pic2.zhimg.com/5838a6a137e2970fa6bc41fd393438c1_s.jpg" class="zm-item-img-avatar">
+</a>
+
+<a title="U N Sun"
+data-tip="p$t$uandsun"
+class="zm-item-link-avatar"
+href="/people/uandsun">
+<img src="//pic2.zhimg.com/ad650ee45_s.jpg" class="zm-item-img-avatar">
+</a>
+
+<a title="lee tesla"
+data-tip="p$t$lee-tesla"
+class="zm-item-link-avatar"
+href="/people/lee-tesla">
+<img src="//pic4.zhimg.com/32f7eade3_s.jpg" class="zm-item-img-avatar">
+</a>
+
+<a title="九尾"
+data-tip="p$t$kyuubi"
+class="zm-item-link-avatar"
+href="/people/kyuubi">
+<img src="//pic2.zhimg.com/77321c6b9c893448e6b91e32ef1cf821_s.jpg" class="zm-item-img-avatar">
+</a>
+
+<a title="hongshumo"
+data-tip="p$t$hongshumo"
+class="zm-item-link-avatar"
+href="/people/hongshumo">
+<img src="//pic3.zhimg.com/b574cafd0798742753207138b9f36fde_s.jpg" class="zm-item-img-avatar">
+</a>
+
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="shameimaru-placeholder" data-class="QuestionUpShameimaruV2" data-params='{&quot;token&quot;:28804331}'></div>
+<div class="zm-side-section">
+<div class="zm-side-section-inner">
+<div id="zh-question-related-questions" class="zh-question-related-questions clearfix">
+
+<h3>相关问题</h3>
+<ul itemprop="relatedQuestion" itemscope itemtype="http://schema.org/ItemList">
+
+<li itemprop="itemListElement" itemscope itemtype="http://schema.org/Question"><a class="question_link" href="/question/22817927">这个 Python 脚本错在哪？</a> <span class="num">4 个回答</span><meta itemprop="followerCount" content="19" /></li>
+
+<li itemprop="itemListElement" itemscope itemtype="http://schema.org/Question"><a class="question_link" href="/question/20592771">影响力能转变成权力吗？</a> <span class="num">1 个回答</span><meta itemprop="followerCount" content="24" /></li>
+
+</ul>
+</div>
+</div>
+</div>
+<div class="zm-side-section">
+<div class="zm-side-section-inner">
+<h3>问题状态</h3>
+<div class="zg-gray-normal">
+最近活动于 <span class="time">2015-08-17</span>
+<span class="zg-bull">&bull;</span>
+<a href="/question/28804331/log">查看问题日志</a>
+</div>
+<div class="zg-gray-normal">
+被浏览 <strong>1479</strong> 次，相关话题关注者 <strong>6325</strong> 人
+</div>
+</div>
+</div>
+<div class="shameimaru-placeholder" data-class="QuestionDownShameimaruV2" data-params='{&quot;token&quot;:28804331}'></div>
+</div>
+<div class="zg-clear"></div>
+<!-- 版权演示 -->
+
+<script type="text/x-template" id="copyright-demo-template">
+<article>
+
+<section>
+<p class="copyright-demo-title"> 这是你的回答正文 </p>
+<div class="copyright-demo-region"></div>
+<div class="copyright-demo-region"></div>
+<div class="copyright-demo-region"></div>
+<div class="copyright-demo-region"></div>
+<div class="copyright-demo-region"></div>
+</section>
+
+<section>
+<p class="copyright-demo-title"> 当其他人想复制你的一段回答 </p>
+<div class="copyright-demo-region frame2-region" id="copyright-demo-region1">
+<span class="copyright-ico-indicator" id="copyright-demo-indicator"></span>
+</div>
+<div class="copyright-demo-region frame2-region" id="copyright-demo-region2"></div>
+<div class="copyright-demo-region frame2-region" id="copyright-demo-region3"></div>
+<div class="copyright-demo-region frame2-region" id="copyright-demo-region4"></div>
+<div class="copyright-demo-region"></div>
+</section>
+
+<section id="copyright-demo-frame3">
+<p class="copyright-demo-title"> 复制将受限，同时会弹出提醒 </p>
+<div class="copyright-demo-region copyright-demo-region-selected"></div>
+<div class="copyright-demo-region copyright-demo-region-selected"></div>
+<div class="copyright-demo-region copyright-demo-region-selected"></div>
+<div class="copyright-demo-region copyright-demo-region-selected"></div>
+<div class="copyright-demo-region"></div>
+<span class="copyright-ico-pointer copyright-demo-pointer"></span>
+</section>
+</article>
+</script>
+
+
+</div>
+
+<div id="zh-footer" class="zh-footer">
+<div class="zg-wrap clearfix">
+<ul>
+<li><a href="https://liukanshan.zhihu.com" target="_blank">刘看山</a></li>
+
+<li><a href="/question/19581624" target="_blank">知乎指南</a></li>
+<li><a href="javascript:;" id="js-feedback-button">建议反馈</a></li>
+
+<li><a href="/app" target="_blank">移动应用</a></li>
+<li><a href="/careers">加入知乎</a></li>
+<li><a href="/terms" target="_blank">知乎协议</a></li>
+<li><a href="mailto:bd@zhihu.com">商务合作</a></li>
+</ul>
+<span class="copy">&copy; 2015 知乎</span>
+</div>
+</div>
+
+<script type="text/json" class="json-inline" data-name="guiders2">{}</script>
+
+
+
+
+
+<script type="text/template" class="activate-dialog-template">
+
+<div class="link-activate-view clearfix">
+<div class="tip">为了正常使用知乎的提问、回答、评论和编辑功能，请验证你的邮箱。</div>
+<div class="describe">你绑定的邮箱如下，请查收邮件激活你的帐号</div>
+<div class="email">36119115@qq.com</div>
+<div class="actions">
+<a class="resend-activation-email zg-link-litblue-normal" href="#">重发激活邮件</a>
+<span class="zg-bull">·</span>
+<a class="zg-link-litblue-normal" href="/settings/account">修改邮箱</a>
+</div>
+</div>
+
+</script>
+<script type="text/json" class="json-inline" data-name="current_user">["hxx\u5c0f\u65b0","hxxxiao-xin","\/\/pic3.zhimg.com\/b02c6d375b477a407eb1abc8e5320706_s.jpg","6f4413191302d0f8ab3052107ea011e0","",0,0,1,"36119115@qq.com","http:\/\/mail.qq.com",0,true,false,false,575287018389639168]</script>
+<script type="text/json" class="json-inline" data-name="env">["zhihu.com","comet.zhihu.com",false,null]</script>
+<script type="text/json" class="json-inline" data-name="permissions">[]</script>
+
+
+<script type="text/json" class="json-inline" data-name="ga_vars">{"user_created":1429939113000,"now":1441678290000,"abtest_mask":"---------0--------------------","user_attr":[1,0,0,"-","-"],"user_hash":"6f4413191302d0f8ab3052107ea011e0"}</script>
+
+<script type="text/json" class="json-inline" data-name="current_question">{"status":"normal","isLocked":0,"detailEditReasonRequired":true,"editPermission":false,"isAnon":0,"qid":3704685,"urlToken":28804331,"showInvitePanel":false,"askAboutMember":0}</script>
+<script type="text/json" class="json-inline" data-name="current_question_owner">false</script>
+<script type="text/json" class="json-inline" data-name="draft">[]</script>
+<script type="text/json" class="json-inline" data-name="my_answer">{}</script>
+
+<script type="text/json" class="json-inline" data-name="redirect_to">""</script>
+
+
+
+<script src="http://static.zhihu.com/static/ver/e81122a3ca2b78ad911aff474211d7c3.extern_src.min.js"></script>
+<script src="http://static.zhihu.com/static/ver/05edb568165a9de873a65f4f71be0e0d.app_core.js"></script>
+<script src="http://static.zhihu.com/static/ver/c9c482037b48675326260dbd52cf788a.sign.js"></script>
+<script src="http://static.zhihu.com/static/ver/7eb72ca666b0163c69836bfa246a4829.app.js"></script>
+<script src="http://static.zhihu.com/static/ver/0d6b85b6e117c9ae35abe19761128002.rich_text_editor.js"></script>
+
+<script type="text/zscript" znonce="ff8502fe5b66403aa9d62cf2e5c5c4ff">
+ZH.entrySQ();
+</script>
+
+<input type="hidden" name="_xsrf" value="80654cef16a706dd7080e2495fe01c06"/>
+</body>
+</html>

@@ -1,0 +1,2700 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Postfix邮箱(五)：安装Courier-IMAP以及TLS安全传输 - 邮件服务 -  运维网 - iyunv.com</title>
+<link href="http://www.iyunv.com/thread-38180-1-1.html" rel="canonical" />
+<meta name="keywords" content="Postfix邮箱(五)：安装Courier-IMAP以及TLS安全传输" />
+<meta name="description" content=" Postfix邮箱(五)：安装Courier-IMAP以及TLS安全传输 ,运维网" />
+<meta name="generator" content="Discuz! X3.2" />
+<meta name="author" content="Discuz! Team and Comsenz UI Team" />
+<meta name="copyright" content="2001-2013 Comsenz Inc." />
+<meta name="MSSmartTagsPreventParsing" content="True" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<base href="http://www.iyunv.com/" /><link rel="stylesheet" type="text/css" href="data/cache/style_83_common.css?Nxw" /><link rel="stylesheet" type="text/css" href="data/cache/style_83_forum_viewthread.css?Nxw" />    
+    
+<script type="text/javascript">var STYLEID = '83', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = 'Nxw', charset = 'utf-8', discuz_uid = '0', cookiepre = 'vsoj_2132_', cookiedomain = '', cookiepath = '/', showusercard = '1', attackevasive = '0', disallowfloat = 'login|newthread|reply', creditnotice = '1|金币|,2|经验|', defaultstyle = '', REPORTURL = 'aHR0cDovL3d3dy5peXVudi5jb20vdGhyZWFkLTM4MTgwLTEtMS5odG1s', SITEURL = 'http://www.iyunv.com/', JSPATH = 'data/cache/', DYNAMICURL = '';</script>
+<script src="data/cache/common.js?Nxw" type="text/javascript"></script>
+
+    <script src="template/mac_science/images/js/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">jq = jQuery.noConflict();</script>
+    <script src="template/mac_science/images/js/jquery.SuperSlide.js" type="text/javascript"></script>
+<script type="text/javascript">var STYLEID = '83', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = 'Nxw', charset = 'utf-8', discuz_uid = '0', cookiepre = 'vsoj_2132_', cookiedomain = '', cookiepath = '/', showusercard = '1', attackevasive = '0', disallowfloat = 'login|newthread|reply', creditnotice = '1|金币|,2|经验|', defaultstyle = '', REPORTURL = 'aHR0cDovL3d3dy5peXVudi5jb20vdGhyZWFkLTM4MTgwLTEtMS5odG1s', SITEURL = 'http://www.iyunv.com/', JSPATH = 'data/cache/', DYNAMICURL = '';</script>
+<script src="data/cache/common.js?Nxw" type="text/javascript"></script>
+
+    <script type="text/javascript">jq = jQuery.noConflict();</script>
+<script src="template/mac_science/images/js/jquery.min.js" type="text/javascript"></script>
+    <script src="template/mac_science/images/js/jquery.SuperSlide.js" type="text/javascript"></script>
+<script type="text/javascript">var STYLEID = '83', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = 'Nxw', charset = 'utf-8', discuz_uid = '0', cookiepre = 'vsoj_2132_', cookiedomain = '', cookiepath = '/', showusercard = '1', attackevasive = '0', disallowfloat = 'login|newthread|reply', creditnotice = '1|金币|,2|经验|', defaultstyle = '', REPORTURL = 'aHR0cDovL3d3dy5peXVudi5jb20vdGhyZWFkLTM4MTgwLTEtMS5odG1s', SITEURL = 'http://www.iyunv.com/', JSPATH = 'data/cache/', CSSPATH = 'data/cache/style_', DYNAMICURL = '';</script>
+<!--<script src="template/ldjc8_luyou001/style/js/msclass.js" type="text/javascript"></script>-->
+<script type="text/javascript">var STYLEID = '83', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = 'Nxw', charset = 'utf-8', discuz_uid = '0', cookiepre = 'vsoj_2132_', cookiedomain = '', cookiepath = '/', showusercard = '1', attackevasive = '0', disallowfloat = 'login|newthread|reply', creditnotice = '1|金币|,2|经验|', defaultstyle = '', REPORTURL = 'aHR0cDovL3d3dy5peXVudi5jb20vdGhyZWFkLTM4MTgwLTEtMS5odG1s', SITEURL = 'http://www.iyunv.com/', JSPATH = 'data/cache/', DYNAMICURL = '';</script>
+    
+    <!--[if IE 6]>
+    <script src="template/mac_science/images/js/png.js" type="text/javascript" ></script>
+     <script type="text/javascript">
+     DD_belatedPNG.fix('.nav_box, .navi img, .hd_logo img, #maincontent .entry-info, #maincontent .entry-info .entry-title, .slider .slider-more, .slider-nav a, .user_link i, .usernav li .png i, .userinfo .arrow, .user_list .i_qq, .user_list .i_wb, .nav_icon, .blackbg, .comment-bubble, .slider-more');
+    </script> 
+    <script language='javascript' type="text/javascript">   
+    function ResumeError() {  
+         return true;  
+    }  
+    window.onerror = ResumeError;   
+    </script> 
+    <![endif]--><meta name="application-name" content="运维网" />
+<meta name="msapplication-tooltip" content="运维网" />
+<meta name="msapplication-task" content="name=首页;action-uri=http://www.iyunv.com/portal.php;icon-uri=http://www.iyunv.com/static/image/common/portal.ico" />
+<meta name="msapplication-task" content="name=论坛;action-uri=http://www.iyunv.com/forum.php;icon-uri=http://www.iyunv.com/static/image/common/bbs.ico" />
+<meta name="msapplication-task" content="name=运维圈;action-uri=http://www.iyunv.com/group.php;icon-uri=http://www.iyunv.com/static/image/common/group.ico" />
+<meta name="msapplication-task" content="name=;action-uri=http://www.iyunv.com/home.php;icon-uri=http://www.iyunv.com/static/image/common/home.ico" />
+<link rel="archives" title="运维网" href="http://www.iyunv.com/archiver/" />
+<script src="data/cache/forum.js?Nxw" type="text/javascript"></script>
+
+
+
+ <!--[if lt IE 9]>
+   <script src="./template/mac_science/extend/js/html5.js" type="text/javascript"></script>
+   <![endif]-->
+   <script src="./template/mac_science/extend/js/main-mwa-min.js" type="text/javascript"></script>
+    <!--[if gte IE 7]>
+       <script src="./template/mac_science/extend/js/raphael-min.js" type="text/javascript"></script> 
+   <![endif]-->
+   <!--[if !IE]><!-->
+      <script src="./template/mac_science/extend/js/raphael-min.js" type="text/javascript"></script> 
+   <!--<![endif]-->
+   <script src="./template/mac_science/extend/js/main-mw-min.js" type="text/javascript"></script>
+   <script src="./template/mac_science/extend/js/extend-mw-min.js" type="text/javascript"></script>
+
+
+
+
+
+</head>
+<body id="nv_forum" class="pg_viewthread" onkeydown="if(event.keyCode==27) return false;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+ 
+ 
+ 
+ 
+ 
+ 
+ <div id="headnav" >
+
+<div id="toptb" class="cl">
+  <div class="wp"style="width:1190px;margin:0 auto;">
+  
+
+    <div class="z"> 
+    <style type="text/css">
+body{float:left; width:100%; height:auto;}
+</style><style type="text/css">
+body{float:left; width:100%; height:auto;}
+</style><div id="scbar" class="scbar_narrow cl">
+<form id="scbar_form" method="post" autocomplete="off" onsubmit="searchFocus($('scbar_txt'))" action="search.php?searchsubmit=yes" target="_blank">
+<input type="hidden" name="mod" id="scbar_mod" value="search" />
+<input type="hidden" name="formhash" value="e744f9a2" />
+<input type="hidden" name="srchtype" value="title" />
+<input type="hidden" name="srhfid" value="65" />
+<input type="hidden" name="srhlocality" value="forum::viewthread" />
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="scbar_txt_td"><input type="text" name="srchtxt" id="scbar_txt" value="请输入搜索内容" autocomplete="off" x-webkit-speech speech /></td>
+<td class="scbar_type_td"><a style="width:30px;" href="javascript:;" id="scbar_type" class="xg1" onclick="showMenu(this.id)" hidefocus="true">搜索</a></td>
+<td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"></button></td>
+</tr>
+</table>
+</form>
+</div>
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a href="javascript:;" rel="curforum" fid="65" >本版</a></li><li><a href="javascript:;" rel="article">文章</a></li><li><a href="javascript:;" rel="forum" class="curtype">帖子</a></li><li><a href="javascript:;" rel="group">运维圈</a></li><li><a href="javascript:;" rel="user">用户</a></li></ul>
+<script type="text/javascript">
+initSearchmenu('scbar', '');
+</script>
+ 
+ <a href="javascript:;" rel="nofollow"  class="shouye" onClick="setHomepage('http://www.iyunv.com/');"><span>设为首页</span></a>
+<a href="http://www.iyunv.com/"  onclick="addFavorite(this.href, '运维网');return false;">收藏本站</a>
+ 
+ </div>
+   
+  
+    
+  </div>
+</div>
+
+
+<div class="ha_navq"> 
+  <div class="ha_navq_a">
+  <div class="wp cl"style="width:1190px;margin:0 auto;"> 
+   
+
+    <h1 class="logo"> 
+            <a href="./" title="运维网"><img src="template/mac_science/images/logo.png" alt="运维网" border="0" /></a>    </h1>
+    
+    
+    <div class="nav">
+      <ul>
+         
+                <li id="mn_portal" ><a href="portal.php" hidefocus="true" title="Portal"  >首页<span>Portal</span></a></li>
+         
+         
+                <li class="a" id="mn_forum" ><a href="forum.php" hidefocus="true" title="BBS"  >论坛<span>BBS</span></a></li>
+         
+         
+                <li id="mn_N61c0" ><a href="plugin.php?id=forum_index" hidefocus="true"  >资讯</a></li>
+         
+         
+                <li id="mn_N5149" ><a href="plugin.php?id=moodwall" hidefocus="true"  >心情墙</a></li>
+         
+         
+                <li id="mn_Na7fa" ><a href="http://www.iyunv.com/plugin.php?id=appbyme_app:download" hidefocus="true"   style="font-weight: bold;color: purple">手机客户端</a></li>
+         
+         
+                <li id="mn_N462e" ><a href="dsu_paulsign-sign.html" hidefocus="true"  >每日签到</a></li>
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+                <li id="mn_N59dd" onmouseover="showMenu({'ctrlid':this.id,'ctrlclass':'hover','duration':2})"><a href="#" hidefocus="true"  >工具箱</a></li>
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+              </ul>
+      <a rel="nofollow" id="blueidea_plugin_qqgroup" href="javascript:;" onclick="showWindow('qqgroup','plugin.php?id=blueidea_qqgroup:qqgroup')"><img title="官方QQ群" src="source/plugin/blueidea_qqgroup/img/qqgroup.png" /></a> 
+    </div>
+
+ <div class="nav_dl_dq_1"> 
+            <ul class="mac_dl_dq_1_2  mac_mtop">
+   <li class="mac_dl_dq_1_li"><a href="connect.php?mod=login&amp;op=init&amp;referer=forum.php&amp;statfrom=login"><i class="nav_user_qq">QQ</i></a></li>
+        <li class="mac_dl_dq_1_li"><a href="javascript:;" onClick="javascript:lsSubmit();" class="mac_dl_dq_1_li_w2">登录</a></li>
+        <li class="mac_dl_dq_1_li"><a href="member.php?mod=register" class="mac_dl_dq_1_li_w3">注册</a></li>
+       
+       
+      </ul>
+      <div style="display:none"><script src="data/cache/logging.js?Nxw" type="text/javascript"></script>
+<form method="post" autocomplete="off" id="lsform" action="member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" onsubmit="return lsSubmit();">
+<div class="fastlg cl">
+<span id="return_ls" style="display:none"></span>
+<div class="y pns">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td><label for="ls_username">帐号</label></td>
+<td><input type="text" name="username" id="ls_username" class="px vm xg1"  value="UID/用户名/Email" onfocus="if(this.value == 'UID/用户名/Email'){this.value = '';this.className = 'px vm';}" onblur="if(this.value == ''){this.value = 'UID/用户名/Email';this.className = 'px vm xg1';}" tabindex="901" /></td>
+<td class="fastlg_l"><label for="ls_cookietime"><input type="checkbox" name="cookietime" id="ls_cookietime" class="pc" value="2592000" tabindex="903" />自动登录</label></td>
+<td>&nbsp;<a href="javascript:;" onclick="showWindow('login', 'member.php?mod=logging&action=login&viewlostpw=1')">找回密码</a></td>
+</tr>
+<tr>
+<td><label for="ls_password">密码</label></td>
+<td><input type="password" name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" /></td>
+<td class="fastlg_l"><button type="submit" class="pn vm" tabindex="904" style="width: 75px;"><em>登录</em></button></td>
+<td>&nbsp;<a href="member.php?mod=register" class="xi2 xw1">立即注册</a></td>
+</tr>
+</table>
+<input type="hidden" name="quickforward" value="yes" />
+<input type="hidden" name="handlekey" value="ls" />
+</div>
+
+<div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px">
+<p><a href="wechat-login.html"><img src="source/plugin/wechat/image/wechat_login.png" class="vm" /></a></p>
+<p class="hm xg1" style="padding-top: 2px;">扫一扫，访问微社区</p>
+</div>
+
+<div class="fastlg_fm y" style="margin-right: 10px; padding-right: 10px">
+<p><a href="http://www.iyunv.com/connect.php?mod=login&op=init&referer=forum.php%3Fmod%3Dviewthread%26tid%3D38180%26extra%3Dpage%253D1%26page%3D1&statfrom=login_simple"><img src="static/image/common/qq_login.gif" class="vm" alt="QQ登录" /></a></p>
+<p class="hm xg1" style="padding-top: 2px;">只需一步，快速开始</p>
+</div>
+</div>
+</form>
+
+</div>
+       
+     </div> 
+
+ 
+        </div> 
+</div></div>
+</div>
+<div class="mac_hd_sporn"></div>
+ 
+ 
+ <div id="qmenu_menu" class="p_pop blk" style="display: none;">
+<div class="ptm pbw hm">
+请 <a href="javascript:;" class="xi2" onclick="lsSubmit()"><strong>登录</strong></a> 后使用快捷导航<br />没有帐号？<a href="member.php?mod=register" class="xi2 xw1">立即注册</a>
+</div>
+<div id="fjump_menu" class="btda"></div></div> 
+ 
+
+<div class="mac_tcc"> <div class="p_pop h_pop" id="mn_userapp_menu" style="display: none"></div><ul class="p_pop h_pop" id="mn_N59dd_menu" style="display: none"><li><a href="ssyyy_tv-tv.html" hidefocus="true" >网络电视</a></li><li><a href="http://www.iyunv.com/video.html" hidefocus="true" >视频地址解析</a></li><li><a href="http://www.iyunv.com/url.html" hidefocus="true" >迅雷地址转换</a></li><li><a href="http://www.iyunv.com/forum-86-1.html" hidefocus="true" >最新电影</a></li></ul> </div>
+<ul class="mac_tcc_xlcd" id="m_menu" style="display: none;">
+  <li></li>
+<li></li>
+<li></li><li><a href="home.php?mod=space&do=friend" style="background-image:url(http://www.iyunv.com/static/image/feed/friend_b.png) !important">好友</a></li>
+<li><a href="forum.php?mod=guide&view=my" style="background-image:url(http://www.iyunv.com/static/image/feed/thread_b.png) !important">帖子</a></li>
+<li><a href="home.php?mod=space&do=favorite&view=me" style="background-image:url(http://www.iyunv.com/static/image/feed/favorite_b.png) !important">收藏</a></li>
+<li><a href="home.php?mod=magic" style="background-image:url(http://www.iyunv.com/static/image/feed/magic_b.png) !important">道具</a></li>
+<li><a href="home.php?mod=medal" style="background-image:url(http://www.iyunv.com/static/image/feed/medal_b.png) !important">勋章</a></li>
+<li><a href="home.php?mod=task" style="background-image:url(http://www.iyunv.com/static/image/feed/task_b.png) !important">任务</a></li>
+<li><a href="forum.php?mod=collection&op=my" style="background-image:url(http://www.iyunv.com/static/image/feed/collection_b.png) !important">淘帖</a></li>
+<li><a href="home.php" style="background-image:url(http://www.iyunv.com/static/image/feed/feed_b.png) !important">动态</a></li>
+<li><a href="home.php?mod=space&do=blog" style="background-image:url(http://www.iyunv.com/static/image/feed/blog_b.png) !important">日志</a></li>
+<li><a href="home.php?mod=space&do=album" style="background-image:url(http://www.iyunv.com/static/image/feed/album_b.png) !important">相册</a></li>
+<li><a href="home.php?mod=space&do=share" style="background-image:url(http://www.iyunv.com/static/image/feed/share_b.png) !important">分享</a></li>
+<li><a href="home.php?mod=space&do=wall" style="background-image:url(http://www.iyunv.com/static/image/feed/wall_b.png) !important">留言板</a></li>
+<li><a href="home.php?mod=follow" style="background-image:url(http://www.iyunv.com/static/image/feed/follow_b.png) !important">广播</a></li>
+<li><a href="forum.php?mod=guide" style="background-image:url(http://www.iyunv.com/static/image/feed/guide_b.png) !important">导读</a></li>
+<li><a href="misc.php?mod=ranklist" style="background-image:url(http://www.iyunv.com/static/image/feed/ranklist_b.png) !important">排行榜</a></li>
+    <li><a href="home.php?mod=spacecp">设置</a></li>
+   
+   
+   
+   
+    <li><a href="member.php?mod=logging&amp;action=logout&amp;formhash=e744f9a2">退出</a></li>
+</ul>
+   
+  <div class="wp a_mu"><DIV align=center>
+<a href="http://www.antrol.com/" target="_blank"><img src="/data/attachment/common/cf/103926mq0hjwvfs2fh11z1.jpg" width="1190" height="90" border=0></a>
+<!--<a href="http://www.xtidc.cn/" target="_blank"><img src="http://www.iyunv.com/ad_files/yx960x90.jpg" width="960" height="90" border=0></a>-->
+</DIV></div> 
+<style type="text/css">
+@import url('http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.83');
+@import url('http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/styles/shCoreDefault.css?ver=3.0.83');
+@import url('http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.83');
+.syntaxhighlighter,
+.syntaxhighlighter a,
+.syntaxhighlighter div,
+.syntaxhighlighter code,
+.syntaxhighlighter table,
+.syntaxhighlighter table td,
+.syntaxhighlighter table tr,
+.syntaxhighlighter table tbody,
+.syntaxhighlighter table thead,
+.syntaxhighlighter table caption,
+.syntaxhighlighter textarea {
+font-size: 12px !important; /* Set the font size in pixels */
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */
+}
+.syntaxhighlighter table caption {
+/* For Title(Caption) */
+font-size: 14px !important; /* Set the font size in pixels */
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */
+}
+.syntaxhighlighter.nogutter td.code .line {
+/* Set the left padding space when no-gutter in ver. 3.0 */
+padding-left: 3px !important;
+}
+
+.syntaxhighlighter .lines {
+	padding: 5px 0px 5px 0px !important;
+}
+.syntaxhighlighter .line .number {
+	padding: 5px 5px 5px 0 !important;
+}
+.syntaxhighlighter .line .content {
+	padding: 5px 0px 5px 10px !important;
+}
+
+/* For gutter */
+.syntaxhighlighter table td.code {
+width:auto !important;
+}
+.syntaxhighlighter table td.gutter .line {
+padding: 0 0.5em !important;
+}
+.syntaxhighlighter .gutter {
+width: 40px !important;
+}
+
+.syntaxhighlighter table td.gutter .line {
+	padding: 5px 5px 5px 0 !important;
+}
+.syntaxhighlighter table td.code .line {
+	padding: 5px 0px 5px 10px !important;
+}
+
+.syntaxhighlighter {
+/* For Chrome/Safari(WebKit) */
+/* Hide the superfluous vertical scrollbar in ver. 3.0 */
+/*overflow-y: hidden !important;*/
+padding: 1px !important;
+}
+
+.syntaxhighlighter {
+	width: 99.7% !important;
+	
+	
+	overflow-y: auto;
+}
+
+/* For Title(Caption) */
+font-size: 10px !important; /* Set the font size in pixels */
+font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important; /* Set the font type */
+}
+</style>
+<script>var auxiliary = {
+    prefix: 'hm_t_',
+    createDiv: function (id) {
+        var div = document.createElement('div');
+        div.setAttribute('id', this.prefix+id);
+        div.setAttribute('class', 'wp');
+        return div;
+    },
+    divExists: function (id) {
+       return null != document.getElementById(this.prefix+id);
+    }
+    ,viewthread_postbottom:function(hmid) {
+    if(this.divExists(hmid))
+        return;
+    var divlist=document.getElementById('postlist').getElementsByTagName('div');
+    var point=null;
+    for (var i=0;i!=divlist.length;i++) {
+        var id=divlist[i].getAttribute('id');
+        if(id!=null&&id.indexOf('post_rate_div_')==0) {
+            divlist[i].parentNode.appendChild(this.createDiv(hmid));return;
+        }
+    }
+}
+
+};
+document.onreadystatechange = function (){
+    if(document.readyState == 'complete'){
+        auxiliary.viewthread_postbottom(47773);
+    }
+}
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?ee63d32124a4c78a56595e67b60a3696";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script> 
+ <script src="template/mac_science/images/nav.js" type="text/javascript"></script>
+
+<div id="wp" class="wp"style="width:1190px; ">
+<!--[if IE 8]>
+<style type="text/css">
+.mac_lt_12_tzo .mac_yq_12_a {border:none;}
+</style>
+<![endif]--> 
+</div>
+<style type="text/css">
+#f_pst {width:1190px;}
+.tz-tjyd_tw{float:left;width:240px; height:240px;position:absolute;top:430px;}
+.mac-tz-nry-z {float: right;width: 240px; height: 432px; position: relative;}
+.viewthread_top_diy{ width:980px;padding:20px 0px 20px 15px;height:auto;background:#fff;margin-bottom:20px;}
+.tz_top_diy{overflow:hidden;}
+.tz_top_diy p{float:left;width:24px;margin-left:3px;  margin-right:13px;padding:0px 3px ;height:110px;line-height: 27px;background:#E8EFF5;text-align:center;font-size: 14px;color: #369;}
+.tz_top_diy span{float:left;margin-right:13px;width:155.1px; height:120px;background:#fff;overflow:hidden;}
+.tz_top_diy span  h1{float:left;width:155.1px; height:100px;overflow:hidden;border:1px solid #f6f6f6;}
+.tz_top_diy span  h1 img{width:155.1px; height:100px;}
+.tz_top_diy span  h1:hover img {opacity:0.7; -moz-opacity:0.7; filter:alpha(opacity=70);}
+.tz_top_diy span  h2 {width:155.1px; height:20px;line-height:20px;text-align:center;overflow:hidden;}
+.tz_top_diy span  h2 a {line-height:18px;color: #369;}
+.mac_discuz_body{background:  #FFF;}
+</style>
+<div class="mac_discuz_body">
+
+<div id="wp" class="wp"style="width:1190px;">
+
+<script type="text/javascript">var fid = parseInt('65'), tid = parseInt('38180');</script>
+
+<script src="data/cache/forum_viewthread.js?Nxw" type="text/javascript"></script>
+<script type="text/javascript">zoomstatus = parseInt(1);var imagemaxwidth = '600';var aimgcount = new Array();</script>
+
+<style id="diy_style" type="text/css"></style>
+<!--[diy=diynavtop]--><div id="diynavtop" class="area"></div><!--[/diy]-->
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="./" class="nvhm" title="首页">运维网</a><em>&raquo;</em><a href="forum.php">论坛</a> <em>&rsaquo;</em> <a href="forum.php?gid=48">【架构运维】</a> <em>&rsaquo;</em> <a href="forum-65-1.html">邮件服务</a> <em>&rsaquo;</em> <a href="thread-38180-1-1.html">Postfix邮箱(五)：安装Courier-IMAP以及TLS安全传输 ...</a>
+</div>
+</div>
+
+<style id="diy_style" type="text/css"></style>
+
+<div class="wp  viewthread_top_diy">
+<!--[diy=viewthread_top]--><div id="viewthread_top" class="area"><div id="frameMP39vl" class="cl_frame_bm frame move-span cl frame-1"><div id="frameMP39vl_left" class="column frame-1-c"><div id="frameMP39vl_left_temp" class="move-span temp"></div><div id="portal_block_807" class="cl_block_bm block move-span"><div id="portal_block_807_content" class="dxb_bc"><div class="tz_top_diy"><span>
+<h1><a href="thread-92-1-1.html" target="_blank"><img src="data/attachment/block/74/744596ab8fc746154b9a3e0252d32e7a.jpg" width="149" height="90"/></a></h1>
+<h2><a href="thread-92-1-1.html" title="黑色星期天原版试听原版（含钢琴版47分36秒版本）—全球禁播、胆小、心脏病勿进！！" target="_blank">黑色星期天原版试听原版（含钢琴版47分36秒</a></h2>
+</span><span>
+<h1><a href="thread-29713-1-1.html" target="_blank"><img src="data/attachment/block/d7/d7995069531e35d955822287eb2dfed9.jpg" width="149" height="90"/></a></h1>
+<h2><a href="thread-29713-1-1.html" title="xmanager5 build0436免费下载附带注册码" target="_blank">xmanager5 build0436免费下载附带注册码</a></h2>
+</span><span>
+<h1><a href="thread-31283-1-1.html" target="_blank"><img src="data/attachment/block/8b/8bdbe4e8af37032c6f3a7ab03b6808e3.jpg" width="149" height="90"/></a></h1>
+<h2><a href="thread-31283-1-1.html" title="2014全新马哥教育 运维必备python基础语法全讲解" target="_blank">2014全新马哥教育 运维必备python基础语法</a></h2>
+</span><span>
+<h1><a href="thread-31667-1-1.html" target="_blank"><img src="data/attachment/block/e8/e898aa6ed570fce333e0cacc71ea8e26.jpg" width="149" height="90"/></a></h1>
+<h2><a href="thread-31667-1-1.html" title="memcache入门到精通视频教程下载" target="_blank">memcache入门到精通视频教程下载</a></h2>
+</span><span>
+<h1><a href="thread-42111-1-1.html" target="_blank"><img src="data/attachment/block/6f/6fa526a541113239a295662ba49b0a16.jpg" width="149" height="90"/></a></h1>
+<h2><a href="thread-42111-1-1.html" title="Toad DBA Suite for Oracle 12.6 64-bit Commercial百度云免费下载" target="_blank">Toad DBA Suite for Oracle 12.6 64-bit Co</a></h2>
+</span><span >
+<h1><a href="thread-33636-1-1.html" target="_blank"><img src="data/attachment/block/ff/ff7e202336e6d257f33eebfe1235d293.jpg" width="149" height="90"/></a></h1>
+<h2><a href="thread-33636-1-1.html" title="Cacti主机模板之定制版" target="_blank">Cacti主机模板之定制版</a></h2>
+</span><span style="margin-right:0px;">
+<h1><a href="thread-87192-1-1.html" target="_blank"><img src="data/attachment/block/83/83dace1e50f4f3f1a568ce4f31c75f6d.jpg" width="149" height="90"/></a></h1>
+<h2><a href="thread-87192-1-1.html" title="热烈庆祝运维网举办回帖送礼品活动（中奖楼层已公布）" target="_blank">热烈庆祝运维网举办回帖送礼品活动（中奖楼</a></h2>
+</span></div></div></div></div></div></div><!--[/diy]-->
+</div>
+
+<div id="ct" class="wp cl">
+
+
+
+<script type="text/javascript">
+
+jQuery(function() { 
+    var elm = jQuery('#top_fd'); 
+    var startPos = jQuery(elm).offset().top; 
+    jQuery.event.add(window, "scroll", function() { 
+        var p = jQuery(window).scrollTop(); 
+        jQuery(elm).css('position',((p) > startPos) ? 'fixed' : 'static'); 
+        jQuery(elm).css('top',((p) > startPos) ? '65px' : ''); 
+    }); 
+}); 
+</script>
+
+
+<div id="postlist" class="pl bm">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls ptn pbn">
+<div class="hm ptn">
+<span class="xg1">查看:</span> <span class="xi1">666</span><span class="pipe">|</span><span class="xg1">回复:</span> <span class="xi1">0</span>
+</div>
+</td>
+<td class="plc ptm pbn vwthd">
+<div class="y">
+<a href="forum.php?mod=viewthread&amp;action=printable&amp;tid=38180" title="打印" target="_blank"><img src="static/image/common/print.png" alt="打印" class="vm" /></a>
+<a href="forum.php?mod=redirect&amp;goto=nextoldset&amp;tid=38180" title="上一主题"><img src="static/image/common/thread-prev.png" alt="上一主题" class="vm" /></a>
+<a href="forum.php?mod=redirect&amp;goto=nextnewset&amp;tid=38180" title="下一主题"><img src="static/image/common/thread-next.png" alt="下一主题" class="vm" /></a>
+</div>
+<h1 class="ts">
+<a href="forum.php?mod=forumdisplay&amp;fid=65&amp;filter=typeid&amp;typeid=281">[技术分享]</a>
+<span id="thread_subject">Postfix邮箱(五)：安装Courier-IMAP以及TLS安全传输</span>
+</h1>
+<span class="xg1">
+<a href="thread-38180-1-1.html" onclick="return copyThreadUrl(this, '运维网')" >[复制链接]</a>
+</span>
+<script type="text/javascript">
+!window.jQuery && document.write('<script src="source/plugin/aboc_digg/template/jquery-1.7.1.min.js"><\/script >');
+</script>
+<script type="text/javascript">
+var ajQ = jQuery.noConflict();
+</script><script type="text/javascript">
+ajQ(function($){
+$("#thread_subject").before(" <span style='color:#FF0000;'>[有1人赞]</span>");
+})
+</script></td>
+</tr>
+</table>
+
+
+<table cellspacing="0" cellpadding="0" class="ad">
+<tr >
+<td class="pls">
+</td>
+<td class="plc">
+</td>
+</tr>
+</table><div id="post_462314" >
+<style type="text/css">
+.pls .avatar{ width: 75px;height: 75px;-webkit-border-radius:50%;-moz-border-radius:50%;-o-border-radius:50%;border-radius:50%; overflow: hidden;}
+.pls .avatar img {-webkit-border-radius:0;-moz-border-radius:0;-o-border-radius:0;border-radius:0;}
+</style><table id="pid462314" class="plhin" summary="pid462314" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+<div id="favatar462314" class="pls favatar">
+ <a name="lastpost"></a><i class="mac_tz_admin_zhs"></i>
+<div class="pi">
+<div class="authi"><a href="space-uid-58379.html" target="_blank" class="xw1">rtwer</a>
+</div>
+</div>
+<div class="p_pop blk bui card_gender_" id="userinfo462314" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo462314_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="space-uid-58379.html" target="_blank" class="xi2">rtwer</a></strong>
+<em>当前离线</em>
+</div><dl class="cl">
+<dt>积分</dt><dd><a href="home.php?mod=space&uid=58379&do=profile" target="_blank" class="xi2">228</a></dd>
+</dl><div class="imicn">
+<a href="home.php?mod=space&amp;uid=58379&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+<a href="home.php?mod=magic&amp;mid=showip&amp;idtype=user&amp;id=rtwer" id="a_showip_li_462314" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/showip.small.gif" alt="" /> 窥视卡</a>
+<a href="home.php?mod=magic&amp;mid=checkonline&amp;idtype=user&amp;id=rtwer" id="a_repent_462314" class="xi2" onclick="showWindow(this.id, this.href)"><img src="static//image/magic/checkonline.small.gif" alt="" /> 雷达卡</a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar"><a href="space-uid-58379.html" class="avtm" target="_blank"><img src="http://www.iyunv.com/uc_server/avatar.php?uid=58379&size=middle" /></a></div>
+</div>
+<div class="qdsmile"><li><center>TA的每日心情</center><table><tr><th><img src="source/plugin/dsu_paulsign/img/emot/wl.gif"><th><font size="5px">无聊</font><br>2014-12-18 08:15</tr></table></li></div><p>签到天数: 1 天</p><p>[LV.1]初来乍到</p></div>
+</td>
+	
+<td class="plc">
+ <i class="mac_tz_admin_zhs"></i>
+<div class="pi">
+<div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=38180&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<strong>
+<a href="thread-38180-1-1.html"   id="postnum462314" onclick="setCopy(this.href, '帖子地址复制成功');return false;">
+<em>1</em><sup>#</sup></a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon462314" src="static/image/common/online_member.gif" />
+<em id="authorposton462314">发表于 2014-12-18 08:17:31</em>
+<span class="pipe">|</span>
+<a href="forum.php?mod=viewthread&amp;tid=38180&amp;page=1&amp;authorid=58379" rel="nofollow">只看该作者</a>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=38180&amp;from=album">只看大图</a>
+<span class="none"><img src="static/image/common/arw_r.gif" class="vm" alt="回帖奖励" /></span>
+<span class="pipe show">|</span><a href="forum.php?mod=viewthread&amp;tid=38180&amp;extra=page%3D1&amp;ordertype=1"  class="show">倒序浏览</a>
+<span class="pipe show">|</span><a href="javascript:;" onclick="readmode($('thread_subject').innerHTML, 462314);" class="show">阅读模式</a>
+</div>
+</div>
+</div><div class="pct"><style type="text/css">.pcb{margin-right:0}</style><div class="pcb">
+ 
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_462314">
+<div class="a_pr"style="margin-left:10px;width:300px"><a href="http://www.jiankongbao.com" target="_blank"><img src="http://www.iyunv.com/ad_files/jkb250.jpg" height="250" width="300" alt="运维网监控" border="0"></a></div><strong>说明：Courier-IMAP用于实现 pop3、imap 接收邮件功能，支持TLS安全传输；</strong><br />
+<strong>SMTP同样可以支持TLS安全传输，本文最后将列出配置；</strong><br />
+<strong>Transport Layer Security (TLS, 原名SSL)，能以加密技术来保证TCP通信的私密性（信息不外泄）与完整性。<br />
+</strong><br />
+<br />
+<strong>一、实现POP3、IMAP基本功能</strong><br />
+<strong>1、安装Courier-IMAP</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+</td><td>[root@mail ~]# cd /usr/local/src<br />
+[root@mail src]# wget <a href="http://ncu.dl.sourceforge.net/project/courier/imap/4.15.1/courier-imap-4.15.1.tar.bz2" target="_blank">http://ncu.dl.sourceforge.net/pr ... imap-4.15.1.tar.bz2</a><br />
+[root@mail src]# tar -jxf courier-imap-4.15.1.tar.bz2<br />
+[root@mail src]# cd courier-imap-4.15.1<br />
+[root@mail courier-imap-4.15.1]# ./configure&nbsp;&nbsp;--enable-workarounds-for-imap-client-bugs --with-authchangepwdir --enable-unicode --with-trashquota --disable-root-check<br />
+[root@mail courier-imap-4.15.1]# make <br />
+[root@mail courier-imap-4.15.1]# make install <br />
+[root@mail courier-imap-4.15.1]# make install-configure<br />
+<br />
+</td></tr></table><br />
+<br />
+&nbsp; &nbsp; 查看安装说明：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+</td><td>[root@mail courier-imap-4.15.1]# more INSTALL<br />
+<br />
+</td></tr></table><br />
+<br />
+软件包已上传到以下链接：<br />
+<a href="http://down.iyunv.com/data/1955875" target="_blank">http://down.iyunv.com/data/1955875</a> <br />
+<br />
+<strong>2、启动程序</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+</td><td>[root@mail courier-imap-4.15.1]# cd /usr/lib/courier-imap/<br />
+[root@mail courier-imap]# /usr/lib/courier-imap/libexec/imapd.rc start<br />
+[root@mail courier-imap]# echo &quot;/usr/lib/courier-imap/libexec/imapd.rc start&quot; &gt;&gt; /etc/rc.local<br />
+[root@mail courier-imap]# ps aux|grep imapd<br />
+root&nbsp; &nbsp;&nbsp;&nbsp;46134&nbsp;&nbsp;0.0&nbsp;&nbsp;0.0&nbsp; &nbsp;4068&nbsp; &nbsp;340 ?&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;S&nbsp; &nbsp; 16:41&nbsp; &nbsp;0:00 /usr/local/sbin/courierlogger -pid=/var/run/imapd.pid -start -name=imapd /usr/lib/courier-imap/libexec/couriertcpd -address=0 -maxprocs=40 -maxperip=4 -nodnslookup -noidentlookup 143 /usr/lib/courier-imap/sbin/imaplogin /usr/lib/courier-imap/bin/imapd Maildir<br />
+root&nbsp; &nbsp;&nbsp;&nbsp;46135&nbsp;&nbsp;0.1&nbsp;&nbsp;0.0&nbsp; &nbsp;8280&nbsp; &nbsp;636 ?&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;S&nbsp; &nbsp; 16:41&nbsp; &nbsp;0:00 /usr/lib/courier-imap/libexec/couriertcpd -address=0 -maxprocs=40 -maxperip=4 -nodnslookup -noidentlookup 143 /usr/lib/courier-imap/sbin/imaplogin /usr/lib/courier-imap/bin/imapd Maildir<br />
+root&nbsp; &nbsp;&nbsp;&nbsp;46137&nbsp;&nbsp;0.0&nbsp;&nbsp;0.0 103256&nbsp; &nbsp;848 pts/1&nbsp; &nbsp; S+&nbsp; &nbsp;16:41&nbsp; &nbsp;0:00 grep imapd<br />
+[root@mail courier-imap]# netstat -tnlp|grep 143<br />
+tcp6&nbsp; &nbsp;&nbsp; &nbsp; 0&nbsp; &nbsp;&nbsp; &nbsp;0 :::143&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;:::*&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;LISTEN&nbsp; &nbsp;&nbsp; &nbsp;32666/couriertcpd<br />
+<br />
+</td></tr></table><br />
+<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+</td><td>[root@mail courier-imap]# /usr/lib/courier-imap/libexec/pop3d.rc start<br />
+[root@mail courier-imap]# echo &quot;/usr/lib/courier-imap/libexec/pop3d.rc start&quot; &gt;&gt; /etc/rc.local<br />
+[root@mail courier-imap]# ps aux|grep pop3d<br />
+root&nbsp; &nbsp;&nbsp;&nbsp;46149&nbsp;&nbsp;0.0&nbsp;&nbsp;0.0&nbsp; &nbsp;4068&nbsp; &nbsp;344 ?&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;S&nbsp; &nbsp; 16:42&nbsp; &nbsp;0:00 /usr/local/sbin/courierlogger -pid=/var/run/pop3d.pid -start -name=pop3d /usr/lib/courier-imap/libexec/couriertcpd -address=0 -maxprocs=40 -maxperip=4 -nodnslookup -noidentlookup 110 /usr/lib/courier-imap/sbin/pop3login /usr/lib/courier-imap/bin/pop3d Maildir<br />
+root&nbsp; &nbsp;&nbsp;&nbsp;46150&nbsp;&nbsp;0.0&nbsp;&nbsp;0.0&nbsp; &nbsp;8280&nbsp; &nbsp;632 ?&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;S&nbsp; &nbsp; 16:42&nbsp; &nbsp;0:00 /usr/lib/courier-imap/libexec/couriertcpd -address=0 -maxprocs=40 -maxperip=4 -nodnslookup -noidentlookup 110 /usr/lib/courier-imap/sbin/pop3login /usr/lib/courier-imap/bin/pop3d Maildir<br />
+root&nbsp; &nbsp;&nbsp;&nbsp;46155&nbsp;&nbsp;0.0&nbsp;&nbsp;0.0 103256&nbsp; &nbsp;848 pts/1&nbsp; &nbsp; S+&nbsp; &nbsp;16:42&nbsp; &nbsp;0:00 grep pop3d<br />
+[root@mail courier-imap]# netstat -tnlp|grep 110<br />
+tcp6&nbsp; &nbsp;&nbsp; &nbsp; 0&nbsp; &nbsp;&nbsp; &nbsp;0 :::110&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;:::*&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;LISTEN&nbsp; &nbsp;&nbsp; &nbsp;32761/couriertcpd<br />
+<br />
+</td></tr></table><br />
+<br />
+&nbsp; &nbsp;说明：以上分别启动了pop3d和imapd服务，端口使用110和143，通常在设置邮箱客户端(outlook等)时可以看到默认设置的端口号就是这两个。<br />
+<br />
+<br />
+<strong>3、设置imapd、pop3为启用状态</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail courier-imap]# sed -i 's/IMAPDSTART=NO/IMAPDSTART=YES/g' etc/imapd<br />
+[root@mail courier-imap]# sed -i 's/POP3DSTART=NO/POP3DSTART=YES/g' etc/pop3d<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>4、设置防火墙</strong><br />
+<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail ~]# iptables -I INPUT -p tcp -m multiport --dport 110,143 -j ACCEPT<br />
+[root@mail ~]# service iptables save<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>5、测试端口连接</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13<br />
+14<br />
+15<br />
+16<br />
+17<br />
+18<br />
+19<br />
+</td><td>[root@mail courier-imap]# telnet localhost 110<br />
+Trying ::1...<br />
+Connected to localhost.<br />
+Escape character is '^]'.<br />
++OK Hello there.<br />
+user <a href="mailto:postmaster@yourmail.com" target="_blank">postmaster@yourmail.com</a>&nbsp; &nbsp;&nbsp; &nbsp;#输入用户账号<br />
++OK Password required.<br />
+pass extmail&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #输入用户密码<br />
++OK logged in.<br />
+list&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;#显示邮件列表<br />
++OK POP3 clients that break here, they violate STD53.<br />
+1 6<br />
+2 716<br />
+3 923<br />
+4 1197<br />
+.<br />
+quit&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;#退出<br />
++OK Bye-bye.<br />
+Connection closed by foreign host.<br />
+<br />
+</td></tr></table><br />
+<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13<br />
+14<br />
+15<br />
+</td><td>[root@mail courier-imap]# telnet localhost 143<br />
+Trying ::1...<br />
+Connected to localhost.<br />
+Escape character is '^]'.<br />
+* OK [CAPABILITY IMAP4rev1 UIDPLUS CHILDREN NAMESPACE <br />
+&nbsp;&nbsp;THREAD=ORDEREDSUBJECT THREAD=REFERENCES SORT QUOTA <br />
+&nbsp;&nbsp;IDLE ACL ACL2=UNION STARTTLS] Courier-IMAP ready. <br />
+&nbsp;&nbsp;Copyright 1998-2011 Double Precision, Inc.&nbsp;&nbsp;<br />
+&nbsp;&nbsp;See COPYING for distribution information.<br />
+tag login <a href="mailto:postmaster@yourmail.com" target="_blank">postmaster@yourmail.com</a> extmail&nbsp; &nbsp;#输入登陆账号、密码<br />
+tag OK LOGIN Ok.&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #显示登陆成功<br />
+tag logout&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #退出<br />
+* BYE Courier-IMAP server shutting down<br />
+tag OK LOGOUT completed<br />
+Connection closed by foreign host.<br />
+<br />
+</td></tr></table><br />
+<br />
+说明：POP3和IMAP功能正常<br />
+<br />
+<hr class="l" /><br />
+<strong>二、增加SSL支持</strong><br />
+<br />
+<strong>1、安装OpenSSL</strong><br />
+安装httpd时已自动安装上了OpenSSL：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+</td><td>[root@mail courier-imap]# rpm -aq|grep openssl<br />
+openssl-1.0.1e-30.el6_6.4.x86_64<br />
+openssl-devel-1.0.1e-30.el6_6.4.x86_64<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<br />
+<strong>2、配置Courier-IMAP支持SSL</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail courier-imap]# sed -i 's/IMAPDSSLSTART=NO/IMAPDSSLSTART=YES/g' etc/imapd-ssl<br />
+[root@mail courier-imap]# sed -i 's/POP3DSSLSTART=NO/POP3DSSLSTART=YES/g' etc/pop3d-ssl<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>3、启动Courier-IMAP的ssl程序</strong><br />
+<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+</td><td>[root@mail courier-imap]# /usr/lib/courier-imap/libexec/imapd-ssl.rc start<br />
+[root@mail courier-imap]# /usr/lib/courier-imap/libexec/pop3d-ssl.rc start<br />
+[root@mail courier-imap]# echo &quot;/usr/lib/courier-imap/libexec/imapd-ssl.rc start&quot; &gt;&gt; /etc/rc.local<br />
+[root@mail courier-imap]# echo &quot;/usr/lib/courier-imap/libexec/pop3d-ssl.rc start&quot; &gt;&gt; /etc/rc.local<br />
+[root@mail courier-imap]# netstat -tlnp |grep 99<br />
+tcp&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;0 :::993&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; :::*&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;LISTEN&nbsp; &nbsp;&nbsp; &nbsp;46228/couriertcpd&nbsp; &nbsp;<br />
+tcp&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;0 :::995&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; :::*&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;LISTEN&nbsp; &nbsp;&nbsp; &nbsp;46236/couriertcpd<br />
+<br />
+</td></tr></table><br />
+<br />
+说明：POP3-SSL使用995端口，IMAP-SSL使用993端口<br />
+<br />
+<strong>4、创建证书</strong><br />
+（1）创建IMAP证书文件：<br />
+<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+</td><td>[root@mail courier-imap]# /usr/lib/courier-imap/share/mkimapdcert<br />
+Generating a 4096 bit RSA private key<br />
+......................++<br />
+..........................++<br />
+writing new private key to '/usr/lib/courier-imap/share/imapd.pem'<br />
+-----<br />
+subject= /C=US/ST=NY/L=New York/O=Courier Mail Server/OU=Automatically-generated IMAP SSL key/CN=localhost/emailAddress=postmaster@example.com<br />
+notBefore=Nov 27 06:15:20 2014 GMT<br />
+notAfter=Nov 27 06:15:20 2015 GMT<br />
+SHA1 Fingerprint=B8:E2:AC:54:27:90:BA:20:33:92:89:DE:AB:EA:1B:2D:DC:11:8A:37<br />
+<br />
+</td></tr></table><br />
+<br />
+（2）创建POP3证书文件：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+</td><td>[root@mail courier-imap]# /usr/lib/courier-imap/share/mkpop3dcert <br />
+Generating a 4096 bit RSA private key<br />
+.......................................++<br />
+......................................++<br />
+writing new private key to '/usr/lib/courier-imap/share/pop3d.pem'<br />
+-----<br />
+subject= /C=US/ST=NY/L=New York/O=Courier Mail Server/OU=Automatically-generated POP3 SSL key/CN=localhost/emailAddress=postmaster@example.com<br />
+notBefore=Nov 27 06:22:05 2014 GMT<br />
+notAfter=Nov 27 06:22:05 2015 GMT<br />
+SHA1 Fingerprint=48:21:D9:4D:DE:A7:64:7F:CD:A0:68:79:E4:2A:2F:59:62:BE:9D:E6<br />
+<br />
+</td></tr></table><br />
+<br />
+（3）创建DH参数集文件：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+</td><td>[root@mail courier-imap]# /usr/lib/courier-imap/share/mkdhparams <br />
+512 semi-random bytes loaded<br />
+Generating DH parameters, 768 bit long safe prime, generator 2<br />
+This is going to take a long time<br />
+..............++*++*++*++*<br />
+<br />
+</td></tr></table><br />
+<br />
+（4）查看证书文件和DH参数集文件：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail courier-imap]# ls /usr/lib/courier-imap/share/<br />
+dhparams.pem&nbsp;&nbsp;imapd.pem&nbsp;&nbsp;pop3d.pem<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>5、加密连接</strong><br />
+&nbsp; &nbsp; 添加一个月计划任务，运行mkdhparams,以定期生成一个新的DH参数集，用于设置加密连接：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail courier-imap]# crontab -e<br />
+0 0 1 1 * /usr/lib/courier-imap/share/mkdhparams<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>6、设置防火墙</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail ~]# iptables -I INPUT -p tcp -m multiport --dport 993,995 -j ACCEPT<br />
+[root@mail ~]# service iptables save<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>7、测试pop3d-ssl</strong><br />
+<br />
+在客户端PC（或者本地DNS服务器）设置本地解析：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+</td><td>C:WindowsSystem32driversetchosts<br />
+10.188.1.83 pop3.yourmail.com<br />
+10.188.1.83 smtp.yourmail.com<br />
+10.188.1.83 imap.yourmail.com<br />
+10.188.1.83 mail.yourmail.com<br />
+<br />
+</td></tr></table><br />
+<br />
+在Foxmail邮箱客户端添加test账号，选择POP3类型，勾上SSL端口995，SMTP保持默认25端口<br />
+
+<ignore_js_op>
+
+<img id="aimg_65350" aid="65350" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201412/18/081726ij7phd0rrxcj7cx6.jpg" file="data/attachment/forum/201412/18/081726ij7phd0rrxcj7cx6.jpg" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_65350" inpost="1" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_65350_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="xs0">
+<p><strong>wKiom1SQ13DR9An3AAIEA2dbtIw059.jpg</strong> <em class="xg1">(62.32 KB, 下载次数: 0)</em></p>
+<p>
+<a href="forum.php?mod=attachment&amp;aid=NjUzNTB8ODU5YjQzZTF8MTQ0MTUyMDU4MHwwfDM4MTgw&amp;nothumb=yes" target="_blank">下载附件</a>
+
+&nbsp;<a href="javascript:;" onclick="showWindow(this.id, this.getAttribute('url'), 'get', 0);" id="savephoto_65350" url="home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=65350&amp;handlekey=savephoto_65350">保存到相册</a>
+
+</p>
+
+<p class="xg1 y">2014-12-18 08:17 上传</p>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+<br />
+给test自己发送一封邮件并接收，成功表示pop3d-ssl成功<br />
+查看日志：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+</td><td>[root@mail courier-imap]# tailf /var/log/maillog<br />
+Dec&nbsp;&nbsp;2 09:10:02 mail postfix/smtpd[4051]: connect from unknown[10.188.1.172]<br />
+Dec&nbsp;&nbsp;2 09:10:02 mail postfix/smtpd[4051]: 583221A1BCC: client=unknown[10.188.1.172], sasl_method=LOGIN, sasl_username=test@yourmail.com<br />
+Dec&nbsp;&nbsp;2 09:10:02 mail postfix/cleanup[4061]: 583221A1BCC: message-id=&lt;<a href="mailto:201412020909527054540@yourmail.com" target="_blank">201412020909527054540@yourmail.com</a>&gt;<br />
+Dec&nbsp;&nbsp;2 09:10:02 mail postfix/qmgr[64225]: 583221A1BCC: from=, size=1470, nrcpt=1 (queue active)<br />
+Dec&nbsp;&nbsp;2 09:10:02 mail postfix/smtpd[4051]: disconnect from unknown[10.188.1.172]<br />
+Dec&nbsp;&nbsp;2 09:10:02 mail postfix/pipe[4063]: 583221A1BCC: to=, relay=maildrop, delay=0.16, delays=0.11/0.02/0/0.03, dsn=2.0.0, status=sent (delivered via maildrop service)<br />
+Dec&nbsp;&nbsp;2 09:10:02 mail postfix/qmgr[64225]: 583221A1BCC: removed<br />
+Dec&nbsp;&nbsp;2 09:10:04 mail pop3d-ssl: Connection, ip=[::ffff:10.188.1.172]<br />
+Dec&nbsp;&nbsp;2 09:10:04 mail pop3d-ssl: LOGIN, user=test@yourmail.com, ip=[::ffff:10.188.1.172], port=[50258]<br />
+Dec&nbsp;&nbsp;2 09:10:04 mail pop3d-ssl: LOGOUT, user=test@yourmail.com, ip=[::ffff:10.188.1.172], port=[50258], top=0, retr=1497, rcvd=32, sent=1769, time=0, stls=1<br />
+<br />
+</td></tr></table><br />
+<br />
+说明：邮件发送仍然使用SMTP的25端口，邮件接收可以看到使用的是pop3d-ssl进行的连接。<br />
+查看邮件头：<br />
+
+<ignore_js_op>
+
+<img id="aimg_65351" aid="65351" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201412/18/081727akekbkseg33xkxvy.jpg" file="data/attachment/forum/201412/18/081727akekbkseg33xkxvy.jpg" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="508" id="aimg_65351" inpost="1" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_65351_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="xs0">
+<p><strong>wKioL1SQ3wKjLGmCAAIJRkoLHqM529.jpg</strong> <em class="xg1">(57.61 KB, 下载次数: 0)</em></p>
+<p>
+<a href="forum.php?mod=attachment&amp;aid=NjUzNTF8ZGJlNzI4ZWF8MTQ0MTUyMDU4MHwwfDM4MTgw&amp;nothumb=yes" target="_blank">下载附件</a>
+
+&nbsp;<a href="javascript:;" onclick="showWindow(this.id, this.getAttribute('url'), 'get', 0);" id="savephoto_65351" url="home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=65351&amp;handlekey=savephoto_65351">保存到相册</a>
+
+</p>
+
+<p class="xg1 y">2014-12-18 08:17 上传</p>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+<br />
+<br />
+<strong>8、测试imap-ssl</strong><br />
+在Foxmail邮箱客户端添加test账号，选择IMAP类型，勾上SSL 端口993，SMTP保持默认25端口<br />
+给test自己发送一封邮件并接收，成功表示imap-ssl成功<br />
+查看日志：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+</td><td>[root@mail courier-imap]# tailf /var/log/maillog<br />
+Dec&nbsp;&nbsp;2 09:54:34 mail postfix/smtpd[4206]: connect from unknown[10.188.1.172]<br />
+Dec&nbsp;&nbsp;2 09:54:34 mail postfix/smtpd[4206]: 8F37D1A1BAC: client=unknown[10.188.1.172], sasl_method=LOGIN, sasl_username=test@yourmail.com<br />
+Dec&nbsp;&nbsp;2 09:54:34 mail postfix/cleanup[4216]: 8F37D1A1BAC: message-id=&lt;<a href="mailto:201412020954270473792@yourmail.com" target="_blank">201412020954270473792@yourmail.com</a>&gt;<br />
+Dec&nbsp;&nbsp;2 09:54:34 mail postfix/qmgr[64225]: 8F37D1A1BAC: from=, size=1516, nrcpt=1 (queue active)<br />
+Dec&nbsp;&nbsp;2 09:54:34 mail postfix/smtpd[4206]: disconnect from unknown[10.188.1.172]<br />
+Dec&nbsp;&nbsp;2 09:54:34 mail postfix/pipe[4218]: 8F37D1A1BAC: to=, relay=maildrop, delay=0.18, delays=0.11/0.01/0/0.06, dsn=2.0.0, status=sent (delivered via maildrop service)<br />
+Dec&nbsp;&nbsp;2 09:54:34 mail postfix/qmgr[64225]: 8F37D1A1BAC: removed<br />
+Dec&nbsp;&nbsp;2 09:55:47 mail imapd-ssl: Connection, ip=[::ffff:10.188.1.172]<br />
+Dec&nbsp;&nbsp;2 09:55:47 mail imapd-ssl: LOGIN, user=test@yourmail.com, ip=[::ffff:10.188.1.172], port=[52061], protocol=IMAP<br />
+<br />
+</td></tr></table><br />
+<br />
+说明：可以看到邮件接收使用的是imapd-ssl。<br />
+<br />
+<strong>问题：日志出中现错误</strong><br />
+[root@mail ~]# tail /var/log/httpd/ssl_error.log<br />
+Prototype mismatch: sub Encode::IMAPUTF7::decode ($$;$) vs none at /var/www/extsuite/extman/libs/Encode/IMAPUTF7.pm line 76<br />
+&nbsp;&nbsp;/var/www/extsuite/extman/libs/Encode/IMAPUTF7.pm<br />
+解决：将“no warnings 'redefine';^M”那一行修改成“no warnings;”或“no warnings qw(prototype redefine);”<br />
+<br />
+<hr class="l" /><br />
+<br />
+<strong>三、配置Postfix(SMTP)支持SSL</strong><br />
+参考：<br />
+<br />
+<a href="http://www.postfix.org/TLS_README.html" target="_blank">http://www.postfix.org/TLS_README.html</a> <br />
+<strong>1、安装OpenSSL-Perl</strong><br />
+<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+</td><td>[root@mail ~]# rpm -aq|grep openssl<br />
+openssl-1.0.1e-30.el6_6.4.x86_64<br />
+openssl-devel-1.0.1e-30.el6_6.4.x86_64<br />
+[root@mail ~]# yum install -y openssl-perl<br />
+<br />
+</td></tr></table><br />
+<br />
+会在/etc/pki/tls/misc/目录下生成CA.pl脚本，<br />
+让你可以自己开设 CA，自己签署自己的证书。<br />
+<br />
+<strong>2、生成服务器根证书</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13<br />
+14<br />
+15<br />
+16<br />
+17<br />
+18<br />
+19<br />
+20<br />
+21<br />
+22<br />
+23<br />
+24<br />
+25<br />
+26<br />
+27<br />
+28<br />
+29<br />
+30<br />
+31<br />
+32<br />
+33<br />
+34<br />
+35<br />
+36<br />
+37<br />
+38<br />
+39<br />
+40<br />
+41<br />
+42<br />
+43<br />
+44<br />
+45<br />
+46<br />
+47<br />
+48<br />
+49<br />
+50<br />
+51<br />
+52<br />
+53<br />
+54<br />
+55<br />
+</td><td>[root@mail ~]# cd /etc/pki/tls/misc/<br />
+[root@mail misc]# ./CA.pl -newca<br />
+CA certificate filename (or enter to create)&nbsp; &nbsp;&nbsp; &nbsp;#按回车开始<br />
+#在下面的设置过程中，输错了可以按ctrl+backspce进行删除<br />
+Making CA certificate ...<br />
+Generating a 2048 bit RSA private key<br />
+..............................+++<br />
+................+++<br />
+writing new private key to '/etc/pki/CA/private/cakey.pem'<br />
+Enter PEM pass phrase:123456&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #输入密码，至少4个字符<br />
+Verifying - Enter PEM pass phrase:123456&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #重复输入密码<br />
+-----<br />
+You are about to be asked to enter information that will be incorporated<br />
+into your certificate request.<br />
+What you are about to enter is what is called a Distinguished Name or a DN.<br />
+There are quite a few fields but you can leave some blank<br />
+For some fields there will be a default value,<br />
+If you enter '.', the field will be left blank.<br />
+-----<br />
+Country Name (2 letter code) [XX]:CN&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;#输入国家<br />
+State or Province Name (full name) []:zhejiang&nbsp; &nbsp;&nbsp;&nbsp;#输入省份<br />
+Locality Name (eg, city) [Default City]:hangzhou&nbsp; &nbsp;#输入城市<br />
+Organization Name (eg, company) [Default Company Ltd]:yourmail&nbsp;&nbsp;#输入公司名<br />
+Organizational Unit Name (eg, section) []:it&nbsp; &nbsp;&nbsp; &nbsp; #输入部门名<br />
+Common Name (eg, your name or your server s hostname) []:root&nbsp; &nbsp;#输入你的名字或服务器名<br />
+Email Address []:&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #输入邮箱账号（可不填）<br />
+Please enter the following 'extra' attributes<br />
+to be sent with your certificate request<br />
+A challenge password []:&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;#输入证书请求密码（可不填）<br />
+An optional company name []:&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;#输入可选公司名（可不填）<br />
+Using configuration from /etc/pki/tls/openssl.cnf<br />
+Enter pass phrase for /etc/pki/CA/private/cakey.pem:123456 #输入前面设的密码123456<br />
+Check that the request matches the signature<br />
+Signature ok<br />
+Certificate Details:<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Serial Number: 14986867786496351857 (0xcffc0cd915dc1e71)<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Validity<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Not Before: Nov 28 02:06:59 2014 GMT<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Not After : Nov 27 02:06:59 2017 GMT<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Subject:<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;countryName&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;= CN<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;stateOrProvinceName&nbsp; &nbsp;&nbsp; &nbsp; = zhejiang<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;organizationName&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; = yourmail<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;organizationalUnitName&nbsp; &nbsp; = it<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;commonName&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; = root<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;X509v3 extensions:<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;X509v3 Subject Key Identifier: <br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 12:6E:1A:A9:98:79:E1:A6:82:7E:A4:D8:FD:44:5D:57:FF:4B:46:69<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;X509v3 Authority Key Identifier: <br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; keyid:12:6E:1A:A9:98:79:E1:A6:82:7E:A4:D8:FD:44:5D:57:FF:4B:46:69<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;X509v3 Basic Constraints: <br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; CA:TRUE<br />
+Certificate is to be certified until Nov 27 02:06:59 2017 GMT (1095 days)<br />
+Write out database with 1 new entries<br />
+Data Base Updated<br />
+<br />
+</td></tr></table><br />
+<br />
+说明：显示上面资料表示成功，否则失败；失败时删除cakey.pem后重新执行CA.pl：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail misc]# rm -f /etc/pki/CA/private/cakey.pem <br />
+[root@mail misc]# ./CA.pl -newca<br />
+<br />
+</td></tr></table><br />
+<br />
+创建证书目录，将生成的根证书复制进去（也可以复制到/etc/postfix目录下）：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail misc]# mkdir /etc/pki/myca<br />
+[root@mail misc]# cp /etc/pki/CA/cacert.pem /etc/pki/myca<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>3、生成私钥和CSR证书签署请求文件</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13<br />
+14<br />
+15<br />
+16<br />
+17<br />
+18<br />
+19<br />
+20<br />
+21<br />
+22<br />
+23<br />
+24<br />
+25<br />
+</td><td>[root@mail misc]# cd /etc/pki/myca<br />
+[root@mail myca]# openssl req -new -nodes -keyout mailkey.pem -out mailreq.pem -days 3650<br />
+Generating a 2048 bit RSA private key<br />
+...................................+++<br />
+....................+++<br />
+writing new private key to 'mailkey.pem'<br />
+-----<br />
+You are about to be asked to enter information that will be incorporated<br />
+into your certificate request.<br />
+What you are about to enter is what is called a Distinguished Name or a DN.<br />
+There are quite a few fields but you can leave some blank<br />
+For some fields there will be a default value,<br />
+If you enter '.', the field will be left blank.<br />
+-----<br />
+Country Name (2 letter code) [XX]:CN<br />
+State or Province Name (full name) []:zhejiang<br />
+Locality Name (eg, city) [Default City]:hangzhou<br />
+Organization Name (eg, company) [Default Company Ltd]:yourmail<br />
+Organizational Unit Name (eg, section) []:it<br />
+Common Name (eg, your name or your server s hostname) []:root<br />
+Email Address []:<br />
+Please enter the following 'extra' attributes<br />
+to be sent with your certificate request<br />
+A challenge password []:<br />
+An optional company name []:<br />
+<br />
+</td></tr></table><br />
+<br />
+参数说明：-new表示你想产生公私钥与CSR，-nodes表示不加密，-keyout指出私钥文件，<br />
+-out指出CSR文件的名称，-days指出证书的有效期限是10年。 <br />
+<br />
+查看生成的文件：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+</td><td>[root@mail myca]# ll<br />
+总用量 16<br />
+-rw-r--r--. 1 root root 4291 12月&nbsp;&nbsp;2 14:08 cacert.pem&nbsp;&nbsp;#根证书<br />
+-rw-r--r--. 1 root root 1704 12月&nbsp;&nbsp;2 14:09 mailkey.pem #私钥<br />
+-rw-r--r--. 1 root root&nbsp;&nbsp;997 12月&nbsp;&nbsp;2 14:09 mailreq.pem #CSR文件<br />
+<br />
+</td></tr></table><br />
+<br />
+修改私钥权限保证安全（只有root用户可读）：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail myca]# chown root mailkey.pem<br />
+[root@mail myca]# chmod 400 mailkey.pem<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>4、签署CSR文件</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+</td><td>[root@mail myca]# openssl ca -out mailcert.pem -infiles mailreq.pem<br />
+failed to update database<br />
+TXT_DB error number 2<br />
+<br />
+</td></tr></table><br />
+<br />
+产生的原因是:证书的设置相同，导致subject值相同<br />
+解决方法：将&quot;主题唯一&quot;设为不必须<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail myca]# vi /etc/pki/CA/index.txt.attr<br />
+unique_subject = no<br />
+<br />
+</td></tr></table><br />
+<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13<br />
+14<br />
+15<br />
+16<br />
+17<br />
+18<br />
+19<br />
+20<br />
+21<br />
+22<br />
+23<br />
+24<br />
+25<br />
+26<br />
+27<br />
+28<br />
+29<br />
+30<br />
+</td><td>[root@mail myca]# openssl ca -out mailcert.pem -infiles mailreq.pem<br />
+Using configuration from /etc/pki/tls/openssl.cnf<br />
+Enter pass phrase for /etc/pki/CA/private/cakey.pem:123456<br />
+Check that the request matches the signature<br />
+Signature ok<br />
+Certificate Details:<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Serial Number: 14986867786496351859 (0xcffc0cd915dc1e73)<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Validity<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Not Before: Dec 2 05:27:44 2014 GMT<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Not After : Dec 2 05:27:44 2015 GMT<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Subject:&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #主题参数<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;countryName&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;= CN<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;stateOrProvinceName&nbsp; &nbsp;&nbsp; &nbsp; = zhejiang<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;organizationName&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; = yourmail<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;organizationalUnitName&nbsp; &nbsp; = it<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;commonName&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; = root<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;X509v3 extensions:<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;X509v3 Basic Constraints: <br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; CA:FALSE<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;Netscape Comment: <br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; OpenSSL Generated Certificate<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;X509v3 Subject Key Identifier: <br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; 17:71:C5:65:AA:7D:56:BF:3A:6F:9D:84:3B:E2:12:57:58:B6:32:04<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;X509v3 Authority Key Identifier: <br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; keyid:9C:7C:C0:ED:30:2A:FE:0C:E7:0D:C3:F8:9E:E0:35:41:8E:25:2C:48<br />
+Certificate is to be certified until Dev 2 05:27:44 2015 GMT (365 days)<br />
+Sign the certificate? [y/n]:y<br />
+1 out of 1 certificate requests certified, commit? [y/n]y<br />
+Write out database with 1 new entries<br />
+Data Base Updated<br />
+<br />
+</td></tr></table><br />
+<br />
+查看生成的文件：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+</td><td>[root@mail myca]# ll<br />
+总用量 24<br />
+-rw-r--r--. 1 root root 4291 12月&nbsp;&nbsp;2 14:08 cacert.pem&nbsp; &nbsp;#根证书<br />
+-rw-r--r--. 1 root root 4430 12月&nbsp;&nbsp;2 14:11 mailcert.pem #公钥<br />
+-r--------. 1 root root 1704 12月&nbsp;&nbsp;2 14:09 mailkey.pem&nbsp;&nbsp;#私钥<br />
+-rw-r--r--. 1 root root&nbsp;&nbsp;997 12月&nbsp;&nbsp;2 14:09 mailreq.pem&nbsp;&nbsp;#CSR文件<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>5、配置postfix</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13<br />
+14<br />
+15<br />
+16<br />
+17<br />
+18<br />
+19<br />
+</td><td>[root@mail myca]# vi /etc/postfix/main.cf<br />
+# Postfix作为SMTP服务端的TLS配置<br />
+smtpd_use_tls = yes<br />
+smtpd_tls_key_file = /etc/pki/myca/mailkey.pem<br />
+smtpd_tls_cert_file = /etc/pki/myca/mailcert.pem<br />
+smtpd_tls_CAfile = /etc/pki/myca/cacert.pem<br />
+# smtpd_tls_security_level = encrypt<br />
+# 表示强制使用TLS加密，不建议，会导致丢失courier-authlib认证<br />
+smtpd_tls_security_level = may<br />
+smtpd_tls_received_header = yes<br />
+smtpd_enforce_tls = yes<br />
+smtpd_tls_loglevel = 2<br />
+# Postfix作为SMTP客户端的TLS配置<br />
+smtp_use_tls = yes<br />
+smtp_tls_key_file = /etc/pki/myca/mailkey.pem<br />
+smtp_tls_cert_file = /etc/pki/myca/mailcert.pem<br />
+smtp_tls_CAfile = /etc/pki/myca/cacert.pem<br />
+#smtp_tls_policy_maps = hash:/etc/postfix/tls_policy_maps<br />
+#TLS限制策略，有需要的百度下如何设置<br />
+<br />
+</td></tr></table><br />
+<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+</td><td>[root@mail myca]# vi /etc/postfix/master.cf <br />
+smtps&nbsp; &nbsp; inet&nbsp; &nbsp; n&nbsp; &nbsp; -&nbsp; &nbsp; n&nbsp; &nbsp; -&nbsp; &nbsp; -&nbsp; &nbsp; smtpd<br />
+&nbsp;&nbsp;-o smtpd_tls_wrappermode=yes <br />
+&nbsp;&nbsp;-o smtpd_sasl_auth_enable=yes<br />
+<br />
+</td></tr></table><br />
+<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+</td><td>[root@mail myca]# service postfix reload<br />
+[root@mail myca]# netstat -tnlp|grep 465<br />
+tcp&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;0 0.0.0.0:465&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0.0.0.0:*&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; LISTEN&nbsp; &nbsp;&nbsp; &nbsp;64222/master&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<br />
+tcp&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;0&nbsp; &nbsp;&nbsp; &nbsp;0 :::465&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; :::*&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;LISTEN&nbsp; &nbsp;&nbsp; &nbsp;64222/master<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>6、设置防火墙</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+</td><td>[root@mail ~]# iptables -I INPUT -p tcp --dport 465 -j ACCEPT<br />
+[root@mail ~]# service iptables save<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>7、本地端口测试</strong><br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13<br />
+14<br />
+15<br />
+16<br />
+17<br />
+18<br />
+19<br />
+</td><td>[root@mail ~]# telnet localhost 25<br />
+Trying ::1...<br />
+Connected to localhost.<br />
+Escape character is '^]'.<br />
+220 mail.eplantstore.com ESMTP Postfix - by eplantstore.com<br />
+ehlo localhost&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #输入hello内容<br />
+250-mail.eplantstore.com<br />
+250-PIPELINING<br />
+250-SIZE 10485760<br />
+250-VRFY<br />
+250-ETRN<br />
+250-STARTTLS&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;#表示TLS运行了<br />
+250-AUTH PLAIN LOGIN&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #如果没有出现这两行<br />
+250-AUTH=PLAIN LOGIN&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #修改smtpd_tls_security_level = may不强制使用TLS<br />
+250-ENHANCEDSTATUSCODES<br />
+250-8BITMIME<br />
+250 DSN<br />
+starttls&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; #输入TLS命令<br />
+220 2.0.0 Ready to start TLS&nbsp;&nbsp;#出现这行表示成功<br />
+<br />
+</td></tr></table><br />
+<br />
+查看日志：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+</td><td>[root@mail myca]# tailf /var/log/maillog<br />
+Dec&nbsp;&nbsp;2 14:42:21 mail postfix/smtpd[5315]: connect from localhost[::1]<br />
+Dec&nbsp;&nbsp;2 14:45:50 mail postfix/smtpd[5315]: setting up TLS connection from localhost[::1]<br />
+Dec&nbsp;&nbsp;2 14:45:50 mail postfix/smtpd[5315]: localhost[::1]: TLS cipher list &quot;ALL:+RC4:@STRENGTH&quot;<br />
+Dec&nbsp;&nbsp;2 14:45:50 mail postfix/smtpd[5315]: SSL_accept:before/accept initialization<br />
+<br />
+</td></tr></table><br />
+<br />
+<br />
+<strong>8、客户端发送邮件测试</strong><br />
+在Foxmail邮箱客户端修改test账号，勾上SMTP的SSL：465<br />
+
+<ignore_js_op>
+
+<img id="aimg_65352" aid="65352" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201412/18/081727af79tbyt5bh6yc28.jpg" file="data/attachment/forum/201412/18/081727af79tbyt5bh6yc28.jpg" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_65352" inpost="1" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_65352_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="xs0">
+<p><strong>wKiom1SQ3QLz4e7xAAIvf_Flm-4105.jpg</strong> <em class="xg1">(65.44 KB, 下载次数: 0)</em></p>
+<p>
+<a href="forum.php?mod=attachment&amp;aid=NjUzNTJ8NTdlMjBiYjJ8MTQ0MTUyMDU4MHwwfDM4MTgw&amp;nothumb=yes" target="_blank">下载附件</a>
+
+&nbsp;<a href="javascript:;" onclick="showWindow(this.id, this.getAttribute('url'), 'get', 0);" id="savephoto_65352" url="home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=65352&amp;handlekey=savephoto_65352">保存到相册</a>
+
+</p>
+
+<p class="xg1 y">2014-12-18 08:17 上传</p>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+<br />
+给test自己发送一封邮件，查看日志：<br />
+<table cellspacing="0" class="t_table" ><tr><td>1<br />
+2<br />
+3<br />
+4<br />
+5<br />
+6<br />
+7<br />
+8<br />
+9<br />
+10<br />
+11<br />
+12<br />
+13<br />
+14<br />
+15<br />
+16<br />
+17<br />
+18<br />
+19<br />
+20<br />
+21<br />
+22<br />
+23<br />
+</td><td>[root@mail myca]# tailf /var/log/maillog<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: initializing the server-side TLS engine<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: connect from unknown[10.188.1.172]<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: setting up TLS connection from unknown[10.188.1.172]<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: unknown[10.188.1.172]: TLS cipher list &quot;ALL:!EXPORT:!LOW:+RC4:@STRENGTH&quot;<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:before/accept initialization<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 read client hello A<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 write server hello A<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 write certificate A<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 write key exchange A<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 write server done A<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 flush data<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 read client key exchange A<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 read finished A<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 write change cipher spec A<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 write finished A<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: SSL_accept:SSLv3 flush data<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: Anonymous TLS connection established from unknown[10.188.1.172]: TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits)<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/smtpd[5103]: 9B5791A1BCE: client=unknown[10.188.1.172], sasl_method=LOGIN, sasl_username=test@yourmail.com<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/cleanup[5113]: 9B5791A1BCE: message-id=&lt;<a href="mailto:201412021416537923991@yourmail.com" target="_blank">201412021416537923991@yourmail.com</a>&gt;<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/qmgr[5059]: 9B5791A1BCE: from=, size=1578, nrcpt=1 (queue active)<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/pipe[5115]: 9B5791A1BCE: to=, relay=maildrop, delay=0.18, delays=0.12/0.02/0/0.04, dsn=2.0.0, status=sent (delivered via maildrop service)<br />
+Dec&nbsp;&nbsp;2 14:18:45 mail postfix/qmgr[5059]: 9B5791A1BCE: removed<br />
+<br />
+</td></tr></table><br />
+<br />
+接收下邮件，查看邮件头信息；<br />
+
+<ignore_js_op>
+
+<img id="aimg_65353" aid="65353" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201412/18/081728a8nsnaqd3app3tvi.jpg" file="data/attachment/forum/201412/18/081728a8nsnaqd3app3tvi.jpg" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="508" id="aimg_65353" inpost="1" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_65353_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="xs0">
+<p><strong>wKiom1SQ3dmRY3bbAAJ7zR_XXd4697.jpg</strong> <em class="xg1">(70.14 KB, 下载次数: 0)</em></p>
+<p>
+<a href="forum.php?mod=attachment&amp;aid=NjUzNTN8YTM1MmEwYTh8MTQ0MTUyMDU4MHwwfDM4MTgw&amp;nothumb=yes" target="_blank">下载附件</a>
+
+&nbsp;<a href="javascript:;" onclick="showWindow(this.id, this.getAttribute('url'), 'get', 0);" id="savephoto_65353" url="home.php?mod=spacecp&amp;ac=album&amp;op=saveforumphoto&amp;aid=65353&amp;handlekey=savephoto_65353">保存到相册</a>
+
+</p>
+
+<p class="xg1 y">2014-12-18 08:17 上传</p>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+<br />
+结论：Postfix成功支持TLS发送邮件。<br />
+<br />
+</td></tr></table>
+
+<style type="text/css">
+#aboc_digg{position:relative;width:65px;height:60px;margin:5px auto;background:url(source/plugin/aboc_digg/images/like_2.png) no-repeat;clear:both;margin-top:25px;}
+.aboc_digg_btn,.aboc_digg_ed{display:block;width:44px;height:30px;text-align:center;font-size:15px;font-weight:bold;font-family:Arial;padding:30px 0 0 21px;}
+.aboc_digg_btn{color:#F60;cursor:pointer}
+.aboc_digg_btn:hover{color:#1a2978}
+.aboc_digg_ed{color:#888}
+#aboc_digg .xyadd{display:none;position:absolute;top:0;right:10px;color:#F60;font-size:20px;font-weight:bold;font-family:Arial;}
+</style>
+<script type="text/javascript">
+//ajaxget(url, showid, waitid, loading, display, recall)
+function aboc_digg(){
+    ajaxget("plugin.php?id=aboc_digg:aboc_digg&tid=38180&digg=1&formhash=e744f9a2", "showid", "waitid", "loading", "display", "");
+}
+function aboc_digg_effect(s){
+    if(s==0){
+        //$("#aboc_digg .xyadd").show().animate({top:"-100px", opacity: "0"},800);
+        var num = $("aboc_digg_num").innerHTML;
+        $("aboc_digg_num").innerHTML = num*1+1;
+        aboc_digg_animate();
+    }
+    else{
+        showError(s);
+    }
+}
+function aboc_digg_animate(){
+    var i=0;
+    $("xyadd").style.display = 'inline-block';
+    var d = setInterval(function(){
+       $("xyadd").style.top = ((-1 * i) + 'px');
+       $("xyadd").style.opacity = (100 - i);
+       i++;
+       if(i>=100){
+           $("xyadd").style.display = 'none';
+           clearInterval(d);
+       }
+    },10);
+}
+</script>
+<div id="aboc_digg">
+<span class="xyadd" id="xyadd">+1</span>
+<span class='aboc_digg_btn' title='赞一下' onclick='aboc_digg()'><span class='aboc_digg_num' id='aboc_digg_num'>1</span></span>
+</div>
+</div>
+<div id="comment_462314" class="cm">
+</div>
+
+<div id="post_rate_div_462314"></div>
+<div id="hm_t_47773" class="wp"></div></div>
+</div>
+
+</td></tr>
+<tr><td class="plc plm">
+<div id="p_btn" class="mtw mbm hm cl">
+<div class="tshare cl"style="margin: 0px 0px 30px 0px;">
+<b>分享到:&nbsp;</b>
+
+<a href="javascript:;" onclick="showWindow('wechat_share', 'plugin.php?id=wechat:qrcode&threadqr=38180&access=yes&share=yes')"><i><img src="source/plugin/wechat/image/share.png" alt="微信" />微信</i></a>
+
+
+
+
+
+<a href="http://www.iyunv.com/home.php?mod=spacecp&ac=plugin&id=qqconnect:spacecp&pluginop=share&sh_type=4&thread_id=38180" id="k_share_to_qq" title="QQ好友和群" target="_blank"><i><img src="static/image/common/qq_share.png" alt="QQ好友和群" />QQ好友和群</i></a>
+<a href="javascript:void(0);" id="k_qqshare" onclick="postToQzone();" title="QQ空间"><i><img src="static/image/common/qzone.gif" alt="QQ空间" />QQ空间</i></a>
+<a href="javascript:void(0)" onclick="postToWb();" id="k_weiboshare" title="腾讯微博"><i><img src="static/image/common/weibo.png" alt="腾讯微博" />腾讯微博</i></a>
+<a href="javascript:void(0);" onclick="postToPengyou();" id="k_pengyoushare" title="腾讯朋友"><i><img src="static/image/common/pengyou.png" alt="腾讯朋友" />腾讯朋友</i></a>
+<script type="text/javascript">
+function postToWb(){
+var _t = encodeURI(document.title);
+var _url = encodeURIComponent(document.location);
+var _appkey = encodeURI("ce7fb946290e4109bdc9175108b6db3a");
+var _pic = "http%3A%2F%2Fwww.iyunv.com%2Fforum.php%3Fmod%3Dimage%26aid%3D65353%26size%3D400x400%26key%3Dd4a1b2b8bf0b0035%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.iyunv.com%2Fforum.php%3Fmod%3Dimage%26aid%3D65352%26size%3D400x400%26key%3De086de7fc7fdd46b%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.iyunv.com%2Fforum.php%3Fmod%3Dimage%26aid%3D65351%26size%3D400x400%26key%3D0b9a3ced1f36521a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.iyunv.com%2Fforum.php%3Fmod%3Dimage%26aid%3D65350%26size%3D400x400%26key%3D7caea848eaea3d0d%26nocache%3Dyes%26type%3Dfixnone";
+var _site = encodeURIComponent("运维网");
+var _from = 'discuz';
+var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t+'&from='+_from;
+window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+}
+function postToPengyou(){
+var _url = encodeURIComponent(document.location.href);
+var _site = encodeURIComponent("运维网");
+var _title = encodeURIComponent("Postfix邮箱(五)：安装Courier-IMAP以及TLS安全传输");
+var _pics = "http%3A%2F%2Fwww.iyunv.com%2Fforum.php%3Fmod%3Dimage%26aid%3D65353%26size%3D400x400%26key%3Dd4a1b2b8bf0b0035%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.iyunv.com%2Fforum.php%3Fmod%3Dimage%26aid%3D65352%26size%3D400x400%26key%3De086de7fc7fdd46b%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.iyunv.com%2Fforum.php%3Fmod%3Dimage%26aid%3D65351%26size%3D400x400%26key%3D0b9a3ced1f36521a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fwww.iyunv.com%2Fforum.php%3Fmod%3Dimage%26aid%3D65350%26size%3D400x400%26key%3D7caea848eaea3d0d%26nocache%3Dyes%26type%3Dfixnone";
+var _from = 'discuz';
+var _u = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?to=pengyou&url='+_url+'&site='+_site+'&title='+_title+'&pics='+_pics+'&from='+_from;
+window.open(_u);
+}
+</script>
+	
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href="home.php?mod=spacecp&amp;ac=favorite&amp;type=thread&amp;id=38180" id="k_favorite" class="add_fav   mac_lt_12_tzo " onclick="showWindow(this.id, this.href, 'get', 0);" onmouseover="this.title = $('favoritenumber').innerHTML + ' 人收藏'" title="收藏本帖">
+<h2 class="mac_yq_12_a"><img style="margin:18px 0px 10px 38px;" src="static/image/common/fav.gif"/></h2>
+ <h2 class="mac_lt_12_tzq">  </h2>
+<span>收藏</span>
+<em id="favoritenumber" class="hide">0</em>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="mac_lt_12_tzo mac_lt_12_dz_q2" href="home.php?mod=spacecp&amp;ac=follow&amp;op=relay&amp;tid=38180&amp;from=forum" onclick="showWindow('relaythread', this.href, 'get', 0);" title="转播求扩散"class="add_fav  mac_lt_12_tzo">
+                    <h2 class="mac_yq_12_a"><img style="margin:18px 0px 10px 38px;" src="static/image/common/rt.png"/></h2>
+<h2 class="mac_lt_12_tzq"></h2>
+<span>转播</span>
+                    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="mac_lt_12_tzo mac_lt_12_dz_q2" href="home.php?mod=spacecp&amp;ac=share&amp;type=thread&amp;id=38180" onclick="showWindow('sharethread', this.href, 'get', 0);" title="分享推精华">
+<h2 class="mac_yq_12_a"><img style="margin:18px 0px 10px 38px;" src="static/image/common/oshr.png"/></h2>
+<h2 class="mac_lt_12_tzq"></h2>
+<span>分享0</span>
+                    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="mac_lt_12_tzo mac_lt_12_dz_q2" href="forum.php?mod=collection&amp;action=edit&amp;op=addthread&amp;tid=38180" id="k_collect" onclick="showWindow(this.id, this.href);return false;" onmouseover="this.title = $('collectionnumber').innerHTML + ' 人淘帖'" title="淘好帖进专辑">
+<h2 class="mac_yq_12_a"><img style="margin:18px 0px 10px 38px;" src="static/image/common/collection.png"/></h2>
+<h2 class="mac_lt_12_tzq"></h2>
+<span>淘帖0</span>
+                   </a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="mac_lt_12_tzo mac_lt_12_dz_q2" id="recommend_add" href="forum.php?mod=misc&amp;action=recommend&amp;do=add&amp;tid=38180&amp;hash=e744f9a2"  onclick="showWindow('login', this.href)" onmouseover="this.title = $('recommendv_add').innerHTML + ' 人顶'" title="顶一下">
+
+<h2 class="mac_yq_12_a"><img style="margin:18px 0px 10px 38px;" src="static/image/common/rec_add.gif" alt="顶" /></h2>
+<h2 class="mac_lt_12_tzq"></h2>
+<span>顶<span id="recommendv_add" style="display:none">0</span></span>
+</a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="mac_lt_12_tzo mac_lt_12_dz_q2" id="recommend_subtract" href="forum.php?mod=misc&amp;action=recommend&amp;do=subtract&amp;tid=38180&amp;hash=e744f9a2"  onclick="showWindow('login', this.href)" onmouseover="this.title = $('recommendv_subtract').innerHTML + ' 人踩'" title="踩一下">
+
+<h2 class="mac_yq_12_a"><img style="margin:18px 0px 10px 38px;" src="static/image/common/rec_subtract.gif" alt="踩" /></h2>
+<h2 class="mac_lt_12_tzq"></h2>
+<span>踩<span id="recommendv_subtract" style="display:none">0</span></span>
+</a>
+</div>
+<div class="sign"><div><br /><fieldset style="border:1px dashed #FF0000;padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;"><legend align="center" style="color:#FFFFFF;width:200px;text-align:center;background-color:#FF0000;">运维网声明</legend>
+1、欢迎大家加入本站运维交流群:263444886<br />
+2、本站所有主题由该帖子作者发表，该帖子作者与<a href="http://www.iyunv.com/" rel="nofollow"><font color="#FF6600">运维网</font></a>享有帖子相关版权<br />
+3、其他单位或个人使用、转载或引用本文时必须注明原文的出处<br />
+4、如本帖侵犯到任何版权问题，请立即告知本站，本站将及时予与删除并致以最深的歉意<br />
+5、<a href="http://www.iyunv.com/" rel="nofollow"><font color="#FF6600">运维网</font></a> - 服务您的运维操作管理专家！<br />
+6、联系人Email：admin@yunvn.com  网址：www.iyunv.com</fieldset><br />
+</div></div>
+</td>
+</tr>
+<tr id="_postposition462314"></tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po hin">
+<div class="pob cl">
+<em>
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=65&amp;tid=38180&amp;reppost=462314&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+</em>
+
+<p>
+<a href="javascript:;" id="mgc_post_462314" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport462314', 'misc.php?mod=report&rtype=post&rid=462314&tid=38180&fid=65', 'get', -1);return false;">举报</a>
+</p>
+
+<ul id="mgc_post_462314_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="home.php?mod=magic&amp;mid=bump&amp;idtype=tid&amp;id=38180" id="a_bump" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/bump.small.gif" />提升卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=stick&amp;idtype=tid&amp;id=38180" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/stick.small.gif" />置顶卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=close&amp;idtype=tid&amp;id=38180" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/close.small.gif" />沉默卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=open&amp;idtype=tid&amp;id=38180" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/open.small.gif" />喧嚣卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=highlight&amp;idtype=tid&amp;id=38180" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/highlight.small.gif" />变色卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=jack&amp;idtype=tid&amp;id=38180" id="a_jack" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/jack.small.gif" />千斤顶</a></li>
+<li><a href="home.php?mod=magic&amp;mid=namepost&amp;idtype=pid&amp;id=462314:38180" id="a_namepost_462314" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/namepost.small.gif" />显身卡</a><li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_462314')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls">
+</td>
+<td class="plc">
+</td>
+</tr>
+</table>
+<script type="text/javascript" reload="1">
+aimgcount[462314] = ['65353','65352','65351','65350'];
+attachimggroup(462314);
+var aimgfid = 0;
+</script>
+</div><div id="postlistreply" class="pl"><div id="post_new" class="viewthread_table" style="display: none"></div></div>
+</div>
+
+
+<form method="post" autocomplete="off" name="modactions" id="modactions">
+<input type="hidden" name="formhash" value="e744f9a2" />
+<input type="hidden" name="optgroup" />
+<input type="hidden" name="operation" />
+<input type="hidden" name="listextra" value="page%3D1" />
+<input type="hidden" name="page" value="1" />
+</form>
+
+
+
+<div class="pgs mtm mbm cl">
+<span class="pgb y"><a href="forum-65-1.html">返回列表</a></span>
+<a id="newspecialtmp" onmouseover="$('newspecial').id = 'newspecialtmp';this.id = 'newspecial';showMenu({'ctrlid':this.id})" onclick="showWindow('newthread', 'forum.php?mod=post&action=newthread&fid=65')" href="javascript:;" title="发新帖"class="mac_pn_post"></a>
+</div>
+
+<!--[diy=diyfastposttop]--><div id="diyfastposttop" class="area"></div><!--[/diy]-->
+<script type="text/javascript">
+var postminchars = parseInt('1');
+var postmaxchars = parseInt('10000000');
+var disablepostctrl = parseInt('0');
+</script>
+
+<div id="f_pst" class="pl bm bmw">
+<form method="post" autocomplete="off" id="fastpostform" action="forum.php?mod=post&amp;action=reply&amp;fid=65&amp;tid=38180&amp;extra=page%3D1&amp;replysubmit=yes&amp;infloat=yes&amp;handlekey=fastpost" onSubmit="return fastpostvalidate(this)">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls">
+</td>
+<td class="plc">
+<div id='gt_viewthread_fastpost_content' class='' style='margin:10px  0px 10px  0px '><table><tbody><tr><th style='width:80px;'><div id='gt_tx'>*&#28369;&#21160;&#39564;&#35777;:</div></th><td><script type="text/javascript" src="http://api.geetest.com/get.php?gt=d88e2905976a896d091d1f4681988778&challenge=f1378ffc88b130f2807ae21094fa6709&product=float&sdk=php_2.0"></script></td></tr></tbody></table></div>    <script type="text/javascript">
+        function move_geetest_before_submit() {
+            var gt_submitBtn = $('fastpostsubmit');
+            var geetest = $('gt_viewthread_fastpost_content');
+            gt_submitBtn.parentNode.insertBefore(geetest, gt_submitBtn);
+            //_attachEvent(gt_submitBtn, 'click', GeeTestWidget.call_refresh);
+        }
+
+        _attachEvent(window, 'load', move_geetest_before_submit);
+
+
+        function get_button(){
+        	var b = [];
+			var buttons = document.getElementsByTagName("button")
+            for(var i=0; i<buttons.length; i++){
+            	var button = buttons[i];
+            	if(button.type == "submit"){
+            		b.push(button)
+            	}
+            }	
+            return b;        	
+        }
+        
+
+        window.gt_custom_ajax = function (status, $) {
+        	function refresh(){
+        		console.log("click");
+        		setTimeout(function(){
+        			$(".gt_refresh_button").click();
+        		},1000);
+            }
+		    if(status) {
+		      var buttons = get_button();
+		      for(var i in buttons){
+		      	_attachEvent(buttons[i], 'click', refresh);
+		      }
+		      
+		    }
+		 }
+	 </script>
+<span id="fastpostreturn"></span>
+
+
+<div class="cl">
+<div id="fastsmiliesdiv" class="y"><div id="fastsmiliesdiv_data"><div id="fastsmilies"></div></div></div><div class="hasfsl" id="fastposteditor">
+<div class="tedt mtn">
+<div class="bar">
+<span class="y">
+<a href="forum.php?mod=post&amp;action=reply&amp;fid=65&amp;tid=38180" onclick="return switchAdvanceMode(this.href)">高级模式</a>
+</span><script src="data/cache/seditor.js?Nxw" type="text/javascript"></script>
+<div class="fpd">
+<a href="javascript:;" title="文字加粗" class="fbld">B</a>
+<a href="javascript:;" title="设置文字颜色" class="fclr" id="fastpostforecolor">Color</a>
+<a id="fastpostimg" href="javascript:;" title="图片" class="fmg">Image</a>
+<a id="fastposturl" href="javascript:;" title="添加链接" class="flnk">Link</a>
+<a id="fastpostquote" href="javascript:;" title="引用" class="fqt">Quote</a>
+<a id="fastpostcode" href="javascript:;" title="代码" class="fcd">Code</a>
+<a href="javascript:;" class="fsml" id="fastpostsml">Smilies</a>
+</div></div>
+<div class="area">
+<div class="pt hm">
+您需要登录后才可以回帖 <a href="member.php?mod=logging&amp;action=login" onclick="showWindow('login', this.href)" class="xi2">登录</a> | <a href="member.php?mod=register" class="xi2">立即注册</a>
+
+
+<a href="http://www.iyunv.com/connect.php?mod=login&op=init&referer=forum.php%3Fmod%3Dviewthread%26tid%3D38180%26extra%3Dpage%253D1%26page%3D1&statfrom=login" target="_top" rel="nofollow"><img src="static/image/common/qq_login.gif" class="vm" /></a>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="seccheck_fastpost">
+</div>
+
+
+<input type="hidden" name="formhash" value="e744f9a2" />
+<input type="hidden" name="usesig" value="" />
+<input type="hidden" name="subject" value="  " />
+<p class="ptm pnpost">
+<a href="home.php?mod=spacecp&amp;ac=credit&amp;op=rule&amp;fid=65" class="y" target="_blank">本版积分规则</a>
+<button type="button" onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes')" onmouseover="checkpostrule('seccheck_fastpost', 'ac=reply');this.onmouseover=null" name="replysubmit" id="fastpostsubmit" class="pn pnc vm" value="replysubmit" tabindex="5"><strong>发表回复</strong></button>
+
+<input name='ht' type='checkbox' value='1'  checked ='checked' />&nbsp;允许回帖邮件提醒楼主 
+<label class="lb"><input type="checkbox" name="adddynamic" class="pc" value="1" />回帖并转播</label>
+<label for="fastpostrefresh"><input id="fastpostrefresh" type="checkbox" class="pc" />回帖后跳转到最后一页</label>
+<script type="text/javascript">if(getcookie('fastpostrefresh') == 1) {$('fastpostrefresh').checked=true;}</script>
+</p>
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+<script type="text/javascript">
+var connect_qzone_share_url = 'http://www.iyunv.com/home.php?mod=spacecp&ac=plugin&id=qqconnect:spacecp&pluginop=share&sh_type=1&thread_id=38180';
+var connect_weibo_share_url = 'http://www.iyunv.com/home.php?mod=spacecp&ac=plugin&id=qqconnect:spacecp&pluginop=share&sh_type=2&thread_id=38180';
+var connect_thread_info = {
+thread_url: 'http://www.iyunv.com/thread-38180-1-1.html',
+thread_id: '38180',
+post_id: '462314',
+forum_id: '65',
+author_id: '58379',
+author: 'rtwer'
+};
+
+connect_autoshare = '0';
+connect_isbind = '';
+if(connect_autoshare == 1 && connect_isbind) {
+_attachEvent(window, 'load', function(){
+connect_share(connect_weibo_share_url, connect_openid);
+});
+}
+</script>
+
+
+<script type="text/javascript">
+new lazyload();
+</script>
+<script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, 0, 0, 'forum.php?mod=viewthread&tid=38180', 1);}</script>
+</div>
+
+<div class="wp mtn">
+<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+
+<script type="text/javascript">
+function succeedhandle_followmod(url, msg, values) {
+var fObj = $('followmod_'+values['fuid']);
+if(values['type'] == 'add') {
+fObj.innerHTML = '不收听';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=del&fuid='+values['fuid'];
+} else if(values['type'] == 'del') {
+fObj.innerHTML = '收听TA';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=add&hash=e744f9a2&fuid='+values['fuid'];
+}
+}
+fixed_avatar([462314], 1);
+</script>
+</div>
+</div>
+ 
+     
+
+
+
+
+<script src="http://www.iyunv.com/static/js/qshare.js" type="text/javascript"></script><script type="text/javascript">_share_tencent_weibo(null, $C("t_f", null, "td"), "", "ce7fb946290e4109bdc9175108b6db3a", "运维网");</script>
+
+
+<script type="text/javascript">
+function mw_syntaxhighlighter_show_editor_codebox(editortype) {
+var tag = 'code';
+var mw_syntaxhighlighter_tag = 'mw_shl_code';
+var str = '请输入要插入的代码<br>选择语言：';
+str += '<select id="brush_lang" name="lang">';str += '<option value="applescript">AppleScript</option>';
+str += '<option value="actionscript3">Actionscript3</option>';
+str += '<option value="bash">Bash shell</option>';
+str += '<option value="coldfusion">ColdFusion</option>';
+str += '<option value="c">C</option>';
+str += '<option value="cpp">C++</option>';
+str += '<option value="csharp">C#</option>';
+str += '<option value="css">CSS</option>';
+str += '<option value="delphi">Delphi</option>';
+str += '<option value="diff">Diff</option>';
+str += '<option value="erlang">Erlang</option>';
+str += '<option value="groovy">Groovy</option>';
+str += '<option value="html">HTML</option>';
+str += '<option value="java">Java</option>';
+str += '<option value="javafx">JavaFX</option>';
+str += '<option value="javascript">JavaScript</option>';
+str += '<option value="pascal">Pascal</option>';
+str += '<option value="patch">Patch</option>';
+str += '<option value="perl">Perl</option>';
+str += '<option value="php">PHP</option>';
+str += '<option value="text">Plain Text</option>';
+str += '<option value="powershell">PowerShell</option>';
+str += '<option value="python">Python</option>';
+str += '<option value="ruby">Ruby</option>';
+str += '<option value="rails">Ruby on Rails</option>';
+str += '<option value="sass">Sass</option>';
+str += '<option value="scala">Scala</option>';
+str += '<option value="scss">Scss</option>';
+str += '<option value="shell">Shell</option>';
+str += '<option value="sql">SQL</option>';
+str += '<option value="vb">Visual Basic</option>';
+str += '<option value="vbnet">Visual Basic .NET</option>';
+str += '<option value="xhtml">XHTML</option>';
+str += '<option value="xml">XML</option>';
+str += '<option value="xslt">XSLT</option>';
+str += '<option value="objc">Objective-C</option>';
+
+str += '</select><br>';
+
+str += '显示行号：';
+str += '<input type="checkbox" id="show_gutter" name="show_gutter" value="1" checked><br>';
+
+
+if(editortype == 'newthread') {
+
+var sel, selection;
+var str1 = '', strdialog = 0, stitle = '';
+var ctrlid = editorid + '_' + tag;
+var menu = $(ctrlid + '_menu');
+var pos = [0, 0];
+var menuwidth = 270;
+var menupos = '43!';
+var menutype = 'menu';
+
+str += '<div id="mw_codearea">你的代码：<br>';
+str += '<textarea id="' + ctrlid + '_param_1" style="width: 98%" cols="50" rows="5" class="txtarea"></textarea></div>';
+
+//note �޸���ie�µĲ���������
+if(BROWSER.ie) {
+if(wysiwyg) {
+editdoc.body.focus();
+sel = editdoc.selection.createRange();
+} else {
+sel = document.selection.createRange();
+}
+pos = getCaret();
+}
+
+selection = sel ? (wysiwyg ? sel.text : sel.text) : mw_highlighter_getSel();//note �޸�sel.HtmlText�޸�ΪText���༭���еĿ��ӻ��ò��ʵ�ֱȽ�����
+if(menu) {
+if($(ctrlid).getAttribute('menupos') !== null) {
+menupos = $(ctrlid).getAttribute('menupos');
+}
+if($(ctrlid).getAttribute('menuwidth') !== null) {
+menu.style.width = $(ctrlid).getAttribute('menuwidth') + 'px';
+}
+
+if(selection) {//note ���ѡ�������ݵĴ���
+$('mw_codearea').style.display = 'none';
+}
+
+showMenu({'ctrlid':ctrlid,'evt':'click','pos':menupos,'timeout':250,'duration':in_array(tag, ['fontname', 'fontsize', 'sml']) ? 2 : 3,'drag':1});
+} else {
+
+var menu = document.createElement('div');
+menu.id = ctrlid + '_menu';
+menu.style.display = 'none';
+menu.className = 'p_pof upf';
+menu.style.width = menuwidth + 'px';
+
+s = '<div class="p_opt cl"><span class="y" style="margin:-10px -10px 0 0"><a onclick="hideMenu();return false;" class="flbc" href="javascript:;">关闭</a></span><div>' + str + '</div><div class="pns mtn"><button type="submit" id="' + ctrlid + '_submit" class="pn pnc"><strong>提交</strong></button></div></div>';
+menu.innerHTML = s;
+$(editorid + '_editortoolbar').appendChild(menu);
+
+if(selection) {//note ���ѡ�������ݵĴ���
+$('mw_codearea').style.display = 'none';
+}
+
+showMenu({'ctrlid':ctrlid,'mtype':menutype,'evt':'click','duration':3,'cache':0,'drag':1,'pos':menupos});
+}
+
+try {
+if($(ctrlid + '_param_1')) {
+$(ctrlid + '_param_1').focus();
+}
+} catch(e) {}
+var objs = menu.getElementsByTagName('*');
+for(var i = 0; i < objs.length; i++) {
+_attachEvent(objs[i], 'keydown', function(e) {
+e = e ? e : event;
+obj = BROWSER.ie ? event.srcElement : e.target;
+if((obj.type == 'text' && e.keyCode == 13) || (obj.type == 'textarea' && e.ctrlKey && e.keyCode == 13)) {
+if($(ctrlid + '_submit') && tag != 'image') $(ctrlid + '_submit').click();
+doane(e);
+} else if(e.keyCode == 27) {
+hideMenu();
+doane(e);
+}
+});
+}
+if($(ctrlid + '_submit')) $(ctrlid + '_submit').onclick = function() {
+checkFocus();
+if(BROWSER.ie && wysiwyg) {
+setCaret(pos[0]);
+}
+if(wysiwyg) {
+if(!BROWSER.ie) {
+selection = selection ? selection : '';
+}
+}
+str1 = $(ctrlid + '_param_1') && $(ctrlid + '_param_1').value ? $(ctrlid + '_param_1').value : (selection ? selection : '');
+
+var opentag = '[' + mw_syntaxhighlighter_tag + '=' + $('brush_lang').value + ',' + (($('show_gutter') && $('show_gutter').checked) ? 'true' : 'false') + ']';
+var closetag = '[/' + mw_syntaxhighlighter_tag + ']';
+
+if(wysiwyg) {
+str1 = preg_replace(['<', '>'], ['&lt;', '&gt;'], str1);
+
+str1 = str1.replace(/\r?\n/g, '<br />');
+}
+str1 = opentag + str1 + closetag;
+insertText(str1, strlen(opentag), strlen(closetag), false, sel);
+hideMenu();
+};
+
+} else if(editortype == 'fastpost' || editortype == 'post') {
+
+var sel = false;
+var seditorkey = editortype;
+if(!isUndefined($(seditorkey + 'message').selectionStart)) {
+sel = $(seditorkey + 'message').selectionEnd - $(seditorkey + 'message').selectionStart;
+} else if(document.selection && document.selection.createRange) {
+$(seditorkey + 'message').focus();
+var sel = document.selection.createRange();
+$(seditorkey + 'message').sel = sel;
+sel = sel.text ? true : false;
+}
+
+var ctrlid = seditorkey + tag;
+var menuid = ctrlid + '_menu';
+
+str += '<div id="mw_codearea">你的代码：<br>';
+str += '<textarea id="' + ctrlid + '_param_1" style="width: 98%" cols="50" rows="5" class="txtarea"></textarea></div>';
+
+if(!$(menuid)) {
+var submitstr = "seditor_insertunit('" + seditorkey + "', '[" + mw_syntaxhighlighter_tag + "=' + $('brush_lang').value + ',' + (($('show_gutter') && $('show_gutter').checked) ? 'true' : 'false') + ']'+$('" + ctrlid + "_param_1').value, '[/" + mw_syntaxhighlighter_tag + "]', null, 1);hideMenu();";
+var menu = document.createElement('div');
+menu.id = menuid;
+menu.style.display = 'none';
+menu.className = 'p_pof upf';
+menu.style.width = '270px';
+$('append_parent').appendChild(menu);
+menu.innerHTML = '<span class="y"><a onclick="hideMenu()" class="flbc" href="javascript:;">关闭</a></span><div class="p_opt cl"><form onsubmit="' + submitstr + ';return false;" autocomplete="off"><div>' + str + '</div><div class="pns mtn"><button type="submit" id="' + ctrlid + '_submit" class="pn pnc"><strong>提交</strong></button><button type="button" onClick="hideMenu()" class="pn"><em>取消</em></button></div></form></div>';
+}
+if(sel) {//note ���ѡ�������ݵĴ���
+$('mw_codearea').style.display = 'none';
+}
+showMenu({'ctrlid':ctrlid,'evt':'click','duration':3,'cache':0,'drag':1});
+}
+}
+
+function mw_highlighter_getSel() {
+if(wysiwyg) {
+try {
+selection = editwin.getSelection();
+return selection.toString();
+//checkFocus();
+//range = selection ? selection.getRangeAt(0) : editdoc.createRange();
+//return readNodes(range.cloneContents(), false);
+} catch(e) {
+try {
+var range = editdoc.selection.createRange();
+if(range.htmlText && range.text) {
+return range.text;
+} else {
+var htmltext = '';
+for(var i = 0; i < range.length; i++) {
+htmltext += range.item(i).outerHTML;
+}
+return htmltext;
+}
+} catch(e) {
+return '';
+}
+}
+} else {
+if(!isUndefined(editdoc.selectionStart)) {
+return editdoc.value.substr(editdoc.selectionStart, editdoc.selectionEnd - editdoc.selectionStart);
+} else if(document.selection && document.selection.createRange) {
+return document.selection.createRange().text;
+} else if(window.getSelection) {
+alert(editdoc);
+return window.getSelection() + '';
+} else {
+return false;
+}
+}
+}
+</script>
+<script type="text/javascript" src="source/plugin/mw_syntaxhighlighter/js/mw_syntaxhighlighter.js?Nxw"></script><script type="text/javascript" reload="1">mw_syntaxhighlighter("fastpost");</script>
+<!-- mw_syntaxhighlighter ver.3.0.83 Begin -->
+<script type="text/javascript" src="http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js?ver=3.0.83"></script>
+<script type="text/javascript" src="http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shAutoloader.js?ver=3.0.83"></script>
+<script type="text/javascript" src="http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0.83"></script>
+<script type="text/javascript">//<![CDATA[
+	SyntaxHighlighter.autoloader(
+	"applescript	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAppleScript.js?ver=3.0.83"
+	,"as3 actionscript3	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAS3.js?ver=3.0.83"
+	,"bash shell	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushBash.js?ver=3.0.83"
+	,"cf coldfusion	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushColdFusion.js?ver=3.0.83"
+	,"cpp c	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js?ver=3.0.83"
+	,"c# c-sharp csharp	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCSharp.js?ver=3.0.83"
+	,"css	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCss.js?ver=3.0.83"
+	,"delphi pas pascal	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDelphi.js?ver=3.0.83"
+	,"diff patch	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDiff.js?ver=3.0.83"
+	,"erl erlang	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushErlang.js?ver=3.0.83"
+	,"groovy	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushGroovy.js?ver=3.0.83"
+	,"java	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJava.js?ver=3.0.83"
+	,"jfx javafx	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJavaFX.js?ver=3.0.83"
+	,"js jscript javascript	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJScript.js?ver=3.0.83"
+	,"perl pl	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPerl.js?ver=3.0.83"
+	,"php	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPhp.js?ver=3.0.83"
+	,"plain text	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPlain.js?ver=3.0.83"
+	,"ps powershell	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPowerShell.js?ver=3.0.83"
+	,"py python	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPython.js?ver=3.0.83"
+	,"rails ror ruby rb	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushRuby.js?ver=3.0.83"
+	,"sass scss	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSass.js?ver=3.0.83"
+	,"scala	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushScala.js?ver=3.0.83"
+	,"sql	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSql.js?ver=3.0.83"
+	,"vb vbnet	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushVb.js?ver=3.0.83"
+	,"xml xhtml xslt html	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js?ver=3.0.83"
+	,"objc	http://www.iyunv.com/source/plugin/mw_syntaxhighlighter/syntaxhighlighter3/scripts/shBrushObjC.js?ver=3.0.83"
+	);
+	SyntaxHighlighter.defaults['auto-links'] = true;
+	SyntaxHighlighter.defaults['quick-code'] = true;
+	SyntaxHighlighter.defaults['title'] = '运维网代码';
+	SyntaxHighlighter.defaults['class-name'] = 'notranslate';
+	SyntaxHighlighter.defaults['collapse'] = false;
+	SyntaxHighlighter.defaults['first-line'] = 1;
+	SyntaxHighlighter.defaults['gutter'] = true;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = 2;
+	SyntaxHighlighter.defaults['smart-tabs'] = true;
+	SyntaxHighlighter.defaults['tab-size'] = 4;
+	SyntaxHighlighter.defaults['toolbar'] = true;
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter';
+	SyntaxHighlighter.config.strings.noBrush = "Can\'t find brush for: ";
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = "Brush wasn\'t configured for html-script option: ";
+	SyntaxHighlighter.all();
+	
+//]]></script>
+<!-- mw_syntaxhighlighter ver.3.0.83 End -->
+
+<script type="text/javascript">
+(function() {
+var viewsource = [];
+var copycode = [];
+if(document.getElementsByClassName) {
+viewsource = document.getElementsByClassName('viewsource');
+copycode = document.getElementsByClassName('copycode');
+} else {
+var emlist = document.getElementsByTagName('em');
+for(var i=0;i<emlist.length;i++) {
+if(emlist[i].className == 'viewsource') {
+viewsource.push(emlist[i]);
+} else if(emlist[i].className == 'copycode') {
+copycode.push(emlist[i]);
+}
+}
+}
+function mw_code_toolbar_addevent(objs, eventtype) {
+for(var i=0; i<objs.length; i++) {
+if(objs[i].id != undefined) {
+objs[i].setAttribute('num', i);
+objs[i].onclick = function() {
+var highlighters = SyntaxHighlighter.vars.highlighters;
+var k = 0;
+var num = this.getAttribute('num');
+for(var i in highlighters) {
+if(k == num) {
+if(eventtype == 'viewcode') {
+mw_viewcode_execute(highlighters[i]);
+} else if(eventtype == 'copycode') {
+mw_copycode_execute(highlighters[i]);
+}
+break;
+}
+k++;
+}
+return false;
+}
+}
+}
+}
+if(viewsource) {
+mw_code_toolbar_addevent(viewsource, 'viewcode');
+}
+if(copycode) {
+mw_code_toolbar_addevent(copycode, 'copycode');
+}
+function mw_viewcode_execute(highlighter) {
+var code = mw_get_code(highlighter);
+code = mw_fixinputstring(code).replace(/</g, '&lt;');
+var wnd = mw_popup('', '_blank', 750, 400, 'location=0, resizable=1, menubar=0, scrollbars=1');
+code = mw_unindent(code);
+wnd.document.write('<pre>' + code + '</pre>');
+wnd.document.close();
+}
+function mw_copycode_execute(highlighter) {
+var code = mw_get_code(highlighter);
+code = mw_fixinputstring(code)
+.replace(/&lt;/g, '<')
+.replace(/&gt;/g, '>')
+.replace(/&amp;/g, '&')
+;
+code = mw_unindent(code);
+setCopy(code, '代码已复制到剪贴板');
+}
+function mw_fixinputstring(str) {
+var br = /<br\s*\/>|<br\s*>|&lt;br\s*\/?&gt;/gi;
+if(SyntaxHighlighter.config.bloggerMode == true) {
+str = str.replace(br, '\n');
+}
+if(SyntaxHighlighter.config.stripBrs == true) {
+str = str.replace(br, '');
+}
+return str;
+}
+function mw_popup(url, name, width, height, options) {
+var x = (screen.width - width) / 2,
+y = (screen.height - height) / 2
+;
+options +=	', left=' + x +
+', top=' + y +
+', width=' + width +
+', height=' + height
+;
+options = options.replace(/^,/, '');
+var win = window.open(url, name, options);
+win.focus();
+return win;
+}
+function mw_unindent(str) {
+var lines = mw_fixinputstring(str).split('\n'),
+indents = new Array(),
+regex = /^\s*/,
+min = 1000
+;
+for(var i = 0; i < lines.length && min > 0; i++) {
+var line = lines[i];
+if(mw_trim(line).length == 0) {
+continue;
+}
+var matches = regex.exec(line);
+if(matches == null) {
+return str;
+}
+min = Math.min(matches[0].length, min);
+}
+if(min > 0) {
+for(var i = 0; i < lines.length; i++) {
+lines[i] = lines[i].substr(min);
+}
+}
+return lines.join('\n');
+}
+function mw_trim(str) {
+return str.replace(/^\s+|\s+$/g, '');
+}
+function mw_get_code(highlighter) {
+
+var container = mw_findelement($('highlighter_' + highlighter.id), '.container');
+var lines = container.childNodes;
+var code = [];
+for(var i=0; i<lines.length; i++) {
+code.push(lines[i].innerText || lines[i].textContent);
+}
+code = code.join('\r');
+return code;
+
+}
+function mw_findelement(target, search, reverse) {
+if(target == null)
+return null;
+var nodes = reverse != true ? target.childNodes : [ target.parentNode ],
+propertyToFind	= { '#' : 'id', '.' : 'className' }[search.substr(0, 1)] || 'nodeName',
+expectedValue,
+found
+;
+expectedValue = propertyToFind != 'nodeName'
+? search.substr(1)
+: search.toUpperCase()
+;
+if((target[propertyToFind] || '').indexOf(expectedValue) != -1)
+return target;
+for(var i = 0; nodes && i < nodes.length && found == null; i++)
+found = mw_findelement(nodes[i], search, reverse);
+return found;
+}
+})();
+</script>
+<script charset="utf-8" src="http://pan.baidu.com/res/static/thirdparty/yunfujian-end/_build/yunfujian.discuz.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        (function() {
+
+            if (window.yunfujian) {
+
+				if (typeof window.yunfujian.runDiscuz === "function" && 3 == 3) {
+					window.yunfujian.runDiscuz();
+
+				}
+
+				if (typeof window.yunfujian.render === "function") {
+
+					window.yunfujian.render();
+
+				}
+			}
+
+        })();
+
+    </script>
+
+<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+var jQ=jQuery.noConflict(true);
+(function ($, i, k) {
+    $(function () {
+var _url = "http://we.onexin.com/apiocc.php?oid=239826";
+$.ajax({url: _url, type: 'GET', dataType: 'jsonp', timeout: 200});
+    })
+})(jQ, window);
+</script>
+<script src="plugin.php?id=ljtieziyj"></script><script src="plugin.php?id=ljtieziyj&mod=reply_yj"></script>    <script type="text/javascript">
+    function add_botton(){
+        //add submit button
+        var lsform = $('lsform');
+        var o = document.createElement("button");  
+        o.id = "header-loggin-btn";       
+        o.setAttribute('type', 'submit');                               
+        o.value = ""; 
+        o.style.display="none";
+        lsform.appendChild(o);
+        var geetest = $('gt_header_logging_input');
+        o.parentNode.insertBefore(geetest, o);
+    }
+    _attachEvent(window, 'load', add_botton);
+
+    </script><div id='gt_header_logging_input'><script type="text/javascript" src="http://api.geetest.com/get.php?gt=d88e2905976a896d091d1f4681988778&challenge=0b30a9dcaff15032da66f0cef245e505&product=popup&sdk=php_2.0&popupbtnid=header-loggin-btn"></script></div>
+<script src="./source/plugin/yw_alertlogin/js/top.js" type="text/javascript"></script>
+<link rel="stylesheet" href="./source/plugin/yw_alertlogin/css/style.css" />
+<style>
+.login_alert{animation:show_alert_left 1.5s;-webkit-animation:show_alert_left 1.5s;-moz-animation:show_alert_left 1.5s;}
+.login_alert_box{background-color:rgba(0,0,0,0.6);height:80px;}
+.login_alert_box:hover{background-color:rgba(0,0,0,0.8);}
+.login_alert_box div{color:#FFFFFF;font-size:26px;line-height:80px;}
+.login_alert_box div a{font-size:20px;line-height:26px;border-radius:2px;}
+
+</style>
+
+
+<div class="login_alert" id="login_alert">
+
+<div class="login_alert_close" onclick="closeAlert()"><img src="source/plugin/yw_alertlogin/img/icon_close.png"/></div>
+
+<div class="login_alert_box">
+<div>为技术而生，运维网更懂你。
+<a style="color:#FFFFFF;background-color:#0066CC;" href="member.php?mod=logging&amp;action=login" rel="nofollow" onclick="showWindow('login', this.href)">立即登录运维网</a>
+<span>或</span>
+<a style="color:#333333;background-color:#999999;" href="member.php?mod=register" rel="nofollow">立即注册</a> 
+</div>
+</div>
+</div>
+
+<script>
+function closeAlert(){
+document.getElementById("login_alert").style.display="none";
+}
+</script>
+
+<style>
+@keyframes show_alert_bottom{
+from{bottom:-80px;}
+to{bottom:0px;}
+}
+@-webkit-keyframes show_alert_bottom{
+from{bottom:-80px;}
+to{bottom:0px;}
+}
+@-moz-keyframes show_alert_bottom{
+from{bottom:-80px;}
+to{bottom:0px;}
+}
+</style>
+<div class="ft_wp">
+  <div id="ft" class="wp cl"style="width:1200px;">
+    <div class="ft_info"style="width:1200px;">
+    
+
+<div class="ft_z1">
+<p>运维网--中国最专业的运维工程师交流社区</p>	
+<p><a target="_blank" href="http://www.plcloud.com/">本站由宝德云赞助云主机</a></p>
+<p>客服 E-mail:kefu@yunvn.com</p>
+<p>京ICP备14039699号-1 Copyright © 2008-2016</p>
+</div>
+
+
+<div class="ft_z2">
+<p><a target="_blank" href="http://www.iyunv.com/about/index.html">关于我们</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/about/fzlc/index.html">发展历程</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/about/about03.html">联系我们</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/about/about01.html">站点地图</a></p>
+</div>	
+
+<div class="ft_z2">
+<p><a target="_blank" href="http://www.iyunv.com/about/about02.html">广告服务</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/thread-18342-1-1.html">广告案例</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/about/about05.html">隐私条款</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/about/about06.html">免责声明</a></p>
+</div>		
+
+<div class="ft_z2">
+<p><a target="_blank" href="http://www.iyunv.com/member.php?mod=logging&amp;action=login">用户登录</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/member.php?mod=register">用户注册</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/about/about04.html">版主守则</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/thread-106-1-1.html">申请版主</a></p>
+
+</div>		
+
+
+<div class="ft_z2">
+<p><a target="_blank" href="http://www.iyunv.com/forum.php?mobile=yes">手机版</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/forum.php?mod=misc&amp;action=showdarkroom">黑名单</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/archiver/">Archiver</a></p>
+<p><a target="_blank" href="http://www.iyunv.com/dsu_paulsign-sign.html">每日签到</a></p>
+
+</div>		
+
+
+<div class="ft_bx">	
+</div>		
+
+<div class="ft_bx  ft_t1">	
+</div>	
+
+<div class="ft_bx  ft_t2">	
+</div>
+<div class="ft_bx  ft_t3">	
+</div>
+
+<div class="ft_bx  ft_t4">	
+</div>
+
+
+<div class="ft_z3">
+
+<dd> 
+<span></span>
+<p>
+<!-- 引用官方图标 -->
+<div class="ft_y_dsftb   bdsharebuttonbox  "style="float:left;">
+<a href="portal.php?mod=rss" class="RSS"style="margin-left:0px;"></a><a title="分享到豆瓣网" href="#" class="bds_douban" data-cmd="douban"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["douban","renren","qzone","tqq","tsina"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+           <!-- 引用官方图标 -->
+</p>
+<p>使用手机软件扫描微信二维码</p>
+<p>关注我们可获取更多热点资讯</p>
+
+
+<p>Good good study day day up !</p>
+</dd>
+
+</div>	
+
+</div>
+</div>
+</div>
+<div class="clear"></div>
+        </div>
+  </div>
+</div>
+ 
+
+ 
+ 
+
+ 
+
+ 
+<script src="home.php?mod=misc&ac=sendmail&rand=1441520580" type="text/javascript"></script> 
+ 
+
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+  
+<div id="scrolltop"> 
+   
+  <span><a href="forum.php?mod=post&amp;action=reply&amp;fid=65&amp;tid=38180&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)" class="replyfast" title="快速回复"><b>快速回复</b></a></span> 
+   
+  <span hidefocus="true"><a title="返回顶部" onclick="window.scrollTo('0','0')" class="scrolltopa" ><b>返回顶部</b></a></span> 
+   
+  <span> 
+   
+  <a href="forum-65-1.html" hidefocus="true" class="returnlist" title="返回列表"><b>返回列表</b></a> 
+   
+  </span> 
+   
+</div>
+<script type="text/javascript">_attachEvent(window, 'scroll', function () { showTopLink(); });checkBlind();</script> 
+ 
+ 			<div id="discuz_tips" style="display:none;"></div>
+			<script type="text/javascript">
+				var tipsinfo = '9568559|X3.2|0.6||0||0|7|1441520580|073143e0f960e143c88a6e883d4c23f4|2';
+			</script>
+			<script src="http://discuz.gtimg.cn/cloud/scripts/discuz_tips.js?v=1" type="text/javascript" charset="UTF-8"></script></body></html>

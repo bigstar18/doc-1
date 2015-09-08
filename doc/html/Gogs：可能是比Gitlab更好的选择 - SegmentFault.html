@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <meta property="qc:admins" content="15317273575564615446375"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui, maximum-scale=1, user-scalable=no"/>
+    <meta name="alexaVerifyID" content="LkzCRJ7rPEUwt6fVey2vhxiw1vQ"/>
+    <meta name="apple-itunes-app" content="app-id=958101793, app-argument=">
+    <title>Gogs：可能是比Gitlab更好的选择 - SegmentFault</title>
+    
+
+            <meta name="description" content="译者注：看到一篇介绍能简单自建git托管服务的项目—— Gogs ——的文章，感觉这个项目很棒，翻译给大家参考一下。 这个项目的四位主要开发者都是中国人，该项目今天蝉联 GitHub Go 语言 Trending 第一。(づ￣3￣)づ..."/>
+    
+            <meta name="keywords"
+              content="gitlab github git 代码托管"/>
+    
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="SegmentFault"/>
+    <link rel="shortcut icon" href="//static.segmentfault.com/global/img/favicon.30f7204d.ico"/>
+    <link rel="apple-touch-icon" href="//static.segmentfault.com/global/img/touch-icon.c78b1075.png">
+
+    <meta name="msapplication-TileColor" content="#009a61"/>
+    <meta name="msapplication-square150x150logo" content="//static.segmentfault.com/global/img/touch-icon.c78b1075.png"/>
+
+    <meta name="userId" value="" id="SFUserId"/>
+    <meta name="userRank" value="" id="SFUserRank"/>
+
+    <link rel="alternate" type="application/atom+xml" title="SegmentFault 最新问题" href="/feeds/questions">
+    <link rel="alternate" type="application/atom+xml" title="SegmentFault 最新文章" href="/feeds/blogs">
+    
+    
+    
+            <link rel="stylesheet" href="//static.segmentfault.com/build/global/css/global.b2e43784.css"/>
+                    <link rel="stylesheet" href="//static.segmentfault.com/build/blog/css/blog_all.3a4fbf5d.css"/>
+                <link rel="stylesheet" href="//static.segmentfault.com/build/global/css/responsive.61fdda2e.css"/>
+        
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="//static.segmentfault.com/global/css/ie.css?"/>
+    <script src="//static.segmentfault.com/global/js/html5shiv.js?"></script>
+    <script src="//static.segmentfault.com/global/js/respond.js?"></script>
+    <![endif]-->
+
+</head>
+<body class="blog-post">
+<!--[if lt IE 9]>
+<div class="alert alert-danger topframe" role="alert">你的浏览器实在<strong>太太太太太太旧了</strong>，放学别走，升级完浏览器再说 <a target="_blank"
+                                                                                                        class="alert-link"
+                                                                                                        href="http://browsehappy.com">立即升级</a>
+</div>
+<![endif]-->
+
+
+<div class="global-nav">
+    <nav class="container nav">
+        <div class="dropdown m-menu">
+            <a href="javascript:void(0);" id="dLabel" class="visible-xs-block m-toptools" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-align-justify"></span>
+                <span class="mobile-menu__unreadpoint"></span>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <li class="mobile-menu__item"><a href="/questions/newest">问答</a></li>
+                <li class="mobile-menu__item"><a href="/blogs">文章</a></li>
+                <li class="mobile-menu__item"><a href="/events">活动</a></li>
+                <li class="mobile-menu__item"><a href="/jobs">职位</a></li>
+                <li class="mobile-menu__item"><a href="/tags">标签</a></li>
+                <li class="mobile-menu__item"><a href="/users">榜单</a></li>
+                <li class="mobile-menu__item"><a href="/sites">子站</a></li>
+                            </ul>
+        </div>
+
+        <h1 class="logo"><a  class="sf" href="/">SegmentFault</a></h1>
+
+                <a href="/user/login" class="visible-xs-block pull-right m-ask m-toptools"><span class="glyphicon glyphicon-log-in"></span></a>
+        
+        <form action="/search" class="header-search pull-left hidden-sm hidden-xs">
+            <button type="submit" class="btn btn-link"><span class="sr-only">搜索</span><span class="glyphicon glyphicon-search"></span></button>
+            <input id="searchBox" name="q" type="text" placeholder="输入关键字搜索" class="form-control" value="">
+        </form>
+
+        <ul class="menu list-inline pull-left hidden-xs">
+            <li class="menu__item"><a href="/questions/newest">问答</a></li>
+            <li class="menu__item"><a href="/blogs">文章</a></li>
+            <li class="menu__item"><a href="/events">活动</a></li>
+            <li class="menu__item"><a href="/users">榜单</a></li>
+            <li class="menu__item dropdown hoverDropdown">
+                <a data-toggle="dropdown" href="/sites" class="more dropdownBtn">
+                    &middot;&middot;&middot;<span class="sr-only">更多</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/jobs">职位</a></li>
+                    <li><a href="/tags">标签</a></li>
+                    <li><a href="/sites">子站</a></li>
+                    <li><a href="/app">移动 App</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <ul class="opts pull-right list-inline hidden-xs">
+                    <!-- <li class="opts__item">赶快加入吧 <a id="sfLogin" href="/user/login" class="SFLogin em ml10" onClick="_gaq.push(['_trackEvent', 'Button', 'Click', 'Login']);">立即登录</a></li> -->
+            <li class="opts__item message has-unread">
+                <a target="_blank" href="/tour">
+                    <span class="sr-only">消息</span>
+                    <span id="messageCount" class="glyphicon glyphicon-envelope"></span>
+                </a>
+            </li>
+            <li class="opts__item">
+                <a href="/user/login" class="SFLogin em ml10" onClick="_gaq.push(['_trackEvent', 'Button', 'Click', 'Login']);">注册 &middot; 登录</a>
+            </li>
+                    </ul>
+    </nav>
+</div>
+
+<div class="wrap">
+    <div class="post-topheader custom-news">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <ol class="breadcrumb">
+                        <li><a href="/blogs">文章</a></li>
+                        <li><a href="/blog/news">新闻</a></li>
+                        <li class="active">文章详情</li>
+                    </ol>
+                    <h1 class="h3 title" id="articleTitle" data-id="1190000002605142"><a href="/a/1190000002605142"> Gogs：可能是比Gitlab更好的选择</a></h1>
+                    <div class="author" data-username="江小湖Laker" data-userslug="younglaker" data-useravatar="http://sfault-avatar.b0.upaiyun.com/125/190/1251900584-1030000000323934_huge128" >
+                        <a href="/u/younglaker" class="mr5"><img class="avatar-24 mr10" src="http://sfault-avatar.b0.upaiyun.com/125/190/1251900584-1030000000323934_huge128" alt="江小湖Laker"><strong>江小湖Laker</strong></a> <strong class="text-black mr10">3.7k</strong>
+                        3月18日 发布
+                                                                    </div>
+                </div>
+                <div class="col-md-3">
+                    <ul class="widget-action--ver list-unstyled">
+                        <li>
+                                                                                            <button type="button" class="btn btn-success btn-sm" data-id="1190000002605142" id="sideLike">推荐</button>
+                                                                                        <strong id="sideLiked">7</strong> 推荐
+                        </li>
+                        <li>
+                                                                                            <button type="button" id="sideBookmark" class="btn btn-default btn-sm" data-id="1190000002605142" data-id="1190000002605142" data-type="article">收藏</button>
+                                                                                        <strong id="sideBookmarked">20</strong> 收藏，<strong class="no-stress">5.6k</strong> 浏览
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!-- end .post-topheader -->
+
+    <div class="container mt30">
+        <div class="row">
+            <div class="col-xs-12 col-md-9 main">
+
+                                                <div class="article fmt">
+                    
+<blockquote>
+  <p>译者注：看到一篇介绍能简单自建git托管服务的项目—— Gogs ——的文章，感觉这个项目很棒，翻译给大家参考一下。<br>
+  这个项目的四位主要开发者都是中国人，该项目今天蝉联 GitHub Go 语言 Trending 第一。(づ￣3￣)づ莫名的自豪感油然而生。希望能有更多优秀的国产项目出现~</p>
+</blockquote>
+
+<p><a rel="nofollow" href="https://gitlab.com/">Gitlab</a>是一个很棒的Git托管服务，几乎像<a rel="nofollow" href="https://github.com/">GitHub</a>一样强大。 但是，有没有能和Gitlab/Github媲美但操作更简单的项目呢？我认为 <a rel="nofollow" href="http://gogs.io/">Gogs</a> 是很好的选择。</p>
+
+<h2>简介</h2>
+
+<p>现在，GitHub已经成为首选的代码托管平台。 因为它又很多很棒的功能，操作简单，几乎所有的开发者都喜欢它。</p>
+
+<p>同时，<a rel="nofollow" href="http://arstechnica.com/information-technology/2015/03/google-to-close-google-code-open-source-project-hosting/">谷歌的代码托管项目准备关闭</a>，你可以把项目转移到这里。</p>
+
+<p>但如果你在写Android应用程序，或者正在创建下一个伟大的iOS游戏，或者不想让别人看到你的代码没，该怎么办？</p>
+
+<p>你当然可以购买私人GitHub库，但你肯定更想把资金投资到更紧迫的事情上。</p>
+
+<p>这就是 Gitlab 和 Gogs 这样的软件诞生的原因。</p>
+
+<p>他们提供的服务和GitHub非常相似，不同的是，你可以把项目放在你自己的服务器上，甚至是自己的工作站上。</p>
+
+<p>下面一起来进行更深入的了解。</p>
+
+<h2>Gitlab</h2>
+
+<p>Gitlab是一个强大的git服务，基本功能和对手GitHub一样。 这是一个成熟的项目和并且在不断更新。</p>
+
+<p><img src="/img/bVk5Pp" alt="clipboard.png"></p>
+
+<p>他们最近收购了<a rel="nofollow" href="https://gitorious.org/">Gitorius</a>（另一个类似GitHub的服务），所以功能将有望得到扩展（<a rel="nofollow" href="http://thenextweb.com/insider/2015/03/03/gitlab-acquires-rival-gitorious-will-shut-june-1/">查看有关收购的新闻剪辑</a>）。</p>
+
+<p>以前是手动安装，很耗时间，问题也很多。最近安装过程有所改善。</p>
+
+<p>现在有 Linux DEB／RPM 的安装包可用（称为Omnibus），解决了所有的依赖问题，简化了安装过程。</p>
+
+<p>升级是一个复杂的事情，尤其是从较早的版本升级到最新版，但也没那么复杂。</p>
+
+<p>然而，你可以感受到很多东西是在后台执行的。 你可以运行 Sidekiq、Unicorn、Nginx、Ruby (包括 gems) 和 Gitlab本身。</p>
+
+<p>自定义安装不是那么简单，有很多不确定因素，如果出了什么差错，要自己一个个排查。</p>
+
+<h2>输入二进制包</h2>
+
+<p>现在，我们有了<a rel="nofollow" href="http://gogs.io/">Gogs</a>。 你所要做的就是运行一个的二进制包。</p>
+
+<p>它是用<a rel="nofollow" href="https://golang.org/">Go</a>语言写的，能兼容各个系统。</p>
+
+<p>它能运行于 Windows，MAC，Linux，ARM 等。</p>
+
+<p><img src="/img/bVk5Pr" alt="clipboard.png"></p>
+
+<p>安装时只需要把压缩包解压到选定的文件夹中。 就是这样。 升级也一样：只要解压压缩包即可。</p>
+
+<p>这就是<a rel="nofollow" href="https://golang.org/">Go语言二进制开发</a>的美，你可以轻松在多个平台下开发。</p>
+
+<p>Gogs占用资源少，所以它很容易在系统资源上运行（它可以在<a rel="nofollow" href="http://www.raspberrypi.org/">Raspberry Pi</a>运行）。</p>
+
+<p>你可以用默认的配置运行，或做一些小调整。</p>
+
+<p>默认的配置文件位于安装文件夹的<code>/conf/app.ini</code>，文档建议把自定义配置写到<code>/custom/conf/app.ini</code>，这样升级就不会覆盖配置。</p>
+
+<p>有三个可自定义的东西：</p>
+
+<ul>
+<li>
+<p>库的位置</p>
+
+<pre><code>[repository]
+ROOT = !! 库的地址 !!
+</code></pre>
+</li>
+<li>
+<p>数据库位置</p>
+
+<pre><code>[database]
+PATH = !! 数据库地址 !!
+</code></pre>
+</li>
+<li><p>公钥</p></li>
+</ul>
+<p><img src="/img/bVk5Pt" alt="clipboard.png"></p>
+
+<p>注意：目前，你需要运行一个SSH服务器（OpenSSH也很好），这和gitlab相同。</p>
+
+<h2>比较</h2>
+
+<p>让我们比较一下这两个产品。 我将以GitHub作为参考。<br></p>
+<table>
+<thead><tr>
+<th>特性</th>
+  <th>Gogs</th>
+  <th>Gitlab</th>
+  <th>Github</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Dashboard &amp; File Browser</td>
+  <td>Y</td>
+  <td>Y</td>
+  <td>Y</td>
+</tr>
+<tr>
+<td>Issue Tracking, Milestones &amp; Commit keywords</td>
+  <td>Y</td>
+  <td>Y</td>
+  <td>Y</td>
+</tr>
+<tr>
+<td>Organizations support</td>
+  <td>N</td>
+  <td>Y</td>
+  <td>Y</td>
+</tr>
+<tr>
+<td>Wiki</td>
+  <td>N</td>
+  <td>Y</td>
+  <td>Y</td>
+</tr>
+<tr>
+<td>Code Review</td>
+  <td>N</td>
+  <td>Y</td>
+  <td>Y</td>
+</tr>
+<tr>
+<td>Code Snippets</td>
+  <td>N</td>
+  <td>Y</td>
+  <td>Y</td>
+</tr>
+<tr>
+<td>Web Hooks</td>
+  <td>Y</td>
+  <td>Y</td>
+  <td>Y</td>
+</tr>
+<tr>
+<td>Git Hooks</td>
+  <td>Y</td>
+  <td>* Enterprise</td>
+  <td>* Enterprise</td>
+</tr>
+<tr>
+<td>LDAP Login</td>
+  <td>Y</td>
+  <td>Y</td>
+  <td>Y</td>
+</tr>
+<tr>
+<td>LDAP Group Sync</td>
+  <td>N</td>
+  <td>* Enterprise</td>
+  <td>* Enterprise</td>
+</tr>
+<tr>
+<td>Branded Login Page</td>
+  <td>N</td>
+  <td>* Enterprise</td>
+  <td>* Enterprise</td>
+</tr>
+<tr>
+<td>Language</td>
+  <td>Go</td>
+  <td>Ruby</td>
+  <td>Ruby</td>
+</tr>
+<tr>
+<td>Platform</td>
+  <td>Cross-Platform</td>
+  <td>Linux</td>
+  <td>* Virtual Machine</td>
+</tr>
+<tr>
+<td>License</td>
+  <td>MIT</td>
+  <td>MIT</td>
+  <td>Proprietary</td>
+</tr>
+<tr>
+<td>Resource Usage</td>
+  <td>Low</td>
+  <td>Medium/High</td>
+  <td>Medium/High</td>
+</tr>
+</tbody>
+</table>
+<p>代码审查（拉取请求）可以说是缺失的最重要的功能。 这是 Gogs 在<a rel="nofollow" href="https://github.com/gogits/gogs/issues/5">Github issues</a> 里首要问题，Gogs的主要开发者正在尽力开发中。</p>
+
+<p>但总的来说，这是一个功能丰富的、私有的Git托管服务。</p>
+
+<h2>运行一个 Gogs docker</h2>
+
+<p>我<a rel="nofollow" href="http://www.apertoire.net/dockeritazion">以前描述</a>我如何我的服务器环境docker化，所以我也会把gogs作为Docker容器来运行</p>
+
+<p>让我们一步一步来做。</p>
+
+<p>假设我有一个应用程序的文件在我的服务器根目录<code>/home/kayak/apps</code>，给每个作为Docker容器的应用创建子目录。</p>
+
+<p>下载并解压最新版本gogs。</p>
+
+<pre><code>$ cd /home/kayak/apps
+$ wget http://gogs.dn.qbox.me/gogs_v0.5.13_linux_amd64.zip
+$ unzip gogs_v0.5.13_linux_amd64.zip
+$ rm gogs_v0.5.13_linux_amd64.zip
+</code></pre>
+
+<p>自定义配置</p>
+
+<pre><code>$ cd gogs
+$ mkdir -p custom/conf
+$ cd custom/conf
+$ nano app.ini
+[repository]
+ROOT = !! this is the location where you want to keep the repositories !!
+
+[database]
+PATH = !! this is the location of your database (sqlite3 by default) !!
+</code></pre>
+
+<p>注： 你也可以不把gogs作为docker容器，直接运行。</p>
+
+<p>现在让我们创建dockerfile</p>
+
+<pre><code>$ cd /home/kayak/apps/gogs
+$ nano Dockerfile
+
+FROM ubuntu:14.04
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed 's/main$/main universe multiverse/' -i /etc/apt/sources.list &amp;&amp; \
+    apt-get update &amp;&amp; apt-mark hold initscripts &amp;&amp; \
+    apt-get install -y sudo openssh-server git &amp;&amp; \
+    apt-get clean
+
+EXPOSE 22 3000
+
+RUN addgroup --gid 501 kayak &amp;&amp; adduser --uid 501 --gid 501 --disabled-password --gecos 'kayak' kayak &amp;&amp; adduser kayak sudo
+
+WORKDIR /home/kayak
+ENV HOME /home/kayak
+
+ENTRYPOINT ["/home/kayak/boot"]
+</code></pre>
+
+<p>dockerfile是基于最新的Ubuntu LTS版服务器（14.04）。</p>
+
+<p>然后安装 sudo, openssh 和 git，暴露端口22（用于SSH）和3000（给gogs的Web界面）。</p>
+
+<p>另外，我通常会创建一个用户（这里用 kayak），它具有与我的Max box用户相同的UID/GID，以防止访问权限问题。</p>
+
+<p>最后，启动shell脚本运行。</p>
+
+<pre><code>$ touch boot
+$ chmod +x boot
+$ nano boot
+#!/bin/bash
+
+sudo -u kayak -H touch /home/kayak/.ssh/authorized_keys
+chmod 700 /home/kayak/.ssh &amp;&amp; chmod 600 /home/kayak/.ssh/authorized_keys
+
+# start openssh server
+mkdir /var/run/sshd
+/usr/sbin/sshd -D &amp;
+
+exec sudo -u kayak /home/kayak/gogs web
+</code></pre>
+
+<p>这样就运行了ssh守护进程和gogs。现在是以kayak用户运行，这样比用默认的root用户好一些。</p>
+
+<p>建立镜像</p>
+
+<pre><code>$ cd /home/kayak/apps/gogs
+$ docker build --rm -t apertoire/gogs .
+</code></pre>
+
+<p>镜像建立好就可以运行了</p>
+
+<pre><code>$ docker run -d --name gogs \
+-v /etc/localtime:/etc/localtime:ro \
+-v /home/kayak/apps/gogs:/home/kayak \
+-p 62723:22 \
+-p 3000:3000 \
+apertoire/gogs
+</code></pre>
+
+<p>可以在命令行查看运行情况。</p>
+
+<p><img src="/img/bVk5R1" alt="clipboard.png"></p>
+
+<p>现在可以打开网页界面，它会显示一个安装页面（首次运行）。</p>
+
+<p><img src="/img/bVk5R2" alt="clipboard.png"></p>
+
+<p>安装完成后，就搭建好一个功能丰富的Gogs了。</p>
+
+<p><img src="/img/bVk5R3" alt="clipboard.png"></p>
+
+<h2>总结</h2>
+
+<p>Gogs 是一个轻量级的、易于设置、跨平台的Git托管服务，不逊色于 Gitlab 和 GitHub。</p>
+
+<p>虽然不比这二者成熟，但它有很大的潜力。</p>
+
+<p>它是开源的，所以你可以帮助改善它。</p>
+
+<p>我用Gogs取代Gitlab几个月了，感觉不错。</p>
+
+<p>我创建42个库，感觉它的性能非常好。</p>
+
+<p>我绝对推荐Gogs作为你的Git自托管服务。</p>
+
+<h2>附该项目在Github上的4位开发者：</h2>
+
+<table>
+<thead><tr>
+<th><img src="/img/bVk5U5" alt="clipboard.png"></th>
+  <th><img src="/img/bVk5U8" alt="clipboard.png"></th>
+  <th><img src="/img/bVk5U9" alt="clipboard.png"></th>
+  <th><img src="/img/bVk5Uw" alt="clipboard.png"></th>
+</tr></thead>
+<tbody><tr>
+<td><a rel="nofollow" href="http://weibo.com/Obahua#_rnd1426665680212">无闻Unknwon</a></td>
+  <td><a rel="nofollow" href="https://github.com/slene">Liu Peng</a></td>
+  <td><a rel="nofollow" href="http://weibo.com/xiaolunwen">Lunny Xiao</a></td>
+  <td><a rel="nofollow" href="http://weibo.com/fuxiaohei/">傅小黑</a></td>
+</tr></tbody>
+</table>
+<hr>
+<p>英文原文 <a rel="nofollow" href="http://www.apertoire.net/gogs-an-alternative-to-gitlab/">Gogs, an alternative to Gitlab</a><br>
+整理编译 <a rel="nofollow" href="http://segmentfault.com/blog/news/1190000002605142">SegmentFault</a></p>
+
+                </div>
+                                
+                <div class="clearfix">
+
+                    <ul class="taglist--inline pull-left">
+                                                <li class="tagPopup"><a class="tag" href="/t/gitlab/blogs" data-toggle="popover" data-img="" data-placement="top" data-original-title="gitlab" data-id="1040000000154452">gitlab</a></li>
+                                                <li class="tagPopup"><a class="tag" href="/t/github/blogs" data-toggle="popover" data-img="http://sfault-avatar.b0.upaiyun.com/154/051/1540511964-1040000000091226_huge100" data-placement="top" data-original-title="github" data-id="1040000000091226">github</a></li>
+                                                <li class="tagPopup"><a class="tag" href="/t/git/blogs" data-toggle="popover" data-img="http://sfault-avatar.b0.upaiyun.com/346/251/346251195-1040000000089459_huge100" data-placement="top" data-original-title="git" data-id="1040000000089459">git</a></li>
+                                                <li class="tagPopup"><a class="tag" href="/t/%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1/blogs" data-toggle="popover" data-img="" data-placement="top" data-original-title="代码托管" data-id="1040000000339921">代码托管</a></li>
+                                            </ul>
+
+                </div>
+                <div class="clearfix mt10">
+                    <ul class="article-operation list-inline pull-left">
+                        <li><a href="/a/1190000002605142" class="text-muted">链接</a></li>
+                                                                                                <li class="dropdown">
+                            <a href="javascript:void(0);" class="dropdown-toggle text-muted" data-toggle="dropdown">更多<b class="caret"></b></a>
+                            <ul class="dropdown-menu dropdown-menu-left">
+                                <li><a href="#911" data-toggle="modal" data-target="#911" data-type="article" data-id="1190000002605142" data-typetext="文章">举报</a></li>
+                                                                                                                                                                                                        </ul>
+                        </li>
+                    </ul>
+                    <div class="pull-right post-share">
+                        <div class="widget-share" data-text="Gogs：可能是比Gitlab更好的选择">
+</div>
+
+                    </div>
+                </div>
+
+                <div class="text-center mt10">
+                
+                    <button type="button" id="mainLike" data-id="1190000002605142" class="btn btn-success btn-lg mr10">
+                        7 推荐
+                    </button>
+                
+                                    <button type="button" id="mainBookmark" data-type="article" data-id="1190000002605142" class="btn btn-default btn-lg ">
+                        收藏
+                    </button>
+                                </div>
+
+                
+                                <div class="recommend-post pt30 mt40 mb30 border-top">
+                    <h4 class="mt0">你可能感兴趣的文章</h4>
+                    <ul class="widget-links list-unstyled">
+                                                <li class="widget-links__item">
+                            <a href="/a/1190000002994742" title="gitlab/github 多账户下设置 ssh keys">gitlab/github 多账户下设置 ssh keys</a>
+                            <small class="text-muted">
+                                15 收藏，918 浏览
+                            </small>
+                        </li>
+                                                <li class="widget-links__item">
+                            <a href="/a/1190000000374128" title="细数国内代码协作平台">细数国内代码协作平台</a>
+                            <small class="text-muted">
+                                26 收藏，11.6k 浏览
+                            </small>
+                        </li>
+                                                <li class="widget-links__item">
+                            <a href="/a/1190000000345686" title="用GitLab搭建自己的私有GitHub">用GitLab搭建自己的私有GitHub</a>
+                            <small class="text-muted">
+                                69 收藏，44.1k 浏览
+                            </small>
+                        </li>
+                                            </ul>
+                </div>
+                                <!-- <ul class="list-unstyled text-muted mt30">
+                                        <li>上一篇：<a href="/a/1190000002599453">Web开发利器推荐（四）</a></li>
+                                                            <li class="mt5">下一篇：<a href="/a/1190000002610048">Web开发利器推荐（五）</a></li>
+                                    </ul> -->
+
+                <h2 class="h4 post-comment-title">讨论区</h2>
+                <div class="widget-comments" id="comment-1190000002605142" data-id="1190000002605142">
+        <div class="widget-comments__item hover-show" id="1050000002611055">
+        <div class="votes widget-vote">
+            <button class="like" data-id="1050000002611055" type="button" data-do="like" data-type="comment"></button>
+            <span class="count">0</span>
+        </div>
+        <div class="comment-content wordbreak">
+                                    <div class="content fmt">
+                
+<p>gitlab不是也可以用docker安装升级嘛？</p>
+
+            </div>
+            <p class="comment-meta">
+                <a href="/c/1050000002611055" class="text-muted">#1</a> <a href="/u/limichange" class="commentUser" data-userid="1030000000514546" data-username="limichange" data-userslug="" data-useravatar="http://sfault-avatar.b0.upaiyun.com/118/519/1185192865-558023aac4ea9_medium40">
+                    <strong>limichange</strong>
+                </a>
+                &middot;
+                3月20日
+                &middot;
+                <a href="javascript:void(0);" class="commentReply" data-userid="1030000000514546" data-id="1050000002611055" data-username="limichange">回复</a>
+
+                <span class="pull-right commentTools hover-show-obj">
+                                                            <a href="#911" class="ml10" data-toggle="modal" data-target="#911" data-type="comment" data-id="1050000002611055" data-typetext="评论" data-placement="top" title="举报">举报</a>
+                </span>
+            </p>
+        </div>
+    </div>
+                        <a href="javascript:void(0);" class="comments showMoreComments" data-id="1190000002605142" data-target="#comment-1190000002605142">展开评论</a>
+        <div class="widget-comments__form row hidden">
+                                    <div class="col-md-12">
+                    请先 <a class="commentLogin" href="javascript:void(0);">登录</a> 后评论
+                </div>
+            
+    </div><!-- /.widget-comments__form -->
+    </div><!-- /.widget-comments -->
+
+
+
+                                    
+                
+            </div><!-- /.main -->
+
+
+            <div class="col-xs-12 col-md-3 side">
+                <div class="sfad-sidebar">
+    <div class="sfad-item" data-adn="ad-1119908" id="adid-1119908">
+    <button class="close" type="button" aria-hidden="true">&times;</button>
+</div>
+
+</div>
+
+
+                <div class="widget-box no-border">
+                    <p class="text-muted">本文隶属于专栏</p>
+                    <h4 class="fz16"><a href="/blog/news">新闻</a></h4>
+                    <p class="wordbreak">新闻资讯一手掌握</p>
+                                                        <button type="button"
+                        class="btn btn-default follow-article"
+                        data-do="follow"
+                        data-type="blog"
+                        data-id="1200000000309635">关注专栏</button>
+                                                    </div>
+
+                
+                                
+                <div class="post-nav hidden-xs">
+                    <div class="panel panel-default widget-outline">
+                        <div class="panel-heading">文章目录</div>
+                        <div class="panel-body">
+                            <div class="nav-body">
+                                <div class="highlight-title"></div>
+                                <ul class="articleIndex"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.side -->
+        </div>
+    </div>
+</div>
+
+<div id="shareToWeiboModal" class="modal" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">分享</h4>
+            </div>
+            <div class="modal-body">
+                <p class="sfModal-content">
+                    分享到微博？
+                </p>
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-default dont-likeweibo" data-dismiss="modal">取消并且不再弹出</button>
+                <a href="" id="shareLink" class="btn btn-primary done-btn" target="_blank" onclick="$('#shareToWeiboModal').modal('hide')">分享</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="hidden widget-register widget-welcome-question mt20 hidden-xs widget-welcome widget-register-slideUp">
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="title h4">与我们一起探索更多的未知</h2>
+            <p>专业的开发者技术社区，为用户提供多样化的线上知识交流，丰富的线下活动及给力的工作机会</p>
+        </div>
+        <form action="/api/user/register/fast" method="post">
+            <div class="col-sm-5">
+                <div class="form-group mb0">
+                    <input type="text" class="form-control" placeholder="邮箱地址" name="mail" required="">
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <button type="submit" class="btn btn-primary btn-block">加入只需一步</button>
+            </div>
+            <div class="col-sm-10 mt10 captcha-part" style="display:none;">
+                <div class="row">
+                    <div class="col-sm-4 pr0">
+                        <input type="text" class="form-control" name="captcha" placeholder="请输入验证码" disabled="" required="">
+                    </div>
+                    <div class="col-sm-4 pr0">
+                        <a href="javascript:void(0)"><img src="" height="35"></a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <a class="close" href="javascript:void(0);"><span>×</span></a>
+    </div>
+</div>
+</div>
+
+<div id="911" class="modal widget-911">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">举报<span class="type-911">问题</span></h4>
+            </div>
+            <div class="modal-body">
+                <p><strong class="required">举报理由：</strong></p>
+                <div id="reportDescription">
+                <div class="radio-911 radio all">
+                    <label>
+                        <input type="radio" name="descRadio" checked value="推广（招聘、广告、SEO 等）方面的内容">
+                        推广（招聘、广告、SEO 等）方面的内容
+                    </label>
+                </div>
+                <div class="radio-911 radio all">
+                    <label>
+                        <input type="radio" name="descRadio" value="带有人身攻击、辱骂、仇恨等违反条款的内容">
+                        带有人身攻击、辱骂、仇恨等违反条款的内容
+                    </label>
+                </div>
+                <div class="radio-911 radio question-only">
+                    <label>
+                        <input type="radio" name="descRadio" value="与已有问题重复">
+                        与已有问题重复（请编辑该提问指向已有相同问题）
+                    </label>
+                </div>
+                <div class="radio-911 radio all">
+                    <label>
+                        <input type="radio" name="descRadio" value="不友善内容">
+                        不友善内容
+                    </label>
+                </div>
+                <div class="radio-911 radio answer-only">
+                    <label>
+                        <input type="radio" name="descRadio" value="答非所问，不符合答题要求">
+                        答非所问，不符合答题要求
+                    </label>
+                </div>
+                <div class="radio-911 radio all" id="btwRadio">
+                    <label>
+                        <input type="radio" name="descRadio" value="">
+                        其他原因（请补充说明）
+                    </label>
+                </div>
+                <div class="hide btw">
+                    <p class="mt20"><strong>补充说明：</strong></p>
+                    <textarea class="form-control" rows="3" autocomplete="false" id="911Desc"></textarea>
+                </div>
+                                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" id="911Submit" class="btn btn-primary">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<footer id="footer">
+<div class="container">
+    <div class="row hidden-xs">
+        <dl class="col-sm-2 site-link">
+            <dt>网站相关</dt>
+            <dd><a href="/about">关于我们</a></dd>
+            <dd><a href="/tos">服务条款</a></dd>
+            <dd><a href="/faq">帮助中心</a></dd>
+            <dd><a href="/repu">声望与权限</a></dd>
+            <dd><a href="/markdown">编辑器语法</a></dd>
+            <dd><a href="http://weekly.segmentfault.com/">每周精选</a></dd>
+            <dd><a href="/app">App 下载</a></dd>
+        </dl>
+        <dl class="col-sm-2 site-link">
+            <dt>联系合作</dt>
+            <dd><a href="/contact">联系我们</a></dd>
+            <dd><a href="/hiring">加入我们</a></dd>
+            <dd><a href="/link">合作伙伴</a></dd>
+            <dd><a href="/press">媒体报道</a></dd>
+            <dd><a href="http://0x.segmentfault.com">建议反馈</a></dd>
+            <dd><a href="http://pan.baidu.com/share/link?shareid=604288&uk=839272106" target="_blank">Logo 下载</a></dd>
+        </dl>
+        <dl class="col-sm-2 site-link">
+            <dt>常用链接</dt>
+            <dd><a href="http://mirrors.segmentfault.com/" target="_blank">文档镜像</a></dd>
+            <dd>订阅：<a href="/feeds">问答</a> / <a href="/feeds/blogs">文章</a></dd>
+            <dd><a href="http://segmentfault.com/events?category=4">黑客马拉松</a></dd>
+<!--             <dd><a href="http://zs.segmentfault.com/" target="_blank">一起涨姿势</a></dd> -->
+            <dd><a href="http://namebeta.com/" target="_blank">域名搜索注册</a></dd>
+        </dl>
+        <dl class="col-sm-2 site-link">
+            <dt>关注我们</dt>
+            <dd><a href="http://twitter.com/segment_fault" target="_blank">Twitter</a></dd>
+            <!-- <dd><a href="http://page.renren.com/699146294" target="_blank">人人网</a></dd> -->
+            <dd><a href="https://www.linkedin.com/company/segmentfault" target="_blank">LinkedIn</a></dd>
+            <dd><a href="http://weibo.com/segmentfault" target="_blank">新浪微博</a></dd>
+            <dd><a href="http://i.youku.com/segmentfault" target="_blank">优酷主页</a></dd>
+            <dd><a href="/giveaways" target="_blank">开发者福利</a></dd>
+            <dd><a href="/blog/segmentfault" target="_blank">开发日志</a></dd>
+        </dl>
+        <dl class="col-sm-4 site-link" id="license">
+            <dt>内容许可</dt>
+            <dd>除特别说明外，用户内容均采用 <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-sa/3.0/cn/">知识共享署名-相同方式共享 3.0 中国大陆许可协议</a> 进行许可</dd>
+            <dd>本站由 <a target="_blank" href="http://qingcloud.com/">青云 QingCloud</a> 提供云计算服务<br><a target="_blank" href="https://www.upyun.com/?utm_source=segmentfault&utm_medium=link&utm_campaign=upyun&md=segmentfault">又拍云</a> 提供 CDN 存储服务</dd>
+            <dd><a key="55e59bd4efbfb0241247d4e4" logo_size="83x30"  logo_type="realname" href="http://www.anquan.org"><script src="http://static.anquan.org/static/outer/js/aq_auth.js"></script></a></dd>
+        </dl>
+    </div>
+    <div class="copyright">
+        Copyright &copy; 2011-2015 SegmentFault. 当前呈现版本 15.08.10<br><a href="http://www.miibeian.gov.cn/" rel="nofollow">浙ICP备15005796号-2</a>
+    </div>
+</div>
+</footer>
+
+<div id="fixedTools" class="hidden-xs hidden-sm">
+  <a id="backtop" class="hidden border-bottom" href="#">回顶部</a>
+  <div class="qrcodeWraper">
+    <a href="/app#qrcode"><span class="glyphicon glyphicon-qrcode"></span></a>
+    <img id="qrcode" class="border" alt="sf-wechat" src="//static.segmentfault.com/page/img/app/appQrcode.92de1876.png">
+      <p class="qrcode-text">扫扫下载 App</p>
+  </div>
+</div>
+
+
+<div class="app-promotion-bar">
+    <a href="javascript:;"><i class="fa fa-close close"></i></a>
+    <div class="icon"></div>
+    <p class="title">SegmentFault</p>
+    <p class="describe">一起探索更多未知</p>
+    <a class="download-btn" href="/app#qrcode">下载 App</a>
+</div>
+
+<script id="loginModal" type="text/template">
+<div class="row bg-white login-modal">
+    <div class="col-md-4 col-sm-12 col-md-push-7 login-wrap">
+        <h1 class="h4 text-muted login-title">用户登录</h1>
+        <form action="/api/user/login" method="POST" role="form" class="mt30">
+            <div class="form-group">
+                <label class="control-label">Email</label>
+                <input type="email" class="form-control" name="mail" required placeholder="hello@segmentfault.com">
+            </div>
+            <div class="form-group">
+                <label class="control-label">密码</label>
+                <input type="password" class="form-control" name="password" required placeholder="密码">
+            </div>
+            <div class="form-group clearfix">
+                <div class="checkbox pull-left">
+                    <label><input name="remember" type="checkbox" value="1" checked> 记住登录状态</label>
+                </div>
+                <button type="submit" class="btn btn-primary pull-right pl20 pr20">登录</button>
+            </div>
+        </form>
+        <p class="h4 text-muted visible-xs-block h4">快速登录</p>
+        <div class="widget-login mt30">
+            <p class="text-muted mt5 mr10 pull-left hidden-xs">快速登录</p>
+            <a href="/user/oauth/google" class="btn pl5 pr5 mb5 btn-default btn-sm btn-sn-google"><span class="icon-sn-google"></span> <strong class="visible-xs-inline">Google 账号</strong></a>
+            <a href="/user/oauth/github" class="btn pl5 pr5 mb5 btn-default btn-sm btn-sn-github"><span class="icon-sn-github"></span> <strong class="visible-xs-inline">Github 账号</strong></a>
+            <a href="/user/oauth/weibo" class="btn pl5 pr5 mb5 btn-default btn-sm btn-sn-weibo"><span class="icon-sn-weibo"></span> <strong class="visible-xs-inline">新浪微博账号</strong></a>
+            <a href="/user/oauth/qq" class="btn pl5 pr5 mb5 btn-default btn-sm btn-sn-qq"><span class="icon-sn-qq"></span> <strong class="visible-xs-inline">QQ 账号</strong></a>
+            <a href="/user/oauth/weixin" class="btn pl5 pr5 mb5 btn-default btn-sm btn-sn-wechat"><span class="icon-sn-wechat"></span> <strong class="visible-xs-inline">微信账号</strong></a>
+            <button type="button" class="btn mb5 btn-default btn-sm btn-sn-more" id="loginShowMore">...</button>
+            <a href="/user/oauth/twitter" class="btn pl5 pr5 mb5 btn-default btn-sn-twitter btn-sm hidden"><span class="icon-sn-twitter"></span> <strong class="visible-xs-inline">Twitter 账号</strong></a>
+            <a href="/user/oauth/facebook" class="btn pl5 pr5 mb5 btn-default btn-sn-facebook btn-sm hidden"><span class="icon-sn-facebook"></span> <strong class="visible-xs-inline">Facebook 账号</strong></a>
+            <a href="/user/oauth/douban" class="btn pl5 pr5 mb5 btn-default btn-sn-douban btn-sm hidden"><span class="icon-sn-douban"></span> <strong class="visible-xs-inline">豆瓣账号</strong></a>
+        </div>
+    </div>
+    <div class="login-vline hidden-xs hidden-sm"></div>
+    <div class="col-md-4 col-md-pull-3 col-sm-12 login-wrap">
+        <h1 class="h4 text-muted login-title">创建新账号</h1>
+        <form action="/api/user/register" method="POST" role="form" class="mt30">
+            <div class="form-group">
+                <label for="name" class="control-label">用户名</label>
+                <input type="text" class="form-control" name="name" required placeholder="字母、数字等，用户名唯一">
+            </div>
+            <div class="form-group">
+                <label for="mail" class="control-label">Email</label>
+                <input type="hidden" name="mail">
+                <input type="email" class="form-control register-mail" name="mail" required placeholder="hello@segmentfault.com">
+            </div>
+            <div class="form-group">
+                <label for="password" class="control-label">密码</label>
+                <input type="password" class="form-control" name="password" required placeholder="不少于 6 位">
+            </div>
+            <div class="form-group" style="display:none;">
+                <label class="required control-label">验证码</label>
+                <input type="text" class="form-control" id="captcha" name="captcha" placeholder="请输入下方的验证码">
+                <div class="mt10"><a id="loginReloadCaptcha"  href="javascript:void(0)"><img data-src="/user/captcha?w=240&h=50" class="captcha" width="240" height="50" /></a></div>
+            </div>
+            <div class="form-group clearfix">
+                <div class="checkbox pull-left">
+                    同意并接受<a href="/tos" target="_blank">《服务条款》</a>
+                </div>
+                <button type="submit" class="btn btn-primary pl20 pr20 pull-right">注册</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="text-center text-muted mt30">
+    <a href="/user/forgot" class="ml5">找回密码</a>
+</div>
+</script>
+
+
+<script>
+    (function (w) {
+        w.SF = {
+            staticUrl: "//static.segmentfault.com",
+        };
+        w.SF.token = (function () {
+    var _LB0Ag = //'pho'
+'9'+'f'//'sG'
++/* 'b'//'b' */''+//'bA'
+'e1'+'d6e'//'ZH'
++'9NI'//'9NI'
++//'HA'
+'3b0'+''///*'zH7'*/'zH7'
++//'rI4'
+'aa7'+'lcB'//'lcB'
++''///*'P'*/'P'
++//'tF'
+'7ff'+//'OL'
+'OL'+'7'//'Gmc'
++'sb6'//'sb6'
++'KE'//'KE'
++''///*'W'*/'W'
++'73'//'lvv'
++//'jD'
+'53c'+/* '86'//'86' */''+'368'//'D'
++//'K'
+'1b'+'d'//'Ohw'
++'6a1'//'x'
++''///*'ig4'*/'ig4'
++'6'//'6'
++//'oAb'
+'f', _WrX2O8t = [[7,10],[13,16],[16,18],[17,20],[17,19],[31,32]];
+
+    for (var i = 0; i < _WrX2O8t.length; i ++) {
+        _LB0Ag = _LB0Ag.substring(0, _WrX2O8t[i][0]) + _LB0Ag.substring(_WrX2O8t[i][1]);
+    }
+
+    return _LB0Ag;
+})();
+    })(window);
+</script>
+
+    <script src="//static.segmentfault.com/build/3rd/assets.ce4fe392.js"></script>
+    <script>
+    requirejs.config({
+        baseUrl: "//static.segmentfault.com/build/global/js"
+    });
+    </script>
+            <script src="//static.segmentfault.com/build/blog/js/post.eb7ecc1e.js"></script>
+    
+<script>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-918487-8']);
+  _gaq.push(['_trackPageview']);
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-918487-8', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?e23800c454aa573c0ccb16b52665ac26";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<script src="http://cbjs.baidu.com/js/m.js"></script>
+<script>
+if(typeof BAIDU_CLB_fillSlotAsync === 'function') {
+    BAIDU_CLB_fillSlotAsync('981183','adid-981183');
+    BAIDU_CLB_fillSlotAsync('981184','adid-981184');
+    BAIDU_CLB_fillSlotAsync('981694','adid-981694');
+    BAIDU_CLB_fillSlotAsync('981179','adid-981179');
+    BAIDU_CLB_fillSlotAsync('1119908','adid-1119908');
+}
+</script>
+
+
+</body>
+</html>
