@@ -1,5 +1,7 @@
-yum groupinstall 'Development Tools'
+关闭selinux    setenforce 0
+yum下载下来的文件保存默认路径是： /var/cache/yum
 
+yum groupinstall 'Development Tools'
 
 rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
@@ -12,42 +14,56 @@ rpm -Uvh http://repo.mysql.com/mysql-community-release-el6.rpm
 yum install mysql-community-server
 
 yum repolist
-yum-config-manager --enable epel --enable PUIAS_6_computational
+#yum-config-manager --enable epel --enable PUIAS_6_computational
+
+https://www.ruby-lang.org/en/downloads/
+curl --progress https://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.7.tar.gz | tar xz
 
 
 https://github.com/git/git/releases
-
-
 #./configure
 #sudo make prefix=/usr/local/git all 
 #sudo make prefix=/usr/local/git install 
 #sudo ln -s /usr/local/git/bin/* /usr/bin/ 
-
-https://www.ruby-lang.org/en/downloads/
-
-curl --progress https://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.7.tar.gz | tar xz
-
  ./configure && make && make prefix=/usr/local install
-git config --global user.name "admin"
-git config --global user.email "admin@yrdce.com"
+git config --global user.name "huangxx"
+git config --global user.email "huangxx@yrdce.com"
 git clone git://github.com/res0nat0r/gitosis.git
 
 visudo
 Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
-
 adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
 usermod -a -G git nginx
 chmod g+rx /home/git/
 
+
+sudo -u git -H git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b 7-14-stable gitlab
+vim Gemfile
+email_from: huangxx@yrdce.com
 mysql -ugit -pgitpwd -D gitlabhq_production
-
-wget -O /etc/nginx/conf.d/gitlab.conf https://gitlab.com/gitlab-org/gitlab-ce/raw/master/lib/support/nginx/gitlab-ssl
-
-#用户名：root
-#密码：5iveL!fe
-
 openssl req -new -x509 -nodes -days 3560 -out gitlab.crt -keyout gitlab.key
 
+wget -O /etc/nginx/conf.d/gitlab.conf https://gitlab.com/gitlab-org/gitlab-ce/raw/master/lib/support/nginx/gitlab-ssl
+#用户名：root    #密码：5iveL!fe
+
+
+gitlab-git-http-server
+wget https://gitlab.com/gitlab-org/gitlab-git-http-server/repository/archive.zip
+yum install golang  
+rpm -ivh http://ftp.riken.jp/Linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm  
+nohup gitlab-git-http-server -listenNetwork="unix" /home/git/repositories/ &
+
+https://packages.gitlab.com/gitlab/gitlab-ce
+echo "export http_proxy=itwhy:123456@173.239.120.101:80" > ~/.profile
+export http_proxy=itwhy:123456@proxy.itwhy.org:8080
+export http_proxy=itwhy:123456@173.239.120.101:80 & curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
+sudo gitlab-ctl reconfigure    sudo gitlab-ctl restart unicorn
+
+/etc/yum.conf   keepcache=0为下载后清除 keepcache=1为下载后保存
+$ sudo yum install --downloadonly <package-name>
+
+
+select * from L_Dictionary where `key`='FrontMaxErrorLogonTimes';
 #<virtualhost *:80>
         #Servername gitrepo
         #DocumentRoot /home/git/repo/dev

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Download GitLab Community Edition (CE) | GitLab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link rel="alternate" type="application/atom+xml" title="Blog" href="/atom.xml" />
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+<link href="/stylesheets/glyphicons.css" rel="stylesheet">
+<link href="/stylesheets/base.css" rel="stylesheet">
+<link href="/stylesheets/sticky_footer.css" rel="stylesheet">
+<link href="/stylesheets/animate.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="/stylesheets/downloads.css">
+
+
+
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link rel="shortcut icon" href="/ico/favicon.ico">
+  <link rel="apple-touch-icon" sizes="57x57" href="/ico/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/ico/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/ico/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/ico/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/ico/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/ico/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/ico/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/ico/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/ico/favicon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/ico/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/ico/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/ico/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/ico/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#554488">
+  <meta name="msapplication-TileImage" content="/ico/mstile-144x144.png">
+  <meta name="msapplication-config" content="/ico/browserconfig.xml">
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37019925-1']);
+  _gaq.push(['_setDomainName', 'gitlab.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+  <!-- start Mixpanel --><script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+  mixpanel.init("6333f1d48be61570a8e762feafcbea08");</script><!-- end Mixpanel -->
+</head>
+<body data-spy="scroll" data-target".qnav">
+
+  <div class="navbar navbar-fixed-top navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-gl-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand animated" href="/"><svg width="140" height="44" viewBox="0 0 1231 342" xmlns="http://www.w3.org/2000/svg" class="nav-logo">
+  <title>
+    wm_web
+  </title>
+  <g fill="none" fill-rule="evenodd">
+    <g fill="#FFF">
+      <path d="M764.367 94.13h-20.803l.066 154.74h84.155v-19.136h-63.352l-.066-135.603zM907.917 221.7c-5.2 5.434-13.946 10.87-25.766 10.87-15.838 0-22.22-7.797-22.22-17.957 0-15.354 10.637-22.678 33.332-22.678 4.255 0 11.11.472 14.655 1.18v28.586zm-21.51-93.787c-16.8 0-32.208 5.952-44.23 15.858l7.352 12.73c8.51-4.962 18.91-9.924 33.802-9.924 17.02 0 24.585 8.742 24.585 23.39v7.56c-3.31-.71-10.164-1.184-14.42-1.184-36.404 0-54.842 12.757-54.842 39.454 0 23.86 14.656 35.908 36.876 35.908 14.97 0 29.314-6.852 34.278-17.954l3.782 15.118h14.657v-79.14c0-25.04-10.874-41.815-41.84-41.815zM995.368 233.277c-7.802 0-14.657-.945-19.858-3.308v-71.58c7.093-5.908 15.84-10.16 26.95-10.16 20.092 0 27.893 14.174 27.893 37.09 0 32.6-12.53 47.957-34.985 47.957m8.742-105.364c-18.592 0-28.6 12.64-28.6 12.64V120.59l-.066-26.458H955.116l.066 150.957c10.164 4.25 24.11 6.613 39.24 6.613 38.768 0 57.442-24.804 57.442-67.564 0-33.783-17.26-56.227-47.754-56.227M538.238 110.904c18.438 0 30.258 6.142 38.06 12.285l8.938-15.477c-12.184-10.678-28.573-16.417-46.053-16.417-44.204 0-75.17 26.932-75.17 81.267 0 56.935 33.407 79.14 71.624 79.14 19.148 0 35.46-4.488 46.096-8.976l-.435-60.832V162.76h-56.734v19.135h36.167l.437 46.184c-4.727 2.362-13 4.252-24.11 4.252-30.73 0-51.297-19.32-51.297-60.006 0-41.34 21.275-61.422 52.478-61.422M684.534 94.13h-20.33l.066 25.988v89.771c0 25.04 10.874 41.814 41.84 41.814 4.28 0 8.465-.39 12.53-1.126v-18.245c-2.943.45-6.083.707-9.455.707-17.02 0-24.585-8.74-24.585-23.387v-61.895h34.04v-17.01H684.6l-.066-36.617zM612.62 248.87h20.33V130.747h-20.33v118.12zM612.62 114.448h20.33V94.13h-20.33v20.318z"/>
+    </g>
+    <path d="M185.398 341.13l68.013-209.322H117.39L185.4 341.13z" fill="#E24329" class="logo-svg-shape logo-dark-orange-shape"/>
+    <path d="M185.398 341.13l-68.013-209.322h-95.32L185.4 341.128z" fill="#FC6D26" class="logo-svg-shape logo-orange-shape"/>
+    <path d="M22.066 131.808l-20.67 63.61c-1.884 5.803.18 12.16 5.117 15.744L185.398 341.13 22.066 131.807z" fill="#FCA326" class="logo-svg-shape logo-light-orange-shape"/>
+    <path d="M22.066 131.808h95.32L76.42 5.735c-2.107-6.487-11.284-6.487-13.39 0L22.065 131.808z" fill="#E24329" class="logo-svg-shape logo-dark-orange-shape"/>
+    <path d="M185.398 341.13l68.013-209.322h95.32L185.4 341.128z" fill="#FC6D26" class="logo-svg-shape logo-orange-shape"/>
+    <path d="M348.73 131.808l20.67 63.61c1.884 5.803-.18 12.16-5.117 15.744L185.398 341.13 348.73 131.807z" fill="#FCA326" class="logo-svg-shape logo-light-orange-shape"/>
+    <path d="M348.73 131.808h-95.32L294.376 5.735c2.108-6.487 11.285-6.487 13.392 0l40.963 126.073z" fill="#E24329" class="logo-svg-shape logo-dark-orange-shape"/>
+  </g>
+</svg>
+</a>
+        
+      </div>
+
+      <div class="collapse navbar-collapse" id="main-gl-nav">
+        <ul class="nav pull-right animated navbar-nav">
+          <li><a href="/downloads/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Download']);">Download</a></li>
+          <li><a href="/features/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Features']);">Features</a></li>
+          <li><a href="/pricing/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Pricing']);">Pricing</a></li>
+          <li><a href="/gitlab-com/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'GitLab.com']);">GitLab.com</a></li>
+          <li><a href="/gitlab-ci/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'GitLab CI']);">GitLab CI</a></li>
+          <li><a href="/community/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Community']);">Community</a></li>
+          <li><a href="/blog/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Blog']);">Blog</a></li>
+          <li><a href="https://gitlab.com/users/sign_in" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Sign in']);" class="sign-in-up-btn">Sign in</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+    
+    <div class="simple-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <h1>Download GitLab Community Edition (CE)</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="wrapper container">
+
+  <div class="row graphic-menu">
+
+    <div class="col-md-3 hidden-sm hidden-xs">
+      <img src="/images/downloads/logo.svg" class="img-responsive pack-fox">
+    </div>
+
+    <div class="col-md-9">
+      <div class="installation-instructions">
+
+        <h2 class="heavy">Install a GitLab CE Omnibus package on</h2>
+
+        <!-- dropdown button -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle btn-lg" data-toggle="dropdown" onClick="_gaq.push(['_trackEvent', 'Downloads', 'OS Select', 'Dropdown Open']);">
+            Select Operating System <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+          
+            <li><a href="#ubuntu1204" onClick="_gaq.push(['_trackEvent', 'Downloads', 'OS Select', '#ubuntu1204']);">Ubuntu 12.04</a></li>
+          
+            <li><a href="#ubuntu1404" onClick="_gaq.push(['_trackEvent', 'Downloads', 'OS Select', '#ubuntu1404']);">Ubuntu 14.04</a></li>
+          
+            <li><a href="#debian7" onClick="_gaq.push(['_trackEvent', 'Downloads', 'OS Select', '#debian7']);">Debian 7</a></li>
+          
+            <li><a href="#debian8" onClick="_gaq.push(['_trackEvent', 'Downloads', 'OS Select', '#debian8']);">Debian 8</a></li>
+          
+            <li><a href="#centos6" onClick="_gaq.push(['_trackEvent', 'Downloads', 'OS Select', '#centos6']);">CentOS 6 (and RedHat/Oracle/Scientific Linux 6)</a></li>
+          
+            <li><a href="#centos7" onClick="_gaq.push(['_trackEvent', 'Downloads', 'OS Select', '#centos7']);">CentOS 7 (and RedHat/Oracle/Scientific Linux 7)</a></li>
+          
+            <li><a href="#raspberrypi2" onClick="_gaq.push(['_trackEvent', 'Downloads', 'OS Select', '#raspberrypi2']);">Raspberry PI 2 on Raspbian</a></li>
+          
+          </ul>
+        </div>
+
+        <!-- / dropdown button -->
+        <div id="tabs">
+          
+          <div class="tab" id="ubuntu1204">
+
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> Check if your server meets <a class="green" href="http://doc.gitlab.com/ce/install/requirements.html">the hardware requirements.</a> GitLab packages are built for 64bit systems. For 32bit OS, consider <a class="green" href="https://about.gitlab.com/installation/">alternative installation methods.</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>1. Install and configure the necessary dependencies</h4>
+              <p>
+                If you install Postfix to send email please select 'Internet Site' during setup.
+                Instead of using Postfix you can also use Sendmail or <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md">configure a custom SMTP server</a>.
+                If you wish to use Exim, please <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md#smtp-on-localhost">configure it as an SMTP server.</a>
+              </p>
+              <p>
+              On Centos 6 and 7, the commands below will also open HTTP and SSH access in the system firewall.
+              </p>
+              <p>
+                <pre>sudo apt-get install curl openssh-server ca-certificates postfix
+</pre>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>2. Add the GitLab package server and install the package</h4>
+              <p>
+              <pre>curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+sudo apt-get install gitlab-ce
+</pre>
+              If you are not comfortable installing the repository through a
+              piped script, you can find the <a href="https://packages.gitlab.com/gitlab/gitlab-ce/install">entire script here</a>.
+              </p>
+              Alternatively you can <a href="https://packages.gitlab.com/gitlab/gitlab-ce">select and download the package manually</a> and install using
+              <pre>dpkg -i gitlab-ce-XXX.deb</pre>
+            </div>
+
+            <div class="tab-step">
+              <h4>3. Configure and start GitLab</h4>
+              <p>
+                <pre>sudo gitlab-ctl reconfigure</pre>
+              </p>
+            </div>
+
+            <div class="tab-step">
+              <h4>4. Browse to the hostname and login</h4>
+              <p>
+                Username: root
+                <br />
+                Password: 5iveL!fe
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> For configuration and troubleshooting options please see the <a class="green" href="http://doc.gitlab.com/omnibus/">Omnibus GitLab documentation</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>Tweet about it!</p>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://about.gitlab.com" data-text="I just installed Gitlab: open source software to collaborate on code. Check it out!" data-via="gitlab" data-size="large">Tweet about it!</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+          </div>
+        
+          <div class="tab" id="ubuntu1404">
+
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> Check if your server meets <a class="green" href="http://doc.gitlab.com/ce/install/requirements.html">the hardware requirements.</a> GitLab packages are built for 64bit systems. For 32bit OS, consider <a class="green" href="https://about.gitlab.com/installation/">alternative installation methods.</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>1. Install and configure the necessary dependencies</h4>
+              <p>
+                If you install Postfix to send email please select 'Internet Site' during setup.
+                Instead of using Postfix you can also use Sendmail or <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md">configure a custom SMTP server</a>.
+                If you wish to use Exim, please <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md#smtp-on-localhost">configure it as an SMTP server.</a>
+              </p>
+              <p>
+              On Centos 6 and 7, the commands below will also open HTTP and SSH access in the system firewall.
+              </p>
+              <p>
+                <pre>sudo apt-get install curl openssh-server ca-certificates postfix
+</pre>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>2. Add the GitLab package server and install the package</h4>
+              <p>
+              <pre>curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+sudo apt-get install gitlab-ce
+</pre>
+              If you are not comfortable installing the repository through a
+              piped script, you can find the <a href="https://packages.gitlab.com/gitlab/gitlab-ce/install">entire script here</a>.
+              </p>
+              Alternatively you can <a href="https://packages.gitlab.com/gitlab/gitlab-ce">select and download the package manually</a> and install using
+              <pre>dpkg -i gitlab-ce-XXX.deb</pre>
+            </div>
+
+            <div class="tab-step">
+              <h4>3. Configure and start GitLab</h4>
+              <p>
+                <pre>sudo gitlab-ctl reconfigure</pre>
+              </p>
+            </div>
+
+            <div class="tab-step">
+              <h4>4. Browse to the hostname and login</h4>
+              <p>
+                Username: root
+                <br />
+                Password: 5iveL!fe
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> For configuration and troubleshooting options please see the <a class="green" href="http://doc.gitlab.com/omnibus/">Omnibus GitLab documentation</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>Tweet about it!</p>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://about.gitlab.com" data-text="I just installed Gitlab: open source software to collaborate on code. Check it out!" data-via="gitlab" data-size="large">Tweet about it!</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+          </div>
+        
+          <div class="tab" id="debian7">
+
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> Check if your server meets <a class="green" href="http://doc.gitlab.com/ce/install/requirements.html">the hardware requirements.</a> GitLab packages are built for 64bit systems. For 32bit OS, consider <a class="green" href="https://about.gitlab.com/installation/">alternative installation methods.</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>1. Install and configure the necessary dependencies</h4>
+              <p>
+                If you install Postfix to send email please select 'Internet Site' during setup.
+                Instead of using Postfix you can also use Sendmail or <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md">configure a custom SMTP server</a>.
+                If you wish to use Exim, please <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md#smtp-on-localhost">configure it as an SMTP server.</a>
+              </p>
+              <p>
+              On Centos 6 and 7, the commands below will also open HTTP and SSH access in the system firewall.
+              </p>
+              <p>
+                <pre>sudo apt-get install curl openssh-server ca-certificates postfix
+</pre>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>2. Add the GitLab package server and install the package</h4>
+              <p>
+              <pre>curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+sudo apt-get install gitlab-ce
+</pre>
+              If you are not comfortable installing the repository through a
+              piped script, you can find the <a href="https://packages.gitlab.com/gitlab/gitlab-ce/install">entire script here</a>.
+              </p>
+              Alternatively you can <a href="https://packages.gitlab.com/gitlab/gitlab-ce">select and download the package manually</a> and install using
+              <pre>dpkg -i gitlab-ce-XXX.deb</pre>
+            </div>
+
+            <div class="tab-step">
+              <h4>3. Configure and start GitLab</h4>
+              <p>
+                <pre>sudo gitlab-ctl reconfigure</pre>
+              </p>
+            </div>
+
+            <div class="tab-step">
+              <h4>4. Browse to the hostname and login</h4>
+              <p>
+                Username: root
+                <br />
+                Password: 5iveL!fe
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> For configuration and troubleshooting options please see the <a class="green" href="http://doc.gitlab.com/omnibus/">Omnibus GitLab documentation</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>Tweet about it!</p>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://about.gitlab.com" data-text="I just installed Gitlab: open source software to collaborate on code. Check it out!" data-via="gitlab" data-size="large">Tweet about it!</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+          </div>
+        
+          <div class="tab" id="debian8">
+
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> Check if your server meets <a class="green" href="http://doc.gitlab.com/ce/install/requirements.html">the hardware requirements.</a> GitLab packages are built for 64bit systems. For 32bit OS, consider <a class="green" href="https://about.gitlab.com/installation/">alternative installation methods.</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>1. Install and configure the necessary dependencies</h4>
+              <p>
+                If you install Postfix to send email please select 'Internet Site' during setup.
+                Instead of using Postfix you can also use Sendmail or <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md">configure a custom SMTP server</a>.
+                If you wish to use Exim, please <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md#smtp-on-localhost">configure it as an SMTP server.</a>
+              </p>
+              <p>
+              On Centos 6 and 7, the commands below will also open HTTP and SSH access in the system firewall.
+              </p>
+              <p>
+                <pre>sudo apt-get install curl openssh-server ca-certificates postfix
+</pre>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>2. Add the GitLab package server and install the package</h4>
+              <p>
+              <pre>curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+sudo apt-get install gitlab-ce
+</pre>
+              If you are not comfortable installing the repository through a
+              piped script, you can find the <a href="https://packages.gitlab.com/gitlab/gitlab-ce/install">entire script here</a>.
+              </p>
+              Alternatively you can <a href="https://packages.gitlab.com/gitlab/gitlab-ce">select and download the package manually</a> and install using
+              <pre>dpkg -i gitlab-ce-XXX.deb</pre>
+            </div>
+
+            <div class="tab-step">
+              <h4>3. Configure and start GitLab</h4>
+              <p>
+                <pre>sudo gitlab-ctl reconfigure</pre>
+              </p>
+            </div>
+
+            <div class="tab-step">
+              <h4>4. Browse to the hostname and login</h4>
+              <p>
+                Username: root
+                <br />
+                Password: 5iveL!fe
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> For configuration and troubleshooting options please see the <a class="green" href="http://doc.gitlab.com/omnibus/">Omnibus GitLab documentation</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>Tweet about it!</p>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://about.gitlab.com" data-text="I just installed Gitlab: open source software to collaborate on code. Check it out!" data-via="gitlab" data-size="large">Tweet about it!</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+          </div>
+        
+          <div class="tab" id="centos6">
+
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> Check if your server meets <a class="green" href="http://doc.gitlab.com/ce/install/requirements.html">the hardware requirements.</a> GitLab packages are built for 64bit systems. For 32bit OS, consider <a class="green" href="https://about.gitlab.com/installation/">alternative installation methods.</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>1. Install and configure the necessary dependencies</h4>
+              <p>
+                If you install Postfix to send email please select 'Internet Site' during setup.
+                Instead of using Postfix you can also use Sendmail or <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md">configure a custom SMTP server</a>.
+                If you wish to use Exim, please <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md#smtp-on-localhost">configure it as an SMTP server.</a>
+              </p>
+              <p>
+              On Centos 6 and 7, the commands below will also open HTTP and SSH access in the system firewall.
+              </p>
+              <p>
+                <pre>sudo yum install curl openssh-server postfix cronie
+sudo service postfix start
+sudo chkconfig postfix on
+sudo lokkit -s http -s ssh</pre>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>2. Add the GitLab package server and install the package</h4>
+              <p>
+              <pre>curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
+sudo yum install gitlab-ce
+</pre>
+              If you are not comfortable installing the repository through a
+              piped script, you can find the <a href="https://packages.gitlab.com/gitlab/gitlab-ce/install">entire script here</a>.
+              </p>
+              Alternatively you can <a href="https://packages.gitlab.com/gitlab/gitlab-ce">select and download the package manually</a> and install using
+              <pre>rpm -i gitlab-ce-XXX.rpm</pre>
+            </div>
+
+            <div class="tab-step">
+              <h4>3. Configure and start GitLab</h4>
+              <p>
+                <pre>sudo gitlab-ctl reconfigure</pre>
+              </p>
+            </div>
+
+            <div class="tab-step">
+              <h4>4. Browse to the hostname and login</h4>
+              <p>
+                Username: root
+                <br />
+                Password: 5iveL!fe
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> For configuration and troubleshooting options please see the <a class="green" href="http://doc.gitlab.com/omnibus/">Omnibus GitLab documentation</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>Tweet about it!</p>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://about.gitlab.com" data-text="I just installed Gitlab: open source software to collaborate on code. Check it out!" data-via="gitlab" data-size="large">Tweet about it!</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+          </div>
+        
+          <div class="tab" id="centos7">
+
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> Check if your server meets <a class="green" href="http://doc.gitlab.com/ce/install/requirements.html">the hardware requirements.</a> GitLab packages are built for 64bit systems. For 32bit OS, consider <a class="green" href="https://about.gitlab.com/installation/">alternative installation methods.</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>1. Install and configure the necessary dependencies</h4>
+              <p>
+                If you install Postfix to send email please select 'Internet Site' during setup.
+                Instead of using Postfix you can also use Sendmail or <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md">configure a custom SMTP server</a>.
+                If you wish to use Exim, please <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md#smtp-on-localhost">configure it as an SMTP server.</a>
+              </p>
+              <p>
+              On Centos 6 and 7, the commands below will also open HTTP and SSH access in the system firewall.
+              </p>
+              <p>
+                <pre>sudo yum install curl openssh-server
+sudo systemctl enable sshd
+sudo systemctl start sshd
+sudo yum install postfix
+sudo systemctl enable postfix
+sudo systemctl start postfix
+sudo firewall-cmd --permanent --add-service=http
+sudo systemctl reload firewalld
+</pre>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>2. Add the GitLab package server and install the package</h4>
+              <p>
+              <pre>curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
+sudo yum install gitlab-ce
+</pre>
+              If you are not comfortable installing the repository through a
+              piped script, you can find the <a href="https://packages.gitlab.com/gitlab/gitlab-ce/install">entire script here</a>.
+              </p>
+              Alternatively you can <a href="https://packages.gitlab.com/gitlab/gitlab-ce">select and download the package manually</a> and install using
+              <pre>rpm -i gitlab-ce-XXX.rpm</pre>
+            </div>
+
+            <div class="tab-step">
+              <h4>3. Configure and start GitLab</h4>
+              <p>
+                <pre>sudo gitlab-ctl reconfigure</pre>
+              </p>
+            </div>
+
+            <div class="tab-step">
+              <h4>4. Browse to the hostname and login</h4>
+              <p>
+                Username: root
+                <br />
+                Password: 5iveL!fe
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> For configuration and troubleshooting options please see the <a class="green" href="http://doc.gitlab.com/omnibus/">Omnibus GitLab documentation</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>Tweet about it!</p>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://about.gitlab.com" data-text="I just installed Gitlab: open source software to collaborate on code. Check it out!" data-via="gitlab" data-size="large">Tweet about it!</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+          </div>
+        
+          <div class="tab" id="raspberrypi2">
+
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> Check if your server meets <a class="green" href="http://doc.gitlab.com/ce/install/requirements.html">the hardware requirements.</a> GitLab packages are built for 64bit systems. For 32bit OS, consider <a class="green" href="https://about.gitlab.com/installation/">alternative installation methods.</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>1. Install and configure the necessary dependencies</h4>
+              <p>
+                If you install Postfix to send email please select 'Internet Site' during setup.
+                Instead of using Postfix you can also use Sendmail or <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md">configure a custom SMTP server</a>.
+                If you wish to use Exim, please <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/smtp.md#smtp-on-localhost">configure it as an SMTP server.</a>
+              </p>
+              <p>
+              On Centos 6 and 7, the commands below will also open HTTP and SSH access in the system firewall.
+              </p>
+              <p>
+                <pre>sudo apt-get install curl openssh-server ca-certificates postfix apt-transport-https
+curl https://packages.gitlab.com/gpg.key | apt-key add -
+</pre>
+              </p>
+            </div>
+            <div class="tab-step">
+              <h4>2. Add the GitLab package server and install the package</h4>
+              <p>
+              <pre>sudo curl -o /etc/apt/sources.list.d/gitlab_ce.list "https://packages.gitlab.com/install/repositories/gitlab/raspberry-pi2/config_file.list?os=debian&dist=wheezy" && sudo apt-get update
+
+sudo apt-get install gitlab-ce
+</pre>
+              If you are not comfortable installing the repository through a
+              piped script, you can find the <a href="https://packages.gitlab.com/gitlab/gitlab-ce/install">entire script here</a>.
+              </p>
+              Alternatively you can <a href="https://packages.gitlab.com/gitlab/gitlab-ce">select and download the package manually</a> and install using
+              <pre>dpkg -i gitlab-ce-XXX.deb</pre>
+            </div>
+
+            <div class="tab-step">
+              <h4>3. Configure and start GitLab</h4>
+              <p>
+                <pre>sudo gitlab-ctl reconfigure</pre>
+              </p>
+            </div>
+
+            <div class="tab-step">
+              <h4>4. Browse to the hostname and login</h4>
+              <p>
+                Username: root
+                <br />
+                Password: 5iveL!fe
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>
+                <i class="glyphicons-circle_info green"></i> For configuration and troubleshooting options please see the <a class="green" href="http://doc.gitlab.com/omnibus/">Omnibus GitLab documentation</a>
+              </p>
+            </div>
+            <div class="tab-step">
+              <p>Tweet about it!</p>
+              <a href="https://twitter.com/share" class="twitter-share-button" data-url="https://about.gitlab.com" data-text="I just installed Gitlab: open source software to collaborate on code. Check it out!" data-via="gitlab" data-size="large">Tweet about it!</a>
+              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+          </div>
+        
+        </div>
+      </div>
+      <div class="other-downloads">
+  <h3>Omnibus Packages</h3>
+  <h5><a class="green" href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md">Troubleshooting and configuration options</a></h5>
+  <h5><a href="https://packages.gitlab.com/gitlab/gitlab-ce">Download the package</a></h5>
+  <h5><a href="/update">Update GitLab instance</a></h5>
+  <h5><a href="/aws">GitLab Community Edition AWS AMI (preloaded Omnibus package)</a></h5>
+  <h5><a href="/installation/">Alternative installation methods</a></h5>
+  <h5><a href="http://doc.gitlab.com/ce/install/requirements.html">Installation requirements</a></h5>
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+    <div id="footer" class="footer">
+  
+    <div class="source-link">
+      This page is generated from <a href="https://gitlab.com/gitlab-com/www-gitlab-com/blob/master/source/downloads/index.html">a public file on GitLab.com</a> – merge requests with improvements are very welcome.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0; margin-left: 10px;" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+
+    </div>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-15">
+        <h3>Products</h3>
+        <ul class="animated">
+          <li><a href="/features/">Community Edition</a></li>
+          <li><a href="/features/#enterprise">Enterprise Edition</a></li>
+          <li><a href="/gitlab-ci/">Continuous Integration</a></li>
+          <li><a href="/gitlab-com/">GitLab.com</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-15">
+        <h3>Services</h3>
+        <ul class="animated">
+          <li><a href="/pricing/">Pricing</a></li>
+          <li><a href="/consultancy/">Consultancy</a></li>
+          <li><a href="/development/">Development</a></li>
+          <li><a href="/training/">Training</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-15">
+        <h3>Community</h3>
+        <ul class="animated">
+          <li><a href="/core-team/">Core Team</a></li>
+          <li><a href="http://contributors.gitlab.com/">Contributors</a></li>
+          <li><a href="/documentation/">Documentation</a></li>
+          <li><a href="/getting-help/">Getting Help</a></li>
+          <li><a href="/contributing/">Contributing</a></li>
+          <li><a href="/applications/">Applications</a></li>
+          <li><a href="/mvp/">Hall of Fame</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-15">
+        <h3>Company</h3>
+        <ul class="animated">
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/press/">Press and Logos</a></li>
+          <li><a href="/about/">About Us</a></li>
+          <li><a href="/team/">Team</a></li>
+          <li><a href="/jobs/">Jobs</a></li>
+          <li><a href="/terms/">Terms</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-15">
+        <h3>Social</h3>
+        <ul class="animated">
+          <li><a href="https://twitter.com/gitlab"><i class="fa fa-twitter"></i> Twitter</a></li>
+          <li><a href="https://plus.google.com/107491817347842790515/posts"><i class="fa fa-google-plus"></i> Google+</a></li>
+          <li><a href="https://www.facebook.com/gitlab"><i class="fa fa-facebook"></i> Facebook</a></li>
+          <li><a href="https://www.youtube.com/channel/UCnMGQ8QHMAnVIsI3xJrihhg"><i class="fa fa-youtube"></i> YouTube</a></li>
+          <li><a href="https://www.linkedin.com/company/gitlab-com"><i class="fa fa-linkedin"></i> LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery.min.js"><\/script>')</script>
+<script src="/javascripts/libs/bootstrap.min.js"></script>
+<script src="/javascripts/libs/jquery.fitvids.js"></script>
+<script src="/javascripts/libs/jqBootstrapValidation.js"></script>
+<script src="/javascripts/libs/jquery.magnific-popup.min.js"></script>
+<script src="/javascripts/libs/bounce.js"></script>
+<script src="/javascripts/header.js"></script>
+<script src="/javascripts/scroll.js"></script>
+
+
+  <script src="/javascripts/downloads.js"></script>
+
+<script src="/javascripts/mp.js"></script>
+
+
+<!-- Google Code for Remarketing Tag -->
+<!--
+Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+-->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 968513482;
+var google_conversion_label = "a-CXCPqluQUQlqi33AM";
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/968513482/?value=0&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+
+<script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
+<script type="text/javascript">
+twttr.conversion.trackPid('l5hzj');</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt="" src="https://analytics.twitter.com/i/adsct?txn_id=l5hzj&p_id=Twitter" />
+<img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=l5hzj&p_id=Twitter" /></noscript>
+
+  </body>
+</html>

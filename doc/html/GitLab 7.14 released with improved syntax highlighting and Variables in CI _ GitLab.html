@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GitLab 7.14 released with improved syntax highlighting and Variables in CI | GitLab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <link rel="alternate" type="application/atom+xml" title="Blog" href="/atom.xml" />
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+
+  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+<link href="/stylesheets/glyphicons.css" rel="stylesheet">
+<link href="/stylesheets/base.css" rel="stylesheet">
+<link href="/stylesheets/sticky_footer.css" rel="stylesheet">
+<link href="/stylesheets/animate.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="/stylesheets/blog.css">
+
+
+
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link rel="shortcut icon" href="/ico/favicon.ico">
+  <link rel="apple-touch-icon" sizes="57x57" href="/ico/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/ico/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/ico/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/ico/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/ico/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/ico/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/ico/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/ico/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/ico/favicon-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/ico/favicon-160x160.png" sizes="160x160">
+  <link rel="icon" type="image/png" href="/ico/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/ico/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/ico/favicon-32x32.png" sizes="32x32">
+  <meta name="msapplication-TileColor" content="#554488">
+  <meta name="msapplication-TileImage" content="/ico/mstile-144x144.png">
+  <meta name="msapplication-config" content="/ico/browserconfig.xml">
+
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-37019925-1']);
+  _gaq.push(['_setDomainName', 'gitlab.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+  <!-- start Mixpanel --><script type="text/javascript">(function(f,b){if(!b.__SV){var a,e,i,g;window.mixpanel=b;b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");
+  for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,e,d])};b.__SV=1.2;a=f.createElement("script");a.type="text/javascript";a.async=!0;a.src="//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";e=f.getElementsByTagName("script")[0];e.parentNode.insertBefore(a,e)}})(document,window.mixpanel||[]);
+  mixpanel.init("6333f1d48be61570a8e762feafcbea08");</script><!-- end Mixpanel -->
+</head>
+<body data-spy="scroll" data-target".qnav">
+
+  <div class="navbar navbar-fixed-top navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-gl-nav">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        
+        <a class="navbar-brand animated" href="/"><svg width="140" height="44" viewBox="0 0 1231 342" xmlns="http://www.w3.org/2000/svg" class="nav-logo">
+  <title>
+    wm_web
+  </title>
+  <g fill="none" fill-rule="evenodd">
+    <g fill="#FFF">
+      <path d="M764.367 94.13h-20.803l.066 154.74h84.155v-19.136h-63.352l-.066-135.603zM907.917 221.7c-5.2 5.434-13.946 10.87-25.766 10.87-15.838 0-22.22-7.797-22.22-17.957 0-15.354 10.637-22.678 33.332-22.678 4.255 0 11.11.472 14.655 1.18v28.586zm-21.51-93.787c-16.8 0-32.208 5.952-44.23 15.858l7.352 12.73c8.51-4.962 18.91-9.924 33.802-9.924 17.02 0 24.585 8.742 24.585 23.39v7.56c-3.31-.71-10.164-1.184-14.42-1.184-36.404 0-54.842 12.757-54.842 39.454 0 23.86 14.656 35.908 36.876 35.908 14.97 0 29.314-6.852 34.278-17.954l3.782 15.118h14.657v-79.14c0-25.04-10.874-41.815-41.84-41.815zM995.368 233.277c-7.802 0-14.657-.945-19.858-3.308v-71.58c7.093-5.908 15.84-10.16 26.95-10.16 20.092 0 27.893 14.174 27.893 37.09 0 32.6-12.53 47.957-34.985 47.957m8.742-105.364c-18.592 0-28.6 12.64-28.6 12.64V120.59l-.066-26.458H955.116l.066 150.957c10.164 4.25 24.11 6.613 39.24 6.613 38.768 0 57.442-24.804 57.442-67.564 0-33.783-17.26-56.227-47.754-56.227M538.238 110.904c18.438 0 30.258 6.142 38.06 12.285l8.938-15.477c-12.184-10.678-28.573-16.417-46.053-16.417-44.204 0-75.17 26.932-75.17 81.267 0 56.935 33.407 79.14 71.624 79.14 19.148 0 35.46-4.488 46.096-8.976l-.435-60.832V162.76h-56.734v19.135h36.167l.437 46.184c-4.727 2.362-13 4.252-24.11 4.252-30.73 0-51.297-19.32-51.297-60.006 0-41.34 21.275-61.422 52.478-61.422M684.534 94.13h-20.33l.066 25.988v89.771c0 25.04 10.874 41.814 41.84 41.814 4.28 0 8.465-.39 12.53-1.126v-18.245c-2.943.45-6.083.707-9.455.707-17.02 0-24.585-8.74-24.585-23.387v-61.895h34.04v-17.01H684.6l-.066-36.617zM612.62 248.87h20.33V130.747h-20.33v118.12zM612.62 114.448h20.33V94.13h-20.33v20.318z"/>
+    </g>
+    <path d="M185.398 341.13l68.013-209.322H117.39L185.4 341.13z" fill="#E24329" class="logo-svg-shape logo-dark-orange-shape"/>
+    <path d="M185.398 341.13l-68.013-209.322h-95.32L185.4 341.128z" fill="#FC6D26" class="logo-svg-shape logo-orange-shape"/>
+    <path d="M22.066 131.808l-20.67 63.61c-1.884 5.803.18 12.16 5.117 15.744L185.398 341.13 22.066 131.807z" fill="#FCA326" class="logo-svg-shape logo-light-orange-shape"/>
+    <path d="M22.066 131.808h95.32L76.42 5.735c-2.107-6.487-11.284-6.487-13.39 0L22.065 131.808z" fill="#E24329" class="logo-svg-shape logo-dark-orange-shape"/>
+    <path d="M185.398 341.13l68.013-209.322h95.32L185.4 341.128z" fill="#FC6D26" class="logo-svg-shape logo-orange-shape"/>
+    <path d="M348.73 131.808l20.67 63.61c1.884 5.803-.18 12.16-5.117 15.744L185.398 341.13 348.73 131.807z" fill="#FCA326" class="logo-svg-shape logo-light-orange-shape"/>
+    <path d="M348.73 131.808h-95.32L294.376 5.735c2.108-6.487 11.285-6.487 13.392 0l40.963 126.073z" fill="#E24329" class="logo-svg-shape logo-dark-orange-shape"/>
+  </g>
+</svg>
+</a>
+        
+      </div>
+
+      <div class="collapse navbar-collapse" id="main-gl-nav">
+        <ul class="nav pull-right animated navbar-nav">
+          <li><a href="/downloads/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Download']);">Download</a></li>
+          <li><a href="/features/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Features']);">Features</a></li>
+          <li><a href="/pricing/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Pricing']);">Pricing</a></li>
+          <li><a href="/gitlab-com/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'GitLab.com']);">GitLab.com</a></li>
+          <li><a href="/gitlab-ci/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'GitLab CI']);">GitLab CI</a></li>
+          <li><a href="/community/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Community']);">Community</a></li>
+          <li><a href="/blog/" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Blog']);">Blog</a></li>
+          <li><a href="https://gitlab.com/users/sign_in" onClick="_gaq.push(['_trackEvent', 'Top navigation', 'Sign in']);" class="sign-in-up-btn">Sign in</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+    <div id="content blog">
+      
+        <div class="image-title" style="background: url(/images/7_14/sf.jpg); background-size: 100%; background-attachment: fixed;">
+          <div class="color-bg">
+            <h1>GitLab 7.14 released with improved syntax highlighting and Variables in CI</h1>
+          </div>
+        </div>
+      
+      <div class="container full-post">
+        <div class="row">
+          <div class="col-sm-12">
+              <div class="row">
+                <div class="col-sm-12 blog-entry">
+                  
+                    <h4 class="date">
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  <div class="author"><a href="https://www.twitter.com/gitlab">GitLab</a></div>
+
+Aug 22, 2015</h4>
+                  
+
+                  <p>Today we&rsquo;re pleased to announce version 7.14 of GitLab Community Edition (CE),
+GitLab Enterprise Edition (EE), and GitLab CI.</p>
+
+<p>Whereas next month&rsquo;s release, version 8.0, promises many new and exciting
+features, our focus for 7.14 has been on fixing bugs and improving performance
+and usability. Many of these bug fixes were contributed by this month&rsquo;s
+<a href="https://about.gitlab.com/mvp/">MVP</a> Stan Hu, bringing his total number of
+awards to four. Thank you and congratulations, Stan!</p>
+
+<p>To celebrate Stan&rsquo;s hat-trick + 1 (4 MVP titles in the 7.x major release)
+GitLab is giving him an extra weekend in Amsterdam after he joins us with the
+rest of the core team for our summit during OSCON.</p>
+
+<!--more-->
+
+
+<h2>Beta: support for long git push/pull over HTTPS</h2>
+
+<p>GitLab supports two protocols for pushing and fetching Git data from Git clients
+such as the <code>git</code> command and <a href="https://git-scm.com/downloads/guis">GUI clients</a>:
+SSH and HTTPS. Traditionally, the SSH protocol has been the best and sometimes
+only way to do long-running (i.e., slow or large) push/pull operations from Git
+on your computer to a GitLab server. One of the reasons for this is that
+<a href="http://unicorn.bogomips.org/">Unicorn</a>, the Ruby web application server used by
+GitLab, is not designed to handle many concurrent long-running requests. With
+Unicorn, long git pushes/pull will often fail (due to a timeout) after hogging
+precious resources (Unicorn workers) for a long time.</p>
+
+<p>To address this problem, we created
+<a href="https://gitlab.com/gitlab-org/gitlab-git-http-server">gitlab-git-http-server</a>,
+a stand-alone web server written in <a href="https://golang.org/">Go</a> to take over (most
+of) the job of serving Git HTTP requests. We use Nginx to route HTTP requests
+either to Unicorn (normal requests) or gitlab-git-http-server (Git clients).</p>
+
+<p>In the GitLab 7.14 Omnibus packages, gitlab-git-http-server is included but
+disabled by default. In GitLab 8.0 we will deprecate the old Git HTTP server in
+GitLab (<a href="https://gitlab.com/gitlab-org/gitlab-grack">grack</a>).</p>
+
+<p>If you want to start using gitlab-git-http-server ahead of the 8.0 release, as
+we will on <a href="https://gitlab.com">gitlab.com</a>, you can add the following settings
+to <code>/etc/gitlab/gitlab.rb</code>:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>gitlab_rails['env'] = {
+</span><span class='line'>  'GITLAB_GRACK_AUTH_ONLY' =&gt; '1'
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>gitlab_git_http_server['enable'] = true</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Run <code>gitlab-ctl reconfigure</code> and <code>gitlab-ctl restart unicorn</code> after updating
+your <code>gitlab.rb</code> file.</p>
+
+<h2>Improved syntax highlighting</h2>
+
+<p>GitLab has implemented the popular <a href="http://rouge.jneen.net/">Rouge</a> library as
+our syntax highlighter of choice. Rouge has support for 72 languages and does
+a great job of properly highlighting your files in GitLab.</p>
+
+<h2>Show who edited a discussion note</h2>
+
+<p>When a note is edited by someone other than its original author, such as a
+project administrator, we now show who it was along with the time.</p>
+
+<p><a href="/images/7_14/comment_edit.png"><img src="/images/7_14/comment_edit.png" alt="Note Modification" /></a></p>
+
+<h2>Better LDAP group management (GitLab EE)</h2>
+
+<p>Our Enterprise Edition users managing their GitLab groups with LDAP will be glad
+to hear that we&rsquo;ve improved the way they&rsquo;re handled in GitLab. Groups synced
+with LDAP can no longer be brought out of sync by group changes made via GitLab&rsquo;s
+interface.</p>
+
+<h2>YAML Variables (GitLab CI)</h2>
+
+<p>Now you can define variables in your <code>.gitlab-ci.yml</code> file that will be passed
+to your CI builds, allowing you to fine-tune linked services by, for example,
+supplying a custom database name.</p>
+
+<p>See <a href="http://doc.gitlab.com/ci/docker/using_docker_images.html#configuring-services">the Docker documentation</a> for configuring services and
+<a href="http://doc.gitlab.com/ci/variables/README.html">the CI documentation</a> for more information about variables.</p>
+
+<h2>Build Triggers API (GitLab CI)</h2>
+
+<p>As part of our ongoing effort to improve support for dependent builds, we&rsquo;ve
+introduced Build Triggers that can be used to force a rebuild of a specific
+branch or tag via API call. To use Build Triggers, go to your project&rsquo;s
+<strong>Triggers</strong> page where you&rsquo;ll find a custom link that can be called from other
+services.</p>
+
+<p>Build Triggers can also accept custom variables that can be used to customize
+the behavior of the build scripts.</p>
+
+<p><a href="/images/7_14/ci_triggers.png"><img src="/images/7_14/ci_triggers.png" alt="Build Triggers" /></a></p>
+
+<h2>Application Settings interface (GitLab CI)</h2>
+
+<p>We&rsquo;re now surfacing application settings in the web interface of GitLab CI,
+furthering our goal of making all of the GitLab applications as easy to
+configure as possible.</p>
+
+<p><a href="/images/7_14/ci_settings.png"><img src="/images/7_14/ci_settings.png" alt="Application Settings" /></a></p>
+
+<h2>Better support for skipped builds</h2>
+
+<p>GitLab CI and its integration with GitLab CE and EE now have improved
+support for builds skipped via the <code>[ci skip]</code> commit message tag.</p>
+
+<p><a href="/images/7_14/ci_skipped.png"><img src="/images/7_14/ci_skipped.png" alt="CI Skipped" /></a></p>
+
+<h2>Bundling of Mattermost now, possibly RocketChat in the future</h2>
+
+<p>In this release we&rsquo;ve bundled Mattermost, an open source on-premises Slack alternative.
+More information can be found in <a href="https://about.gitlab.com/2015/08/18/gitlab-loves-mattermost/">the announcement</a>.
+The current release is in alpha state, so we can&rsquo;t guarantee it will be upgradable and recommend against exposing it to the public Internet.
+Activation instructions can be found in the <a href="http://doc.gitlab.com/omnibus/gitlab-mattermost/">Omnibus documentation for GitLab Mattermost</a>.</p>
+
+<p>After we announced the Mattermost integration we <a href="https://news.ycombinator.com/item?id=10081963">saw that RocketChat is also interested in shipping with the GitLab Omnibus packages</a>.
+We didn&rsquo;t consider RocketChat since they run on top of MongoDB while we prefer PostgreSQL, but it
+seems that <a href="https://github.com/meteor/postgres-packages">elephants don&rsquo;t fly, most of the time</a>.
+RocketChat is committed to <a href="https://github.com/RocketChat/Rocket.Chat/milestones/GitLab%200.8">becoming compatible with the Omnibus packages</a>.</p>
+
+<p>We&rsquo;re thinking of shipping RocketChat with the Omnibus packages of GitLab 8.1 (although earlier,
+later, and not at all are also options). Having two different Slack alternatives
+in the GitLab packages is not ideal. But both projects are moving quickly and
+we find it hard to pick a winner now. Consider the alpha state a warning that
+we don&rsquo;t guarantee that both will ship with GitLab forever.</p>
+
+<h2>Other changes</h2>
+
+<p>This release has more improvements, including security fixes. Please view
+<a href="https://gitlab.com/gitlab-org/gitlab-ce/blob/master/CHANGELOG">the Changelog</a> to see the full list of changes.</p>
+
+<h2>Upgrade barometer</h2>
+
+<p>This release&rsquo;s migrations are minor. If you are on GitLab 7.13 CE or EE you can
+upgrade to 7.14 while staying online.</p>
+
+<p>The GitLab CI upgrade will require downtime.
+Coming from 7.13 the database migrations in GitLab CI will be fast but they cannot be performed online.</p>
+
+<p>Please be aware that by default the Omnibus packages will stop, run migrations,
+and start again, no matter how &ldquo;big&rdquo; or &ldquo;small&rdquo; the upgrade is. The behaviour
+can be changed by adding a <a href="http://doc.gitlab.com/omnibus/update/README.html"><code>/etc/gitlab/skip-auto-migrations</code>
+file</a>.</p>
+
+<h3>Reminder: Ruby (MRI) 2.0.x no longer supported</h3>
+
+<p>As of the previous release (7.13), we have dropped support for the 2.0.x
+versions of Ruby (MRI). We support Ruby (MRI) 2.1.x and recommend using 2.1.6.</p>
+
+<hr />
+
+<h2>Installation</h2>
+
+<p>If you are setting up a new GitLab installation please see the
+<a href="https://about.gitlab.com/installation/">download GitLab page</a>.</p>
+
+<h2>Updating</h2>
+
+<p>Check out our <a href="https://about.gitlab.com/update/">update page</a>.</p>
+
+<h2>Enterprise Edition</h2>
+
+<p>The mentioned EE-only features and things like LDAP group support can be found in GitLab Enterprise Edition.
+For a complete overview please have a look at the <a href="http://www.gitlab.com/gitlab-ee/">feature list of GitLab EE</a>.</p>
+
+<p>Access to GitLab Enterprise Edition is included with a <a href="http://www.gitlab.com/pricing/">subscription</a>.
+No time to upgrade GitLab yourself?
+A subscription also entitles you to our upgrade and installation services.</p>
+
+<hr />
+
+                  <div class="download-partial hidden-xs">
+  Install GitLab on your own server in 2 minutes
+  <a href="/downloads" id="dl-partial">Let's do it!</a>
+</div>
+
+<a href="/downloads" class="btn btn-block btn-lg btn-purple visible-xs" id="dl-partial-sm">
+  Install GitLab on your own server in 2 minutes
+</a>
+
+
+                  <hr>
+                  <p>&rarr; <a href="/blog/archives.html">Browse all posts</a></p>
+
+                  <div class="panel panel-default nl">
+  <div class="panel-heading">
+    For the latest and most detailed news follow <strong><a href="https://twitter.com/gitlab">@gitlab</a></strong>
+    on Twitter.
+
+    <a href="/atom.xml" class="rss-btn">
+      <button class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="right" title="RSS">
+        <i class="fa fa-rss"></i>
+      </button>
+    </a>
+
+  </div>
+  <div class="panel-body newsletter">
+
+    <span>Get every GitLab blog post and stay up to date.</span>
+    <!-- Begin MailChimp Signup Form -->
+    <div id="mc_embed_signup" class="newsletter-form">
+      <form action="https://gitlab.us5.list-manage.com/subscribe/post?u=498dccd07cf3e9482bee33ba4&amp;id=98a9a4992c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+        <div id="mce-responses" class="clear">
+          <div class="response" id="mce-error-response" style="display:none"></div>
+          <div class="response" id="mce-success-response" style="display:none"></div>
+        </div>
+        <div class="mc-field-group">
+          <input type="email" value="" name="EMAIL" class="required email form-control" id="mce-EMAIL" placeholder="Your email address">
+        </div>
+        <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="btn btn-default form-control sbmc">
+      </form>
+    </div>
+    <!--End mc_embed_signup-->
+
+  </div>
+</div>
+
+
+
+                  <div id="disqus_thread"></div>
+                  <script type="text/javascript">
+                  /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                  
+                    
+                    
+                      var disqus_shortname = 'gitlab'; // required: replace example with your forum shortname
+                      //var disqus_developer = 1;
+                      var disqus_identifier = 'https://www.gitlab.com/2015/08/22/gitlab-7-14-released/';
+                      var disqus_url = 'https://www.gitlab.com/2015/08/22/gitlab-7-14-released/';
+                    
+                    var disqus_script = 'embed.js';
+                  
+                  /* * * DON'T EDIT BELOW THIS LINE * * */
+                  (function() {
+                   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                   })();
+                  </script>
+                  <noscript>Please enable JavaScript to view the &lt;a href="http://disqus.com/?ref_noscript"&gt;comments powered by Disqus.&lt;/a&gt;</noscript>
+                </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      mixpanel.track(
+        "Read blog post",
+        { "Blog post": "GitLab 7.14 released with improved syntax highlighting and Variables in CI" }
+      )
+    </script>
+
+    <div id="footer" class="footer">
+  
+    <div class="source-link">
+      This page is generated from <a href="https://gitlab.com/gitlab-com/www-gitlab-com/blob/master/source/_posts/2015-08-22-gitlab-7-14-released.markdown">a public file on GitLab.com</a> – merge requests with improvement are very welcome.
+      <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0; margin-left: 10px;" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+
+    </div>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-15">
+        <h3>Products</h3>
+        <ul class="animated">
+          <li><a href="/features/">Community Edition</a></li>
+          <li><a href="/features/#enterprise">Enterprise Edition</a></li>
+          <li><a href="/gitlab-ci/">Continuous Integration</a></li>
+          <li><a href="/gitlab-com/">GitLab.com</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-15">
+        <h3>Services</h3>
+        <ul class="animated">
+          <li><a href="/pricing/">Pricing</a></li>
+          <li><a href="/consultancy/">Consultancy</a></li>
+          <li><a href="/development/">Development</a></li>
+          <li><a href="/training/">Training</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-15">
+        <h3>Community</h3>
+        <ul class="animated">
+          <li><a href="/core-team/">Core Team</a></li>
+          <li><a href="http://contributors.gitlab.com/">Contributors</a></li>
+          <li><a href="/documentation/">Documentation</a></li>
+          <li><a href="/getting-help/">Getting Help</a></li>
+          <li><a href="/contributing/">Contributing</a></li>
+          <li><a href="/applications/">Applications</a></li>
+          <li><a href="/mvp/">Hall of Fame</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-15">
+        <h3>Company</h3>
+        <ul class="animated">
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/press/">Press and Logos</a></li>
+          <li><a href="/about/">About Us</a></li>
+          <li><a href="/team/">Team</a></li>
+          <li><a href="/jobs/">Jobs</a></li>
+          <li><a href="/terms/">Terms</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-15">
+        <h3>Social</h3>
+        <ul class="animated">
+          <li><a href="https://twitter.com/gitlab"><i class="fa fa-twitter"></i> Twitter</a></li>
+          <li><a href="https://plus.google.com/107491817347842790515/posts"><i class="fa fa-google-plus"></i> Google+</a></li>
+          <li><a href="https://www.facebook.com/gitlab"><i class="fa fa-facebook"></i> Facebook</a></li>
+          <li><a href="https://www.youtube.com/channel/UCnMGQ8QHMAnVIsI3xJrihhg"><i class="fa fa-youtube"></i> YouTube</a></li>
+          <li><a href="https://www.linkedin.com/company/gitlab-com"><i class="fa fa-linkedin"></i> LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/javascripts/libs/jquery.min.js"><\/script>')</script>
+<script src="/javascripts/libs/bootstrap.min.js"></script>
+<script src="/javascripts/libs/jquery.fitvids.js"></script>
+<script src="/javascripts/libs/jqBootstrapValidation.js"></script>
+<script src="/javascripts/libs/jquery.magnific-popup.min.js"></script>
+<script src="/javascripts/libs/bounce.js"></script>
+<script src="/javascripts/header.js"></script>
+<script src="/javascripts/scroll.js"></script>
+
+
+<script src="/javascripts/mp.js"></script>
+
+
+<!-- Google Code for Remarketing Tag -->
+<!--
+Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+-->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 968513482;
+var google_conversion_label = "a-CXCPqluQUQlqi33AM";
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/968513482/?value=0&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+
+<script src="//platform.twitter.com/oct.js" type="text/javascript"></script>
+<script type="text/javascript">
+twttr.conversion.trackPid('l5hzj');</script>
+<noscript>
+<img height="1" width="1" style="display:none;" alt="" src="https://analytics.twitter.com/i/adsct?txn_id=l5hzj&p_id=Twitter" />
+<img height="1" width="1" style="display:none;" alt="" src="//t.co/i/adsct?txn_id=l5hzj&p_id=Twitter" /></noscript>
+
+
+  </body>
+</html>
