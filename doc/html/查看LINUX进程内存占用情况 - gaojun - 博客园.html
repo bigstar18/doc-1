@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>查看LINUX进程内存占用情况 - gaojun - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=VpfXXGDfdkCz7-E0_XQ205E77kSNAF0FnyWpIgmGioM1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/Cogitation/bundle-Cogitation.css?v=KxzCsGje7vptXKdp2HZBpXmgRp_h-PvgHFxMy8F9r3o1"/>
+<link type="text/css" rel="stylesheet" href="/blog/customcss/55627.css?v=M2w7B8jCbk7NksxdOXgStQGpVaw%3d"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/gaojun/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/gaojun/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/gaojun/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'gaojun', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=KJbWl4pDSR547B6rgxi3B-dDHKVpKi8xHNL9Qhc1rkk1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="top">
+	
+<div>
+	<table>
+		<tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/gaojun/">学习笔记。。。积累！！</a></h1>
+				<p id="tagline">合抱之木,生于毫末。九层之台,起于累土。千里之行,始于足下</p>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="HeaderBarTab" nowrap>
+&nbsp;
+<a id="Header1_MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a> ::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/gaojun/">首页</a> ::
+<a href="http://q.cnblogs.com" class="menu">博问</a> ::
+<a href="http://home.cnblogs.com/ing/" class="menu">闪存</a> ::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> ::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://msg.cnblogs.com/send/gaojun">联系</a> ::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/gaojun/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/gaojun/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a> ::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://i.cnblogs.com/">管理</a> ::
+
+</td>
+			<td><img id="Header1_BlueTab" src="/skins/Cogitation/Images/BlueTabRight.gif" align="absmiddle" /></td>
+			<td class="HeaderBarTabBack" nowrap width="100%">
+				
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap>
+				&nbsp;
+				85 
+				随笔&nbsp;::
+				1 文章
+				::
+				80 评论
+				::
+				0 引用
+			</td>
+		</tr>
+	</table>
+</div>
+
+			</td>
+		</tr>
+	</table>
+</div>
+
+</div>
+<div id="leftmenu">	
+
+	    <div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+		<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</div>
+<div id="main">
+	
+<div id="post_detail">
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" href="http://www.cnblogs.com/gaojun/p/3406096.html">查看LINUX进程内存占用情况</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><p>　　可以直接使用top命令后，查看%MEM的内容。可以选择按进程查看或者按用户查看，如想查看oracle用户的进程内存使用情况的话可以使用如下的命令： <p>　(1)top</p> <p>　　top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器 </p> <p>　　可以直接使用top命令后，查看%MEM的内容。可以选择按进程查看或者按用户查看，如想查看oracle用户的进程内存使用情况的话可以使用如下的命令：<br>　　$ top -u oracle</p> <p>内容解释： <blockquote> <p>　　PID：进程的ID<br>　　USER：进程所有者<br>　　PR：进程的优先级别，越小越优先被执行<br>　　NInice：值<br>　　VIRT：进程占用的虚拟内存<br>　　RES：进程占用的物理内存<br>　　SHR：进程使用的共享内存<br>　　S：进程的状态。S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负数<br>　　%CPU：进程占用CPU的使用率<br>　　%MEM：进程使用的物理内存和总内存的百分比<br>　　TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。<br>　　COMMAND：进程启动命令名称</p></blockquote> <p>　　常用的命令： <blockquote> <p>　　P：按%CPU使用率排行<br>　　T：按MITE+排行<br>　　M：按%MEM排行</p></blockquote> <h3>(2)pmap</h3> <p>　　可以根据进程查看进程相关信息占用的内存情况，(进程号可以通过ps查看)如下所示：<br>　　$ pmap -d 14596</p> <h3>　(3)ps</h3> <p>　　如下例所示：<br>　　$ ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid'&nbsp; 其中rsz是是实际内存<br>　　$ ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid' | grep oracle |&nbsp; sort -nrk5<br>　　其中rsz为实际内存，上例实现按内存排序，由大到小</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+	</div>
+	
+	<div class="postfoot">
+		posted on <span id="post-date">2013-11-04 11:20</span> <a href='http://www.cnblogs.com/gaojun/'>gaojun</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=3406096" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3406096);return false;">收藏</a>
+	</div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=55627,cb_entryId=3406096,cb_blogApp=currentBlogApp,cb_blogUserGuid='a829766f-7831-de11-9510-001cf0cd104b',cb_entryCreatedDate='2013/11/4 11:20:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = canShowAdsense(); 
+    fixPostBodyFormat();
+</script>
+<div id="google_ad_c1" class="c_ad_block"></div>
+<div id="under_post_news"></div>
+<div id="google_ad_c2" class="c_ad_block"></div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script>
+</div>
+
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br />
+	Copyright &copy; gaojun
+</p>
+</div>
+</body>
+</html>

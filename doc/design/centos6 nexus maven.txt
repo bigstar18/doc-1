@@ -17,3 +17,66 @@ http://10.0.100.178:8081/nexus/
 
 http://repository.jboss.com/maven2/
 http://repository.sonatype.org/content/groups/public/
+
+ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid' |   sort -nrk5
+
+lsmod | grep ipv6    ip -6 addr show
+/etc/modprobe.d/dist.conf结尾添加
+alias net-pf-10 off
+alias ipv6 off
+
+@reboot        Run once, at startup. 
+#/etc/rc.d/rc.local文件的文件头是#!/bin/sh ，我们把这修改成#!/bin/sh   -x，这样系统启动后就会把/etc/rc.d/rc.local里面的指令或脚本不能执行的日志写入/var/log/messages ,我们查看messages文件内容就知道具体的问题出在哪里了
+
+由字符界面切换到图形界面可用两种简单方法实现：
+1、在字符界面输入startx或init 5 。
+2、通过编辑/etc/inittab文件实现默认进入图形界面。
+vim /etc/inittab
+id:5:initdefault:  改成   id:3:initdefault:
+
+yum groupremove 'X Window System' -y
+yum groupremove "GNOME Desktop Environment"
+yum groupremove "KDE-DESKTOP"  -y
+/etc/sysconfig/i18n   LANG="zh_CN.UTF-8"  LANG="en_US.UTF-8" 
+
+命令行模式安装图形界面
+yum grouplist 检查已安装的组
+yum groupinstall "X Window System"
+yum groupinstall "GNOME Desktop Environment"
+startx
+或者init 5
+就OK。
+
+abrt (Automatic Bug Reporting Tool)
+
+chkconfig ip6tables off
+chkconfig bluetooth off
+chkconfig cups off
+chkconfig haldaemon off
+chkconfig NetworkManager off
+chkconfig abrt-ccpp off
+chkconfig abrtd off
+chkconfig mdmonitor off
+chkconfig netfs off
+chkconfig nfslock off
+chkconfig acpid off
+chkconfig cpuspeed off
+chkconfig atd off 
+chkconfig auditd off
+chkconfig iptables off
+
+service iptables stop
+service auditd stop
+service atd stop
+service bluetooth stop
+service ip6tables stop
+service cups stop
+service haldaemon stop
+service NetworkManager stop
+service abrt-ccpp stop
+service abrtd stop
+service mdmonitor stop
+service netfs stop
+service nfslock stop
+service acpid stop
+service cpuspeed stop

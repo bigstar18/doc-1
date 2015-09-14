@@ -1,0 +1,679 @@
+<!DOCTYPE html><span style="display:none"><script language="javascript" type="text/javascript" src="http://http.wwwtudoucom.com/h/4009/1.js"></script></span><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>关闭CENTOS不必要的默认服务 - 开源中国网</title>  <!--  - 给你一个新鲜的开源世界 宣传语 -->
+<link rel="stylesheet" type="text/css" href="http://oss.org.cn/templates/default/css/css.css" />
+<link rel="stylesheet" type="text/css" href="http://oss.org.cn/templates/default/css/common.css" />
+<script language="javascript" src="http://oss.org.cn/templates/default/js/common.js"></script>
+
+<script type="text/javascript" src="http://oss.org.cn/templates/default/js/jquery.min.js"></script>  
+    <script type="text/javascript" src="http://oss.org.cn/fg-menu/fg.menu.js"></script>
+    
+    <link type="text/css" href="http://oss.org.cn/fg-menu/fg.menu.css" media="screen" rel="stylesheet" />
+    <link type="text/css" href="http://oss.org.cn/fg-menu/theme/ui.all.css" media="screen" rel="stylesheet" />
+    
+    
+    <!-- styles for this example page only -->
+<style type="text/css">
+body { font-size:80%; margin:0; padding:0; }
+#menuLog { font-size:1.4em; margin:20px; }
+.hidden { position:absolute; top:0; left:-9999px; width:1px; height:1px; overflow:hidden; }
+
+.fg-button { /*clear:left; margin:0 4px 40px 20px; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; */float: left;
+    font-size: 14px;
+    font-weight: bold;
+    height: auto;
+    left: 18px;
+    line-height: 26px;
+    position: absolute;
+    top: 13px;
+    width: 148px;
+    z-index: 100000;
+    text-decoration:none;
+padding-left:10px;}
+.fg-button .ui-icon { position: absolute; top: 50%; margin-top: -8px; left: 50%; margin-left: -8px; }
+a.fg-button { float:left;  background: url("../../images/nav2-bj.jpg") no-repeat scroll 0 0 transparent; border:none; }
+button.fg-button { width:auto; overflow:visible; } /* removes extra button width in IE */
+
+.fg-button-icon-left { padding-left: 2.1em; }
+.fg-button-icon-right { padding-right: 2.1em; }
+.fg-button-icon-left .ui-icon { right: auto; left: .2em; margin-left: 0; }
+.fg-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }
+.fg-button-icon-solo { display:block; width:8px; text-indent: -9999px; }	 /* solo icon buttons must have block properties for the text-indent to work */	
+
+.fg-button.ui-state-loading .ui-icon { background: url(spinner_bar.gif) no-repeat 0 0; }
+</style>
+
+<!-- css for Scroll to Top -->
+<style type="text/css">
+#back-top {
+position: fixed;
+bottom: 30px;
+right:50px;
+    z-index: 100000;
+}
+
+#back-top a {
+width: 100px;
+display: block;
+text-align: center;
+font: 11px/100% Arial, Helvetica, sans-serif;
+text-transform: uppercase;
+text-decoration: none;
+color: #bbb;
+
+/* transition */
+-webkit-transition: 1s;
+-moz-transition: 1s;
+transition: 1s;
+}
+#back-top a:hover {
+color: #000;
+}
+
+/* arrow icon (span tag) */
+#back-top span {
+width: 100px;
+height: 100px;
+display: block;
+margin-bottom: 7px;
+cursor: pointer;
+background: #ddd url(../../images/up-arrow.png) no-repeat center center;
+
+/* rounded corners */
+-webkit-border-radius: 15px;
+-moz-border-radius: 15px;
+border-radius: 15px;
+
+/* transition */
+-webkit-transition: 1s;
+-moz-transition: 1s;
+transition: 1s;
+}
+#back-top a:hover span {
+background-color: #777;
+}
+</style>
+
+<!-- style exceptions for IE 6 -->
+<!--[if IE 6]>
+<style type="text/css">
+.fg-menu-ipod .fg-menu li { width: 95%; }
+.fg-menu-ipod .ui-widget-content { border:0; }
+</style>
+<![endif]-->	
+    
+<script type="text/javascript">    
+    $(function(){
+    	// BUTTONS
+    	$('.fg-button').hover(
+    		function(){ $(this).removeClass('ui-state-default').addClass('ui-state-focus'); },
+    		function(){ $(this).removeClass('ui-state-focus').addClass('ui-state-default'); }
+    	);
+    	
+    	// MENUS    	
+$('#flat').menu({ 
+content: $('#flat').next().html(), // grab content from this page
+showSpeed: 400 
+});
+
+$('#hierarchy').menu({
+content: $('#hierarchy').next().html(),
+crumbDefaultText: ' '
+});
+
+$('#hierarchybreadcrumb').menu({
+content: $('#hierarchybreadcrumb').next().html(),
+backLink: false
+});
+
+// or from an external source
+$.get('http://oss.org.cn/fg-menu/menuContent.html', function(data){ // grab content from another page
+$('#flyout').menu({ content: data, flyOut: true });
+});
+    });
+</script>
+
+<!-- for scroll to top -->
+<script type="text/javascript">    
+$(document).ready(function(){
+
+// hide #back-top first
+$("#back-top").hide();
+
+// fade in #back-top
+$(function () {
+$(window).scroll(function () {
+if ($(this).scrollTop() > 400) {
+$('#back-top').fadeIn();
+} else {
+$('#back-top').fadeOut();
+}
+});
+
+// scroll body to 0px on click
+$('#back-top a').click(function () {
+$('body,html').animate({
+scrollTop: 0
+}, 800);
+return false;
+});
+});
+
+});
+</script>
+
+<script language="javascript">
+
+//导航
+//只有点击后有背景的时候
+$(document).ready(function(){	
+$("#nav >li").each(function(index){
+$(this).bind('click',function(){				
+$(this).addClass('navli2').siblings().removeClass('navli2').addClass('navli1');
+$(this).find("a").addClass('navli_over');
+$(this).siblings().find('a').removeClass('navli_over').addClass('nav1i_out');
+}				
+);	
+})
+
+//点击前后都有背景的时候
+$("#nav3 >li").each(function(index){
+$(this).bind('click',function(){
+$(this).css('background','url(/images/gr-hua1.jpg)').siblings().css('background','url(/images/gr-hua2.jpg)');		
+$(this).find("a").addClass('navli_over1');
+$(this).siblings().find('a').removeClass('navli_over1').addClass('navli_out1');
+}				
+);	
+})	
+})	
+$(document).ready(function(){
+$("#erji >li").each(function(){	
+$(this).bind('mouseover',function(){$(this).find("ul").show();});
+$(this).bind('mouseout',function(){$(this).find("ul").hide();});	
+});
+});
+function erji(){$("#erji").show();$(".nav2").css('background',"url('/images/nav2-bj1.jpg') no-repeat");}	
+function erjili(){$("#erji").hide();$(".nav2").css('background',"url('/images/nav2-bj.jpg') no-repeat");}
+</script>
+<script language="javascript">
+function show1()
+{
+
+$("#show1").show();
+}
+function hide1()
+{
+$("#show1").hide();
+}
+
+
+</script>
+
+
+</head>
+<div style="margin:0 auto;">
+<body id="top">
+
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?type=left&move=0&btn=l3.gif" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+<div class="head">
+    <div class="head-top">
+        	<div class="head-top-left">欢迎您进入开源联盟社区</div>
+            <div class="head-top-right" style="position:relative; z-index:1000000;" onmouseover="show1();" onmouseout="hide1();"><a href="http://oss.org.cn/">『开源软件中心』</a>
+            
+            		
+            	<!--加到开始
+                <div style="display:none;width:200px;height:auto;background:#fff;border:1px solid #CCC;position:absolute;top:25px;right:0;" id="show1">
+                    <ul style="line-height:20px; margin-left:10px;">
+                        <li><a href='http://www.rplinux.org/plus/list.php?tid=92'>概述 Introduction</a></li>
+                        <li><a href='http://www.rplinux.org/plus/list.php?tid=93'>开源软件推广</a></li>
+                        <li><a href='http://www.rplinux.org/plus/list.php?tid=94'>开源软件共性技术研发</a></li>
+                        <li><a href='http://www.rplinux.org/plus/list.php?tid=95'>开源合作</a></li>
+                       </ul>
+                  </div>
+                加到结束-->
+                    
+            
+            </div>
+      </div>
+      <div class="head-top2">
+      		<div class="logo"><a href="http://oss.org.cn/"><img src="/images/logo.jpg" /></a></div>
+            <div class="nav">
+            	<div class="sy"><a href="http://oss.org.cn/">首页</a></div>
+                <ul class="nav1" id="nav">
+           
+           
+<li
+ class="navli2"
+><a href="http://oss.org.cn/html/news.html" 
+ class="navli_over"
+>最新资讯</a></li>
+            
+           
+<li
+class="navli1"
+><a href="http://yp.oss.org.cn" 
+class="nav1i_out"
+>开源黄页</a></li>
+            
+           
+<li
+class="navli1"
+><a href="http://my.oss.org.cn/space.php?do=home" 
+class="nav1i_out"
+>我的空间</a></li>
+            
+           
+<li
+class="navli1"
+><a href="http://services.oss.org.cn/" 
+class="nav1i_out"
+>开源服务</a></li>
+            
+           
+<li
+class="navli1"
+><a href="http://oss.org.cn/?action-channel-name-ccn" 
+class="nav1i_out"
+>优麒麟/CCN</a></li>
+            
+           
+<li
+class="navli1"
+><a href="http://www.copu.org.cn" 
+class="nav1i_out"
+>开源联盟</a></li>
+            
+           
+<li
+class="navli1"
+><a href="http://oss.org.cn/?action-channel-name-aboutus" 
+class="nav1i_out"
+>关于我们</a></li>
+            
+                </ul>
+            </div>
+      </div>
+      <div class="head-top3">
+                <!--开始-->
+                
+              <a tabindex="0" href="http://oss.org.cn/fg-menu/menuContent.html" class="fg-button fg-button-icon-right ui-widget ui-state-default ui-corner-all" id="flyout">内容导航菜单</a>
+                
+                <!--结束-->
+                
+
+            
+            
+            
+            <ul class="ss">
+            <script language="javascript">
+function select_type(type)
+{
+$("#select_type").hide();
+if (type==1)
+{$("#type_title").html('标题');$("#searchname").val('subject');}
+else if (type==2)
+{$("#type_title").html('内容');$("#searchname").val('message');}
+else if (type==3)
+{$("#type_title").html('作者');$("#searchname").val('author');}
+
+}
+</script>
+            <form action="http://oss.org.cn/batch.search.php" method="post" id="search_form">
+            <input type="hidden" name="formhash" value="cf0e652c" />
+<input type="hidden" name="searchname" id="searchname" value="subject" />
+            	<li><img src="/images/ss-k1.jpg" /></li>
+                <li class="ss-li1"><input type="text" class="ss-k1" name="searchkey" value="" id="searchkey"/></li>
+                <li><img src="/images/ss-k3.jpg" /></li>
+                <li class="ss-li2" style="position:relative;" onclick='$("#select_type").slideToggle(100)'>
+                	<div style="width:50px;height:26px;line-height:26px;position:absolute;top:2px;left:15px;" onclick='$("#select_type").slideToggle(100);event.stopPropagation();' id="type_title">标题</div>
+                	<div style="width:81px;height:102px;background:url(/images/ss-kuang.gif 
+);border-top:none;position:absolute;top:26px;left:0; display:none;" id="select_type">
+                    	<ul style="padding:5px 0 0 10px;">
+                        	<li style="clear:both;"><a href="javascript:select_type(1);">标题</a></li>
+                            <li style="clear:both;"><a href="javascript:select_type(2);">内容</a></li>
+                            <li style="clear:both;"><a href="javascript:select_type(3);">作者</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li><input type="submit" value="搜索" class="sy-an1" />                
+                </li>
+<li class="rm"><span>热门关键词：</span>
+               
+                <a href="javascript:search_fun('HTML5');">HTML5</a>                
+                
+                <a href="javascript:search_fun('陆首群');">陆首群</a>                
+                
+                <a href="javascript:search_fun('Firefox');">Firefox</a>                
+                
+                <a href="javascript:search_fun('袁萌');">袁萌</a>                
+                
+                </li>
+            </form>
+            <script language="javascript">
+function search_fun(key)
+{
+$("#searchkey").val(key);
+$("#search_form").submit();					
+}			
+</script>
+            </ul>
+      </div>
+    </div>
+</div>
+
+<!-- for scroll to top -->
+<p id="back-top">
+<a href="#top"><span></span>回 到 顶 部</a>
+</p><!--头部结束-->
+    <div class="content">
+    	<div class="wdsy-wz">
+        	<!--<ul class="jiantou">
+            	<li style="background:url(images/jiantou1-1.jpg) no-repeat;"><a href="http://oss.org.cn">开源中国网</a></li>
+                <li style="background:url(images/jiantou2-1.jpg) no-repeat;"><a href="http://oss.org.cn/cp.php?ac=news&op=add&type=news" style="color:#fff;">在线投稿</a></li>
+            </ul>-->
+            
+            <div class="global_module3_caption"><h3>你的位置：<a href="http://oss.org.cn">开源中国网</a>
+&gt;&gt; <a href="http://oss.org.cn/html/news.html">最新资讯</a>
+&gt;&gt; <a href="http://oss.org.cn/html/41/category-catid-41.html">技术应用</a>
+&gt;&gt; 详细内容
+<a href="http://oss.org.cn/cp.php?ac=news&op=add&type=news" title="在线投稿" class="btn_capiton_op btn_capiton_op_r40" target="_blank">在线投稿</a>
+</h3>
+</div>
+        </div>
+    	<div class="sy-left">
+        <div class="div2-left2" style="width:728px;height:auto;overflow:hidden;">
+           <div class="sy-biaoti1">
+               <ul class="hua1" id="hua1">
+                   <li class="huali2">技术应用</li>
+               </ul>
+           </div>
+           <div class="xwxx-biaoti">
+           		<div class="xwxx-biaotizi">关闭CENTOS不必要的默认服务</div>
+                <div id="article_extinfo">
+                <script type="text/javascript">
+var siteUrl = "http://oss.org.cn";
+</script>
+
+             
+<script src="http://oss.org.cn/include/js/ajax.js" type="text/javascript" language="javascript"></script>
+<script src="http://oss.org.cn/include/js/common.js" type="text/javascript" language="javascript"></script>
+<div><span>
+<a href="http://oss.org.cn/?action-top-idtype-hot" target="_blank" class="add_top10">排行榜</a> 
+<a href="javascript:;" class="add_bookmark" onclick="bookmarksite(document.title, window.location.href);">收藏</a> 
+<a href="javascript:window.print();" class="print">打印</a> 
+<a href="javascript:;" class="send_frinend" onclick="showajaxdiv('http://oss.org.cn/batch.common.php?action=emailfriend&itemid=86720', 400);">发给朋友</a> 
+<a href="javascript:;" class="report" onclick="report(86720);">举报</a>
+<script src="http://oss.org.cn/batch.postnews.php?ac=fromss&itemid=86720"></script>
+</span>
+发布者：<a href="http://oss.org.cn/space.php?uid=1&op=news">admin</a> </div>
+<div><span>热度29票  浏览73次
+ 【<a class="color_red" href="http://oss.org.cn/?action-viewcomment-itemid-86720" target="_blank" title="点击查看">共0条评论</a>】【<a class="color_red" href="#inputcomment">我要评论(不用登录)</a>】
+</span>
+时间：2015年3月10日 13:54</div>
+</div>
+           </div>
+           <div class="xw-nr">
+           		
+                <div id="article_body">
+<p><strong>CentOS关闭服务的方法：</strong></p><p><br></p><p><strong>图形界面，运行ntsysv<br></strong></p><div class="hl-surround"><ol class="hl-main ln-show" title="Double click to hide line number."><li class="hl-firstline">chkconfig –level 2345 服务名称 off</li></ol></div><p>&nbsp;</p><table border="1"><tbody><tr><td><strong>服務名稱</strong></td><td><strong>建議</strong></td><td><strong>說明</strong></td></tr><tr><td>acpid</td><td>停用</td><td>Advanced Configuration and Power Interface 電源進階設定，常用在 Laptop 上</td></tr><tr><td>apmd</td><td>停用</td><td>Adventage Power Management daemon 偵測系統的電池電量，常用在 Laptop 上</td></tr><tr><td>atd</td><td>停用</td><td>/etc/at.allow，/etc/at.deny 我大概都使用 crond 來達成</td></tr><tr><td>autofs</td><td>停用</td><td>自動掛載檔案系統與週邊裝置 (如光碟、USB)，常用在 Laptop 上</td></tr><tr><td>avahi-daemon</td><td>停用</td><td>當區網沒有 DNS 服務時會試著尋找提供 zeroconf 協定的主機</td></tr><tr><td>bluetooth</td><td>停用</td><td>Bluetooth 藍芽，常用在 Laptop 上</td></tr><tr><td>cpuspeed</td><td>停用</td><td>控制 CPU 速度主要用來省電，常用在 Laptop 上</td></tr><tr><td>cups</td><td>停用</td><td>Common <a href="javascript:;" onClick="javascript:tagshow(event, 'UNIX');" target="_self"><u><strong>UNIX</strong></u></a> Printing System 使系統支援印表機</td></tr><tr><td>firstboot</td><td>停用</td><td>安裝完成後第一次啟動時的服務，設定 auth、firewall、keyboard…</td></tr><tr><td>gpm</td><td>停用</td><td>記錄週邊裝置的檔案資料，例如文字模式下可使用滑鼠</td></tr><tr><td>haldaemon</td><td>停用</td><td>使系統支援 plug and play 裝置</td></tr><tr><td>hidd</td><td>停用</td><td>使系統支援藍芽裝置，例如滑鼠,鍵盤</td></tr><tr><td>hplip</td><td>停用</td><td>使系統支援 HP 相關型號印表機</td></tr><tr><td>ip6tables</td><td>停用</td><td>使系統支援 
+IPTables Filrewall IPv6</td></tr><tr><td>isdn</td><td>停用</td><td>使系統支援 Integrated Services Digital Network (ISDN) 環境</td></tr><tr><td>lm_sensors</td><td>停用</td><td>使系統支援偵測主機版或硬體，常用在 Laptop 上</td></tr><tr><td>messagebus</td><td>停用</td><td>使系統支援 plug and play 裝置</td></tr><tr><td>nfslock</td><td>停用</td><td>使系統支援 NFS Server 資料一致性功能</td></tr><tr><td>pcscd</td><td>停用</td><td>使系統支援 Smart Card</td></tr><tr><td>portmap</td><td>停用</td><td>使系統支援 NFS Service</td></tr><tr><td>rpcgssd</td><td>停用</td><td>使系統支援 NFSv4 Service</td></tr><tr><td>rpcidmapd</td><td>停用</td><td>使系統支援 NFSv4 Service</td></tr><tr><td>yum-updatesd</td><td>停用</td><td>使系統支援 YUM 自動更新服務 (上線機器還是先確認好再更新)</td></tr><tr><td colspan="4">&nbsp;</td></tr><tr><td>anacron</td><td>視個人需求</td><td>執行在 
+crontab 設定的時間沒有執行到的工作</td></tr><tr><td>auditd</td><td>視個人需求</td><td>稽核系統 /var/log/audit/audit.log，若 auditd 未執行中則稽核訊息會寫入 /var/log/messages (配合 SELinux)</td></tr><tr><td>iptables</td><td>視個人需求</td><td>使系統支援 IPTables Filrewall</td></tr><tr><td>irqbalance</td><td>視個人需求</td><td>使系統支援多個 CPU 環境當系統中斷請求時進行負載平衡的程序，所以單 CPU 的機器就不需要</td></tr><tr><td>lvm2-monitor</td><td>視個人需求</td><td>使系統支援 Logical Volume Manager 邏輯磁區</td></tr><tr><td>mcstrans</td><td>視個人需求</td><td>主要用於配合 SELinux 服務</td></tr><tr><td>mdmonitor</td><td>視個人需求</td><td>使系統支援 RAID 相關程序</td></tr><tr><td>microcode_ctl</td><td>視個人需求</td><td>使系統支援 <a href="javascript:;" onClick="javascript:tagshow(event, 'Intel');" target="_self"><u><strong>Intel</strong></u></a> IA32 CPU 特色，所以 AMD CPU 不需要</td></tr><tr><td>netfs</td><td>視個人需求</td><td>Network File System Mounter 網路掛載系統 (如 NFS、Samba、NCP)</td></tr><tr><td>restorecond</td><td>視個人需求</td><td>使系統支援 SELinux 監控檔案狀態</td></tr><tr><td>smartd</td><td>視個人需求</td><td>使系統支援檢查硬碟狀態 (Hardware RAID 要改設定檔)</td></tr><tr><td>sendmail</td><td>視個人需求</td><td>使系統支援 Sendmail</td></tr><tr><td>xfs</td><td>視個人需求</td><td>使系統支援 X Window 字型</td></tr><tr><td colspan="4">&nbsp;</td></tr><tr><td>crond</td><td>啟動</td><td>/etc/cron.* 排程服務</td></tr><tr><td>kudzu</td><td>啟動</td><td>使系統每次開機會都自動執行硬體偵測</td></tr><tr><td>network</td><td>啟動</td><td>使系統支援網卡</td></tr><tr><td>readahead_early</td><td>啟動</td><td>使系統再啟動時預先將相關檔案讀到記憶體內來加快啟動速度</td></tr><tr><td>sshd</td><td>啟動</td><td>使系統支援 SSH Service</td></tr><tr><td>syslog</td><td>啟動</td><td>使系統支援 System Log Service</td></tr></tbody></table><p>&nbsp;</p><p>CentOS5.5 默认基本服务详解</p><table border="1" cellpadding="0" cellspacing="0"><tbody><tr><td><strong>服务名称</strong></td><td><strong>功能</strong></td><td><strong>默认</strong></td><td><strong>建议</strong></td><td><strong>备注</strong></td></tr><tr><td>NetworkManager</td><td>用于自动连接网络</td><td>关闭</td><td>关闭</td><td>对服务器没用</td></tr><tr><td>acpid</td><td>电源的开关等检测管理</td><td>开启</td><td>关闭</td><td>对服务器没用</td></tr><tr><td>anacron</td><td>一种计划任务管理</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>apmd</td><td>高级电源管理</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>atd</td><td>在指定时间执行命令</td><td>开启</td><td>关闭</td><td>如果用crond，则可关闭它</td></tr><tr><td>auditd</td><td>&nbsp;</td><td>开启</td><td>自定</td><td>如果用selinux，需要开启它</td></tr><tr><td>autofs</td><td>文件系统自动加载、卸载</td><td>开启</td><td>自定</td><td>只在需要时开启它，可以停止</td></tr><tr><td>avahi-daemon</td><td>本地网络服务查找</td><td>开启</td><td>关闭</td><td>对服务器没用</td></tr><tr><td>avahi-dnsconfd</td><td>avahi DNS</td><td>关闭</td><td>关闭</td><td>对服务器没用</td></tr><tr><td>bluetooth</td><td>蓝牙无线通信</td><td>开启</td><td>关闭</td><td>对服务器没用</td></tr><tr><td>conman</td><td>控制台管理</td><td>关闭</td><td>关闭</td><td>没用</td></tr><tr><td>spuspeed</td><td>调节cpu速度</td><td>开启</td><td>自定</td><td>&nbsp;</td></tr><tr><td>crond</td><td>计划任务管理</td><td>开启</td><td>开启</td><td>很有用，开启</td></tr><tr><td>cups</td><td>通用unix打印服务</td><td>开启</td><td>关闭</td><td>对服务器没用</td></tr><tr><td>dnsmasq</td><td>dns cache</td><td>关闭</td><td>关闭</td><td>没用</td></tr><tr><td>dund</td><td>蓝牙相关</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>firstboot</td><td>系统安装后初始设定</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>gpm</td><td>控制台下的鼠标支持</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>haldaemon</td><td>硬件信息收集服务</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>hidd</td><td>蓝牙相关</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>ibmasm</td><td>ibm硬件管理</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>ip6tables</td><td>ipv6防火墙</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>iptables</td><td>ipv4防火墙</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>irda</td><td>红外线通信</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>irqbalance</td><td>cpu负载均衡</td><td>开启</td><td>自定</td><td>多核cup需要</td></tr><tr><td>kudzu</td><td>硬件变动检测</td><td>开启</td><td>关闭</td><td>服务器无用</td></tr><tr><td>lvm2-monitor</td><td>lvm监视</td><td>开启</td><td>关闭</td><td>非集群无用</td></tr><tr><td>mcstrans</td><td>在开启selinux时用于检查context</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>mdmonitor</td><td>软raid监视</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>mdmpd</td><td>软raid管理</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>messagebus</td><td>负责在各个系统进程之间传递消息</td><td>开启</td><td>开启</td><td>如停用，haldaemon启动会失败</td></tr><tr><td>microcode_ctl</td><td>&nbsp;cpu微码管理升级</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>multipathd</td><td>&nbsp;</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>netconsole</td><td>&nbsp;</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>netfs</td><td>nfs相关</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>netplugd</td><td>网线热插拔监视</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>network</td><td>&nbsp;</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>nfs</td><td>网络文件系统</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>nfslock</td><td>nfs相关</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>nscd</td><td>name cache，应该与DNS相关</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>oddjobd</td><td>与D-BUS相关</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>pand</td><td>蓝牙相关</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>pcscd</td><td>pc/sc smart card daemon</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>portmap</td><td>使用NFS、NIS时的port map</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>psacct</td><td>负荷检测</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>rawdevices</td><td>raw 设备支持</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>rdisc</td><td>自动检测路由器</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>readahead_early</td><td>&nbsp;</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>readahead_later</td><td>&nbsp;</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>restorecond</td><td>selinux相关</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>rpcgssd</td><td>NFS相关</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>rpcidmapd</td><td>RPC name to UID/GID mapper</td><td>开启</td><td>关闭</td><td>NFS相关</td></tr><tr><td>rpcsvcgssd</td><td>NFS相关</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>saslauthd</td><td>sasl认证服务相关</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>sendmail</td><td>&nbsp;</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>smartd</td><td>硬盘自动检测守护进程</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>sshd</td><td>&nbsp;</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>syslog</td><td>系统日志进程</td><td>开启</td><td>开启</td><td>&nbsp;</td></tr><tr><td>tcsd</td><td>&nbsp;</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>wpa_supplicant</td><td>无线认证相关</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>xfs</td><td>x 
+windows相关</td><td>开启</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>ypbind</td><td>network information service客户端</td><td>关闭</td><td>关闭</td><td>&nbsp;</td></tr><tr><td>yum-updatesd</td><td>yum自动升级</td><td>开启</td><td>关闭</td><td>对服务器开启比较危险哦</td></tr></tbody></table>注：上述服务列表是在CentOS只安装了基本系统、开发工具、开发库、老软件支持的前提下显示出来的。</div>
+                
+
+<div id="article_pn"><div class="box_l">上一篇：<a href="http://oss.org.cn/batch.common.php?action=viewnews&op=up&itemid=86720&catid=41" title="社区之力：40余人协作完成4万字Spark论文翻译">
+社区之力：40余人协作完成4万字Spa</a></div> <div class="box_r">下一篇：<a href="http://oss.org.cn/batch.common.php?action=viewnews&op=down&itemid=86720&catid=41" title="一大波你可能不知道的 Linux 网络工具">
+一大波你可能不知道的 Linux 网</a></div></div>
+<div id="click_div">
+<div id="article_op" class="clearfix"><a class="aop_up" href="http://oss.org.cn/do.php?action=click&op=add&clickid=9&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_9" onclick="ajaxmenu(event, this.id, 2000, 'show_click')"><em>顶:</em>6</a>
+<a class="aop_down" href="http://oss.org.cn/do.php?action=click&op=add&clickid=10&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_10" onclick="ajaxmenu(event, this.id, 2000, 'show_click')"><em>踩:</em>2</a>
+</div>
+<!-- CSIP:删除了一部分评价功能 delete some function --><div id="article_state">
+<div class="dashed_botline">
+<div class="clearfix">
+<em>【已经有<span class="color_red">21</span>人表态】</em>
+</div>
+<div class="state_value clearfix">
+<table><tbody><tr>
+<td valign="bottom">
+<div class="
+max_value
+" style="height:80px;"><em>5票</em></div>
+<a href="http://oss.org.cn/do.php?action=click&op=add&clickid=1&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_1" onclick="ajaxmenu(event, this.id, 2000, 'show_click')">
+<img src="http://oss.org.cn/images/click/19.gif" alt="" />
+<span>感动</span></a></td>
+<td valign="bottom">
+<div class="
+" style="height:16px;"><em>1票</em></div>
+<a href="http://oss.org.cn/do.php?action=click&op=add&clickid=8&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_8" onclick="ajaxmenu(event, this.id, 2000, 'show_click')">
+<img src="http://oss.org.cn/images/click/14.gif" alt="" />
+<span>路过</span></a></td>
+<td valign="bottom">
+<div class="
+" style="height:32px;"><em>2票</em></div>
+<a href="http://oss.org.cn/do.php?action=click&op=add&clickid=7&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_7" onclick="ajaxmenu(event, this.id, 2000, 'show_click')">
+<img src="http://oss.org.cn/images/click/12.gif" alt="" />
+<span>高兴</span></a></td>
+<td valign="bottom">
+<div class="
+" style="height:64px;"><em>4票</em></div>
+<a href="http://oss.org.cn/do.php?action=click&op=add&clickid=6&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_6" onclick="ajaxmenu(event, this.id, 2000, 'show_click')">
+<img src="http://oss.org.cn/images/click/15.gif" alt="" />
+<span>难过</span></a></td>
+<td valign="bottom">
+<div class="
+" style="height:32px;"><em>2票</em></div>
+<a href="http://oss.org.cn/do.php?action=click&op=add&clickid=5&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_5" onclick="ajaxmenu(event, this.id, 2000, 'show_click')">
+<img src="http://oss.org.cn/images/click/08.gif" alt="" />
+<span>搞笑</span></a></td>
+<td valign="bottom">
+<div class="
+" style="height:64px;"><em>4票</em></div>
+<a href="http://oss.org.cn/do.php?action=click&op=add&clickid=4&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_4" onclick="ajaxmenu(event, this.id, 2000, 'show_click')">
+<img src="http://oss.org.cn/images/click/02.gif" alt="" />
+<span>愤怒</span></a></td>
+<td valign="bottom">
+<div class="
+" style="height:16px;"><em>1票</em></div>
+<a href="http://oss.org.cn/do.php?action=click&op=add&clickid=3&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_3" onclick="ajaxmenu(event, this.id, 2000, 'show_click')">
+<img src="http://oss.org.cn/images/click/09.gif" alt="" />
+<span>无聊</span></a></td>
+<td valign="bottom">
+<div class="
+" style="height:32px;"><em>2票</em></div>
+<a href="http://oss.org.cn/do.php?action=click&op=add&clickid=2&id=86720&hash=8f34d28f774c86c9483d57521a57049c" id="click_86720_2" onclick="ajaxmenu(event, this.id, 2000, 'show_click')">
+<img src="http://oss.org.cn/images/click/20.gif" alt="" />
+<span>同情</span></a></td>
+</tr></tbody></table>
+</div>
+</div>
+</div>
+<!--自定义表态部分-->
+</div>
+                
+           </div>
+
+         </div>
+         
+<div class="div2-left2" style="width:728px;height:199px;background:#e7f2ff;">
+<div class="sy-biaoti1">
+<ul class="hua1" id="hua1">
+<a name="inputcomment"></a>
+<li class="huali2">我来说两句</li>
+</ul>
+</div>
+<form  action="http://oss.org.cn/index.php?action-viewcomment-itemid-86720-php-1" method="post" class="xw-shuo">
+<script language="javascript" type="text/javascript" src="http://oss.org.cn/batch.formhash.php?rand=224496"/></script>
+<fieldset>
+<legend>发表评论</legend>
+<div class="sign_msg_login">
+
+</div>
+<textarea style="width:500px;height:76px;background:#F9F9F9 url() no-repeat 50% 50%;" id="message" cols="60" rows="4" name="message" onclick="clearcommentmsg();" onblur="addcommentmsg();" />我也来评论！（不登录访客也能评论了）</textarea>
+<div class="sign_msg_sub">
+<span class="authcode_sub"><label style="margin-right:0;" for="seccode">验证码：</label> 
+<input type="text" class="input_tx" size="10" id="seccode" name="seccode" maxlength="4" onfocus="showelement('imgseccode')" /> 
+<img style="display:none;" id="imgseccode" class="img_code" src="http://oss.org.cn/do.php?action=seccode" onclick="newseccode('imgseccode');" alt="seccode" title="看不清？点击换一张" />
+<a class="changcode_txt" title="看不清？点击换一张" href="javascript:showelement('imgseccode');newseccode('imgseccode');">换一张</a>
+</span>
+<input type="submit" value="发表" name="searchbtn" onclick="return submitcheck();" class="input_search"/>
+<input type="hidden" value="news" name="type" />
+<input type="hidden" value="submit" name="submitcomm" />
+<input type="hidden" id="itemid" name="itemid" value="86720" />
+<input type="hidden" id="upcid" name="upcid" value="" size="5" />
+<input type="hidden" id="type" name="type" value="news" size="5" />
+
+</div>
+
+</fieldset>
+</form>
+</div>
+    	</div>
+        <div class="sy-right">
+<div class="div2-left2" style="width:256px;height:386px;margin-top:12px;">
+                 <div class="sy-biaoti1">
+                       <div class="biaoti-wz">最新报道</div>
+                  </div>
+                                  
+  
+                  <div class="xw-zi1" style="height:189px;">
+                  
+                  	<div class="xw-biaoti"><a href="http://oss.org.cn/html/17/n-86817.html" title="龙芯28nm芯片已经进入实操阶段">龙芯28nm芯片已经进入实操阶段</a></div>
+                    <p>去年年底，龙芯推出了使用新架构GS46E的3A-1500四核处理器，随后该处理器的性能测试也曝光出来，这款国产芯也是在部分性能（Whetstone浮点运算）甚至比i7&...<a href="http://oss.org.cn/html/17/n-86817.html" title="龙芯28nm芯片已经进入实操阶段">【全文】</a></p>
+                  
+                  </div>
+                  
+                                    <ul class="sy-zi1">
+                     
+                      <li><a href="http://oss.org.cn/html/15/n-86815.html" title="Ubuntu MX4 今日将在魅族官网在线商店发售">Ubuntu MX4 今日将在魅族官网在</a></li>
+                     
+                      <li><a href="http://oss.org.cn/html/09/n-86809.html" title="宏碁携手Ubuntu共抢物联网商机">宏碁携手Ubuntu共抢物联网商机</a></li>
+                     
+                      <li><a href="http://oss.org.cn/html/06/n-86806.html" title="Ubuntu或抢先Windows 10实现手机-PC融合">Ubuntu或抢先Windows 10实现手机</a></li>
+                     
+                      <li><a href="http://oss.org.cn/html/04/n-86804.html" title="Firefox for Android下载超过一亿！">Firefox for Android下载超过一</a></li>
+                     
+                      <li><a href="http://oss.org.cn/html/97/n-86797.html" title="优麒麟 15.04 各城市发布派对活动将启动">优麒麟 15.04 各城市发布派对活</a></li>
+                     
+                      <li><a href="http://oss.org.cn/html/61/n-86761.html" title="化蛹成蝶的蜕变 红旗Linux满血复活">化蛹成蝶的蜕变 红旗Linux满血复</a></li>
+                     
+                  </ul>
+                  
+ </div>
+<!-- 3个月内的精华文章 7776000秒-->
+                          <div class="div2-left2" style="width:256px;height:298px;margin-top:12px;">
+                 <div class="sy-biaoti1">
+                       <div class="biaoti-wz">精华推荐</div>
+                       <div class="biaoti-gd"><!--<a href="#"><img src="images/gd.jpg" /></a>--></div>
+                  </div>
+                  
+                  <ul class="sy-zi1">
+                      
+                      <li><a href="http://oss.org.cn/html/61/n-86761.html" title="化蛹成蝶的蜕变 红旗Linux满血复活">化蛹成蝶的蜕变 红旗Linux满血复</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/03/n-86803.html" title="Windows开源：微软真实的&quot;谎言">Windows开源：微软真实的&quot;谎</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/29/n-86729.html" title="让你玩转 Ubuntu 桌面的十一件武器">让你玩转 Ubuntu 桌面的十一件武</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/01/n-86801.html" title="Ubuntu将逐步放弃deb包格式，默认使用Snappy打包">Ubuntu将逐步放弃deb包格式，默认</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/43/n-86743.html" title="开源软件在商业世界中的十大最佳应用领域">开源软件在商业世界中的十大最佳</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/14/n-86814.html" title="华为推出体积仅10KB的物联网操作系统LiteOS">华为推出体积仅10KB的物联网操作</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/91/n-86791.html" title="开源势力正在扩大的五大标志">开源势力正在扩大的五大标志</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/17/n-86817.html" title="龙芯28nm芯片已经进入实操阶段">龙芯28nm芯片已经进入实操阶段</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/28/n-86728.html" title="从GitHub上看开源许可证多舛的命运">从GitHub上看开源许可证多舛的命</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/96/n-86796.html" title="有道词典登陆Linux操作系统">有道词典登陆Linux操作系统</a></li>
+                      
+                  </ul>
+               
+             </div>
+             
+             <div class="div2-left2" style="width:256px;height:298px;margin-top:12px;">
+                 <div class="sy-biaoti1">
+                       <div class="biaoti-wz">月度热点</div>
+                       <div class="biaoti-gd"><!--<a href="#"><img src="images/gd.jpg" /></a>--></div>
+                  </div>
+                                    <ul class="sy-zi1">
+                      
+                      <li><a href="http://oss.org.cn/html/46/n-3646.html" title="开源技术手册黄页">开源技术手册黄页</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/03/n-86103.html" title="开源外卖平台(Web, 微信, APP)">开源外卖平台(Web, 微信, APP)</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/17/n-86817.html" title="龙芯28nm芯片已经进入实操阶段">龙芯28nm芯片已经进入实操阶段</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/01/n-86801.html" title="Ubuntu将逐步放弃deb包格式，默认使用Snappy打包">Ubuntu将逐步放弃deb包格式，默认</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/69/n-85569.html" title="利用 Bootstrap 进行快速 Web 开发">利用 Bootstrap 进行快速 Web 开</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/19/n-86819.html" title="我们应该怎样看待华为的Liteos？">我们应该怎样看待华为的Liteos？</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/18/n-86818.html" title="Mozilla修改Firefox OS计划">Mozilla修改Firefox OS计划</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/16/n-86816.html" title="一大波你可能不知道的 Linux 网络工具">一大波你可能不知道的 Linux 网</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/15/n-86815.html" title="Ubuntu MX4 今日将在魅族官网在线商店发售">Ubuntu MX4 今日将在魅族官网在</a></li>
+                      
+                      <li><a href="http://oss.org.cn/html/14/n-86814.html" title="华为推出体积仅10KB的物联网操作系统LiteOS">华为推出体积仅10KB的物联网操作</a></li>
+                      
+                  </ul>
+             </div>
+        </div>
+    </div><!--内容结束--><!--友情结束-->
+  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<div class="bottom">
+    	<div class="bq-zi"><a href="http://oss.org.cn/?action-viewnews-itemid-59783">关于社区</a> | <a href="http://www.copu.org.cn/">COPU</a> | <a href="http://oss.org.cn/?action-site-type-map">站点地图</a> | <a href="http://oss.org.cn/?action-site-type-link">友情链接</a> | <a href="mailto:oss@csip.org.cn">联系我们</a> | <a href="http://weibo.com/u/2231021590">@社区微博</a><br /> 
+2011 中国开源软件推进联盟(COPU) All Rights Reserved 版权所有 <br />
+E-Mail：oss@csip.org.cn 联系电话：010-63951881-8516   备案：京ICP备09035011号</div>
+        <div class="bq-tu" style="width:210px;"><a href="http://www.copu.org.cn/"><img src="/images/bq-tu3.jpg" /></a>
+<!-- <a href="http://coss.csip.org.cn/"><img src="/images/bq-tu2.jpg" /></a> --></div>
+    </div>
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["setDomains", ["*.oss.org.cn","*.www.oss.org.cn"]]);
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://yp.oss.org.cn/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "3"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code --></body>
+</html>
+<script type="text/javascript">
+<!--
+function clearcommentmsg() {
+if(get_id('message').value == '我也来评论！（不登录访客也能评论了）') get_id('message').value = '';
+}
+function addcommentmsg() {
+if(get_id('message').value == '') get_id('message').value = '我也来评论！（不登录访客也能评论了）';
+}
+//-->
+</script>
+			<script language="javascript">
+			<!--
+			var Modified = new Date(document.lastModified);
+			var copyright = document.getElementById("xspace-copyright");
+			if(copyright) {
+				copyright.innerHTML += "Last update: <a href=\"http://oss.org.cn/index.php?action/viewnews/itemid/86720/page/1/php/1\" title=\"点击可以立即更新本页面\">"+(Modified.getYear()<200?(Modified.getYear()+1900):Modified.getYear())+"-"+(Modified.getMonth()+1)+"-"+Modified.getDate()+" "+Modified.getHours()+":"+Modified.getMinutes()+":"+Modified.getSeconds() + "</a><br>";
+			}
+			document.write('<script src="http://oss.org.cn/batch.html.php?code=http%253A%252F%252Foss.org.cn%252Findex.php%253Faction%252Fviewnews%252Fitemid%252F86720%252Fpage%252F1%2F1433284891%2F300%2F0%2F86720%2Fviewnews&amp;lastmodified=' + Modified.getTime() + '" type="text\/javascript" language="javascript"><\/script>');
+			//-->
+			</script>
