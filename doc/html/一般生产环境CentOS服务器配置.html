@@ -1,0 +1,623 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>一般生产环境CentOS服务器配置</title>
+<meta name="keywords" content="一般,生产,环境,CentOS,服务器,配置,生产,环境,L" />
+<meta name="description" content="" />
+<link href="/templets/style/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<script src="/images/js/j.js" language="javascript" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+<!--
+function CheckLogin(){
+	  var taget_obj = document.getElementById('_ajax_feedback');
+	  myajax = new DedeAjax(taget_obj,false,false,'','','');
+	  myajax.SendGet2("/member/ajax_feedback.php");
+	  DedeXHTTP = null;
+}
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+}
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+-->
+</script>
+</head>
+<body class="articleview">
+<div class="header">
+ 	<div class="top w960 center">
+       <div class="title">
+         <h1> <a href="http://www.centoscn.com"></a> </h1>
+       </div>
+       <div class="banner">
+  <a  target="_blank" href="http://www.jfedu.net"><img  src="/money/centosa.jpg"/></a> 
+</div>
+       <div class="rlink">
+         <ul>
+          <a title="CentOS7.0.140" href="http://www.centoscn.com/CentosSoft/iso/2015/0402/5070.html"><img  src="/money/donate.png"/></a>
+         </ul>
+       </div>
+ 	</div><!-- //top -->
+ 	<!-- //菜单 -->
+ 	<div class="module blue mT10 wrapper w963">
+   	<div class="top" id="mytop">
+     	<div class="t_l"></div>
+     	<div class="t_r"></div>
+     	<!-- //如果不使用currentstyle，可以在channel标签加入 cacheid='channeltoplist' 属性提升性能 -->
+     <div id="navMenu">
+     	<ul>
+       	<li><a href='/'>首页</a></li>
+       	<li class='hover'><a href='/CentOS/'  rel='dropmenu1'>CentOS入门</a></li>
+       	<li><a href='/CentosSoft/'  rel='dropmenu6'>CentOS下载</a></li>
+       	
+       	<li><a href='/image-text/'  rel='dropmenu8'>CentOS教程</a></li>
+       	
+       	<li><a href='/CentosServer/'  rel='dropmenu7'>CentOS服务器</a></li>
+       	
+       	<li><a href='/shell/' >shell编程</a></li>
+       	
+       	<li><a href='/CentosSecurity/'  rel='dropmenu9'>安全防御</a></li>
+       	
+       	<li><a href='/CentosBug/'  rel='dropmenu3'>故障解决</a></li>
+       	
+       	<li><a href='/yunwei/'  rel='dropmenu16'>运维管理</a></li>
+       	
+       	<li><a href='http://www.cncentos.com' >中文论坛</a></li>
+       	
+     	</ul>
+     </div>	
+      <!-- sonMenu 子栏目 开始-->
+     <link href="/templets/style/tabs.css" type="text/css" rel="stylesheet"/>
+ 
+     <div class="sonMenu">
+ 		<ul>
+ 		  <li><a >推荐:<a style="color: #FF0000;"> </a> 
+                          <li><a target="_blank" href="http://www.jfedu.net" >京峰linux教育</a></li>
+                          <li><a target="_blank" href="http://vbird.dic.ksu.edu.tw" >鸟哥linux私房菜</a></li>
+                         <li><a href="http://www.centoscn.com/yunwei/news/2012/1227/131.html" >开源镜像大全</a></li>
+                             <li><a target="_blank" href="http://linux.51yip.com/" >Linux命令查询</a></li>
+                          <li><a target="_blank" href="http://edu.51cto.com/training/training_id-8.html?centoscn-training-8" >51CTO学院Linux</a></li>
+                             
+ 		  <li><a>Q群：139278852</a></li>
+                         <li><a>微信公众号：centoscn </a></li>
+ 		</ul>
+ 		<!-- sonMenu 子栏目 结束-->    <!-- //search -->
+</div>
+ 
+     <div class="threead"><a  target="_blank"  href="http://www.centoscn.com/CentosSoft/iso/2015/0402/5070.html"><img  src="/money/new960.jpg.jpg"/></a>
+
+ 	        </div>		 	
+ 	
+ 	</div></div><script type="text/javascript">
+/*960*90*/
+var cpro_id = "u1486013";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+<a target="_blank" title="安全狗" href="http://www.safedog.cn/server_safedog.html?from=centos"><img  src="/money/safedog.jpg"/></a>
+
+<!-- //header -->
+ 
+ <div style="margin-top:2px;padding-top:0px;border:solid 1px #9FD1F6;width:958px;" class="header">
+ <div style="margin-top:0px;padding-top:0px;" class="module blue mT10 wrapper w963">
+   <div style="margin-top:0px;padding-top:0px;" class="search">
+       <form action="/plus/search.php" name="formsearch">
+         <div class="form">
+           <h4>搜索</h4>
+            <input type="hidden" name="kwtype" value="0" />
+            <input name="keyword" type="text" class="search-keyword" id="search-keyword" />
+            <select name="searchtype" class="search-option" id="search-option">
+                <option value="titlekeyword" selected='1'>智能模糊搜索</option>
+                <option value="title">仅搜索标题</option>
+            </select>
+           <button type="submit" class="search-submit">搜索</button>
+         </div>
+         </form>
+       <div class="tags">
+         <h4>热门标签</h4>
+         <ul>
+           
+         </ul>
+         </div>
+         </div>
+     </div>
+     </div><!-- //search -->
+ </div>
+<!-- /header -->
+
+
+</div><!-- /channel-nav -->
+
+<div class="w960 center clear mt1">
+	<div class="pleft">
+		<div class="place">
+			<strong>当前位置:</strong> <a href='http://www.centoscn.com/'></a> > <a href='/CentOS/'>CentOS入门</a> > <a href='/CentOS/config/'>系统配置</a> > 
+		</div><!-- /place -->
+		<div class="viewbox">
+			<div class="title">
+				<h2>一般生产环境CentOS服务器配置</h2>
+			</div><!-- /title -->
+			<div class="info">
+				<small>时间:</small>2014-11-26 12:34<small>来源:</small>51cto  <small>作者:</small>“运维技术积累” 博 <a href="/plus/erraddsave.php?aid=4191&title=一般生产环境CentOS服务器配置" target="_blank">举报</a>   <small>点击:</small><script src="/plus/count.php?view=yes&aid=4191&mid=1" type='text/javascript' language="javascript"></script>次</div><!-- /info -->
+
+            	
+			<div class="content">
+<script type="text/javascript">
+var cpro_id="u2000246";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"695",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</SPAN>
+<p>
+	1.生产环境LINUX服务器系统版本的选择</p>
+<p>
+	选择CentOS6.5版本64位的LINUX操作系统</p>
+<p>
+	CentOS （Community Enterprise Operating System，中文意思是：社区企业操作系统）是Linux发行版之一，它是来自于红帽的Red Hat Enterprise Linux依照开放源代码规定释出的源代码所编译而成。由于出自同样的源代码，因此和红帽商业版的RHEL系统用着同样的高度稳定性。两者的不同，在于CentOS并不包含红帽的商业支持和一些RHEL商业版隐藏的功能。CentOS是完全开源和免费的，企业可以在生产环境上自由部署</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	&nbsp;</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	2.一般服务器的初始磁盘分区</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	1)/boot引导分区，存放引导文件和内核等。分区大小设定200M。</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	一般正式环境下，linux引导文件及内核全部大小在100M以内。</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	2)swap交换分区，作为虚拟内存使用，用于当物理内存不足时，调用硬盘的一部分当内存使用。使用虚拟内存，会保障服务器在内存不足的时候不会宕机。</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	一般生产环境服务器内存较大，交换分区大小与内存相同即可</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	3)/分区根分区，将分完/boot和swap分区剩下的空间都分给/分区</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	&nbsp;</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	3.数据库服务器的初始磁盘分区</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	1)/boot引导分区，分区大小设定200M</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	2)swap交换分区，交换分区大小与内存相同</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	3)逻辑卷建立LVM逻辑卷，将逻辑卷挂载到相应的文件路径，后期可以轻松扩充或减小文件系统的大小</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	4)/分区根分区使用逻辑卷， 数据库服务器的根分区主要存放系统相关文件、日志、用户信息等，由于不用存放数据文件，并且可以通过逻辑卷随意扩充，大小满足系统运行需要即可。lv大小设定200G</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	5)数据分区为数据库软件和数据库文件单独划分一个逻辑卷分区，以保证数据的独立性和安全性，如果linux操作系统崩溃，可以格式化/boot分区和根分区重新安装系统，而保留数据分区下的数据库软件和数据文件。将所有剩余的卷组空间都分配给数据分区的逻辑卷，Mysql数据库一般将数据分区挂载在/usr/local，Oracle数据库一般将数据分区挂载在/u02上</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	&nbsp;</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	4.多网卡绑定bond配置</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	生产环境多块物理网卡，需要用bond绑定为一块虚拟网卡对外提供服务，配置一个ip，可以实现网卡的负载均衡和高可用性，规划生产环境用两块网卡eth0、eth1绑定为bond0</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	1)虚拟网卡bond0配置文件</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	vim /etc/sysconfig/network-scripts/ifcfg-bond0</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	DEVICE=bond0</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	BOOTPROTO=none</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	ONBOOT=yes</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	IPADDR=192.168.10.93</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	NETMASK=255.255.255.0</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	GATEWAY=192.168.10.1</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	2)物理网卡eth0配置文件</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	vim /etc/sysconfig/network-scripts/ifcfg-eth0</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	DEVICE=eth0</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	ONBOOT=yes</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	BOOTPROTO=none</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	MASTER=bond0</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	SLAVE=yes</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	3)物理网卡eth1配置文件</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	vim /etc/sysconfig/network-scripts/ifcfg-eth1</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	DEVICE=eth1</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	ONBOOT=yes&nbsp;</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	BOOTPROTO=none</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	MASTER=bond0</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	SLAVE=yes</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	4)修改modprobe相关设定文件，并加载bonding模块</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	vim /etc/modprobe.d/bonding.conf</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	alias bond0 bonding</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	options bond mode=0 miimon=100</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	mode模式：0提供负载均衡和高可用，按顺序轮流把包发给绑定在在bond口内的网卡</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	1主备策略，提供高可用性，逻辑简单，同时只有一个网卡处于激活状态，一个失败，另外一个自动激活</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	miimon：监视网络链接的频度，单位是毫秒</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	5)加载模块（或重启）</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	modprobe bonding</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	6)查看模块加载情况</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	lsmod | grep bonding</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	7)重启网络</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	service network restart</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	8)确认绑定情况</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	cat /proc/net/bonding/bond0</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	ifconfig</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	&nbsp;</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	5.关闭本地防火墙</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	iptables -F</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	iptables &ndash;L</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	service iptables save</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	&nbsp;</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	6.关闭NetworkManager服务</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	service NetworkManager stop</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	chkconfig NetworkManager off</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	&nbsp;</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	7.账户安全权限配置</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	1)禁用root以外的超级用户</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	cat /etc/passwd | awk -F &#39;:&#39; &#39;{print $1,$3}&#39; | grep &#39; 0$&#39;&nbsp;检测其他超级用户</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	passwd -l username锁定用户</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	2)删除不必要的账号</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	awk -F : &#39;{print $1}&#39; /etc/passwd | grep -E &#39;adm|lp|sync|shutdown|halt|news|uucp|operator|games|gopher&#39;</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	userdel username</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	3)删除不必要的组</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	awk -F : &#39;{ print $1 }&#39; /etc/group | grep -E &#39;adm|lp|news|uucp|games|dip|pppusers|popusers|slipusers&#39;</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	groupdel groupname</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	4)设置root用户口令</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	passwd</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	5)检查空口令账号，如发现则设置口令</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	awk -F: &#39;($2 == &quot;&quot;) { print $1 }&#39; /etc/shadow</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	passwd username</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	6)口令文件加锁</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	chattr +i /etc/passwd</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	chattr +i /etc/shadow</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	chattr +i /etc/group</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	chattr +i /etc/gshadow</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	当需要改密码的时候，要先解锁shadow文件:</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	chattr &ndash;i /etc/shadow</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	7)设置root账户自动注销时限</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	vim /etc/profile</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	在&quot;HISTFILESIZE=&quot;后面加入下面</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	TMOUT=300</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	8)限制普通用户通过su切换为root用户</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	vim /etc/pam.d/su</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	auth required pam_wheel.so use_uid</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	如果需要用户可以su成为root，要将其加入wheel组</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	usermod -G 10 username</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	9)限制普通用户无法执行关机、重启、配置网络等敏感操作</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	rm -rf /etc/security/console.apps/*</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	10)禁用Ctrl+Alt+Delete组合键重新启动机器命令</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	vim /etc/inittab</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	#ca::ctrlaltdel:/sbin/shutdown-t3-rnow</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	11)设置开机启动项权限</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	chmod &ndash;R 700 /etc/rc.d/init.d/</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	12)避免login时显示系统和版本信息</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	rm -rf /etc/issue</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	rm -rf /etc/issue.net</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	13)删除多余登录终端</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	vim /etc/securetty</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	tty1</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	#tty2</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	#tty3</p>
+<p style="padding: 0px; margin: 0px; clear: both; height: auto; overflow: hidden; color: rgb(85, 85, 85); font-family: 宋体, 'Arial Narrow', arial, serif; font-size: 14px; line-height: 28px;">
+	#tty4</p>
+
+			<table width='100%'>
+				
+			</table>
+			</div><!-- /content --><div class="dede_pages">
+				<ul class="pagelist">
+          
+				</ul>
+			</div><!-- /pages -->
+			
+			<!-- //顶踩 -->
+			<div class="newdigg" id="newdigg">
+<script type="text/javascript">
+    /*640*60*/
+    var cpro_id = "u1490624";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>	<!-- //顶踩部份的源码结束 -->
+			
+			<div class="boxoff">				<strong>------分隔线----------------------------</strong>
+			</div>
+			<div class="handle"></div>
+				<div class="context">
+					<ul>
+						<li>上一篇：<a href='/CentOS/config/2014/1126/4183.html'>centos下更换网卡后设置ifcfg-eth0</a> </li>
+						<li>下一篇：<a href='/CentOS/config/2014/1129/4207.html'>CentOS下配置mysql开机自启动</a> </li>
+					</ul>
+				</div><!-- /context -->
+				<div class="actbox">
+					<ul>
+						<li id="act-fav"><a href="/plus/stow.php?aid=4191" target="_blank">收藏</a></li>
+						<li id="act-err"><a href="/plus/erraddsave.php?aid=4191&title=一般生产环境CentOS服务器配置" target="_blank">举报</a></li>
+						<li id="act-pus"><a href="/plus/recommend.php?aid=4191" target="_blank">推荐</a></li>
+						<li id="act-pnt"><a href="#" onClick="window.print();">打印</a></li>
+					</ul>
+				</div><!-- /actbox -->
+			</div><!-- /handle -->
+		</div><!-- /viewbox -->
+
+<!-- //AJAX评论区 -->
+<!-- //主模板必须要引入/include/dedeajax2.js -->
+<a name='postform'></a>
+<div class="mt1">
+		<dl class="tbox">
+			<dt>
+				<strong>发表评论</strong>
+				<span class="more"></span>
+			</dt>
+			<dd>
+				<div class="dede_comment_post">
+          <form action="#" method="post" name="feedback">
+          <input type="hidden" name="dopost" value="send" />
+          <input type="hidden" name="comtype" value="comments">
+          <input type="hidden" name="aid" value="4191" />
+          <input type="hidden" name="fid" id='feedbackfid' value="0" />
+          <div class="dcmp-title">
+						<small>为了和诣的生活，我关闭了评论页面，请大家到QQ群里交流吧：139278852 ,也欢迎关注本站微信公众号：centoscn </small>
+					
+				
+			</dd>
+		</dl>
+	</div><!-- //评论表单区结束 -->
+
+
+
+</div><!-- //左边内容结束 -->
+
+<!-- //右边内容开始 -->
+<div class="pright">
+ 		
+
+<div class="commend mt1"><dl class="tbox light">
+				<dt class='light'><strong>栏目分类</strong></dt>
+				<dd class='light'>
+					<ul class="c1 ico2">
+             <ul >
+                    
+                    <li><a href='/CentOS/help/' target="_blank">基础命令<span></span></a></li>
+                     
+                    <li><a href='/CentOS/config/' target="_blank">系统配置<span></span></a></li>
+                     
+                    <li><a href='/CentOS/Intermediate/' target="_blank">中级进介<span></span></a></li>
+                     </ul>					</ul>
+				</dd>
+			</dl>
+		</div><!-- /commend -->
+
+		<div class="commend mt1"><dl class="tbox light">
+				<dt class='light'><strong>本月热点</strong></dt>
+				<dd class='light'>
+					<ul class="c1 ico2">
+             <li><a href="/CentOS/config/2013/1017/1878.html">CentOS服务器时间同步的2种方法</a></li>
+<li><a href="/CentOS/config/2014/0419/2822.html">Centos 6.5添加网易163源</a></li>
+<li><a href="/CentOS/config/2014/1105/4060.html">将centos7打造成桌面系统</a></li>
+<li><a href="/CentOS/config/2013/1102/2034.html">CentOS6.4系统安装后的基础优化</a></li>
+<li><a href="/CentOS/config/2013/0817/1316.html">CentOS添加环境变量</a></li>
+<li><a href="/CentOS/config/2013/1030/2016.html">CentOS的文件权限与目录配置</a></li>
+<li><a href="/CentOS/config/2013/0926/1713.html">CentOS SSH安装与配置</a></li>
+<li><a href="/CentOS/config/2014/0326/2662.html">CentOS关闭休眠和屏保模式</a></li>
+<li><a href="/CentOS/config/2013/0909/1582.html">Centos磁盘分区教程</a></li>
+<li><a href="/CentOS/config/2014/1112/4112.html">虚拟机下CentOS 6.5配置IP地址的</a></li>
+
+					</ul>
+				</dd>
+			</dl>
+		</div><!-- /commend -->
+
+		<div class="hot mt1">
+			<dl class="tbox light"><script type="text/javascript">
+var cpro_id="u2000262";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"245",rsi1:"300",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+				<dt class='light'><strong>推荐内容</strong></dt>
+				<dd class='light'>
+					<ul class="d4">
+           <li><a href="/CentOS/config/2015/0717/5876.html">CentOS-6.5系统基础优化附带优化脚本</a>
+            	<p>...</p>
+            </li>
+<li><a href="/CentOS/config/2015/0604/5593.html"> CentOS网络配置详解</a>
+            	<p>...</p>
+            </li>
+<li><a href="/CentOS/config/2015/0504/5360.html">6个小步骤实现CentOS系统环境精简优化</a>
+            	<p>...</p>
+            </li>
+<li><a href="/CentOS/config/2015/0428/5288.html">CentOS系统安装完常规初始化操作</a>
+            	<p>...</p>
+            </li>
+<li><a href="/CentOS/config/2015/0321/4953.html">CentOS系统环境精简优化</a>
+            	<p>...</p>
+            </li>
+
+					</ul>
+				</dd>
+			</dl>
+		</div></div></div>
+<!-- //二级子类下拉菜单，考虑SEO原因放置于底部  -->
+
+<!-- //底部模板 -->
+
+<div class="footer w960 center mt1 clear">
+
+<a target="_blank" href="about.html">关于我们</a> -
+
+<a target="_blank" href="about.html">联系我们</a> -
+
+<a target="_blank" href="about.html">广告服务</a> -<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F65a70808534a9fe419a0a120e9bef073' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+<a target="_blank" href="about.html">免责申明</a> -
+
+<a target="_blank" href="about.html">版权申明</a> -
+
+<a target="_blank" href="about.html">TAG标签</a> -
+
+<a target="_blank" href="about.html">网站地图</a> -
+
+<a href="#top">返回顶部</a> </p>
+
+<!-- /powered -->
+
+	<p class="copyright">
+
+		Copyright 2012-2013(CentOS中文网) CentOScn.Com <a target="_blank" href="http://www.miibeian.gov.cn/">粤ICP备13006404号</a> Powered by DedeCMS 1.0 
+
+  </p>
+
+ </TR>
+<script type="text/javascript">
+/*120*270*/
+var cpro_id = "u1486028";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script></div>
+
+<!-- /footer -->
+</body></html>

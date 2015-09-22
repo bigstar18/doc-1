@@ -1,0 +1,478 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>生产服务器环境最小化安装后 Centos 6.5优化配置备忘 - 吕滔博客</title>
+    <link rel="stylesheet" href="http://www.lvtao.net/usr/themes/new/style.css">
+    <meta name="description" content="本文 centos 6.5 优化 的项有18处:1、centos6.5最小化安装后启动网卡2、ifconfig查询IP进行SSH链接3、更新系统源并且升级系统4、系统时间更新和设定定时任5、修改..." />
+<meta name="keywords" content="CentOS,Linux" />
+<link rel="pingback" href="http://www.lvtao.net/action/xmlrpc" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.lvtao.net/action/xmlrpc?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.lvtao.net/action/xmlrpc?wlw" />
+<script type="text/javascript">
+(function () {
+    window.TypechoComment = {
+        dom : function (id) {
+            return document.getElementById(id);
+        },
+    
+        create : function (tag, attr) {
+            var el = document.createElement(tag);
+        
+            for (var key in attr) {
+                el.setAttribute(key, attr[key]);
+            }
+        
+            return el;
+        },
+
+        reply : function (cid, coid) {
+            var comment = this.dom(cid), parent = comment.parentNode,
+                response = this.dom('respond-post-557'), input = this.dom('comment-parent'),
+                form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+                textarea = response.getElementsByTagName('textarea')[0];
+
+            if (null == input) {
+                input = this.create('input', {
+                    'type' : 'hidden',
+                    'name' : 'parent',
+                    'id'   : 'comment-parent'
+                });
+
+                form.appendChild(input);
+            }
+
+            input.setAttribute('value', coid);
+
+            if (null == this.dom('comment-form-place-holder')) {
+                var holder = this.create('div', {
+                    'id' : 'comment-form-place-holder'
+                });
+
+                response.parentNode.insertBefore(holder, response);
+            }
+
+            comment.appendChild(response);
+            this.dom('cancel-comment-reply-link').style.display = '';
+
+            if (null != textarea && 'text' == textarea.name) {
+                textarea.focus();
+            }
+
+            return false;
+        },
+
+        cancelReply : function () {
+            var response = this.dom('respond-post-557'),
+            holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+            if (null != input) {
+                input.parentNode.removeChild(input);
+            }
+
+            if (null == holder) {
+                return true;
+            }
+
+            this.dom('cancel-comment-reply-link').style.display = 'none';
+            holder.parentNode.insertBefore(response, holder);
+            return false;
+        }
+    };
+})();
+</script>
+<script type="text/javascript">
+(function () {
+    var event = document.addEventListener ? {
+        add: 'addEventListener',
+        focus: 'focus',
+        load: 'DOMContentLoaded'
+    } : {
+        add: 'attachEvent',
+        focus: 'onfocus',
+        load: 'onload'
+    };
+
+    document[event.add](event.load, function () {
+        var r = document.getElementById('respond-post-557');
+
+        if (null != r) {
+            var forms = r.getElementsByTagName('form');
+            if (forms.length > 0) {
+                var f = forms[0], textarea = f.getElementsByTagName('textarea')[0], added = false;
+
+                if (null != textarea && 'text' == textarea.name) {
+                    textarea[event.add](event.focus, function () {
+                        if (!added) {
+                            var input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = '_';
+                            input.value = (function () {
+    var _nLm = //'a'
+'f3'+'d'//'n'
++'168'//'58'
++'3'//'0IS'
++//'9Ox'
+'5'+'iVY'//'iVY'
++/* 'jC'//'jC' */''+'51'//'UD'
++//'mWx'
+'ea1'+'d47'//'Y1u'
++'5ce'//'d8'
++//'K9'
+'297'+'a0'//'Ig'
++//'EKX'
+'EKX'+//'SBw'
+'ef'+//'Tjk'
+'8'+//'NJ'
+'NJ'+'1'//'fc1'
++''///*'KTF'*/'KTF'
++''///*'pG'*/'pG'
++//'F9'
+'798'+''///*'o'*/'o'
++/* 'ka'//'ka' */''+'1'//'vKt'
+, _0TTMJw = [[8,11],[24,27],[27,29]];
+    
+    for (var i = 0; i < _0TTMJw.length; i ++) {
+        _nLm = _nLm.substring(0, _0TTMJw[i][0]) + _nLm.substring(_0TTMJw[i][1]);
+    }
+
+    return _nLm;
+})();
+
+                            f.appendChild(input);
+                            added = true;
+                        }
+                    });
+                }
+            }
+        }
+    });
+})();
+</script></head>
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">                  
+                <h1><a id="logo" href="http://www.lvtao.net/">
+                    吕滔博客                </a></h1>
+        	    <p class="description">记录一些工作或生活或爱好的地方 : 人生最大的错误是不断担心会犯错</p>
+            </div>
+            <div id="nav-menu" class="clearfix">
+                <ul class="widget-list"><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/web/">前端设计</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/dev/">WEB开发</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/database/">数据库</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/server/">服务器</a><ul class="widget-list"><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/linux/">linux入门教程</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/systemext/">系统组件</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/config/">环境配置</a></li></ul></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/c/">C语言</a><ul class="widget-list"><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/summarize/">一. C语言概述</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/arithmetic/">二. C语言算法</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/operation/">三. 数据类型和运算符</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/program/">四. 顺序程序设计</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/structure/">五. 分支结构</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/cycle/">六. 循环控制</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/array/">七. C语言数组</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/fun/">八. C语言函数</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/command/">九. 预处理命令</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/pointer/">十. C语言指针</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/app/">十一. 结构体和共用体</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/weiyunsuan/">十二. 位运算</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/file/">十三. 文件操作</a></li></ul></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/ios/">MAC&iOS</a><ul class="widget-list"><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/tip/">Swift TIP</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/swift/">Swift 学习</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/iosui/">iOS UI</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/xcode-mac/">xcode&mac</a></li></ul></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/shell/">SHELL</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/tool/">IT杂谈</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/photography/">摄影</a><ul class="widget-list"><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/portrait/">人像摄影</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/scenery/">风光摄影</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/night/">夜景摄影</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/equipment/">器材选购</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/experience/">前车之鉴</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/noun/">名词解释</a></li></ul></li></ul>            </div>
+        </div>
+    </div>
+</header>
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+<div class="col-8" id="main">
+	<div class="res-cons">
+		<article class="post">			
+			<date class="post-meta">
+				August 13, 2014			</date>
+			<header>
+				<h1 class="post-title">生产服务器环境最小化安装后 Centos 6.5优化配置备忘</h1>
+			</header>
+			<div class="post-content">
+				<p><strong>本文 centos 6.5 优化 的项有18处:</strong><br />
+1、centos6.5最小化安装后启动网卡<br />
+2、ifconfig查询IP进行SSH链接<br />
+3、更新系统源并且升级系统<br />
+4、系统时间更新和设定定时任<br />
+5、修改ip地址、网关、主机名、DNS<br />
+6、关闭selinux，清空iptables<br />
+7、创建普通用户并进行sudo授权管理<br />
+8、修改SSH端口号和屏蔽root账号远程登陆<br />
+9、锁定关键文件系统（禁止非授权用户获得权限）<br />
+10、精简开机自启动服务<br />
+11、调整系统文件描述符大小<br />
+12、设置系统字符集<br />
+13、清理登陆的时候显示的系统及内核版本<br />
+14、内核参数优化<br />
+15、定时清理/var/spool/clientmqueue<br />
+16、删除不必要的系统用户和群组<br />
+17、关闭重启ctl-alt-delete组合键<br />
+18、设置一些全局变量<br />
+<strong>1、启动网卡</strong></p><pre>#centos6.x最小化安装后，网卡默认不是启动状态
+ifup eth0</pre><p><strong>2、SSH链接 ifconfig 查看IP后SSH终端连接。</strong><br />
+<strong>3、更新源 最小化安装是没有wget工具的，必须先安装在修改源)</strong></p><pre>yum install wget</pre><p>备份原系统更新源</p><pre>mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</pre><p>进入yum.repos.d目录</p><pre>cd /etc/yum.repos.d</pre><p>下载网易镜像源或者搜狐镜像源</p><pre>#下载网易镜像源：
+wget http://mirrors.163.com/.help/CentOS6-Base-163.repo
+#或者
+#下载搜狐镜像源：
+wget http://mirrors.sohu.com/help/CentOS-Base-sohu.repo</pre><p>网易搜狐的源可能有问题。<br />
+参考http://blog.csdn.net/ichsonx/article/details/8518420</p><pre>清空yum缓存
+yum clean all
+生存缓存
+yum makecache
+开始更新系统以及内核
+yum upgrade
+必备软件
+yum install ntpdate -y</pre><p><strong>4、系统时间更新和设定定时任务 第一种：更新时间并且写入BOIS</strong></p><pre>ntpdate time.windows.com &amp;&amp; hwclock -w &amp;&amp; hwclock --systohc</pre><p>或者：查看时间服务器的时间:</p><pre># rdate time-b.nist.gov</pre><p>设置时间和时间服务器同步:</p><pre># rdate -s time-b.nist.gov</pre><p>第二种：更新时间并且写入定时任务</p><pre>echo '*/30 * * * * ntpdate time.windows.com &amp;&amp; hwclock -w &amp;&amp; hwclock --systohc &gt;/dev/null 2&gt;&amp;1' &gt;&gt;/var/spool/cron/root</pre><p>第三种：每间隔5分钟和10分钟同步一次时间</p><pre>echo '*/5 * * * * /usr/sbin/ntpdate time.windows.com &gt;/dev/null 2 &gt;&amp;1' &gt;&gt;/var/spool/cron/root
+echo '*/10 * * * * /usr/sbin/ntpdate time.nist.gov &gt;/dev/null 2&gt;&amp;1' &gt;&gt;/var/spool/cron/root</pre><p>提示：CentOS 6.x的时间同步命令路径不一样 6是/usr/sbin/ntpdate 5是/sbin/ntpdate<br />
+<strong>5、修改ip地址、网关、主机名、DNS #eth0 网卡设置</strong></p><pre>mv /etc/sysconfig/network-scripts/ifcfg-eth0 /etc/sysconfig/network-scripts/ifcfg-eth0.bak
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0 #网卡设备名称
+HWADDR=00:0C:29:D0:C7:B5 #以太网设备的对应的物理地址
+TYPE=Ethernet #网络类型为以太网模式
+UUID=080a457b-6a53-4a3a-9155-a23c1146c2c6 #通用唯一识别码
+ONBOOT=yes #是否启动引导的时候激活YES
+NM_CONTROLLED=no #设备eth0是否可以由Network Manager图形管理工具托管
+BOOTPROTO=dhcp #静态IP地址获取状态 如：DHCP表示自动获取IP地址
+IPADDR=192.168.1.10 #IP
+IPV6INIT=no
+IPV6_AUTOCONF=no
+NETMASK=255.255.255.0 #网卡对应的网络掩码
+GATEWAY=192.168.1.1 #网关地址</pre><p><strong>检查网卡配置</strong></p><pre>cat /etc/sysconfig/network-scripts/ifcfg-eth0</pre><p><strong>网关配置</strong></p><pre>vi /etc/sysconfig/network
+#表示系统是否使用网络，一般设置为yes。如果设为no，则不能使用网络，而且很多系统服务程序将无法启动
+NETWORKING=yes
+#设置本机的主机名，这里设置的主机名要和/etc/hosts中设置的主机名对应
+HOSTNAME=c65mini.localdomain
+#设置本机连接的网关的IP地址。例如，网关为10.0.0.1或者192.168.1.1
+GATEWAY=192.168.1.1</pre><p><strong>修改主机DNS</strong></p><pre>vi /etc/resolv.conf
+; generated by /sbin/dhclient-script
+nameserver 8.8.8.8
+nameserver 4.4.4.4</pre><p><strong>修改HOSTS</strong></p><pre>vi /etc/hosts
+127.0.0.1 lvtao.localdomain
+#使用DNS域名服务器来解析名字
+order bind hosts
+#一台主机是否存在多个IP
+multi on
+#如果用逆向解析找出与指定的地址匹配的主机名，对返回的地址进行解析以确认它确实与您查询的地址相配。为了防止“骗取”IP地址
+nospoof on</pre><p><strong>重启网卡生效设置两种方法</strong></p><pre>service network restart
+或者
+/etc/init.d/network restart</pre><p><strong>6、关闭selinux，清空iptables 在服务器配置完全成功后各项服务正常后，在开启selinux</strong><br />
+<strong>查看selinux状态</strong></p><ul>
+	<li>第一种方法：/usr/bin/setstatus -v #如果显示：SELinux status: enabled 就是开启状态</li>
+	<li>第二种方法：cat /etc/selinux/config #如果显示：SELINUX=enforcing 则是开启状态permissive有提醒的状态 disabled是关闭</li>
+	<li>第三种方法：grep SELINUX=disabled /etc/selinux/config</li>
+	<li>第四种方法：getenforce</li>
+</ul><p><strong>修改selinux状态</strong> 如果修改配置文件则永久生效，但是必须要重启系统</p><ul>
+	<li>第一种：vi /etc/selinux/config 修改 SELINUX=disabled</li>
+	<li>第二种：sed –i ‘s/SELINUX=enforcing/SELINUX=disabled/g’ /etc/selinux/config</li>
+</ul><p>如果想立即生效（如果想临时性的改变） setenforce 0<br />
+setenforce 1 设置SELinux 成为enforcing模式 setenforce 0 设置SELinux 成为permissive模式 查看状态 getenforce<br />
+iptables防火墙规则清理了，根据需求定制</p><pre>#清空iptables规则
+iptables -F
+#查看iptables规则
+iptables -L
+#保存规则，注意，虽然清空了，不保存的话，重启后，又会有规则。
+/etc/init.d/iptables save</pre><p><strong>7、创建普通用户并进行sudo授权管理</strong> 创建普通用户 useradd lvtao 修改用户密码 passwd lvtao<br />
+另一种方式：一次性创建用户和设置密码 echo "123456"|passwd --stdin lvtao&amp;&amp;history –c<br />
+其中lvtao为你创建的用户名<br />
+sudo授权管理 打开sudo配置文件 visudo</p><pre>#按:set nu 查看行，找到99行
+root ALL=(ALL) ALL
+#添加
+lvtao ALL=(ALL) ALL</pre><p><strong>8、修改SSH端口号和屏蔽root账号远程登陆</strong></p><pre>#备份SSH配置 
+cp /etc/ssh/sshd_config sshd_config_bak 
+#修改SSH安全配置 
+vi /etc/ssh/sshd_config
+#SSH链接默认端口
+port 52113
+#禁止root账号登陆
+PermitRootLogin no
+#禁止空密码
+PermitEmptyPasswords no
+#不使用DNS
+UseDNS no</pre><p>重新载入SSH配置 /etc/init.d/sshd reload 查看端口里面是否有刚才修改过的端口号52113</p><pre>netstat -lnt</pre><p>或者反查端口是那个进程</p><pre>lsof -i tcp:52113</pre><p>centos6.5最小化安装没有lsof工具需要 yum install lsof<br />
+<strong>9、锁定关键文件系统（禁止非授权用户获得权限）</strong></p><pre>chattr +i /etc/passwd
+chattr +i /etc/inittab
+chattr +i /etc/group
+chattr +i /etc/shadow
+chattr +i /etc/gshadow</pre><p><strong>10、精简开机自启动服务</strong><br />
+<strong>注意:</strong> 刚装完操作系统一般可以只保留crond，network，syslog，sshd这四个服务。 后期根据业务需求制定自启服务 #（Centos6.x为rsyslog Cetnos5.x为syslog） 如果是中文的话。可能会需要LANG=en 或者替换 3:on 成 3:启用</p><pre>#关闭全部服务
+for sun in `chkconfig --list|grep 3:on|awk '{print $1}'`;do chkconfig --level 3 $sun off;done
+
+#或者
+for sun in `chkconfig --list|grep 3:启用|awk '{print $1}'`;do chkconfig --level 3 $sun off;done
+
+#开启需要的服务
+for sun in crond rsyslog sshd network;do chkconfig --level 3 $sun on;done
+
+#或者需要使用防火墙的话可以开启iptables和ip6tables
+for sun in crond rsyslog sshd network iptables ip6tables;do chkconfig --level 3 $sun on;done</pre><p>查询下开启的服务 chkconfig –list | grep 3:on 或者 chkconfig –list|grep 3:启用</p><pre>[bingoku@c65mini ~]$ chkconfig --list|grep 3:启用
+crond           0:关闭    1:关闭    2:启用    3:启用    4:启用    5:启用    6:关闭
+ip6tables       0:关闭    1:关闭    2:启用    3:启用    4:启用    5:启用    6:关闭
+iptables        0:关闭    1:关闭    2:启用    3:启用    4:启用    5:启用    6:关闭
+network         0:关闭    1:关闭    2:启用    3:启用    4:启用    5:启用    6:关闭
+rsyslog         0:关闭    1:关闭    2:启用    3:启用    4:启用    5:启用    6:关闭
+sshd            0:关闭    1:关闭    2:启用    3:启用    4:启用    5:启用    6:关闭</pre><p><strong>11、调整文件描述符大小</strong></p><pre>#查看文件描述符大小
+ulimit -n </pre><p>第一种：#这里参考的是阿里云主机默认设置。</p><pre>vi /etc/security/limits.conf 
+* soft nofile 65535 
+* hard nofile 65535 
+* soft nproc 65535 
+* hard nproc 65535 
+* soft nofile 65535
+* hard nofile 65535 </pre><p>第二种：echo '* - nofile 65535' &gt;&gt; /etc/security/limits.conf<br />
+第三种：把ulimit -SHn 65535命令加入到/etc/rc.local，然后每次重启生效 追加命令到rc.local配置文件里面</p><pre>cat &gt;&gt;/etc/rc.local&lt;&lt;EOF
+#open files
+ulimit -HSn 65535
+#stack size
+ulimit -s 65535
+EOF</pre><p>第四种：如果不修改limits配置文件，直接立即生效，但重启后又恢复之前的默认。 ulimit -SHn 65535<br />
+<strong>12、设置系统字符集</strong><br />
+第一种：vi /etc/sysconfig/i18n<br />
+如果想用中文提示：LANG=”zh_CN.UTF-8″ 如果想用英文提示：LANG=”en_US.UTF-8″ 如果临时切换也可以 LANG=zh_CN.UTF-8<br />
+第二种：使用sed快速替换</p><pre>#替换成英文
+sed -i 's#LANG="zh_CN.*"#LANG="en_US.UTF-8"#' /etc/sysconfig/i18n
+#替换成中文
+sed -i 's#LANG="en_US.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
+#替换成UTF-8中文
+sed -i 's#LANG="zh_CN.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
+</pre><p><strong>13、清理登陆的时候显示的系统及内核版本</strong></p><pre>#查看登陆信息 
+cat /etc/redhat-release cat /etc/issue 
+#清理登陆信息
+echo &gt;/etc/redhat-release 
+echo &gt;/etc/issue
+</pre><p><strong>14、内核参数优化 vi /etc/sysctl.conf</strong></p><pre>#可用于apache，nginx，squid多种等web应用
+net.ipv4.tcp_max_syn_backlog = 65536
+net.core.netdev_max_backlog = 32768
+net.core.somaxconn = 32768
+
+net.core.wmem_default = 8388608
+net.core.rmem_default = 8388608
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+
+net.ipv4.tcp_timestamps = 0
+net.ipv4.tcp_synack_retries = 2
+net.ipv4.tcp_syn_retries = 2
+
+net.ipv4.tcp_tw_recycle = 1
+#net.ipv4.tcp_tw_len = 1
+net.ipv4.tcp_tw_reuse = 1
+
+net.ipv4.tcp_mem = 94500000 915000000 927000000
+net.ipv4.tcp_max_orphans = 3276800
+
+#net.ipv4.tcp_fin_timeout = 30
+#net.ipv4.tcp_keepalive_time = 120
+net.ipv4.ip_local_port_range = 1024 65535
+
+#以下参数是对centos6.x的iptables防火墙的优化，防火墙不开会有提示，可以忽略不理。
+#如果是centos5.X需要吧netfilter.nf_conntrack替换成ipv4.netfilter.ip
+#centos5.X为net.ipv4.ip_conntrack_max = 25000000
+net.nf_conntrack_max = 25000000
+net.netfilter.nf_conntrack_max = 25000000
+net.netfilter.nf_conntrack_tcp_timeout_established = 180
+net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
+net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
+net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
+</pre><p>立即生效 /sbin/sysctl -p centos6.5可能会报错</p><pre>error: "net.bridge.bridge-nf-call-ip6tables" is an unknown key
+error: "net.bridge.bridge-nf-call-iptables" is an unknown key
+error: "net.bridge.bridge-nf-call-arptables" is an unknown key</pre><p>出现这个的原因是，没有自动载入bridge桥接模块</p><pre>modprobe bridge
+echo "modprobe bridge"&gt;&gt; /etc/rc.local</pre><p>查看桥接 lsmod|grep bridge<br />
+centos5.X可能会报错 这个错误可能是你的防火墙没有开启或者自动处理可载入的模块ip_conntrack没有自动载入，解决办法有二，一是开启防火墙，二是自动处理开载入的模块ip_conntrack</p><pre>error: "net.ipv4.ip_conntrack_max"is an unknown key
+error: "net.ipv4.netfilter.ip_conntrack_max"is an unknown key
+error: "net.ipv4.netfilter.ip_conntrack_tcp_timeout_established"is an unknown key
+error: "net.ipv4.netfilter.ip_conntrack_tcp_timeout_time_wait"is an unknown key
+error: "net.ipv4.netfilter.ip_conntrack_tcp_timeout_close_wait"is an unknown key
+error: "net.ipv4.netfilter.ip_conntrack_tcp_timeout_fin_wait"is an unknown key</pre><p>centos5.X解决方法：</p><pre>modprobe ip_conntrack
+echo "modprobe ip_conntrack"&gt;&gt; /etc/rc.local</pre><p>centos6.X可能会报错 这个错误可能是你的防火墙没有开启或者自动处理可载入的模块ip_conntrack没有自动载入，解决办法有二，一是开启防火墙，二是自动处理开载入的模块ip_conntrack</p><pre>error: "net.nf_conntrack_max"isan unknown key
+error: "net.netfilter.nf_conntrack_max"isan unknown key
+error: "net.netfilter.nf_conntrack_tcp_timeout_established"isan unknown key
+error: "net.netfilter.nf_conntrack_tcp_timeout_time_wait"isan unknown key
+error: "net.netfilter.nf_conntrack_tcp_timeout_close_wait"isan unknown key
+error: "net.netfilter.nf_conntrack_tcp_timeout_fin_wait"isan unknown key</pre><p>centos6.X解决方法：</p><pre>modprobe nf_conntrack
+echo "modprobe nf_conntrack"&gt;&gt; /etc/rc.local</pre><p>注意：笔者在整理这篇centos6.5内核优化的时候发现，如果不开启ip6tables去优化nf_conntrack模块去执行上面的解决方法会依旧提示上面的error。所以在优化服务的时候，可以选择留下iptables和ip6tables。当然如果不用iptables的话，在内核优化的时候就要去掉对nf_conntrack的设置，在进行/sbin/sysctl -p 是不会有错误提示的。<br />
+<strong>15、如果安装sendmail必须定时自动清理/var/spool/clientmqueue/下文件防止inode节点被占满</strong></p><pre>#centos6.5已经不自动安装sendmail了所以没必要走这一步优化
+mkdir -p /server/scripts
+vi /server/scripts/spool_clean.sh
+#!/bin/sh
+find/var/spool/clientmqueue/-typef -mtime +30|xargsrm-f</pre><p><strong>16、删除不必要的系统用户和群组</strong></p><pre>#删除不必要的用户
+userdel adm
+userdel lp
+userdel sync
+userdel shutdown
+userdel halt
+userdel news
+userdel uucp
+userdel operator
+userdel games
+userdel gopher
+userdel ftp
+#删除不必要的群组
+groupdel adm
+groupdel lp
+groupdel news
+groupdel uucp
+groupdel games
+groupdel dip
+groupdel pppusers</pre><p><strong>17、关闭重启ctl-alt-delete组合键</strong></p><pre>vi /etc/init/control-alt-delete.conf
+#注释掉
+#exec /sbin/shutdown -r now "Control-Alt-Deletepressed" </pre><p><strong>18、设置一些全局变量</strong></p><pre>#设置自动退出终端，防止非法关闭ssh客户端造成登录进程过多，可以设置大一些，单位为秒
+echo "TMOUT=3600"&gt;&gt; /etc/profile
+#历史命令记录数量设置为10条
+sed -i "s/HISTSIZE=1000/HISTSIZE=10/" /etc/profile
+#立即生效
+source /etc/profile</pre>			</div>
+					</article>
+				<div id="comments">
+                <div id="respond-post-557" class="respond">
+        <div class="cancel-comment-reply">
+        <a id="cancel-comment-reply-link" href="http://www.lvtao.net/server/centos-server-setup.html#respond-post-557" rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消回复</a>        </div>
+    	<span id="response" class="widget-title">添加新评论</span>
+    	<form method="post" action="http://www.lvtao.net/server/centos-server-setup.html/comment" id="comment-form">
+			<div class="col1">
+			<p>
+                <textarea rows="8" cols="50" name="text" class="textarea"></textarea>
+            </p>
+			</div>
+			<div class="col2">
+                		<p>
+                <label for="author" class="required">称呼</label>
+    			<input type="text" name="author" id="author" class="text" value="" />
+    		</p>
+    		<p>
+                <label for="mail" class="required">邮箱</label>
+    			<input type="email" name="mail" id="mail" class="text" value="" />
+    		</p>
+    		<p>
+                <label for="url">网站</label>
+    			<input type="url" name="url" id="url" class="text" placeholder="http://example.com" value="" />
+    		</p>
+                		<p>
+                <button type="submit" class="submit">提交评论</button>
+            </p>
+			</div>
+			<div class="clear"></div>
+    	</form>
+    </div>
+    </div>			</div>
+</div>
+<div id="secondary">
+<div class="sidebar">
+	
+    <section class="widget">
+        <form id="search" method="post" action="./">
+            <input type="text" name="s" class="text" placeholder="搜索..." />
+            <button type="submit" class="submit icon-search">搜索</button>
+        </form>
+    </section>
+
+    
+        <section class="widget">
+		<div class="widget-title">归档</div>
+        <ul class="widget-list widget-list2">
+            <li><h3><a href="http://www.lvtao.net/2015/09/">September 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/08/">August 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/07/">July 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/06/">June 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/05/">May 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/04/">April 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/03/">March 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/02/">February 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/01/">January 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/12/">December 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/11/">November 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/10/">October 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/09/">September 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/08/">August 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/07/">July 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/06/">June 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/05/">May 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/04/">April 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/03/">March 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/02/">February 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/01/">January 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/12/">December 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/11/">November 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/10/">October 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/09/">September 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/08/">August 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/07/">July 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/06/">June 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/05/">May 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/04/">April 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2008/12/">December 2008</a></h3></li>        </ul>
+	</section>
+    
+        </div>
+</div>		</div>
+    </div>
+</div>
+<div id="footer_link" class="container">
+        <a href="http://www.lvtao.net/">首页</a><a href="http://www.lvtao.net/about_lvtao.html" title="关于滔哥">关于滔哥</a><a href="http://www.lvtao.net/lvtao_work.html" title="网站建设">网站建设</a><a href="http://www.lvtao.net/service.html" title="运维服务">运维服务</a><a href="http://www.lvtao.net/apple-devices.html" title="苹果设备">苹果设备</a><a href="http://www.lvtao.net/archives.html" title="博客归档">博客归档</a><a href="http://www.lvtao.net/content/tool/" target="_blank">前端工具</a><a href="http://medoo.lvtao.net/" target="_blank" title="高效的轻量级PHP数据库框架">Medoo</a><a href="http://d.lvtao.net/" target="_blank" title="常用软件">Soft</a>    </div>
+<footer id="footer">
+	<div class="container">
+		&copy; 2015 <a rel="nofollow" href="http://www.lvtao.net/">吕滔博客</a>.
+	</div>
+</footer>
+</body>
+</html>
+<div style="display:none;"><script src="http://s11.cnzz.com/stat.php?id=2109427&web_id=2109427" language="JavaScript"></script></div>

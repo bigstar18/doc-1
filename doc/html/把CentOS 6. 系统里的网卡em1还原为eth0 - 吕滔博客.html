@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)http://www.lvtao.net/server/479.html -->
+<html lang="zh-CN" class="no-js"><!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]--><!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]--><!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]--><!--[if gt IE 8]><!--><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>把CentOS 6. 系统里的网卡em1还原为eth0 - 吕滔博客</title>
+    <link rel="stylesheet" href="./把CentOS 6. 系统里的网卡em1还原为eth0 - 吕滔博客_files/style.css">
+    <meta name="description" content="把CentOS&amp;nbsp;6.2 系统里的网卡em1还原为eth0第一步：修改系统grubvi /boot/grub/grub.conf增加一个 biosdevname=0 的启动参数即可第二步...">
+<meta name="keywords" content="CentOS">
+<link rel="pingback" href="http://www.lvtao.net/action/xmlrpc">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.lvtao.net/action/xmlrpc?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.lvtao.net/action/xmlrpc?wlw">
+<script type="text/javascript">
+(function () {
+    window.TypechoComment = {
+        dom : function (id) {
+            return document.getElementById(id);
+        },
+    
+        create : function (tag, attr) {
+            var el = document.createElement(tag);
+        
+            for (var key in attr) {
+                el.setAttribute(key, attr[key]);
+            }
+        
+            return el;
+        },
+
+        reply : function (cid, coid) {
+            var comment = this.dom(cid), parent = comment.parentNode,
+                response = this.dom('respond-post-479'), input = this.dom('comment-parent'),
+                form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+                textarea = response.getElementsByTagName('textarea')[0];
+
+            if (null == input) {
+                input = this.create('input', {
+                    'type' : 'hidden',
+                    'name' : 'parent',
+                    'id'   : 'comment-parent'
+                });
+
+                form.appendChild(input);
+            }
+
+            input.setAttribute('value', coid);
+
+            if (null == this.dom('comment-form-place-holder')) {
+                var holder = this.create('div', {
+                    'id' : 'comment-form-place-holder'
+                });
+
+                response.parentNode.insertBefore(holder, response);
+            }
+
+            comment.appendChild(response);
+            this.dom('cancel-comment-reply-link').style.display = '';
+
+            if (null != textarea && 'text' == textarea.name) {
+                textarea.focus();
+            }
+
+            return false;
+        },
+
+        cancelReply : function () {
+            var response = this.dom('respond-post-479'),
+            holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+            if (null != input) {
+                input.parentNode.removeChild(input);
+            }
+
+            if (null == holder) {
+                return true;
+            }
+
+            this.dom('cancel-comment-reply-link').style.display = 'none';
+            holder.parentNode.insertBefore(response, holder);
+            return false;
+        }
+    };
+})();
+</script>
+<script type="text/javascript">
+(function () {
+    var event = document.addEventListener ? {
+        add: 'addEventListener',
+        focus: 'focus',
+        load: 'DOMContentLoaded'
+    } : {
+        add: 'attachEvent',
+        focus: 'onfocus',
+        load: 'onload'
+    };
+
+    document[event.add](event.load, function () {
+        var r = document.getElementById('respond-post-479');
+
+        if (null != r) {
+            var forms = r.getElementsByTagName('form');
+            if (forms.length > 0) {
+                var f = forms[0], textarea = f.getElementsByTagName('textarea')[0], added = false;
+
+                if (null != textarea && 'text' == textarea.name) {
+                    textarea[event.add](event.focus, function () {
+                        if (!added) {
+                            var input = document.createElement('input');
+                            input.type = 'hidden';
+                            input.name = '_';
+                            input.value = (function () {
+    var _c6q = //'A0'
+'faa'+//'c9'
+'75'+/* 'Cn'//'Cn' */''+//'OU'
+'0a'+'1c'//'L'
++'817'//'mM'
++'ef0'//'1n'
++//'7GY'
+'6'+//'a'
+'3c'+'e4e'//'Bw'
++//'I'
+'I'+//'m'
+'5e2'+//'UwI'
+'9e2'+//'W'
+'4dd'+//'pl'
+'e'+''///*'L'*/'L'
++'c'//'Sm'
+, _3f5N = [[21,22]];
+    
+    for (var i = 0; i < _3f5N.length; i ++) {
+        _c6q = _c6q.substring(0, _3f5N[i][0]) + _c6q.substring(_3f5N[i][1]);
+    }
+
+    return _c6q;
+})();
+
+                            f.appendChild(input);
+                            added = true;
+                        }
+                    });
+                }
+            }
+        }
+    });
+})();
+</script></head>
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">                  
+                <h1><a id="logo" href="http://www.lvtao.net/">
+                    吕滔博客                </a></h1>
+        	    <p class="description">记录一些工作或生活或爱好的地方 : 如果要挖井,就要挖到水出为止</p>
+            </div>
+            <div id="nav-menu" class="clearfix">
+                <ul class="widget-list"><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/web/">前端设计</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/dev/">WEB开发</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/database/">数据库</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/server/">服务器</a><ul class="widget-list"><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/linux/">linux入门教程</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/systemext/">系统组件</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/config/">环境配置</a></li></ul></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/c/">C语言</a><ul class="widget-list"><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/summarize/">一. C语言概述</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/arithmetic/">二. C语言算法</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/operation/">三. 数据类型和运算符</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/program/">四. 顺序程序设计</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/structure/">五. 分支结构</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/cycle/">六. 循环控制</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/array/">七. C语言数组</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/fun/">八. C语言函数</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/command/">九. 预处理命令</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/pointer/">十. C语言指针</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/app/">十一. 结构体和共用体</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/weiyunsuan/">十二. 位运算</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/file/">十三. 文件操作</a></li></ul></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/ios/">MAC&amp;iOS</a><ul class="widget-list"><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/tip/">Swift TIP</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/swift/">Swift 学习</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/iosui/">iOS UI</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/xcode-mac/">xcode&amp;mac</a></li></ul></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/shell/">SHELL</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/tool/">IT杂谈</a></li><li class="category-level-0 category-parent"><a href="http://www.lvtao.net/sort/photography/">摄影</a><ul class="widget-list"><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/portrait/">人像摄影</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/scenery/">风光摄影</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/night/">夜景摄影</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/equipment/">器材选购</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/experience/">前车之鉴</a></li><li class="category-level-1 category-child category-level-odd"><a href="http://www.lvtao.net/sort/noun/">名词解释</a></li></ul></li></ul>            </div>
+        </div>
+    </div>
+</header>
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+<div class="col-8" id="main">
+	<div class="res-cons">
+		<article class="post">			
+			<date class="post-meta">
+				June 10, 2014			</date>
+			<header>
+				<h1 class="post-title">把CentOS 6. 系统里的网卡em1还原为eth0</h1>
+			</header>
+			<div class="post-content">
+				<p>把CentOS&nbsp;6.2 系统里的网卡em1还原为eth0</p><p><strong>第一步：修改系统grub</strong><br>
+vi /boot/grub/grub.conf</p><p>增加一个 biosdevname=0 的启动参数即可</p><p><strong>第二步：删除udev的配置文件rm -f /etc/udev/rules.d/70-persistent-net.rules</strong></p><p>注：第二步可以不需要操作。</p><p><strong>第三步：修改当前网卡配置文件的名称</strong><br>
+mv ifcfg-em1 ifcfg-eth0<br>
+mv ifcfg-em2 ifcfg-eth1</p><p><strong>第四步：修改网卡配置文件内容，把em1全部修改改为eth0</strong></p><p>#cat /etc/sysconfig/network-scripts/ifcfg-eth0&nbsp;<br>
+DEVICE="eth0"<br>
+BOOTPROTO="dhcp"<br>
+HWADDR="24:B6:FD:F8:D5:84"<br>
+NM_CONTROLLED="yes"<br>
+ONBOOT="yes"</p><p>可以使用命令进行替换，如下：sed -i 's/em1/eth0/g' ifcfg-eth0</p><p><strong>第五步：重新启动系统 shutdown -r now 启动即可。</strong></p>			</div>
+					</article>
+				<div id="comments">
+                <div id="respond-post-479" class="respond">
+        <div class="cancel-comment-reply">
+        <a id="cancel-comment-reply-link" href="http://www.lvtao.net/server/479.html#respond-post-479" rel="nofollow" style="display:none" onclick="return TypechoComment.cancelReply();">取消回复</a>        </div>
+    	<span id="response" class="widget-title">添加新评论</span>
+    	<form method="post" action="http://www.lvtao.net/server/479.html/comment" id="comment-form">
+			<div class="col1">
+			<p>
+                <textarea rows="8" cols="50" name="text" class="textarea"></textarea>
+            </p>
+			</div>
+			<div class="col2">
+                		<p>
+                <label for="author" class="required">称呼</label>
+    			<input type="text" name="author" id="author" class="text" value="">
+    		</p>
+    		<p>
+                <label for="mail" class="required">邮箱</label>
+    			<input type="email" name="mail" id="mail" class="text" value="">
+    		</p>
+    		<p>
+                <label for="url">网站</label>
+    			<input type="url" name="url" id="url" class="text" placeholder="http://example.com" value="">
+    		</p>
+                		<p>
+                <button type="submit" class="submit">提交评论</button>
+            </p>
+			</div>
+			<div class="clear"></div>
+    	</form>
+    </div>
+    </div>			</div>
+</div>
+<div id="secondary">
+<div class="sidebar">
+	
+    <section class="widget">
+        <form id="search" method="post" action="http://www.lvtao.net/server/">
+            <input type="text" name="s" class="text" placeholder="搜索...">
+            <button type="submit" class="submit icon-search">搜索</button>
+        </form>
+    </section>
+
+    
+        <section class="widget">
+		<div class="widget-title">归档</div>
+        <ul class="widget-list widget-list2">
+            <li><h3><a href="http://www.lvtao.net/2015/09/">September 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/08/">August 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/07/">July 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/06/">June 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/05/">May 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/04/">April 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/03/">March 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/02/">February 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2015/01/">January 2015</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/12/">December 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/11/">November 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/10/">October 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/09/">September 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/08/">August 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/07/">July 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/06/">June 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/05/">May 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/04/">April 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/03/">March 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/02/">February 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2014/01/">January 2014</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/12/">December 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/11/">November 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/10/">October 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/09/">September 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/08/">August 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/07/">July 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/06/">June 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/05/">May 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2013/04/">April 2013</a></h3></li><li><h3><a href="http://www.lvtao.net/2008/12/">December 2008</a></h3></li>        </ul>
+	</section>
+    
+        </div>
+</div>		</div>
+    </div>
+</div>
+<div id="footer_link" class="container">
+        <a href="http://www.lvtao.net/">首页</a><a href="http://www.lvtao.net/about_lvtao.html" title="关于滔哥">关于滔哥</a><a href="http://www.lvtao.net/lvtao_work.html" title="网站建设">网站建设</a><a href="http://www.lvtao.net/service.html" title="运维服务">运维服务</a><a href="http://www.lvtao.net/apple-devices.html" title="苹果设备">苹果设备</a><a href="http://www.lvtao.net/archives.html" title="博客归档">博客归档</a><a href="http://www.lvtao.net/content/tool/" target="_blank">前端工具</a><a href="http://medoo.lvtao.net/" target="_blank" title="高效的轻量级PHP数据库框架">Medoo</a><a href="http://d.lvtao.net/" target="_blank" title="常用软件">Soft</a>    </div>
+<footer id="footer">
+	<div class="container">
+		© 2015 <a rel="nofollow" href="http://www.lvtao.net/">吕滔博客</a>.
+	</div>
+</footer>
+
+
+<div style="display:none;"><script src="./把CentOS 6. 系统里的网卡em1还原为eth0 - 吕滔博客_files/stat.php" language="JavaScript"></script><script src="./把CentOS 6. 系统里的网卡em1还原为eth0 - 吕滔博客_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=2109427" target="_blank" title="站长统计">站长统计</a></div></body></html>

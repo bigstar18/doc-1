@@ -1,0 +1,1590 @@
+<!DOCTYPE html> 
+<html class="no-js" lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="alexaVerifyID" content="qqxQUyWSeUfqZOencfEoRM9vrVk" />
+<meta name="msvalidate.01" content="E8C9208AD2F47ED874ED18E35FC370CE" />
+<meta name="google-translate-customization" content="c567e5d7624a883b-609bf053fa02c58b-g01de0b1961de0feb-f"></meta>
+<meta property="article:publisher" content="http://facebook.com/tecmint" />
+<meta property="article:author" content="http://facebook.com/ravisaive" />
+	<link rel="profile" href="http://gmpg.org/xfn/11">
+	<link rel="pingback" href="http://www.tecmint.com/xmlrpc.php">
+	
+	<title>Oracle Database 11g Release 2 Installation on RHEL/CentOS 6.x/5.x/4.x</title>
+<script>document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
+
+<!-- All in One SEO Pack 2.2.7.2 by Michael Torbert of Semper Fi Web Design[696,820] -->
+<link rel="author" href="https://plus.google.com/u/0/107665449243972690526" />
+<meta name="description" itemprop="description" content="This post describes step by step installation of Oracle Database 11g Release 2 on 32bit CentOS 6.4 system and it should work on most Red Hat based systems." />
+
+<meta name="keywords" itemprop="keywords" content="install oracle 11g release 2 in centos,oracle 11g installation in linux,oracle installation in linux" />
+
+<link rel="canonical" href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/" />
+			<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+			ga('create', 'UA-33207530-1', { 'cookieDomain': 'tecmint.com','allowLinker': true } );
+			ga('require', 'linker');
+			ga('linker:autoLink', ['tecmint.com'] );
+			ga('send', 'pageview');
+			</script>
+		<script type="text/javascript">
+		function recordOutboundLink(link, category, action) {
+					ga('send', 'event', category, action);
+					if ( link.target == '_blank' ) return true;
+			setTimeout('document.location = "' + link.href + '"', 100);
+			return false;
+		}
+			/* use regular Javascript for this */
+			function getAttr(ele, attr) {
+				var result = (ele.getAttribute && ele.getAttribute(attr)) || null;
+				if( !result ) {
+					var attrs = ele.attributes;
+					var length = attrs.length;
+					for(var i = 0; i < length; i++)
+					if(attr[i].nodeName === attr) result = attr[i].nodeValue;
+				}
+				return result;
+			}
+			
+			function aiosp_addLoadEvent(func) {
+			  var oldonload = window.onload;
+			  if (typeof window.onload != 'function') {
+			    window.onload = func;
+			  } else {
+			    window.onload = function() {
+			      if (oldonload) {
+			        oldonload();
+			      }
+			      func();
+			    }
+			  }
+			}
+			
+			function aiosp_addEvent(element, evnt, funct){
+			  if (element.attachEvent)
+			   return element.attachEvent('on'+evnt, funct);
+			  else
+			   return element.addEventListener(evnt, funct, false);
+			}
+
+			aiosp_addLoadEvent(function () {
+				var links = document.getElementsByTagName('a');
+				for (var x=0; x < links.length; x++) {
+					if (typeof links[x] == 'undefined') continue;
+					aiosp_addEvent( links[x], 'onclick', function () {
+						var mydomain = new RegExp(document.domain, 'i');
+						href = getAttr(this, 'href');
+						if (href && href.toLowerCase().indexOf('http') === 0 && !mydomain.test(href)) {
+							recordOutboundLink(this, 'Outbound Links', href);
+						}
+					});
+				}
+			});
+		</script>
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Feed" href="http://feeds.feedburner.com/tecmint" />
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Comments Feed" href="http://www.tecmint.com/comments/feed/" />
+<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Oracle Database 11g Release 2 Installation on RHEL/CentOS 6.x/5.x/4.x Comments Feed" href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/feed/" />
+<link rel='stylesheet' id='dgd-scrollbox-plugin-core-css'  href='http://www.tecmint.com/wp-content/plugins/dreamgrow-scroll-triggered-box/css/style.css?ver=2.2.0' type='text/css' media='all' />
+<link rel='stylesheet' id='fancybox-style-css'  href='http://www.tecmint.com/wp-content/plugins/light/css/jquery.fancybox.css?ver=4.3.1' type='text/css' media='all' />
+<link rel='stylesheet' id='style-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/style.css?ver=4.3.1' type='text/css' media='all' />
+<link rel='stylesheet' id='responsive-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/responsive.css?ver=4.3.1' type='text/css' media='all' />
+<link rel='stylesheet' id='custom-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/custom.css?ver=4.3.1' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css'  href='http://www.tecmint.com/wp-content/themes/tecmint/fonts/font-awesome.min.css?ver=4.3.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://www.tecmint.com/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
+<script type='text/javascript' src='http://www.tecmint.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var $DGD = {"ajaxurl":"http:\/\/www.tecmint.com\/wp-admin\/admin-ajax.php","nonce":"ca2c00a305","debug":"","permalink":"http:\/\/www.tecmint.com\/oracle-database-11g-release-2-installation-in-linux\/","title":"Oracle Database 11g Release 2 Installation on RHEL\/CentOS 6.x\/5.x\/4.x","thumbnail":"http:\/\/www.tecmint.com\/wp-content\/uploads\/2013\/09\/Oracle-21.png","scripthost":"http:\/\/www.tecmint.com\/wp-content\/plugins\/dreamgrow-scroll-triggered-box\/","scrollboxes":[{"trigger":{"action":"scroll","scroll":"40","delaytime":"0","element":""},"vpos":"bottom","hpos":"right","cookieLifetime":"1","hide_mobile":"1","receiver_email":"0","thankyou":"You are subscribed. Thank You!","submit_auto_close":"5","delay_auto_close":"0","theme":"clean_white","widget_enabled":"1","height":"auto","width":"300","jsCss":{"padding":"10","margin":"10","backgroundColor":"","boxShadow":"0px","borderColor":"","borderWidth":"0px","borderRadius":"0px","backgroundImageUrl":""},"closeImageUrl":"","transition":{"from":"b","effect":"fade","speed":"400"},"social":{"facebook":"","twitter":"","google":"","pinterest":"","stumbleupon":"","linkedin":""},"id":"dgd_scrollbox-11027","mode":"stb","voff":0,"hoff":0}]};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/dreamgrow-scroll-triggered-box/js/script.js?ver=2.2.0'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.tecmint.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.tecmint.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Xnoise 0.2.19 Media Player Relased &#8211; Install in Ubuntu, Linux Mint and Fedora' href='http://www.tecmint.com/install-xnoise-media-player-in-ubuntu-xubuntu-linux-mint/' />
+<link rel='next' title='How to Setup NFS (Network File System) on RHEL/CentOS/Fedora and Debian/Ubuntu' href='http://www.tecmint.com/how-to-setup-nfs-server-in-linux/' />
+<meta name="generator" content="WordPress 4.3.1" />
+<link rel='shortlink' href='http://www.tecmint.com/?p=4203' />
+
+
+<!-- Facebook Like Thumbnail (v0.3.4) -->
+<meta property="og:image" content="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-21.png" />
+<!-- using featured thumbnail -->
+<!-- Facebook Like Thumbnail (By Ashfame - https://github.com/ashfame/facebook-like-thumbnail) -->
+
+<link rel="shortcut icon" href="/wp-content/themes/tecmint/images/favicon.ico" />
+<!--[if lt IE 9]>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/html5.js"></script>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/selectivizr.js"></script>
+<![endif]-->
+<style type="text/css">
+/* Dynamic CSS: For no styles in head, copy and put the css below in your custom.css or child theme's style.css, disable dynamic styles */
+body { font-family: "Roboto Condensed", Arial, sans-serif; }
+.boxed #wrapper, .container-inner { max-width: 1280px; }
+.sidebar .widget { padding-left: 20px; padding-right: 20px; padding-top: 20px; }
+
+.search-expand,
+#nav-topbar.nav-container { background-color: #23588c; }
+@media only screen and (min-width: 720px) {
+	#nav-topbar .nav ul { background-color: #23588c; }
+}			
+				
+
+#header { background-color: #075b88; }
+@media only screen and (min-width: 720px) {
+	#nav-header .nav ul { background-color: #075b88; }
+}			
+				
+
+#nav-header.nav-container { background-color: #2f6dab; }
+@media only screen and (min-width: 720px) {
+	#nav-header .nav ul { background-color: #2f6dab; }
+}			
+				
+#footer-bottom { background-color: #2f6dab; }
+.site-title a img { max-height: 90px; }
+img { -webkit-border-radius: 2px; border-radius: 2px; }
+</style>
+
+<link rel="author" href="https://plus.google.com/107665449243972690526/posts" />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org",
+   "@type": "WebSite",
+   "url": "http://www.tecmint.com/",
+   "potentialAction": {
+     "@type": "SearchAction",
+     "target": "http://www.tecmint.com/?s={search_term}",
+     "query-input": "required name=search_term"
+   }
+}
+</script>
+<script type="text/javascript">
+this.randomtip = function(){
+        var length = $("#tips li").length;
+        var ran = Math.floor(Math.random()*length) + 1;
+        $("#tips li:nth-child(" + ran + ")").show();
+};
+
+$(document).ready(function(){   
+        randomtip();
+});
+</script>
+</head>
+
+<body class="single single-post postid-4203 single-format-standard col-2cl full-width topbar-enabled chrome">
+
+<div id="wrapper">
+
+	<header id="header">
+	
+					<nav class="nav-container group" id="nav-topbar">
+				<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+				<div class="nav-text"><!-- put your mobile menu text here --></div>
+				<div class="nav-wrap container"><ul id="menu-home" class="nav container-inner group"><li id="menu-item-334" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-334"><a href="http://www.tecmint.com">Home</a></li>
+<li id="menu-item-10774" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10774"><a target="_blank" href="http://www.tecmint.com/who-we-are/">About</a></li>
+<li id="menu-item-3912" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3912"><a target="_blank" href="http://tecmint.tradepub.com/category/information-technology-servers-and-linux-server-os/806/">Free Linux eBooks</a></li>
+<li id="menu-item-10439" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10439"><a title="LinuxSay &#8211; A Discussion Forum for Linux Enthusiasts" target="_blank" href="http://linuxsay.com">Discussion</a></li>
+<li id="menu-item-10440" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10440"><a target="_blank" href="http://www.tecmint.com/donate-to-tecmint/">Donate</a></li>
+<li id="menu-item-10775" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10775"><a target="_blank" href="http://www.tecmint.com/submit-articles/">Join TecMint</a></li>
+<li id="menu-item-11736" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11736"><a target="_blank" href="http://www.tecmint.com/linux-training/">Linux Training</a></li>
+<li id="menu-item-11907" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11907"><a title="Subscribe to Daily Updates" target="_blank" href="http://www.tecmint.com/subscribe-to-blog/">Subscribe</a></li>
+<li id="menu-item-13338" class="hosting menu-item menu-item-type-custom menu-item-object-custom menu-item-13338"><a title="Hostgator Hosting 25% OFF" href="http://www.tecmint.com/hostgator-discount-coupon/">Hosting 25% OFF</a></li>
+<li id="menu-item-15139" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15139"><a target="_blank" href="http://www.tecmint.com/free-wordpress-installation-setup/">Free WordPress Setup</a></li>
+</ul></div>
+				
+				<div class="container">
+					<div class="container-inner">		
+						<div class="toggle-search"><i class="fa fa-search"></i></div>
+						<div class="search-expand">
+							<div class="search-expand-inner">
+								<form action="http://www.tecmint.com/search/" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="partner-pub-2601749019656699:2173448976" />
+    <input type="hidden" name="cof" value="FORID:10" />
+    <input type="hidden" name="ie" value="UTF-8" />
+    <input type="text" class="search" name="q" size="20" />
+    <input type="submit" name="sa" value="Search" />
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>							</div>
+						</div>
+					</div><!--/.container-inner-->
+				</div><!--/.container-->
+				
+			</nav><!--/#nav-topbar-->
+				
+		<div class="container group">
+			<div class="container-inner">
+				
+								<div class="group pad">
+					<p class="site-title"><a href="http://www.tecmint.com/" rel="home"><img src="/wp-content/themes/tecmint/images/logo.png" alt="Tecmint: Linux Howtos, Tutorials &amp; Guides"></a></p>
+															<div id="header-ads">
+						<div id="text-17" class="widget widget_text">			<div class="textwidget"><!-- Top Banner Ads 728x90 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-2601749019656699"
+     data-ad-slot="8210224606"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+		</div>					</div><!--/#header-ads-->
+									</div>
+												
+									<nav class="nav-container group" id="nav-header">
+						<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+						<div class="nav-text"><!-- put your mobile menu text here --></div>
+						<div class="nav-wrap container"  style="float:left"><ul id="menu-header" class="nav container-inner group"><li id="menu-item-10770" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10770"><a href="http://www.tecmint.com/best-linux-distributions/">Linux Distro&#8217;s</a></li>
+<li id="menu-item-10771" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10771"><a href="http://www.tecmint.com/category/interview-questions/">Interview Questions</a></li>
+<li id="menu-item-10772" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10772"><a title="Learn Linux Shell Scripting" href="http://www.tecmint.com/category/bash-shell/">Shell Scripting</a></li>
+<li id="menu-item-10773" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10773"><a href="http://www.tecmint.com/category/linux-commands/">Linux Commands</a></li>
+<li id="menu-item-14795" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14795"><a href="http://www.tecmint.com/tag/linux-tricks/">Linux Tricks</a></li>
+<li id="menu-item-10443" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-10443"><a target="_blank" href="http://www.tecmint.com/#">Certifications</a>
+<ul class="sub-menu">
+	<li id="menu-item-14880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14880"><a href="http://www.tecmint.com/how-to-setup-and-configure-static-network-routing-in-rhel/">RHCE Exam</a></li>
+	<li id="menu-item-11906" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11906"><a target="_blank" href="http://www.tecmint.com/rhcsa-exam-reviewing-essential-commands-system-documentation/">RHCSA Exam</a></li>
+	<li id="menu-item-10444" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10444"><a target="_blank" href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE Exam</a></li>
+	<li id="menu-item-14793" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793"><a href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS Exam</a></li>
+</ul>
+</li>
+<li id="menu-item-12399" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-12399"><a href="http://www.tecmint.com/#">Guides</a>
+<ul class="sub-menu">
+	<li id="menu-item-15041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15041"><a href="http://www.tecmint.com/citrix-xenserver-installation-and-network-configuration-in-linux/">XenServer Series</a></li>
+	<li id="menu-item-14794" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14794"><a href="http://www.tecmint.com/install-redhat-virtualization-rhev/">RHEV Series</a></li>
+	<li id="menu-item-14805" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14805"><a href="http://www.tecmint.com/what-is-clustering-and-advantages-disadvantages-of-clustering-in-linux/">Clustering Series</a></li>
+	<li id="menu-item-12400" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12400"><a href="http://www.tecmint.com/create-lvm-storage-in-linux/">LVM Series</a></li>
+	<li id="menu-item-12402" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12402"><a href="http://www.tecmint.com/understanding-raid-setup-in-linux/">RAID Series</a></li>
+	<li id="menu-item-12403" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12403"><a href="http://www.tecmint.com/install-and-configure-kvm-in-linux/">KVM Series</a></li>
+	<li id="menu-item-12401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12401"><a href="http://www.tecmint.com/create-centralized-secure-storage-using-iscsi-targetin-linux/">iSCSI Series</a></li>
+	<li id="menu-item-12406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12406"><a href="http://www.tecmint.com/install-zentyal-as-primary-domain-controller-and-integrate-windows-system/">Zentyal Series</a></li>
+	<li id="menu-item-14603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14603"><a href="http://www.tecmint.com/create-gui-applications-in-linux/">Create GUI Apps</a></li>
+</ul>
+</li>
+<li id="menu-item-14796" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14796"><a href="http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">Monitoring Tools</a>
+<ul class="sub-menu">
+	<li id="menu-item-14797" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14797"><a href="http://www.tecmint.com/install-nagios-in-linux/">Nagios</a></li>
+	<li id="menu-item-14798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14798"><a href="http://www.tecmint.com/install-and-configure-zabbix-monitoring-on-debian-centos-rhel/">Zabbix</a></li>
+	<li id="menu-item-14799" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14799"><a href="http://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/">Cacti</a></li>
+	<li id="menu-item-14800" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14800"><a href="http://www.tecmint.com/install-observium-in-centos/">Observium</a></li>
+	<li id="menu-item-14801" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14801"><a href="http://www.tecmint.com/monitorix-a-lightweight-system-and-network-monitoring-tool-for-linux/">Monitorix</a></li>
+	<li id="menu-item-14802" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14802"><a href="http://www.tecmint.com/install-collectd-and-collectd-web-to-monitor-server-resources-in-linux/">Collectd</a></li>
+	<li id="menu-item-14803" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14803"><a href="http://www.tecmint.com/linux-performance-monitoring-with-collectl-tool/">Collectl</a></li>
+	<li id="menu-item-14804" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14804"><a href="http://www.tecmint.com/mysql-performance-monitoring/">MySQL Monitoring</a></li>
+</ul>
+</li>
+</ul></div>
+
+<div class="google-translator">
+<div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL, multilanguagePage: true, gaTrack: true, gaId: 'UA-33207530-1'}, 'google_translate_element');}
+</script>
+</div>
+</div>
+					</nav><!--/#nav-header-->
+								
+			</div><!--/.container-inner-->
+		</div><!--/.container-->
+		
+	</header><!--/#header-->
+	
+	<div class="container" id="page">
+		<div class="container-inner">			
+			<div class="main">
+				<div class="main-inner group">
+<section class="content">
+	
+	<div class="page-title pad group">
+
+			<ul class="meta-single group">
+			<li class="category"><a href="http://www.tecmint.com/category/oracle/" rel="category tag">Oracle</a></li>
+						<li class="comments"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/#comments"><i class="fa fa-comments-o"></i>49</a></li>
+					</ul>
+		
+	
+</div><!--/.page-title-->	
+	<div class="pad group">
+		
+					<article class="post-4203 post type-post status-publish format-standard has-post-thumbnail hentry category-oracle">	
+				<div class="post-inner group">
+					
+					<h1 class="post-title">Oracle Database 11g Release 2 Installation on RHEL/CentOS 6.x/5.x/4.x</h1>
+					<p class="post-byline">by <a href="http://www.tecmint.com/author/navin/" title="Posts by Narad Shrestha" rel="author">Narad Shrestha</a>    <!-- if the post updated datetime is not equal to the post datetime, show the updated datetime -->
+            Last Updated: January 7, 2015    </p>
+					
+															<div class="clear"></div>
+					
+<!-- Above Post Ads 468x15 -->
+<div class="add-box">
+<ins class="adsbygoogle"
+     style="display:inline-block;width:468px;height:15px"
+     data-ad-client="ca-pub-2601749019656699"
+     data-ad-slot="1986283779"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div class="clear"></div>
+<div id="exam_announcement">
+<i style="color:#28557a; font-size:20px;" class="fa fa-book"></i>
+  <b>Download Your Free eBooks NOW</b> - <a target="_blank" style="text-decoration:underline;" href="http://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/" style="color:#dd3333;font-weight:400; font-size:16px;">10 Free Linux eBooks for Administrators</a> | <a style="text-decoration:underline;"target="_blank" href="http://www.tecmint.com/free-linux-shell-scripting-books/" style="color:#e54e7e;font-weight:400; font-size:16px;">4 Free Shell Scripting eBooks</a>
+</div>
+<div class="clear"></div>
+
+<div class="ads-inner-mobile">
+<center>
+<!-- Post Inner Mobile Ads -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-2601749019656699"
+     data-ad-slot="9946480174"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+</div>
+<div class="clear"></div>
+
+					<div class="entry share">	
+						<div class="entry-inner">
+							<p>As we all know <b>Oracle database</b> is the most popular and widely used <b>Relational Database Management System (RDBMS)</b> in the world. This post describes step by step installation of <b>Oracle Database 11g Release 2 32bit on CentOS 6.4 32bit</b>. The installation steps should not be vary on most of the <strong>Red Hat</strong> based Linux distributions.</p>
+<h3>Installing Oracle Database 11g Release 2</h3>
+<h4>Step 1: Install Oracle Dependencies</h4>
+<p>We use &#8220;<strong>oracle-rdbms-server-11gR2-preinstall</strong>&#8221; package offered by &#8220;<strong>Oracle Public Yum</strong>&#8221; repository. The Oracle public yum repository provides a free and easiest way to install all the latest Oracle Linux dependencies automatically. To setup yum repository, follow the instructions provided below.</p>
+<p>Use &#8220;<strong>wget</strong>&#8221; command to Download appropriate yum configuration file under <strong>/etc/yum.repos.d/</strong> directory as <strong>root</strong> user.</p>
+<h5>RHEL/CentOs 6.x</h5>
+<pre># cd /etc/yum.repos.d
+# wget https://public-yum.oracle.com/public-yum-ol6.repo</pre>
+<h5>RHEL/CentOs 5.x</h5>
+<pre># cd /etc/yum.repos.d
+# wget https://public-yum.oracle.com/public-yum-el5.repo</pre>
+<h5>RHEL/CentOs 4.x</h5>
+<pre># cd /etc/yum.repos.d
+# wget https://public-yum.oracle.com/public-yum-el4.repo</pre>
+<p>Now perform the following “<strong>yum</strong>” command to install all the necessary prerequisites automatically.</p>
+<pre>[root@oracle]# yum install oracle-rdbms-server-11gR2-preinstall</pre>
+<p>While importing <strong>GPG</strong> key, you might get &#8220;<strong>GPG key retrieval failed</strong>&#8221; error as shown below. Here, you need to import proper <strong>GPG</strong> key for your <strong>OS</strong> release.</p>
+<pre>Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+GPG key retrieval failed: [Errno 14] Could not open/read file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</pre>
+<p>Download and verify the appropriate Oracle Linux <strong>GPG</strong> Key that best matches your <strong>RHEL</strong>/<strong>CentOS</strong> compatible OS release.</p>
+<h5>RHEL/CentOs 6.x</h5>
+<pre># wget https://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</pre>
+<h5>RHEL/CentOs 5.x</h5>
+<pre># wget https://public-yum.oracle.com/RPM-GPG-KEY-oracle-el5 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle</pre>
+<h5>RHEL/CentOs 4.x</h5>
+<pre># wget https://public-yum.oracle.com/RPM-GPG-KEY-oracle-el4 -O /usr/share/rhn/RPM-GPG-KEY-oracle</pre>
+<h4>Step 2: Setting Hostname</h4>
+<p>Open the &#8220;<strong>/etc/sysconfig/network</strong>&#8221; file and modify the <strong>HOSTNAME</strong> to match your <strong>FQDN</strong> (<strong>Fully Qualified Domain Name</strong>) host name.</p>
+<pre>[root@oracle]# vi /etc/sysconfig/network</pre>
+<pre>HOSTNAME=oracle.tecmint.com</pre>
+<p>Open &#8220;<strong>/etc/hosts</strong>&#8221; file and add fully qualified hostname for the server.</p>
+<pre>[root@oracle]# vi /etc/hosts</pre>
+<pre>192.168.246.128		oracle.tecmint.com		oracle</pre>
+<p>Now you need to <strong>restart networking</strong> on the server to make sure that changes will be persistent on <strong>reboot</strong>.</p>
+<pre>[root@oracle]# /etc/init.d/network restart</pre>
+<h4>Step 3: Oracle User Settings</h4>
+<p>Set the password for the &#8220;<strong>oracle</strong>&#8221; user.</p>
+<pre>[root@oracle]# passwd oracle
+
+Changing password for user oracle.
+New password:
+BAD PASSWORD: it is based on a dictionary word
+Retype new password:
+passwd: all authentication tokens updated successfully.</pre>
+<p>Add the entry to file &#8220;<strong>/etc/security/limits.d/90-nproc.conf</strong>&#8221; as described below.</p>
+<pre>[root@oracle]# vi /etc/security/limits.d/90-nproc.conf</pre>
+<pre># Default limit for number of user's processes to prevent
+# accidental fork bombs.
+# See rhbz #432903 for reasoning.
+
+*          soft    nproc     1024
+<strong># To this
+* - nproc 16384
+</strong></pre>
+<p>Set SELinux to &#8220;<strong>permissive</strong>&#8221; mode by editing the file &#8220;<strong>/etc/selinux/config</strong>&#8220;.</p>
+<pre>[root@oracle]# vi /etc/selinux/config</pre>
+<pre>SELINUX=permissive</pre>
+<p>Once you&#8217;ve made change, don&#8217;t forger to <strong>restart the server</strong> to reflect new changes.</p>
+<pre>[root@oracle]# reboot</pre>
+<p>Login as <strong>Oracle</strong> user and open file &#8220;<strong>.bash_profile</strong>&#8220;, which is available on oracle user&#8217;s home directory, make an entries as described below. Make sure you set correct hostname to &#8220;<strong>ORACLE_HOSTNAME=oracle.tecmint.com</strong>&#8220;.</p>
+<pre>[root@oracle]# su oracle</pre>
+<pre>[oracle@oracle ~]$ vi .bash_profile</pre>
+<pre># Oracle Settings
+TMP=/tmp; export TMP
+TMPDIR=$TMP; export TMPDIR
+
+ORACLE_HOSTNAME=<b style="color: red;">oracle.tecmint.com</b>; export ORACLE_HOSTNAME
+ORACLE_UNQNAME=DB11G; export ORACLE_UNQNAME
+ORACLE_BASE=<strong>/u01/app/oracle</strong>; export ORACLE_BASE
+ORACLE_HOME=<strong>$ORACLE_BASE/product/11.2.0/dbhome_1</strong>; export ORACLE_HOME
+ORACLE_SID=DB11G; export ORACLE_SID
+PATH=/usr/sbin:$PATH; export PATH
+PATH=$ORACLE_HOME/bin:$PATH; export PATH
+
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:/lib:/usr/lib; export LD_LIBRARY_PATH
+CLASSPATH=$ORACLE_HOME/jlib:$ORACLE_HOME/rdbms/jlib; export CLASSPATH export PATH</pre>
+<p>Switch to <strong>root</strong> user and issue the following command to allow <strong>Oracle</strong> user to access <strong>X Server</strong>.</p>
+<pre>[root@oracle]# xhost +</pre>
+<p>Create the directories and set the appropriate permissions in which the Oracle software will be installed.</p>
+<pre>[root@oracle]# mkdir -p /u01/app/oracle/product/11.2.0/dbhome_1
+[root@oracle]# chown -R oracle:oinstall /u01
+[root@oracle]# chmod -R 775 /u01</pre>
+<h4>Step 4: Downloading Oracle Software</h4>
+<p>Sign-up and Download the Oracle software using the following link.</p>
+<ol>
+<li><a href="http://www.oracle.com/technetwork/database/enterprise-edition/downloads/index.html" target="_blank" rel="nofollow">Oracle Database 11g Release 2</a></li>
+</ol>
+<div id="attachment_4206" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/download-oracle-11g/" rel="attachment wp-att-4206"><img class="size-full wp-image-4206" alt="Download Oracle 11g Release 2" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Download-Oracle-11g.png" width="640" height="360" /><noscript><img class="size-full wp-image-4206" alt="Download Oracle 11g Release 2" src="http://www.tecmint.com/wp-content/uploads/2013/09/Download-Oracle-11g.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Download Oracle 11g Release 2</p></div>
+<p>The Oracle package contains <strong>2 zip</strong> files which you must first accept the <strong>license agreement</strong> before downloading. I&#8217;ve given the files names for you reference, please download these files for your system architecture somewhere under &#8220;<strong>/home/oracle/</strong>&#8220;.</p>
+<h5>For Linux x86 Systems</h5>
+<pre>http://download.oracle.com/otn/linux/oracle11g/R2/linux_11gR2_database_1of2.zip
+http://download.oracle.com/otn/linux/oracle11g/R2/linux_11gR2_database_2of2.zip</pre>
+<h5>For Linux x86-64 Systems</h5>
+<pre>http://download.oracle.com/otn/linux/oracle11g/R2/linux.x64_11gR2_database_1of2.zip
+http://download.oracle.com/otn/linux/oracle11g/R2/linux.x64_11gR2_database_2of2.zip</pre>
+<h4>Step 5: Oracle Installation</h4>
+<p>Now let&#8217;s start Oracle installation. First of all need to switch as <b>&#8216;oracle&#8217;</b> user to install database.</p>
+<pre>[oracle@oracle ~]$ su oracle</pre>
+<p>Extract compressed Oracle database source files to the same directory &#8220;<strong>/home/oracle/</strong>&#8220;.</p>
+<pre>[oracle@oracle ~]$ unzip linux_11gR2_database_1of2.zip
+
+[oracle@oracle ~]$ unzip linux_11gR2_database_2of2.zip</pre>
+<p>Post unzip source file, directory called <strong>database</strong> will be created, go to inside the directory and execute below script to start Oracle database installation process.</p>
+<pre>[oracle@oracle database]$ cd database
+
+[oracle@oracle database]$ ./runInstaller</pre>
+<p><strong>1.</strong> R<strong>unInstaller</strong> will call <b>Oracle Universal Installer (OUI)</b>, wherein look and feel &amp; steps are the same across all the operating system.</p>
+<div id="attachment_4208" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-1/" rel="attachment wp-att-4208"><img class="size-full wp-image-4208" alt="Oracle Universal Installer " src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-1.png" width="640" height="360" /><noscript><img class="size-full wp-image-4208" alt="Oracle Universal Installer " src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-1.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Oracle Universal Installer</p></div>
+<p><strong>2.</strong> Provide your <strong>email address</strong> to be informed of security issues and receive security updates.</p>
+<div id="attachment_4209" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-2/" rel="attachment wp-att-4209"><img class="size-full wp-image-4209" alt="Configure Security Updates" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-2.png" width="640" height="360" /><noscript><img class="size-full wp-image-4209" alt="Configure Security Updates" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-2.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Configure Oracle Security Updates</p></div>
+<p><strong>3.</strong> Create and Configure a <strong>Database</strong></p>
+<div id="attachment_4210" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-3/" rel="attachment wp-att-4210"><img class="size-full wp-image-4210" alt="Create Oracle Database" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-3.png" width="640" height="360" /><noscript><img class="size-full wp-image-4210" alt="Create Oracle Database" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-3.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Create Oracle Database</p></div>
+<p><strong>4.</strong> Choose the system class, either <strong>Desktop</strong> or <strong>Server</strong>.</p>
+<div id="attachment_4211" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-4/" rel="attachment wp-att-4211"><img class="size-full wp-image-4211" alt="Select System Class" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-4.png" width="640" height="360" /><noscript><img class="size-full wp-image-4211" alt="Select System Class" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-4.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Select Oracle System Class</p></div>
+<p><strong>5.</strong> Select the type of <strong>database installation</strong> you want to perform.</p>
+<div id="attachment_4212" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-5/" rel="attachment wp-att-4212"><img class="size-full wp-image-4212" alt="Oracle Node Selection" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-5.png" width="640" height="360" /><noscript><img class="size-full wp-image-4212" alt="Oracle Node Selection" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-5.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Select Database Installation Type</p></div>
+<p><strong>6.</strong> Select &#8220;<strong>Typical install</strong>&#8221; option to install full oracle installation with basic configuration.</p>
+<div id="attachment_4213" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-6/" rel="attachment wp-att-4213"><img class="size-full wp-image-4213" alt="Select Oracle Install Type" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-6.png" width="640" height="360" /><noscript><img class="size-full wp-image-4213" alt="Select Oracle Install Type" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-6.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Select Typical Install</p></div>
+<p><strong>7.</strong> Set <strong>Administrative password</strong> and perform full Database installation with basic configuration.</p>
+<div id="attachment_4214" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-7/" rel="attachment wp-att-4214"><img class="size-full wp-image-4214" alt="Oracle Typical Installation Configuration" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-7.png" width="640" height="360" /><noscript><img class="size-full wp-image-4214" alt="Oracle Typical Installation Configuration" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-7.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Set Oracle Administrative Password</p></div>
+<p><strong>8.</strong> Please click on &#8220;<strong>Yes</strong>&#8221; to continue with installation.</p>
+<div id="attachment_4215" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-8/" rel="attachment wp-att-4215"><img class="size-full wp-image-4215" alt="Oracle Typical Install Configuration" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-8.png" width="640" height="360" /><noscript><img class="size-full wp-image-4215" alt="Oracle Typical Install Configuration" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-8.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Typical Install Configuration Confirm</p></div>
+<p><strong>9.</strong> Create <strong>Inventory</strong></p>
+<div id="attachment_4216" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-9/" rel="attachment wp-att-4216"><img class="size-full wp-image-4216" alt="Create Oracle Inventory" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-9.png" width="640" height="360" /><noscript><img class="size-full wp-image-4216" alt="Create Oracle Inventory" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-9.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Create Inventory</p></div>
+<p><strong>10.</strong> If you faced prerequisites warning during installation. Click on &#8220;<strong>Fix &amp; Check Again</strong>&#8220;. Oracle fixes Prerequisites by itself. This is the new feature of <strong>Oracle Database 11g</strong>.</p>
+<div id="attachment_4217" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-10/" rel="attachment wp-att-4217"><img class="size-full wp-image-4217" alt="Perform Prerequisite Checks" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-10.png" width="640" height="360" /><noscript><img class="size-full wp-image-4217" alt="Perform Prerequisite Checks" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-10.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Perform Prerequisite Checks</p></div>
+<p>The <strong>pdksh</strong> package is not available in <strong>Oracle repository</strong> due to which you need to download and install it manually.</p>
+<pre>[root@oracle]# wget ftp://rpmfind.net/linux/redhat-archive/6.2/en/os/i386/RedHat/RPMS/pdksh-5.2.14-2.i386.rpm</pre>
+<p>During <strong>pdksh</strong> package installation you may encountered conflict error of <strong>ksh</strong> package. Remove <strong>ksh</strong> package forcefully and install the <strong>pdksh</strong> package with given below command:-</p>
+<pre>[root@oracle]# rpm -e ksh-20100621-19.el6_4.4.i686 --nodeps
+[root@oracle]# rpm -ivh pdksh-5.2.14-2.i386.rpm</pre>
+<p><strong>11.</strong> Performing Prerequisite checks: It&#8217;s test whether sufficient total <strong>SWAP</strong> space is available on the system.</p>
+<div id="attachment_4218" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-11/" rel="attachment wp-att-4218"><img class="size-full wp-image-4218" alt="Performing Prerequisite SWAP Check" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-11.png" width="640" height="360" /><noscript><img class="size-full wp-image-4218" alt="Performing Prerequisite SWAP Check" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-11.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Performing Prerequisite SWAP Check</p></div>
+<p><strong>12.</strong> Installation Summary: Click on <b>Save Response File</b>. This file is useful for <b>Oracle Silent Mode Installation</b></p>
+<div id="attachment_4219" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-12/" rel="attachment wp-att-4219"><img class="size-full wp-image-4219" alt="Oracle Installation Summary" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-12.png" width="640" height="360" /><noscript><img class="size-full wp-image-4219" alt="Oracle Installation Summary" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-12.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Oracle Installation Summary</p></div>
+<p><strong>13.</strong> <b>Save Response File</b> somewhere in your system.</p>
+<div id="attachment_4220" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-13/" rel="attachment wp-att-4220"><img class="size-full wp-image-4220" alt="Save Response File" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-13.png" width="640" height="360" /><noscript><img class="size-full wp-image-4220" alt="Save Response File" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-13.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Save Response File</p></div>
+<p><strong>14.</strong> <strong>Product</strong> Installation Progress</p>
+<div id="attachment_4221" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-14/" rel="attachment wp-att-4221"><img class="size-full wp-image-4221" alt="Install Oracle Product" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-14.png" width="640" height="360" /><noscript><img class="size-full wp-image-4221" alt="Install Oracle Product" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-14.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Product Install</p></div>
+<p><strong>15.</strong> Copying <strong>database</strong> files</p>
+<div id="attachment_4222" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-15/" rel="attachment wp-att-4222"><img class="size-full wp-image-4222" alt="Copying Database Files " src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-15.png" width="640" height="360" /><noscript><img class="size-full wp-image-4222" alt="Copying Database Files " src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-15.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Copying Database Files</p></div>
+<p><strong>16.</strong> Click on &#8220;<strong>Password Management</strong>&#8220;.</p>
+<div id="attachment_4223" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-16/" rel="attachment wp-att-4223"><img class="size-full wp-image-4223" alt="Oracle Password Management" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-16.png" width="640" height="360" /><noscript><img class="size-full wp-image-4223" alt="Oracle Password Management" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-16.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Oracle Password Management</p></div>
+<p><strong>17.</strong> Set password for user &#8220;<strong>SYS</strong>&#8221; and click on <strong>OK</strong> to continue.</p>
+<div id="attachment_4224" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-17/" rel="attachment wp-att-4224"><img class="size-full wp-image-4224" alt="Set SYS User Password " src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-17.png" width="640" height="360" /><noscript><img class="size-full wp-image-4224" alt="Set SYS User Password " src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-17.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Set SYS User Password</p></div>
+<p><strong>18.</strong> Configuration scripts need to be executed as the &#8220;<strong>root</strong>&#8221; user. Go to the path given in the screen and execute the scripts one by one. Click on <strong>&#8216;OK</strong>&#8216; once scripts is executed.</p>
+<div id="attachment_4225" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-18/" rel="attachment wp-att-4225"><img class="size-full wp-image-4225" alt="Execute Configuration Scripts" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-18.png" width="640" height="360" /><noscript><img class="size-full wp-image-4225" alt="Execute Configuration Scripts" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-18.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Execute Configuration Scripts</p></div>
+<pre>[root@oracle]# cd /u01/app/oraInventory
+[root@oracle oraInventory]# ./orainstRoot.sh</pre>
+<pre>Changing permissions of /u01/app/oraInventory.
+Adding read,write permissions for group.
+Removing read,write,execute permissions for world.
+
+Changing groupname of /u01/app/oraInventory to oinstall.
+The execution of the script is complete.</pre>
+<pre>[root@oracle]# cd /u01/app/oracle/product/11.2.0/dbhome_2/
+[root@oracle dbhome_2]# ./root.sh</pre>
+<pre>Running Oracle 11g root.sh script...
+
+The following environment variables are set as:
+    ORACLE_OWNER= oracle
+    ORACLE_HOME=  /u01/app/oracle/product/11.2.0/dbhome_2
+
+Enter the full pathname of the local bin directory: [/usr/local/bin]:
+   Copying dbhome to /usr/local/bin ...
+   Copying oraenv to /usr/local/bin ...
+   Copying coraenv to /usr/local/bin ...
+
+Creating /etc/oratab file...
+Entries will be added to the /etc/oratab file as needed by
+Database Configuration Assistant when a database is created
+Finished running generic part of root.sh script.
+Now product-specific root actions will be performed.
+Finished product-specific root actions.</pre>
+<p><strong>19.</strong> The installation of <strong>Oracle Database</strong> is successful.</p>
+<div id="attachment_4226" style="width: 650px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-19/" rel="attachment wp-att-4226"><img class="size-full wp-image-4226" alt="Oracle Installation Completed" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-19.png" width="640" height="360" /><noscript><img class="size-full wp-image-4226" alt="Oracle Installation Completed" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-19.png" width="640" height="360" /></noscript></a><p class="wp-caption-text">Oracle Installation Finish</p></div>
+<p><strong>20.</strong> To test your <strong>Oracle installation</strong> navigate to web based management interface for your system at “<strong>localhost</strong>” with the user name “<strong>SYS</strong>” connecting as “<strong>SYSDBA</strong>” and using the <strong>password</strong> you set during the install of Oracle. Remember to open port <strong>1158</strong> on your firewall and restart the <strong>iptables</strong> service.</p>
+<pre>[root@oracle]# iptables -A INPUT -p tcp --dport 1158 -j ACCEPT
+[root@oracle]# service iptables restart</pre>
+<pre>https://localhost:1158/em/</pre>
+<div id="attachment_4227" style="width: 630px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-20/" rel="attachment wp-att-4227"><img class="size-medium wp-image-4227" alt="Oracle Enterprise Manager Login" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-20-620x348.png" width="620" height="348" /><noscript><img class="size-medium wp-image-4227" alt="Oracle Enterprise Manager Login" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-20-620x348.png" width="620" height="348" /></noscript></a><p class="wp-caption-text">Oracle Enterprise Manager Login</p></div>
+<p><strong>21.</strong> Oracle Enterprise <strong>Database Control Manager</strong></p>
+<div id="attachment_4228" style="width: 630px" class="wp-caption aligncenter"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/oracle-21/" rel="attachment wp-att-4228"><img class="size-medium wp-image-4228" alt="Oracle Database Control Manager" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-21-620x348.png" width="620" height="348" /><noscript><img class="size-medium wp-image-4228" alt="Oracle Database Control Manager" src="http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-21-620x348.png" width="620" height="348" /></noscript></a><p class="wp-caption-text">Oracle Database Control Manager</p></div>
+<p>Now you can start using <strong>Oracle</strong>. I highly recommend you to follow the <a href="http://www.oracle.com/technetwork/database/enterprise-edition/documentation/database-093888.html" target="_blank" rel="nofollow">Oracle Documentation</a> for more help. There are number of client applications out there which can help you, like the command line tool called <a href="http://www.oracle.com/technetwork/database/features/instant-client/index-097480.html" target="_blank" rel="nofollow">Oracle Instant Client</a> and the <a href="http://www.oracle.com/technetwork/developer-tools/sql-developer/overview/index.html" target="_blank" rel="nofollow">Oracle SQL Developer UI</a> program.</p>
+<p>This is end of the<strong> Oracle Database Software Installation</strong>. In our upcoming article we will be covering how to create database using <b>DBCA</b> and how to <strong>Start-up</strong> and <strong>Shutdown</strong> Oracle Database. Please stay tuned&#8230;!!!</p>
+							
+						</div>
+						<div class="sharrre-container">
+	<span>Share</span>
+	<div id="twitter" data-url="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/" data-text="Oracle Database 11g Release 2 Installation on RHEL/CentOS 6.x/5.x/4.x" data-title="Tweet"></div>
+	<div id="facebook" data-url="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/" data-text="Oracle Database 11g Release 2 Installation on RHEL/CentOS 6.x/5.x/4.x" data-title="Like"></div>
+	<div id="googleplus" data-url="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/" data-text="Oracle Database 11g Release 2 Installation on RHEL/CentOS 6.x/5.x/4.x" data-title="+1"></div>
+	<div id="linkedin" data-url="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/" data-text="Oracle Database 11g Release 2 Installation on RHEL/CentOS 6.x/5.x/4.x" data-title="Share It"></div>
+<div style="text-align:center;font-weight:600;padding-top:5px;"><a href="#comments"><i class="fa fa-comments-o"></i><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/#comments" class="comments-link" >49 <span style="font-size:10px;color:#2776c6;margin-top:-8px;">comments</span></a></a></div>
+
+</div><!--/.sharrre-container-->
+
+<script type="text/javascript">
+	// Sharrre
+	jQuery(document).ready(function(){
+		jQuery('#twitter').sharrre({
+			share: {
+				twitter: true
+			},
+			template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-twitter"></i></div></a>',
+			enableHover: false,
+			enableTracking: true,
+			buttons: { twitter: {via: 'tecmint'}},
+			click: function(api, options){
+				api.simulateClick();
+				api.openPopup('twitter');
+			}
+		});
+		jQuery('#facebook').sharrre({
+			share: {
+				facebook: true
+			},
+			template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-facebook-square"></i></div></a>',
+			enableHover: false,
+			enableTracking: true,
+			click: function(api, options){
+				api.simulateClick();
+				api.openPopup('facebook');
+			}
+		});
+		jQuery('#googleplus').sharrre({
+			share: {
+				googlePlus: true
+			},
+			template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-google-plus-square"></i></div></a>',
+			enableHover: false,
+			enableTracking: true,
+			urlCurl: 'http://www.tecmint.com/wp-content/themes/tecmint/js/sharrre.php',
+			click: function(api, options){
+				api.simulateClick();
+				api.openPopup('googlePlus');
+			}
+		});
+
+jQuery('#linkedin').sharrre({
+			share: {
+				linkedin: true
+			},
+			template: '<a class="box" href="#" rel="nofollow"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-linkedin"></i></div></a>',
+			enableHover: false,
+			enableTracking: true,
+			buttons: {
+			linkedin: {
+				description: 'Oracle Database 11g Release 2 Installation on RHEL/CentOS 6.x/5.x/4.x',media: 'http://www.tecmint.com/wp-content/uploads/2013/09/Oracle-21.png'				}
+			},
+			click: function(api, options){
+				api.simulateClick();
+				api.openPopup('linkedin');
+			}
+		});
+
+
+				
+				
+			// Scrollable sharrre bar, contributed by Erik Frye. Awesome!
+			var shareContainer = jQuery(".sharrre-container"),
+			header = jQuery('#header'),
+			postEntry = jQuery('.entry'),
+			$window = jQuery(window),
+			distanceFromTop = 20,
+			startSharePosition = shareContainer.offset(),
+			contentBottom = postEntry.offset().top + postEntry.outerHeight(),
+			topOfTemplate = header.offset().top;
+			getTopSpacing();
+
+			shareScroll = function(){
+				if($window.width() > 719){	
+					var scrollTop = $window.scrollTop() + topOfTemplate,
+					stopLocation = contentBottom - (shareContainer.outerHeight() + topSpacing);
+					if(scrollTop > stopLocation){
+						shareContainer.offset({top: contentBottom - shareContainer.outerHeight(),left: startSharePosition.left});
+					}
+					else if(scrollTop >= postEntry.offset().top-topSpacing){
+						shareContainer.offset({top: scrollTop + topSpacing, left: startSharePosition.left});
+					}else if(scrollTop < startSharePosition.top+(topSpacing-1)){
+						shareContainer.offset({top: startSharePosition.top,left:startSharePosition.left});
+					}
+				}
+			},
+
+			shareMove = function(){
+				startSharePosition = shareContainer.offset();
+				contentBottom = postEntry.offset().top + postEntry.outerHeight();
+				topOfTemplate = header.offset().top;
+				getTopSpacing();
+			};
+
+			/* As new images load the page content body gets longer. The bottom of the content area needs to be adjusted in case images are still loading. */
+			setTimeout(function() {
+				contentBottom = postEntry.offset().top + postEntry.outerHeight();
+			}, 2000);
+
+			if (window.addEventListener) {
+				window.addEventListener('scroll', shareScroll, false);
+				window.addEventListener('resize', shareMove, false);
+			} else if (window.attachEvent) {
+				window.attachEvent('onscroll', shareScroll);
+				window.attachEvent('onresize', shareMove);
+			}
+
+			function getTopSpacing(){
+				if($window.width() > 1024)
+					topSpacing = distanceFromTop + jQuery('.nav-wrap').outerHeight();
+				else
+					topSpacing = distanceFromTop;
+			}
+				
+	});
+</script>						<div class="clear"></div>				
+					</div><!--/.entry-->
+					
+				</div><!--/.post-inner-->
+
+			</article><!--/.post-->				
+				
+		<div class="clear"></div>
+		   		<div class="clear"></div>
+
+<div class="ads-inner-mobile">
+<center style="padding-top:30px;">
+<!-- Post-Bottom-Inner-300x250 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-2601749019656699"
+     data-ad-slot="7807254572"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+</div>
+<div class="clear"></div>
+<div class="discussion">
+  <p>If you have any questions or problems regarding this article and want help within 24 Hours? <a target="_blank" href="http://linuxsay.com" onclick="ga('send','event','Linuxsay Discussion Forum','linuxsay.com')"><i class="fa fa-arrow-right"></i>
+ Ask Now <i class="fa fa-arrow-left"></i></a></p>
+</div>
+<div class="clear"></div>
+<p style="background: #ffffa0 none repeat scroll 0 0;font-weight:400;color:#939390; border: 1px solid #e5e597;padding: 0.5rem 0.625rem;margin-bottom:20px;"><i class="fa fa-heart col-love-l"></i> <b>Support TecMint</b>: Did you find this tutorial helpful?. Please help to keep it alive by donating. Every cent counts! - <a style="font-weight:500;font-size:18px;text-decoration:underline" onclick="ga('send','event','Support TecMint - Donation','PayPal Donation')" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=Z4RH6K3ERCEMG" rel="nofollow" target="_blank">Donate Now</a></p>
+<div class="clear"></div>
+				
+					<div class="author-bio">
+				<div class="bio-avatar"><img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/36c7c25164c3455f2f711b01e395de0d?s=128&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/36c7c25164c3455f2f711b01e395de0d?s=256&amp;d=blank&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' /><noscript><img alt='' src="http://0.gravatar.com/avatar/36c7c25164c3455f2f711b01e395de0d?s=128&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/36c7c25164c3455f2f711b01e395de0d?s=256&amp;d=blank&amp;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' /></noscript></div>
+<p style="float:right; font-weight:600;"><a target="_blank" class="author-link" href="http://www.tecmint.com/author/navin/" rel="author">View all Posts</a></p>
+				<p class="bio-name">Narad Shrestha</p>
+				<p class="bio-desc">He has over 10 years of rich IT experience which includes various Linux Distros,  FOSS and Networking. Narad always believes sharing IT knowledge with others and adopts new technology with ease.</p>
+<p><span style="font-size:20px;font-weight:400;color:#a2042e">Your name can also be listed here. Got a tip? <a style="text-decoration:underline;" target="_blank" href="http://www.tecmint.com/submit-articles/">Submit it here</a> to become an <b>TecMint</b> author.</span></p>
+				<div class="clear"></div>
+			</div>
+		
+<div id="exam_announcement">
+<span style="color:#F75D59;font-weight:400; font-size:18px;">Receive Your Free Complimentary eBook NOW!</span> - <span style="color:#2776c6;font-weight:600; font-size:18px; text-decoration:underline;"><script type="text/javascript">
+var total_images = 9;
+var random_number = Math.floor((Math.random()*total_images));
+var random_img = new Array();
+random_img[0] = '<a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_mach01/prgm.cgi">Introduction to Linux - A Hands on Guide</a>';
+random_img[1] = '<a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_oreb01/prgm.cgi">Linux Kernel In A Nutshell - Configuration and Building</a>';
+random_img[2] = '<a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_linu02/prgm.cgi">Beyond Linux® From Scratch - Version 6.3</a>';
+random_img[3] = '<a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_make184/prgm.cgi">Can You Run It On Linux? 10 Vital Apps You Will Want When You Switch</a>';
+random_img[4] = '<a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_make180/prgm.cgi">4 Promising Linux Distros To Look Forward To In 2015</a>';
+random_img[5] = '<a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi">Securing & Optimizing Linux: The Hacking Solution (v.3.0)</a>';
+random_img[6] = '<a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_infk03/prgm.cgi">Self-Service Linux®: Mastering the Art of Problem Determination</a>';
+random_img[7] = '<a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_infk10/prgm.cgi">Understanding the Linux® Virtual Memory Manager</a>';
+random_img[8] = '<a target="_blank" rel="nofollow" href="http://tecmint.tradepub.com/free/w_ubub01/prgm.cgi">Ubuntu Documentation: Ubuntu Server Guide 2014</a>';
+document.write(random_img[random_number]);
+</script></span></div>
+<div class="hr"></div>
+<div class="freebooks">
+<center><h1 style="padding-bottom:15px;font-size:25px;">Download Free Linux eBooks</h1></center>
+<div class="grid one-fourth">
+<a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_advb01/prgm.cgi" onclick="ga('send','event','Advance-Bash-Scripting','tecmint.tradepub.com')"><img title="Advanced Bash-Scripting Guide" src="http://img.tradepub.com/free/w_advb01/images/w_advb01c4.gif" alt="Advanced Bash-Scripting Guide"></a>
+</div>
+<div class="grid one-fourth">
+   <a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_wile13/prgm.cgi" onclick="ga('send','event','Linux-Bible','tecmint.tradepub.com')"><img title="Linux Bible" src="http://img.tradepub.com/free/w_wile13/images/w_wile13c4.gif" alt="Linux Bible"></a>
+</div>
+<div class="grid one-fourth">
+   <a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_make07/prgm.cgi" onclick="ga('send','event','Linux-Newbies-Guide','tecmint.tradepub.com')"><img title="A Newbie's Getting Started Guide to Linux" src="http://img.tradepub.com/free/w_make07/images/w_make07c4.gif" alt="A Newbie's Getting Started Guide to Linux"></a>
+</div>
+
+<div class="grid one-fourth last">
+   <a rel="nofollow" target="_blank" href="http://tecmint.tradepub.com/free/w_mach01/prgm.cgi" onclick="ga('send','event','Introduction to Linux - A Hands on Guide','tecmint.tradepub.com')"><img title="Introduction to Linux - A Hands on Guide" src="http://img.tradepub.com/free/w_mach01/images/w_mach01c4.gif" alt="Introduction to Linux - A Hands on Guide"></a>
+</div>
+<div class="clear"></div>
+</div>
+		
+			<ul class="post-nav group">
+		<li class="next"><a href="http://www.tecmint.com/how-to-setup-nfs-server-in-linux/" rel="next"><i class="fa fa-chevron-right"></i><strong>Next story</strong> <span>How to Setup NFS (Network File System) on RHEL/CentOS/Fedora and Debian/Ubuntu</span></a></li>
+		<li class="previous"><a href="http://www.tecmint.com/install-xnoise-media-player-in-ubuntu-xubuntu-linux-mint/" rel="prev"><i class="fa fa-chevron-left"></i><strong>Previous story</strong> <span>Xnoise 0.2.19 Media Player Relased &#8211; Install in Ubuntu, Linux Mint and Fedora</span></a></li>
+	</ul>
+		
+		
+
+<h4 class="heading">
+	<i class="fa fa-hand-o-right"></i>You may also like...</h4>
+
+<ul class="related-posts group">
+	
+		<li class="related post-hover">
+		<article class="post-8949 post type-post status-publish format-standard has-post-thumbnail hentry category-oracle tag-databases-2">
+
+			<div class="post-thumbnail">
+				<a href="http://www.tecmint.com/setting-up-prerequisites-for-oracle-12c-installation/" title="Setting Up Prerequisites for Oracle 12c Installation in RHEL/CentOS/Oracle Linux 6.5 &#8211; Part I">
+											<img width="520" height="245" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/09/Install-Prerequisites-for-Oracle-520x245.jpg" class="attachment-thumb-medium wp-post-image" alt="Setting Up Prerequisites for Oracle" /><noscript><img width="520" height="245" src="http://www.tecmint.com/wp-content/uploads/2014/09/Install-Prerequisites-for-Oracle-520x245.jpg" class="attachment-thumb-medium wp-post-image" alt="Setting Up Prerequisites for Oracle" /></noscript>																								</a>
+									<a class="post-comments" href="http://www.tecmint.com/setting-up-prerequisites-for-oracle-12c-installation/#comments"><span><i class="fa fa-comments-o"></i>9</span></a>
+							</div><!--/.post-thumbnail-->
+			
+			<div class="related-inner">
+				
+				<h4 class="post-title">
+					<a href="http://www.tecmint.com/setting-up-prerequisites-for-oracle-12c-installation/" rel="bookmark" title="Setting Up Prerequisites for Oracle 12c Installation in RHEL/CentOS/Oracle Linux 6.5 &#8211; Part I">Setting Up Prerequisites for Oracle 12c Installation in RHEL/CentOS/Oracle Linux 6.5 &#8211; Part I</a>
+				</h4><!--/.post-title-->
+				
+				<div class="post-meta group">
+					<p class="post-date">25 Sep, 2014</p>
+				</div><!--/.post-meta-->
+			
+			</div><!--/.related-inner-->
+
+		</article>
+	</li><!--/.related-->
+		<li class="related post-hover">
+		<article class="post-9037 post type-post status-publish format-standard has-post-thumbnail hentry category-oracle tag-databases-2">
+
+			<div class="post-thumbnail">
+				<a href="http://www.tecmint.com/oracle-12c-installation-in-centos-6/" title="Installing and Configuring Oracle 12c in RHEL/CentOS/Oracle Linux 6.5 &#8211; Part II">
+											<img width="520" height="245" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/10/Oracle-12c-Installation-in-Centos1-520x245.png" class="attachment-thumb-medium wp-post-image" alt="Oracle 12c Installation in Centos" /><noscript><img width="520" height="245" src="http://www.tecmint.com/wp-content/uploads/2014/10/Oracle-12c-Installation-in-Centos1-520x245.png" class="attachment-thumb-medium wp-post-image" alt="Oracle 12c Installation in Centos" /></noscript>																								</a>
+									<a class="post-comments" href="http://www.tecmint.com/oracle-12c-installation-in-centos-6/#comments"><span><i class="fa fa-comments-o"></i>16</span></a>
+							</div><!--/.post-thumbnail-->
+			
+			<div class="related-inner">
+				
+				<h4 class="post-title">
+					<a href="http://www.tecmint.com/oracle-12c-installation-in-centos-6/" rel="bookmark" title="Installing and Configuring Oracle 12c in RHEL/CentOS/Oracle Linux 6.5 &#8211; Part II">Installing and Configuring Oracle 12c in RHEL/CentOS/Oracle Linux 6.5 &#8211; Part II</a>
+				</h4><!--/.post-title-->
+				
+				<div class="post-meta group">
+					<p class="post-date">2 Oct, 2014</p>
+				</div><!--/.post-meta-->
+			
+			</div><!--/.related-inner-->
+
+		</article>
+	</li><!--/.related-->
+	
+</ul><!--/.post-related-->
+
+		
+		
+<section id="comments" class="themeform">
+	
+		
+		<h3 class="heading">49 Responses</h3>
+	
+		<ul class="comment-tabs group">
+			<li class="active"><a href="#commentlist-container"><i class="fa fa-comments-o"></i>Comments<span>49</span></a></li>
+			<li><a href="#pinglist-container"><i class="fa fa-share"></i>Pingbacks<span>0</span></a></li>
+		</ul>
+
+				<div id="commentlist-container" class="comment-tab">
+			
+			<ol class="commentlist">
+						<li class="comment even thread-even depth-1" id="comment-634958">
+				<div id="div-comment-634958" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://2.gravatar.com/avatar/8dc51f5edf6bb82d087f4dd95081d2d2?s=96&#038;d=blank&#038;r=g" srcset='http://2.gravatar.com/avatar/8dc51f5edf6bb82d087f4dd95081d2d2?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://2.gravatar.com/avatar/8dc51f5edf6bb82d087f4dd95081d2d2?s=96&#038;d=blank&#038;r=g" srcset='http://2.gravatar.com/avatar/8dc51f5edf6bb82d087f4dd95081d2d2?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn"><a href='http://centos' rel='external nofollow' class='url'>sanjay</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-634958">
+			July 31, 2015 at 1:18 pm</a>		</div>
+
+		<p>Hi Ravi,</p>
+<p>I am using oracle db 12.1.0 on centos 7 64 bit.I would like take automatic backup on NAS Server please suggest to me how to take it.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=634958#respond' onclick='return addComment.moveForm( "div-comment-634958", "634958", "respond", "4203" )' aria-label='Reply to sanjay'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-624801">
+				<div id="div-comment-624801" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/76ae50333ecfe3a98bd8db08df8d1cd7?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/76ae50333ecfe3a98bd8db08df8d1cd7?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/76ae50333ecfe3a98bd8db08df8d1cd7?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/76ae50333ecfe3a98bd8db08df8d1cd7?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">abhishek</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-624801">
+			July 15, 2015 at 6:32 pm</a>		</div>
+
+		<p>Please,tell me how to create two instance on same centos 6.4 machine</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=624801#respond' onclick='return addComment.moveForm( "div-comment-624801", "624801", "respond", "4203" )' aria-label='Reply to abhishek'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-616570">
+				<div id="div-comment-616570" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/39c90a1dec92d9341c62ac3ceba72a89?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/39c90a1dec92d9341c62ac3ceba72a89?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://0.gravatar.com/avatar/39c90a1dec92d9341c62ac3ceba72a89?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/39c90a1dec92d9341c62ac3ceba72a89?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Matt Read</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-616570">
+			July 5, 2015 at 10:38 pm</a>		</div>
+
+		<p>Whenever I change: </p>
+<p>“/etc/security/limits.d/90-nproc.conf”</p>
+<p>My VM crashes when I reboot.  I get this.</p>
+<p>&#8220;The CPU has been disabled by the guest operating system. You will need to power off or reset the virtual machine at this point.&#8221;</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=616570#respond' onclick='return addComment.moveForm( "div-comment-616570", "616570", "respond", "4203" )' aria-label='Reply to Matt Read'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-396461">
+				<div id="div-comment-396461" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/cae9885f0d8e0a01034d9a7d030d437c?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/cae9885f0d8e0a01034d9a7d030d437c?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://0.gravatar.com/avatar/cae9885f0d8e0a01034d9a7d030d437c?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/cae9885f0d8e0a01034d9a7d030d437c?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Bibek</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-396461">
+			December 6, 2014 at 9:40 pm</a>		</div>
+
+		<p>Hi,<br />
+I am getting below error while unzipping the database file, tried with wget mirror still same issue, please help.<br />
+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;<br />
+ unzip linux_11gR2_database_1of2.zip<br />
+Archive:  linux_11gR2_database_1of2.zip<br />
+  End-of-central-directory signature not found.  Either this file is not<br />
+  a zipfile, or it constitutes one disk of a multi-part archive.  In the<br />
+  latter case the central directory and zipfile comment will be found on<br />
+  the last disk(s) of this archive.<br />
+unzip:  cannot find zipfile directory in one of linux_11gR2_database_1of2.zip or<br />
+        linux_11gR2_database_1of2.zip.zip, and cannot find linux_11gR2_database_1of2.zip.ZIP, period.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=396461#respond' onclick='return addComment.moveForm( "div-comment-396461", "396461", "respond", "4203" )' aria-label='Reply to Bibek'>Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-admin even depth-2" id="comment-399567">
+				<div id="div-comment-399567" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Ravi Saive</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-399567">
+			December 8, 2014 at 5:18 pm</a>		</div>
+
+		<p>@Bibek,<br />
+I think your download is incomplete, try to download files again on different machine, then move them to server.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=399567#respond' onclick='return addComment.moveForm( "div-comment-399567", "399567", "respond", "4203" )' aria-label='Reply to Ravi Saive'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-even depth-1 parent" id="comment-230073">
+				<div id="div-comment-230073" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/6a3f329a89e4ad91818da704b6b3be3c?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/6a3f329a89e4ad91818da704b6b3be3c?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://0.gravatar.com/avatar/6a3f329a89e4ad91818da704b6b3be3c?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/6a3f329a89e4ad91818da704b6b3be3c?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">abhijit</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-230073">
+			August 2, 2014 at 5:24 pm</a>		</div>
+
+		<p>Dear Frnds I followed all the steps and installed it on my centos6.5 machine and 1st time I login through sys user and then I restart my machine and then hit the the same link again (<a href="https://192.168.0.4:1158/em" rel="nofollow">https://192.168.0.4:1158/em</a> ) but then I cannot login ???????&#8230;..</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=230073#respond' onclick='return addComment.moveForm( "div-comment-230073", "230073", "respond", "4203" )' aria-label='Reply to abhijit'>Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment even depth-2" id="comment-353543">
+				<div id="div-comment-353543" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/36c7c25164c3455f2f711b01e395de0d?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/36c7c25164c3455f2f711b01e395de0d?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://0.gravatar.com/avatar/36c7c25164c3455f2f711b01e395de0d?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/36c7c25164c3455f2f711b01e395de0d?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn"><a href='http://www.tecmint.com' rel='external nofollow' class='url'>Narad</a></cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-353543">
+			October 30, 2014 at 10:45 pm</a>		</div>
+
+		<p>Please verify you firewall / iptables access&#8230;else share the error here.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=353543#respond' onclick='return addComment.moveForm( "div-comment-353543", "353543", "respond", "4203" )' aria-label='Reply to Narad'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-227677">
+				<div id="div-comment-227677" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/9588439d3005903f13b2e3bce3367749?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/9588439d3005903f13b2e3bce3367749?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://0.gravatar.com/avatar/9588439d3005903f13b2e3bce3367749?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/9588439d3005903f13b2e3bce3367749?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">saif</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-227677">
+			July 30, 2014 at 6:15 pm</a>		</div>
+
+		<p>Hello, I completed the installation, but I am only able to connect to the database from my desktop running windows, with sqldeveloper by tunneling. The error I keep getting is that the connection was reset</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=227677#respond' onclick='return addComment.moveForm( "div-comment-227677", "227677", "respond", "4203" )' aria-label='Reply to saif'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1 parent" id="comment-204008">
+				<div id="div-comment-204008" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/774fad1cf44e239c62c465a7a58ee429?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/774fad1cf44e239c62c465a7a58ee429?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/774fad1cf44e239c62c465a7a58ee429?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/774fad1cf44e239c62c465a7a58ee429?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">MD Monowar Hossain</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-204008">
+			June 30, 2014 at 1:48 pm</a>		</div>
+
+		<p>Witch version  of OS are you use install oracle 11g 64bit &amp; 32bit</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=204008#respond' onclick='return addComment.moveForm( "div-comment-204008", "204008", "respond", "4203" )' aria-label='Reply to MD Monowar Hossain'>Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment byuser comment-author-admin odd alt depth-2 parent" id="comment-204116">
+				<div id="div-comment-204116" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">Ravi Saive</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-204116">
+			June 30, 2014 at 5:14 pm</a>		</div>
+
+		<p>We used CentOS 6.3 (32-bit) architecture for testing the Oracle installation.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=204116#respond' onclick='return addComment.moveForm( "div-comment-204116", "204116", "respond", "4203" )' aria-label='Reply to Ravi Saive'>Reply</a></div>
+				</div>
+		<ul class="children">
+		<li class="comment even depth-3" id="comment-204760">
+				<div id="div-comment-204760" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/774fad1cf44e239c62c465a7a58ee429?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/774fad1cf44e239c62c465a7a58ee429?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/774fad1cf44e239c62c465a7a58ee429?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/774fad1cf44e239c62c465a7a58ee429?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">MD Monowar Hossain</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-204760">
+			July 1, 2014 at 2:45 pm</a>		</div>
+
+		<p>Oracle application &amp; Development  server how to install step by step link pls.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=204760#respond' onclick='return addComment.moveForm( "div-comment-204760", "204760", "respond", "4203" )' aria-label='Reply to MD Monowar Hossain'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-184146">
+				<div id="div-comment-184146" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/adac9db2cce9773f4be19dc4b90e7d49?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/adac9db2cce9773f4be19dc4b90e7d49?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/adac9db2cce9773f4be19dc4b90e7d49?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/adac9db2cce9773f4be19dc4b90e7d49?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">kamil</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-184146">
+			June 4, 2014 at 3:51 pm</a>		</div>
+
+		<p>Ok, it managed it to work, i just used the gui firewall application and added a rule in there. I don&#8217;t know why this iptables rule didn&#8217;t work.</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=184146#respond' onclick='return addComment.moveForm( "div-comment-184146", "184146", "respond", "4203" )' aria-label='Reply to kamil'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+		<li class="comment even thread-even depth-1" id="comment-184121">
+				<div id="div-comment-184121" class="comment-body">
+				<div class="comment-author vcard">
+			<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/adac9db2cce9773f4be19dc4b90e7d49?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/adac9db2cce9773f4be19dc4b90e7d49?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/adac9db2cce9773f4be19dc4b90e7d49?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/adac9db2cce9773f4be19dc4b90e7d49?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>			<cite class="fn">kamil</cite> <span class="says">says:</span>		</div>
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-3/#comment-184121">
+			June 4, 2014 at 3:13 pm</a>		</div>
+
+		<p>Hi,<br />
+i have problem connecting to em from outside the server. My server ip is 192.168.2.11 and when i open <a href="https://192.168.2.11:1158/em" rel="nofollow">https://192.168.2.11:1158/em</a> or <a href="https://localhost:1158/em" rel="nofollow">https://localhost:1158/em</a> on server it&#8217;s working fine but from another computer it isn&#8217;t. I put the rule in iptables but it didn&#8217;t help. What can be wrong?</p>
+
+		<div class="reply"><a rel='nofollow' class='comment-reply-link' href='http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/?replytocom=184121#respond' onclick='return addComment.moveForm( "div-comment-184121", "184121", "respond", "4203" )' aria-label='Reply to kamil'>Reply</a></div>
+				</div>
+		</li><!-- #comment-## -->
+	
+			</ol><!--/.commentlist-->
+			
+						<nav class="comments-nav group">
+				<div class="nav-previous"><a href="http://www.tecmint.com/oracle-database-11g-release-2-installation-in-linux/comment-page-2/#comments" >&laquo; Older Comments</a></div>
+				<div class="nav-next"></div>
+			</nav><!--/.comments-nav-->
+						
+		</div>	
+				
+		
+		
+							<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/oracle-database-11g-release-2-installation-in-linux/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://www.tecmint.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p>							<p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required='true' required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" aria-describedby="email-notes" aria-required='true' required='required' /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p>						
+						<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='4203' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="5cb9bb72c6" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="111"/></p>					</form>
+							</div><!-- #respond -->
+			
+</section><!--/#comments-->		
+	</div><!--/.pad-->
+	
+</section><!--/.content-->
+
+
+	<div class="sidebar s1">
+		
+		<a class="sidebar-toggle" title="Expand Sidebar"><i class="fa icon-sidebar-toggle"></i></a>
+		
+		<div class="sidebar-content">
+			
+			<div class="sidebar-top group">
+				<span style="color:#002873; font-weight:600; font-size:20px;">I <i class="fa fa-heart col-love-l"></i> TecMint :</span>
+				<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="http://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: #33ccff;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: #3b5998;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: #db4a39;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="http://feedly.com/i/subscription/feed/http://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: #87c040;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: #c4302b;"></i></a></li></ul>			</div>
+			
+						
+						
+						
+			<div id="text-23" class="widget widget_text">			<div class="textwidget">  <div class="message">
+     <center><a href="http://www.tecmint.com/free-online-linux-learning-guide-for-beginners/" target="_blank"><span style="font-weight:bold;font-size:18px;"><i class="fa fa-linux"></i> BEGINNER'S GUIDE FOR LINUX <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Start learning Linux in minutes</span> <i class="fa fa-arrow-right"></i></a>
+ </center>
+</div></div>
+		</div><div id="text-21" class="widget widget_text">			<div class="textwidget"><center>
+<!-- Sidebar Top Ad 300x250 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-2601749019656699"
+     data-ad-slot="7270921771"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center></div>
+		</div><div id="text-12" class="widget widget_text">			<div class="textwidget"> <span style="float:right; text-decoration:underline"><a onclick="ga('send','event','Advertise Here','www.tecmint.com')" target="_blank" href="http://www.tecmint.com/advertise/">Advertise Here</a></span>
+<a onclick="ga('send','event','Atlantic Cloud Hosting','www.atlantic.net')" href="https://www.atlantic.net/cloud-hosting/pricing/?utm_source=TM&utm_medium=TM&utm_term=TM&utm_content=TM&utm_campaign=TM" target="_blank" rel="nofollow"><img src="/wp-content/themes/tecmint/images/300x250-ROT.gif"></a></div>
+		</div><div id="text-3" class="widget widget_text">			<div class="textwidget"><div class="ads-sidebar-desktop">
+<center>
+<!-- SideBar2 Ads 300x600 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:600px"
+     data-ad-client="ca-pub-2601749019656699"
+     data-ad-slot="9098920170"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+</div></div>
+		</div><div id="alxtabs-2" class="widget widget_alx_tabs">
+<ul class="alx-tabs-nav group tab-count-2"><li class="alx-tab tab-popular"><a href="#tab-popular" title="Popular Posts"><i class="fa fa-star"></i><span>Popular Posts</span></a></li><li class="alx-tab tab-comments"><a href="#tab-comments" title="Recent Comments"><i class="fa fa-comments-o"></i><span>Recent Comments</span></a></li></ul>
+	<div class="alx-tabs-container">
+
+	
+		
+
+						
+						<ul id="tab-popular" class="alx-tab group thumbs-enabled">
+				
+								<li>
+				
+										<div class="tab-item-thumbnail">
+						<a href="http://www.tecmint.com/how-to-add-linux-host-to-nagios-monitoring-server/" title="How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin">
+															<img width="160" height="160" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/11/Add-Linux-Host-to-Nagios-160x160.jpg" class="attachment-thumb-small wp-post-image" alt="Add Linux Host to Nagios Monitoring" /><noscript><img width="160" height="160" src="http://www.tecmint.com/wp-content/uploads/2013/11/Add-Linux-Host-to-Nagios-160x160.jpg" class="attachment-thumb-small wp-post-image" alt="Add Linux Host to Nagios Monitoring" /></noscript>																																		</a>
+					</div>
+										
+					<div class="tab-item-inner group">
+												<p class="tab-item-title"><a href="http://www.tecmint.com/how-to-add-linux-host-to-nagios-monitoring-server/" rel="bookmark" title="How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin">How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin</a></p>
+						<p class="tab-item-date">8 Nov, 2013</p>					</div>
+					
+				</li>
+								<li>
+				
+										<div class="tab-item-thumbnail">
+						<a href="http://www.tecmint.com/install-nagios-in-linux/" title="Nagios 4.0.1 Released &#8211; Install on RHEL/CentOS 6.x/5.x and Fedora 19/18/17">
+															<img width="160" height="160" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/10/Install-Nagios-in-CentOS-160x160.jpg" class="attachment-thumb-small wp-post-image" alt="Install Nagios in CentOS" /><noscript><img width="160" height="160" src="http://www.tecmint.com/wp-content/uploads/2013/10/Install-Nagios-in-CentOS-160x160.jpg" class="attachment-thumb-small wp-post-image" alt="Install Nagios in CentOS" /></noscript>																																		</a>
+					</div>
+										
+					<div class="tab-item-inner group">
+												<p class="tab-item-title"><a href="http://www.tecmint.com/install-nagios-in-linux/" rel="bookmark" title="Nagios 4.0.1 Released &#8211; Install on RHEL/CentOS 6.x/5.x and Fedora 19/18/17">Nagios 4.0.1 Released &#8211; Install on RHEL/CentOS 6.x/5.x and Fedora 19/18/17</a></p>
+						<p class="tab-item-date">28 Oct, 2013</p>					</div>
+					
+				</li>
+								<li>
+				
+										<div class="tab-item-thumbnail">
+						<a href="http://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/" title="Google Chrome 45 Released &#8211; Install on RHEL/CentOS 7/6 and Fedora 22-15">
+															<img width="160" height="160" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/11/Install-Google-Chrome-in-CentOS-160x160.jpg" class="attachment-thumb-small wp-post-image" alt="Install Google Chrome in CentOS" /><noscript><img width="160" height="160" src="http://www.tecmint.com/wp-content/uploads/2014/11/Install-Google-Chrome-in-CentOS-160x160.jpg" class="attachment-thumb-small wp-post-image" alt="Install Google Chrome in CentOS" /></noscript>																																		</a>
+					</div>
+										
+					<div class="tab-item-inner group">
+												<p class="tab-item-title"><a href="http://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/" rel="bookmark" title="Google Chrome 45 Released &#8211; Install on RHEL/CentOS 7/6 and Fedora 22-15">Google Chrome 45 Released &#8211; Install on RHEL/CentOS 7/6 and Fedora 22-15</a></p>
+						<p class="tab-item-date">6 Aug, 2015</p>					</div>
+					
+				</li>
+								<li>
+				
+										<div class="tab-item-thumbnail">
+						<a href="http://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/" title="Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 21-12">
+															<img width="160" height="120" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2012/09/Install-Cacti.jpg" class="attachment-thumb-small wp-post-image" alt="Install Cacti in Linux" /><noscript><img width="160" height="120" src="http://www.tecmint.com/wp-content/uploads/2012/09/Install-Cacti.jpg" class="attachment-thumb-small wp-post-image" alt="Install Cacti in Linux" /></noscript>																																		</a>
+					</div>
+										
+					<div class="tab-item-inner group">
+												<p class="tab-item-title"><a href="http://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/" rel="bookmark" title="Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 21-12">Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 21-12</a></p>
+						<p class="tab-item-date">19 Mar, 2015</p>					</div>
+					
+				</li>
+								<li>
+				
+										<div class="tab-item-thumbnail">
+						<a href="http://www.tecmint.com/install-wine-in-rhel-centos-and-fedora/" title="Install Wine 1.6.2 Stable in RHEL/CentOS 7.0/6.x/5.x and Fedora 20-12">
+															<img width="160" height="160" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2014/11/Install-Wine-in-Linux-160x160.jpg" class="attachment-thumb-small wp-post-image" alt="Install Wine in Linux" /><noscript><img width="160" height="160" src="http://www.tecmint.com/wp-content/uploads/2014/11/Install-Wine-in-Linux-160x160.jpg" class="attachment-thumb-small wp-post-image" alt="Install Wine in Linux" /></noscript>																																		</a>
+					</div>
+										
+					<div class="tab-item-inner group">
+												<p class="tab-item-title"><a href="http://www.tecmint.com/install-wine-in-rhel-centos-and-fedora/" rel="bookmark" title="Install Wine 1.6.2 Stable in RHEL/CentOS 7.0/6.x/5.x and Fedora 20-12">Install Wine 1.6.2 Stable in RHEL/CentOS 7.0/6.x/5.x and Fedora 20-12</a></p>
+						<p class="tab-item-date">29 Nov, 2014</p>					</div>
+					
+				</li>
+								<li>
+				
+										<div class="tab-item-thumbnail">
+						<a href="http://www.tecmint.com/centos-6-4-installation-guide-with-screenshots/" title="CentOS 6.4 Step by Step Installation Guide with Screenshots">
+															<img width="160" height="120" src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://www.tecmint.com/wp-content/uploads/2013/03/cent-1.jpg" class="attachment-thumb-small wp-post-image" alt="Boot CentOS 6.4 Installation Media" /><noscript><img width="160" height="120" src="http://www.tecmint.com/wp-content/uploads/2013/03/cent-1.jpg" class="attachment-thumb-small wp-post-image" alt="Boot CentOS 6.4 Installation Media" /></noscript>																																		</a>
+					</div>
+										
+					<div class="tab-item-inner group">
+												<p class="tab-item-title"><a href="http://www.tecmint.com/centos-6-4-installation-guide-with-screenshots/" rel="bookmark" title="CentOS 6.4 Step by Step Installation Guide with Screenshots">CentOS 6.4 Step by Step Installation Guide with Screenshots</a></p>
+						<p class="tab-item-date">25 Mar, 2013</p>					</div>
+					
+				</li>
+							</ul><!--/.alx-tab-->
+			
+			
+
+		
+						
+			<ul id="tab-comments" class="alx-tab group avatars-enabled">
+								<li>
+					
+												<div class="tab-item-avatar">
+							<a href="http://www.tecmint.com/take-screenshots-in-linux-using-scrot/comment-page-1/#comment-670649">
+								<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+						</div>
+												
+						<div class="tab-item-inner group">
+												
+							<div class="tab-item-name">Ravi Saive says:</div>
+							<div class="tab-item-comment"><a href="http://www.tecmint.com/take-screenshots-in-linux-using-scrot/comment-page-1/#comment-670649">@Anil,
+
+You can use shutter tool to take screenshot of any window...</a></div>
+							
+						</div>
+
+				</li>
+								<li>
+					
+												<div class="tab-item-avatar">
+							<a href="http://www.tecmint.com/how-to-setup-nfs-server-in-linux/comment-page-5/#comment-670631">
+								<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+						</div>
+												
+						<div class="tab-item-inner group">
+												
+							<div class="tab-item-name">Ravi Saive says:</div>
+							<div class="tab-item-comment"><a href="http://www.tecmint.com/how-to-setup-nfs-server-in-linux/comment-page-5/#comment-670631">@Hanmaiah,
+Sorry no idea about quantum tape drive, mount I think you...</a></div>
+							
+						</div>
+
+				</li>
+								<li>
+					
+												<div class="tab-item-avatar">
+							<a href="http://www.tecmint.com/how-to-enable-epel-repository-for-rhel-centos-6-5/comment-page-8/#comment-670627">
+								<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://0.gravatar.com/avatar/?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo avatar-default' height='96' width='96' /><noscript><img alt='' src="http://0.gravatar.com/avatar/?s=96&#038;d=blank&#038;r=g" srcset='http://0.gravatar.com/avatar/?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo avatar-default' height='96' width='96' /></noscript>							</a>
+						</div>
+												
+						<div class="tab-item-inner group">
+												
+							<div class="tab-item-name">How to Install and Configure OpenVPN Server with Linux and Windows Clients in RHEL/CentOS 7 says:</div>
+							<div class="tab-item-comment"><a href="http://www.tecmint.com/how-to-enable-epel-repository-for-rhel-centos-6-5/comment-page-8/#comment-670627">[&#8230;] install OpenVPN in a RHEL/CentOS 7 server, you will first...</a></div>
+							
+						</div>
+
+				</li>
+								<li>
+					
+												<div class="tab-item-avatar">
+							<a href="http://www.tecmint.com/record-and-replay-linux-terminal-session-commands-using-script/comment-page-1/#comment-670602">
+								<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://1.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://1.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g" srcset='http://1.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+						</div>
+												
+						<div class="tab-item-inner group">
+												
+							<div class="tab-item-name">Aaron Kili K says:</div>
+							<div class="tab-item-comment"><a href="http://www.tecmint.com/record-and-replay-linux-terminal-session-commands-using-script/comment-page-1/#comment-670602">Thanks for the info, i will try to write about ttyrec.</a></div>
+							
+						</div>
+
+				</li>
+								<li>
+					
+												<div class="tab-item-avatar">
+							<a href="http://www.tecmint.com/take-screenshots-in-linux-using-scrot/comment-page-1/#comment-670578">
+								<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://2.gravatar.com/avatar/eddc8d3990170c6e22c03cefb3bd5577?s=96&#038;d=blank&#038;r=g" srcset='http://2.gravatar.com/avatar/eddc8d3990170c6e22c03cefb3bd5577?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://2.gravatar.com/avatar/eddc8d3990170c6e22c03cefb3bd5577?s=96&#038;d=blank&#038;r=g" srcset='http://2.gravatar.com/avatar/eddc8d3990170c6e22c03cefb3bd5577?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+						</div>
+												
+						<div class="tab-item-inner group">
+												
+							<div class="tab-item-name">anil says:</div>
+							<div class="tab-item-comment"><a href="http://www.tecmint.com/take-screenshots-in-linux-using-scrot/comment-page-1/#comment-670578">Hi,
+
+How we can take the screenshoot of any particular website like...</a></div>
+							
+						</div>
+
+				</li>
+								<li>
+					
+												<div class="tab-item-avatar">
+							<a href="http://www.tecmint.com/how-to-setup-nfs-server-in-linux/comment-page-5/#comment-670521">
+								<img alt='' src="http://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="http://2.gravatar.com/avatar/843baa397eb6c71903746dcd1daa85e4?s=96&#038;d=blank&#038;r=g" srcset='http://2.gravatar.com/avatar/843baa397eb6c71903746dcd1daa85e4?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /><noscript><img alt='' src="http://2.gravatar.com/avatar/843baa397eb6c71903746dcd1daa85e4?s=96&#038;d=blank&#038;r=g" srcset='http://2.gravatar.com/avatar/843baa397eb6c71903746dcd1daa85e4?s=192&amp;d=blank&amp;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript>							</a>
+						</div>
+												
+						<div class="tab-item-inner group">
+												
+							<div class="tab-item-name">hanumaiah says:</div>
+							<div class="tab-item-comment"><a href="http://www.tecmint.com/how-to-setup-nfs-server-in-linux/comment-page-5/#comment-670521">we are looking for quantum tape drive mount in RHEL6.5 anyone...</a></div>
+							
+						</div>
+
+				</li>
+							</ul><!--/.alx-tab-->
+
+		
+			</div>
+
+</div>
+<div id="text-4" class="widget widget_text"><h3>Download Free Linux eBooks</h3>			<div class="textwidget"><ol>
+<li><a onclick="ga('send','event','Linux Command Line Cheat Sheet','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_makb09/prgm.cgi" rel="nofollow" target="_blank">Complete Linux Command Line Cheat Sheet</a></li>
+<li><a onclick="ga('send','event','The GNU/Linux Advanced Administration Guide','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_free01/prgm.cgi" rel="nofollow" target="_blank">The GNU/Linux Advanced Administration Guide</a></li>
+<li><a onclick="ga('send','event','Securing &amp; Optimizing Linux','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi" rel="nofollow" target="_blank">Securing &amp; Optimizing Linux Servers</a></li>
+<li><a onclick="ga('send','event','Linux Patch Management','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_infk12/prgm.cgi" rel="nofollow" target="_blank">Linux Patch Management: Keeping Linux Up To Date</a></li>
+<li><a onclick="ga('send','event','Introduction to Linux - A Hands on Guide','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_mach01/prgm.cgi" rel="nofollow" target="_blank">Introduction to Linux &ndash; A Hands on Guide</a></li>
+<li><a onclick="ga('send','event','Understanding the Linux - Virtual Memory Manager','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_infk10/prgm.cgi" rel="nofollow" target="_blank">Understanding the Linux&reg; Virtual Memory Manager</a></li>
+<li><a onclick="ga('send','event','Linux Bible','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_wile13/prgm.cgi" rel="nofollow" target="_blank">Linux Bible &ndash; Packed with Updates and Exercises</a></li>
+<li><a onclick="ga('send','event','A Newbie’s Getting Started Guide','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_make07/prgm.cgi" rel="nofollow" target="_blank">A Newbie’s Getting Started Guide to Linux</a></li>
+<li><a onclick="ga('send','event','Linux from Scratch','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_linu01/prgm.cgi" rel="nofollow" target="_blank">Linux from Scratch &ndash; Create Your Own Linux OS</a></li>
+<li><a onclick="ga('send','event','Linux Shell Scripting Cookbook','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_pack42/prgm.cgi" rel="nofollow" target="_blank">Linux Shell Scripting Cookbook, Second Edition</a></li>
+<li><a onclick="ga('send','event','Securing and Optimizing Linux','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_opeb01/prgm.cgi" rel="nofollow" target="_blank">Securing &amp; Optimizing Linux: The Hacking Solution</a></li>
+<li><a onclick="ga('send','event','User Mode Linux','tecmint.tradepub.com')" href="http://tecmint.tradepub.com/free/w_infk09/prgm.cgi" rel="nofollow" target="_blank">User Mode Linux &ndash; Understanding and Administration</a></li>
+</ol></div>
+		</div>			
+		</div><!--/.sidebar-content-->
+		
+	</div><!--/.sidebar-->
+
+		
+
+				</div><!--/.main-inner-->
+			</div><!--/.main-->			
+		</div><!--/.container-inner-->
+	</div><!--/.container-->
+
+	<footer id="footer">
+		
+				<section class="container" id="footer-ads">
+			<div class="container-inner">
+				<div id="text-18" class="widget widget_text"><h3>Join our TecMint Community and become an Author</h3>			<div class="textwidget"><style>
+.authorlist { margin: 5px;padding: 5px;height: auto;width: auto; float: left; text-align: center;}	
+.authorlist img { display: inline;margin: 5px 10px;padding:2px; border: 5px solid #eee;border-radius: 50%;}
+.desc { font-size: 15px; font-weight: normal;padding: 10px; text-align: center;}
+</style>
+</head>
+<body>
+<div class="authorlist">
+ <a target="_blank" href="/author/admin"><img src="http://www.tecmint.com/wp-content/themes/TutsBlog/images/ravi.jpeg" alt="Ravi Saive"></a>
+ <div class="desc">Ravi Saive</div>
+</div>
+<div class="authorlist">
+ <a target="_blank" href="http://www.tecmint.com/author/avishek"><img src="http://www.tecmint.com/wp-content/themes/TutsBlog/images/avi.jpeg" alt="Avishek Kumar"></a>
+ <div class="desc">Avishek Kumar</div>
+</div>
+<div class="authorlist">
+ <a target="_blank" href="http://www.tecmint.com/author/gacanepa/"><img src="http://1.gravatar.com/avatar/d9d14c5b51331864398e6288cb0c2091" alt="Gabriel Cánepa"></a>
+ <div class="desc">Gabriel Cánepa</div>
+</div>
+<div class="authorlist">
+ <a target="_blank" href="http://www.tecmint.com/author/cezarmatei"><img src="http://www.tecmint.com/wp-content/themes/TutsBlog/images/cezar.jpeg" alt="Matei Cezar"></a>
+ <div class="desc">Matei Cezar</div>
+</div>
+<div class="authorlist">
+ <a target="_blank" href="http://www.tecmint.com/author/navin"><img src="http://www.tecmint.com/wp-content/themes/TutsBlog/images/navin.jpeg" alt="Narad Shrestha"></a>
+ <div class="desc">Narad Shrestha</div>
+</div>
+
+
+<div class="authorlist">
+ <a target="_blank" href="http://www.tecmint.com/author/dos2009"><img src="http://www.tecmint.com/wp-content/themes/tecmint/images/mohammed.jpeg" alt="Mohammad Dosoukey"></a>
+ <div class="desc">Mohammad Dosoukey</div>
+</div>
+<div class="authorlist">
+ <a target="_blank" href="http://www.tecmint.com/author/anusha"><img src="http://www.tecmint.com/wp-content/themes/TutsBlog/images/anu.jpeg" alt="Anusha Saive"></a>
+ <div class="desc">Anusha Saive</div>
+</div>
+<div class="authorlist">
+ <a target="_blank" href="http://www.tecmint.com/author/babinlonston"><img src="http://www.tecmint.com/wp-content/themes/TutsBlog/images/bob.jpeg" alt="Babin Lonston"></a>
+ <div class="desc">Babin Lonston</div>
+</div>
+<div class="authorlist">
+ <a target="_blank" href="http://www.tecmint.com/author/hannyhelal"><img src="http://www.tecmint.com/wp-content/themes/TutsBlog/images/hany.jpeg" alt="Hanny Helal"></a>
+ <div class="desc">Hanny Helal</div>
+</div></div>
+		</div>			</div><!--/.container-inner-->
+		</section><!--/.container-->
+				
+				
+		<section class="container" id="footer-widgets">
+			<div class="container-inner">
+				
+				<div class="pad group">
+																
+					<div class="footer-widget-1 grid one-third ">
+						<div id="alxposts-3" class="widget widget_alx_posts">
+<h3>Linux Monitoring Tools</h3>
+			
+	<ul class="alx-posts group ">
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/install-lynis-auditing-tool-in-rhel-centos-fedora/" rel="bookmark" title="Install Lynis (Linux Auditing Tool) in RHEL/CentOS 6.3/5.6, Fedora 17-12">Install Lynis (Linux Auditing Tool) in RHEL/CentOS 6.3/5.6, Fedora 17-12</a></p>
+				<p class="post-item-date">4 Oct, 2012</p>			</div>
+			
+		</li>
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/install-mtop-mysql-database-server-monitoring-in-rhel-centos-6-5-4-fedora-17-12/" rel="bookmark" title="Install Mtop (MySQL Database Server Monitoring) in RHEL/CentOS 6/5/4, Fedora 17-12">Install Mtop (MySQL Database Server Monitoring) in RHEL/CentOS 6/5/4, Fedora 17-12</a></p>
+				<p class="post-item-date">1 Oct, 2012</p>			</div>
+			
+		</li>
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/vnstat-php-frontend-for-monitoring-network-bandwidth/" rel="bookmark" title="VnStat PHP: A Web Based Interface for Monitoring Network Bandwidth Usage">VnStat PHP: A Web Based Interface for Monitoring Network Bandwidth Usage</a></p>
+				<p class="post-item-date">19 Jul, 2013</p>			</div>
+			
+		</li>
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/how-to-install-and-setup-monit-linux-process-and-services-monitoring-program/" rel="bookmark" title="How to Install and Setup Monit (Linux Process and Services Monitoring) Program">How to Install and Setup Monit (Linux Process and Services Monitoring) Program</a></p>
+				<p class="post-item-date">3 Apr, 2013</p>			</div>
+			
+		</li>
+			</ul><!--/.alx-posts-->
+
+</div>
+					</div>
+					
+																						
+					<div class="footer-widget-2 grid one-third ">
+						<div id="alxposts-4" class="widget widget_alx_posts">
+<h3>Linux Interview Questions</h3>
+			
+	<ul class="alx-posts group ">
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/10-interview-questions-and-answers-on-various-commands-in-linux/" rel="bookmark" title="10 Interview Questions and Answers on Various Commands in Linux">10 Interview Questions and Answers on Various Commands in Linux</a></p>
+				<p class="post-item-date">22 Mar, 2014</p>			</div>
+			
+		</li>
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/apache-interview-questions/" rel="bookmark" title="25 Apache Interview Questions for Beginners and Intermediates">25 Apache Interview Questions for Beginners and Intermediates</a></p>
+				<p class="post-item-date">8 Jan, 2014</p>			</div>
+			
+		</li>
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/useful-interview-questions-on-linux-services-and-daemons/" rel="bookmark" title="10 Useful Interview Questions on Linux Services and Daemons">10 Useful Interview Questions on Linux Services and Daemons</a></p>
+				<p class="post-item-date">10 Mar, 2014</p>			</div>
+			
+		</li>
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/useful-random-linux-interview-questions-and-answers/" rel="bookmark" title="10 Useful Random Linux Interview Questions and Answers">10 Useful Random Linux Interview Questions and Answers</a></p>
+				<p class="post-item-date">22 Feb, 2014</p>			</div>
+			
+		</li>
+			</ul><!--/.alx-posts-->
+
+</div>
+					</div>
+					
+																						
+					<div class="footer-widget-3 grid one-third last">
+						<div id="alxposts-5" class="widget widget_alx_posts">
+<h3>Open Source Tools</h3>
+			
+	<ul class="alx-posts group ">
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/screenlets-an-amazing-tool-to-add-desktop-gadgetswidgets-in-linux/" rel="bookmark" title="Screenlets: An Amazing Tool to Add Desktop Gadgets/Widgets in Linux">Screenlets: An Amazing Tool to Add Desktop Gadgets/Widgets in Linux</a></p>
+				<p class="post-item-date">13 Apr, 2015</p>			</div>
+			
+		</li>
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/lesser-known-facts-about-gnu-linux/" rel="bookmark" title="25 Lesser Known Facts About GNU/Linux">25 Lesser Known Facts About GNU/Linux</a></p>
+				<p class="post-item-date">4 Jun, 2013</p>			</div>
+			
+		</li>
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/linux-operating-system-is-virus-free/" rel="bookmark" title="Is Linux Operating System Virus Free?">Is Linux Operating System Virus Free?</a></p>
+				<p class="post-item-date">1 Aug, 2013</p>			</div>
+			
+		</li>
+				<li>
+			
+						
+			<div class="post-item-inner group">
+								<p class="post-item-title"><a href="http://www.tecmint.com/install-varnish-cache-with-sectionio/" rel="bookmark" title="Section.io Released &#8211; Setup Complete Varnish Cache Solution for Your Websites in Minutes">Section.io Released &#8211; Setup Complete Varnish Cache Solution for Your Websites in Minutes</a></p>
+				<p class="post-item-date">18 May, 2015</p>			</div>
+			
+		</li>
+			</ul><!--/.alx-posts-->
+
+</div>
+					</div>
+					
+															</div><!--/.pad-->
+				
+			</div><!--/.container-inner-->
+		</section><!--/.container-->	
+				
+					<nav class="nav-container group" id="nav-footer">
+				<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+				<div class="nav-text"><!-- put your mobile menu text here --></div>
+				<div class="nav-wrap"><ul id="menu-footer" class="nav container group"><li id="menu-item-10442" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10442"><a href="http://www.tecmint.com/advertise/">Advertise on TecMint</a></li>
+<li id="menu-item-10441" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10441"><a href="http://www.tecmint.com/services/">Linux Services</a></li>
+<li id="menu-item-10435" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10435"><a href="http://www.tecmint.com/copyright-policy/">Copyright Policy</a></li>
+<li id="menu-item-10436" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10436"><a href="http://www.tecmint.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-10437" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10437"><a href="http://www.tecmint.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-13339" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13339"><a href="http://www.tecmint.com/career/">Career</a></li>
+<li id="menu-item-15143" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15143"><a target="_blank" href="http://www.tecmint.com/linux-system-administration-jobs/">Linux Admin Jobs</a></li>
+</ul></div>
+			</nav><!--/#nav-footer-->
+				
+		<section class="container" id="footer-bottom">
+			<div class="container-inner">
+				
+				<a id="back-to-top" href="#"><i class="fa fa-angle-up"></i></a>
+				
+				<div class="pad group">
+					
+					<div class="grid one-half">
+						
+												
+						<div id="copyright">
+															<p>Tecmint: Linux Howtos, Tutorials &amp; Guides &copy; 2015. All Rights Reserved.</p>
+
+<p>This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc/4.0/" rel="license"><b style="color:#ccc;">(cc) BY-NC</b></a></p>
+  <p>The material in this site cannot be republished either online or offline, without our permission.</p>
+													</div><!--/#copyright-->
+						
+												
+					</div>
+					
+					<div class="grid one-half last">	
+						<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="http://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: #33ccff;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: #3b5998;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: #db4a39;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="http://feedly.com/i/subscription/feed/http://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: #87c040;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: #c4302b;"></i></a></li></ul>					</div>
+				
+				</div><!--/.pad-->
+				
+			</div><!--/.container-inner-->
+		</section><!--/.container-->
+		
+	</footer><!--/#footer-->
+
+</div><!--/#wrapper-->
+
+<script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/akismet/_inc/form.js?ver=3.1.3'></script>
+<script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/lazy-load/js/jquery.sonar.min.js?ver=0.5'></script>
+<script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/lazy-load/js/lazy-load.js?ver=0.5'></script>
+<script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/light/js/jquery.fancybox.pack.js?ver=4.3.1'></script>
+<script type='text/javascript' src='http://www.tecmint.com/wp-content/plugins/light/js/light.js?ver=4.3.1'></script>
+<script type='text/javascript' src='http://www.tecmint.com/wp-content/themes/tecmint/js/scripts.js?ver=4.3.1'></script>
+<script type='text/javascript' src='http://www.tecmint.com/wp-content/themes/tecmint/js/jquery.sharrre.min.js?ver=4.3.1'></script>
+<script type='text/javascript' src='http://www.tecmint.com/wp-includes/js/comment-reply.min.js?ver=4.3.1'></script>
+<!--[if lt IE 9]>
+<script src="http://www.tecmint.com/wp-content/themes/tecmint/js/ie/respond.js"></script>
+<![endif]-->
+
+<!--     ===== START Dreamgrow Scroll Triggered Box =====   -->
+
+<div class="dgd_stb_box clean_white" id="dgd_scrollbox-11027"><a class="dgd_stb_box_close dgd_stb_box_x" href="javascript:void(0);"> </a><h5>Join Over 85000+ Linux Users</h5>
+<div id="social_sprite">
+<ol>
+<li><a href="https://www.facebook.com/TecMint" target="_blank"><span id="soc_fbuk" class="soc_icon"></span><span class="count">53,676</span></a></li>
+<li><a href="http://twitter.com/tecmint" target="_blank"><span id="soc_twitter" class="soc_icon"> </span><span class="count">2,838</span></a></li>
+<li><a href="https://plus.google.com/101049688653487009744" target="_blank"><span id="soc_gplus" class="soc_icon"> </span><span class="count">20,639</span></a></li>
+</ol>
+</div>
+<p>Enter your email to get latest Linux Howto's</p>
+<form class="stbContactForm" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=tecmint', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true" method="post" action="http://feedburner.google.com/fb/a/mailverify"><input name="uri" type="hidden" value="tecmint" /><input name="loc" type="hidden" value="en_US" /><input type="text" value="Enter Your Email Address :)" onfocus="if (this.value == &quot;Enter Your Email Address :)&quot;) {this.value = &quot;&quot;;}" onblur="if (this.value == &quot;&quot;) {this.value = &quot;Enter Your Email Address :)&quot;;}" name="email"><input class="stb-submit" type="submit" value="Subscribe" /></form>
+<p class="stbMsgArea">
+</div>
+
+
+<!--     ===== END OF Dreamgrow Scroll Triggered Box =====   -->
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<div class="fixedBar">
+<div class="boxfloat">
+<ul id="tips">
+<li><a href="http://www.tecmint.com/51-useful-lesser-known-commands-for-linux-users/">51 Useful Lesser Known Commands for Linux Users</a></li>
+<li><a href="http://www.tecmint.com/linux-server-hardening-security-tips/">25 Hardening Security Tips for Linux Servers</a></li>
+<li><a href="http://www.tecmint.com/60-commands-of-linux-a-guide-from-newbies-to-system-administrator/">60 Commands of Linux : A Guide from Newbies to System Administrator</a></li>
+<li><a href="http://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">20 Command Line Tools to Monitor Linux Performance</a></li>
+<li><a href="http://www.tecmint.com/18-tar-command-examples-in-linux/">18 Tar Command Examples in Linux</a></li>
+<li><a href="http://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/">20 Linux YUM (Yellowdog Updater, Modified) Commands</a></li>
+<li><a href="http://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/">25 Useful Basic Commands of APT-GET and APT-CACHE</a></li>
+<li><a href="http://www.tecmint.com/20-funny-commands-of-linux-or-linux-is-fun-in-terminal/">20 Funny Commands of Linux or Linux is Fun in Terminal</a></li>
+<li><a href="http://www.tecmint.com/35-practical-examples-of-linux-find-command/">35 Practical Examples of Linux Find Command</a></li>
+<li><a href="http://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">Preparation for the LFCS (Linux Fundation Certified SysAdmin) Exam</a></li>
+<li><a href="http://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">Preparation for the LFCE (Linux Fundation Certified Engineer) Exam</a></li>
+<li><a href="http://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Useful Free Linux eBooks for Newbies and Administrators</a></li>
+<li><a href="http://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks for Newbies and Administrators</a></li>
+</ul>
+</div>
+</div>
+</body>
+</html>

@@ -1,86 +1,133 @@
-关闭selinux    setenforce 0
-yum下载下来的文件保存默认路径是： /var/cache/yum
+#mysql  install============================================
+sudo yum install -y mysql-community-server
 
-yum groupinstall 'Development Tools'
+sudo vim /etc/my.cnf
+#2、在[mysqld]字段里加入character-set-server=utf8，如下：
+lower_case_table_names=1
+character-set-server=utf8
+max_allowed_packet=16777216
 
-rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+#1、在[client]字段里加入default-character-set=utf8，如下：
+[client]
+default-character-set=utf8
+#3、在[mysql]字段里加入default-character-set=utf8，如下：
+[mysql]
+default-character-set=utf8
 
-wget -O /etc/yum.repos.d/PUIAS_6_computational.repo https://gitlab.com/gitlab-org/gitlab-recipes/raw/master/install/centos/PUIAS_6_computational.repo
-wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-puias http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
-rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-puias
+sudo service mysqld restart
+sudo chkconfig mysqld on
 
-rpm -Uvh http://repo.mysql.com/mysql-community-release-el6.rpm
-yum install mysql-community-server
+mysql -uroot -p
+use mysql
+update user set password=password('yrdce!@#') where user='root';
+update user set host='%' where user='root' and host='localhost';
+FLUSH PRIVILEGES;
+select host,user,password from user;
+#GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'yrdce!@#' WITH GRANT OPTION;
+#mysqladmin -u root password 'yrdce!@#'
+#格式：mysqladmin -u用户名 -p旧密码 password 新密码 
 
-yum repolist
-#yum-config-manager --enable epel --enable PUIAS_6_computational
 
-https://www.ruby-lang.org/en/downloads/
-curl --progress https://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.7.tar.gz | tar xz
+#UPDATE mysql.user SET password=PASSWORD('yrdce!@#') WHERE User='root'; 
+#FLUSH PRIVILEGES;
+#select * from L_Dictionary where `key`='FrontMaxErrorLogonTimes';
+
+#remove ========
+yum -y remove mysql-community-server
 
 
-https://github.com/git/git/releases
-#./configure
-#sudo make prefix=/usr/local/git all 
-#sudo make prefix=/usr/local/git install 
-#sudo ln -s /usr/local/git/bin/* /usr/bin/ 
- ./configure && make && make prefix=/usr/local install
+
+
+#git==================================================
+sudo yum -y update
+sudo yum -y install readline readline-devel ncurses-devel gdbm-devel glibc-devel tcl-devel openssl-devel curl-devel expat-devel db4-devel byacc sqlite-devel libyaml libyaml-devel libffi libffi-devel libxml2 libxml2-devel libxslt libxslt-devel libicu libicu-devel system-config-firewall-tui sudo wget crontabs logwatch  perl-Time-HiRes  cmake libcom_err-devel.i686 libcom_err-devel.x86_64
+
+sudo yum remove git -y
+sudo yum install zlib-devel perl-CPAN gettext curl-devel expat-devel gettext-devel openssl-devel
+
+#https://www.ruby-lang.org/en/downloads/
+#curl --progress https://cache.ruby-lang.org/pub/ruby/2.1/ruby-2.1.7.tar.gz | tar xz
+#cd ruby-2.1.7
+#./configure --disable-install-rdoc && make && sudo make install
+#cd ext/zlib && ruby ./extconf.rb && make && sudo make install
+#sudo gem sources -r https://rubygems.org/
+#sudo gem sources -a http://ruby.taobao.org/ 
+#sudo gem install bundler --no-ri --no-rdoc
+#which ruby 
+#ruby -v
+
+
+#https://github.com/git/git/releases
+curl --progress https://www.kernel.org/pub/software/scm/git/git-2.5.3.tar.gz | tar xz
+cd  git-2.5.3/ && ./configure && make && sudo make prefix=/usr/local install
+which git
+git --version
+
 git config --global user.name "huangxx"
 git config --global user.email "huangxx@yrdce.com"
-git clone git://github.com/res0nat0r/gitosis.git
 
-visudo
-Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
-adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
-usermod -a -G git nginx
-chmod g+rx /home/git/
+#adduser --system --shell /bin/bash --comment 'GitLab' --create-home --home-dir /home/git/ git
+#usermod -a -G git nginx
+#chmod g+rx /home/git/
+
+#sudo -u git -H git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b 7-14-stable gitlab
+#vim Gemfile
+#email_from: huangxx@yrdce.com
+#mysql -ugit -pgitpwd -D gitlabhq_production
+#openssl req -new -x509 -nodes -days 3560 -out gitlab.crt -keyout gitlab.key
+
+#gitlab-git-http-server
+#wget https://gitlab.com/gitlab-org/gitlab-git-http-server/repository/archive.zip
+#yum install golang  
+#rpm -ivh http://ftp.riken.jp/Linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm  
+#nohup gitlab-git-http-server -listenNetwork="unix" /home/git/repositories/ &
 
 
-sudo -u git -H git clone https://gitlab.com/gitlab-org/gitlab-ce.git -b 7-14-stable gitlab
-vim Gemfile
-email_from: huangxx@yrdce.com
-mysql -ugit -pgitpwd -D gitlabhq_production
-openssl req -new -x509 -nodes -days 3560 -out gitlab.crt -keyout gitlab.key
-
-wget -O /etc/nginx/conf.d/gitlab.conf https://gitlab.com/gitlab-org/gitlab-ce/raw/master/lib/support/nginx/gitlab-ssl
-#用户名：root    #密码：5iveL!fe
 
 
-gitlab-git-http-server
-wget https://gitlab.com/gitlab-org/gitlab-git-http-server/repository/archive.zip
-yum install golang  
-rpm -ivh http://ftp.riken.jp/Linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm  
-nohup gitlab-git-http-server -listenNetwork="unix" /home/git/repositories/ &
+#gitlab   install=======================================================
+sudo yum install -y curl openssh-server postfix cronie
+sudo service postfix start
+sudo chkconfig postfix on
 
-https://packages.gitlab.com/gitlab/gitlab-ce
-echo "export http_proxy=itwhy:123456@173.239.120.101:80" > ~/.profile
-export http_proxy=itwhy:123456@proxy.itwhy.org:8080
+#https://packages.gitlab.com/gitlab/gitlab-ce
+#echo "export http_proxy=itwhy:123456@173.239.120.101:80" > ~/.profile
 export http_proxy=itwhy:123456@173.239.120.101:80 & curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
-sudo gitlab-ctl reconfigure    sudo gitlab-ctl restart unicorn
+export http_proxy=itwhy:123456@173.239.120.101:80 & sudo yum install -y gitlab-ce
 
-/etc/yum.conf   keepcache=0为下载后清除 keepcache=1为下载后保存
-$ sudo yum install --downloadonly <package-name>
+vim /etc/gitlab/gitlab.rb
+	external_url 'http://10.0.100.180'
+	gitlab_rails['env'] = {
+	  'GITLAB_GRACK_AUTH_ONLY' => '1'
+	}
+	gitlab_git_http_server['enable'] = true
+	gitlab_rails['time_zone'] = 'Beijing'
+	# gitlab_rails['gitlab_email_enabled'] = true
+	gitlab_rails['gitlab_email_from'] = 'huangxx@yrdce.com'
+	gitlab_rails['gitlab_email_display_name'] = 'admin'
 
+#….followed by attempting to apply these new settings to the system. The problem is that these values apply to the bridge module, which I do not use. If you do not have this bridge module in place, sysctl errors, and the reconfigure process notes the failure, and in turn fails. There are a variety of ways to deal with this, referenced here by the GitLab team. One is to modify the chef recipe to exclude those new sysctl values. The other is to simply load the bridge module and re-run the reconfigure, which is what I did.
+#sudo modprobe bridge
+#sudo lsmod|grep bridge
 
-select * from L_Dictionary where `key`='FrontMaxErrorLogonTimes';
-#<virtualhost *:80>
-        #Servername gitrepo
-        #DocumentRoot /home/git/repo/dev
+sudo gitlab-ctl reconfigure    
+sudo gitlab-ctl restart unicorn
 
-        #<directory "/home/git/repo/dev">
-                #DAV On
-                #Options +Indexes +FollowSymLinks 
+#postgresql shared_buffers = 8012MB # min 128kB
+Username: root 
+Password: 5iveL!fe
 
-                #Deny from all
-                #AuthType Basic
-                #AuthName "Git Repository"
-                #AuthUserFile /home/git/git-auth-conf
-                #AuthGroupFile /home/git/git-group-conf
-                #Require valid-user
-        #</directory>
-#</virtualhost>
+sudo gitlab-ctl status;
+sudo gitlab-ctl tail
 
+sudo yum reinstall gitlab-ce
+#remove===========
+yum list installed
+sudo yum -y remove gitlab-ce
+yum -y remove logrotate
+yum -y remove nginx
+yum remove postgresql*
+yum remove redis
 
-
+rm -rf /opt/gitlab
 

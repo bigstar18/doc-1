@@ -1,0 +1,460 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0057)http://www.centoscn.com/CentOS/config/2014/0422/2844.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=GBK">
+
+<title>CentOS6.5系统双网卡绑定配置详解</title>
+<meta name="keywords" content="CentOS6.5,系统,网卡,绑定,配置,详解,CentO">
+<meta name="description" content="">
+<link href="./CentOS6.5系统双网卡绑定配置详解_files/dedecms.css" rel="stylesheet" media="screen" type="text/css">
+<script src="./CentOS6.5系统双网卡绑定配置详解_files/j.js" language="javascript" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+<!--
+function CheckLogin(){
+	  var taget_obj = document.getElementById('_ajax_feedback');
+	  myajax = new DedeAjax(taget_obj,false,false,'','','');
+	  myajax.SendGet2("/member/ajax_feedback.php");
+	  DedeXHTTP = null;
+}
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+}
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/plus/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+-->
+</script>
+</head>
+<body class="articleview">
+<div class="header">
+ 	<div class="top w960 center">
+       <div class="title">
+         <h1> <a href="http://www.centoscn.com/"></a> </h1>
+       </div>
+       <div class="banner">
+  <a target="_blank" href="http://www.jfedu.net/"><img src="http://www.centoscn.com/money/centosa.jpg" style="display: none !important;"></a> 
+</div>
+       <div class="rlink">
+         <ul>
+          <a title="CentOS7.0.140" href="http://www.centoscn.com/CentosSoft/iso/2015/0402/5070.html"><img src="http://www.centoscn.com/money/donate.png" style="display: none !important;"></a>
+         </ul>
+       </div>
+ 	</div><!-- //top -->
+ 	<!-- //菜单 -->
+ 	<div class="module blue mT10 wrapper w963">
+   	<div class="top" id="mytop">
+     	<div class="t_l"></div>
+     	<div class="t_r"></div>
+     	<!-- //如果不使用currentstyle，可以在channel标签加入 cacheid='channeltoplist' 属性提升性能 -->
+     <div id="navMenu">
+     	<ul>
+       	<li><a href="http://www.centoscn.com/">首页</a></li>
+       	<li class="hover"><a href="http://www.centoscn.com/CentOS/" rel="dropmenu1">CentOS入门</a></li>
+       	<li><a href="http://www.centoscn.com/CentosSoft/" rel="dropmenu6">CentOS下载</a></li>
+       	
+       	<li><a href="http://www.centoscn.com/image-text/" rel="dropmenu8">CentOS教程</a></li>
+       	
+       	<li><a href="http://www.centoscn.com/CentosServer/" rel="dropmenu7">CentOS服务器</a></li>
+       	
+       	<li><a href="http://www.centoscn.com/shell/">shell编程</a></li>
+       	
+       	<li><a href="http://www.centoscn.com/CentosSecurity/" rel="dropmenu9">安全防御</a></li>
+       	
+       	<li><a href="http://www.centoscn.com/CentosBug/" rel="dropmenu3">故障解决</a></li>
+       	
+       	<li><a href="http://www.centoscn.com/yunwei/" rel="dropmenu16">运维管理</a></li>
+       	
+       	<li><a href="http://www.cncentos.com/">中文论坛</a></li>
+       	
+     	</ul>
+     </div>	
+      <!-- sonMenu 子栏目 开始-->
+     <link href="./CentOS6.5系统双网卡绑定配置详解_files/tabs.css" type="text/css" rel="stylesheet">
+ 
+     <div class="sonMenu">
+ 		<ul>
+ 		  <li><a>推荐:</a><a style="color: #FF0000;"> </a> 
+                          </li><li><a target="_blank" href="http://www.jfedu.net/">京峰linux教育</a></li>
+                          <li><a target="_blank" href="http://vbird.dic.ksu.edu.tw/">鸟哥linux私房菜</a></li>
+                         <li><a href="http://www.centoscn.com/yunwei/news/2012/1227/131.html">开源镜像大全</a></li>
+                             <li><a target="_blank" href="http://linux.51yip.com/">Linux命令查询</a></li>
+                          <li><a target="_blank" href="http://edu.51cto.com/training/training_id-8.html?centoscn-training-8">51CTO学院Linux</a></li>
+                             
+ 		  <li><a>Q群：139278852</a></li>
+                         <li><a>微信公众号：centoscn </a></li>
+ 		</ul>
+ 		<!-- sonMenu 子栏目 结束-->    <!-- //search -->
+</div>
+ 
+     <div class="threead"><a target="_blank" href="http://www.centoscn.com/CentosSoft/iso/2015/0402/5070.html"><img src="http://www.centoscn.com/money/new960.jpg.jpg" style="display: none !important;"></a>
+
+ 	        </div>		 	
+ 	
+ 	</div></div><script type="text/javascript">
+/*960*90*/
+var cpro_id = "u1486013";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+<a target="_blank" title="安全狗" href="http://www.safedog.cn/server_safedog.html?from=centos"><img src="http://www.centoscn.com/money/safedog.jpg" style="display: none !important;"></a>
+
+<!-- //header -->
+ 
+ <div style="margin-top:2px;padding-top:0px;border:solid 1px #9FD1F6;width:958px;" class="header">
+ <div style="margin-top:0px;padding-top:0px;" class="module blue mT10 wrapper w963">
+   <div style="margin-top:0px;padding-top:0px;" class="search">
+       <form action="http://www.centoscn.com/plus/search.php" name="formsearch">
+         <div class="form">
+           <h4>搜索</h4>
+            <input type="hidden" name="kwtype" value="0">
+            <input name="keyword" type="text" class="search-keyword" id="search-keyword">
+            <select name="searchtype" class="search-option" id="search-option">
+                <option value="titlekeyword" selected="1">智能模糊搜索</option>
+                <option value="title">仅搜索标题</option>
+            </select>
+           <button type="submit" class="search-submit">搜索</button>
+         </div>
+         </form>
+       <div class="tags">
+         <h4>热门标签</h4>
+         <ul>
+           
+         </ul>
+         </div>
+         </div>
+     </div>
+     </div><!-- //search -->
+ </div>
+<!-- /header -->
+
+
+<!-- /channel-nav -->
+
+<div class="w960 center clear mt1">
+	<div class="pleft">
+		<div class="place">
+			<strong>当前位置:</strong> <a href="http://www.centoscn.com/"></a> &gt; <a href="http://www.centoscn.com/CentOS/">CentOS入门</a> &gt; <a href="http://www.centoscn.com/CentOS/config/">系统配置</a> &gt; 
+		</div><!-- /place -->
+		<div class="viewbox">
+			<div class="title">
+				<h2>CentOS6.5系统双网卡绑定配置详解</h2>
+			</div><!-- /title -->
+			<div class="info">
+				<small>时间:</small>2014-04-22 01:10<small>来源:</small>张佃栋-系统运维的博客  <small>作者:</small>张佃栋-系统运维的博 <a href="http://www.centoscn.com/plus/erraddsave.php?aid=2844&title=CentOS6.5%CF%B5%CD%B3%CB%AB%CD%F8%BF%A8%B0%F3%B6%A8%C5%E4%D6%C3%CF%EA%BD%E2" target="_blank">举报</a>   <small>点击:</small><script src="./CentOS6.5系统双网卡绑定配置详解_files/count.php" type="text/javascript" language="javascript"></script>2600次</div><!-- /info -->
+
+            	
+			<div class="content">
+<script type="text/javascript">
+var cpro_id="u2000246";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"695",rsi1:"250",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px"><span style="word-wrap: break-word">CentOS双网卡绑定实现就是使用两块网卡虚拟成为一块网卡(需要交换机支持)，这个聚合起来的设备看起来是一个单独的以太网接口设备，通俗点讲就是两块网卡具有相同的IP地址而并行链接聚合成一个逻辑链路工作。本文详细描述下centos 6.4系统双网卡绑定操作步骤<br style="word-wrap: break-word">
+	操作前需要确定NetworkManager 服务是否已经停止，否则容易报错。<br style="word-wrap: break-word">
+	#service<span class="Apple-converted-space">&nbsp;</span><span style="word-wrap: break-word; font-size: 14px"><span style="word-wrap: break-word">NetworkManager</span></span><span class="Apple-converted-space">&nbsp;</span>status<br style="word-wrap: break-word">
+	显示NetworkManager 已停即可</span></span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">&nbsp;具体绑定操作：<br style="word-wrap: break-word">
+	1.在/etc/sysconfig/network-scripts/目录下建立ifcfg-bond0文件，文件内容如下：</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">DEVICE=bond0 &nbsp;<span class="Apple-converted-space">&nbsp;</span></span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">USERCTL=no</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">BOOTPROTO=static</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">ONBOOT=yes</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">IPADDR=10.0.0.10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ##根据自己需要，填写需要绑定的ip地址掩码网关</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">NETMASK=255.255.255.0</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">GATEWAY=10.0.0.1</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">TYPE=Ethernet</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">&nbsp;</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">2.分别修改ifcfg-em1文件，如下：</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">DEVICE=em1</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">ONBOOT=yes</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">BOOTPROTO=none</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">MASTER=bond0</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">SLAVE=yes</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">USERCTL=no</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">修改ifcfg-em2文件修改如下：</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">DEVICE=em2</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">ONBOOT=yes</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">BOOTPROTO=none</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">MASTER=bond0</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">SLAVE=yes</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">USERCTL=no</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">&nbsp;</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">3./etc/modprobe.d/目录下建立bonding.conf文件，文件内容如下：</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">alias bond0 bonding</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">&nbsp;</span></div>
+<div style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+	<span style="word-wrap: break-word; font-size: 14px">然后重启网络service network restart</span></div>
+<br style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+<span style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; display: inline !important; font: 16px/26px 宋体, Arial; white-space: normal; float: none; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">4.测试</span><br style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+<span style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; display: inline !important; font: 16px/26px 宋体, Arial; white-space: normal; float: none; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">服务器上开个terminal，ping 网关</span><br style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; font: 16px/26px 宋体, Arial; word-wrap: break-word; white-space: normal; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">
+<span style="text-align: left; text-transform: none; background-color: rgb(255,255,255); text-indent: 0px; display: inline !important; font: 16px/26px 宋体, Arial; white-space: normal; float: none; letter-spacing: normal; color: rgb(102,102,102); word-spacing: 0px; -webkit-text-stroke-width: 0px">拔下一根网线看ping数据，确认没问题之后插上该网线连通之后，再拔下另外一根网线，观察双网卡绑定效果。</span>
+			<table width="100%">
+				
+			</table>
+			</div><!-- /content --><div class="dede_pages">
+				<ul class="pagelist">
+          
+				</ul>
+			</div><!-- /pages -->
+			
+			<!-- //顶踩 -->
+			<div class="newdigg" id="newdigg">
+<script type="text/javascript">
+    /*640*60*/
+    var cpro_id = "u1490624";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>	<!-- //顶踩部份的源码结束 -->
+			
+			<div class="boxoff">				<strong>------分隔线----------------------------</strong>
+			</div>
+			<div class="handle"></div>
+				<div class="context">
+					<ul>
+						<li>上一篇：<a href="http://www.centoscn.com/CentOS/config/2014/0421/2836.html">阿里云CentOS服务器初始化挂载数据盘</a> </li>
+						<li>下一篇：<a href="http://www.centoscn.com/CentOS/config/2014/0423/2851.html">CentOS计划任务每隔10分钟同步一下时钟</a> </li>
+					</ul>
+				</div><!-- /context -->
+				<div class="actbox">
+					<ul>
+						<li id="act-fav"><a href="http://www.centoscn.com/plus/stow.php?aid=2844" target="_blank">收藏</a></li>
+						<li id="act-err"><a href="http://www.centoscn.com/plus/erraddsave.php?aid=2844&title=CentOS6.5%CF%B5%CD%B3%CB%AB%CD%F8%BF%A8%B0%F3%B6%A8%C5%E4%D6%C3%CF%EA%BD%E2" target="_blank">举报</a></li>
+						<li id="act-pus"><a href="http://www.centoscn.com/plus/recommend.php?aid=2844" target="_blank">推荐</a></li>
+						<li id="act-pnt"><a href="http://www.centoscn.com/CentOS/config/2014/0422/2844.html#" onclick="window.print();">打印</a></li>
+					</ul>
+				</div><!-- /actbox -->
+			</div><!-- /handle -->
+		</div><!-- /viewbox -->
+
+<!-- //AJAX评论区 -->
+<!-- //主模板必须要引入/include/dedeajax2.js -->
+<a name="postform"></a>
+<div class="mt1">
+		<dl class="tbox">
+			<dt>
+				<strong>发表评论</strong>
+				<span class="more"></span>
+			</dt>
+			<dd>
+				<div class="dede_comment_post">
+          <form action="http://www.centoscn.com/CentOS/config/2014/0422/2844.html#" method="post" name="feedback">
+          <input type="hidden" name="dopost" value="send">
+          <input type="hidden" name="comtype" value="comments">
+          <input type="hidden" name="aid" value="2844">
+          <input type="hidden" name="fid" id="feedbackfid" value="0">
+          <div class="dcmp-title">
+						<small>为了和诣的生活，我关闭了评论页面，请大家到QQ群里交流吧：139278852 ,也欢迎关注本站微信公众号：centoscn </small>
+					
+				
+			</div></form></div></dd>
+		</dl>
+	</div><!-- //评论表单区结束 -->
+
+
+
+</div><!-- //左边内容结束 -->
+
+<!-- //右边内容开始 -->
+<div class="pright">
+ 		
+
+<div class="commend mt1"><dl class="tbox light">
+				<dt class="light"><strong>栏目分类</strong></dt>
+				<dd class="light">
+					<ul class="c1 ico2">
+             <ul>
+                    
+                    <li><a href="http://www.centoscn.com/CentOS/help/" target="_blank">基础命令<span></span></a></li>
+                     
+                    <li><a href="http://www.centoscn.com/CentOS/config/" target="_blank">系统配置<span></span></a></li>
+                     
+                    <li><a href="http://www.centoscn.com/CentOS/Intermediate/" target="_blank">中级进介<span></span></a></li>
+                     </ul>					</ul>
+				</dd>
+			</dl>
+		</div><!-- /commend -->
+
+		<div class="commend mt1"><dl class="tbox light">
+				<dt class="light"><strong>本月热点</strong></dt>
+				<dd class="light">
+					<ul class="c1 ico2">
+             <li><a href="http://www.centoscn.com/CentOS/config/2013/1017/1878.html">CentOS服务器时间同步的2种方法</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2014/0419/2822.html">Centos 6.5添加网易163源</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2014/1105/4060.html">将centos7打造成桌面系统</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2013/1102/2034.html">CentOS6.4系统安装后的基础优化</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2013/0817/1316.html">CentOS添加环境变量</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2013/1030/2016.html">CentOS的文件权限与目录配置</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2013/0926/1713.html">CentOS SSH安装与配置</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2014/0326/2662.html">CentOS关闭休眠和屏保模式</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2013/0909/1582.html">Centos磁盘分区教程</a></li>
+<li><a href="http://www.centoscn.com/CentOS/config/2014/1112/4112.html">虚拟机下CentOS 6.5配置IP地址的</a></li>
+
+					</ul>
+				</dd>
+			</dl>
+		</div><!-- /commend -->
+
+		<div class="hot mt1">
+			<dl class="tbox light"><script type="text/javascript">
+var cpro_id="u2000262";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"245",rsi1:"300",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+				<dt class="light"><strong>推荐内容</strong></dt>
+				<dd class="light">
+					<ul class="d4">
+           <li><a href="http://www.centoscn.com/CentOS/config/2015/0717/5876.html">CentOS-6.5系统基础优化附带优化脚本</a>
+            	<p>...</p>
+            </li>
+<li><a href="http://www.centoscn.com/CentOS/config/2015/0604/5593.html"> CentOS网络配置详解</a>
+            	<p>...</p>
+            </li>
+<li><a href="http://www.centoscn.com/CentOS/config/2015/0504/5360.html">6个小步骤实现CentOS系统环境精简优化</a>
+            	<p>...</p>
+            </li>
+<li><a href="http://www.centoscn.com/CentOS/config/2015/0428/5288.html">CentOS系统安装完常规初始化操作</a>
+            	<p>...</p>
+            </li>
+<li><a href="http://www.centoscn.com/CentOS/config/2015/0321/4953.html">CentOS系统环境精简优化</a>
+            	<p>...</p>
+            </li>
+
+					</ul>
+				</dd>
+			</dl>
+		</div></div></div>
+<!-- //二级子类下拉菜单，考虑SEO原因放置于底部  -->
+
+<!-- //底部模板 -->
+
+<div class="footer w960 center mt1 clear">
+
+<a target="_blank" href="http://www.centoscn.com/CentOS/config/2014/0422/about.html">关于我们</a> -
+
+<a target="_blank" href="http://www.centoscn.com/CentOS/config/2014/0422/about.html">联系我们</a> -
+
+<a target="_blank" href="http://www.centoscn.com/CentOS/config/2014/0422/about.html">广告服务</a> -<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F65a70808534a9fe419a0a120e9bef073' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./CentOS6.5系统双网卡绑定配置详解_files/h.js" type="text/javascript"></script>
+
+<a target="_blank" href="http://www.centoscn.com/CentOS/config/2014/0422/about.html">免责申明</a> -
+
+<a target="_blank" href="http://www.centoscn.com/CentOS/config/2014/0422/about.html">版权申明</a> -
+
+<a target="_blank" href="http://www.centoscn.com/CentOS/config/2014/0422/about.html">TAG标签</a> -
+
+<a target="_blank" href="http://www.centoscn.com/CentOS/config/2014/0422/about.html">网站地图</a> -
+
+<a href="http://www.centoscn.com/CentOS/config/2014/0422/2844.html#top">返回顶部</a> <p></p>
+
+<!-- /powered -->
+
+	<p class="copyright">
+
+		Copyright 2012-2013(CentOS中文网) CentOScn.Com <a target="_blank" href="http://www.miibeian.gov.cn/">粤ICP备13006404号</a> Powered by DedeCMS 1.0 
+
+  </p>
+
+ 
+<script type="text/javascript">
+/*120*270*/
+var cpro_id = "u1486028";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script></div>
+
+<!-- /footer -->
+</body></html>

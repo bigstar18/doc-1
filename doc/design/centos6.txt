@@ -1,0 +1,315 @@
+#系统初始化==============================
+vi /etc/sysconfig/i18n   
+	#   LANG="zh_CN.UTF-8"  LANG="en_US.UTF-8" 
+#替换成英文
+sed -i 's#LANG="zh_CN.*"#LANG="en_US.UTF-8"#' /etc/sysconfig/i18n
+#替换成中文
+sed -i 's#LANG="en_US.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
+#替换成UTF-8中文
+sed -i 's#LANG="zh_CN.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
+
+vi /etc/resolv.conf 
+	nameserver=8.8.8.8
+	nameserver=114.114.114.114
+	nameserver=223.5.5.5
+	nameserver=218.2.2.2
+vi /etc/sysconfig/network-scripts/ifcfg-em1 
+	IPADDR=10.0.100.180
+	NETMASK=255.255.255.0
+	GATEWAY=10.0.100.254
+	IPV6INIT=no
+	IPV6_AUTOCONF=no
+	DNS1=8.8.8.8
+	DNS2=114.114.114.114
+	DNS3=223.5.5.5
+	DNS4=218.2.2.2
+service network restart
+
+setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+
+vi /etc/yum.conf
+	#keepcache=1
+
+ntpdate time.windows.com && hwclock -w  
+#ntpdate time.windows.com && hwclock -w && hwclock --systohc
+#rdate -s time-b.nist.gov
+
+
+#开发工具和源=============================
+
+rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+
+yum groupinstall -y 'Development Tools'
+yum -y install wget pciutils usbutils hdparm vim*
+
+wget -O /etc/yum.repos.d/PUIAS_6_computational.repo https://gitlab.com/gitlab-org/gitlab-recipes/raw/master/install/centos/PUIAS_6_computational.repo
+wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-puias http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-puias
+
+rpm -Uvh http://repo.mysql.com/mysql-community-release-el6.rpm
+
+
+#系统信息核对================================
+fdisk -l
+free -m
+head -n 1 /etc/issue
+cat /proc/cpuinfo |grep "model name" 
+hostname
+lspci -tv
+lsusb -tv
+grep MemTotal /proc/meminfo
+dmesg
+
+
+
+#系统网络配置===========================
+hostname  
+vim /etc/hosts
+vim /etc/sysconfig/network
+	NETWORKING_IPV6=no
+	NETWORKING_IPV6=off
+	IPV6INIT=no
+lsmod | grep ipv6   
+ip -6 addr show
+echo "alias net-pf-10 off" >> /etc/modprobe.d/dist.conf
+echo "options ipv6 disable=1" >> /etc/modprobe.d/dist.conf
+#echo "alias ipv6 off" >> /etc/modprobe.d/dist.conf
+service network restart
+#用户配置
+passwd
+adduser yrdce1
+passwd yrdce1
+visudo
+	Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+	yrdce1  ALL=(ALL)      NOPASSWD:ALL
+#删除不必要的用户
+userdel adm
+userdel lp
+userdel shutdown
+userdel halt
+userdel news
+userdel uucp
+userdel operator
+userdel games
+userdel gopher
+userdel sync
+userdel ftp
+#删除不必要的群组
+groupdel adm
+groupdel lp
+groupdel news
+groupdel uucp
+groupdel games
+groupdel dip
+groupdel pppusers
+#锁定关键文件系统（禁止非授权用户获得权限）  使用lsattr 查看文件属性
+chattr -i /etc/passwd
+chattr -i /etc/inittab
+chattr -i /etc/group
+chattr -i /etc/shadow
+chattr -i /etc/gshadow
+
+chattr +i /etc/passwd
+chattr +i /etc/inittab
+chattr +i /etc/group
+chattr +i /etc/shadow
+chattr +i /etc/gshadow
+
+
+#应用安装======================
+chown yrdce1:yrdce1 jdk-7u80-linux-x64.gz 
+su - yrdce1
+tar zxf jdk-7u80-linux-x64.gz 
+
+
+
+
+
+#服务配置===================
+chkconfig --list |grep 3:on
+
+chkconfig ip6tables off
+chkconfig bluetooth off
+chkconfig cups off
+chkconfig haldaemon off
+chkconfig NetworkManager off
+chkconfig abrt-ccpp off
+chkconfig abrtd off
+chkconfig mdmonitor off
+chkconfig netfs off
+chkconfig nfslock off
+chkconfig acpid off
+chkconfig cpuspeed off
+chkconfig atd off 
+chkconfig auditd off
+chkconfig iptables off
+
+service iptables stop
+service auditd stop
+service atd stop
+service bluetooth stop
+service ip6tables stop
+service cups stop
+service haldaemon stop
+service NetworkManager stop
+service abrt-ccpp stop
+service abrtd stop
+service mdmonitor stop
+service netfs stop
+service nfslock stop
+service acpid stop
+service cpuspeed stop
+
+#关闭全部服务
+for sun in `chkconfig --list|grep 3:on|awk '{print $1}'`;do chkconfig --level 3 $sun off;done
+#或者
+for sun in `chkconfig --list|grep 3:启用|awk '{print $1}'`;do chkconfig --level 3 $sun off;done
+#开启需要的服务
+for sun in crond rsyslog sshd network;do chkconfig --level 3 $sun on;done
+#或者需要使用防火墙的话可以开启iptables和ip6tables
+for sun in crond rsyslog sshd network iptables ip6tables;do chkconfig --level 3 $sun on;done
+
+#system core ================================
+swapoff -a
+	#swapon -a
+echo "swapoff -a" >> /etc/rc.d/rc.local
+echo vm.swappiness=5 >> /etc/sysctl.conf  
+#重新载入立即生效  
+sysctl -p   
+
+modprobe bridge
+echo "modprobe bridge">> /etc/rc.local
+
+
+cat  /proc/sys/fs/file-max
+vim /etc/security/limits.conf
+	*   soft    nproc    20470
+	*   hard    nproc    36384
+	*   soft    nofile    10240
+	*   hard    nofile    65536
+
+vim  /etc/pam.d/login
+	session    required /lib64/security/pam_limits.so
+
+#内核参数优化 vim /etc/sysctl.conf
+net.core.somaxconn = 2048
+#可用于apache，nginx，squid多种等web应用
+net.ipv4.tcp_max_syn_backlog = 65536
+net.core.netdev_max_backlog = 32768
+net.core.somaxconn = 32768
+
+net.core.wmem_default = 8388608
+net.core.rmem_default = 8388608
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+
+net.ipv4.tcp_timestamps = 0
+net.ipv4.tcp_synack_retries = 2
+net.ipv4.tcp_syn_retries = 2
+
+net.ipv4.tcp_tw_recycle = 1
+#net.ipv4.tcp_tw_len = 1
+net.ipv4.tcp_tw_reuse = 1
+
+net.ipv4.tcp_mem = 94500000 915000000 927000000
+net.ipv4.tcp_max_orphans = 3276800
+
+#net.ipv4.tcp_fin_timeout = 30
+#net.ipv4.tcp_keepalive_time = 120
+net.ipv4.ip_local_port_range = 1024 65535
+
+#以下参数是对centos6.x的iptables防火墙的优化，防火墙不开会有提示，可以忽略不理。
+#如果是centos5.X需要吧netfilter.nf_conntrack替换成ipv4.netfilter.ip
+#centos5.X为net.ipv4.ip_conntrack_max = 25000000
+net.nf_conntrack_max = 25000000
+net.netfilter.nf_conntrack_max = 25000000
+net.netfilter.nf_conntrack_tcp_timeout_established = 180
+net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
+net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
+net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
+#立即生效 /sbin/sysctl -p centos6.5可能会报错
+
+
+
+
+
+
+yum groupinstall "X Window System" "Desktop" -y
+rpm -q tigervnc tigervnc-server
+yum install -y tigervnc tigervnc-server
+vim ~/.vnc/xstartup
+	#xterm -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
+	#twm &
+	gnome-session &
+
+vncserver :1
+hxxhxxhxx
+vim /etc/sysconfig/vncservers  
+	VNCSERVERS="1:root"
+	VNCSERVERARGS[1]="-geometry 1024x768"
+10.0.100.180:1
+
+
+
+yum repolist
+#yum-config-manager --enable epel --enable PUIAS_6_computational
+
+yum下载下来的文件保存默认路径是： /var/cache/yum
+/etc/yum.conf   keepcache=0为下载后清除 keepcache=1为下载后保存
+$ sudo yum install --downloadonly <package-name>
+
+export http_proxy=itwhy:123456@proxy.itwhy.org:8080
+
+删除用户，只需使用一个简单的命令“userdel 用户名”即可。不过最好将它留在系统上的文件也删除掉，你可以使用“userdel -r 用户名”来实现这一目的。 
+
+ps -e -o 'pid,comm,args,pcpu,rsz,vsz,stime,user,uid' |   sort -nrk5
+
+@reboot        Run once, at startup. 
+#/etc/rc.d/rc.local文件的文件头是#!/bin/sh ，我们把这修改成#!/bin/sh   -x，这样系统启动后就会把/etc/rc.d/rc.local里面的指令或脚本不能执行的日志写入/var/log/messages ,我们查看messages文件内容就知道具体的问题出在哪里了
+
+由字符界面切换到图形界面可用两种简单方法实现：
+1、在字符界面输入startx或init 5 。
+2、通过编辑/etc/inittab文件实现默认进入图形界面。
+vim /etc/inittab
+	id:5:initdefault:  改成   id:3:initdefault:
+
+yum groupremove 'X Window System' -y
+yum groupremove "GNOME Desktop Environment"
+yum groupremove "KDE-DESKTOP"  -y
+/etc/sysconfig/i18n   LANG="zh_CN.UTF-8"  LANG="en_US.UTF-8" 
+
+命令行模式安装图形界面
+yum grouplist 检查已安装的组
+yum groupinstall "X Window System"
+yum groupinstall "GNOME Desktop Environment"
+startx
+或者init 5
+就OK。
+
+abrt (Automatic Bug Reporting Tool)
+
+1、查看selinux状态
+查看selinux的详细状态，如果为enable则表示为开启
+# /usr/sbin/sestatus -v
+查看selinux的模式
+# getenforce
+2、关闭selinux
+2.1:永久性关闭（这样需要重启服务器后生效）
+# sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+2.2:临时性关闭（立即生效，但是重启服务器后失效）
+# setenforce 0 #设置selinux为permissive模式（即关闭）
+# setenforce 1 #设置selinux为enforcing模式（即开启）
+这样就关闭SELinux了，当安装软件遇到问题时可以考虑关闭SELinux再进行安装
+
+VNCSERVERS="1:root" 多个用户用空格分开，并要先su - 到那个用户运行vncserver :n来设定配置文件和密码
+
+sudo 
+-u
+username/#uid 不加此参数，代表要以 root 的身份执行指令，而加了此参数，可以以 username 的身份执行指令（#uid 为该 username 的使用者号码）
+-H
+将环境变数中的 HOME （家目录）指定为要变更身份的使用者家目录（如不加 -u 参数就是系统管理者 root ）
+
+yum install vixie-cron crontabs -y
+shutdown -P now
+

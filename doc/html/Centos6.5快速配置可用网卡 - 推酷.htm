@@ -1,0 +1,613 @@
+<!DOCTYPE HTML>
+
+<!--
+ ______________ 
+< TUICOOL.COM >
+ -------------- 
+        \   ^__^
+         \  (**)\__$__$__
+            (__)\       )\/\
+             U  ||------|
+                ||     ||
+-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="authenticity_token" name="csrf-param" />
+<meta content="LUv8E1mDE1mHHwpItJFcYSPQAr8aV8hgasIZ4I1vkHY=" name="csrf-token" />
+    <title>
+            Centos6.5快速配置可用网卡 - 推酷
+   </title>
+    <meta name="description" content="Centos6.5快速配置可用网卡"/>
+  <link rel="shortcut icon" href="http://static0.tuicool.com/favicon.ico" type="image/x-icon" />
+  <link href="http://asset.tuicool.com/assets/application-0d4e8cad524c6308f5082fe6be9560f8.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="http://static0.tuicool.com/assets/font-awesome.min.css" rel="stylesheet">
+  <script src="http://asset.tuicool.com/assets/application-5272668a8ed427c5225cac7c6110da64.js" type="text/javascript"></script>
+
+  <!--[if IE 7]>
+  <link rel="stylesheet" href="http://assets.tuicool.com/assets/font-awesome-ie7.min.css">
+  <![endif]--> 
+    <script type="text/javascript" src="http://static2.tuicool.com/assets/tip.js?t=3"></script>
+  
+  <script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+<script src="http://dup.baidustatic.com/js/ds.js"></script>
+<script type="text/javascript" src="http://static1.tuicool.com/assets/spin.min.js"></script>
+<link rel="stylesheet" href="http://static0.tuicool.com/assets/github.css">
+
+</head>
+<body>
+  
+  <div id="header" class="navbar-fixed-top">
+    <div class="container">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </a>
+          <a href="http://www.tuicool.com/" class="brand">推酷</a>        
+        <nav class="nav-collapse collapse">
+            <ul class="nav navbar primary-nav">                            
+              <li class="active">
+                <a href="http://www.tuicool.com/ah">
+                  文章
+                </a>
+              </li>              
+              <li class="">
+                <a href="http://www.tuicool.com/sites/hot">
+                  站点
+                </a>
+              </li>
+              <li class="">
+                <a href="http://www.tuicool.com/topics">
+                  主题
+                </a>
+              </li>
+              <li class="">
+                <a href="http://course.tuicool.com/">
+                  公开课
+                </a>
+              </li>
+              <li class="">
+                <a href="http://huodong.tuicool.com/">
+                  活动
+                </a>
+              </li>
+              <li class="">
+                <a href="http://www.tuicool.com/mobile">
+                  客户端
+                    <sup style="font-size:0.8em;color: #16A085;">荐</sup>
+                </a>
+              </li>
+              <li class="dropdown  ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">周刊 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://www.tuicool.com/mags">编程狂人</a></li>
+                  <li><a href="http://www.tuicool.com/mags/design">设计匠艺</a></li> 
+                  <li><a href="http://www.tuicool.com/articles/weekly">一周拾遗</a></li>                  
+                </ul>
+              </li>
+              
+               <li class="dropdown  ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">更多 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://www.tuicool.com/bbs">讨论区</a></li>  
+                  <li><a href="http://www.tuicool.com/about">关于我们</a></li>                 
+                </ul>
+              </li>
+              
+              </ul>
+            <form class="navbar-search pull-left" action="http://www.tuicool.com/search">
+              <input type="text" class="search-query span2" name="kw" placeholder="搜索">
+            </form>
+            <ul class="nav pull-right">
+                <li><a href="http://www.tuicool.com/login">登录</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+  </div>   
+</div>
+  <div id ="flash_container" class="noPrint">    
+  </div>
+  
+  <div class="container-fluid">  
+    <div class="row-fluid article_row_fluid">
+    <div class="span8 contant article_detail_bg">
+        <h1>Centos6.5快速配置可用网卡</h1>
+        <div class="article_meta">
+            <div style="margin-bottom: 5px;">
+            <span class="timestamp">时间&nbsp;2014-05-30 18:00:10
+            </span>
+            <span class="from">
+                <i class="icon-globe"></i>
+                    <a class="cut cut28 from" href="/sites/zaQrUn" target="_blank">三劫散仙
+                    </a>
+            </span>
+            </div>
+            <div class="source">
+                <i style="float:left;">原文</i>&nbsp; 
+                <a class="cut cut70" href="http://qindongliang1922.iteye.com/blog/2074368?utm_source=tuicool" style="display:inline-block;">http://qindongliang1922.iteye.com/blog/2074368</a>
+            </div>
+            <div>
+                <span>主题</span>
+                <a href="/topics/11000076" target='_blank' >
+                    <span class="new-label">虚拟化</span>
+                </a>
+                <a href="/topics/11000114" target='_blank' >
+                    <span class="new-label">DHCP</span>
+                </a>
+                <a href="/topics/11200003" target='_blank' >
+                    <span class="new-label">Centos</span>
+                </a>
+            </div>
+        </div>
+        <div class="article_body" id="nei">
+            <div>
+  <span>
+    <span>
+      关于Cenots的安装，散仙就不介绍了，散仙使用的mini版本的iso镜像文件，下载地址在      <a target="_blank" href="http://mirror.bit.edu.cn/centos/6.5/isos/x86_64/" rel="nofollow,noindex">http://mirror.bit.edu.cn/centos/6.5/isos/x86_64/</a>
+      在虚拟机里面装的，启动时，加载CentOS的镜像文件就可以了，然后，按提示，进行下一步，就可以了。      <br/>
+    </span>
+  </span>
+  <br/>
+  <span>
+    <span>安装完成后，我们启动我们的系统，此时我们的系统，是没有连网的，IP设备，并没有被激活，如果我们使用ifconfig命令查看IP地址，就会发现，此刻的地址是127.0.0.1，我们需要进入到cd /etc/sysconfig/network-scripts/目录下，修改ifcfg-eth0的ip设备，在此之前，我们先来了解一下，有关于网络配置方面的知识.</span>
+  </span>
+  <br/>
+  <pre class="prettyprint">一、与网络相关的文件：
+1) /etc/sysconfig/network   设置主机名称及能否启动Network
+
+2) /etc/sysconfig/network-scripts/ifcfg-eth0   设置网卡参数的文件
+
+3) /etc/modprobe.conf   开机时用来设置加载内核模块的文件
+
+4) /etc/resolv.conf   设置DNS IP（解析服务器）的文件
+
+5) /etc/hosts   记录计算机IP对应的主机名称或主机别名
+
+6) /etc/protocols  定义IP数据包协议的相关数据，包括ICMP、TCP方面的数据包协议的定义等
+
+二、与网络相关的启动指令：
+
+1）/etc/init.d/network restart  可以重启整个网络的参数
+
+2）ifup eth0(ifdown eth0)   启动或是关闭某个网络接口，可以通过简单的script来处理，这两个script会主动            到/etc/sysconfig/network-scripts/目录下&middot;ifconfig 查询、设置网卡与IP网段等相关参数&middot;ifup/ifdown 启动/关闭网络接口</pre>
+  <span>
+    <span>网卡参数的一些说明：</span>
+  </span>
+  <br/>
+  <pre class="prettyprint">DEVICE=eth0   //设备名
+HWADDR=00:0C:29:73:09:46   //MAC地址
+TYPE=Ethernet              //网卡协议类型
+UUID=096eb8aa-af16-4032-a6b9-40d015ea663d   //本机IP的唯一标识
+ONBOOT=yes                               //是否开机，启动，默认为NO
+NM_CONTROLLED=yes                   //是否接受networkmanage管理（rhel6新增网络管理程序，管理以太、蓝牙、无线）
+BOOTPROTO=dhcp  //static（手动指定地址） | dhcp（动态获取）</pre>
+  <span>
+    <span>
+      <span>
+        注意，默认的是Onboot=NO，所以不会获取IP地址，我们可以将它改成yes，然后重启服务，就可以接通网络了。        <br/>
+        有时候，我们机器不够的情况下，可能需要在虚拟机里，安装多个centos系统，如果我们都一个个安装，便会十分浪费时间，这时候，为了加快速度，我们可以使用虚拟机的克隆命令，来拷贝多个虚拟机副本，来实现快速安装的目的，克隆的方式，有2种，一种是引用拷贝，另一外一种是完全独立拷贝，我们一般情况下，使用独立拷贝即可，因为我们机器之间，不存在共用一个磁盘或资源，那样很混乱。克隆非常easy，完成后，我们重启系统后，拷贝机的IP        <br/>
+        没事，但是克隆机的网络不行，此时，我们需要进行以下操作，来配置克隆机的IP，删掉克隆机的MAC地址，然后更改设备名为eth1即可，后续的更多的拷贝机，都可以按照此进行配置；        <br/>
+        修改ifcfg-etho的配置文件如下：        <br/>
+      </span>
+    </span>
+  </span>
+  <br/>
+  <pre class="prettyprint">DEVICE=eth1    //设备名，更改，删除MAC地址，重启重新获取IP地址
+TYPE=Ethernet
+UUID=096eb8aa-af16-4032-a6b9-40d015ea663d
+ONBOOT=yes
+NM_CONTROLLED=yes
+BOOTPROTO=dhcp</pre>
+  <span>
+    <span>重启后，再用ifconfig命令查看IP地址，就会发现已经获取成功了，此时，我们也可以ping下外网地址，来检测网络是否真正配置成功！</span>
+  </span>
+  <br/>
+  <img src="http://img1.tuicool.com/FjAzaiy.jpg" />
+  <br/>
+</div>
+
+        </div>
+        <div class="article_social">
+        <div class="article_like">
+                <button class="btn btn-large btn-like" id="my_like2" data_id="umYvYn">
+                    <i class="icon-heart-empty"></i>
+                    赞一个
+                </button>
+                <button class="btn btn-large btn-fav liked" id="my_like" data_id="umYvYn">
+                    <i class="icon-star-empty"></i>
+                    收 藏
+                </button>
+        </div>
+        <div class="bottom_ad huodong-detail-ad-banner clearfix">
+            <script type="text/javascript">
+    var cpro_id = "u1665123";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+
+        </div>
+        </div>
+           <div id="site_articles">
+              <div class="article-part-title">
+                <span>推荐文章</span>
+              </div>
+          <ul class="side_article_list">
+                <li class="side_article_list_item">
+                    1.<a href="/articles/q6ZbiiA" target="_blank" title="用ethtool确定网卡对应服务器哪个网口">
+                    用ethtool确定网卡对应服务器哪个网口
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    2.<a href="/articles/QbmyIjA" target="_blank" title="7-Zip 15.07 Beta 发布">
+                    7-Zip 15.07 Beta 发布
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    3.<a href="/articles/6nm6Bb7" target="_blank" title="利用 Cloud9 云编辑 Jekyll 博客">
+                    利用 Cloud9 云编辑 Jekyll 博客
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    4.<a href="/articles/2U7FR3z" target="_blank" title="React Native for Android 入门老虎">
+                    React Native for Android 入门老虎
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    5.<a href="/articles/iyqme2" target="_blank" title="如何将Oracle WebLogic服务器运行于Docker容器中">
+                    如何将Oracle WebLogic服务器运行于Docker容器中
+                </a>
+                </li>
+                <li class="side_article_list_item">
+                    6.<a href="/articles/MVNby2b" target="_blank" title="Debian项目不再提供CD格式的ISO镜像">
+                    Debian项目不再提供CD格式的ISO镜像
+                </a>
+                </li>
+         </ul>
+        </div>
+
+        <div id="kan_articles"></div>
+        <div id="article_weibo" style="display:none;">
+            <div class='article-part-title'>
+                <span>相关微博</span>
+                <sub>
+                    <a href="/articles/weibo_list/umYvYn" target="_blank">(<i id="weibo_num"></i>)</a> 
+               </sub>
+            </div>
+            <div class="related-weibo-list"></div>
+        </div>
+        <div class="comments">
+    <div class="comments-area">
+    <div class="comments-header">
+        <h5>我来评几句</h5>
+        <div class="alert comment-alert alert-error" style="display:none;">
+            错误
+        </div>
+            <textarea cols="60" rows="5" id="comment-body" placeholder="请输入评论内容..." style="resize: none;"></textarea>
+            <span class="btn btn-medium btn-submit"  id="comment-submit">登录后评论</span>
+        <p style="margin-top: 5px;margin-left:10px;">
+            已发表评论数(<span class="comment_cnt"></span>)
+        </p>
+    </div>
+    <div class="comments-list">
+        <div class="empty-cmts alert alert-success" style="display:none;">
+            没有更多评论了^^
+        </div>
+    </div>
+    <div class="more-comments" style="display:none;">
+        <a href="">更多评论</a>
+    </div>
+    <div class="load-fail" style="display:none;">
+        评论加载失败，<a href="javascript:reload_comments('umYvYn',1,0,-1);">重新加载</a>
+    </div>
+    </div>
+</div>
+
+    </div>
+         <div class="span4 article_right_side">
+            
+            <div class="right_top">
+    <div class="article_related_site article_detail_bg">
+    <h4 class="article-part-title">相关站点</h4>
+    <div class="article_related_site_body clearfix">
+        <div class="logo">
+            <img src="http://stimg1.tuicool.com/zaQrUn.png"/>
+        </div>
+        <div class="name">
+            <div>
+                <a href="/sites/zaQrUn" target="_blank"> 三劫散仙</a>
+            </div>
+            <div>
+                    <input type="button" class="btn btn-success right_site_follow" value="+&nbsp;订阅" id="my_follow" data_id="zaQrUn"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="right-ad">
+      <script type="text/javascript">BAIDU_CLB_fillSlot("1092367");</script>
+
+</div>
+<div class="right-ad" style="margin-top: 8px">
+      <script type="text/javascript">BAIDU_CLB_fillSlot("1086175");</script>
+
+</div>
+<div class="right-ad" style="margin-top: 8px">
+      <script type="text/javascript">BAIDU_CLB_fillSlot("1086186");</script>
+
+</div>
+<div id="right_site_articles" class="article_detail_bg">
+    <div class="article-part-title">
+        <span>热门文章</span>
+    </div>
+    <ul class="side_article_list">
+        <li class="side_article_list_item">
+            1.<a href="/articles/QbmyIjA" target="_blank" title="7-Zip 15.07 Beta 发布"> 7-Zip 15.07 Beta 发布 </a>
+        </li>
+        <li class="side_article_list_item">
+            2.<a href="/articles/fqIZvej" target="_blank" title="Ubuntu 15.10 (Wily Werewolf)将会是最后一个“无聊”的版本更新"> Ubuntu 15.10 (Wily Werewolf)将会是最后一个“无聊”的版本更新 </a>
+        </li>
+        <li class="side_article_list_item">
+            3.<a href="/articles/2U7FR3z" target="_blank" title="React Native for Android 入门老虎"> React Native for Android 入门老虎 </a>
+        </li>
+        <li class="side_article_list_item">
+            4.<a href="/articles/iyqme2" target="_blank" title="如何将Oracle WebLogic服务器运行于Docker容器中"> 如何将Oracle WebLogic服务器运行于Docker容器中 </a>
+        </li>
+        <li class="side_article_list_item">
+            5.<a href="/articles/EZ3yEvF" target="_blank" title="【投稿】CocoaPods的一些略为高级一丁点的使用"> 【投稿】CocoaPods的一些略为高级一丁点的使用 </a>
+        </li>
+        <li class="side_article_list_item">
+            6.<a href="/articles/MVNby2b" target="_blank" title="Debian项目不再提供CD格式的ISO镜像"> Debian项目不再提供CD格式的ISO镜像 </a>
+        </li>
+    </ul>
+</div>
+</div>
+
+<div class="operate_zone">
+    <div class="container-body share-body">
+        <div class="article-part-title">
+            <span>分享本文</span>
+        </div>
+        <div class="share_zone">
+    <div class="bdsharebuttonbox"> 
+         <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+        <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+        <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_more" data-cmd="more"></a>
+     </div>
+    <script>
+        window._bd_share_config = {
+            "common" : {
+                "bdSnsKey" : {
+                    "tsina" : "3113829255",
+                    "tqq" : "801536792"
+                },
+                "bdText" : "Centos6.5快速配置可用网卡 (分享自 @推酷网)",
+                "bdMini" : "2",
+                "bdMiniList" : false,
+                "bdPic" : "http://aimg2.tuicool.com/y2Inqq.jpg",
+                "bdStyle" : "1",
+                "bdSize" : "24"
+            },
+            "share" : {}
+        };
+        with (document)
+        0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+    </script>
+</div>
+    </div>
+        <div class="frd_pos">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-7054762349007490"
+     data-ad-slot="5705695566"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        </div>
+</div>
+         </div>
+</div>
+
+<div id="myLoginModal" class="modal hide fade">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal" >&times;</a>
+        <h3>用户登录</h3>
+    </div>
+    <div class="modal-body">
+        <form method="post" action="/login" class="form-horizontal" id="login-form">
+            <div class="control-group">
+                <input id="xlEmail" name="email" type="text" placeholder="邮箱" />
+            </div>
+            <div class="control-group">
+                <input id="xlPassword" name="password" type="password" placeholder="密码"/>
+            </div>
+            <div class="control-group">
+                <button type="submit" class="btn btn-primary">
+                    &nbsp;&nbsp;登&nbsp;&nbsp;&nbsp;录&nbsp;&nbsp;
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="read-later-alert">
+</div>
+<div>
+   <a href="#add-article-to-kan" id="add-article-to-kan-btn" class="btn" data-toggle="modal" style="display:none;">添加到推刊</a>
+   <!-- add_article to kan -->
+<div id="add-article-to-kan" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <span class="add-title">收藏到推刊</span>
+    <a href="#new-kan" class="btn pull-right" data-toggle="modal">创建推刊</a>
+    <i class="clearfix"></i>
+  </div>
+  <div class="modal-body">
+    <ul id="add-kan-list">
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <input type="hidden" value="umYvYn" class="article-id" /> 
+    <button class="btn btn-primary pull-left add-to-btn">  收 藏  </button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+  </div>
+</div>
+<div class="add-article-to-kan-alert">
+  已收藏到推刊！
+</div>
+
+   <div id="new-kan" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-body">
+    <input type="text" name="name" id="new-kan-name"  placeholder="推刊名(必填)" required data-validation-required-message="请填写推刊名" />
+    <span class="new-ness-name">请填写推刊名</span>
+    <br/>
+    <textarea name="desc" id="desc" rows="6" placeholder="推刊描述"></textarea>
+    <span class="new-ness-desc">描述不能大于100个字符!</span>
+    <br/>
+    权限设置：<input type="radio" name="type" value="1" checked="checked" /> 公开
+    <input type="radio" name="type" value="0"> 仅自己可见
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary pull-left create-kan-btn" disabled>创建</button>
+    <button class="btn dismiss-new-kan" data-dismiss="modal" aria-hidden="true">取消</button>
+  </div>
+</div>
+
+
+</div>
+<style type="text/css">
+    .btn-large {
+        padding: 0;
+    }
+    .load-fail {
+        display: none;
+    }
+</style>
+<script src="http://static1.tuicool.com//assets/highlight.pack.js"></script>
+<script type="text/javascript">
+    $('table').each(function(i) {
+        var size = $(this).children().size();
+        if (size > 1) {
+            $(this).attr('class',"table table-bordered");
+        } else if (size == 1) {
+            var e11 = $(this).children(":first");
+            var e1 = e11[0];
+            var name = e1.nodeName.toLowerCase();
+            if ("tbody" == name) {
+                if (e11.children().size() > 1) {
+                     $(this).attr('class',"table table-bordered");
+                }
+            }
+        }
+    });
+            related_kan("umYvYn");
+        window.page = 0;
+        window.last = 0;    
+        window.first = true;
+        resize_article_image('#nei', 550);
+                load_comments("umYvYn",1,0,-1);
+                window.uid = -1;
+        open_add_article_to_kan("false");
+        async_do_like2_article(); 
+        $('pre').each(function(i, e) {
+            hljs.highlightBlock(e, "<span class='indent'>  </span>", false)
+        });
+       
+          
+       handle_follow_site("#my_follow","已订阅","+ 订阅");
+</script>
+
+
+  </div>
+
+    <div class="footer">
+    <div class="footer-inner">
+    <dl class="about-link site-link">
+        <dt>
+            网站相关
+        </dt>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/about">关于我们</a>
+        </dd>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/mobile">移动应用</a>
+        </dd>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/bbs/go/issues">建议反馈</a>
+        </dd>
+    </dl>
+    <dl class="site-link follow-link">
+        <dt>
+            关注我们
+        </dt>
+        <dd>
+            <a target="_blank" href="http://e.weibo.com/tuicool2012"><img src="http://static1.tuicool.com/images/weibo-32.png">推酷网</a>
+        </dd>
+        <dd><img src="http://static1.tuicool.com/images/weixin-32.png">tuicool2012
+        </dd>
+        <dd><img src="http://static1.tuicool.com/images/qun-54.png">QQ群:164644910
+        </dd>
+    </dl>
+    <dl class="site-link links">
+        <dt>
+            友情链接
+        </dt>
+        <dd>
+                <a href="http://www.woshipm.com/" title="人人都是产品经理" target="_blank">人人都是产品经理</a>
+                <a href="http://www.tmtforum.com/" title="TMTForum" target="_blank">TMTForum</a>
+                <a href="http://www.moobuu.com/" title="魔部网" target="_blank">魔部网</a>
+                <a href="http://www.pm265.com/" title="PM256" target="_blank">PM256</a>
+                <a href="http://www.pintu360.com/" title="品途网" target="_blank">品途网</a>
+                <a href="http://www.yidonghua.com/" title="移动信息化" target="_blank">移动信息化</a>
+                <a href="http://www.snsiu.com/" title="行晓网" target="_blank">行晓网</a>
+                <a href="http://code4app.com/" title="Code4App" target="_blank">Code4App</a>
+                <a href="http://www.taskcity.com/" title="智城外包网" target="_blank">智城外包网</a>
+                <a href="http://blog.lamper.cn/" title="LAMP人" target="_blank">LAMP人</a>
+                <a href="http://www.apkway.com/forum.php" title="安卓航班网" target="_blank">安卓航班网</a>
+                <a href="http://www.huxiu.com/" title="虎嗅" target="_blank">虎嗅</a>
+                <a href="http://www.ycpai.com/" title="缘创派" target="_blank">缘创派</a>
+                <a href="http://www.iterduo.com/" title="IT耳朵" target="_blank">IT耳朵</a>
+                <a href="http://www.iresearch.cn/" title="艾瑞网" target="_blank">艾瑞网</a>
+                <a href="http://mediaworks.caixin.com/" title="创媒工场" target="_blank">创媒工场</a>
+                <a href="http://www.leiphone.com/" title="雷锋网" target="_blank">雷锋网</a>
+                <a href="http://www.managershare.com/" title="经理人分享" target="_blank">经理人分享</a>
+                <a href="http://www.shichangbu.com/" title="市场部网" target="_blank">市场部网</a>
+                <a href="http://www.ikanchai.com/" title="砍柴网" target="_blank">砍柴网</a>
+                <a href="http://www.cocoachina.com/" title="CocoaChina" target="_blank">CocoaChina</a>
+                <a href="http://www.ibeifeng.com/" title="北风网" target="_blank">北风网</a>
+                <a href="http://www.jiankongbao.com/" title="云智慧" target="_blank">云智慧</a>
+                <a href="http://www.wyzc.com" title="我赢职场" target="_blank">我赢职场</a>
+                <a href="http://www.thebigdata.cn/" title="大数据时代" target="_blank">大数据时代</a>
+                <a href="http://www.qidic.com/" title="奇笛网" target="_blank">奇笛网</a>
+                <a href="http://www.cngulu.com/" title="咕噜网" target="_blank">咕噜网</a>
+                <a href="http://www.linuxdiyf.com/" title="红联linux" target="_blank">红联linux</a>
+                <a href="http://win10.ithome.com" title="Win10之家" target="_blank">Win10之家</a>
+                <a href="http://www.niaogebiji.com/" title="鸟哥笔记" target="_blank">鸟哥笔记</a>
+                <a href="http://www.play.cn" title="爱游戏" target="_blank">爱游戏</a>
+                <a href="http://www.investide.cn/" title="投资潮" target="_blank">投资潮</a>
+                <a href="http://www.31huiyi.com/" title="31会议网" target="_blank">31会议网</a>
+                <a href="https://www.jpush.cn/" title="极光推送" target="_blank">极光推送</a>
+                <a href="https://www.teambition.com/" title="Teambition" target="_blank">Teambition</a>
+                <a href="http://cn.cocos2d-x.org/ " title="Cocos引擎中文官网" target="_blank">Cocos引擎中文官网</a>
+                <a href="http://www.guigu.org/" title="硅谷网" target="_blank">硅谷网</a>
+            <a href="/links">更多链接>></a>&nbsp;&nbsp;
+        </dd>
+    </dl>
+    <div class="clear"></div>
+    </div>
+</div>
+
+<div style="display:none;">
+   <script src="http://s22.cnzz.com/stat.php?id=5541078&web_id=5541078&show=pic" language="JavaScript"></script>
+</div>
+
+
+</body>
+</html>
