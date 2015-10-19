@@ -1,0 +1,800 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Linux查看进程运行的完整路径方法 | 大爱</title> 
+<meta name="description" content="通过ps及top命令查看进程信息时，只能查到相对路径，查不到的进程的详细信息，如绝对路径等。这时，我们需要通过以下的方法来查看进程的详细信息：" />
+<meta name="keywords" content="CentOS,Linux,ll,ls,proc,ps,top,相对路径,绝对路径" />
+<link rel="stylesheet" href="http://lovesoo.org/wp-content/themes/HotNewspro/style.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="http://lovesoo.org/wp-content/themes/HotNewspro/css/css.css" />
+<link rel="stylesheet" href="http://lovesoo.org/wp-content/themes/HotNewspro/css/highlight.css" />
+<link rel="stylesheet" href="http://lovesoo.org/wp-content/themes/HotNewspro/css/img.css" />
+<link rel="pingback" href="http://lovesoo.org/xmlrpc.php" />
+<link rel="shortcut icon" href="http://lovesoo.org/wp-content/themes/HotNewspro/images/favicon.ico" />
+<script type="text/javascript" src="http://lovesoo.org/wp-content/themes/HotNewspro/js/jquery.min.js" ></script>
+<link rel="alternate" type="application/rss+xml" title="大爱 &raquo; Feed" href="http://lovesoo.org/feed" />
+<link rel="alternate" type="application/rss+xml" title="大爱 &raquo; 评论Feed" href="http://lovesoo.org/comments/feed" />
+<link rel="alternate" type="application/rss+xml" title="大爱 &raquo; Linux查看进程运行的完整路径方法评论Feed" href="http://lovesoo.org/view-processes-running-linux-full-path-method.html/feed" />
+<script type="text/javascript">
+var duoshuoQuery = {"short_name":"lovesoo","sso":{"login":"http:\/\/lovesoo.org\/wp-login.php?action=duoshuo_login","logout":"http:\/\/lovesoo.org\/wp-login.php?action=logout&_wpnonce=1f0bf6c4e4"},"theme":"default","stylePatch":"wordpress\/HotNews_Pro"};
+duoshuoQuery.sso.login += '&redirect_to=' + encodeURIComponent(window.location.href);
+duoshuoQuery.sso.logout += '&redirect_to=' + encodeURIComponent(window.location.href);
+</script>
+<script type="text/javascript" src="http://static.duoshuo.com/embed.js" charset="UTF-8" async="async"></script>
+<script type='text/javascript' src='http://lovesoo.org/wp-includes/js/jquery/jquery.js?ver=1.11.1'></script>
+<script type='text/javascript' src='http://lovesoo.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://lovesoo.org/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://lovesoo.org/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='CentOS查看进程的线程数方法' href='http://lovesoo.org/methods-threads-centos-view-the-process-of.html' />
+<link rel='next' title='SQLServer远程连接修改端口号后连接方法' href='http://lovesoo.org/sqlserver-modified-method-of-remote-connection-port-number.html' />
+<meta name="generator" content="WordPress 4.0.8" />
+<link rel='canonical' href='http://lovesoo.org/view-processes-running-linux-full-path-method.html' />
+<link rel='shortlink' href='http://lovesoo.org/?p=2774' />
+
+<link rel="stylesheet" href="http://lovesoo.org/wp-content/plugins/auto-highslide/highslide/highslide.css" type="text/css" />
+<script type="text/javascript" src="http://lovesoo.org/wp-content/plugins/auto-highslide/highslide/highslide-with-html.packed.js"></script>
+<script type="text/javascript">
+	hs.graphicsDir = "http://lovesoo.org/wp-content/plugins/auto-highslide/highslide/graphics/";
+	hs.outlineType = "rounded-white";
+	hs.outlineWhileAnimating = true;
+	hs.showCredits = false;
+</script>
+			<link href="http://lovesoo.org/wp-content/themes/HotNewspro/styles/1-gray.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.banner img{
+	margin: 0 0 5px 0;
+}
+</style>
+
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url('http://lovesoo.org/wp-content/uploads/2011/07/bg3.gif'); background-repeat: repeat; background-position: top left; background-attachment: fixed; }
+</style>
+
+<link rel="stylesheet" href="http://lovesoo.org/wp-content/plugins/ludou-simple-vote/ludou_simplevote.css" type="text/css" media="screen" />
+<style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript" src="http://lovesoo.org/wp-content/themes/HotNewspro/comments-ajax.js"></script>
+<script type="text/javascript" src="http://lovesoo.org/wp-content/themes/HotNewspro/js/reply.js"></script>
+<script type="text/javascript" src="http://lovesoo.org/wp-content/themes/HotNewspro/js/custom.js"></script>
+<script type="text/javascript" src="http://lovesoo.org/wp-content/themes/HotNewspro/js/superfish.js"></script>
+<script type="text/javascript" src="http://lovesoo.org/wp-content/themes/HotNewspro/js/mousewheel.js"></script>
+<script type="text/javascript" src="http://lovesoo.org/wp-content/themes/HotNewspro/js/fancybox.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("a[rel=example_group]").fancybox({
+			'transitionIn'		: 'none',
+			'transitionOut'		: 'none',
+			'titlePosition' 	: 'over',
+			'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+				return '<span id="fancybox-title-over">共 ' + currentArray.length + ' 张图片，当前第 ' + (currentIndex + 1) +' 张 '+ (title.length ? ' &nbsp; ' + title : '') + '</span>';
+			}
+		});
+
+		$("#various").fancybox({
+			'padding'			: 0,
+			'autoScale'			: false,
+			'transitionIn'		: 'none',
+			'transitionOut'		: 'none'
+		});
+		$("#download").fancybox({
+			'transitionIn'		: 'none',
+			'transitionOut'		: 'none'
+		});
+	});
+</script><script type="text/javascript">
+$(function () {
+$('.thumbnail img,.thumbnail_t img,.box_comment img,#slideshow img,.cat_ico,.cat_name,.r_comments img,.v_content_list img').hover(
+function() {$(this).fadeTo("fast", 0.5);},
+function() {$(this).fadeTo("fast", 1);
+});
+});
+</script>
+<!-- PNG -->
+<!--[if lt IE 7]>
+<script type="text/javascript" src="http://lovesoo.org/wp-content/themes/HotNewspro/js/pngfix.js"></script>
+<script type="text/javascript">
+DD_belatedPNG.fix('.boxCaption,.top_box,.logo,.reply,.imgcat,.banner img,#fancybox-left-ico,#fancybox-right-ico,#fancybox-close');
+</script>
+<![endif]-->
+<!-- 图片延迟加载 -->
+<script type="text/javascript" src="http://lovesoo.org/wp-content/themes/HotNewspro/js/lazyload.js"></script>
+<script type="text/javascript">
+	$(function() {          
+    	$(".entry_box img,.entry_box_h img,#entry img,.entry_b img").lazyload({
+            effect:"fadeIn",
+			failurelimit : 30
+          });
+    	});
+</script><!-- IE6菜单 -->
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+sfHover = function() {
+	if (!document.getElementsByTagName) return false;
+	var sfEls = document.getElementById("menu").getElementsByTagName("li");
+
+	for (var i=0; i<sfEls.length; i++) {
+		sfEls[i].onmouseover=function() {
+			this.className+=" sfhover";
+		}
+		sfEls[i].onmouseout=function() {
+			this.className=this.className.replace(new RegExp(" sfhover\\b"), "");
+		}
+	}	
+	var sfEls = document.getElementById("topnav").getElementsByTagName("li");
+	for (var i=0; i<sfEls.length; i++) {
+		sfEls[i].onmouseover=function() {
+			this.className+=" sfhover";
+		}
+	}
+}
+if (window.attachEvent) window.attachEvent("onload", sfHover);
+//--><!]]></script>
+<!-- 预加载 -->
+<link rel="prefetch" href="http://lovesoo.org">
+<link rel="prerender" href="http://lovesoo.org">
+</head>
+<body class="single single-post postid-2774 single-format-standard custom-background">
+<div id="wrapper">
+	<div id="top">
+		<div id='topnav'>
+			<div class="left_top ">
+				<div class="home_h"><a href="http://lovesoo.org" title="首  页" class="home_h"></a></div>
+				<div class="menu-%e8%8f%9c%e5%8d%95a-container"><ul id="menu-%e8%8f%9c%e5%8d%95a" class="menu"><li id="menu-item-1929" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1929"><a href="http://lovesoo.org/linux-quick-start">Linux入门</a></li>
+<li id="menu-item-1870" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-has-children menu-item-1870"><a href="http://lovesoo.org/category/linux">Linux</a>
+<ul class="sub-menu">
+	<li id="menu-item-1894" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1894"><a href="http://lovesoo.org/category/linux/centos">CentOS</a></li>
+</ul>
+</li>
+<li id="menu-item-1594" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-1594"><a href="http://lovesoo.org/category/test">软件测试</a>
+<ul class="sub-menu">
+	<li id="menu-item-1644" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1644"><a href="http://lovesoo.org/category/test/comprehensive">测试综合</a></li>
+	<li id="menu-item-1642" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1642"><a href="http://lovesoo.org/category/test/tech">测试技术</a></li>
+	<li id="menu-item-1641" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1641"><a href="http://lovesoo.org/category/test/tools">测试工具</a></li>
+	<li id="menu-item-1643" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1643"><a href="http://lovesoo.org/category/test/manage">测试管理</a></li>
+</ul>
+</li>
+<li id="menu-item-179" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-179"><a href="http://lovesoo.org/category/article">评测</a>
+<ul class="sub-menu">
+	<li id="menu-item-176" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-176"><a href="http://lovesoo.org/category/news">资讯</a></li>
+	<li id="menu-item-181" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-181"><a href="http://lovesoo.org/category/article/uc">UC浏览器</a></li>
+	<li id="menu-item-188" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-188"><a href="http://lovesoo.org/category/article/qq">手机QQ浏览器</a></li>
+	<li id="menu-item-183" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-183"><a href="http://lovesoo.org/category/article/opera">Opera浏览器</a></li>
+	<li id="menu-item-182" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-182"><a href="http://lovesoo.org/category/article/go">3GGO浏览器</a></li>
+	<li id="menu-item-187" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-187"><a href="http://lovesoo.org/category/article/otherbrowser">其他浏览器</a></li>
+</ul>
+</li>
+<li id="menu-item-1411" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1411"><a href="http://lovesoo.org/download">下载</a></li>
+<li id="menu-item-177" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-177"><a href="http://lovesoo.org/category/other">杂谈</a>
+<ul class="sub-menu">
+	<li id="menu-item-180" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-180"><a href="http://lovesoo.org/category/wordpress">WordPress</a></li>
+	<li id="menu-item-2531" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2531"><a href="http://lovesoo.org/heroes-union-lol-fighting-query">LOL战斗力查询</a></li>
+	<li id="menu-item-2520" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2520"><a href="http://lovesoo.org/league-of-legends-lol-pupil-query">LOL小学生查询</a></li>
+</ul>
+</li>
+<li id="menu-item-175" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-175"><a href="http://lovesoo.org/about">关于</a></li>
+</ul></div> 
+			</div>
+			<!-- end: left_top --> 
+			<div id="searchbar">
+				<form method="get" id="searchform" action="http://lovesoo.org/">
+	<input type="text" name="s" id="s" class="swap_value" />
+	<input type="image" src="http://lovesoo.org/wp-content/themes/HotNewspro/images/go.gif" id="go" alt="Search" title="搜索" />
+</form>			</div>
+			<!-- end: searchbar -->
+		</div>
+		<!-- end: topnav -->
+	</div>
+	<!-- end: top -->
+	<div id="header">
+		<div class="header_c">
+			<div class="login_t"><a id="showbtn"  onclick="showid('smallLay');">登录</a>  <div id="smallLay">
+	<div id="smallLay_box">
+	<!-- if not logged -->
+	<form action="http://lovesoo.org/wp-login.php?redirect_to=http%3A%2F%2Flovesoo.org%2Fview-processes-running-linux-full-path-method.html" method="post" id="loginform">
+		<div class="loginblock">
+			<p class="login"><input type="text" name="log" id="log" size="" tabindex="11" /></p>
+			<p class="password"><input type="password" name="pwd" id="pwd"  size="" tabindex="12" /></p>
+			<p class="lefted"><button value="Submit" id="submit_t" type="submit" tabindex="13">登&nbsp;录</button></p>
+		</div>
+		<input type="hidden" name="redirect_to" value="/view-processes-running-linux-full-path-method.html" />
+		<input type="checkbox" name="rememberme" id="modlogn_remember" value="yes"  checked="checked" alt="Remember Me" />下次自动登录
+	</form>
+	<!-- end if not logged -->
+	</div>
+</div>
+</div>
+			<div class="time">
+<script type="text/javascript">
+today=new Date();
+var day; var date; var hello;
+hour=new Date().getHours()
+if(hour < 6)hello='  凌晨好! '
+else if(hour < 9)hello=' 早上好! '
+else if(hour < 12)hello=' 上午好! '
+else if(hour < 14)hello=' 中午好! '
+else if(hour < 17)hello=' 下午好! '
+else if(hour < 19)hello=' 傍晚好! '
+else if(hour < 22)hello=' 晚上好! '
+else {hello='夜深了! '}
+var webUrl = webUrl;
+document.write(' '+hello);
+</script>
+<span id=localtime>
+<script type="text/javascript">
+today=new Date(); var tdate,tday, x,year; var x = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五","星期六");
+var MSIE=navigator.userAgent.indexOf("MSIE");
+if(MSIE != -1)
+year =(today.getFullYear());
+else
+year = (today.getYear()+1900);
+tdate= year+ "年" + (today.getMonth() + 1 ) + "月" + today.getDate() + "日" + " " + x[today.getDay()];
+document.write(tdate);
+</script>
+</span>
+</div>			<a href="http://lovesoo.org" title="大爱"><h1 class="logo">大爱</h1></a>		</div>
+		<div class="clear"></div>
+		<!-- end: header_c -->
+	</div>
+	<!-- end: header -->
+	<div id="top_hot">
+	<div id="featured" class="clearfix">
+				<div class="item">
+			<div class="top_t">
+												<a href="http://lovesoo.org/web-automation-testing-principle.html" rel="bookmark" title="Web自动化测试原理"><img src="http://lovesoo.org/wp-content/uploads/2012/09/web2.jpg" alt="Web自动化测试原理"/></a>
+							</div>
+			<div class="top_box"><a href="http://lovesoo.org/web-automation-testing-principle.html" rel="bookmark" title="Web自动化测试原理">详细内容</a></div>
+			<div class="boxCaption">
+				<h2><a href="http://lovesoo.org/web-automation-testing-principle.html" title="Permalink to Web自动化测试原理">Web自动化测试原理</a></h2>
+			</div>
+		</div>
+				<div class="item">
+			<div class="top_t">
+												<a href="http://lovesoo.org/ri-zhi-fen-xi-python-jiao-ben-bian-xie-fang-fa-jian-shu.html" rel="bookmark" title="日志分析Python脚本编写方法简述"><img src="http://lovesoo.org/wp-content/uploads/2014/03/LogAnalyser.png" alt="日志分析Python脚本编写方法简述"/></a>
+							</div>
+			<div class="top_box"><a href="http://lovesoo.org/ri-zhi-fen-xi-python-jiao-ben-bian-xie-fang-fa-jian-shu.html" rel="bookmark" title="日志分析Python脚本编写方法简述">详细内容</a></div>
+			<div class="boxCaption">
+				<h2><a href="http://lovesoo.org/ri-zhi-fen-xi-python-jiao-ben-bian-xie-fang-fa-jian-shu.html" title="Permalink to 日志分析Python脚本编写方法简述">日志分析Python脚本编写方法简述</a></h2>
+			</div>
+		</div>
+				<div class="item">
+			<div class="top_t">
+												<a href="http://lovesoo.org/python-bdd-exploration-of-the-automated-testing-framework.html" rel="bookmark" title="Python BDD自动化测试框架初探"><img src="http://lovesoo.org/wp-content/uploads/2014/08/BDD.png" alt="Python BDD自动化测试框架初探"/></a>
+							</div>
+			<div class="top_box"><a href="http://lovesoo.org/python-bdd-exploration-of-the-automated-testing-framework.html" rel="bookmark" title="Python BDD自动化测试框架初探">详细内容</a></div>
+			<div class="boxCaption">
+				<h2><a href="http://lovesoo.org/python-bdd-exploration-of-the-automated-testing-framework.html" title="Permalink to Python BDD自动化测试框架初探">Python BDD自动化测试框架初</a></h2>
+			</div>
+		</div>
+				<div class="item">
+			<div class="top_t">
+												<a href="http://lovesoo.org/use-loadrunner-call-webservice-interface-testing-optimization-summary.html" rel="bookmark" title="使用Loadrunner 调用Webservice接口测试优化总结"><img src="http://lovesoo.org/wp-content/uploads/2013/04/webservice.jpg" alt="使用Loadrunner 调用Webservice接口测试优化总结"/></a>
+							</div>
+			<div class="top_box"><a href="http://lovesoo.org/use-loadrunner-call-webservice-interface-testing-optimization-summary.html" rel="bookmark" title="使用Loadrunner 调用Webservice接口测试优化总结">详细内容</a></div>
+			<div class="boxCaption">
+				<h2><a href="http://lovesoo.org/use-loadrunner-call-webservice-interface-testing-optimization-summary.html" title="Permalink to 使用Loadrunner 调用Webservice接口测试优化总结">使用Loadrunner 调用Webservic</a></h2>
+			</div>
+		</div>
+				<div class="clear"></div>
+	</div>
+</div>
+	<!-- scroll -->
+	<ul class="scroll">
+	<li class="sct">
+		<a href="#">&nbsp;&nbsp;&nbsp;</a>
+		<div><a class="scroll_t">返回顶部</a></div>
+	</li>
+		<li class="scc">
+		<a href="#">&nbsp;&nbsp;&nbsp;</a>
+		<div><a class="scroll_c">查看留言</a></div>
+	</li>
+		<li class="scb">
+		<a href="#">&nbsp;&nbsp;&nbsp;</a>
+		<div><a class="scroll_b">转到底部</a></div>
+	</li>
+</ul><script type="text/javascript">
+    function doZoom(size) {
+        var zoom = document.all ? document.all['entry'] : document.getElementById('entry');
+        zoom.style.fontSize = size + 'px';
+    }
+</script>
+<div id="content">
+			 <!-- menu -->
+		<div id="map">
+			<div class="browse">现在的位置: <a title="返回首页" href="http://lovesoo.org/">首页</a> &gt; <a href="http://lovesoo.org/category/linux">Linux</a> &gt; <a href="http://lovesoo.org/category/linux/centos" rel="category tag">CentOS</a> &gt; <a href="http://lovesoo.org/category/linux" rel="category tag">Linux</a> &gt; 正文</div>
+			<div id="feed"><a href="http://lovesoo.org/feed" title="RSS">RSS</a></div>
+		</div>
+		<!-- end: menu -->
+		<div class="entry_box_s">
+			<div class="context">
+				<div class="context_t">
+					<span class="prev"><a href="http://lovesoo.org/methods-threads-centos-view-the-process-of.html" rel="prev">上篇</a></span>
+					<span class="next"><a href="http://lovesoo.org/centos-sheng-ji-python-ban-ben-fang-fa.html" rel="next">下篇</a></span>
+				</div>
+			</div>
+			<div class="entry_title_box">
+				<!-- 分类图标 -->
+				<div class="ico"></div>
+				<!-- end: 分类图标 -->
+				<h2 class="entry_title">Linux查看进程运行的完整路径方法</h2>
+				<div class="archive_info">
+					<span class="date">2013年12月16日</span>
+					<span class="category"> &#8260; <a href="http://lovesoo.org/category/linux/centos" rel="category tag">CentOS</a>, <a href="http://lovesoo.org/category/linux" rel="category tag">Linux</a></span>
+										&#8260; 共 278字					&#8260; 字号 <span class="font"><a href="javascript:doZoom(12)">小</a> <a href="javascript:doZoom(13)">中</a> <a href="javascript:doZoom(18)">大</a></span>
+					<span class="comment"> &#8260; <a href="http://lovesoo.org/view-processes-running-linux-full-path-method.html#respond" class="ds-thread-count" data-thread-key="2774" title="《Linux查看进程运行的完整路径方法》上的评论">暂无评论</a></span>
+					 &#8260; 阅读 11,458 次					<span class="edit"></span>
+				</div>
+			</div>
+			<!-- end: entry_title_box -->
+			<div class="entry">
+<div style="float:left;padding-right:10px;padding-bottom:10px;padding-top:10px;">
+<script type="text/javascript">
+    var cpro_id="u1004147";
+    (window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"336",rsi1:"280",pat:"17",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"1",adp:"1",ptt:"0",titFF:"",titFS:"14",rss2:"#000000",titSU:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+				<div id="entry">
+																				<p>通过<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/ps" title="View all posts in ps" target="_blank">ps</a></span>及<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/top" title="View all posts in top" target="_blank">top</a></span>命令查看进程信息时，只能查到<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/%e7%9b%b8%e5%af%b9%e8%b7%af%e5%be%84" title="View all posts in 相对路径" target="_blank">相对路径</a></span>，查不到的进程的详细信息，如<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/%e7%bb%9d%e5%af%b9%e8%b7%af%e5%be%84" title="View all posts in 绝对路径" target="_blank">绝对路径</a></span>等。这时，我们需要通过以下的方法来查看进程的详细信息：</p>
+<p><span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/linux" title="View all posts in Linux" target="_blank">Linux</a></span>在启动一个进程时，系统会在/<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/proc" title="View all posts in proc" target="_blank">proc</a></span>下创建一个以PID命名的文件夹，在该文件夹下会有我们的进程的信息，其中包括一个名为exe的文件即记录了<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/%e7%bb%9d%e5%af%b9%e8%b7%af%e5%be%84" title="View all posts in 绝对路径" target="_blank">绝对路径</a></span>，通过<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/ll" title="View all posts in ll" target="_blank">ll</a></span>或<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/ls" title="View all posts in ls" target="_blank">ls</a></span> –l命令即可查看。</p>
+<p><span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/ll" title="View all posts in ll" target="_blank">ll</a></span> /<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/proc" title="View all posts in proc" target="_blank">proc</a></span>/PID</p>
+<p><img alt="" src="http://lovesoo.org/wp-content/uploads/2013/12/121613_0200_Linux1.png" /></p>
+<p style="margin-left: 22pt;">cwd符号链接的是进程运行目录；</p>
+<p style="margin-left: 22pt;">exe符号连接就是执行程序的<span class='wp_keywordlink_affiliate'><a href="http://lovesoo.org/tag/%e7%bb%9d%e5%af%b9%e8%b7%af%e5%be%84" title="View all posts in 绝对路径" target="_blank">绝对路径</a></span>；</p>
+<p style="margin-left: 22pt;">cmdline就是程序运行时输入的命令行命令；</p>
+<p style="margin-left: 22pt;">environ记录了进程运行时的环境变量；</p>
+<p style="margin-left: 22pt;">fd目录下是进程打开或使用的文件的符号连接。</p>
+<div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><div style="float:left"><!-- JiaThis Button BEGIN -->
+<div id="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_kaixin001"></a>
+	<a href="http://www.jiathis.com/share/" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v2.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END --></div><div style="clear:both; margin-top:5px; margin-bottom:5px;"></div><div id="useraction">
+				<div id="ajax_recommendlink">
+					<div title="主题评价指数" id="recommendv">0</div>
+					<ul class="recommend_act">
+						<li><a onclick="ludou_simple_vote(this, 2774, 1);" href="javascript:void(0);" id="recommend_add" title="点击支持本文">支持</a></li>
+						<li><a onclick="ludou_simple_vote(this, 2774, -1);" href="javascript:void(0);" id="recommend_subtract" title="点击反对本文">反对</a></li>
+					</ul>
+				</div>
+			</div>														</div>
+							</div>
+			<div class="back_b">
+				<a href="javascript:void(0);" onclick="history.back();">返回</a>
+			</div>
+			<div class="clear"></div>
+			<!-- end: entry -->
+			<i class="lt"></i>
+			<i class="rt"></i>
+		</div>
+		<div class="entry_sb">
+			<i class="lb"></i>
+			<i class="rb"></i>
+		</div>
+		<!-- ad -->
+								<div class="context_b">
+			【上篇】<a href="http://lovesoo.org/methods-threads-centos-view-the-process-of.html" rel="prev">CentOS查看进程的线程数方法</a><br/>【下篇】<a href="http://lovesoo.org/sqlserver-modified-method-of-remote-connection-port-number.html" rel="next">SQLServer远程连接修改端口号后连接方法</a>			<i class="lt"></i>
+			<i class="rt"></i>
+			<i class="lb"></i>
+			<i class="rb"></i>
+		</div>
+		<!-- relatedposts -->
+		<div class="entry_b">
+	<div class="relatedposts">
+<h4>您可能还会对这些文章感兴趣！</h4>
+<ol>
+		<li><a href="http://lovesoo.org/importerror-no-module-named-mysqldb-jie-jue-fang-fa.html">ImportError No module named MySQLdb解决方法</a></li>
+		<li><a href="http://lovesoo.org/centos-sheng-ji-python-ban-ben-fang-fa.html">CentOS升级Python版本方法</a></li>
+		<li><a href="http://lovesoo.org/methods-threads-centos-view-the-process-of.html">CentOS查看进程的线程数方法</a></li>
+		<li><a href="http://lovesoo.org/centos-view-hardware-information-command.html">CentOS查看硬件信息常用命令</a></li>
+		<li><a href="http://lovesoo.org/the-method-is-simple-to-use-rsync-to-synchronize-files.html">简单使用rsync同步文件方法</a></li>
+		<li><a href="http://lovesoo.org/centos-view-and-kicked-logged-in-user-methods.html">CentOS查看并踢出已登录用户的方法</a></li>
+		<li><a href="http://lovesoo.org/detailed-centos-user-group-permissions-add-and-delete-users.html">详解centos用户&组权限&添加删除用户</a></li>
+		<li><a href="http://lovesoo.org/common-ntp-server-address-and-ip.html">常用NTP服务器地址及IP</a></li>
+	</ol>
+</div>	<div class="related_img">
+		<div class="related_img_box">
+		<div class="thumbnail_t">
+	</div>
+<!-- 截图 -->
+<div class="thumbnail">
+	<a href="http://lovesoo.org/automatically-save-pictures-plug-in-auto-save-image.html" rel="bookmark" title="自动保存图片插件auto-save-image">
+		<img class="home-thumb" src="http://lovesoo.org/wp-content/uploads/2012/08/081612_0347_autosa1.png" width="140px" height="100px" alt="自动保存图片插件auto-save-image"/>
+	</a>
+	</div>
+	</div>
+		<div class="related_img_box">
+		<div class="thumbnail_t">
+			<a href="http://lovesoo.org/uc-browser-7-5-official-release.html" rel="bookmark" title="UC浏览器7.5正式版发布"><img src="http://lovesoo.org/wp-content/uploads/2010/11/uc2.jpg" alt="UC浏览器7.5正式版发布"/></a>
+	</div>
+	</div>
+		<div class="related_img_box">
+		<div class="thumbnail_t">
+	</div>
+<!-- 截图 -->
+<div class="thumbnail">
+	<a href="http://lovesoo.org/mysql-alter-statement-usage-summary.html" rel="bookmark" title="MySQL alter语句用法小结">
+		<img class="home-thumb" src="http://lovesoo.org/wp-content/themes/HotNewspro/images/random/2.jpg" width="140px" height="100px" alt="MySQL alter语句用法小结"/>
+	</a>
+	</div>
+	</div>
+		<div class="related_img_box">
+		<div class="thumbnail_t">
+			<a href="http://lovesoo.org/how-to-download-and-install-the-uc-browser.html" rel="bookmark" title="如何下载安装手机浏览器 – UC篇"><img src="http://lovesoo.org/wp-content/uploads/2010/12/uc6.jpg" alt="如何下载安装手机浏览器 – UC篇"/></a>
+	</div>
+	</div>
+		</div>	<div class="clear"></div>
+		<i class="lt"></i>
+		<i class="rt"></i>
+</div>
+<div class="entry_sb">
+	<i class="lb"></i>
+	<i class="rb"></i>
+</div>		<!-- end: relatedposts -->
+		<!-- entrymeta -->
+		<div class="entrymeta">
+			<div class="authorbio">
+				<div class="author_pic">
+									</div>
+				<div class="clear"></div>
+				<div class="author_text">
+					<h4>作者: <span><a href="http://lovesoo.org/author/lovesoo" title="由安生发布" rel="author">安生</a></span></h4>
+				</div>
+			</div>
+			<span class="spostinfo">
+				<ul>
+					<li>该日志由 安生 于2年前发表在<a href="http://lovesoo.org/category/linux/centos" rel="category tag">CentOS</a>, <a href="http://lovesoo.org/category/linux" rel="category tag">Linux</a>分类下，最后更新于 2013年12月16日.</li>
+					<li>转载请注明: <a href="http://lovesoo.org/view-processes-running-linux-full-path-method.html" rel="bookmark" title="本文固定链接 http://lovesoo.org/view-processes-running-linux-full-path-method.html">Linux查看进程运行的完整路径方法 | 大爱</a><a href="#" onclick="copy_code('http://lovesoo.org/view-processes-running-linux-full-path-method.html'); return false;"> +复制链接</a></li>
+					<li class="content_tag">关键字: <a href="http://lovesoo.org/tag/centos" rel="tag">CentOS</a>, <a href="http://lovesoo.org/tag/linux" rel="tag">Linux</a>, <a href="http://lovesoo.org/tag/ll" rel="tag">ll</a>, <a href="http://lovesoo.org/tag/ls" rel="tag">ls</a>, <a href="http://lovesoo.org/tag/proc" rel="tag">proc</a>, <a href="http://lovesoo.org/tag/ps" rel="tag">ps</a>, <a href="http://lovesoo.org/tag/top" rel="tag">top</a>, <a href="http://lovesoo.org/tag/%e7%9b%b8%e5%af%b9%e8%b7%af%e5%be%84" rel="tag">相对路径</a>, <a href="http://lovesoo.org/tag/%e7%bb%9d%e5%af%b9%e8%b7%af%e5%be%84" rel="tag">绝对路径</a></li>
+				</ul>
+			</span>
+			<i class="lt"></i>
+			<i class="rt"></i>
+			<div class="clear"></div>
+		</div>
+		<div class="entry_sb">
+			<i class="lb"></i>
+			<i class="rb"></i>
+		</div>
+		<!-- end: entrymeta -->
+	<div class="ct"></div>
+	<a name="comments"></a>
+
+<div class="ds-thread" data-thread-key="2774" data-author-key="1" data-title="Linux查看进程运行的完整路径方法" data-url="http://lovesoo.org/view-processes-running-linux-full-path-method.html"></div>
+
+<script type="text/javascript">
+	if (typeof DUOSHUO !== 'undefined')
+		DUOSHUO.EmbedThread('.ds-thread');
+</script>
+	<div id="ds-ssr">
+
+		
+            <ol id="commentlist">
+                            </ol>
+
+		            
+    </div>	</div>
+<!-- end: content -->
+<div id="sidebar">
+	
+		<div id="tabs">
+	<div class="box_top">
+		<i class="rt"></i>
+	</div>
+	<ul class="htotabs">
+		<li class="widget1"><a href="#tab-widget1">最新文章</a></li>
+		<li class="widget2"><a href="#tab-widget2">近期热门</a></li>
+		<li class="widget3"><a href="#tab-widget3">分类目录</a></li>
+		<div class="clear"></div>
+	</ul>
+	<div class="tab-inside">
+		<ul id="tab-widget1">
+			<div class="tab_latest">
+				<ul>
+										<li><a href="http://lovesoo.org/mysql-connection-error-10038-solutions.html" rel="bookmark" title="详细阅读 MySQL 10038连接错误解决方法">MySQL 10038连接错误解决方法</a></li>
+										<li><a href="http://lovesoo.org/inexpensive-free-qq-number.html" rel="bookmark" title="详细阅读 免费注册QQ靓号">免费注册QQ靓号</a></li>
+										<li><a href="http://lovesoo.org/windows-install-the-pip-method.html" rel="bookmark" title="详细阅读 Windows安装pip方法">Windows安装pip方法</a></li>
+										<li><a href="http://lovesoo.org/win10-removal-small-desktop-shortcut-arrows.html" rel="bookmark" title="详细阅读 Win10去除桌面快捷方式小箭头">Win10去除桌面快捷方式小箭头</a></li>
+										<li><a href="http://lovesoo.org/wingide-garbled-in-problem-solving.html" rel="bookmark" title="详细阅读 WingIDE中文乱码问题解决方法">WingIDE中文乱码问题解决方法</a></li>
+										<li><a href="http://lovesoo.org/python-urllib2-send-a-get-or-head-request-error-http-error-405method-not-allowed-solutions.html" rel="bookmark" title="详细阅读 Python urllib2发送HEAD或GET请求报错&#8221;HTTP Error 405: Method Not Allowed&#8221; 解决方案">Python urllib2发送HEAD或GE</a></li>
+										<li><a href="http://lovesoo.org/python-codec-details-encode-and-decode.html" rel="bookmark" title="详细阅读 Python编解码详解_encode与decode">Python编解码详解_encode与decode</a></li>
+										<li><a href="http://lovesoo.org/vnc-installation-and-configuration-methods.html" rel="bookmark" title="详细阅读 VNC安装和配置方法">VNC安装和配置方法</a></li>
+										<li><a href="http://lovesoo.org/python-power-source.html" rel="bookmark" title="详细阅读 Python自幂数源码">Python自幂数源码</a></li>
+										<li><a href="http://lovesoo.org/python-thread-generic-code-sharing.html" rel="bookmark" title="详细阅读 Python多线程通用代码分享">Python多线程通用代码分享</a></li>
+									</ul>
+	<div class="clear"></div>
+			</div>
+		</ul>
+		<ul id="tab-widget2">
+			<div class="tab_latest">
+				<ul>
+				     
+				    <li><a href="http://lovesoo.org/win10-removal-small-desktop-shortcut-arrows.html">Win10去除桌面快捷方式小箭头</a></li><li><a href="http://lovesoo.org/windows-install-the-pip-method.html">Windows安装pip方法</a></li><li><a href="http://lovesoo.org/inexpensive-free-qq-number.html">免费注册QQ靓号</a></li><li><a href="http://lovesoo.org/wingide-garbled-in-problem-solving.html">WingIDE中文乱码问题解决方法</a></li><li><a href="http://lovesoo.org/mysql-connection-error-10038-solutions.html">MySQL 10038连接错误解决方法</a></li> 
+				    				</ul>
+			</div>
+  		</ul>
+		<ul id="tab-widget3"> 
+			<div class="categories_c">
+				<ul>
+				    	<li class="cat-item cat-item-10"><a href="http://lovesoo.org/category/article/go" >3GGO浏览器</a>
+</li>
+	<li class="cat-item cat-item-320"><a href="http://lovesoo.org/category/linux/centos" >CentOS</a>
+</li>
+	<li class="cat-item cat-item-196"><a href="http://lovesoo.org/category/linux" >Linux</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://lovesoo.org/category/article/opera" >Opera浏览器</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://lovesoo.org/category/article/uc" >UC浏览器</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://lovesoo.org/category/wordpress" title="WordPress使用技巧 学习分享">WordPress</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://lovesoo.org/category/article/otherbrowser" >其他浏览器</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://lovesoo.org/category/article/qq" >手机QQ浏览器</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://lovesoo.org/category/other" title="各种技巧教程 共同进步">杂谈</a>
+</li>
+	<li class="cat-item cat-item-278"><a href="http://lovesoo.org/category/test/tools" >测试工具</a>
+</li>
+	<li class="cat-item cat-item-277"><a href="http://lovesoo.org/category/test/tech" >测试技术</a>
+</li>
+	<li class="cat-item cat-item-279"><a href="http://lovesoo.org/category/test/manage" >测试管理</a>
+</li>
+	<li class="cat-item cat-item-280"><a href="http://lovesoo.org/category/test/comprehensive" >测试综合</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://lovesoo.org/category/article" title="手机浏览器测评 原创专业">评测</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://lovesoo.org/category/news" title="最新手机浏览器资讯 一网打尽">资讯</a>
+</li>
+	<li class="cat-item cat-item-264"><a href="http://lovesoo.org/category/test" title="软件测试原创技术文章分享">软件测试</a>
+</li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+		</ul>
+	</div>
+</div>
+<div class="box-bottom">
+	<i class="lb"></i>
+	<i class="rb"></i>
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery( '.htotabs').each(function(){
+		jQuery(this).children( 'li').children( 'a:first').addClass( 'selected' ); // Add .selected class to first tab on load
+	});
+	jQuery( '.tab-inside > *').hide();
+	jQuery( '.tab-inside > *:first-child').show();
+	jQuery( '.htotabs li a').mouseover(function(evt){ // Init Click funtion on Tabs
+		var clicked_tab_ref = jQuery(this).attr( 'href' ); // Strore Href value
+		jQuery(this).parent().parent().children( 'li').children( 'a').removeClass( 'selected' ); //Remove selected from all tabs
+		jQuery(this).addClass( 'selected' );
+		jQuery(this).parent().parent().parent().children( '.tab-inside').children( '*').hide();
+		jQuery( '.tab-inside ' + clicked_tab_ref).fadeIn(500);
+		 evt.preventDefault();
+	})
+})
+</script>		
+		<div class="widget">
+					</div>
+		<div class="widget">
+		<div class="ad">
+	<div class="ads">
+	<div class="box_top">
+		<i class="rt"></i>
+		<i class="lt"></i>
+	</div>
+		<div class="ads_c"><p align="center"><script type="text/javascript">
+    /*200*200，边栏*/
+    var cpro_id = "u869244";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+     
+
+<script type="text/javascript">
+    /*悬浮*/
+var cpro_id = "u1723594";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/i.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    /*悬浮*/
+var cpro_id = "u869252";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script>
+
+</p>
+			<div class="clear"></div>
+		</div>
+		<div class="box-bottom">
+			<i class="lb"></i>
+			<i class="rb"></i>
+		</div>
+	</div>
+</div><h3>本站推荐</h3>
+<div class="box">
+	<div class="scat_img"></div>
+	<div id="scat">
+				<ul>
+			<li><a href="http://lovesoo.org/mysql-connection-error-10038-solutions.html" rel="bookmark" title="详细阅读MySQL 10038连接错误解决方法">MySQL 10038连接错误解决方法</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/inexpensive-free-qq-number.html" rel="bookmark" title="详细阅读免费注册QQ靓号">免费注册QQ靓号</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/windows-install-the-pip-method.html" rel="bookmark" title="详细阅读Windows安装pip方法">Windows安装pip方法</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/win10-removal-small-desktop-shortcut-arrows.html" rel="bookmark" title="详细阅读Win10去除桌面快捷方式小箭头">Win10去除桌面快捷方式小箭头</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/wingide-garbled-in-problem-solving.html" rel="bookmark" title="详细阅读WingIDE中文乱码问题解决方法">WingIDE中文乱码问题解决方法</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/python-urllib2-send-a-get-or-head-request-error-http-error-405method-not-allowed-solutions.html" rel="bookmark" title="详细阅读Python urllib2发送HEAD或GET请求报错&#8221;HTTP Error 405: Method Not Allowed&#8221; 解决方案">Python urllib2发送HEAD或GET请</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/python-codec-details-encode-and-decode.html" rel="bookmark" title="详细阅读Python编解码详解_encode与decode">Python编解码详解_encode与decod</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/vnc-installation-and-configuration-methods.html" rel="bookmark" title="详细阅读VNC安装和配置方法">VNC安装和配置方法</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/python-power-source.html" rel="bookmark" title="详细阅读Python自幂数源码">Python自幂数源码</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/python-thread-generic-code-sharing.html" rel="bookmark" title="详细阅读Python多线程通用代码分享">Python多线程通用代码分享</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/wordpress%e6%8a%a5%e9%94%99php-fatal-error-allowed-memory-size-of-xx-bytes-exhausted%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95.html" rel="bookmark" title="详细阅读WordPress报错PHP Fatal error:  Allowed memory size of xx bytes exhausted解决方法">WordPress报错PHP Fatal error: </a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/python-urllib2%e5%ba%93%e4%bd%bf%e7%94%a8%e5%b0%8f%e7%bb%93.html" rel="bookmark" title="详细阅读Python urllib2库使用小结">Python urllib2库使用小结</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/thinkpad-slow-right-solutions.html" rel="bookmark" title="详细阅读ThinkPad右键变慢解决方法">ThinkPad右键变慢解决方法</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/getting-started-python-web-crawler-to-crawl-the-baidu-post-bar-content-instance.html" rel="bookmark" title="详细阅读Python网页爬虫入门——抓取百度贴吧内容实例">Python网页爬虫入门——抓取百度贴</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/pythonic-interpretation-and-example.html" rel="bookmark" title="详细阅读Pythonic释义及示例">Pythonic释义及示例</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/python-fastdfs-simple-sample.html" rel="bookmark" title="详细阅读Python操作fastdfs简单示例">Python操作fastdfs简单示例</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/python-example-sqlserver.html" rel="bookmark" title="详细阅读Python操作SQLServer示例">Python操作SQLServer示例</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/mysql-encoding-settings.html" rel="bookmark" title="详细阅读MySQL编码设置方法">MySQL编码设置方法</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/python-ntp-synchronization-to-obtain-the-time-method.html" rel="bookmark" title="详细阅读Python通过NTP同步获取时间方法">Python通过NTP同步获取时间方法</a></li>
+		</ul>
+				<ul>
+			<li><a href="http://lovesoo.org/qq-members-separate-python-script-that-automatically-send-email.html" rel="bookmark" title="详细阅读向QQ群成员单独自动发邮件的Python脚本">向QQ群成员单独自动发邮件的Pyth</a></li>
+		</ul>
+			</div>
+	<div class="clear"></div>
+</div>
+<div class="box-bottom">
+	<i class="lb"></i>
+	<i class="rb"></i>
+</div>
+<script type="text/javascript">
+var c,_=Function;
+with(o=document.getElementById("scat")){ innerHTML+=innerHTML; onmouseover=_("c=1"); onmouseout=_("c=0");}
+(F=_("if(#%26||!c)#++,#%=o.scrollHeight>>1;setTimeout(F,#%26?10:3500);".replace(/#/g,"o.scrollTop")))();
+</script><h3>百度站内搜索</h3>
+<div class="box_c">
+	<div class="search_k">
+		<form action="http://www.baidu.com/baidu" target="_blank">
+		<input name=word size="26" maxlength="100" class="swap_value">
+		<input type="image" src="http://lovesoo.org/wp-content/themes/HotNewspro/images/go.gif" id="go" alt="Search" title="搜索" />
+		<input name=tn type=hidden value="bds">
+		<input name=cl type=hidden value="3">
+		<input name=ct type=hidden value="2097152">
+		<input name=si type=hidden value="lovesoo.org">
+		<input name=si type=hidden value="">
+		</form>
+	</div>
+</div>
+<div class="box-bottom">
+	<i class="lb"></i>
+	<i class="rb"></i>
+</div><h3>最新评论</h3>
+<div class="r_comments">
+	<ul>
+		
+<li> <a href="http://lovesoo.org/wordpress%e6%8a%a5%e9%94%99php-fatal-error-allowed-memory-size-of-xx-bytes-exhausted%e8%a7%a3%e5%86%b3%e6%96%b9%e6%b3%95.html#comment-5164" title="发表在： WordPress报错PHP Fatal error:  Allowed memory size of xx bytes exhausted解决方法"><b>枫先生：</b><br />用这个方法解决了，谢谢！</a></li>
+<li> <a href="http://lovesoo.org/wingide-zhu-ce-po-jie-fang-fa.html#comment-5154" title="发表在： WingIDE注册破解方法"><b>就是忽然想改名字：</b><br />脚本在哪 没看懂求解释 新人没用过</a></li>
+<li> <a href="http://lovesoo.org/xmanager-to-connect-to-the-remote-desktop-centos.html#comment-5148" title="发表在： Xmanager连接Centos的远程桌面"><b>z：</b><br />试了好几遍 然而并不能用....</a></li>
+<li> <a href="http://lovesoo.org/python-script-error-attributeerror-module-object-has-no-attribute-solve-method.html#comment-5147" title="发表在： Python脚本报错AttributeError: 'module' object has no attribute'xxx'解决方法"><b>dearapplejj：</b><br />怎样更新呀</a></li>
+<li> <a href="http://lovesoo.org/wingide-zhu-ce-po-jie-fang-fa.html#comment-5143" title="发表在： WingIDE注册破解方法"><b>excited：</b><br />thank you!</a></li>
+<li> <a href="http://lovesoo.org/league-of-legends-lol-pupil-query#comment-5140" title="发表在： 英雄联盟LOL小学生查询"><b>Anni：</b><br />Anni有 15% 的可能性是小学生</a></li>
+<li> <a href="http://lovesoo.org/league-of-legends-lol-pupil-query#comment-5139" title="发表在： 英雄联盟LOL小学生查询"><b>用心：</b><br />TakeMeawayComile有 10% 的可</a></li>
+<li> <a href="http://lovesoo.org/use-loadrunner-call-webservice-interface-testing-optimization-summary.html#comment-5137" title="发表在： 使用Loadrunner 调用Webservice接口测试优化总结"><b>_Sticking：</b><br />看看。</a></li>
+<li> <a href="http://lovesoo.org/league-of-legends-lol-pupil-query#comment-5136" title="发表在： 英雄联盟LOL小学生查询"><b>张雨烨：</b><br />周杰伦 我知道你也在测试</a></li>	</ul>
+</div>
+<div class="box-bottom">
+	<i class="lb"></i>
+	<i class="rb"></i>
+</div>	</div>
+
+	
+	
+			
+	<div class="widget">
+			</div>
+
+		<div class="widget">
+					</div>
+	
+				<div class="clear"></div>
+
+			</div><div class="clear"></div>
+<div class="footer_top">
+	<div id="menu">
+		<div class="menu-%e8%8f%9c%e5%8d%95b-container"><ul id="menu-%e8%8f%9c%e5%8d%95b" class="menu"><li id="menu-item-471" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-471"><a href="http://lovesoo.org/category/wordpress">WordPress</a></li>
+<li id="menu-item-469" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-469"><a href="http://lovesoo.org/category/article">评测</a></li>
+<li id="menu-item-1412" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1412"><a href="http://lovesoo.org/download">下载</a></li>
+<li id="menu-item-3085" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3085"><a href="http://lovesoo.org/category/test/tech">测试技术</a></li>
+<li id="menu-item-3084" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-3084"><a href="http://lovesoo.org/category/test/tools">测试工具</a></li>
+<li id="menu-item-1595" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1595"><a href="http://lovesoo.org/category/test">软件测试</a></li>
+<li id="menu-item-3083" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-3083"><a href="http://lovesoo.org/category/linux/centos">CentOS</a></li>
+<li id="menu-item-1871" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1871"><a href="http://lovesoo.org/category/linux">Linux</a></li>
+<li id="menu-item-1931" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1931"><a href="http://lovesoo.org/linux-quick-start">Linux快速入门</a></li>
+</ul></div>	</div>
+	<h2 class="blogtitle">
+	<a href="http://lovesoo.org/" title="大爱">返回首页</a></h2>
+		<big class="lt"></big>
+	<big class="rt"></big>
+</div>
+<!-- 页脚 -->
+<div class="footer_bottom_a">
+	Copyright &copy; 2010-2015 大爱&nbsp;&nbsp;保留所有权利.
+	&nbsp;&nbsp;Sitemap:&nbsp;&nbsp;<a href="http://lovesoo.org/sitemap.html" title="Baidu Sitemap">Baidu</a>&nbsp;&nbsp;<a href="http://lovesoo.org/sitemap.xml" title="Google Sitemap">Google</a>&nbsp;&nbsp;<script src="http://s17.cnzz.com/stat.php?id=2625783&web_id=2625783&show=pic1" language="JavaScript"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20257283-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+		<big class="lb"></big>
+	<big class="rb"></big>
+</div>
+<!-- 首页页脚 -->
+ <div class="clear"></div>
+</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var viewsCacheL10n = {"admin_ajax_url":"http:\/\/lovesoo.org\/wp-admin\/admin-ajax.php","post_id":"2774"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://lovesoo.org/wp-content/plugins/wp-postviews/postviews-cache.js?ver=1.68'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var ludousvote = {"ajaxurl":"http:\/\/lovesoo.org\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://lovesoo.org/wp-content/plugins/ludou-simple-vote/ludou_simplevote.js?ver=4.0.8'></script>
+</body></html>
+<!-- ZenCache file path: /cache/zencache/cache/http/lovesoo-org/view-processes-running-linux-full-path-method-html.html -->
+<!-- ZenCache file built for (http://lovesoo.org/view-processes-running-linux-full-path-method.html) in 0.76949 seconds, on: Sep 25th, 2015 @ 3:52 am UTC. -->
+<!-- This ZenCache file will auto-expire (and be rebuilt) on: Oct 2nd, 2015 @ 3:52 am UTC (based on your configured expiration time). -->
+<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<!-- ZenCache fully functional :-) Cache file served for (http://lovesoo.org/view-processes-running-linux-full-path-method.html) in 0.00048 seconds, on: Sep 25th, 2015 @ 7:06 am UTC. -->

@@ -1,19 +1,16 @@
 #install oracle=================
 
-sudo vim /etc/sysctl.conf  
-	fs.aio-max-nr = 1048576    
-	fs.file-max = 6815744    
-	#kernel.shmall = 2097152    
-	#kernel.shmmax = 4294967295    
-	#kernel.shmmni = 4096  
-	kernel.sem = 250 32000 100 128  
-	net.ipv4.ip_local_port_range = 9000 65500    
-	net.core.rmem_default = 262144    
-	net.core.rmem_max = 4194304    
-	net.core.wmem_default = 262144   
-	net.core.wmem_max = 1048586  
-	vm.hugetlb_shm_group= 501  
-	#oracle用户组dbaid 为501，以彻底解决ORA-27125错误。 
+#sudo vim /etc/sysctl.conf  
+sudo echo "fs.aio-max-nr = 1048576" >> /etc/sysctl.conf  
+sudo echo "kernel.sem = 250 32000 100 128" >> /etc/sysctl.conf  
+sudo echo "net.core.wmem_default = 8388608" >> /etc/sysctl.conf  
+sudo echo "net.core.rmem_default = 8388608" >> /etc/sysctl.conf  
+sudo echo "net.core.rmem_max = 16777216" >> /etc/sysctl.conf  
+sudo echo "net.core.wmem_max = 16777216" >> /etc/sysctl.conf  
+sudo echo "net.core.somaxconn = 32768" >> /etc/sysctl.conf   
+sudo echo "net.ipv4.ip_local_port_range = 9000 65500" >> /etc/sysctl.conf   
+sudo echo "vm.hugetlb_shm_group= 501" >> /etc/sysctl.conf  
+#oracle用户组dbaid 为501，以彻底解决ORA-27125错误。 
 sudo sysctl -p        
 #重新载入立即生效  
 
@@ -35,7 +32,7 @@ su - oracle
 mkdir -p ~/oracle_11/dbhome_1
 chown -R oracle:oinstall /oracle_11
 chmod -R 775 /oracle_11
-vi .bash_profile
+vim .bash_profile
 	# Oracle Settings
 	TMP=/tmp; export TMP
 	TMPDIR=$TMP; export TMPDIR

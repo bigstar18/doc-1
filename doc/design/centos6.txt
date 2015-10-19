@@ -1,38 +1,37 @@
 #系统初始化==============================
-vi /etc/sysconfig/i18n   
-	#   LANG="zh_CN.UTF-8"  LANG="en_US.UTF-8" 
+#vi /etc/sysconfig/i18n   
+	#LANG="zh_CN.UTF-8"  LANG="en_US.UTF-8" 
 #替换成英文
 sed -i 's#LANG="zh_CN.*"#LANG="en_US.UTF-8"#' /etc/sysconfig/i18n
 #替换成中文
-sed -i 's#LANG="en_US.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
+#sed -i 's#LANG="en_US.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
 #替换成UTF-8中文
-sed -i 's#LANG="zh_CN.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
+#sed -i 's#LANG="zh_CN.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
 
-vi /etc/resolv.conf 
-	nameserver=8.8.8.8
-	nameserver=114.114.114.114
-	nameserver=223.5.5.5
-	nameserver=218.2.2.2
-vi /etc/sysconfig/network-scripts/ifcfg-em1 
-	IPADDR=10.0.100.180
-	NETMASK=255.255.255.0
-	GATEWAY=10.0.100.254
-	IPV6INIT=no
-	IPV6_AUTOCONF=no
-	DNS1=8.8.8.8
-	DNS2=114.114.114.114
-	DNS3=223.5.5.5
-	DNS4=218.2.2.2
+#vi /etc/resolv.conf 
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf 
+echo "nameserver 114.114.114.114" >> /etc/resolv.conf 
+echo "nameserver 223.5.5.5" >> /etc/resolv.conf 
+echo "nameserver 218.2.2.2" >> /etc/resolv.conf 	
+	
+#vi /etc/sysconfig/network-scripts/ifcfg-em1 
+echo "IPADDR=10.0.100.180" >> /etc/sysconfig/network-scripts/ifcfg-em1 
+echo "NETMASK=255.255.255.0" >> /etc/sysconfig/network-scripts/ifcfg-em1 
+echo "GATEWAY=10.0.100.254" >> /etc/sysconfig/network-scripts/ifcfg-em1 
+echo "IPV6INIT=no" >> /etc/sysconfig/network-scripts/ifcfg-em1 
+echo "IPV6_AUTOCONF=no" >> /etc/sysconfig/network-scripts/ifcfg-em1 
+echo "DNS1=8.8.8.8" >> /etc/sysconfig/network-scripts/ifcfg-em1 
+echo "DNS2=114.114.114.114" >> /etc/sysconfig/network-scripts/ifcfg-em1 
+echo "DNS3=223.5.5.5" >> /etc/sysconfig/network-scripts/ifcfg-em1 
+echo "DNS4=218.2.2.2" >> /etc/sysconfig/network-scripts/ifcfg-em1 
+
 service network restart
 
 setenforce 0 && sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
 
-vi /etc/yum.conf
-	#keepcache=1
+#vi /etc/yum.conf
+sed -i 's#keepcache=0#keepcache=1#' /etc/yum.conf
 
-ntpdate time.windows.com && hwclock -w  
-#ntpdate time.windows.com && hwclock -w && hwclock --systohc
-#rdate -s time-b.nist.gov
 
 
 #开发工具和源=============================
@@ -41,7 +40,7 @@ rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.r
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
 
 yum groupinstall -y 'Development Tools'
-yum -y install wget pciutils usbutils hdparm vim*
+yum -y install wget pciutils usbutils hdparm vim* ntp
 
 wget -O /etc/yum.repos.d/PUIAS_6_computational.repo https://gitlab.com/gitlab-org/gitlab-recipes/raw/master/install/centos/PUIAS_6_computational.repo
 wget -O /etc/pki/rpm-gpg/RPM-GPG-KEY-puias http://springdale.math.ias.edu/data/puias/6/x86_64/os/RPM-GPG-KEY-puias
@@ -51,6 +50,10 @@ rpm -Uvh http://repo.mysql.com/mysql-community-release-el6.rpm
 
 
 #系统信息核对================================
+ntpdate time.windows.com && hwclock -w  
+#ntpdate time.windows.com && hwclock -w && hwclock --systohc
+#rdate -s time-b.nist.gov
+
 fdisk -l
 free -m
 head -n 1 /etc/issue
@@ -66,12 +69,13 @@ dmesg
 #系统网络配置===========================
 hostname  
 vim /etc/hosts
-vim /etc/sysconfig/network
-	NETWORKING_IPV6=no
-	NETWORKING_IPV6=off
-	IPV6INIT=no
-lsmod | grep ipv6   
-ip -6 addr show
+#vim /etc/sysconfig/network
+echo "NETWORKING_IPV6=no" >> /etc/sysconfig/network
+echo "NETWORKING_IPV6=off" >> /etc/sysconfig/network
+echo "IPV6INIT=no" >> /etc/sysconfig/network
+		
+#lsmod | grep ipv6   
+#ip -6 addr show
 echo "alias net-pf-10 off" >> /etc/modprobe.d/dist.conf
 echo "options ipv6 disable=1" >> /etc/modprobe.d/dist.conf
 #echo "alias ipv6 off" >> /etc/modprobe.d/dist.conf
@@ -93,8 +97,8 @@ userdel uucp
 userdel operator
 userdel games
 userdel gopher
-userdel sync
-userdel ftp
+#userdel sync
+#userdel ftp
 #删除不必要的群组
 groupdel adm
 groupdel lp
@@ -104,24 +108,24 @@ groupdel games
 groupdel dip
 groupdel pppusers
 #锁定关键文件系统（禁止非授权用户获得权限）  使用lsattr 查看文件属性
-chattr -i /etc/passwd
-chattr -i /etc/inittab
-chattr -i /etc/group
-chattr -i /etc/shadow
-chattr -i /etc/gshadow
+#chattr -i /etc/passwd
+#chattr -i /etc/inittab
+#chattr -i /etc/group
+#chattr -i /etc/shadow
+#chattr -i /etc/gshadow
 
-chattr +i /etc/passwd
-chattr +i /etc/inittab
-chattr +i /etc/group
-chattr +i /etc/shadow
-chattr +i /etc/gshadow
+#chattr +i /etc/passwd
+#chattr +i /etc/inittab
+#chattr +i /etc/group
+#chattr +i /etc/shadow
+#chattr +i /etc/gshadow
 
 
 #应用安装======================
-chown yrdce1:yrdce1 jdk-7u80-linux-x64.gz 
+mv jdk-7u80-linux-x64.gz /home/yrdce1/
+cd /home/yrdce1/ && chown yrdce1:yrdce1 jdk-7u80-linux-x64.gz 
 su - yrdce1
-tar zxf jdk-7u80-linux-x64.gz 
-
+tar zxf jdk-7u80-linux-x64.gz && mkdir -p ./src && mv jdk-7u80-linux-x64.gz ./src/
 
 
 
@@ -129,21 +133,21 @@ tar zxf jdk-7u80-linux-x64.gz
 #服务配置===================
 chkconfig --list |grep 3:on
 
-chkconfig ip6tables off
-chkconfig bluetooth off
-chkconfig cups off
-chkconfig haldaemon off
-chkconfig NetworkManager off
-chkconfig abrt-ccpp off
-chkconfig abrtd off
-chkconfig mdmonitor off
-chkconfig netfs off
-chkconfig nfslock off
-chkconfig acpid off
-chkconfig cpuspeed off
-chkconfig atd off 
-chkconfig auditd off
-chkconfig iptables off
+#chkconfig ip6tables off
+#chkconfig bluetooth off
+#chkconfig cups off
+#chkconfig haldaemon off
+#chkconfig NetworkManager off
+#chkconfig abrt-ccpp off
+#chkconfig abrtd off
+#chkconfig mdmonitor off
+#chkconfig netfs off
+#chkconfig nfslock off
+#chkconfig acpid off
+#chkconfig cpuspeed off
+#chkconfig atd off 
+#chkconfig auditd off
+#chkconfig iptables off
 
 service iptables stop
 service auditd stop
@@ -164,72 +168,69 @@ service cpuspeed stop
 #关闭全部服务
 for sun in `chkconfig --list|grep 3:on|awk '{print $1}'`;do chkconfig --level 3 $sun off;done
 #或者
-for sun in `chkconfig --list|grep 3:启用|awk '{print $1}'`;do chkconfig --level 3 $sun off;done
+#for sun in `chkconfig --list|grep 3:启用|awk '{print $1}'`;do chkconfig --level 3 $sun off;done
 #开启需要的服务
 for sun in crond rsyslog sshd network;do chkconfig --level 3 $sun on;done
 #或者需要使用防火墙的话可以开启iptables和ip6tables
-for sun in crond rsyslog sshd network iptables ip6tables;do chkconfig --level 3 $sun on;done
+#for sun in crond rsyslog sshd network iptables ip6tables;do chkconfig --level 3 $sun on;done
 
 #system core ================================
-swapoff -a
-	#swapon -a
-echo "swapoff -a" >> /etc/rc.d/rc.local
-echo vm.swappiness=5 >> /etc/sysctl.conf  
-#重新载入立即生效  
-sysctl -p   
-
 modprobe bridge
 echo "modprobe bridge">> /etc/rc.local
+#cat  /proc/sys/fs/file-max
+#vim /etc/security/limits.conf
+echo "*   soft    nproc    20470">> /etc/security/limits.conf
+echo "*   hard    nproc    36384">> /etc/security/limits.conf
+echo "*   soft    nofile    10240">> /etc/security/limits.conf
+echo "*   hard    nofile    65536">> /etc/security/limits.conf
 
+#vim  /etc/pam.d/login
+echo "session    required /lib64/security/pam_limits.so">> /etc/pam.d/login
+	
+#swapoff -a
+#swapon -a
+#echo "swapoff -a" >> /etc/rc.d/rc.local
+#内核参数优化  vim /etc/sysctl.conf
+echo "vm.swappiness=5" >> /etc/sysctl.conf  
+echo "fs.aio-max-nr = 1048576" >> /etc/sysctl.conf  
+echo "kernel.sem = 250 32000 100 128" >> /etc/sysctl.conf  
+echo "net.core.wmem_default = 8388608" >> /etc/sysctl.conf  
+echo "net.core.rmem_default = 8388608" >> /etc/sysctl.conf  
+echo "net.core.rmem_max = 16777216" >> /etc/sysctl.conf  
+echo "net.core.wmem_max = 16777216" >> /etc/sysctl.conf  
+echo "net.core.somaxconn = 32768" >> /etc/sysctl.conf  
+sysctl -p  
 
-cat  /proc/sys/fs/file-max
-vim /etc/security/limits.conf
-	*   soft    nproc    20470
-	*   hard    nproc    36384
-	*   soft    nofile    10240
-	*   hard    nofile    65536
-
-vim  /etc/pam.d/login
-	session    required /lib64/security/pam_limits.so
-
-#内核参数优化 vim /etc/sysctl.conf
-net.core.somaxconn = 2048
 #可用于apache，nginx，squid多种等web应用
-net.ipv4.tcp_max_syn_backlog = 65536
-net.core.netdev_max_backlog = 32768
-net.core.somaxconn = 32768
+#net.ipv4.tcp_max_syn_backlog = 65536
+#net.core.netdev_max_backlog = 32768
 
-net.core.wmem_default = 8388608
-net.core.rmem_default = 8388608
-net.core.rmem_max = 16777216
-net.core.wmem_max = 16777216
+#net.ipv4.tcp_timestamps = 0
+#net.ipv4.tcp_synack_retries = 2
+#net.ipv4.tcp_syn_retries = 2
 
-net.ipv4.tcp_timestamps = 0
-net.ipv4.tcp_synack_retries = 2
-net.ipv4.tcp_syn_retries = 2
+#net.ipv4.tcp_tw_recycle = 1
+##net.ipv4.tcp_tw_len = 1
+#net.ipv4.tcp_tw_reuse = 1
 
-net.ipv4.tcp_tw_recycle = 1
-#net.ipv4.tcp_tw_len = 1
-net.ipv4.tcp_tw_reuse = 1
+#net.ipv4.tcp_mem = 94500000 915000000 927000000
+#net.ipv4.tcp_max_orphans = 3276800
 
-net.ipv4.tcp_mem = 94500000 915000000 927000000
-net.ipv4.tcp_max_orphans = 3276800
+##net.ipv4.tcp_fin_timeout = 30
+##net.ipv4.tcp_keepalive_time = 120
+#net.ipv4.ip_local_port_range = 1024 65535
 
-#net.ipv4.tcp_fin_timeout = 30
-#net.ipv4.tcp_keepalive_time = 120
-net.ipv4.ip_local_port_range = 1024 65535
-
-#以下参数是对centos6.x的iptables防火墙的优化，防火墙不开会有提示，可以忽略不理。
-#如果是centos5.X需要吧netfilter.nf_conntrack替换成ipv4.netfilter.ip
-#centos5.X为net.ipv4.ip_conntrack_max = 25000000
-net.nf_conntrack_max = 25000000
-net.netfilter.nf_conntrack_max = 25000000
-net.netfilter.nf_conntrack_tcp_timeout_established = 180
-net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
-net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
-net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
+##以下参数是对centos6.x的iptables防火墙的优化，防火墙不开会有提示，可以忽略不理。
+##如果是centos5.X需要吧netfilter.nf_conntrack替换成ipv4.netfilter.ip
+##centos5.X为net.ipv4.ip_conntrack_max = 25000000
+##net.nf_conntrack_max = 25000000
+##net.netfilter.nf_conntrack_max = 25000000
+##net.netfilter.nf_conntrack_tcp_timeout_established = 180
+##net.netfilter.nf_conntrack_tcp_timeout_time_wait = 120
+##net.netfilter.nf_conntrack_tcp_timeout_close_wait = 60
+##net.netfilter.nf_conntrack_tcp_timeout_fin_wait = 120
 #立即生效 /sbin/sysctl -p centos6.5可能会报错
-
+ 
 
 
 
