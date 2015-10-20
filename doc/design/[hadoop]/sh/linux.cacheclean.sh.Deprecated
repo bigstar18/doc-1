@@ -1,0 +1,16 @@
+#!/bin/sh
+
+LOGFILE=/home/hadoop/log/cacheclean.log
+
+#sysctl -w vm.vfs_cache_pressure=200;
+
+FREEMEM=$(cat /proc/meminfo | grep "MemFree" | awk '{print $2}')
+if [ $FREEMEM -le 10000000 ]; then
+	date  >> $LOGFILE
+	free -m >> $LOGFILE
+
+	sync;sync;sysctrl -w vm.drop_caches=3;
+	#echo 3 > /proc/sys/vm/drop_caches
+
+	free -m >> $LOGFILE
+fi

@@ -1,0 +1,147 @@
+http://www.ibm.com/developerworks/cn/linux/l-ganglia-nagios-1/
+http://www.nongnu.org/confuse/
+
+#rpm -e --nodeps yum-rhn-plugin-0.5.3-30.el5 rpm -e --nodeps yum-security-1.1.16-13.el5     rpm -qa |grep yum
+#有些软件包是以.src.rpm结尾的，这类软件包是包含了源代码的rpm包，在安装时需要进行编译。
+#rpm -q，q表示查询query，后面可以跟其他选项    rpm -qa |grep sql  rpm -ql 包名   rpm -e 包名 is needed by ... 这说明这个软件被其他软件需要，不能随便卸载 可以用rpm -e --nodeps强制卸载
+#获得这个程序的完整路径，可以用whereis或者which
+#'--with-PACKAGE=no'与下面将提到的'--without-PACKAGE'是同义的.
+#/etc/ld.so.conf
+#这个文件记录了编译时使用的动态链接库的路径。默认情况下，编译器只会使用/lib和/usr/lib这两个目录下的库文件
+#没有指定 --prefix=/usr 这样glib库就装到了/usr/local下，需要在/etc/ld.so.conf中添加/usr/local/lib
+#vi /etc/ld.so.conf.d/usrlocallib.conf     /usr/local/lib  /usr/local/lib64
+#vi /etc/ld.so.conf.d/rrdtool.conf，添加：/opt/rrdtool-1.4.7/lib  /opt/rrdtool-1.4.7/lib64/python2.4/site-packages，然后/sbin/ldconfig -v
+#/sbin/route add -host 239.2.11.71 dev eth0（重启后就没有了）把这句添加在/etc/rc.d/rc.local里面，让它每次启动时执行
+
+#You could try adding "--disable-sflow" as another configure option.   (Or were you planning to use sFlow agents such as hsflowd?).
+#If you are installing by source on Linux, scripts are provided to start gmetad and gmond at system startup. They are easy to install from the source root.
+#   % cp ./gmond/gmond.init /etc/rc.d/init.d/gmond
+#   % chkconfig --add gmond
+#   % chkconfig --list gmond
+#     gmond              0:off   1:off   2:on    3:on    4:on    5:on    6:off
+#   % /etc/rc.d/init.d/gmond start
+#     Starting GANGLIA gmond:                                    [  OK  ]
+#Repeat this step with gmetad.
+
+
+#httpd    httpd-deps.tar
+#apr
+./configure --prefix=/usr/local && make && make install
+/sbin/ldconfig
+#apr-util
+./configure --with-apr=/usr/local && make && make install
+/sbin/ldconfig
+#httpd
+./configure --prefix=/usr/local/apache2 --with-included-apr --with-pcre=/usr/local --enable-so --enable-mods-shared=most && make && make install
+#用记事本打开httpd.conf 将里面的  #ServerName localhost:8080注释去掉即可。再执行httpd 然后可以通过浏览器访问http://localhost：8080，如果页面显示“It works！”，即表示apache已安装并启动成功。我的apache的httpd.conf中，user是daemon，group是daemon
+vim apachectl   #添加一下内容
+	#chkconfig: 2345 85 15
+	#description Apache server 2.4
+cp -f /usr/local/apache2/bin/apachectl /etc/rc.d/init.d/httpd  #如果其他的版本的Apache存在，也可以直接覆盖掉
+chkconfig --add httpd
+/usr/local/apache2/bin/apachectl start
+service httpd restart
+
+#yum -y install php
+ ./configure --prefix=/usr/local/php5 --with-apxs2=/usr/local/apache2/bin/apxs --with-config-file-path=/etc && make && make install
+#在Unix上，php.ini文件缺省放在/usr/local/lib上面，因为缺省的存放路径是<install-path> /lib，但是可以在编译的时候使用--with-config-file-path参数来修改php.ini的存放位置，例如你可以使用--with- config-file-path=/etc把它存放到/etc下面，然后可以从源码包中拷贝php.ini-dist到/etc/php.ini并修改使之满足需要。CP 一个源码里面的php.ini-development或php.ini-production  到 /usr/local/php/lib  为 php.ini   Configuration File (php.ini) Path  php --with-config-file-path=/etc 不起作用的原因Get clean sources of both apache & php, "make clean" might not be enough. Not bug.   <?php phpinfo();?>
+cp -f php.ini-production /etc/php.ini
+php.ini     date.timezone = PRC    Asia/Shanghai
+
+
+#RRDTool
+yum install cairo-devel libxml2-devel pango-devel pango libpng-devel freetype freetype-devel libart_lgpl-devel
+./configure –prefix=/usr/local/rrdtool && make && make install
+echo '/opt/rrdtool-1.4.7/lib'>/etc/ld.so.conf.d/usrlocallib.conf
+echo '/opt/rrdtool-1.4.7/lib64/python2.4/site-packages'>>/etc/ld.so.conf.d/usrlocallib.conf
+/sbin/ldconfig
+
+#libconfuse
+./configure CFLAGS=-fPIC --disable-nls && make && make install
+#pcre是perl 兼容的正规表达式库，在使用正则匹配时会很用。不安装的话，ganglia安装时会报错：libpcre not found, specify --with-libpcre=no to build without PCRE support。
+./configure && make && make install
+
+echo '/usr/local/lib'>/etc/ld.so.conf.d/usrlocallib.conf
+echo '/usr/local/lib64'>>/etc/ld.so.conf.d/usrlocallib.conf
+/sbin/ldconfig
+#ganglia RHEL6-RPMS 有特殊版本
+yum -y install apr-devel apr-util check-devel cairo-devel pango-devel libxml2-devel rpmbuild glib2-devel dbus-devel freetype-devel fontconfig-devel gcc-c++ expat-devel python-devel libXrender-devel
+./configure --with-librrd=/opt/rrdtool-1.4.7 --with-gmetad --sysconfdir=/etc/ganglia && make -j8 && make install
+/sbin/ldconfig -v
+
+cp -f /usr/local/sbin/gmond /usr/sbin/;cp -f /usr/local/sbin/gmetad /usr/sbin/
+cd /home/hadoop/app/ganglia-3.4.0/   # you should already be in this directory
+mkdir -p /var/www/html/ganglia/  # make sure you have apache installed
+cp -a /home/hadoop/app/ganglia-web-3.5.4/* /var/www/html/ganglia/   # this is the web interface
+cp gmetad/gmetad.init /etc/rc.d/init.d/gmetad  # startup script
+cp gmond/gmond.init /etc/rc.d/init.d/gmond
+mkdir /etc/ganglia  # where config files go
+gmond -t | tee /etc/ganglia/gmond.conf  # generate initial gmond config
+cp gmetad/gmetad.conf /etc/ganglia/  # initial gmetad configuration
+mkdir -p /var/lib/ganglia/rrds;mkdir -p /var/lib/ganglia/dwoo/compiled;mkdir -p /var/lib/ganglia/dwoo/cache;
+chown -R daemon:daemon /var/lib/ganglia;chmod -R 777 /var/lib/ganglia  # make sure RRDTool can write here.
+chkconfig --add gmetad  # make sure gmetad starts up at boot time
+chkconfig --add gmond # make sure gmond starts up at boot time
+
+
+#服务器端配置文件gmetad.conf，主要是配置data_source参数。它设定了被监控端服务器的地址及端口，可以指定多个被监控端服务器：
+data_source “hadoop” 192.168.10.83
+grid_name “hadoop cluster status”    /*设置一个web前端显示的名称，随意命名。
+#被监控节点不需要安装RRDTOOL，php等，只需要gmond。编译安装方式跟监控节点一样，但configure时要简单一些，下面一条命令即可：
+#apr  libconfuse  pcre
+./configure --sysconfdir=/etc/ganglia && make -j8 && make install
+cp -f /usr/local/sbin/gmond /usr/sbin/;cp gmond/gmond.init /etc/rc.d/init.d/gmond;ip route add 239.2.11.71 dev eth0;
+chkconfig --add gmond
+#被监控节点配置文件gmond.conf：命名一个cluster名称，名称与gmetad.conf中的data_source保持一致。我的命名：name = "hadoop"   owner = "daemon" #关键
+#然后，修改tcp_accept_channel配置段如下：
+tcp_accept_channel {
+ port = 8649
+ acl {
+    default = "deny"
+    access {
+      ip = 192.168.10.83
+      mask = 24
+      action = "allow"
+      }
+   }
+}
+#配置网卡 解决组播问题 （据说只有虚拟机有问题）
+#     vi /etc/sysconfig/network-scripts/route-eth0
+#     插入
+#     239.2.11.71 dev eth0
+#     重启网络 service network restart
+#ip route add 239.2.11.71 dev eth0       因为239.2.11.71是ganglia默认的多点传输通道，所以要加一条路由使它通过  route add -host 239.2.11.71 dev eth0
+
+#修改web前端配置文件/var/www/html/conf.php，指定gmetad中存储rrd图形的目录，以及rrdtool的位置：
+gmetad_root
+rrds
+rrdtool    指定rrdtool命令路径  /opt/rrdtool-1.4.7/bin/rrdtool
+
+service gmond start
+service gmetad start
+service httpd restart
+
+调试使用gmetad -d9和gmond -d9  查看系统的信息
+验证gmetad正常工作(可以得到监控的各个主机的状态)：telnet localhost 8651
+验证gmond正常工作(可以得到机群内运行gmond的主机的信息)：telnet localhost 8649
+如果能够打印出xml说明系统正常
+netstat -ntl
+netstat -nul
+
+for i in 'node01' 'node02'; do
+scp /etc/ld.so.conf.d/usrlocallib.conf $i:/etc/ld.so.conf.d/usrlocallib.conf
+
+ssh $i mkdir -p /etc/ganglia/
+scp /etc/ganglia/gmond.conf $i:/etc/ganglia/gmond.conf
+scp /usr/sbin/gmond $i:/usr/sbin/gmond
+scp /etc/init.d/gmond $i:/etc/init.d/gmond
+
+scp /lib64/libexpat.so.0 $i:/lib64/
+scp /usr/local/lib/libapr-1.so.0 $i:/usr/lib/
+scp /usr/local/lib/libpcre.so.1 $i:/usr/lib/
+
+scp /usr/local/lib64/libganglia-3.4.0.so.0 $i:/usr/lib64/
+scp -r /usr/local/lib64/ganglia $i:/usr/local/lib64/
+
+ssh $i ldconfig;ip route add 239.2.11.71 dev eth0;service gmond start
+done

@@ -1,0 +1,54 @@
+select * from `erp_instore` where id=121431
+
+update `erp_instore` set checkstate='4' where id=110620;
+update `erp_instore` set checkstate='4' where id=110614 or id=110618;
+update `erp_instore` set checkstate='4' where id in(126508,128067,132947,132948,132949,132952,132953,133618,133801,134374,134377,135686,135687);
+
+
+SELECT * FROM `erp_outstore` WHERE id=5735
+update `erp_outstore` set farecheckstate='4' where id=5735;
+update `erp_outstore` set farecheckstate='4' where id in(2737,2740,2741,2742,2743,3019,3022,3029,3030,3031,3032,3044,3167,3177,3182,3189,3190,3962,3965)
+
+
+
+htpasswd -D /opt/passwd hxxd
+htpasswd -bm /opt/passwd hxx hxx1314520
+htpasswd -D /opt/passwd zhangyi
+htpasswd -bm /opt/passwd zhangyi 1314520
+
+
+银行卡
+SELECT *
+FROM  `erp_cardrecord`
+LIMIT 0 , 30
+
+付款    print_flag  stat 1未申请，2等待审核，3同意，4拒绝，5最终确认
+SELECT *
+FROM  `erp_fkself`
+LIMIT 5550 , 30
+
+SELECT *
+FROM  `erp_gscardinfo`
+LIMIT 2880 , 30
+
+select * from `erp_fkself` where id in(6517,6518,6519,6521);
+update `erp_fkself` set cardid=4 where id in(6517,6518,6519,6521);
+select * from `erp_gscardinfo` where id in(3091,3092,3093,3095);
+update `erp_gscardinfo` set cardid=4 where id in(3091,3092,3093,3095);
+
+
+select * from `erp_fkself` where print_flag in(1894,1895,1896,1897,1898,1899);
+update `erp_fkself` set stat=4 where print_flag in(1894,1895,1896,1897,1898,1899);
+
+
+
+
+22	麒麟门
+id 自增id	name 姓名	yardid 默认为‘0’表示全货场共用，否则属于某货场供货人	contact 联系方式	idinfo 身份证	address 住址	note 银行卡信息	author 填写人	createdtime 创建时间	s_papercorid 关联纸厂id	status 录记状态，“1”表示删除	kh_name	kh_bank	kh_cardinfo
+ 	马圣平	22	13853258794	 	 	 	27		 	0
+
+
+
+SELECT *
+FROM  `erp_gssupplierinfo`
+LIMIT 0 , 30

@@ -1,0 +1,175 @@
+现在每天生成的数据（原始表，中间表，结果表）大小：193.6031454Ｇ
+
+近来在测试Hadoop时, 使用NameNode身上的dfshealth.jsp 管理页面发现,DataNode在运行的过程中, Last Contact 参数时常会超过3。LC（Last Contact）的意思是表明DataNode有多少秒的时间未向NameNode发送心跳包了. 然而默认DataNode是3秒发送一次, 我们都知道，NameNode默认以10分钟作为DN的死亡超时时间，那么究竟有哪些因素会导致JSP管理页面LC参数超过3，甚至会达到200以上，这样的情况对我们的系统的稳定运行究竟有没有影响？
+问题的根源还是在于我在Datanode上使用了RAID阵列，导致磁盘IO的吞吐量大大降低。 从而在DU与DF过程中，导致系统IOWait激增。
+
+JBOD（Just a Box of Disks）
+在Hadoop邮件列表中，一个经常出现的问题是“为什么Hadoop更青睐使用一组单独的硬盘（JBOD）而不使用通过RAID-0磁盘阵列管理的一组硬盘？”
+RAID-0又称为Stripe或Striping，其原理是把连续的数据分散到多个磁盘上存取，这样，系统有数据请求就可以被多个磁盘并行的执行，每个磁盘执行属于它自己的那部分数据请求。这种数据上的并行操作可以充分利用总线的带宽，显著提高磁盘整体存取性能。多年应用下来，RAID-0优势很明显。
+此外，RAID条带(RAID 0)常用于增加性能，但却比HDFS中用到的JBOD(Just a Bunch Of Disks)要慢，而且JBOD在所有的磁盘之间对HDFS块进行时间片的轮转。具体说，RAID 0读写操作受限于冗余磁盘阵列中最慢的那个磁盘的速度。在JBOD中，磁盘的操作是独立的，所以读写操作的平均速度要大于最慢磁盘的速度。实际应用中，磁盘性能多是可以改变的，即使是同一型号的磁盘。在Yahoo Hadoop Cluster的Benchmark中，测试Gridmix显示JBOD要比RAID 0快10%，另一个测试显示快30%(这里的测试指的是HDFS的写能力。
+最后，当一个JBOD配置中的一个磁盘失效，HDFS可以继续操作；但是在RAID中，一个磁盘的失效将会导致整个阵列(节点也一样)变得不再可用。
+FSVolume represents the single directory specified at dfs.data.dir. This code places the blocks in round-robin fashion into multiple disks, while considering the available disk capacities.
+One more thing. If the disk utilization reaches the 100%, the other important data (c,f. error log) cannot be written. To prevent this, Hadoop prepares the "dfs.datanode.du.reserved" value. When calculating the disk capacity in Hadoop, this value is always subtracted from the real capacity. Setting this value as severay hundreds of megabytes would be safe.
+This is the default strategy of Hadoop, but I think considering the disk load avg would be better. If one disk is busy, Hadoop should avoid to use that disk. However, the block distribution would not be same across the disks in this method. Therefore, the read performance will drop. This is a very difficult problem. Do you come up with a better strategy?
+
+#其他=================================================================================================
+上传下载文件：rz -bey            sz
+
+该命令的一般格式为： echo [ -n ] 字符串
+其中选项n表示输出文字后不换行；字符串能加引号，也能不加引号。用echo命令输出加引号的字符串时，将字符串原样输出；用echo命令输出不加引号的字符串时，将字符串中的各个单词作为字符串输出，各字符串之间用一个空格分割。
+
+用法: svn <subcommand> [options] [args]
+查看系统是64位还是32位: getconf LONG_BIT        file /bin/ls
+
+iostat -dkxt 5 3 |grep sddlmaa1
+sar [options] [-A] [-o file] t [n]
+　　　　　　-u：CPU利用率
+　　　　　　-d：硬盘使用报告。
+1. 若 %iowait 的值过高，表示硬盘存在I/O瓶颈
+2. 若 %idle 的值高但系统响应慢时，有可能是 CPU 等待分配内存，此时应加大内存容量
+3. 若 %idle 的值持续低于1，则系统的 CPU 处理能力相对较低，表明系统中最需要解决的资源是 CPU 。
+
+#setuid setgid可能带来安全风险，如何查找系统中属于root用户的setuid文件?
+find / -user root -perm -4000 -print
+
+#网络=================================================================================================
+做完网络一定用ethtool工具看一下协商好的网卡速率有多少
+ethtool ethX
+#清空iptables规则
+/sbin/iptables -P INPUT ACCEPT
+/sbin/iptables -F
+iptables -L
+
+修改对应网卡的DNS的配置文件
+# vi /etc/resolv.conf
+
+设置DNS       /etc/resolv.conf    nameserver 202.102.24.35   /etc/init.d/network restart
+/etc/hosts ：這個是最早的 hostname 對應 IP 的檔案；
+/etc/resolv.conf ：這個重要！就是 ISP 的 DNS 伺服器 IP 記錄處；
+/etc/nsswitch.conf：這個檔案則是在『決定』先要使用 /etc/hosts 還是 /etc/resolv.conf 的設定！
+/etc/sysconfig/network-scripts/
+/etc/named.conf ：这就是我们的主设定档啦！
+/etc/sysconfig/named ：是否启动chroot 及额外的参数，就由这个档案控制；
+/var/named/ ：资料库档案预设放置在这个目录
+/var/run/named ：named 这支程式执行时预设放置pid-file 在此目录内。
+
+whois [domainname]        dig +trace www.baidu.com
+/etc/init.d/named start
+netstat -utlnp | grep named
+service nscd restart   # /etc/init.d/nscd restart       如果是清除BIND服务器上的CACHE，用这个命令:# rndc flush
+一般最上层领域名称(Generic TLDs, gTLD)：例如.com, .org, .gov 等等
+国码最上层领域名称(Country code TLDs, ccTLD)：例如.tw, .uk, .jp, .cn 等
+哇！真是好麻烦～不过，不要太担心！因为新版本的CentOS 6.x 已经将chroot 所需要使用到的目录，透过mount --bind 的功能进行目录连结了(参考/etc/init.d/named 内容)，举例来说，我们需要的/ var/named 在启动脚本中透过mount --bind /var/named /var/named/chroot/var/named 进行目录绑定啰！所以在CentOS 6.x 当中，你根本无须切换至/var/named/chroot/ 了！使用正规的目录即可喔！就是这样简单！^_^
+上面比较重要的是那个『bind-chroot』啦！所谓的chroot代表的是『 change to root(根目录) 』的意思，root代表的是根目录。早期的bind预设将程序启动在/var/named当中，但是该程序可以在根目录下的其他目录到处转移，因此若bind的程式有问题时，则该程序会造成整个系统的危害。为避免这个问题，所以我们将某个目录指定为bind程式的根目录，由于已经是根目录，所以bind便不能离开该目录！所以若该程序被攻击，了不起也是在某个特定目录底下搞破坏而已。 CentOS 6.x预设将bind锁在/var/named/chroot目录中喔！
+SOA：就是开始验证(Start of Authority) 的缩写，相关资料本章后续小节说明；
+NS：就是名称伺服器(NameServer) 的缩写，后面记录的资料是DNS 伺服器的意思；
+A：就是位址(Address) 的缩写，后面记录的是IP 的对应(最重要)；
+Fully Qualified Domain Name, FQDN
+主机名称. IN A IPv4 的IP 位址
+主机名称. IN AAAA IPv6 的IP 位址
+领域名称. IN NS 管理这个领域名称的伺服器主机名字.
+领域名称. IN SOA 管理这个领域名称的七个重要参数(容后说明)
+领域名称. IN MX 顺序数字接收邮件的伺服器主机名字
+主机别名. IN CNAME 实际代表这个主机别名的主机名字.
+PTR记录常被用于反向地址解析。PTR (Pointer Recore)，指针记录  PTR：就是指向(PoinTeR) 的缩写，后面记录的资料就是反解到主机名
+named.ca (由bind 软体提供的. 正解档)
+
+
+#系统软件=================================================================================================
+#在linux如何查找安装软件的路径：如果是rpm包安装的话，可以使用rpm -qal查询一下。
+163的yum源： wget http://mirrors.163.com/.help/CentOS-Base-163.repo
+修改CentOS-Base.repo  （不修改会报错），下载到本地把“$releasever”，替换成“5”
+
+rpm -ivh   rpm -Uvh *     rpm -import http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-5
+cd /etc/yum.repos.d/   #wget http://mirrors.163.com/.help/CentOS-Base-163.repo
+yum clean metadata            yum makecache
+yum install heartbeat --nogpgcheck
+wget http://mirrors.sohu.com/fedora-epel/6/x86_64/epel-release-6-8.noarch.rpm
+wget http://mirrors.sohu.com/fedora-epel/5/x86_64/epel-release-5-4.noarch.rpm
+rpm -ivh epel-release-6-8.noarch.rpm
+rpm -e --nodeps libevent-1.4.13-1
+
+yum install subversion  yum install -y mysql-devel
+http://cdn.mysql.com/Downloads/MySQL-5.1/MySQL-server-community-5.1.68-1.rhel5.x86_64.rpm
+http://cdn.mysql.com/Downloads/MySQL-5.1/MySQL-devel-community-5.1.68-1.rhel5.x86_64.rpm
+whereis mysql
+
+/sbin/ldconfig -v
+#没有指定 --prefix=/usr 这样glib库就装到了/usr/local下，需要在/etc/ld.so.conf中添加/usr/local/lib
+#vi /etc/ld.so.conf.d/usrlocallib.conf     /usr/local/lib  /usr/local/lib64
+
+#磁盘=================================================================================================
+安装ext4格式工具
+[root@locatfs local]# yum install  e4fsprogs e4fsprogs-devel
+加载ext4模块，让系统支持ext4文件系统
+[root@locatfs local]#  modprobe ext4
+
+fdisk -l /dev/sda
+rpm -qa |grep lvm
+#fdisk -l      //查看是否识别挂上的硬盘
+#vgscan    //扫描卷组
+#vgdisplay     //显示所有卷组
+#lvscan    //查看挂载的磁盘的卷组是否处于激活的状态
+#vgchange -ay /dev/VolGroup00    //如上步看到没有激活，则执行此命令
+#mkdir  /mnt/hdb    //创建挂载点的文件夹
+#mount  /dev/VolGroup00/LogVol00   /mnt/hdb    // 挂载，挂载后则可以访问/mnt/hdb
+#umount  /mnt/hdb    //卸载磁盘
+#vgchange -an /dev/VolGroup00    //去除挂载磁盘卷组的激活状态
+lvmdiskscan
+df -Th    mount    #查看linux的文件系统是什么格式
+
+linux用dd测试磁盘速度
+首先要了解两个特殊的设备：
+/dev/null：回收站、无底洞
+/dev/zero：产生字符   一个虚拟的设备，顾名思义，里边的数据全是0
+bs=10m： 表示每次读取的块大小为10M,这个数值的大小跟内存有关，如果你要每次读1G的数据再写我也不反对，只要你的内存够大。  bs=BYTES  force ibs=BYTES and obs=BYTES
+? 测试磁盘写能力
+time dd if=/dev/zero of=/test.dbf bs=8k count=300000
+因为/dev//zero是一个伪设备，它只产生空字符流，对它不会产生IO，所以，IO都会集中在of文件中，of文件只用于写，所以这个命令相当于测试磁盘的写能力。
+? 测试磁盘读能力
+time dd if=/dev/sdb1 of=/dev/null bs=8k
+因为/dev/sdb1是一个物理分区，对它的读取会产生IO，/dev/null是伪设备，相当于黑洞，of到该设备不会产生IO，所以，这个命令的IO只发生在/dev/sdb1上，也相当于测试磁盘的读能力。
+? 测试同时读写能力
+time dd if=/dev/sdb1 of=/test1.dbf bs=8k
+这个命令下，一个是物理分区，一个是实际的文件，对它们的读写都会产生IO（对/dev/sdb1是读，对/test1.dbf是写），假设他们都在一个磁盘中，这个命令就相当于测试磁盘的同时读写能力。
+
+#如何限定一个特定目录的大小，又不愿意重新分区，我想quota应该可以实现，但没有试过。于是又推荐了另一种办法，那就是用loop文件系统。    quota没法设定目录的限额，只能设定分区的~
+#这样作的效率问题。。。ext3──loop──ext3.。尤其是10G的大家伙。。
+#如果平时应急，做做实验是没问题的，但是实际使用恐怕很危险。
+#还是建议搭服务器之前谨慎设定好分区。
+
+对目录进行限额的缺点
+1.使用前需要指定空间大小，并且无法更改
+2.并不是所有的文件系统都支持，比如nfs，gluster类似的网络文件系统不支持
+例子，设置一个目录大小为1GB
+1.划出1GB的数据块
+dd if=/dev/zero of=/dd bs=1M count=1024
+2.对数据块进行格式化
+mkfs.ext3 /dd
+3.挂载数据块
+mkdir /mnt/dd
+mount -o loop /dd /mnt/dd
+4.查看 df -h
+/dd          1008M   34M  924M   4% /mnt/dd
+出现类似于这样的说明挂载成功
+5、為了確保在系統啟動的進時也要掛載，就要在/etc/rc.local最後增加
+mount -o loop /1Gfile.loop /1Gdir
+
+
+回环设备（ 'loopback device'）允许用户以一个普通磁盘文件虚拟一个块设备。设想一个磁盘设备，对它的所有读写操作都将被重定向到读写一个名为 disk-image 的普通文件而非操作实际磁盘或分区的轨道和扇区。（当然，disk-image 必须存在于一个实际的磁盘上，而这个磁盘必须比虚拟的磁盘容量更大。）回环设备允许你这样使用一个普通文件。
+创建一个用于承载虚拟文件系统的空文件。这个文件的大小将成为挂载后文件系统的大小。
+创建指定大小文件的简单方法是通过 dd 命令。这个命令以块为单位（通常为 512 字节）从一个文件向另一个文件复制数据。/dev/zero 文件则是一个很好的数据来源。要建立一个 10 MB 大的名为 disk-image 的文件可以通过以下命令：% dd if=/dev/zero of=/tmp/disk-image count=20480
+# dd if=/dev/zero of=loopfile.img bs=1G count=1
+1073741824 bytes (1.1 GB) copied, 69.3471 s, 15.5 MB/s
+对该文件格式化为 ext4 格式：
+# mkfs.ext4 loopfile.img
+用 file 命令查看下格式化后的文件类型：
+# file loopfile.img
+准备将上面的文件挂载起来：
+# mkdir /mnt/loopback
+# mount -o loop loopfile.img /mnt/loopback
+然而对于方法(mount -o loop)并不能适用于所有的场景。比如，我们想创建一个硬盘文件，然后对该文件进行分区，接着挂载其中一个子分区，这时就不能用 -o loop 这种方法了。因此必须如下做：
+# losetup /dev/loop1 loopfile.img
+# fdisk /dev/loop1
+6. 卸载挂载点
+# umount /mnt/loopback

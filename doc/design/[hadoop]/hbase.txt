@@ -1,0 +1,1417 @@
+http://www.baidu-tech.com
+http://www.searchtb.com/
+http://highscalability.com/blog/2009/8/24/how-google-serves-data-from-multiple-datacenters.html
+
+#集群状况下Hadoop并不是必须做ssh密钥，除非需要单点启动    hadoop存储策略以服务器为单位，不以硬盘为单位
+#todo:
+	hadoop, hbase, zookeeper的安全
+	hadoop 多用户
+
+#hbase的mapred
+	easy, 和hadoop没啥差别
+#压缩：
+#源日志必须压缩，lzo方式，统一配置core-site（io.compression.codecs，io.compression.codec.lzo.class）
+#单个mr中间结果必须压缩，snappy/lzo，统一配置mapred-site（mapred.compress.map.output，mapred.map.output.compression.codec）
+#job内的多个mr任务见的中间结果压缩：hadoop:统一配置mapred-site(mapred.output.compression.type,mapred.output.compression.codec)，语言控制SET mapred.output.compress=true;hive：统一配置hive-site（hive.exec.compress.intermediate，hive.intermediate.compression.codec），
+#job输出不压缩（hive:建表控制rcfile）
+#hbase压缩（snappy压缩，数据量大小、列簇）hadoop core包里面含有了snappy类
+压缩比较数据
+	Compression	File	Size (GB)	Compression Time (s)	Decompression Time (s)
+	None	some_logs	8.0	-	-
+	Gzip	some_logs.gz	1.3	241	72
+	LZO	some_logs.lzo	2.0	55	35
+
+	Algorithm	% remaining	Encoding	Decoding
+	GZIP	13.4%	21 MB/s	118 MB/s
+	LZO	20.5%	135 MB/s	410 MB/s
+	Zippy/Snappy	22.2%	172 MB/s	409 MB/s
+#prepare    当要拷贝原样时，用 cp -rP   当要拷贝文件，而非link时，cp -rL   解压指定目录  tar -zxf lib.tar.gz -C /home/hadoop/tmp
+sudo mkdir -p /home/tmp;sudo chmod 777 /home/tmp;
+echo '/usr/local/lib'>/etc/ld.so.conf.d/usrlocallib.conf
+echo '/usr/local/lib64'>>/etc/ld.so.conf.d/usrlocallib.conf
+/sbin/ldconfig
+#snappy
+yum -y install gcc automake autoconf libtool make gcc-c++
+wget https://snappy.googlecode.com/files/snappy-1.0.5.tar.gz
+tar -zxf snappy-1.0.5.tar.gz ;cd snappy-1.0.5;./configure; make; make check; make install
+cp -f /usr/local/lib/libsnappy* /home/hadoop/hadoop-1.0.4/lib/native/Linux-amd64-64/
+cp -f /usr/local/lib/libsnappy* /home/hadoop/hadoop-1.0.4/lib/native/Linux-i386-32/
+chown -R hadoop:hadoop /home/hadoop/hadoop-1.0.4/lib/native/
+
+#mkdir -p /home/hadoop/hbase-0.94.2-security/lib/native/Linux-amd64-64/;
+#cp -f /usr/local/lib/libsnappy* /home/hadoop/hbase-0.94.2-security/lib/native/Linux-amd64-64/
+#cp -f /usr/local/lib/libsnappy* /home/hadoop/hbase-0.94.2-security/lib/native/Linux-i386-32/
+#chown -R hadoop:hadoop /home/hadoop/hbase-0.94.2-security/lib/
+#无需这个，已经引入了hadoop的nativelib，除非不在一起部署
+
+#lzo
+wget http://www.oberhumer.com/opensource/lzo/download/lzo-2.06.tar.gz
+tar -zxf lzo-2.06.tar.gz ;cd lzo-2.06;./configure --enable-shared && make && make install
+ldconfig
+
+#export LDFLAGS=-L/usr/local/lzo/lib;export CPPFLAGS=-I/usr/local/lzo/include;export LD_LIBRARY_PATH=/usr/local/lzo/lib;export C_INCLUDE_PATH=/usr/local/lzo/include; export LIBRARY_PATH=/usr/local/lzo/lib;
+wget http://www.lzop.org/download/lzop-1.03.tar.gz
+tar -zxf lzop-1.03.tar.gz ;cd lzop-1.03;./configure; make; make install
+ldconfig
+#hadooplzo    移除低版本的ant或升级   yum erase ant.i386
+wget http://apache.dataguru.cn//ant/binaries/apache-ant-1.8.4-bin.tar.gz
+tar -zxf apache-ant-1.8.4-bin.tar.gz
+
+#The code is currently maintained by Kevin Weil and Todd Lipcon.  For completeness, there is one more distribution at http://github.com/toddlipcon/hadoop-lzo.  AFAIK, the Todd Lipcon's and Kevin Weil's distribution are synced.
+#Most of the differences with google's code are bug fixes: the lzo file format itself had not changed and you can actually read the files created with lzop (the LZO command line tool).   Their are no version compatibility issues currently.
+#wget --no-check-certificate https://hadoop-gpl-compression.apache-extras.org.codespot.com/files/hadoop-gpl-compression-0.1.0-rc0.tar.gz
+#tar -zxf hadoop-gpl-compression-0.1.0-rc0.tar.gz ;cd hadoop-gpl-compression-0.1.0;
+
+#wget --no-check-certificate https://github.com/kevinweil/hadoop-lzo/archive/master.tar.gz
+wget --no-check-certificate https://github.com/kevinweil/hadoop-lzo/archive/master.zip
+#unzip hadoop-lzo-master.zip;cd hadoop-lzo-master/;
+unzip master ;cd hadoop-lzo-master/;
+
+#若是32位系统，执行：若是64位系统，执行：
+export JAVA_HOME=/home/hadoop/jdk1.6.0_25/;export CFLAGS=-m64; export CXXFLAGS=-m64;
+#export JAVA_HOME=/home/hadoop/jdk1.6.0_25/;export CFLAGS=-m32; export CXXFLAGS=-m32;
+
+rm -rf hadoop-gpl-compression-0.1.0.jar lib/native/ lib/hadoop-core-0.20.2-cdh3u1.jar;cp /home/hadoop/hadoop-1.0.4/*.jar ./lib/;
+rm -f /usr/bin/java /usr/bin/jar /usr/bin/javac /usr/bin/javadoc;
+ln -s  /home/hadoop/jdk1.6.0_25/bin/java /usr/bin/java;
+ln -s  /home/hadoop/jdk1.6.0_25/bin/jar /usr/bin/jar;
+ln -s  /home/hadoop/jdk1.6.0_25/bin/javac /usr/bin/javac;
+ln -s  /home/hadoop/jdk1.6.0_25/bin/javadoc /usr/bin/javadoc;
+#cp 改动的代码
+/root/apache-ant-1.8.4/bin/ant compile-native tar
+#cp -f build/hadoop-gpl-compression-0.1.0-dev.jar /home/hadoop/hadoop-1.0.4/lib;
+#cp -f build/hadoop-gpl-compression-0.1.0-dev/lib/native/Linux-amd64-64/* /home/hadoop/hadoop-1.0.4/lib/native/Linux-amd64-64/;
+#cp -f build/hadoop-gpl-compression-0.1.0-dev/lib/native/Linux-i386-32/* /home/hadoop/hadoop-1.0.4/lib/native/Linux-i386-32/;
+rm -f /home/hadoop/hadoop-1.0.4/lib/hadoop-gpl-compression-0.1.0-dev.jar /home/hadoop/hadoop-1.0.4/lib/native/*/libgplcompression*;
+cp -f build/hadoop-lzo-0.4.15.jar /home/hadoop/hadoop-1.0.4/lib;
+cp -f build/hadoop-lzo-0.4.15/lib/native/Linux-amd64-64/* /home/hadoop/hadoop-1.0.4/lib/native/Linux-amd64-64/;
+cp -f build/hadoop-lzo-0.4.15/lib/native/Linux-i386-32/* /home/hadoop/hadoop-1.0.4/lib/native/Linux-i386-32/;
+
+chown -R hadoop:hadoop /home/hadoop/hadoop-1.0.4/lib/;
+#/home/hadoop/hadoop-1.0.4/bin/hadoop dfs -rmr -skipTrash /jar/hadoop-lzo-0.4.15.jar;
+/home/hadoop/hadoop-1.0.4/bin/hadoop fs -put /home/hadoop/hadoop-1.0.4/lib/hadoop-lzo-0.4.15.jar  /jar/hadoop-lzo-0.4.15.jar;
+
+add jar hdfs://jobtracker:3001/jar/hadoop-lzo-0.4.15.jar;
+add jar hdfs://namenode:3001/jar/hadoop-lzo-0.4.15.jar;
+#CREATE TABLE s_asconf
+#(
+#  MOBILE      STRING,
+#  CREATETIME      STRING,
+#  SEND_TIME      STRING,
+#  SEND_TYPE      STRING,
+#  STATUS      STRING,
+#  QX_TIME      STRING,
+#  CUSTOMER_ID      STRING,
+#  OPR_SRC      STRING,
+#  BRAND_TYPE      STRING,
+#  PROV_CONTENT      STRING,
+#  CITY_CONTENT      STRING,
+#  BOSS_PROCESS_TIME      STRING,
+#  SEND_PERIOD      STRING,
+#  IS_SEND_WEEKLY   STRING
+#)
+#PARTITIONED BY(dt STRING)
+#ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+#STORED AS INPUTFORMAT "com.hadoop.mapred.DeprecatedLzoTextInputFormat"
+#          OUTPUTFORMAT "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat";
+ALTER TABLE s_asconf
+SET FILEFORMAT
+    INPUTFORMAT "com.hadoop.mapred.DeprecatedLzoTextInputFormat"
+    OUTPUTFORMAT "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat";
+#    INPUTFORMAT "com.hadoop.mapreduce.LzoTextInputFormat"
+# alter table后对已经load进表中的数据，需要重新load和创建索引，要不还是不能分块
+#/home/hadoop/hadoop-1.0.4/bin/hadoop fs -mv /user/hive/warehouse/s_asconf/dt=20121130/asconf.lzo /home/tmp/stats/asconf/20121130/asconf.lzo
+/home/hadoop/hadoop-0.20.203.0/bin/hadoop fs -getmerge /user/hive/warehouse/s_asconf/dt=20121130 /home/hadoop/tmp/asconf.txt
+#ALTER TABLE s_asconf DROP PARTITION (dt='20121130');
+
+lzop -v asconf.txt             lzop -v -o ff.lzo TD_SURF_ASSISTANT_CONFIG_20121130.txt  -p/home/hadoop/hadoop-hadoop/
+/home/hadoop/hadoop-0.20.203.0/bin/hadoop fs -put /home/hadoop/tmp/asconf.txt.lzo /home/tmp/stats/asconf/20121130/asconf.lzo
+LOAD DATA INPATH '/home/tmp/stats/asconf/20121130/asconf.lzo' OVERWRITE INTO TABLE s_asconf PARTITION (dt='20121130');
+/home/hadoop/hadoop-0.20.203.0/bin/hadoop jar /home/hadoop/hadoop-0.20.203.0/lib/hadoop-lzo-0.4.15.jar com.hadoop.compression.lzo.LzoIndexer /user/hive/warehouse/s_asconf/dt=20121130
+
+#hive zip
+select count(*) from s_asconf where dt='20121130';
+select * from s_asconf limit 50;
+#To enable Snappy compression for Hive output when creating SequenceFile outputs, use the following settings:#SET hive.exec.compress.output=true;
+SET mapred.output.compress=true;
+
+#hbase
+#org.apache.hadoop.hbase.util.FileSystemVersionException: File system needs to be upgraded.  You have version null and I want version 7.     後來我把/hbase整個衣料夾刪除就好，主要應該是HBase突然斷掉，造成/hbase/hbase.version檔案遺失，
+#/home/hadoop/hadoop-1.0.4/bin/hadoop dfs -rmr -skipTrash /hbase
+/home/hadoop/hbase-0.94.2-security/bin/hbase org.apache.hadoop.hbase.util.CompressionTest file:///tmp/testfile snappy
+
+create 't2', {NAME=>'cf', COMPRESSION=>'SNAPPY'}
+describe 't2'
+alter 't1', {NAME => 'cf', COMPRESSION => 'SNAPPY'}
+
+#运维=============================================================================================
+每进程可用线程数 = VIRT上限/stack size，其中 VIRT 上限: 32位x86 = 3G 64位x64=64G，statck size 默认是 10240 因此在默认情况下32位系统上单进程最多可以创建300个线程，64系统在内存充足的情况下最多可以创建 6400 个线程。
+首先检查使用 ps -fe |grep programname 查看获得进程的pid，再使用 ps -Lf pid 查看对应进程下的线程数，发现数值为303，远小于实际应该的数量。于是初步判断是由于线程数不够造成的原因。查找资料发现可以通过设置 ulimit -s 来增加每进程线程数。ps -eLf
+
+kill -9 `ps -ef|grep 'HWIServer'|grep -v grep|awk '{print $2}'`
+update td_hive_report_task set flag=0 where  task_date='20120618' and report_name='redirectAnalyse'
+/home/hadoop/hadoop-1.0.4/bin/hadoop jar ./tmp/HiveReportTask.jar redirectdetail 20120618
+node01: /home/hadoop/hbase-0.94.2-security/bin/hbase-daemon.sh: line 155: echo: write error: 设备上没有空间
+hbase启动不了：
+	检查jdk，检查iptables，检查磁盘空间，检查cpu位数，检查hbase、zookeeper的版本
+	hbase094+zk344+jdk7有问题，换jdk6可以，或原来092+335+jdk7是可以的
+DataNode: Waiting for threadgroup to exit, active threads is 1
+	hdfs web页面上面显示dead node,但是实际上这个datanode进程还存活。原因估计也是因为不能够分配足够的内存出现这些问题的吧。和用户线程数这个系统核心参数有关，ulimit -u。      hadoop的data目录可以配置本地和挂载的，若要保留本地可用空间，可以把本地目录配置为其他用户的让这个目录失效，或单独划分目录。
+snn和nn的通信是依赖于http通信的，所以要注意指定dfs.http.address   dfs.secondary.http.address
+但是对于多ip或网卡，有些需要暴露到公网上的，则需要对2台机器的配置文件分别配置
+
+在使用start-balancer.sh时，如果在hdfs-site.xml里面没有配置dfs.balance.bandwidthPerSec，那么集群hdfs内部默认使用1M/S的速度移动数据(so slowly...)，我们可以通过在hdfs-site.xml里面配置dfs.balance.bandwidthPerSec来加快balance的速度。最开始我们配置的是20m/S, 然后结果是导致job运行变得不稳定，出现一些意外的长map单元，某些reduce时间处理变长(整个集群负载满满的情况下，外加20m/s的balance)，在前天的中国hadoop年会上听淘宝调整的为10m/s，需要调整后实验，看看情况如何。
+
+namenode，jobtracker，
+端口：
+	namenode：50070     50075（文件，受控开放）
+	snn:dfs.secondary.http.address  50090
+	jobtracker：50030   50060
+	hbase：60000（内） 60010  60030
+	hive：10000（内） 9999
+	50030 50060 50070 50075 50090 60010 60030 9999
+	zk+nn+hm		112.4.20.166:  50070  60010			master1
+	zk+snn+hmb+jt1+hi	112.4.20.167:  50070  60010 50090  50030 9999	master2
+	zk+jt2+tt+hb+hi+dn	112.4.20.168:  50030  50060  60030  9999	master3
+	zk+jt3+tt+hb+hi+dn	112.4.20.169:  50030  50060  60030  9999	master4
+	zk+dn+tt+hb		112.4.20.170:  50075  50060  60030		master5
+
+Master	60000	hbase.master.port	External	TCP	IPC
+Master	60010	hbase.master.info.port	External	TCP	HTTP
+RegionServer	60020	hbase.regionserver.port	External	TCP	IPC
+RegionServer	60030	hbase.regionserver.info.port	External	TCP	HTTP
+
+
+
+org.apache.hadoop.hbase.client.RetriesExhaustedException: Failed setting up proxy interface org.apache.hadoop.hbase.ipc.HRegionInterface to node02/192.168.10.217:60020 after attempts=1
+	可以看出，这台regionserver机器启动成功了，但是RPC的监听ip地址却是本机的地址（127.0.0.1）。这样的话，master机器就无法与这台regionserver正常通信了，正确的监听地址应该是192.168.10.217才对。
+	127.0.0.1            node02   localhost.localdomain localhost	需要去掉node02
+tasktracker 会自动复活，datanode最好尽快杀掉重启
+TaskTracker经常出现OOM或者网络阻塞等现象，严重时，可能会把机器搞挂！
+hadoop的name目录不要自己创建，不然Format aborted in /home/hadoop/dfs/name
+Invalid directory in dfs.data.dir: Incorrect permission for /home/hadoop/dfs/data, expected: rwxr-xr-x, while actual: rwxrwxr-x
+	    所有的权限都是775，果然不是755，仔细一想，是umask问题。umask后发现权限是0002，果然如此，修改umask为0022。
+
+-Duser.name=huangxx@c-platform.com
+apache 老版本   http://archive.apache.org/dist/
+设计系统时, 应该要做容量规划与扩容方案.
+文件大小和记录条数的算法
+	apache文件大小   3473379759   记录条数 14564142  每条记录平均计算大小  240字节
+	手机号码文件大小 335126076   每条记录 11 个字符 加一个换行符   27927173   每条记录平均计算大小  12个字节
+
+Binding to 0.0.0.0 means to listen to all interfaces.
+linux删除带有特殊字符的目录
+	To remove a file whose name starts with a `-', for example `-foo',use one of these commands:
+	rm -- -foo
+	rm ./-foo	如果是其他特殊字符的话可以在特殊字符前加一个“”符号，或者用双引号把整个文件名括起来。
+ll -t 排序
+service iptables stop
+find / -nouser -uid n File’s numeric user ID is n.  -user uname File is owned by user uname (numeric user ID allowed).
+htpasswd -bm /opt/passwd malaoshi ma123456
+bash: ./java: cannot execute binary file    64的jdk直接拷贝到32位的系统中 command:$ uname -i
+java.net.NoRouteToHostException: No route to host	防火墙问题
+crt 不要粘贴TAB             tar cf sh.tar *.sh
+vss需要做网络驱动器映射#vss eclipse 配置文件是D:\eclipseWorkspace\.metadata\.plugins\org.vssplugin\dialog_settings.xml
+在Windows下应该使用“\r\n”提供一次换行而在Linux下只需要“\n”就可以了。
+利用一些编辑器如UltraEdit或EditPlus等工具先将脚本编码转换，再放到Linux中执行。转换方式如下（UltraEdit）：File-->Conversions-->DOS->UNIX即可。
+网卡驱动问题会导致集群网络异常，重启下网卡（重启命令是/etc/init.d/network restart）就好了。
+qq导致control键一直处于按下状态
+谷歌浏览器Chrome的扩展程序安装目录是什么？安装在哪里？
+	C:\Users\用户名\AppData\Local\Google\Chrome\User Data\Default\Extensions
+
+#升级操作---------------------------------------------------------------------
+hadoop 升级(namenode)
+	上传新程序、上传配置文件、更改owner、sh可执行
+	查询以前升级状态   bin/hadoop dfsadmin -upgradeProgress status
+	停止老程序、启动老dfs，停止老dfs
+		bin/stop-mapred.sh   bin/stop-dfs.sh	bin/start-dfs.sh   bin/stop-dfs.sh
+	备份dfs.name.dir        tar zcf  name.tgz name
+	移除所有机器上的老程序   rm -rf hadoop-0.20.203.0  新程序命名成老的mv 0.20.203.0 hadoop-0.20.203.0   tar程序备份	tar zcf  hadoop-0.20.203.0.1.0.3.tgz hadoop-0.20.203.0
+	传输程序到其他节点上
+	升级启动
+		bin/hadoop-daemon.sh start namenode -upgrade   (bin/hadoop-daemon.sh stop namenode    bin/start-dfs.sh -upgrade)
+	升级没有问题，启动集群
+		bin/start-dfs.sh	bin/start-mapred.sh
+	观察没有问题，升级确认
+		bin/hadoop dfsadmin -finalizeUpgrade	(bin/start-dfs.h -rollback)
+zookeeper
+	上传压缩包、解压，上传配置文件，建立dataDir/myid，压缩，拷贝解压，配置myid
+		dataDir   dataLogDir  分开
+		bin/zkServer.sh start 需要人工启动每一台    bin/zkCli.sh -server 127.0.0.1:2181
+hbase
+	HBase的配置2.1 依赖前提
+		Java 6 or above
+		SSH - using passwordless login (Google ”ssh passwordless login”)
+		DNS
+		NTP        时区设置：ZONE="Asia/Shanghai"
+		ulimit and nproc   swapoff -a
+	上传压缩包、解压，上传配置文件，替换hadoop、zookeeper jar，建立配置软连接，压缩，拷贝解压
+		tar zxf ~/hbase-0.92.1.tar.gz
+		ln -s ~/zookeeper-3.3.5/conf/zoo.cfg ~/hbase-0.92.1-security/conf/zoo.cfg
+		ln -s ~/hadoop-0.20.203.0/conf/hdfs-site.xml ~/hbase-0.92.1-security/conf/hdfs-site.xml
+		tar zcf  hbase-0.92.1-security.tgz hbase-0.92.1-security
+	 bin/start-hbase.sh    http://112.25.19.163:60010   http://112.25.19.163:60010/zk.jsp
+	 bin/hbase-daemon.sh start master         bin/hbase-daemon.sh start regionserver
+
+hive 升级(jobtracker)
+	上传新的程序、上传配置文件、上传新的metajar、拷贝老的外部jar、更改owner、sh可执行
+	删除hbase*，zookeeper*，拷贝当前使用的hbase*jar和zookeeper*jar到hive/lib目录中
+#	程序引用新的jar版本
+	停止hive，移除hive程序
+	新的程序改名、tar程序备份   tar zcf  hive-0.7.1.0.9.0.tgz hive-0.7.1
+	备份hive的表	(可以在其他账号下让hive生成新的表，表改名，查找的记录插入新的表)
+#	Oracle Metastore schema script doesn't include DDL for DN internal tables
+	执行meta的更新脚本，hive目录命名成老的名字，测试，启动服务
+#	rm -rf hive-0.7.1;tar zxf hive-0.7.1.0.9.0.tgz
+
+#oracle rac----------------------------------------------------------------------------------
+Oracle 配置RAC后应用程序的JDBC连接参数要改成类似这样：
+	jdbc:oracle:thin:@(DESCRIPTION=(LOAD_BALANCE=yes)(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=cls02a)(PORT=3999  ))(ADDRESS=(PROTOCOL=TCP)(HOST=cls02b)(PORT=3999)))(CONNECT_DATA=(SERVICE_NAME=acme.us.com)))
+I found that you don't need to use ADDRESS_LIST that you can just inline the addresses and it seemed to load balance a little better. What's really neat is I can toggle the load balance flag it it will only use the first address listed.
+Current setup RAC serviceName = eric,
+Node 1 SID = eric1, Virtual IP = 10.1.2.11
+Node 2 SID = eric2, Virtual IP = 10.1.2.12
+jdbc:oracle:thin:@
+	(DESCRIPTION=
+	(LOAD_BALANCE=ON)
+	(FAILOVER=ON)
+	(ADDRESS=(PROTOCOL=TCP)(HOST=10.1.2.11)(PORT=1521))
+	(ADDRESS=(PROTOCOL=TCP)(HOST=10.1.2.12)(PORT=1521))
+	(CONNECT_DATA=(SERVICE_NAME=eric)(SERVER=DEDICATED)))
+tnsnames.ora file:
+	sales.us.acme.com=
+	 (DESCRIPTION=
+	  (ADDRESS_LIST=
+	    (ADDRESS=(PROTOCOL=tcp)(HOST=sales1-server)(PORT=1521))
+	    (ADDRESS=(PROTOCOL=tcp)(HOST=sales2-server)(PORT=1521)))
+	  (CONNECT_DATA=
+	    (SERVICE_NAME=sales.us.acme.com)))
+IO Exception: Got minus one from a read call
+	that's an Oracle JDBC Driver/DB Problem.
+	I suppose that the root cause was the leak of available sessions on the oracle side. My glassfish server had 400-connection jdbc pool size and Oracle 10g had following parameters:
+	processes = 420   sessions = 467   transactions = 514
+	Every request to the DB failed with "IO Exception: Got minus one from a read call".
+	Increasing Oracle values (processes = 450; sessions = 500; transactions = 550) fixed the problem.
+	1:数据库连接满了，扩大数据库连接池
+	2:所登录的机子IP不在sqlnet.ora内，加入后重启listerner即可
+	3:数据库负载均衡时，指定了(SERVER=DEDICATED)，去除这个即可
+	4:网管在Oracle配置上限制了该台机子访问Oracle的权限，这个问题基本和2类似，也是修改Oracle配置即可
+show parameter process;        processes                            integer     300
+show parameter ses             sessions                             integer     335
+                               transactions                         integer     368
+select count(1) from v$session;
+select count(1) from v$process;
+select count(1) from v$transaction;
+
+
+#hadoop-------------------------------------------------------------------------
+df instead of du
+	mv /usr/bin/du /usr/bin/bak_du
+	vi /usr/bin/du      	and save this inside of it
+	#!/bin/sh
+	mydf=$(df $2 | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $3 }')
+	echo -e "$mydf\t$2"
+	之后需要给它执行权限，chmod a+x /usr/bin/du
+
+hadoop dfsadmin -safemode leave
+bin/hadoop-daemon.sh start datanode     //启动数据节点
+bin/start-balancer.sh -threshold 3
+用nagios作告警，ganglia作监控图表即可
+hadoop web部署在内网地址，外网通过端口转发访问
+bin/hadoop-daemon.sh start secondarynamenode
+bin/hadoop-daemon.sh start namenode
+chmod 750 /home/hadoop/hadoop-1.0.4/bin -R;chmod 750 /home/hadoop/app/sh/*;
+
+每次namenode format会重新创建一个namenodeId，而tmp/dfs/data下包含了上次format下的id
+	修改每个Slave的namespaceID使其与Master的namespaceID一致。or 修改Master的namespaceID使其与Slave的namespaceID一致。
+	该"namespaceID"位于"/usr/hadoop/tmp/dfs/data/current/VERSION"文件中，前面蓝色的可能根据实际情况变化，但后面红色是不变的。
+
+hadoop Upgrade and Rollback
+http://wiki.apache.org/hadoop/Hadoop_Upgrade
+Before upgrading, administrators need to remove existing backup using bin/hadoop dfsadmin -finalizeUpgrade command. The following briefly describes the typical upgrade procedure:
+	Before upgrading Hadoop software, finalize if there an existing backup. dfsadmin -upgradeProgress status can tell if the cluster needs to be finalized.
+	Stop the cluster and distribute new version of Hadoop.
+	Run the new version with -upgrade option (bin/start-dfs.sh -upgrade).
+	Most of the time, cluster works just fine. Once the new HDFS is considered working well (may be after a few days of operation), finalize the upgrade. Note that until the cluster is finalized, deleting the files that existed before the upgrade does not free up real disk space on the DataNodes.
+	If there is a need to move back to the old version,
+	stop the cluster and distribute earlier version of Hadoop.
+	start the cluster with rollback option. (bin/start-dfs.h -rollback).
+Hadoop 1.0 （基于这个版本0.20.2×） 终于在27 December, 2011正式发布了
+	security
+	HBase (append/hsynch/hflush, and security)
+	webhdfs (with full support for security)
+新的版本也在开发之中，那就是0.23或者2.0吧！在新版本中引入了很多新的特性，其中着重说一个：
+	1.	HDFS HA (manual failover)
+		（2）	NameNode分为两种角色：active NN与 standby NN，active NN对外提供读写服务，一旦出现故障，便切换到standby NN。
+		（3）	支持Client端重定向，也就是说，当active NN切换到standby NN过程中，Client端所有的进行时操作都可以无缝透明重定向到standby NN上，Client自己感觉不到切换过程。
+		（4）	DN同时向active NN和standby NN汇报block信息。
+	HDFS Federation
+		允许HDFS中存在多个NameNode，且每个NameNode分管一部分目录，而DataNode不变，也就是“从中央集权专政变为各个地方自治”，进而缩小了故障带来的影响范围，并起到一定的隔离作用。具体参考：
+	NextGen MapReduce
+		YARN是一套资源统一管理和调度平台，可管理各种计算框架，包括MapReduce，Spark，MPI等。尽管它是完全重写而成，但其思想是从MapReduce衍化而来的，并克服了它在扩展性和容错性等方面的众多不足。具体参考：
+	5.	Wire-compatibility for both HDFS & YARN
+		Hadoop RPC采用了Hadoop自己的一套序列化框架对各种对象进行序列化反序列，但存在一个问题：扩展性差，很难添加新的数据类型同时保证版本兼容性。为此，Hadoop 2.0将数据类型模块从RPC中独立出来，成为一个独立的可插拔模块，这样允许用户根据个人爱好使用各种序列化/反序列化框架，比如thrift，arvo，protocal Buffer等，默认情况采用Protocal Buffer。
+	7.	HDFS HA自动切换
+		前面介绍的第一个功能“HDFS HA”当前只能实现人工切换，也就是说，管理员运行某个命令，使得acitve NN切换到standby NN上。	以后将支持自动切换，也就是说，监控模块可检测出active NN何时出现故障，并自动将之切换到standby NN上，这样可大大较小Hadoop集群运维人员的工作量。具体参考：
+
+bin/hadoop jar hadoop-test-1.0.3.jar
+An example program must be given as the first argument.
+Valid program names are:
+  DFSCIOTest: Distributed i/o benchmark of libhdfs.
+  DistributedFSCheck: Distributed checkup of the file system consistency.
+  MRReliabilityTest: A program that tests the reliability of the MR framework by injecting faults/failures
+  TestDFSIO: Distributed i/o benchmark.
+  dfsthroughput: measure hdfs throughput
+  filebench: Benchmark SequenceFile(Input|Output)Format (block,record compressed and uncompressed), Text(Input|Output)Format (compressed and uncompressed)
+  loadgen: Generic map/reduce load generator
+  mapredtest: A map/reduce test check.
+  mrbench: A map/reduce benchmark that can create many small jobs
+  nnbench: A benchmark that stresses the namenode.
+  testarrayfile: A test for flat files of binary key/value pairs.
+  testbigmapoutput: A map/reduce program that works on a very big non-splittable file and does identity map/reduce
+  testfilesystem: A test for FileSystem read/write.
+  testipc: A test for ipc.
+  testmapredsort: A map/reduce program that validates the map-reduce framework's sort.
+  testrpc: A test for rpc.
+  testsequencefile: A test for flat files of binary key value pairs.
+  testsequencefileinputformat: A test for sequence file input format.
+  testsetfile: A test for flat files of binary key/value pairs.
+  testtextinputformat: A test for text input format.
+  threadedmapbench: A map/reduce benchmark that compares the performance of maps with multiple spills over maps with 1 spill
+
+bin/hadoop jar hadoop-test-1.0.3.jar TestDFSIO
+Usage: TestDFSIO -read | -write | -clean [-nrFiles N] [-fileSize MB] [-resFile resultFileName] [-bufferSize Bytes]
+bin/hadoop jar hadoop-test-1.0.3.jar TestDFSIO -write -nrFiles 30 -fileSize 1000
+bin/hadoop jar hadoop-test-1.0.3.jar TestDFSIO -read -nrFiles 30 -fileSize 1000
+bin/hadoop jar hadoop-test-1.0.3.jar TestDFSIO -clean
+cat TestDFSIO_results.log
+
+hadoop fs命令中的-getmerge选项非常有用，可以得到源模式目录中的所有文件，并在本地文件系统上把它们合并成一个单独的文件。-getmerge选项对hadoop fs命令很有用，因为它得到了源模式指定目录下所有的文件，并将其合并为本地文件系统的一个文件：
+	hadoop fs -getmerge max-temp max-temp-local
+
+distcp一般用于在两个HDFS集群中传输数据。如果集群在Hadoop的同一版本上运行，就适合使用hdfs方案：
+	hadoop distcp hdfs://namenode1/foo hdfs://namenode2/bar
+	默认情况下，distcp会跳过目标路径已经有的文件，但可以通过提供的-overwrite选项进行覆盖。也可以用-update选项来选择只更新那些修改过的文件。
+	hadoop distcp -update hdfs://namenode1/foo hdfs://namenode2/bar/foo
+	如果想在两个运行着不同版本HDFS的集群上利用distcp，使用hdfs协议是会失败的，因为RPC系统是不兼容的。想要弥补这种情况，可以使用基于HTTP的HFTP文件系统从源中进行读取。这个作业必须运行在目标集群上，使得HDFS RPC版本是兼容的。使用HFTP重复前面的例子：
+	hadoop distcp hftp://namenode1:50070/foo hdfs://namenode2/bar
+
+/home/hadoop/hadoop-1.0.4/bin/hadoop fsck -delete /
+/home/hadoop/hadoop-1.0.4/bin/hadoop-daemon.sh stop datanode
+/home/hadoop/hadoop-1.0.4/bin/hadoop-daemon.sh stop tasktracker
+/home/hadoop/hadoop-1.0.4/bin/hadoop-daemon.sh start datanode
+/home/hadoop/hadoop-1.0.4/bin/hadoop-daemon.sh start tasktracker
+
+/home/hadoop/hadoop-1.0.4/bin/hadoop dfsadmin -help
+/home/hadoop/hadoop-1.0.4/bin/hadoop dfs -du /user/hive/warehouse/*/dt=20120705/**
+
+hadoop的job缓存
+/home/hadoop/hadoop-1.0.4/bin/hadoop dfs -rmr -skipTrash   /home/hadoop/hadoop-hadoop/mapred/staging/hadoop/.staging/*
+/home/hadoop/hadoop-hadoop/hadoop-unjar*
+rm -rf /home/hadoop/hadoop-hadoop/mapred/local/userlogs/*
+
+（1） dfs.namenode.handler.count或mapred.job.tracker.handler.count
+namenode或者jobtracker中用于处理RPC的线程数，默认是10，较大集群，可调大些，比如64。
+（2） dfs.datanode.handler.count
+datanode上用于处理RPC的线程数。默认为3，较大集群，可适当调大些，比如8。需要注意的是，每添加一个线程，需要的内存增加。
+
+hadoop dfs 死亡时间
+    this.heartbeatRecheckInterval = conf.getInt(
+        "heartbeat.recheck.interval", 5 * 60 * 1000); // 5 minutes
+    this.heartbeatExpireInterval = 2 * heartbeatRecheckInterval +
+      10 * heartbeatInterval;
+final static int PURGE_INTERVAL = 900000; // 15mins
+
+failed task可理解为自杀，也就是task本身出了问题而自杀；killed task可理解为是他杀，也就是jobtracker认为这个任务的执行是多余的，所以把任务直接杀掉。
+
+/home/hadoop/hadoop-hadoop/mapred/staging/hadoop/.staging/job_201206291039_2628/job.xml: CORRUPT block blk_3118342152384814344
+/home/hadoop/hadoop-hadoop/mapred/staging/hadoop/.staging/job_201206291039_2626/job.splitmetainfo: CORRUPT block blk_7230484951597943908
+
+Too many fetch-failures for output of task: attempt_201105261254_102769_m_001802_0 ... killing it
+	Reduce task启动后第一个阶段是shuffle，即向map端fetch数据。每次fetch都可能因为connect超时，read超时，checksum错误等原因而失败。Reduce task为每个map设置了一个计数器，用以记录fetch该map输出时失败的次数。当失败次数达到一定阈值时，会通知JobTracker fetch该map输出操作失败次数太多了，并打印如下log：
+	当达到阈值后，Reduce task通过umbilical协议告诉TaskTracker，TaskTracker在下一次heartbeat时，通知JobTracker。当JobTracker发现超过50%的Reduce汇报fetch某个map的输出多次失败后，JobTracker会failed掉该map并重新调度，打印如下log：
+
+dfs.datanode.failed.volumes.tolerated  :datanode允许磁盘损坏的个数 ，datanode在启动时候会使用dfs.data.dir下配置的文件夹（用于存储block的），若是有一些不可以用且个数>上面配置的那个值，则启动失败，org.apache.hadoop.util.DiskChecker$DiskErrorException: Invalid value for volsFailed : 1 , Volumes tolerated : 0
+Warning: $HADOOP_HOME is deprecated.
+	经查hadoop-1.0.0/bin/hadoop脚本和hadoop-config.sh脚本，发现脚本中对HADOOP_HOME的环境变量设置做了判断，笔者的环境根本不需要设置HADOOP_HOME环境变量。	export HADOOP_HOME_WARN_SUPPRESS=1
+
+Hadoop是使用Java语言开发的，但是有一些需求和操作并不适合使用java，所以就引入了本地库（Native Libraries）的概念，通过本地库，Hadoop可以更加高效地执行某一些操作。目前在Hadoop中，本地库应用在文件的压缩上面：zlib   gzip
+在使用这两种压缩方式的时候，Hadoop默认会从$HADOOP_HOME/lib/native/Linux-*目录中加载本地库。
+
+重启 mapred时间很长    输出
+	Starting tasktracker with owner as hadoop
+	Good mapred local directories are: /home/hadoop/hadoop-hadoop/mapred/local
+后需要等待好长时间，查看代码， 原来tasktracker每次启动时都会清除本地运行目录下的临时文件，当tasktracker长时间运行时，本地运行目录下就会累计很多的文件及文件夹，从而导致tasktracker在启动时会消耗很长的时间在文件删除这一步骤上。
+Hadoop的task运行完成后清理local目录影响性能
+
+hadoop网络问题导致节点下线，但进程还在的情况下，节点会自动重连。
+	The server retry loop.  This while-loop attempts to connect to the JobTracker.  It only loops when the old TaskTracker has gone bad (its state is stale somehow) and we need to reinitialize everything.
+	（这一步会清除mapred local目录，如上描述，时间很长）Removes all contents of temporary storage.  Called upon startup, to remove any leftovers from previous run.
+
+hadoop作业提交时可以指定相应的队列，例如:-Dmapred.job.queue.name=queue2
+查看队列信息
+	bin/hadoop queue -showacls
+
+Server returned HTTP response code: 400 for URL: http://node08:50060/tasklog?taskid=attempt_201206192004_0601_m_000009_1&start=-8193
+应为：http://node08:50060/tasklog?attemptid=attempt_201206192004_0601_m_000009_1&start=-8193
+
+Connection reset by peer Count of bytes read: 0
+	hadoop服务器集群间通信不稳定，从而使写操作的时候，频频断开产生的异常
+WARN org.apache.hadoop.hdfs.server.namenode.FSNamesystem: Not able to place enough replicas, still in need of 1
+could only be replicated to 0 nodes, instead of 1
+	问题所在：磁盘空间不够
+	Hadoop运行时map()函数产生的临时数据放在/tmp这个目录下，但是Hadoop集群上这个目录的磁盘空间明显太小
+定期重新启动Hadoop也是一个好方法
+	I was having the same issue when I run out of space on disk with log directory.
+	One reason Hadoop produces this error is when the directory containing the log files becomes too full. This is a limit of the Ext3 filesystem which only allows a maximum of 32000 links per inode.
+	Check how full your logs directory is in: hadoop/userlogs
+	A simple test for this problem is to just try and create a directory from the command-line for example: $ mkdir hadoop/userlogs/testdir
+	If you have too many directories in userlogs the OS should fail to create the directory and report there are too many.
+HDFS一次最多可以提供的文件数上限：hadoop/conf/hdfs-site.xml
+	<property>
+	    <name>dfs.datanode.max.xcievers</name>
+	    <value>4096</value>
+	</property>
+
+随着文件数目的增长，元数据服务器的压力变大。据统计，2.5亿个文件在NameNode中Namespace占据  的大概64GB的内存空间。
+隔离性的问题。0.20.*版本中，一个NameNode对应着唯一的Namespace,所有文件、应用、用户公用同一的名字空间。存在访问权限控制的问题，不利于在HDFS在公有云环境下的应用。
+
+#zookeeper-------------------------------------------------------------------------
+session expired几个参数:
+	服务端: minSessionTimeout (默认值为：tickTime * 2) , maxSessionTimeout (默认值为 : tickTime * 20) , ticktime的默认值为3000ms。所以session范围为6s ~ 60s
+	客户端： sessionTimeout， 无默认值，创建实例时必填。
+	一个误区： 很多人会按照hadoop文档中的建议，创建zookeeper客户端时设置了sessionTimeout为90s，而没有改变server端的配置，默认是不会生效的。
+	原因： 客户端的zookeeper实例在创建连接时，将sessionTimeout参数发送给了服务端，服务端会根据对应的minSessionTimeout/maxSessionTimeout的设置，强制修改sessionTimeout参数，也就是修改为6s~60s返回的参数。所以服务端不一定会以客户端的sessionTImeout做为session expire管理的时间。
+
+The entries of the form server.X list the servers that make up the ZooKeeper service. When the server starts up, it knows which server it is by looking for the file myid in the data directory. That file has the contains the server number, in ASCII.
+#hbase-------------------------------------------------------------------------
+hive和hbase的结合：
+	场景一：hive初步处理，直接写入和hbase关联建立的表，然后在hbase中统计出结果；
+	场景二：hbase中刷新实时的数据,hbase计算结果或hive中读到最新的数据然后算结果（hive能否读到最新的数据？）.
+
+bin/hbase shell  可以使用list命令来查看当前HBase里有哪些表。使用describe命令来查看表结构。（记得所有的表明、列名都需要加上引号）
+
+Hbase也有一个界面，上面会列出重要的属性。默认是在Master的60010端口上H (HBase RegionServers 会默认绑定 60020端口，在端口60030上有一个展示信息的界面 ).如果Master运行在 master.example.org，端口是默认的话，你可以用浏览器在 http://master.example.org:60010看到主界面. .
+通过 web 方式查看运行在 HBase 下的 zookeeper http://localhost:60010/zk.jsp
+
+Client写入 -> 存入MemStore，一直到MemStore满 -> Flush成一个StoreFile，直至增长到一定阈值 -> 出发Compact合并操作 -> 多个StoreFile合并成一个StoreFile，同时进行版本合并和数据删除 -> 当StoreFiles Compact后，逐步形成越来越大的StoreFile -> 单个StoreFile大小超过一定阈值后，触发Split操作，把当前Region Split成2个Region，Region会下线，新Split出的2个孩子Region会被HMaster分配到相应的HRegionServer上，使得原先1个Region的压力得以分流到2个Region上
+由此过程可知，HBase只是增加数据，有所得更新和删除操作，都是在Compact阶段做的，所以，用户写操作只需要进入到内存即可立即返回，从而保证I/O高性能。
+
+创建表格，在HDFS上便被创建了一个与表格同名的目录，该目录下将出现第一个region，region中会以 family名创建一个目录，这个目录下才存在记录具体数据的文件。同时在该表表名目录下，还会生成一个“compaction.dir”目录，该目录将 在family名目录下region文件超过指定数目时用于合并region。当第一个region目录出现时，内存中最初被写入的数据将被保存到该文件 中，这个间隔是由选项“hbase.hregion.memstore.flush.size”决定的，默认是64MB，该region所在的 Regionserver的内存中一旦有超过64MB的数据时，就将被写入到region文件中。这个文件将不断增殖，直到超过由 “hbase.hregion.max.filesize”决定的文件大小（默认是256MB，此时加上内存刷入的数据，实际最大可能到 256MB+64MB）时，该region将被执行split，立即被一切为二，其过程是在该目录下创建一个名为“.splits”的目录作为标记，然后 由Regionserver将文件信息读取进来，分别写入到两个新的region目录中，最后再将老的region删除。这里的标记目录 “.splits”可以避免在split过程中发生其他操作，起到类似于多线程安全的锁功能。在新的region中，从老的region中切分出的数据独 立为一个文件并不再接收新的数据（该文件大小超过了64MB，最大可达到（256+64）/2=160MB）），内存中新的数据将被保存到一个重新创建的 文件中，该文件大小将为64MB。内存每刷新一次，region所在的目录下就将增加一个64MB的文件，直到总文件数超过由 “hbase.hstore.compactionThreshold”指定的数量时（默认为3），compaction过程就将被触发了。在上述值为3 时，此时该region目录下，实际文件数只有两个，还有额外的一个正处于内存中将要被刷入到磁盘的过程中。Compaction过程是HBase的一个 大动作。HBase不仅要将这些文件转移到“compaction.dir”目录进行压缩，而且在压缩后的文件超过256MB时，还必须立即进行 split动作。这一系列行为在HDFS上可谓是翻山倒海，影响颇大。待Compaction结束之后，后续的split依然会持续一小段时间，直到所有 的region都被切割分配完毕，HBase才会恢复平静并等待下一次数据从内存写入到HDFS。
+
+现在Hbase并不能很好的处理两个或者三个以上的column families，所以尽量让你的column families数量少一些。目前，flush和compaction操作是针对一个Region。所以当一个column family操作大量数据的时候会引发一个flush。那些不相关的column families也有进行flush操作，尽管他们没有操作多少数据。Compaction操作现在是根据一个column family下的全部文件的数量触发的，而不是根据文件大小触发的。当很多的column families在flush和compaction时,会造成很多没用的I/O负载(要想解决这个问题，需要将flush和compaction操作只针对一个column family)
+
+适当的增大hbase.regionserver.lease.period参数的值，默认是1分钟
+	hbase客户端每次和regionserver交互的时候，都会在服务器端生成一个租约（Lease),租约的有效期由参数hbase.regionserver.lease.period确定。
+	客户端去regionserver取数据的时候，hbase中存得数据量很大并且很多region的时候的，客户端请求的region不在内存中，或是没有被cache住，需要从磁盘中加载，如果这时候加载需要的时间超过hbase.regionserver.lease.period所配置的时间，并且客户端没有和regionserver报告其还活着，那么regionserver就会认为本次租约已经过期，并从LeaseQueue从删除掉本次租约，当regionserver加载完成后，拿已经被删除的租约再去取数据的时候，就会出现如上的错误现象。
+	等待reginserver返回数据，但reginserver需要加载数据而且超过过1分钟，客户没有和reginserver做再次的交互，reginserver认为租约已经过期，删除了租约，而客户端还是拿旧有的租约去请求数据，所以就造成了上述现象。
+#hive-------------------------------------------------------------------------
+nohup /home/hadoop/hive-0.7.1/bin/hive -f /home/hadoop/hive-script.sql &
+
+hive 列名不能用：date  Timestamp
+和hbase的关联表，不管用overwrite还是into，都是按照hbase的规则来的，id相同就覆盖，overwrite不会清除原来的数据
+
+set hive.hbase.wal.enabled=false;
+drop hivehbase非外表，也会删除hbase中的表；
+
+hive 的add jar 是分布式cache方式发布到其他node的，用在mapred程序中使用的jar
+hive开发的程序需要使用的jar需要在调用的类路径中，如用hadoop启动程序，可以放入hadoop的类路径目录中
+Hive中的日志分为两种1. 系统日志，记录了hive的运行情况，错误状况。2. Job 日志，记录了Hive 中job的执行的历史过程。
+	在hive/conf/ hive-log4j.properties 文件中记录了Hive日志的存储情况，
+	HIVEHISTORYFILELOC("hive.querylog.location", "/tmp/" + System.getProperty("user.name")),
+	rm -f /tmp/hadoop/*2012*t
+LOAD DATA [LOCAL] INPATH 'filepath' [OVERWRITE] INTO TABLE tablename [PARTITION (partcol1=val1, partcol2=val2 ...)]
+if the OVERWRITE keyword is used then the contents of the target table (or partition) will be deleted and replaced with the files referred to by filepath. Otherwise the files referred by filepath will be added to the table.
+
+Reflect (Generic) UDF
+	A java class and method often exists to handle the exact function a user would like to use in hive. Rather then having to write a wrapper UDF to call this method, the majority of these methods can be called using reflect udf. Reflect uses java reflection to instantiate and call methods of objects, it can also call static functions. The method must return a primative type or a type that hive knows how to serialize.
+	SELECT reflect("java.lang.String", "valueOf", 1),
+	       reflect("java.lang.String", "isEmpty"),
+	       reflect("java.lang.Math", "max", 2, 3),
+	       reflect("java.lang.Math", "min", 2, 3),
+	       reflect("java.lang.Math", "round", 2.5),
+	       reflect("java.lang.Math", "exp", 1.0),
+	       reflect("java.lang.Math", "floor", 1.9)
+	FROM src LIMIT 1;
+	1	true	3	2	3	2.7182818284590455	1.0
+
+hive sql中 like 表达式中若有原始字符'_''?'同时在其中，就匹配不到数据，需要转义。 _ % 是通配符
+t.url like '/tools/bookmark\_load.jsp?sid=30006%'
+若kill hive 启动的hadoop job，则hive server 会退出
+就算只有1亿个URL，每个URL只算50个字符，就需要5GB内存。
+
+hive查看当前环境配置命令    set -v 可得到所有环境变量。如果没有-v参数，只显示与hadoop不同的配置。
+<property><name>hive.querylog.location</name><value>/tmp/hadoop</value></property>
+
+Largest Table LAST
+	In every map/reduce stage of the join, the last table in the sequence is streamed through the reducers where as the others are buffered. Therefore, it helps to reduce the memory needed in the reducer for buffering the rows for a particular value of the join key by organizing the tables such that the largest tables appear last in the sequence. e.g. in
+	SELECT a.val, b.val, c.val FROM a JOIN b ON (a.key = b.key1) JOIN c ON (c.key = b.key1)
+	all the three tables are joined in a single map/reduce job and the values for a particular value of the key for tables a and b are buffered in the memory in the reducers. Then for each row retrieved from c, the join is computed with the buffered rows.
+	For the query:
+	SELECT a.val, b.val, c.val FROM a JOIN b ON (a.key = b.key1) JOIN c ON (c.key = b.key2)
+	* there are two map/reduce jobs involved in computing the join. The first of these joins a with b and buffers the values of a while streaming the values of b in the reducers. The second of one of these jobs buffers the results of the first join while streaming the values of c through the reducers.
+
+#理论======================================================================================================
+应该是业界数据型服务器标配吧：2*4 core, 24GB内存，12块1TB seta磁盘。
+4 1TB hard disks in a JBOD (Just a Bunch Of Disks) configuration
+2 quad core CPUs, running at least 2-2.5GHz
+16-24GBs of RAM (24-32GBs if you’re considering HBase)
+Gigabit Ethernet
+	Nodes typically have 12 hard drives
+	A single hard drive has throughput of about 75MB/second
+	12 Hard Drives * 75 MB/second * 4000 Nodes = 3.4 TB/second
+	That’s bytes, not bits
+	That’s enough bandwidth to read 1PB (1000 TB) in 5 minutes
+
+Quorum NRW
+	N: 复制的节点数量，即副本数
+	R: 成功读操作的最小节点数
+	W: 成功写操作的最小节点数
+	Quorum协议中，R 代表一次成功的读取操作中最小参与节点数量，W 代表一次成功的写操作中最小参与节点数量。R + W>N ，则会产生类似quorum 的效果。该模型中的读(写)延迟由最慢的 R(W)复制决定，为得到比较小的延迟，R和W有的时候的和比N小。
+	Quorum协议中，只需W + R > N，就可以保证强一致性。因为读取数据的节点和被同步写入的节点是有重叠的。在一个RDBMS的复制模型中（Master/salve)，假如N=2,那么W=2,R=1此时是一种强一致性,但是这样造成的问题就是可用性的减低，因为要想写操作成功，必须要等 2个节点的写操作都完成以后才可以。
+	在分布式系统中，一般都要有容错性，因此N一般大于3的，此时根据CAP理论，我们就需要在一致性和分区容错性之间做一平衡，如果要高的一致性，那么就配置N=W，R=1,这个时候可用性就会大大降低。如果想要高的可用性，那么此时就需要放松一致性的要求，此时可以配置W=1，这样使得写操作延迟最低，同时通过异步的机制更新剩余的N-W个节点。
+	当存储系统保证最终一致性时，存储系统的配置一般是W+R<=N，此时读取和写入操作是不重叠的，不一致性的窗口就依赖于存储系统的异步实现方式，不一致性的窗口大小也就等于从更新开始到所有的节点都异步更新完成之间的时间。
+	一般来说，Quorum中比较典型的NRW为（3,2,2）。注：一致性级别是由副本数决定，而不是集群的节点数目决定。
+
+BASE
+	说起来很有趣，BASE的英文意义是碱，而ACID是酸。真的是水火不容啊。
+	Basically Availble --基本可用
+	Soft-state --软状态/柔性事务
+	"Soft state" 可以理解为"无连接"的, 而 "Hard state" 是"面向连接"的
+	Eventual Consistency --最终一致性
+	最终一致性， 也是是 ACID 的最终目的。
+	BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性或可靠性： Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库) Soft state软状态 状态可以有一段时间不同步，异步。 Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时一致。
+	BASE思想的主要实现有1.按功能划分数据库2.sharding碎片
+
+I/O的五分钟法则
+	在 1987 年，Jim Gray 与 Gianfranco Putzolu 发表了这个"五分钟法则"的观点，简而言之，如果一条记录频繁被访问，就应该放到内存里，否则的话就应该待在硬盘上按需要再访问。这个临界点就是五分钟。 看上去像一条经验性的法则，实际上五分钟的评估标准是根据投入成本判断的，根据当时的硬件发展水准，在内存中保持 1KB 的数据成本相当于硬盘中存据 400 秒的开销(接近五分钟)。这个法则在 1997 年左右的时候进行过一次回顾，证实了五分钟法则依然有效（硬盘、内存实际上没有质的飞跃)，而这次的回顾则是针对 SSD 这个"新的旧硬件"可能带来的影响。
+	随着闪存时代的来临，五分钟法则一分为二：是把 SSD 当成较慢的内存（extended buffer pool ）使用还是当成较快的硬盘（extended disk）使用。小内存页在内存和闪存之间的移动对比大内存页在闪存和磁盘之间的移动。在这个法则首次提出的 20 年之后，在闪存时代，5 分钟法则依然有效，只不过适合更大的内存页(适合 64KB 的页，这个页大小的变化恰恰体现了计算机硬件工艺的发展，以及带宽、延时)。
+
+不要删除数据
+	假设市场部决定从商品目录中删除一样商品，那是不是说所有包含了该商品的旧订单都要一并消失？再级联下去，这些订单对应的所有发票是不是也该删除？这么一步步删下去，我们公司的损益报表是不是应该重做了？
+	没天理了。
+	问题似乎出在对“删除”这词的解读上。Dahan给出了这样的例子：
+	我说的“删除”其实是指这产品“停售”了。我们以后不再卖这种产品，清掉库存以后不再进货。以后顾客搜索商品或者翻阅目录的时候不会再看见这种商品，但管仓库的人暂时还得继续管理它们。“删除”是个贪方便的说法。
+	他接着举了一些站在用户角度的正确解读：
+	订单不是被删除的，是被“取消”的。订单取消得太晚，还会产生花费。
+	员工不是被删除的，是被“解雇”的（也可能是退休了）。还有相应的补偿金要处理。
+	职位不是被删除的，是被“填补”的（或者招聘申请被撤回）。
+
+
+RAM是硬盘,硬盘是磁带
+	各种操作的时间，以2001年夏季，典型配置的 1GHz 个人计算机为标准：
+	执行单一指令	1 纳秒
+	从L1 高速缓存取一个字	2 纳秒
+	从内存取一个字	10 纳秒
+	从磁盘取连续存放的一个字	200 纳秒
+	磁盘寻址并取字	8 毫秒
+	以太网	2GB/s
+	“对于随机访问，硬盘慢得不可忍受；但如果你把硬盘当成磁带来用，它吞吐连续数据的速率令人震惊；它天生适合用来给以RAM为主的应用做日志（logging and journaling）。”
+	“如果一个设计只是简单地反映了问题描述，你去实现它就会落入磁盘 I/O的地狱。不管你用Ruby on Rails、Cobol on Cogs、C++还是手写汇编都一样，读写负载照样会害死你。”换言之，应该把随机操作推给RAM，只给硬盘留下顺序操作。
+
+vector clock
+	　　云存储用分布式的存储方式解决了大量的并发读的问题，但是针对并发写，也有很好的设计和算法。老蒋介绍一下AMAZON的dynamo的特殊设计，看如何能让你10000个用户快速的访问数据：
+	　　而写文件时最为复杂，Dynamo 的方法是保留所有时间版本，用vector clock记录版本信息。当读取操作发生的时候返回多个版本，由客户端的业务层来解决这个冲突合并各个版本。当然客户端也可以选择最简单的策略，就是最近一次的写覆盖以前的写。
+	　　可以把这个vector clock想象成每个节点都记录自己的版本信息，而一个数据，包含所有这些版本信息。来看一个例子：假设一个写请求，第一次被节点A处理了。节点A会增加一个版本信息(A，1)。我们把这个时候的数据记做D1(A，1)。 然后另外一个对同样key(这一段讨论都是针对同样的key的)的请求还是被A处理了于是有D2(A，2)。
+	　　这个时候，D2是可以覆盖D1的，不会有冲突产生。现在我们假设D2传播到了所有节点(B和C)，B和C收到的数据不是从客户产生的，而是别人复制给他们的，所以他们不产生新的版本信息，所以现在B和C都持有数据D2(A，2)。好，继续，又一个请求，被B处理了，生成数据D3(A，2;B，1)，因为这是一个新版本的数据，被B处理，所以要增加B的版本信息。
+	　　假设D3没有传播到C的时候又一个请求被C处理记做D4(A，2;C，1)。假设在这些版本没有传播开来以前，有一个读取操作，我们要记得，我们的W=1 那么R=N=3，所以R会从所有三个节点上读，在这个例子中将读到三个版本。A上的D2(A，2);B上的D3(A，2;B，1);C上的D4(A，2;C，1)这个时候可以判断出，D2已经是旧版本，可以舍弃，但是D3和D4都是新版本，需要应用自己去合并。
+	　　如果需要高可写性，就要处理这种合并问题。好假设应用完成了冲入解决，这里就是合并D3和D4版本，然后重新做了写入，假设是B处理这个请求，于是有D5(A，2;B，2;C，1);这个版本将可以覆盖掉D1-D4那四个版本。这个例子只举了一个客户的请求在被不同节点处理时候的情况
+
+
+Gossip算法又被称为反熵（Anti-Entropy），熵是物理学上的一个概念，代表杂乱无章，而反熵就是在杂乱无章中寻求一致，这充分说明了Gossip的特点：在一个有界网络中，每个节点都随机地与其他节点通信，经过一番杂乱无章的通信，最终所有节点的状态都会达成一致。每个节点可能知道所有其他节点，也可能仅知道几个邻居节点，只要这些节可以通过网络连通，最终他们的状态都是一致的，当然这也是疫情传播的特点。
+	要注意到的一点是，即使有的节点因宕机而重启，有新节点加入，但经过一段时间后，这些节点的状态也会与其他节点达成一致，也就是说，Gossip天然具有分布式容错的优点。
+	Gossip是一个带冗余的容错算法，更进一步，Gossip是一个最终一致性算法。虽然无法保证在某个时刻所有节点状态一致，但可以保证在”最终“所有节点一致，”最终“是一个现实中存在，但理论上无法证明的时间点。
+	因为Gossip不要求节点知道所有其他节点，因此又具有去中心化的特点，节点之间完全对等，不需要任何的中心节点。实际上Gossip可以用于众多能接受“最终一致性”的领域：失败检测、路由同步、Pub/Sub、动态负载均衡。
+	但Gossip的缺点也很明显，冗余通信会对网路带宽、CPU资源造成很大的负载，而这些负载又受限于通信频率，该频率又影响着算法收敛的速度
+	Gossip被设计成低 CPU开销和低网络带宽占用。因此非常适合大型的 P2P　网络。Gossip周期地随机地选择一个节点并发起一轮 Gossip会话.
+	两个节点（A、B）之间存在三种通信方式:
+	push: A节点将数据(key,value,version)及对应的版本号推送给B节点，B节点更新A中比自己新的数据
+	pull：A仅将数据key,version推送给B，B将本地比A新的数据（Key,value,version）推送给A，A更新本地
+	push/pull：与pull类似，只是多了一步，A再将本地比B新的数据推送给B，B更新本地
+	如果把两个节点数据同步一次定义为一个周期，则在一个周期内，push需通信1次，pull需2次，push/pull则需3次，从效果上来讲，push/pull最好，理论上一个周期内可以使两个节点完全一致。直观上也感觉，push/pull的收敛速度是最快的。
+	一个Gossip的节点的工作方式又分两种：
+	Anti-Entropy（反熵）：以固定的概率传播所有的数据
+	Rumor-Mongering（谣言传播）：仅传播新到达的数据
+
+
+Merkle Tree, 又被称为Hash Tree，是一种树状Hash结构，1979年由Ralph Merkle发明。
+	最终一致性仍然是由时间跨度比较大的同步操作来保证的。如果在Dynamo中出现了不一致，比如其中的一个节点在down掉一段时间后再次上线，这时首先需要对其数据进行一个“去熵（anti-entropy）”操作，实际上就是一个对不同节点上共有的数据副本进行同步的操作。为了让非常贵的同步操作尽可能的高效，Merkle Tree便被引入了进来。
+	Merkle Tree（MT）是一个非常容易理解的数据结构，简单来说就是一颗hash树，在这棵树中，叶子节点的值是一些hash值、非叶节点的值均是由其子节点值计算hash得来的。在Dynamo中，每个节点保存一个范围内的key值，不同节点间存在有相互交迭的key值范围。在去熵操作中，考虑的仅仅是某两个节点间共有的key值范围。MT的叶子节点即是这个共有的key值范围内每个key的hash，通过叶子节点的hash自底向上便可以构建出一颗MT。Dynamo首先比对MT根处的hash，如果一致则表示两者完全一致，否则将其子节点交换并继续比较的过程。
+	使用MT的好处无非从时间和空间两个角度考虑，在分布式情况下，空间可以理解为相应的网络传输数据量。
+	在时间上，MT利用树形结构避免了可能出现的线性时间比较，迅速定位到差异的key值，时间复杂度为O（lgn）；
+	在网络传输上，如果进行线性比对，每次必须将共有的key值范围内所有hash传输，但针对MT而言，是查到哪一层，获取哪一层需要的hash值，大大减小了传输数据量。（一个早期应用MT的例子便是在bt下载软件中，为了避免所有数据块的hash都必须存在torrent中导致tracker的巨大压力，从而使用MT这种数据结构，并且只需将根处hash存放到torrent中。）
+
+dht
+	这些系统使用不同的方法来解决如何找到拥有某数据的节点的问题。Napster 使用中央的索引服务器：每个节点加入网络的同时，会将他们所拥有的文件列表传送给服务器，这使得服务器可以进行搜索并将结果回传给进行查询的节点。但中央索引服务器让整个系统易受攻击，且可能造成法律问题。于是，Gnutella 和相似的网络改用大量查询模式（flooding query model）：每次搜索都会把查询消息广播给网络上的所有节点。虽然这个方式能够防止单点故障（single point of failure），但比起 Napster 来说却极没效率。
+	最后，Freenet 使用了完全分散式的系统，但它建置了一套使用经验法则的基于关键值的转送方法（key based routing）。在这个方法中，每个文件与一个关键值相结合，而拥有相似关键值的文件会倾向被相似的节点构成的集合所保管。于是查询消息就可以根据它所提供的关键值被转送到该集合，而不需要经过所有的节点。然而，Freenet 并不保证存在网络上的数据在查询时一定会被找到。
+	分散式散列表为了达到 Gnutella 与 Freenet 的分散性（decentralization）以及 Napster 的效率与正确结果，使用了较为结构化的基于关键值的转送方法。不过分散式散列表也有个 Freenet 有的缺点，就是只能作精确搜索，而不能只提供部份的关键字；但这个功能可以在分散式散列表的上层实做。
+	分散式散列表本质上强调以下特性：
+		离散性：构成系统的节点并没有任何中央式的协调机制。
+		伸缩性：即使有成千上万个节点，系统仍然应该十分有效率。
+		容错性：即使节点不断地加入、离开或是停止工作，系统仍然必须达到一定的可靠度。
+
+
+When a new node joins the network
+	新加入的节点宣告自己的存在(广播或者其他手段)
+	他的邻居节点要调整Key的分配和复制关系。这个操作通常是同步的
+	这个新加入的节点异步的拷贝数据
+	这个节点变化的操作被发布到其他节点
+
+
+OLAP报表产品最大的难点在哪里？
+	目前报表工具最大的难点不在于报表的样式（如斜线等），样式虽较繁琐但并非本质困难。最根本的难点在于业务 部门知道报表代表的真正含义，却不知道报表的数据统计模型模型；而IT部门通过理解业务部门的描述，在数据库端进行设置数据统计模型，却对报表本身所代表 的价值很难理解。
+	说起来有点深奥，其实并不复杂，OLAP最基本的概念只有三个：多维观察、数据钻取、CUBE运算。
+	关于CUBE运算：OLAP分析所需的原始数据量是非常庞大的。一个分析模型，往往会涉及数百万、数千万条数据，甚至更多；而分析模型中包含多个维数据，这些维又可以由浏览者作任意的提取组合。这样的结果就是大量的实时运算导致时间的延滞。
+	我们可以设想，一个1000万条记录的分析模型，如果一次提取4个维度进行组合分析，那么实际的运算次数将 达到4的1000次方的数量。这样的运算量将导致数十分钟乃至更长的等待时间。如果用户对维组合次序进行调整，或增加、或减少某些维度的话，又将是一个重 新的计算过程。
+	从上面的分析中，我们可以得出结论，如果不能解决OLAP运算效率问题的话，OLAP将是一个毫无实用价值的概念。那么，一个成熟产品是如何解决这个问题的呢？这涉及到OLAP中一个非常重要的技术——数据CUBE预运算。
+	一个OLAP模型中，度量数据和维数据我们应该事先确定，一旦两者确定下来，我们可以对数据进行预先的处理。在正式发布之前，将数据根据维进行最大
+	限度的聚类运算，运算中会考虑到各种维组合情况，运算结果将生成一个数据CUBE，并保存在服务器上。
+	这样，当最终用户在调阅这个分析模型的时候，就可以直接使用这个CUBE，在此基础上根据用户的维选择和维组合进行复运算，从而达到实时响应的效果。
+
+
+你运行一个zookeeper也是可以的，但是在生产环境中，你最好部署3，5，7个节点。部署的越多，可靠性就越高，当然只能部署奇数个，偶数个是不可以的。你需要给每个zookeeper 1G左右的内存，如果可能的话，最好有独立的磁盘。 (独立磁盘可以确保zookeeper是高性能的。).如果你的集群负载很重，不要把Zookeeper和RegionServer运行在同一台机器上面。就像DataNodes 和 TaskTrackers一样
+接下来，指明Zookeeper的host和端口。可以在 hbase-site.xml中设置, 也可以在Hbase的CLASSPATH下面加一个zoo.cfg配置文件。 HBase 会优先加载 zoo.cfg 里面的配置，把hbase-site.xml里面的覆盖掉.
+${HBASE_HOME}/bin/hbase-daemons.sh {start,stop} zookeeper
+
+新对象在Eden区分配内存。GC时，将Eden和有对象的Survior区(From Space)的所有对象复制到另外一个Survior(To Space)，然后清空Eden和原Sruvior。当一个对象在from和to之间复制的次数超过一定阀值(-XX:MaxTenuringThreshold)后，进入到年老代。如果是CMS GC，这个阀值默认为0，也就是经过一次copy后就进入年老代。
+GC分为对Young的GC（minor）和同时对Young和Old的GC（Major）
+不管哪种GC，年轻代的GC都会阻塞线程。推荐年轻代使用Parallel New GC，年老代使用CMS GC
+-XX:+UseParNewGC –XX:+UseConcMarkSweepGC
+
+默认触发GC的时机是当年老代内存达到90%的时候，这个百分比由 -XX:CMSInitiatingOccupancyFraction=N 这个参数来设置。concurrent mode failed发生在这样一个场景：
+当年老代内存达到90%的时候，CMS开始进行并发垃圾收集，于此同时，新生代还在迅速不断地晋升对象到年老代。当年老代CMS还未完成并发标记时，年老代满了，悲剧就发生了。CMS因为没内存可用不得不暂停mark，并触发一次全jvm的stop the world（挂起所有线程），然后采用单线程拷贝方式清理所有垃圾对象。这个过程会非常漫长。为了避免出现concurrent mode failed，我们应该让GC在未到90%时，就触发。
+通过设置 -XX:CMSInitiatingOccupancyFraction=N
+这个百分比， 可以简单的这么计算。如果你的 hfile.block.cache.size 和 hbase.regionserver.global.memstore.upperLimit 加起来有60%（默认），那么你可以设置 70-80，一般高10%左右差不多。
+
+均匀访存模型（Uniform Memory Access，UMA）中，所有的物理存储器被均匀共享，即处理器访问它们的时间是一样的。这种系统因为高度的资源共享也被称为紧耦合系统（Tightly Coupled System）。
+
+从系统架构来看，目前的商用服务器大体可以分为三类，即对称多处理器结构(SMP：Symmetric Multi-Processor)，非一致存储访问结构(NUMA：Non-Uniform Memory Access)，以及海量并行处理结构(MPP：Massive Parallel Processing)。它们的特征分别描述如下：
+	所谓对称多处理器结构，是指服务器中多个CPU对称工作，无主次或从属关系。各CPU共享相同的物理内存，每个 CPU访问内存中的任何地址所需时间是相同的，因此SMP也被称为一致存储器访问结构(UMA：Uniform Memory Access)。对SMP服务器进行扩展的方式包括增加内存、使用更快的CPU、增加CPU、扩充I/O(槽口数与总线数)以及添加更多的外部设备(通常是磁盘存储)。
+	　　NUMA服务器的基本特征是具有多个CPU模块，每个CPU模块由多个CPU(如4个)组成，并且具有独立的本地内存、I/O槽口等。由于其节点之间可以通过互联模块(如称为Crossbar Switch)进行连接和信息交互，因此每个CPU可以访问整个系统的内存(这是NUMA系统与MPP系统的重要差别)。显然，访问本地内存的速度将远远高于访问远地内存(系统内其它节点的内存)的速度，这也是非一致存储访问NUMA的由来。由于这个特点，为了更好地发挥系统性能，开发应用程序时需要尽量减少不同CPU模块之间的信息交互。
+程序需要使用4G内存，而可用物理内存小于4G，导致程序不得不降低内存占用。为了解决此类问题，现代CPU引入了?MMU（Memory Management Unit?内存管理单元）。
+	MMU 的核心思想是利用虚拟地址替代物理地址，即CPU寻址时使用虚址，由 MMU 负责将虚址映射为物理地址。
+	MMU的引入，解决了对物理内存的限制，对程序来说，就像自己在使用4G内存一样。
+	内存分页(Paging)是在使用MMU的基础上，提出的一种内存管理机制。它将虚拟地址和物理地址按固定大小（4K）分割成页(page)和页帧(page frame)，并保证页与页帧的大小相同。
+	这种机制，从数据结构上，保证了访问内存的高效，并使OS能支持非连续性的内存分配。
+	在程序内存不够用时，还可以将不常用的物理内存页转移到其他存储设备上，比如磁盘，这就是大家耳熟能详的虚拟内存。
+	在上文中提到，虚拟地址与物理地址需要通过映射，才能使CPU正常工作。
+	而映射就需要存储映射表。在现代CPU架构中，映射关系通常被存储在物理内存上一个被称之为页表(page table)的地方。
+
+	进一步优化，引入TLB（Translation lookaside buffer，页表寄存器缓冲）
+	由上一节可知，页表是被存储在内存中的。我们知道CPU通过总线访问内存，肯定慢于直接访问寄存器的。
+	为了进一步优化性能，现代CPU架构引入了TLB，用来缓存一部分经常访问的页表内容。
+	TLB是有限的，这点毫无疑问。当超出TLB的存储极限时，就会发生 TLB miss，之后，OS就会命令CPU去访问内存上的页表。如果频繁的出现TLB miss，程序的性能会下降地很快。
+	为了让TLB可以存储更多的页地址映射关系，我们的做法是调大内存分页大小。
+	如果一个页4M，对比一个页4K，前者可以让TLB多存储1000个页地址映射关系，性能的提升是比较可观的。
+
+	Linux：
+	限制：需要2.6内核以上或2.4内核已打大内存页补丁。确认是否支持，请在终端敲如下命令：
+	# cat /proc/meminfo | grep Huge
+	Hugepagesize: 2048 kB
+	如果有HugePage字样的输出内容，说明你的OS是支持大内存分页的。Hugepagesize就是默认的大内存页size。
+	接下来，为了让JVM可以调整大内存页size，需要设置下OS 共享内存段最大值 和 大内存页数量。
+	共享内存段最大值	建议这个值大于Java Heap size，这个例子里设置了4G内存。
+	# echo 4294967295 > /proc/sys/kernel/shmmax
+	大内存页数量
+	# echo 154 > /proc/sys/vm/nr_hugepages
+	这个值一般是 Java进程占用最大内存/单个页的大小 ，比如java设置 1.5G，单个页 10M，那么数量为 ?1536/10 = 154。
+	注意：因为proc是内存FS，为了不让你的设置在重启后被冲掉，建议写个脚本放到 init 阶段(rc.local)。
+
+	单个页大小调整
+	JVM启用时加参数 -XX:LargePageSizeInBytes=10m
+	如果JDK是在1.5 update5以前的，还需要手动加 -XX:+UseLargePages，作用是启用大内存页支持。
+
+
+Bloom Filter是一种空间效率很高的随机数据结构，它利用位数组很简洁地表示一个集合，并能判断一个元素是否属于这个集合。Bloom Filter的这种高效是有一定代价的：在判断一个元素是否属于某个集合时，有可能会把不属于这个集合的元素误认为属于这个集合（false positive）。因此，Bloom Filter不适合那些“零错误”的应用场合。而在能容忍低错误率的应用场合下，Bloom Filter通过极少的错误换取了存储空间的极大节省。
+　　Bloom Filter是由Bloom在1970年提出的一种多哈希函数映射的快速查找算法。通常应用在一些需要快速判断某个元素是否属于集合，但是并不严格要求100%正确的场合。
+为了说明Bloom Filter存在的重要意义，举一个实例：
+　　假设要你写一个网络蜘蛛（web crawler）。由于网络间的链接错综复杂，蜘蛛在网络间爬行很可能会形成“环”。为了避免形成“环”，就需要知道蜘蛛已经访问过那些URL。给一个URL，怎样知道蜘蛛是否已经访问过呢？稍微想想，就会有如下几种方案：
+　　1. 将访问过的URL保存到数据库。
+　　2. 用HashSet将访问过的URL保存起来。那只需接近O(1)的代价就可以查到一个URL是否被访问过了。
+　　3. URL经过MD5或SHA-1等单向哈希后再保存到HashSet或数据库。
+　　4. Bit-Map方法。建立一个BitSet，将每个URL经过一个哈希函数映射到某一位。
+　　方法1~3都是将访问过的URL完整保存，方法4则只标记URL的一个映射位。
+　　以上方法在数据量较小的情况下都能完美解决问题，但是当数据量变得非常庞大时问题就来了。
+　　方法1的缺点：数据量变得非常庞大后关系型数据库查询的效率会变得很低。而且每来一个URL就启动一次数据库查询是不是太小题大做了？
+　　方法2的缺点：太消耗内存。随着URL的增多，占用的内存会越来越多。就算只有1亿个URL，每个URL只算50个字符，就需要5GB内存。
+　　方法3：由于字符串经过MD5处理后的信息摘要长度只有128Bit，SHA-1处理后也只有160Bit，因此方法3比方法2节省了好几倍的内存。
+　　方法4消耗内存是相对较少的，但缺点是单一哈希函数发生冲突的概率太高。还记得数据结构课上学过的Hash表冲突的各种解决方法么？若要降低冲突发生的概率到1%，就要将BitSet的长度设置为URL个数的100倍。
+　　实质上上面的算法都忽略了一个重要的隐含条件：允许小概率的出错，不一定要100%准确！也就是说少量url实际上没有没网络蜘蛛访问，而将它们错判为已访问的代价是很小的——大不了少抓几个网页呗。
+
+下面引入本篇的主角——Bloom Filter。其实上面方法4的思想已经很接近Bloom Filter了。方法四的致命缺点是冲突概率高，为了降低冲突的概念，Bloom Filter使用了多个哈希函数，而不是一个。
+   　Bloom Filter算法如下：
+  　 创建一个m位BitSet，先将所有位初始化为0，然后选择k个不同的哈希函数。第i个哈希函数对字符串str哈希的结果记为h（i，str），且h（i，str）的范围是0到m-1 。
+
+一般主流的数据库索引一般都是用的B/B+树系列，包括MySQL及NoSQL中的MongoDB。
+LSM-Tree最适用于那些索引插入频率远大于查询频率的情况，比如，对于历史记录表和日志文件来说，就属于这种情况。
+
+
+
+CAP理论断言任何基于网络的数据共享系统，最多只能满足数据一致性、可用性、分区容忍性三要素中的两个要素。但是通过显式处理分区情形，系统设计师可以做到优化数据一致性和可用性，进而取得三者之间的平衡。
+CAP原理中，有三个要素：一致性(Consistency)可用性(Availability)分区容忍性(Partition tolerance)
+CAP原理指的是，这三个要素最多只能同时实现两点，不可能三者兼顾。因此在进行分布式架构设计时，必须做出取舍。而对于分布式数据系统，分区容忍性是基本要求，否则就失去了价值。因此设计分布式数据系统，就是在一致性和可用性之间取一个平衡。对于大多数web应用，其实并不需要强一致性，因此牺牲一致性而换取高可用性，是目前多数分布式数据库产品的方向。
+当然，牺牲一致性，并不是完全不管数据的一致性，否则数据是混乱的，那么系统可用性再高分布式再好也没有了价值。牺牲一致性，只是不再要求关系型数据库中的强一致性，而是只要系统能达到最终一致性即可，考虑到客户体验，这个最终一致的时间窗口，要尽可能的对用户透明，也就是需要保障“用户感知到的一致性”。通常是通过数据的多份异步复制来实现系统的高可用和数据的最终一致性的，“用户感知到的一致性”的时间窗口则取决于数据复制到一致状态的时间。
+
+在 UML 2 中有二种基本的图范畴：结构图和行为图。
+结构图的目的是显示建模系统的静态结构。行为图显示系统中的对象的动态行为
+序列图的主要目的是定义事件序列，产生一些希望的输出。重点不是消息本身，而是消息产生的顺序；不过，大多数序列图会表示一个系统的对象之间传递的什么消息，以及它们发生的顺序。图按照水平和垂直的维度传递信息：垂直维度从上而下表示消息/调用发生的时间序列，而且水平维度从左到右表示消息发送到的对象实例。
+子用例将继承父用例的所有结构、行为和关系。
+
+相对于取模的算法，一致性hash算法除了计算key的hash值外，还会计算每个server对应的hash值，然后将这些hash值映射到一个有限的值域上（比如0~2^32）。通过寻找hash值大于hash(key)的最小server作为存储该key数据的目标server。如果找不到，则直接把具有最小hash值的server作为目标server。
+但是，这种算法相对于取模方式也有一个缺陷：当server数量很少时，很可能他们在环中的分布不是特别均匀，进而导致cache不能均匀分布到所有的server上。
+为解决这个问题，需要使用虚拟节点的思想：为每个物理节点（server）在环上分配100～200个点，这样环上的节点较多，就能抑制分布不均匀。当为cache定位目标server时，如果定位到虚拟节点上，就表示cache真正的存储位置是在该虚拟节点代表的实际物理server上。
+
+拜占庭将军问题
+	在分布式计算上，试图在异步系统和不可靠的通道上达到一致性是不可能的。因此对一致性的研究一般假设信道是可靠的，或不存在异步系统上而行。
+对于一致性算法的研究就没有停止过。节点通信存在两种模型：共享内存（Shared memory）和消息传递（Messages passing）。Paxos 算法就是一种基于消息传递模型的一致性算法。
+要求经“多数派（majority）”批准的 value 成为正式的决议（称为“通过”决议）。
+P1：一个 acceptor 必须批准它接收到的第一个 value。
+决议的提出与通过
+	通过一个决议分为两个阶段：
+
+	prepare 阶段：
+	proposer 选择一个提案编号 n 并将 prepare 请求发送给 acceptors 中的一个多数派；
+	acceptor 收到 prepare 消息后，如果提案的编号大于它已经回复的所有 prepare 消息，则 acceptor 将自己上次的批准回复给 proposer，并承诺不再回复小于 n 的提案；
+	批准阶段：
+	当一个 proposor 收到了多数 acceptors 对 prepare 的回复后，就进入批准阶段。它要向回复 prepare 请求的 acceptors 发送 accept 请求，包括编号 n 和根据 P2c 决定的 value（如果根据 P2c 没有决定 value，那么它可以自由决定 value）。
+	在不违背自己向其他 proposer 的承诺的前提下，acceptor 收到 accept 请求后即批准这个请求。
+	这个过程在任何时候中断都可以保证正确性。例如如果一个 proposer 发现已经有其他 proposers 提出了编号更高的提案，则有必要中断这个过程。因此为了优化，在上述 prepare 过程中，如果一个 acceptor 发现存在一个更高编号的"草案"，则需要通知 proposer，提醒其中断这次提案。
+
+To create a deployment that can tolerate the failure of F machines, you should count on deploying 2xF+1 machines. Thus, a deployment that consists of three machines can handle one failure, and a deployment of five machines can handle two failures. Note that a deployment of six machines can only handle two failures since three machines is not a majority. For this reason, ZooKeeper deployments are usually made up of an odd number of machines.
+ZooKeeper's transaction log must be on a dedicated device. (A dedicated partition is not enough.) ZooKeeper writes the log sequentially, without seeking Sharing your log device with other processes can cause seeks and contention, which in turn can cause multi-second delays.
+Do not put ZooKeeper in a situation that can cause a swap. In order for ZooKeeper to function with any sort of timeliness, it simply cannot be allowed to swap. Therefore, make certain that the maximum heap size given to ZooKeeper is not bigger than the amount of real memory available to ZooKeeper. For more on this, see Things to Avoid below.
+There are two port numbers nnnnn. The first followers use to connect to the leader, and the second is for leader election. The leader election port is only necessary if electionAlg is 1, 2, or 3 (default). If electionAlg is 0, then the second port is not necessary. If you want to test multiple servers on a single machine, then different ports can be used for each server.
+
+No solution is all win, so a compromise must be made depending on what you think is important.
+Like memcached. It's OK to drop for some applications like Voip, live video, and multiplayer games. You care more about where things are now, not where they where.
+You eventually see the stuff you wrote, just not right away. Email is a good example. You send it but it doesn't arrive right away, but it gets there, eventually. DNS change propagation, SMTP, Amazon S3, SimpleDB, search engine indexing are all of this type. There's a delay after a write when a read won't see what was written, but the writes eventually push through.
+ 		Backups	M/S		MM		2PC		Paxos
+Consistency	Weak	Eventual	Eventual	Strong		Strong
+Transactions	No	Full		Local		Full		Full
+Latency		Low	Low		Low		High		High
+Throughput	High	High		High		Low		Medium
+Data loss	Lots	Some		Some		None		None
+Failover	Down	Read-only	Read/Write	Read/Write	Read/Write
+
+To do the merging you must find away to serialize, impose an ordering on all your writes. There is no global clock. Things happen in parallel. You can't ever know what happens first. So you make it up using timestamps, local timetamps + skew, local version numbers, distributed consensus protocol.
+
+容量调度器的原理与公平调度器有些相似，但也有一些区别。首先，容量调度是用于大型集群，它们有多个独立用户和目标应用程序。由于这个原因，容量调度能提供更大的控制和能力，提供用户之间最小容量保证并在用户之间共享多余的容量。容量调度是由 Yahoo! 开发出来的。
+在容量调度中，创建的是队列而不是池，每个队列的 map 和 reduce 插槽数都可以配置。每个队列都会分配一个保证容量（集群的总容量是每个队列容量之和）。
+队列处于监控之下；如果某个队列未使用分配的容量，那么这些多余的容量会被临时分配到其他队列中。由于队列可以表示一个人或大型组织，那么所有的可用容量都可以由其他用户重新分配使用。
+与公平调度另一个区别是可以调整队列中作业的优先级。一般来说，具有高优先级的作业访问资源比低优先级作业更快。Hadoop 路线图包含了对抢占的支持（临时替换出低优先级作业，让高优先级作业先执行），但该功能尚未实现。
+另一个区别是对队列进行严格的访问控制（假设队列绑定到一个人或组织）。这些访问控制是按照每个队列进行定义的。对于将作业提交到队列的能力和查看修改队列中作业的能力都有严格限制。
+可在多个 Hadoop 配置文件中配置容量调度器。队列是在 hadoop-site.xml 中定义，在 capacity-scheduler.xml 中配置。可以在 mapred-queue-acls.xml 中配置 ACL。单个的队列属性包括容量百分比（集群中所有的队列容量少于或等于 100）、最大容量（队列多余容量使用的限制）以及队列是否支持优先级。更重要的是，可以在运行时调整队列优先级，从而可以在集群使用过程中改变或避免中断的情况。
+
+Hadoop在可伸缩性、健壮性、计算性能和成本上具有无可替代的优势
+Hadoop集群软硬件的花费极低，每GB存储和计算的成本是其他企业级产品的百分之一甚至千分之一，性能却非常出色。我们可以轻松地进行千亿乃至万亿数据级别的多维统计分析和机器学习。
+MapReduce目前最擅长的计算领域有流量统计、推荐引擎、趋势分析、用户行为分析、数据挖掘分类器、分布式索引等。
+雅虎基于数据驱动和数据挖掘最大的两个产品，一个是搜索，一个是广告。广告的话，首先是搜索广告。另外我们的显示广告也在用数据挖掘
+Hadoop的地位我想简单的归纳一下，首先它是数据采集、整理、处理、存储和分发的技术。接下来是数据挖掘
+
+Common and unique use cases for Apache Hadoop
+Hadoop作为大数据存储及计算领域的一颗明星，目前已经得到越来越广泛的应用。下面PPT主要分析了Hadoop的一些典型应用场景，并对其进行了深入分析，主要包括下面几个方面：
+	日志处理: Hadoop擅长这个
+	抓住本拉登: 并行计算
+	ETL: 每个人几乎都在做ETL（Extract-Transform-Load）工作 Netezza关于使用Hadoop做ETL任务的看法)
+	使用HBase做数据分析: 用扩展性应对大量的写操作—Facebook构建了基于HBase的实时数据分析系统
+	机器学习: 比如Apache Mahout项目
+
+
+尽管在概念视图里，表可以被看成是一个稀疏的行的集合。但在物理上，它的是区分column family 存储的。新的columns可以不经过声明直接加入一个column family.
+值得注意的是在上面的概念视图中空白cell在物理上是不存储的，因为根本没有必要存储。因此若一个请求为要获取t8时间的contents:html，他的结果就是空。相似的，若请求为获取t9时间的anchor:my.look.ca，结果也是空。但是，如果不指明时间，将会返回最新时间的行，每个最新的都会返回。例如，如果请求为获取row key为"com.cnn.www"，没有指明时间戳的话，活动的结果是t6下的contents:html，t9下的anchor:cnnsi.com和t8下anchor:my.look.ca。
+在Hbase是column family一些列的集合。一个column family所有列成员是有着相同的前缀。比如，列courses:history 和 courses:math都是 column family courses的成员.冒号(:)是column family的分隔符，用来区分前缀和列名。column 前缀必须是可打印的字符，剩下的部分(称为qualify),可以又任意字节数组组成。column family必须在表建立的时候声明。column就不需要了，随时可以新建。
+在物理上，一个的column family成员在文件系统上都是存储在一起。因为存储优化都是针对column family级别的，这就意味着，一个colimn family的所有成员的是用相同的方式访问的。
+A {row, column, version} 元组就是一个Hbase中的一个 cell。Cell的内容是不可分割的字节数组。
+删除操作的实现是创建一个删除标记。例如，我们想要删除一个版本，或者默认是currentTimeMillis。就意味着“删除比这个版本更早的所有版本”.Hbase不会去改那些数据，数据不会立即从文件中删除。他使用删除标记来屏蔽掉这些值。[16]若你知道的版本比数据中的版本晚，就意味着这一行中的所有数据都会被删除。
+删除标记操作可能会标记之后put的数据。[17].需要值得注意的是，当写下一个删除标记后，只有下一个major compaction操作发起之后，这个删除标记才会消失。设想一下，当你写下一个删除标记-“删除所有<= 时间T的数据”。但之后，你又执行了一个Put操作，版本<= T。这样就算这个Put发生在删除之后，他的数据也算是打上了删除标记。这个Put并不会失败，但是你需要注意的是这个操作没有任何作用。只有一个major compaction执行只有，一切才会恢复正常。如果你的Put操作一直使用升序的版本，这个错误就不会发生。但是也有可能出现这样的情况，你删除之后，
+最好是使用默认的配置，可以把热的表配小一点(或者受到split热点的region把压力分散到集群中)。如果你的cell的大小比较大(100KB或更大)，就可以把region的大小调到1GB。
+
+假设你需要通过某个特定的 RowKey 查询一行记录，首先 Client 端会连接Zookeeper Qurom，通过 Zookeeper，Client 能获知哪个 Server 管理-ROOT- Region。接着 Client 访问管理-ROOT-的 Server，进而获知哪个 Server 管理.META.表。这两个信息 Client 只会获取一次并缓存起来。在后续的操作中 Client 会直接访问管理.META.表的 Server， 并获取 Region 分布的信息。 一旦 Client 获取了这一行的位置信息， 比如这一行属于哪个 Region， Client 将会缓存这个信息并直接访问 HRegionServer。久而久之 Client 缓存的信息渐渐增多，即使不访问.META.表也能知道去访问哪个 HRegionServer。
+
+当 HBase 启动的时候 HMaster 负责分配 Region 给 HRegionServer，这其中当然也包括-ROOT-表和.META.表的 Region。
+接下来 HRegionServer 打开这个 Region 并创建一个 HRegion 对象。 当 HRegion 打开以后， 它给每个 table的每个 HColumnFamily 创建一个 Store 实例。 每个 Store 实例拥有一个或者多个 StoreFile 实例。 StoreFile对 HFile 做了轻量级的包装。 除了 Store 实例以外， 每个 HRegion 还拥有一个 MemStore 实例和一个 HLog实例。现在我们就可以看看这些实例是如何在一起工作的，遵循什么样的规则以及这些规则的例外。
+
+Region 的分割。当一个 Region 的数据文件不断增长并超过一个最大值的时候（你可以配置这个最大值 hbase.hregion.max.filesize） ，这个 Region 会被切分成两个。这个过程完成的非常快，因为原始的数据文件并不会被改变，系统只是简单的创建两个 Reference 文件指向原始的数据文件。每个 Reference 文件管理原始文件一半的数据。Reference 文件名字是一个 ID，它使用被参考的 Region 的名字的 Hash 作为前缀。例如：1278437856009925445.3323223323。 Reference 文件只含有非常少量的信息，这些信息包括被分割的原始 Region 的 Key 以及这个文件管理前半段还是后半段。HBase 使用 HalfHFileReader 类来访问 Reference 文件并从原始数据文件中读取数据。前面的架构图只并没有画出这个类，因为它只是临时使用的。只有当系统做 Compaction 的时候原始数据文件才会被分割成两个独立的文件并放到相应的 Region 目录下面，同时原始数据文件和那些 Reference 文件也会被清除。
+
+你有一个大的集群，每台机器都混装了 Hadoop 和 HBase，每个 RegionServer 上面都有一个DataNode （这是我们最希望看到的） 。 好， 这样的话 RegionServer 就具备了从本地读取数据的前提。 我们还剩下一个问题， 如何保证每个 RegionServer 管理的 Region 所对应的 HFile 和 WAL log 就存在本地的 DataNode上面？设想一种情况，你对 HBase 创建了大量的数据，每个 RegionServer 都管理了各自的 Region，这时你重启了 HBase，重启了所有的 RegionServer，所有的 Region 都会被随机的分配给各个 RegionServer，这种情况下你显然无法保证我们希望的本地数据存储。
+我们先强调一点：HBase 不应该频繁的被重启，并且部署的架构不应该被频繁的改变，这是能解决这个问题的一个基础。写入 HDFS 的文件都有一个特点，一旦写入一个文件就无法更改（由于种种原因） 。因此 HBase 会定期的将数据写入 HDFS 中并生成一个新文件。这里有一个让人惊奇的地方：HDFS 足够聪明，它知道如何将文件写到最合适的地方。换句话说，它知道把文件放到什么地方使得 RegionServer 用起来最方便。
+整个的选择过程， NameNode 总是为第一份冗余优先选择本地节点作为存储空间，对于第二份冗余，则是优先选择另一个机架的节点。如果前两份冗余位于不同机架，第三份冗余偏向于选择与第一份冗余相同的机架，否则选择不同的机架。大于三份的冗余就听天由命，随机挑选节点了。总结一下，基于当前的情况，每个 Region Server 运行的时间越长，那么数据的存储地点就越稳定，每个Region Server 就能保证它要管理的数据在本地就有一份拷贝。这样无论是 Scan 还是 MapReduce 都能达到效率的最优化
+
+为什么要一个 RegionServer 对应于一个 HLog。为什么不是一个 region 对应于一个 log file？
+	引用 BigTable 中的一段话，如果我们每一个”tablet” （对应于 HBase 的 region） 都提交一个日志文件， 会需要并发写入大量的文件到 GFS，这样，根据每个 GFS server 所依赖的文件系统，写入不同的日志文件会造成大量的磁盘操作。HBase 依照这样的原则。在日志被回滚和安全删除之前，将会有大量的文件。如果改成一个 region 对应于一个文件，将会不好扩展，迟早会引发问题。
+
+Splunk 是日志界的 google。支持任何服务器产生的日志，其对日志进行处理的方式是进行高效索引之后让管理员可以对日志中出现的各种情况进行搜索，并且通过非常好的图形化的方式展现出来。让管理员彻底从繁琐的 ssh，grep 中解放出来。
+
+在此基础上我们引入两个特殊的概念：-ROOT-和.META.。这是什么？它们是 HBase 的两张内置表，从存储结构和操作方法的角度来说，它们和其他 HBase 的表没有任何区别， 你可以认为这就是两张普通的表， 对于普通表的操作对它们都适用。它们与众不同的地方是 HBase 用它们来存贮一个重要的系统信息——Region 的分布情况以及每个 Region的详细信息。
+
+问题是.META.也是一张普通的表， 我们需要先知道哪个 RegionServer 管理了.META.表，怎么办？有一个方法，我们把管理.META.表的 RegionServer 的地址放到 ZooKeeper 上面不久行了， 这样大家都知道了谁在管理.META.。
+貌似问题解决了， 但对于这个例子我们遇到了一个新问题。 因为 Table1 实在太大了， 它的 Region 实在太多了，.META.为了存储这些 Region 信息，花费了大量的空间，自己也需要划分成多个 Region。这就意味着可能有多个 RegionServer 在管理.META.。 怎么办？在 ZooKeeper 里面存储所有管理.META.的 RegionServer地址让 Client 自己去遍历？HBase 并不是这么做的。
+HBase 的做法是用另外一个表来记录.META.的 Region 信息，就和.META.记录用户表的 Region 信息一模一样。这个表就是-ROOT-表。这也解释了为什么-ROOT-和.META.拥有相同的表结构，因为他们的原理是一模一样的。
+这么一来 Client 端就需要先去访问-ROOT-表。 所以需要知道管理-ROOT-表的 RegionServer 的地址。 这个地址被存在 ZooKeeper 中。默认的路径是：/hbase/root-region-server
+等等，如果-ROOT-表太大了，要被分成多个 Region 怎么办？嘿嘿，HBase 认为-ROOT-表不会大到那个程度，因此-ROOT-只会有一个 Region，这个 Region 的信息也是被存在 HBase 内部的。
+在整个路由过程中并没有涉及到 MasterServer，也就是说 HBase 日常的数据操作并不需要 MasterServer， 不会造成 MasterServer 的负担。
+
+你可以把 ZooKeeper 集群运行在一组空闲的稍微有点过时但是性能还相当不错的机器上。 这样你可以单独监控 ZooKeeper 集群和 HBase 集群中的机器，而不必有以下的烦恼：当一个机器的 CPU 负荷 100%的时候，你搞不清楚这个负荷究竟来自哪个进程或者有什么后果。
+
+HBase 不同于一般的关系数据库,它是一个适合于非结构化数据存储的数据库.所谓非结构化数据存储就是说 HBase 是基于列的而不是基于行的模式，这样方面读写你的大数据内容。
+HBase 是介于 Map Entry(key & value)和 DB Row 之间的一种数据存储方式。就点有点类似于现在流行的 Memcache，但不仅仅是简单的一个 key 对应一个 value，你很可能需要存储多个属性的数据结构，但没有传统数据库表中那么多的关联关系，这就是所谓的松散数据。
+HBase is not an ACID compliant database. However, it does guarantee certain specific properties.compareAndSet (CAS)
+
+# ######################### 关于 HDFS Append ####################
+(1) 背景
+    早期的HDFS版本不支持HDFS append功能. 当一个文件被关闭时, 这个文件就不能再被修改了. 如果要修改的话, 就只能重读此文件并将数据写入一个新的文件. 虽然这种方式很简单, 但和map/reduce的需求却是非常match的. map/reduce jobs会向HDFS写入多个结果文件, 这种方式比修改已经存在的输入文件效率要高很多. 而且map/reduce模型通常是不会修改输入文件的.
+    在早期的HDFS(0.15之前), 如果一个文件没有被成功的关闭(通过FSDataOutputStream.close())之前，这个文件在NameSpace中是不可见的. 如果client在close文件之前失效或者是调用close()方法时抛出了异常, 这个文件就永远是不可见的. 恢复文件的唯一方法就是从头重写. 实事上map/reduce是非常适合这种文件读写风格的. 例如: map/reduce job>的某个Task失败, 只需重新运行一次Task即可. 因为map/reduce jobs在启动之前将作业切成了很多细小的Task, 各个Task之间是没有任何关联, 而且一个task失败后重新运行的开销也非常的低.
+(2) Append的第一次尝试
+    当然map/reduce只是架构在HDFS之上的一个应用, 其它应用并不是完全没有Append需求的. 直到发布了hadoop-0.15.0这个版本, 打开的文件在namespace中才变得可见了.也就>是说在文件没有close之前, 其它client是可以看到这个文件的. 这就是说在没有关闭文件之前client挂掉, 这个文件也还是会被保留在namespace中的. 当然这个版本没有去解决让正在写入的数据尽快变得可见的问题.参考:  https://issues.apache.org/jira/browse/HADOOP-1708
+    与此同时, HADOOP-89这个ISSUE还解决了让正在写入文件也可以被其它clients读到,(但是只有最后一个被全部成功写入的块是可见的). 也就是说在文件写入过程中有部分是可见的. 这使得外部可以探知一个文件写入的进度. 当然也可以使用hadoop fs -tail 的方式依次读取己成功写入的block.    参考: https://issues.apache.org/jira/browse/HADOOP-89
+(3) 更进一步的需求
+    对于某些应用来说, HDFS提供的API还不是足够强大. 例如, 对于某些数据库(HBase)希望将Transaction Log以非常可靠的方式写入到HDFS, 但是HDFS并没有提供. 对于HBase这样的应用, 需要有类似于sync()这样的API来保证所有的Transactoin Log记录被成功的持久化到HDFS中(类似于 POSIX's fsync), 如果应用挂掉了, 它仍然可以恢复已经flush的Transaction Log记录以便回放日志文件, 并且还能重新以 append 模式打开Transaction Log文件追加新的数据.
+    同样, HDFS没有办法满足以上持久化日志文件写入的这种需求. 因为类似于HBase这样的应用无法容忍因为client失效而导致最后一个block中的所有日志记录全部丢失.
+    终于在2007年8月HDFS Append功能的实现重新提上了日程(https://issues.apache.org/jira/browse/HADOOP-1700), 并且在2008年7月HDFS Append功能终于随hadoop-0.19.0这个版本发布了.
+    为了实现HDFS Append功能免不了要修改很多HDFS的核心代码. 例如, 在准备进行append之前, HDFS Blocks是不可以修改的. 然后当开始对一个文件进行Append时, 最后一个block就需要变得可以被修改, 在修改的过程中需要一些方法来更新block的GenerationStamp, 以保证在修改最后一个块的的过程中, 如果在某个Datanode挂掉, 这个Block就必须被认为是拥有一个过期的版本号(GenerationStamp)，不然就会出现不一致的情况.细节可以关注：HADOOP-1700.
+(4) Append的终极版本
+      在HADOOP-1700被committed后, 2008年10月有人提出了Append中的有一个功能并没有生效: Reader Client不能读到已经被writer flushed的数据(HDFS-200).并且还出现了一些其它相关的问题: 例如: 当用户从0.17这个版本升级到0.19这个版本时,Datanode应该删掉tmp目录中的文件; Namenode在块复制/删除坏块是限入了死循环; FSNameSystem#addStoredBlock方法没有正确处理块长度不一致的问题; 还有BlockReport时应该对比GenerationStamp.......因为这些问题的存在, 在发布HADOOP-0.19.1版本时append功能又被disabled掉了. 紧接着在0.20.0这个版本中 dfs.support.append 配置项默认都被设置为了false.(HADOOP-5332), 所以在线上生产环境尽量不能打开 dfs.support.append功能, 因为在这个版本中append功能是非常不稳定的. 除非是在测试环境中你才可以打开这个功能.
+      因为这一系列的问题, 社区的developers不得不重新看待Append这个功能了, Append功能实际上是非常复杂的. 与此同事社区重新开了一个ISSUE: HDFS-265 "Revisit append". 并且提交了新的设计文档和测试计划.
+      另外部分hadoop committer在Y!的办公室专门举办了一个会议来讨论appends相关的需求. 并且重新给sync定义了一个语义上更加精确的名字: hflush. hflush会保证数据被flush到所有的datanodes, 但是不保证数据会被flush到操作系统的buffers或持久化到硬盘. 注: hflush应该是代表hadoop flush.
+##########################################################################################################################
+(1) 实现HDFS Append挑战有:
+    a)  一致性: 在同一时间在进行写操作的文件的最后一个Block被写入了不同数量的字节, 那么HDFS怎么保证读取一致性? 甚至在出现异时一致性问题又怎么保证?
+    b)  错误恢复: 当一个错误发生的时候, 恢复工作不仅仅是简单的丢掉最后一个Block, 而是至少需要保证已经hflushed的字节还可以被正确的读到.
+    c)  实现append功能需要重新考虑BlockReport, blockWrite, block状态改变, Replication等方面, 需要改动很多HDFS核心代码;
+    d)  既然是要实现Append, 那就肯定要保证Append数据是可靠的, 即保证数据写入是成功的, 所以提供Append功能的文件系统必须要提供sync功能.
+(2) HDFS Append的最实质的需求:
+    a)  支持一个wirter和多个readers访问同一个文件;
+    b)  在一个文件关闭之前，writer新写入的数据可以被其它reader读取;
+    c)  writer通过调用flush可以保证数据安全的持久化到磁盘;
+    d)  writer可以重复频繁的调用flush写入少量的数据而不会给HDFS带来一些不当的压力;
+    e)  保证flush后的数据能被readers读到, 当然readers要在writer flush之后打开文件才行;
+    f)  保证HDFS永远不会丢失数据(silently).
+(3) HDFS Append设计不包含以下目标:
+    a)  在数据未持久化之前, 其它readers可以读取到writer写入的数据; 当然HDFS会尽最大的努力快速的进行数据持久化;
+    b)  一个flush调用不保证那些既存的readers可以读到刚刚flush的数据;
+######################## Stale Replica Deletion(陈旧/过期副本删除) ###############
+当Datanode失效时, 此Datanode上的Block副本可能会丢失一些更新, 从而导致副本过期. 因而检测陈旧的副本并阻止这些副本继续提供数据读服务变得非常紧迫.
+Namenode通过维护一个全局的block version(GenerationStamp)来解决这个问题, 每次在创更新Block时, 会重新生成GenerationStamp. GenerationStamp是由8字节组成, 并且是全局递增的.如果write Client在flushing数据到Datanode(s)时碰到了某些错误，也必需要生成一个新的GenerationStamp.
+# ####################### GenerationStamp ###############################
+(1) GenerationStamp存在的两个原因
+    a)  检测过期副本;
+    b)  当Dead Datanode在过了很长一段时间后又重新加入集群时，可以通过GenerationStamp检测pre-historic副本;
+(2) 在以下情形下需要生成GenerationStamp
+    a)  创建一个新文件;
+    b)  当client append 或 truncate 一个已经存在的文件;
+    c)  当client在写入数据到Datanode(s)时碰到错误或异常时需要申请一个新的GenerationStamp;
+    d)  Namenode开始对一个文件进行lease recovery时;
+# ####################### (Failure Modes and Recovery)故障情况及恢复 ###############################
+(1) 本次设计将会处理以下故障情况:
+    # client在写block时挂掉;
+    # client写入数据时, pipeline中的Datanode挂掉;
+    # Client写入数据时, Namenode挂掉;
+    # The Namenode may encounter multiple attempts to restart before a successful restart occurs;
+(2) append的数据写入流程:
+    a)  The Writer Client 请求Namenode创建一个新的文件或者打开一个已经存在的文件进行appending. Namenode为新写入的Block生成一个新的blockId和一个新的GenerationStamp. 新的BlockGenerationStamp是根据一个Global GenerationStamp+1生成的, 同时还会将Global GenerationStamp存储到Transaction log中.同时在BlocksMap中还记录blockId, block locations和block generationstamp. 以上事情完成后，Namenode返回blockGenerationStamp和block locations给client.
+    b)  Client发送blockId和BlockGenerationStamp给pipeline中的所有Datanodes. Datanodes接到请求后将会为给定的blockId创建一个block(if necessary), 同时将BlockGenerationStamp持久化到和block关联的meta-file中.要注意的是, block是直接在数据存储目录创建的, 而不是在临时目录下创建的.[如果在这个阶段出现error, 请看c_1].做完这些>时情后, Client将会通知Namenode持久化block list和blockGenerationStamp.
+    c)  Client开始向pipeline写入数据流. 在pipeline中的每一个Datanode向前一个Datanode汇报是否写入成功, 并且还会将汇报的情况转发给pipeline中的下一个Datanode. 如果pipeline中的任意一个Datanode出现error, Client将会收到通知并进行如下处理:
+        c_1)  Client在pipeline中移除掉bad Datanode.
+        c_2)  Client向Namenode请求一个新的BlockGenerationStamp. Client还会向Namenode汇报bad Datanode.
+        c_3)  Namenode更新BlocksMap:  在valid block location中移除掉bad Datanode. 然后生成一个新的BlockGenerationStamp存储到in-memory OpenFile结构体中, 然后返回给Client. (这个OpenFile应该是指的INodeUnderContruction)
+        c_4)  Client收到BlockGenerationStamp后,发送给pipeline宫的所有good datanods.
+        c_5)  每一个good datanode收到新的BlockGenerationStamp后, 持久化存储到block对应的meta-file.做完这些时情后, Client将会通知Namenode持久化block list和blockGenerationStamp(OpenFile).
+        c_6)  现在一切又准备ok了, Client可以跳到[c]开始继续写入数据.
+    d)  当block全部接收成功时, Datanode会发送一个block received信息(包含blockId和BlockGenerationStamp)给Namenode.
+    e)  Namenode将会从Datanode收到block receive的确认.
+    f)  如果Namenode从Datanode收到一个block receive的确认, 但是如果BlockGenerationStamp小于Namenode存储的BlockGenerationStamp, Namenode将会认为这是一个无效的block, 然后发送一条block delete的消息给datanode.
+    g)  当写入一个文件完成时The Writer会发送一个close命令给Namenode. Namenode收到命令后向Transaction log写入一个CloseFile的Transaction. CloseFile Transaction>记录包含了被关闭文件的全路径. 最后Namenode验证文件的每一个block的所有副本是否是含有相同的BlockGenerationStamp.
+(3) append的数据读取流程:
+Client在每次向Datanode发读请求时都会带上GenerationStamp, 如果Datanode上Block的GenerationStamp与Client发送的GenerationStamp不一致时, Datanode将会拒绝提供数据读
+服务. 在这种情况下, Client将会转而去其它Datanodes上读取数据. 在重试前Client会重新向Namenode获取block locations和BlockGenerationStamp.
+以下将列出Reader Client将会碰到的一些异常:
+    a)  不存在Writers:  在这种情况下Reader可以直接访问所有文件的内容, 在这种情况下不存在一致性问题题.
+    b)  有Writer正在写文件:
+        b_1)  The Reader从Namenode获取所有blocks的list. list中的每一个block都包含有与它关联的block locations和Block GenerationStamp. 如果请求的文件正在进行写>入, Namenode只会返回离client最近的Datanode做为block location, 这主要是减少Client读到不一致数据的概率.(在读的过程中切换Datanodes会增加读取不致的概率)
+    c)  一个Reader已经打开一个文件并且cache住了block locations和BlockGenerationStamps.这时有一个Writer请求打开文件appending..
+        c_1)  writer更新了文件最后一个Block的BlockGenerationStamp, 这时Reader如果尝试去读取最后一个Block将会因为过期的GenerationStamp而读取失败. Client不得不>重新向Namenode获取block locations和BlockGenerationStamp. 和Case_b一样, Namenode仅仅返回primary datanode做为唯一的block locatoin.
+    d)  一个Reader已经打开一个文件并且cache住了block locations和BlockGenerationStamps.这时有一个Writer请求打开文件truncate..
+        d_1)  这种情况和Case_c一样.
+# ####################### Lease recovery ###############################
+当一个文件被打开进行write(or append)时, Namenode会创建一个in-memory lease-record. lease record包含了正在进行写操作的文件名. 如果一个文件的lease过期(过期时间通常是1小时, lease过期一般是由于Client挂掉造成的), Namenode会对这个lease进行lease recovery. Namenode会选择Block size最小的一个块就行恢复(这样设计仅仅是为了减集群的压力), 然后把size更大的block截短;
+# ####################### BlockId allocations and Client flushes ###############################
+Writer为正在写的文件向Namenode申请一个新的Block. Namenode分配一个新的blockId和一个新的BlockGenerationStamp, 并且插入到BlocksMap中. 并且还会写入一个StoreGenerationStamp和OpenFile transaction到transaction log中. transation log并不需要fluse到磁盘上, 因为万一Namenode crash掉, 正在写入的block应该要被丢掉, 这是可以接受的.而且这个优化是必须的,因为如果每次block allocation都刷一次磁盘会给namenode带来性能瓶颈. 此外, 我们写入到内存的transaction log很快就可以被写入到磁盘, 因为其它>同步的transaction会引起buffer的log都被写到磁盘.
+# ####################### Durable Edits in HBase ###############################
+(1) HBase需要HDFS支持Durable
+    为了提供durability edits保证数据不会丢失, HBase要求HDFS支持sync调用. sync调用会使DFSClient中的pending data全部写入到HDFS pipeline中的所有Datanodes中, 并且还要接收到所有Datanodes的确认信息.(注: sync调用会保证数据已经成功写入到Datanodes中, 但不保证Datanodes中的数据已经写入到操作系统的buffers或者是说已经成功的写入到磁盘)
+  虽然hadoop-0.19.0 release版本就开始支持append功能了, 但是发布之后由于append功能使HDFS变得非常的不稳定, 出现了很多bug. 所以hadoop-0.19.1又将append功能disable掉了. 并且之后的版本虽然都支持append, 但默认append都是被关闭的, 只有在测试的时候才会打开. 目前只有hadoop-0.20-append/CDH3这两个版本支持append功能. 也就是说如>果不使用这两个版本中的一个HBase都是有数据丢失风险的(是否存在数据丢失风险和hbase版本无关, 不管是使用hbase-0.20或者hadoop-0.90都存在数据丢失风险).
+
+
+Hbase的客户端是十分复杂的，它经常需要浏览元数据表和根数据表，在查询表格的时候，如果一个Hregion服务器死机或者它上面的数据更改了，客户端就会继续重试，客户端保留的映射关系并不会一直正确的。这里的机制还需要进一步完善。
+
+
+#操作系统================================================================================
+CHM文件打开之后，右侧窗口中显示：Internet Explorer 不能链接到您请求的网页。此页可能暂时不可用。
+尝试如下解决方法：
+	右键点击chm文档，查看属性，可以看到“安全”提示：此文件来自于其它计算机，可能被阻止以帮助保护该计算机，提示后面有一个“解除锁定”的按钮。选择解除，然后保存修改。
+
+win 7搜索文件内容呢？我们需要做以下配置：
+	在“工具→文件夹选项→搜索”标签，然后勾选“始终搜索文件名和内容”，单击“确定”。这个时候使用win 7进行搜索，既可以搜索文件名，又可以搜索文件内容。
+手动加入新的文件类型
+	当需要搜索索引无法识别的不常用文件类型时，还可以在高级索引选项中添加，以便可以按该文件类型在系统中搜索。在“索引选项”窗口依次点击“高级→文件类型→将新扩展名添加到列表中”，手动键入文件扩展名，然后点击“添加”，再点击“仅针对属性进行索引”或“针对属性和文件内容进行索引”，这样就设置完成了。
+使用通配符搜索
+	星号(*)：可以代表文件中的任意字符串。　　问号(？)：可以代表文件中的一个字符。
+使用自然语言搜索
+	比如想搜索计算机中的DOC格式或者XLS格式的文件，只需在搜索栏中输入“*.doc or *. xls”，那么所有DOC格式和XLS格式的文件都会被搜索出来。
+
+find . -name * -type f -print | xargs grep "hostnames"
+$find   /etc   -name   "host*"   -print #查以host开头的文件
+	#-print 将查找到的文件输出到标准输出
+	#-exec   command   {} \;      —–将查到的文件执行command操作,{} 和 \;之间有空格
+	#-ok 和-exec相同，只不过在操作前要询用户
+在使用find命令的-exec选项处理匹配到的文件时， find命令将所有匹配到的文件一起传递给exec执行。但有些系统对能够传递给exec的命令长度有限制，这样在find命令运行几分钟之后，就会出现 溢出错误。错误信息通常是“参数列太长”或“参数列溢出”。这就是xargs命令的用处所在，特别是与find命令一起使用。
+-exec mv {} /mnt/mp3 \;: Execute mv command. The string '{}' is replaced by the file name. \; ends /bin/mv command.
+find . -maxdepth 1 -empty -print      查找大小为0的文件或空目录
+find /home -size +512k               查大于512k的文件
+
+date -s "2012-11-06 15:47:50";clock -w;
+Network Time Protocol（NTP）是用来使计算机时间同步化的一种协议，它可以使计算机对其服务器或时钟源（如石英钟，GPS等等)做同步化，它可以提供高精准度的时间校正（LAN上与标准间差小于1毫秒，WAN上几十毫秒），且可介由加密确认的方式来防止恶毒的协议攻击。
+	00 0 1 * * root rdate -s time.nist.gov
+时间服务器配置
+	查找当前系统是否已安装ntp# rpm -qa | grep ntp
+	1）. 安装ntp服务
+		Yum install ntp
+	2）. # vi /etc/ntp.conf
+		restrict 172.168.200.0 mask 255.255.255.0 nomodify notrap
+		server cn.pool.ntp.org prefer
+	修改/etc/sysconfig/ntpd
+		SYNC_HWCLOCK=YES #允许BIOS与系统时间同步
+	4）.ntpdate cn.pool.ntp.org 将系统时间写入bios（hwclock -w）# service ntpd start   service ntpd restart
+	5）. # netstat -an |grep 123   netstat -ln|grep 123		确保该端口以udp方式开放
+		ntpstat
+时间客户端配置
+	1）. # ntpdate -u 172.168.200.25来和时间服务器同步。	应该显示同步成功
+		ntpdate -d 172.168.200.25 查询错误信息
+		ntpdate[11520]: no server suitable for synchronization found
+		其实，这不是一个错误。而是由于每次重启NTP服务器之后大约要3－5分钟客户端才能与server建立正常的通讯连接。当此时用客户端连接服务端就会报这样的信息。一般等待几分钟就可以了。
+	2）. # crontab -e
+		加入   表示每隔10分钟同步一次时间
+		*/10 * * * * /usr/sbin/ntpdate -u 172.168.200.25>>/home/hadoop/log/ntp.log 2>&1;/sbin/hwclock -w;
+要注意的是，ntpd 有一个自我保护设置: 如果本机与上源时间相差太大, ntpd 不运行. 所以新设置的时间服务器一定要先 ntpdate 从上源取得时间初值, 然后启动 ntpd服务。ntpd服务 运行后, 先是每64秒与上源服务器同步一次, 根据每次同步时测得的误差值经复杂计算逐步调整自己的时间, 随着误差减小, 逐步增加同步的间隔. 每次跳动, 都会重复这个调整的过程.
+ntpd logs basic messages to syslog, so where those logs go is dependent on your syslog configuration, but /var/log/messages and /var/log/syslog or common places to look.
+ntpd服务不要开机自动启动，要在chkconfig里面去掉，去掉的方法为：chkconfig ntpd off   		chkconfig --list ntpd
+启动ntpd的方式是，在/etc/rc.local里面，先用ntpdate或者rdate这样的命令，向标准时间服务器进行一次对时操作，然后再启动服务： service ntpd start
+用ntpq -p命令，可以查看一些有用的信息，如下次和上级时间服务器对时的秒数，当前正在使用的ntpd时间服务器等等
+
+/etc/ntp.conf中选择主NTP Server
+选择了哪个server做为主server是按stratum的大小决定的？应该不是，由ntp的算法决定，如在virtualbox中的suse怎么样都无法选择外部时钟源，ntpd在几次poll time后算法就决定使用local源，郁闷啊。由于是虚拟机中运行，时钟和cpu的频率有关系，跳得比真实的硬件快，在virtaulbox中ntp的算法认为local源比外部源更准确就使用了local的，解决的方法可以去掉local源，只使用外部源或者在crontab中每分钟执行一次ntpdate了。即使把本机的stratum设置为比外部源更高的，过了一段时间以后，virtualbox中的suse还是选择了local，郁闷again
+注意最开始的时候，ip地址前面是没有符号的，poll几次以后ntp就会选择一个主时间源，前面带 * 号标识。
+
+cat /etc/sysconfig/clock       查看时区
+修改时区/etc/sysconfig/clock后，不重启，应该如何生效：cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
+
+
+chkconfig ntpd –level 35 on #在运行级别 3、5 上设置为自动运行
+ntpd - Network Time Protocol (NTP) daemon
+ntpq - standard NTP query program
+ntpdc - special NTP query program
+ntpdate - set the date and time via NTP
+
+
+ulimit -a    ulimit -n
+Ubuntu
+	In the file /etc/security/limits.conf add a line like:
+	hadoop  -       nofile  32768
+	Replace hadoop with whatever user is running Hadoop and HBase. If you have separate users, you will need 2 entries, one for each user. In the same file set nproc hard and soft limits. For example:
+	hadoop soft/hard nproc 32000
+	In the file /etc/pam.d/common-session add as the last line in the file:
+	session required  pam_limits.so
+	Otherwise the changes in /etc/security/limits.conf won't be applied.
+	Don't forget to log out and back in again for the changes to take effect!
+redhat
+	cat /proc/sys/fs/file-max  修改 /etc/rc.local   添加echo 8388608 > /proc/sys/fs/file-max
+	/etc/security/limits.conf
+		* - nofile 2048
+		This line sets the default number of open file descriptors for every user on the system to 2048. Note that the "nofile" item has two possible limit values under the <type> header: hard and soft. Both types of limits must be set before the change in the maximum number of open files will take effect. By using the "-" character, both hard and soft limits are set simultaneously.
+	/etc/pam.d/login 添加
+		session required     /lib/security/pam_limits.so
+	vi /etc/cron.daily/tmpwatch
+		/usr/sbin/tmpwatch “$flags” -X '/tmp/hsperfdata_*' …
+
+vi /etc/cron.daily/tmpwatch
+-X '/tmp/hsperfdata_*'
+
+echo "echo 8388608 > /proc/sys/fs/file-max" >> /etc/rc.local
+echo "*               soft    nofile            327680" >> /etc/security/limits.conf
+echo "*               hard    nofile            327680" >> /etc/security/limits.conf
+echo "*               soft    nproc             320000" >> /etc/security/limits.conf
+echo "*               hard    nproc             320000" >> /etc/security/limits.conf
+echo "session    required     pam_limits.so" >> /etc/pam.d/login
+echo "vm.swappiness=0" >> /etc/sysctl.conf
+
+cat /proc/sys/fs/file-max
+cat /etc/cron.daily/tmpwatch
+cat /etc/security/limits.conf
+cat /etc/pam.d/login
+cat /etc/sysctl.conf
+
+#编辑 /etc/sysctl.conf 文件并添加下列参数：
+#	kernel.shmall = 2097152
+#	kernel.shmmax = 2147483648
+#	kernel.shmmni = 4096
+#	kernel.sem = 250 32000 100 128
+#	fs.file-max = 6553600
+#	net.ipv4.ip_local_port_range = 1024 65000
+#	net.core.rmem_default = 4194304
+#	net.core.rmem_max = 4194304
+#	net.core.wmem_default = 262144
+#	net.core.wmem_max = 262144
+#编辑后可以运行“sysctl -p” 生效，或者重启系统
+
+pam
+service type control module-path module-arguments
+If the type value from the list above is prepended with a - character the PAM library will not log to the system log if it is not possible to load the module because it is missing in the system. This can be useful especially for modules which are not always installed on the system and are not required for correct authentication and authorization of the login session.
+
+locale把按照所涉及到的文化传统的各个方面分成12个大类，这12个大类分别是：
+1、语言符号及其分类(LC_CTYPE)
+2、数字(LC_NUMERIC)
+3、比较和排序习惯(LC_COLLATE)
+4、时间显示格式(LC_TIME)
+5、货币单位(LC_MONETARY)
+6、信息主要是提示信息,错误信息,状态信息,标题,标签,按钮和菜单等(LC_MESSAGES)
+7、姓名书写方式(LC_NAME)
+8、地址书写方式(LC_ADDRESS)
+9、电话号码书写方式(LC_TELEPHONE)
+10、度量衡表达方式 (LC_MEASUREMENT)
+11、默认纸张尺寸大小(LC_PAPER)
+12、对locale自身包含信息的概述(LC_IDENTIFICATION)。
+
+~/.bash_profile 是交互式、login 方式进入 bash 运行的
+~/.bashrc 是交互式 non-login 方式进入 bash 运行的     通常二者设置大致相同，所以通常前者会调用后者
+
+如何避免使用swap
+	假设我们的物理内存是16G，swap是4G。如果MySQL本身已经占用了12G物理内存，而同时其他程序或者系统模块又需要6G内存，这时候操作系统就可能把MySQL所拥有的一部分地址空间映射到swap上去。
+	cp一个大文件，或用mysqldump导出一个很大的数据库的时候，文件系统往往会向Linux申请大量的内存作为cache，一不小心就会导致L使用swap。这个情景比较常见，以下是最简单的三个调整方法：
+	1、/proc/sys/vm/swappiness的内容改成0（临时），/etc/sysctl.conf上添加vm.swappiness=0（永久）
+	这个参数决定了Linux是倾向于使用swap，还是倾向于释放文件系统cache。在内存紧张的情况下，数值越低越倾向于释放文件系统cache。
+	当然，这个参数只能减少使用swap的概率，并不能避免Linux使用swap。
+	还有一个比较复杂的方法，指定MySQL使用大页内存（Large Page）。Linux上的大页内存是不会被换出物理内存的
+
+	通过sysctl -q vm.swappiness可以查看参数的当前设置。修改参数的方法是修改/etc/sysctl.conf文件，加入vm.swappiness=xxx，并重起系统。如果不想重起，可以通过sysctl -p动态加载/etc/sysctl.conf文件，但建议这样做之前先清空swap。
+	设置 vm.swappiness=0 后并不代表禁用swap分区，只是告诉内核，能少用到swap分区就尽量少用到，设置 vm.swappiness=100的话，则表示尽量使用swap分区，默认的值是60
+	用swapoff -a 关闭虚拟内存（释放）再用swapon -a 打开虚拟内存
+	手动执行sync命令(描述:sync 命令运行 sync 子例程。假如必须停止系统，则运行 sync 命令以确保文档系统的完整性。sync 命令将任何未写的系统缓冲区写到磁盘中，包含已修改的 i-node、已延迟的块 I/O 和读写映射文档)
+	caches释放：echo 3 > /proc/sys/vm/drop_caches
+
+Linux下如何配置large Page
+	cat /proc/meminfo | grep Huge
+	/proc/sys/kernel/shmmax       /proc/sys/vm/nr_hugepages     -XX:+UseLargePages
+	Note the /proc values will reset after reboot so you may want to set them in an init script (e.g. rc.local or sysctl.conf).
+查看CPU位数(32 or 64)      getconf LONG_BIT
+cat /proc/cpuinfo
+
+查看安装的软件包
+	查看系统安装的时候装的软件包
+	cat -n /root/install.log
+	more /root/install.log | wc -l
+	查看现在已经安装了那些软件包
+	rpm -qa
+	rpm -qa | wc -l
+	yum list installed | wc -l
+查找软件所安装的目录	rpm -ql package-name
+
+linux基础之教你如何查看linux版本
+	1. 查看内核版本命令：
+	　　1) [root@q1test01 ~]# cat /proc/version
+	　　2) [root@q1test01 ~]# uname -a
+	2. 查看linux版本：
+	　　1) 登录到服务器执行 lsb_release -a ,即可列出所有版本信息,例如:
+	　　注:这个命令适用于所有的linux，包括Redhat、SuSE、Debian等发行版。
+	　　2) 登录到linux执行cat /etc/issue,例如如下:
+	　　3) 登录到linux执行cat /etc/redhat-release ,例如如下:
+	　　4)登录到linux执行rpm -q redhat-release ,例如如下:
+	　　另:第3)、4)两种方法只对Redhat Linux有效。
+Linux用户操作记录查看
+	history
+	cat ~/.bash_history
+tmpwatch
+	运行一段时间后，发现jps无法列举java进程了，崩溃。。。Why？
+	Java需要将pid信息写入到 /tmp/hsperfdata_username     tmpwatch定期清理/tmp
+	修改sudo vi /etc/cron.daily/tmpwatch
+	/usr/sbin/tmpwatch “$flags” -X '/tmp/hsperfdata_*' …
+一些自动化配置管理工具，Puppet, Chef 就是其中的佼佼者。
+
+这里你可以看到系统的load average在最近5分钟是3.75，意思就是说这5分钟里面平均有3.75个线程在CPU时间的等待队列里面。通常来说，最完美的情况是这个值和CPU和核数相等，比这个值低意味着资源闲置，比这个值高就是过载了。这是一个重要的概念，要想理解的更多，可以看这篇文章 http://www.linuxjournal.com/article/9001.
+
+　　如果你的服务器有多个网卡（每个网卡上有不同的IP地址），而你的服务（不管是在udp端口上侦听，还是在tcp端口上侦听），出于某种原因：可能是你的服务器操作系统可能随时增减IP地址，也有可能是为了省去确定服务器上有什么网络端口（网卡）的麻烦 —— 可以要在调用bind()的时候，告诉操作系统：“我需要在 yyyy 端口上侦听，所以发送到服务器的这个端口，不管是哪个网卡/哪个IP地址接收到的数据，都是我处理的。”这时候，服务器程序则在0.0.0.0这个地址上进行侦听。
+IP 地址0.0.0.0 将绑定到任何可用的本地IP地址上
+
+FTP的特殊性：
+	大多数的TCP服务是使用单个的连接，一般是客户向服务器的一个周知端口发起连接，然后使用这个连接进行通讯。但是，FTP协议却有所不同，它使用双向的多个连接，而且使用的端口很难预计。一般，FTP连接包括：
+	一个控制连接(control connection)
+	这个连接用于传递客户端的命令和服务器端对命令的响应。它使用服务器的21端口，生存期是整个FTP会话时间。
+	几个数据连接(data connection)
+	这些连接用于传输文件和其它数据，例如：目录列表等。这种连接在需要数据传输时建立，而一旦数据传输完毕就关闭，每次使用的端口也不一定相同。而且，数据连接既可能是客户端发起的，也可能是服务器端发起的。
+总的来说，主动模式的FTP是指服务器主动连接客户端的数据端口，被动模式的FTP是指服务器被动地等待客户端连接自己的数据端口。
+下面的图表会帮助管理员们记住每种FTP方式是怎样工作的：
+	主动FTP：
+	   命令连接：客户端 >1023端口 -> 服务器 21端口
+	   数据连接：客户端 >1023端口 <- 服务器 20端口
+
+	被动FTP：
+	   命令连接：客户端 >1023端口 -> 服务器 21端口
+	   数据连接：客户端 >1023端口 -> 服务器 >1023端口
+passive
+              Toggle  passive data transfer mode off.  In passive mode, the client initiates the data connection by connecting to the data port.  Passive mode is often necessary for operation from  behind  firewalls  which  do  not  permit incoming connections, but may need to be disabled if you connect to an FTP server which does not support passive operation.
+prompt
+              Toggle  interactive prompting.  Interactive prompting occurs during multiple file transfers to allow the user to selectively retrieve or store files.  If prompting is turned off (default is on), any mget or mput will transfer all files, and any mdelete will delete all files.
+
+假设Linux系统中有一个文件名叫“-ee”，如果我们想对它进行操作，例如要删除它
+　　按照一般的删除方法在命令行中输入rm -ee命令，界面会提示我们是“无效选项”(invalid option)
+　　原来由于文件名的第一个字符为“-”，Linux把文件名当作选项了
+　　我们可以使用“--”符号来解决这个问题，输入“rm -- -ee”命令便可顺利删除名为“-ee”的文件。
+　　如果是其他特殊字符的话可以在特殊字符前加一个“”符号，或者用双引号把整个文件名括起来。
+sh -n [filesName]  检查语法
+	syntax error: unexpected end of file
+	可能是回车符\r的问题,你把它去掉.在windows里,换行用的两个符号,回车换\r行符号\n,在linux下只需一个符号\n就可以了.
+sh -x 跟踪
+
+tar -zcvf /tmp/etc.tar.gz /etc       /etc打包后，以 gzip 压缩
+	-c是表示产生新的包，-f指定包的文件名。-r是表示增加文件的意思。-u是表示更新文件的意思。-t是列出文件的意思-x是解开的意思 --exclude FILE：在压缩的过程中，不要将 FILE 打包！ -X, --exclude-from FILE    -C, --directory DIR
+我只想要将 /tmp/etc.tar.gz 内的 etc/passwd 解开而已
+	tar -zxvf /tmp/etc.tar.gz etc/passwd
+我要备份 /home, /etc ，但不要 /home/dmtsai
+	tar --exclude /home/dmtsai -zcvf myfile.tar.gz /home/* /etc
+[root@www ~]# tar [-j|-z] [cv] [-f 建立的檔名] filename... <==打包與壓縮
+[root@www ~]# tar [-j|-z] [tv] [-f 建立的檔名]             <==察看檔名
+[root@www ~]# tar [-j|-z] [xv] [-f 建立的檔名] [-C 目錄]   <==解壓縮
+	選項與參數：
+	-c  ：建立打包檔案，可搭配 -v 來察看過程中被打包的檔名(filename)
+	-t  ：察看打包檔案的內容含有哪些檔名，重點在察看『檔名』就是了；
+	-x  ：解打包或解壓縮的功能，可以搭配 -C (大寫) 在特定目錄解開
+	      特別留意的是， -c, -t, -x 不可同時出現在一串指令列中。
+	-j  ：透過 bzip2 的支援進行壓縮/解壓縮：此時檔名最好為 *.tar.bz2
+	-z  ：透過 gzip  的支援進行壓縮/解壓縮：此時檔名最好為 *.tar.gz
+	-v  ：在壓縮/解壓縮的過程中，將正在處理的檔名顯示出來！
+	-f filename：-f 後面要立刻接要被處理的檔名！建議 -f 單獨寫一個選項囉！
+	-C 目錄    ：這個選項用在解壓縮，若要在特定目錄解壓縮，可以使用這個選項。
+	其他後續練習會使用到的選項介紹：
+	-p(小寫) ：保留備份資料的原本權限與屬性，常用於備份(-c)重要的設定檔
+	-P(大寫) ：保留絕對路徑，亦即允許備份資料中含有根目錄存在之意；
+	--exclude=FILE：在壓縮的過程中，不要將 FILE 打包！
+
+tar -zxf  $1/$2 -C $1/
+tar zcf  hbase-0.92.1-security.tgz hbase-0.92.1-security
+
+SU：可以让一个普通用户拥有超级用户或其他用户的权限，也可以让超级用户以普通用户的身份做一些事情。
+	-c：执行一个命令后就结束。
+	-, -l, --login：加了这个减号的目的是使环境变量和欲转换的用户相同、不加-是取得用户的临时权限！
+	-m：保留环境变量不变。
+
+通过输入 EXP 命令和您的用户名/口令, 导出
+操作将提示您输入参数:
+     例如: EXP SCOTT/TIGER
+或者, 您也可以通过输入跟有各种参数的 EXP 命令来控制导出
+的运行方式。要指定参数, 您可以使用关键字:
+     格式:  EXP KEYWORD=value 或 KEYWORD=(value1,value2,...,valueN)
+     例如: EXP SCOTT/TIGER GRANTS=Y TABLES=(EMP,DEPT,MGR)
+               或 TABLES=(T1:P1,T1:P2), 如果 T1 是分区表
+USERID 必须是命令行中的第一个参数。
+关键字   说明 (默认值)         关键字      说明 (默认值)
+--------------------------------------------------------------------------
+USERID   用户名/口令           FULL        导出整个文件 (N)
+BUFFER   数据缓冲区大小        OWNER        所有者用户名列表
+FILE     输出文件 (EXPDAT.DMP)  TABLES     表名列表
+COMPRESS  导入到一个区 (Y)   RECORDLENGTH   IO 记录的长度
+GRANTS    导出权限 (Y)          INCTYPE     增量导出类型
+INDEXES   导出索引 (Y)         RECORD       跟踪增量导出 (Y)
+DIRECT    直接路径 (N)         TRIGGERS     导出触发器 (Y)
+LOG      屏幕输出的日志文件    STATISTICS    分析对象 (ESTIMATE)
+ROWS      导出数据行 (Y)        PARFILE      参数文件名
+CONSISTENT 交叉表的一致性 (N)   CONSTRAINTS  导出的约束条件 (Y)
+
+OBJECT_CONSISTENT    只在对象导出期间设置为只读的事务处理 (N)
+FEEDBACK             每 x 行显示进度 (0)
+FILESIZE             每个转储文件的最大大小
+FLASHBACK_SCN        用于将会话快照设置回以前状态的 SCN
+FLASHBACK_TIME       用于获取最接近指定时间的 SCN 的时间
+QUERY                用于导出表的子集的 select 子句
+RESUMABLE            遇到与空格相关的错误时挂起 (N)
+RESUMABLE_NAME       用于标识可恢复语句的文本字符串
+RESUMABLE_TIMEOUT    RESUMABLE 的等待时间
+TTS_FULL_CHECK       对 TTS 执行完整或部分相关性检查
+VOLSIZE              写入每个磁带卷的字节数
+TABLESPACES          要导出的表空间列表
+TRANSPORT_TABLESPACE 导出可传输的表空间元数据 (N)
+TEMPLATE             调用 iAS 模式导出的模板名
+
+通过输入 IMP 命令和您的用户名/口令, 导入
+操作将提示您输入参数:
+     例如: IMP SCOTT/TIGER
+或者, 可以通过输入 IMP 命令和各种参数来控制导入
+的运行方式。要指定参数, 您可以使用关键字:
+     格式:  IMP KEYWORD=value 或 KEYWORD=(value1,value2,...,valueN)
+     例如: IMP SCOTT/TIGER IGNORE=Y TABLES=(EMP,DEPT) FULL=N
+               或 TABLES=(T1:P1,T1:P2), 如果 T1 是分区表
+USERID 必须是命令行中的第一个参数。
+
+关键字   说明 (默认值)        关键字      说明 (默认值)
+--------------------------------------------------------------------------
+USERID   用户名/口令           FULL       导入整个文件 (N)
+BUFFER   数据缓冲区大小        FROMUSER    所有者用户名列表
+FILE     输入文件 (EXPDAT.DMP)  TOUSER     用户名列表
+SHOW     只列出文件内容 (N)     TABLES      表名列表
+IGNORE   忽略创建错误 (N)    RECORDLENGTH  IO 记录的长度
+GRANTS   导入权限 (Y)          INCTYPE     增量导入类型
+INDEXES   导入索引 (Y)         COMMIT       提交数组插入 (N)
+ROWS     导入数据行 (Y)        PARFILE      参数文件名
+LOG     屏幕输出的日志文件    CONSTRAINTS    导入限制 (Y)
+DESTROY                覆盖表空间数据文件 (N)
+INDEXFILE              将表/索引信息写入指定的文件
+SKIP_UNUSABLE_INDEXES  跳过不可用索引的维护 (N)
+FEEDBACK               每 x 行显示进度 (0)
+TOID_NOVALIDATE        跳过指定类型 ID 的验证
+FILESIZE               每个转储文件的最大大小
+STATISTICS             始终导入预计算的统计信息
+RESUMABLE              在遇到有关空间的错误时挂起 (N)
+RESUMABLE_NAME         用来标识可恢复语句的文本字符串
+RESUMABLE_TIMEOUT      RESUMABLE 的等待时间
+COMPILE                编译过程, 程序包和函数 (Y)
+STREAMS_CONFIGURATION  导入流的一般元数据 (Y)
+STREAMS_INSTANTIATION  导入流实例化元数据 (N)
+VOLSIZE                磁带的每个文件卷上的文件的字节数
+
+下列关键字仅用于可传输的表空间
+TRANSPORT_TABLESPACE 导入可传输的表空间元数据 (N)
+TABLESPACES 将要传输到数据库的表空间
+DATAFILES 将要传输到数据库的数据文件
+TTS_OWNERS 拥有可传输表空间集中数据的用户
+
+exp/imp已经很好用了，但是唯一的确定是速度太慢，如果1张表的数据有个百千万的，常常导入导出就长时间停在这个表这，但是从Oracle 10g开始提供了称为数据泵新的工具expdp/impdp，它为Oracle数据提供高速并行及大数据的迁移。
+Oracle数据库有三种标准的备份方法，它们分别是导出／导入（EXP/IMP）、热备份和冷备份。导出备件是一种逻辑备份，冷备份和热备份是物理备份。
+　　一、 导出／导入（Export／Import）
+	　　Oracle支持三种方式类型的输出：
+	　　（１）、表方式（T方式），将指定表的数据导出。
+	　　（２）、用户方式（U方式），将指定用户的所有对象及数据导出。
+	　　（３）、全库方式（Full方式），瘵数据库中的所有对象导出。
+	　　２、 增量导出／导入
+		增量导出是一种常用的数据备份方法，它只能对整个数据库来实施，并且必须作为SYSTEM来导出。在进行此种导出时，系统不要求回答任何问题。导出文件名缺省为export.dmp，如果不希望自己的输出文件定名为export.dmp，必须在命令行中指出要用的文件名
+		　　增量导出包括三种类型：
+		　　（１）、“完全”增量导出（Complete）
+			　　即备份三个数据库，比如：
+			　　exp system/manager inctype=complete file=040731.dmp
+		　　（２）、“增量型”增量导出
+			　　备份上一次备份后改变的数据，比如：
+			　　exp system/manager inctype=incremental file=040731.dmp
+		　　（３）、“累积型”增量导出
+			　　累计型导出方式是导出自上次“完全”导出之后数据库中变化了的信息。比如：
+			　　exp system/manager inctype=cumulative file=040731.dmp
+		　　数据库管理员可以排定一个备份日程表，用数据导出的三个不同方式合理高效的完成。
+		　　比如数据库的被封任务可以做如下安排：
+			　　星期一：完全备份（A）
+			　　星期二：增量导出（B）
+			　　星期三：增量导出（C）
+			　　星期四：增量导出（D）
+			　　星期五：累计导出（E）
+			　　星期六：增量导出（F）
+			　　星期日：增量导出（G）
+
+cat bak.sh
+	time expdp eygle/eygle dumpfile=big_big_table.dmp directory=dpdata tables=big_big_table job_name=exptab parallel=4
+
+	time expdp eygle/eygle dumpfile=big_big_table2.dmp directory=dpdata tables=big_big_table job_name=exptab
+
+	time exp eygle/eygle file=big_big_table3.dmp tables=big_big_table
+
+	time exp eygle/eygle file=big_big_table3.dmp tables=big_big_table direct=y
+数据导出：
+ 1 将数据库TEST完全导出,用户名system 密码manager 导出到D:\daochu.dmp中
+   exp system/manager@TEST file=d:\daochu.dmp full=y
+ 2 将数据库中system用户与sys用户的表导出
+   exp system/manager@TEST file=d:\daochu.dmp owner=(system,sys)
+ 3 将数据库中的表inner_notify、notify_staff_relat导出
+    exp aichannel/aichannel@TESTDB2 file= d:\datanewsmgnt.dmp tables=(inner_notify,notify_staff_relat)
+ 4 将数据库中的表table1中的字段filed1以"00"打头的数据导出
+   exp system/manager@TEST file=d:\daochu.dmp tables=(table1) query=" where filed1 like '00%'"
+  上面是常用的导出，对于压缩，既用winzip把dmp文件可以很好的压缩。也可以在上面命令后面 加上 compress=y 来实现。
+   expdp username/password@192.168.1.10/jztgos --指定执行导出操作的用户及数据库
+
+数据的导入
+ 1 将D:\daochu.dmp 中的数据导入 TEST数据库中。
+   imp system/manager@TEST  file=d:\daochu.dmp
+   imp aichannel/aichannel@TEST  full=y  file=d:\datanewsmgnt.dmp ignore=y
+   上面可能有点问题，因为有的表已经存在，然后它就报错，对该表就不进行导入。在后面加上 ignore=y 就可以了。
+ 2 将d:daochu.dmp中的表table1 导入
+ imp system/manager@TEST  file=d:\daochu.dmp  tables=(table1)
+ 基本上上面的导入导出够用了。不少情况要先是将表彻底删除，然后导入。
+ imp system/manager file=(paycheck_1,paycheck_2,paycheck_3,paycheck_4) fromuser=(seapark,amy) touser=(seapark1, amy1) TABLES=(a,b) full=y ignore=y
+
+想看oracle目录的话 echo 一下$ORACLE_BASE $ORACLE_HOME不就行了
+su - oracle
+exp hive/hivepass@HADOOPDB file=./hive.dmp owner=hive direct=y
+imp test/abc123@HADOOPDB file=./hive.dmp fromuser=hive touser=test full=y ignore=y
+
+批量查找kill进程
+kill -9 `ps -ef|grep 'HiveReportTask.jar'|grep -v grep|awk '{print $2}'`
+
+
+VIRT：virtual memory usage。Virtual这个词很神，一般解释是：virtual adj.虚的, 实质的, [物]有效的, 事实上的。到底是虚的还是实的？让Google给Define之后，将就明白一点，就是这东西还是非物质的，但是有效果的，不发生在真实世界的，发生在软件世界的等等。这个内存使用就是一个应用占有的地址空间，只是要应用程序要求的，就全算在这里，而不管它真的用了没有。写程序怕出错，又不在乎占用的时候，多开点内存也是很正常的。
+RES：resident memory usage。常驻内存。这个值就是该应用程序真的使用的内存，但还有两个小问题，一是有些东西可能放在交换盘上了（SWAP），二是有些内存可能是共享的。
+SHR：shared memory。共享内存。就是说这一块内存空间有可能也被其他应用程序使用着；而Virt － Shr似乎就是这个程序所要求的并且没有共享的内存空间。
+DATA：数据占用的内存。如果top没有显示，按f键可以显示出来。这一块是真正的该程序要求的数据空间，是真正在运行中要使用的。
+
+
+#业务======================================================================================
+
+数据挖掘管理系统
+	数据采集管理系统（界面添加（协议、路径、），采集任务监控）
+	报表邮箱设置
+	文件大小告警
+
+比如我们将rowkey设计为url+userid，并读出实时的数据，从而实现实时计算各个维度上的uv。
+
+hive上做大数据量的分析，计算结果放到oracle上做BI展示和计算；hadoop MR or hive上ETL计算完的结果表，同步到oracle中，连接传统BI工具，呈现报表，阿里、腾讯、盛大都是这样的
+Hadoop应用的测试，我们现在主要两个方式，一个是做Code Review，提交到Hadoop上面的应用程序，我们会去复查代码，发现问题；第二个就是先在小范围的测试跑一跑，观察几天或者一周，没问题了，我们再在更大规模继续去跑，就是这两种方式。
+
+其实对于很多互联网公司来说，他们对关系型数据库要求并不是那么高，比如Join、报表的事务等，如果抛弃掉这些特性的话，换成NoSQL，我们发现整个存储结构会很简单，读写的性能也会好很多。这一点对于我们来说还是很有吸引力的，否则随着数据量的增长，我们不得不疲于奔命去做分库分表等。
+     淘宝在2011年之前所有的后端持久化存储基本上都是在mysql上进行的(不排除少量oracle/bdb/tair/mongdb等)，mysql由于开源，并且生态系统良好，本身拥有分库分表等多种解决方案，因此很长一段时间内都满足淘宝大量业务的需求。
+
+平台对业务的针对性较强，为了让你明确它是否符合你的业务，现粗略地从几个角度将大数据分析的业务需求分类，针对不同的具体需求，应采用不同的数据分析架构。
+按照数据分析的实时性，分为实时数据分析和离线数据分析两种。
+	实时数据分析一般用于金融、移动和互联网B2C等产品，往往要求在数秒内返回上亿行数据的分析，从而达到不影响用户体验的目的。要满足这样的需求，可以采用精心设计的传统关系型数据库组成并行处理集群，或者采用一些内存计算平台，或者采用HDD的架构，这些无疑都需要比较高的软硬件成本。目前比较新的海量数据实时分析工具有EMC的Greenplum、SAP的HANA等。
+	对于大多数反馈时间要求不是那么严苛的应用，比如离线统计分析、机器学习、搜索引擎的反向索引计算、推荐引擎的计算等，应采用离线分析的方式，通过数据采集工具将日志数据导入专用的分析平台。但面对海量数据，传统的ETL工具往往彻底失效，主要原因是数据格式转换的开销太大，在性能上无法满足海量数据的采集需求。互联网企业的海量数据采集工具，有Facebook开源的Scribe、LinkedIn开源的Kafka、淘宝开源的Timetunnel、Hadoop的Chukwa等，均可以满足每秒数百MB的日志数据采集和传输需求，并将这些数据上载到Hadoop中央系统上。
+
+按照大数据的数据量，分为内存级别、BI级别、海量级别三种。
+	BI级别指的是那些对于内存来说太大的数据量，但一般可以将其放入传统的BI产品和专门设计的BI数据库之中进行分析。目前主流的BI产品都有支持TB级以上的数据分析方案。种类繁多，就不具体列举了。
+	海量级别指的是对于数据库和BI产品已经完全失效或者成本过高的数据量。海量数据级别的优秀企业级产品也有很多，但基于软硬件的成本原因，目前大多数互联网企业采用Hadoop的HDFS分布式文件系统来存储数据，并使用MapReduce进行分析。
+
+数据监测——侧重与数据统计监测，一般侧重于数据报表和数学统计。
+数据分析——侧重于运营分析，利用数据分析网站、产品的发展状况并分析预测。
+网站分析WA可以进行访客分析（新老客户分析，不同分层分析，等等）、页面分析、转化及结构分析、流量来源分析
+
+互联网数据分析的八个重要方面
+　　通常企业在做数据分析时，最重要的是业务问题导向、数据驱动、技术支持的指导原则。 数据分析应用技术上有八个方面。
+
+　　第一：固定的报表。比如定期反映用户访问量，报告产品销售量等。
+　　第二：即席查询，支持灵活的查询分析，满足报表之外的信息需求。例如，查看购买了某些问题产品的客户有哪些，以实现主动客户服务。
+　　第三：多维分析(OLAP)， 从多个角度分析查询问题答案。比如从地理区域、产品线、时间、用户群等角度寻找销售量下降的原因在哪里。
+　　第四：预警功能。比如某季度销售收入未达标时可以把数字标成高亮，或发送提醒消息进行重点关注。
+　　第五：统计分析。比如通过回归分析，在价格、产品、服务、物流效率等诸因素中找出影响客户满意度的关键因素。
+　　第六：预测分析(Forecasting)。比如预测未来一个月网站访问量是否会增加，应该如何增加网站的空间和性能部署，才能满足业务需求，保证用户的服务体验。
+　　第七：数据挖掘建模分析，基于网络浏览行为，细分客户群，寻找每个客户群的行为特征以及潜在需求，推送个性化的信息和服务。
+　　第八：优化分析。以网上零售业务的整个流程讲，比如根据线上的历史业务需求量，线下应该如何安排库存，才能避免库存资源的浪费，同时又能满足需求及时供应。
+
+灰度发布是指在黑与白之间，能够平滑过渡的一种发布方式。AB test就是一种灰度发布方式，让一部用户继续用A，一部分用户开始用B，如果用户对B没有什么反对意见，那么逐步扩大范围，把所有用户都迁移到B上面来。灰度发布可以保证整体系统的稳定，在初始灰度的时候就可以发现、调整问题，以保证其影响度。
+灰度发布是对某一产品的发布逐步扩大使用群体范围，也叫灰度放量
+对于一般的小系统并不需要单独的灰度发布引擎，可以参考A/B测试中做法，在页面javascript或服务器端实现分流的规则即可。但对于大型的互联网应用而言，单独的用于管理用户分流的发布引擎就很有必要了。“钱掌柜”分流发布模式 提到了原来阿里软件所使用的灰度发布引擎，设计思路具有普遍性，可以供参考。
+
+宽容是一种坚强，而不是软弱。宽容所体现出来的退让是有目的有计划的，主动权掌握在自己的手中。无奈和迫不得已不能算宽容。
+
+
+
+#汽车==============================================================================
+
+制冷系统工作时，制冷记忆不同的状态在这个密闭系统内循环流动，每个循环又分四个基本过程：
+     1、压缩过程：压缩机吸入蒸发器出口处的低温抵压的制冷剂气体，把它压缩成高温高压的气体排除压缩机。
+     2、放热过程：高温高压的过热制冷剂气体进入冷凝器，由于压力及温度的降低，制冷剂气体冷凝成液体，并放出大量的热。
+     3、节流过程：温度和压力较高的制冷剂液体通过膨胀装置后体积变大，压力和温度急剧下 降，以雾状（细小液滴）排除膨胀装置。
+     4、吸热过程：雾状制冷剂液体进入蒸发器，因此时制冷剂沸点远低于蒸发器内温度，故制冷剂液体蒸发成气体。在蒸发过程中大量吸收周围的热量，而后低温低压的 制冷剂蒸气又进入压缩机。
+     上述过程周而复始的进行下去，便可达到降低蒸发器周围空气温度的目的。
+贮液干燥器——实际上是一个贮存制冷剂及吸收制冷剂水分、杂质的装置。一方面，它相当于汽车的油箱，为泄露制冷剂多出的空间补充制冷剂。另一方面，它又像空气滤清器那样，过滤掉制冷剂中掺杂的杂质。贮液干燥器中还装有一定的硅胶物质，起到吸收水分的作用。
+
+平时最常见的还要属作用于后轮的手刹车系统，后轮刹车分为盘式制动器和毂式制动器，对于盘式制动器的车子来说，手刹主要分为2种，一种是通过钢索拉动一个凸轮机构来对制动器的活塞施压产生制动力（手刹制动效果好，成本高），另外一种是在盘式制动器的基础上拥有一个独立的毂式制动系统来作为手刹的机构（手刹制动效果一般，成本稍低）；对于毂式制动器的后轮，手刹自然就是通过一个杠杆的机构来撬动制动毂内的刹车片来起到制动效果（手刹制动效果普遍较差，成本低廉）

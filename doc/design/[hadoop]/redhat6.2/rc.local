@@ -1,0 +1,12 @@
+#!/bin/sh
+#
+# This script will be executed *after* all the other init scripts.
+# You can put your own initialization stuff in here if you don't
+# want to do the full Sys V style init stuff.
+
+touch /var/lock/subsys/local
+ulimit -n 58192
+modprobe ip_conntrack
+echo "262144" > /proc/sys/net/netfilter/nf_conntrack_max
+echo "180" >    /proc/sys/net/netfilter/nf_conntrack_tcp_timeout_established
+/sbin/swapoff -a

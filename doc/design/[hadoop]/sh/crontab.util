@@ -1,0 +1,12 @@
+1-59/10 1-23 * * * /home/hadoop/stats.loaddata.sh>>/home/hadoop/log/error.log 2>&1
+#
+*/3 9-23 * * * /home/hadoop/app/sh/task/stats.hive_sql.task.sh>>/home/hadoop/log/error.log 2>&1
+*/10 9-23 * * * /home/hadoop/stats.alarm.sh>>/home/hadoop/log/error.log 2>&1
+30 16-23/2 * * * /home/hadoop/stats.alarm_nofinish.sh>>/home/hadoop/log/error.log 2>&1
+5 9-23/4 * * * /home/hadoop/stats.alarm_file_nofinish.sh>>/home/hadoop/log/error.log 2>&1
+*/30 * * * * /home/hadoop/stats.alarm_file_noload.sh>>/home/hadoop/log/error.log 2>&1
+30 8-23 * * * /home/hadoop/stats.datanode.alarm.sh>>/home/hadoop/log/error.log 2>&1
+20 0 * * * /home/hadoop/app/sh/task/stats.del_asconfig.task.sh>>/home/hadoop/log/error.log 2>&1
+30 1 * * * /home/hadoop/app/sh/util.clean.sh>>/home/hadoop/log/error.log 2>&1
+50 17 * * * /home/hadoop/stats.alarm_status.sh>>/home/hadoop/log/error.log 2>&1
+51 23 * * * /home/hadoop/stats.file.task.kill.sh>>/home/hadoop/log/error.log 2>&1

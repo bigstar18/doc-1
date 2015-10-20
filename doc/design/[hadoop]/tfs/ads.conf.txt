@@ -1,0 +1,44 @@
+[public]
+#日志文件的size,default 1GB
+log_size=1073741824
+#保留日志文件的个数,default 64
+log_num = 64
+#日志文件的级别, default debug
+log_level=debug
+#工作队列size,default 10240
+task_max_queue_size = 10240
+#监听端口, 1024 ~ 65535
+port = 12000
+#工作目录
+work_dir=/home/xxxx/tfs_bin/
+#网络设备
+dev_name= eth0
+#工作线程池size, default 4
+thread_count = 4
+#本机ip地址
+ip_addr = 192.168.0.3
+[adminserver]
+#检测的间隔时间, 单位(秒), default: 5
+check_interval = 5
+#失败的次数的阀值， default: 5
+check_count = 5
+#死亡个数的阀值
+warn_dead_count = 3
+#kill server之前等待时间
+ds_fkill_waittime = 15
+#dataserver启动命令脚本
+ds_script = /home/xxxx/tfs_bin/bin/dataserver -f /home/xxxx/tfs_bin/conf/ds.conf -d
+#监控的dataserver列表
+ds_index_list = 1,2,3
+[nameserver]
+#!NameServer的vip
+ip_addr = 192.168.0.1
+#!NameServer监听的端口
+port = 9999
+[dataserver]
+#!DataServer监听的端口
+port = 9999
+#!DataServer lock file路径
+lock_file = /home/xxxx/tfs_bin/logs/dataserver
+#!DataServer 加载点路径
+mount_name = /home/xxxx/data/disk

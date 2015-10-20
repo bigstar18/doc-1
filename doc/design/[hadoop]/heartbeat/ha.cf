@@ -1,0 +1,23 @@
+debugfile /var/log/ha-debug
+debug 1
+logfile /var/log/ha-log
+logfacility     local0
+
+keepalive 2
+deadtime 10
+warntime 5
+initdead 30
+
+udpport 694
+bcast eth0
+#mcast bond0 225.0.0.5 694 1 0
+ucast eth0 192.168.10.217
+
+auto_failback off
+#autojoin none
+
+node jobtracker 
+node node02 
+
+compression bz2
+#crm respawn

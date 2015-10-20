@@ -1,0 +1,136 @@
+#安装libevent
+rpm -qal |grep libevent
+rpm -qa |grep libevent
+rpm -e --nodeps libevent-1.4.13-1
+
+tar -zxf libevent-2.0.21-stable.tar.gz;cd libevent-2.0.21-stable;
+./configure && make && make install
+/sbin/ldconfig
+
+#fdfs
+tar -zxf FastDFS_v4.06.tar.gz;cd FastDFS
+./make.sh && ./make.sh install
+
+#/etc/fdfs/
+mkdir -p /home/fastdfs/conf
+mkdir -p /home/fastdfs/fdfs_storage
+
+cp /home/hadoop/FastDFS/conf/anti-steal.jpg /home/fastdfs/conf/
+
+
+/usr/local/bin/fdfs_trackerd /etc/fdfs/tracker.conf
+
+/usr/local/bin/fdfs_storaged /etc/fdfs/storage.conf
+
+netstat -tnlp |grep fdfs
+netstat -tupln | grep storage
+
+/usr/local/bin/fdfs_upload_file /etc/fdfs/client.conf client.conf
+ll /home/fastdfs/fdfs_storage/data/00/00
+
+killall fdfs_trackerd
+killall fdfs_storaged
+
+Usage: /usr/local/bin/fdfs_upload_file <config_filename> <local_filename> [storage_ip:port] [store_path_index]
+
+http://bbs.chinaunix.net/forum.php?mod=viewthread&tid=1920470&extra=page%3D1%26filter%3Dtypeid%26typeid%3D424&page=1
+
+#======================================================================================
+#将大量的小文件合并成为一个大文件，类似GFS中Chunk的概念，而Chunk的定位信息我们称之为一级索引，而chunk内部具体的文件定位信息我们称之为二级索引
+#tfs                  http://code.taobao.org/p/tfs/wiki/index/
+#http://blog.chinaunix.net/uid/20196318.html
+
+base_packet.cpp:246
+我刚刚试了一下，应该是最新版的tb_common_utils库的logMessage接口变了，而且没有向下兼容，所以编译不过，只有请taobao的大神帮忙了~##用版本15的可以
+svn checkout -r 15 http://code.taobao.org/svn/tb-common-utils/trunk/ tb-common-utils
+#svn checkout http://code.taobao.org/svn/tb-common-utils/trunk/ tb-common-utils
+rm -rf /home/tfs; mkdir -p /home/tfs;export TBLIB_ROOT="/home/tfs";
+chmod 744 tb-common-utils/build.sh;tb-common-utils/build.sh;
+
+yum install -y readline* --nogpgcheck
+yum install -y zlib-devel.x86_64 --nogpgcheck
+yum install -y e2fsprogs-devel.x86_64 --nogpgcheck
+#mkdir /usr/include/uuid;cp /usr/include/uuid.h  /usr/include/uuid/;ldconfig
+yum install -y jemalloc-devel.x86_64 --nogpgcheck
+
+http://cdn.mysql.com/Downloads/MySQL-5.1/MySQL-server-community-5.1.68-1.rhel5.x86_64.rpm
+http://cdn.mysql.com/Downloads/MySQL-5.1/MySQL-devel-community-5.1.68-1.rhel5.x86_64.rpm
+rpm -e --nodeps mysql-5.0.95-1.el5_7.1
+rpm -Uvh MySQL-*
+
+#svn checkout http://code.taobao.org/svn/tfs/tags/release-2.4.0/
+svn checkout http://code.taobao.org/svn/tfs/tags/release-2.2.9/
+cd release-2.2.9;  ./build.sh init;
+./configure --without-tcmalloc && make && make install
+
+#yum install  e4fsprogs e4fsprogs-devel
+#modprobe ext4
+#mount /dev/VolGroup00/LogVol01 /home/tfs/disk
+mkdir -p /home/tfs/disk1
+
+
+#安装目录（默认为~/tfs_bin)
+#配置文件有2个，ns.conf和ds.conf，若安装后发现conf目录下没有文件，则从源码下的conf将这两个conf模板拷贝过来
+#Usage: tfs_bin/scripts/tfs [start_ns | check_ns | stop_ns | start_ds ds_index | check_ds | stop_ds ds_index | start_ds_all | stop_ds_all | admin_ns | admin_ds | check_admin | stop_admin | start_rc | check_rc | stop_rc | start_rs | check_rs | stop_rs | start_meta | check_meta | stop_meta]
+# ds_index format : 2-4 OR 2,4,3 OR 2-4,6,7 OR '2-4 5,7,8'
+#0是一个未初始化的配置项，不支持的。 ext3 ftruncate： 生成一个物理块（对应一个文件）的时候，调用ftruncate接口，这个只是保证了物理块有72M（配置项），但磁盘空间不会立即分配，只有往物理块写数据的时候才会实际分配磁盘空间。 ext3 posix allocate & ext4：posix 后来增加了文件空间预分配的接口，这样就能格式化的时候为物理块分配连续的磁盘空间。 后者很多老版本的系统是不支持的,就只能用ftruncate方式。
+
+/root/tfs_bin/scripts/tfs start_ns
+/root/tfs_bin/scripts/tfs stop_ns
+/root/tfs_bin/scripts/tfs check_ns
+
+ ./bin/nameserver -f conf/ns.conf -d
+netstat -tnlp |grep nameserver
+[2013-04-18 15:05:34] INFO  nameserver.cpp:243 [47616497684400] nameserver running, listen port: 9990
+
+/root/tfs_bin/scripts/stfs clear 1;
+/root/tfs_bin/scripts/stfs format 1;
+/root/tfs_bin/scripts/tfs start_ds 1;
+/root/tfs_bin/scripts/tfs check_ds
+/root/tfs_bin/scripts/tfs stop_ds_all
+netstat -tnlpa |grep 83
+/root/tfs_bin/bin/ds_client -d 192.168.10.217:40020
+/root/tfs_bin/bin/ssm -s 192.168.10.83:40010
+/root/tfs_bin/bin/tfstool -s 192.168.10.83:40010
+put /root/anaconda-ks.cfg
+put /root/anaconda-ks.cfg => T1yaETByJT1RCvBVdK success.
+/root/tfs_bin/bin/ds_client -d 192.168.10.83:40020
+list_file 204
+
+#yum list heartbeat
+yum install -y heartbeat
+cp /usr/share/doc/heartbeat-2.1.4/ha.cf /usr/share/doc/heartbeat-2.1.4/haresources /usr/share/doc/heartbeat-2.1.4/authkeys /etc/ha.d/
+chmod 600 /etc/ha.d/authkeys
+vim /etc/ha.d/ha.cf          cat /etc/ha.d/ha.cf
+
+service  heartbeat  start
+cat  /var/log/ha-debug               cat /var/log/ha-log
+ifconfig
+service  heartbeat  stop
+service  heartbeat  start
+
+#在本例的环境中，10.232.36.203/204上都有两块磁盘/dev/sda、/dev/sdb，磁盘空间均为1TB；TFS采用每个DS进程管理一块磁盘的方式，也就是说，每个机器上都会运行2个DS进程，分别管理/dev/sda、/dev/sdb, 并且这两块盘应该挂载到/data/disk1、/data/disk2两个目录（因为配置文件中指定mount_path为/data/disk），启动DS时指定序号（如1、2）这个DS进程就会加载对应目录里的数据（1对应/data/disk1、2对应/data/disk2，依次类推)开始服务。
+
+#为什么需要扩展块？
+#NS在分配block时，会考虑block是否已经满（超过阈值）；而NS收集到的block使用情况不是实时的（在心跳包中附带，周期性更新）；NS分配给客户端的block可能在客户端连接DS进行写操作时已经写满；DS要在NS分配的block上满足写请求，则需扩展块的空间（tfs文件名的特性导致，写必须在该block内完成）。
+#客户端一次open、多次write、在close的操作序列也导致在open分配块时，不能决定一个块剩余的长度是否足够。
+#保持文件名不变的更新语义使得更新操作必须在原来的块上得到满足，如果更新的文件长度比文件原来的长度要大，而原来的块又没有足够的空间时，则需要使用扩展块。
+
+#最终我选用了tfs-client-java-2.1.3/ 版本，因为最高的2.2.x版本，工作时必需要与rcserver通信。我目前不需要rcserver所有没有安装rcserver，所以使用2.1.3版本。
+svn checkout http://code.taobao.org/svn//tfs-client-java/tags/tfs-client-java-2.1.3
+svn checkout http://code.taobao.org/svn/tair-client-java/trunk tair-client-java
+
+[2013-04-27 15:55:04] ERROR accept (serversocket.cpp:46) [1113549120] Too many open files(24) 具体的error可以查看linux的errno值，再做判断。
+echo "*               soft    nofile            327680" >> /etc/security/limits.conf
+echo "*               hard    nofile            327680" >> /etc/security/limits.conf
+echo "*               soft    nproc             320000" >> /etc/security/limits.conf
+echo "*               hard    nproc             320000" >> /etc/security/limits.conf
+echo "session    required     pam_limits.so" >> /etc/pam.d/login
+重启ds
+
+出现remote/block version is larger
+ block is exhausted    block_max_size配置过大，扩展块用完了的原因。
+ error: 17   /* File exists */
+
+
+

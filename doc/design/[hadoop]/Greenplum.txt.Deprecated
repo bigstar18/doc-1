@@ -1,0 +1,15 @@
+如何提升数据仓库的处理能力，有以下两个主要因素：第一，吞吐能力，就是所谓的IO；第二，并行计算能力。
+
+我们都知道Oracle RAC是shared everything架构，而Greenplum是shared nothing架构。
+
+Greenplum真正发挥了并行无处不在的优势，在一个主机上同时启动多个PgSQL数据库，这样硬件上的多核CPU就可以充分发挥优势。有人问我：Greenplum能并行处理多个任务吗？回答是：不可能。因为Greenplun已经将机器的IO和处理能力全部发挥出来了，再没有可能同时处理多个任务。
+
+Oracle最大的问题还是在于shared everything的架构，导致IO的处理能力有限
+
+(2).IOE 事件中的O是代表Oracle的缩写，也即去处Oracle数据库，采用MySQL和Hadoop替代的解决方案，Oracle RAC将会被Hadoop集群替代，其阿里巴巴B2B使用的GreenPlum集群，也将会在阿里巴巴集团完成运维团队和DBA团队合并之后，采用 Hadoop集群解决方案替代；
+
+达到阿里数据库的管理水平，DBA只做了一间事，就是更加关心自己负责的库。
+每次性能曲线的波动，都要找到原因，甚至定位到SQL。对于新上线的SQL语句，进行严格的审查。对于大操作，格外小心。Statspack、AWR报告，要观注、观注、再观注。基本上也就这些了
+
+
+

@@ -1,0 +1,86 @@
+[public]
+#日志文件的size,default 1GB
+log_size=1073741824
+#保留日志文件的个数,default 16
+log_num = 16
+#日志文件的级别, default info，线上使用建议设为info，调试设为debug
+log_level=info
+#工作队列size, default 10240
+task_max_queue_size = 10240
+#监听端口, 1024 ~ 65535
+port = 9998
+#工作目录
+work_dir=/home/xxxx/tfs_bin/
+#网络设备
+dev_name= bond0
+#工作线程池 default 4
+thread_count = 4
+#本机IP地址(vip)
+ip_addr = 192.168.0.3
+[dataserver]
+#!NameServer vip地址
+ip_addr = 192.168.0.1
+#!nameserver IP地址列表(master, salve的ip地址，只能以'|'分隔)
+ip_addr_list = 192.168.0.1|192.168.0.2
+#!NameServer 监听的端口, 1024 ~ 55535
+port = 9999
+#备集群NameServer的vip地址, 没有搭建主副集群的可以不用配置此项
+#slave_nsip = 192.168.0.2:9999
+#无效配置，直接加到slave_nsip项即可
+#slave_nsport = 9999
+#dataserver 与 nameserver心跳间隔时间, 单位(秒), default: 2
+heart_interval = 2
+check_interval = 2
+#datafile失效时间, 单位(秒), default: 90
+#expire_datafile_time = 90
+#拷贝一个Block超时时间, 单位(秒), default: 180
+#expire_clonedblock_time = 180
+#压缩一个Block超时时间, 单位(秒), default: 600
+#expire_compactblock_time = 600
+#复制Block线程池的大小, default: 2
+replicate_threadcount = 2
+#是否写同步日志, defalut: 1
+#write_sync_flag = 1
+#定时dump统计信息的间隔时间, 单位(秒), default: 60
+dump_visit_stat_interval = 60
+#io操作的阀值, 超过此值时， 会警告
+#max_io_warning_time = 0
+#备件类型, 1: tfs, 2: nfs
+backup_type = 1
+#备件路径
+backup_path = /home/xxxxx/xxxxx/tfs
+#最大datafile值, default: 50
+#max_data_file_nums = 50
+#crc error的最大个数
+#max_crc_error_nums = 4
+#eio error的最大个数
+#max_eio_error_nums_ = 6
+#超时block检测时间, 单位(秒)
+#expire_checkblock_time = 86000
+#cpu使用率
+#max_cpu_usage = 60
+#dump 统计信息的间隔时间, 单位(微秒)
+#dump_stat_info_interval = 60000000
+#mount路径
+mount_name = /home/xxxx/data/disk
+#mount 时磁盘的大小, 单位(KB)，不要要过文件系统实际剩余空间
+mount_maxsize = 419430400
+#文件系统类型: 0: no initialize, 1: ext4, 2: ext3 posix fallocate, 3: ext3 ftruncate
+base_filesystem_type = 1
+#超级块存存储的保留位置，default: 0
+superblock_reserve = 0
+#平均文件的大小, 单位(字节)
+avg_file_size = 40960
+#主块的大小, 单位(字节)
+mainblock_size = 75497472
+#扩展块的大小, 单位(字节)
+extblock_size = 4194304
+#主块与扩展的比例
+block_ratio = 0.5
+#hash桶的比例
+hash_slot_ratio = 0.5
+ds_thread_count = 4
+#访问控制ip mask, 可选
+#access_control_ipmask = 192.168.0.1
+#访问控制文件路径, 可选
+#access_control_file = /home/xxxxx/xxxxxx/tfs/control.file

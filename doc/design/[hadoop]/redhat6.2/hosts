@@ -1,0 +1,21 @@
+127.0.0.1	localhost localhost.localdomain
+::1		localhost localhost.localdomain
+172.16.17.16	puppet.jsydrd.com puppet
+172.16.11.11	master1
+172.16.11.12	master2
+172.16.11.13	master3
+172.16.11.14	master4
+172.16.11.15	master5
+172.16.11.16	node01
+172.16.11.17	node02
+172.16.11.18	node03
+172.16.11.19	node04
+172.16.11.25	node05
+172.16.11.26	node06
+172.16.11.27	node07
+172.16.11.28	node08
+172.16.11.29	node09
+172.16.11.30	node10
+172.16.11.31	node11
+172.16.11.32	node12
+172.16.11.33	node13

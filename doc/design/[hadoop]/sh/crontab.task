@@ -1,0 +1,39 @@
+1 0 * * * /home/hadoop/app/sh/task/stats.ejboss.task.sh>>/home/hadoop/log/error.log 2>&1
+45 1-23 * * * /home/hadoop/app/sh/task/stats.open.task.sh>>/home/hadoop/log/error.log 2>&1
+55 1-23 * * * /home/hadoop/app/sh/task/stats.open_info.task.sh>>/home/hadoop/log/error.log 2>&1
+10 2-23 * * * /home/hadoop/app/sh/task/stats.ems.task.sh>>/home/hadoop/log/error.log 2>&1
+20 2-23 * * * /home/hadoop/app/sh/task/stats.ishare.task.sh>>/home/hadoop/log/error.log 2>&1
+30 2-23 * * * /home/hadoop/app/sh/task/stats.topnews.daily.task.sh>>/home/hadoop/log/error.log 2>&1
+50 2-23 * * 5 /home/hadoop/app/sh/task/stats.topnews.weekly.task.sh>>/home/hadoop/log/error.log 2>&1
+40 2-23 * * * /home/hadoop/app/sh/task/stats.subscribe.task.sh>>/home/hadoop/log/error.log 2>&1
+25 3-23 * * * /home/hadoop/app/sh/task/stats.fun.task.sh>>/home/hadoop/log/error.log 2>&1
+*/45 2-23 * * * /home/hadoop/app/sh/task/stats.desk.task.sh>>/home/hadoop/log/error.log 2>&1
+30 9-23 * * * /home/hadoop/app/sh/task/stats.desk_remain.task.sh>>/home/hadoop/log/error.log 2>&1
+30 2-23 * * * /home/hadoop/app/sh/task/stats.coc.task.sh>>/home/hadoop/log/error.log 2>&1
+50 2-23 * * * /home/hadoop/app/sh/task/stats.msb.task.sh>>/home/hadoop/log/error.log 2>&1
+30 4-23 * * * /home/hadoop/app/sh/task/stats.remind.task.sh>>/home/hadoop/log/error.log 2>&1
+40 4-23 * * * /home/hadoop/app/sh/task/stats.urlNavigation.task.sh>>/home/hadoop/log/error.log 2>&1
+05 4-23 * * * /home/hadoop/app/sh/task/stats.surfPartner.task.sh>>/home/hadoop/log/error.log 2>&1
+01 4-23 * * * /home/hadoop/app/sh/task/stats.information.task.sh>>/home/hadoop/log/error.log 2>&1
+50 3-23 * * * /home/hadoop/app/sh/task/stats.wap_website.task.sh>>/home/hadoop/log/error.log 2>&1
+30 5-23 * * * /home/hadoop/app/sh/task/stats.sms_receive_monitor.task.sh>>/home/hadoop/log/error.log 2>&1
+10 8-23 * * * /home/hadoop/app/sh/task/stats.partner_out.task.sh>>/home/hadoop/log/error.log 2>&1
+30 6-23 * * * /home/hadoop/app/sh/task/stats.partner_in.task.sh>>/home/hadoop/log/error.log 2>&1
+*/30 5-23 * * * /home/hadoop/app/sh/task/stats.rd.task.sh>>/home/hadoop/log/error.log 2>&1
+#40 10-23 * * * /home/hadoop/app/sh/task/stats.surfconfigforday.task.sh>>/home/hadoop/log/error.log 2>&1
+1 5-23 * * * /home/hadoop/app/sh/task/stats.asconf_prov.task.sh>>/home/hadoop/log/error.log 2>&1
+30 11-23 * * * /home/hadoop/app/sh/task/stats.assistant.eight.user.task.sh>>/home/hadoop/log/error.log 2>&1
+50 9-23 * * * /home/hadoop/app/sh/task/stats.surfconfig.task.sh>>/home/hadoop/log/error.log 2>&1
+*/30 15-23 * * * /home/hadoop/app/sh/task/stats.ucb.task.sh>>/home/hadoop/log/error.log 2>&1
+30 4-23 * * * /home/hadoop/app/sh/task/stats.jingfen.task.sh>>/home/hadoop/log/error.log 2>&1
+10 13-23 * * * /home/hadoop/app/sh/task/stats.userupdown.task.sh>>/home/hadoop/log/error.log 2>&1
+15 10-21 * * * /home/hadoop/app/sh/task/stats.flow.task.sh>>/home/hadoop/log/error.log 2>&1
+#
+1 4-23 * * * /home/hadoop/app/sh/task/stats.as.task.sh>>/home/hadoop/log/error.log 2>&1
+20 8-23 * * * /home/hadoop/app/sh/task/stats.mms_receive_monitor.task.sh>>/home/hadoop/log/error.log 2>&1
+1 12-23 * * 3 /home/hadoop/app/sh/task/stats.as.weekly.task.sh>>/home/hadoop/log/error.log 2>&1
+42 4-23 * * * /home/hadoop/app/sh/task/stats.kpi.task.sh>>/home/hadoop/log/error.log 2>&1
+#
+20 8-23 * * * /home/hadoop/app/sh/task/stats.send.mobile.sh>>/home/hadoop/log/error.log 2>&1
+5 8-23 * * * /home/hadoop/app/sh/task/stats.hot.user.month.sh>>/home/hadoop/log/error.log 2>&1
+#

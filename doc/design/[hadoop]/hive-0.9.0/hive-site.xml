@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+<property>
+  <name>javax.jdo.option.ConnectionURL</name>
+  <value>jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS = (PROTOCOL = TCP)(HOST = 172.16.15.103)(PORT = 1521))(ADDRESS = (PROTOCOL = TCP)(HOST = 172.16.15.104)(PORT = 1521))(LOAD_BALANCE = yes)(FAILOVER = ON)(CONNECT_DATA =(SERVER = DEDICATED)(SERVICE_NAME = orcl)(FAILOVER_MODE=(TYPE = SELECT)(METHOD = BASIC)(RETIRES = 20)(DELAY = 15))))</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionDriverName</name>
+  <value>oracle.jdbc.OracleDriver</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionUserName</name>
+  <value>hive</value>
+</property>
+<property>
+  <name>javax.jdo.option.ConnectionPassword</name>
+  <value>hivepass</value>
+</property>
+<property>
+  <name>datanucleus.autoCreateSchema</name>
+  <value>false</value>
+</property>
+<property>
+  <name>hive.metastore.ds.retry.attempts</name>
+  <value>3</value>
+</property>
+<property>
+   <name>hive.metastore.ds.retry.interval</name>
+   <value>3000</value>
+</property>
+
+<property>
+  <name>hive.merge.mapredfiles</name>
+  <value>true</value>
+</property>
+<property>
+  <name>mapred.max.split.size</name>
+  <value>536870912</value>
+</property>
+<property>
+  <name>mapred.min.split.size</name>
+  <value>268435456</value>
+</property>
+<property>
+  <name>hive.variable.substitute</name>
+  <value>false</value>
+</property>
+<property>
+  <name>hive.groupby.skewindata</name>
+  <value>true</value>
+</property>
+<property>
+  <name>hive.auto.convert.join</name>
+  <value>true</value>
+</property>
+<property>
+  <name>hive.exec.mode.local.auto</name>
+  <value>true</value>
+</property>
+<property>
+  <name>hive.exec.mode.local.auto.input.files.max</name>
+  <value>10</value>
+</property>
+
+<property>
+  <name>hbase.zookeeper.quorum</name>
+  <value>master1,master2,master3,node05,node06</value>
+</property>
+<property>
+  <name>hive.hwi.war.file</name>
+  <value>lib/hive-hwi-0.9.0.war</value>
+</property>
+
+<property>
+  <name>hive.exec.compress.intermediate</name>
+  <value>true</value>
+</property>
+
+<!-- 
+<property> 
+  <name>hive.aux.jars.path</name>
+  <value>file:///home/hadoop/hive-0.7.1/lib/hive-hbase-handler-0.9.0.jar,file:///home/hadoop/hive-0.7.1/lib/guava-r09.jar,file:///home/hadoop/hive-0.7.1/lib/zookeeper-3.3.5.jar,file:///home/hadoop/hive-0.7.1/lib/hbase-0.92.1-security.jar</value>
+</property>
+
+<property>
+  <name>hive.exec.mode.local.auto.inputbytes.max</name>
+  <value>134217728</value>
+</property>
+    // since local mode only runs with 1 reducers - make sure that the
+    // the number of reducers (set by user or inferred) is <=1
+-->
+<!-- 
+<property>
+  <name>hive.mapred.local.mem</name>
+  <value>0</value>
+  <description>If the user so wishes, the maximum amount of memory for this child jvm can be controlled via the option hive.mapred.local.mem. By default, it's set to zero, in which case Hive lets Hadoop determine the default memory limits of the child jvm.</description>
+</property>
+<property>
+  <name>hive.mapred.reduce.tasks.speculative.execution</name>
+  <value>false</value>
+</property>
+<property>
+  <name>hive.map.aggr</name>
+  <value>true</value>
+</property>
+<property>
+  <name>hive.exec.parallel</name>
+  <value>true</value>
+</property>
+<property>
+  <name>hive.querylog.location</name>
+  <value>/home/hadoop/tmp/hive</value>
+</property>
+<property>
+  <name>hive.cluster.delegation.token.store.class</name>
+  <value>org.apache.hadoop.hive.thrift.ZooKeeperTokenStore</value>
+</property>
+<property>
+  <name>hive.cluster.delegation.token.store.zookeeper.connectString</name>
+  <value>localhost:2181</value>
+</property>
+<property>
+  <name>hive.cluster.delegation.token.store.zookeeper.znode</name>
+  <value>/hive/cluster/delegation</value>
+</property>
+<property>
+  <name>hive.cluster.delegation.token.store.zookeeper.acl</name>
+  <value>sasl:hive/host1@EXAMPLE.COM:cdrwa,sasl:hive/host2@EXAMPLE.COM:cdrwa</value>
+</property>
+
+<property>
+  <name>hive.exec.scratchdir</name>
+  <value>/tmp/hive-${user.name}</value>
+</property>
+<property>
+  <name>hive.metastore.warehouse.dir</name>
+  <value>/user/hive/warehouse</value>
+</property>
+<property>
+  <name>hive.hwi.listen.port</name>
+  <value>9999</value>
+</property>
+-->
+</configuration>

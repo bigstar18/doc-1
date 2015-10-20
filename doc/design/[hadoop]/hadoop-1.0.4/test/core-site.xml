@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<!-- Put site-specific property overrides in this file. -->
+
+<configuration>
+	<property>
+	  <name>fs.default.name</name>
+	  <value>hdfs://jobtracker:3001/</value>
+	</property>	
+	<property>
+	  <name>hadoop.tmp.dir</name>
+	  <value>/home/tmp/hadoop-${user.name}</value>
+	</property>
+
+	<property>
+	  <name>hadoop.logfile.count</name>
+	  <value>3</value>
+	</property>
+
+	<property>
+	  <name>ipc.server.listen.queue.size</name>
+	  <value>256</value>
+	</property>
+	<property>
+	  <name>ipc.client.connection.maxidletime</name>
+	  <value>20000</value>
+	</property>
+
+<property>
+  <name>io.compression.codecs</name>
+  <value>org.apache.hadoop.io.compress.DefaultCodec,org.apache.hadoop.io.compress.GzipCodec,org.apache.hadoop.io.compress.BZip2Codec,org.apache.hadoop.io.compress.SnappyCodec,com.hadoop.compression.lzo.LzoCodec,com.hadoop.compression.lzo.LzopCodec</value>
+</property>
+<property>
+  <name>io.compression.codec.lzo.class</name>
+  <value>com.hadoop.compression.lzo.LzoCodec</value>
+</property>
+
+<property>
+  <name>webinterface.private.actions</name>
+  <value>true</value>
+</property>
+
+<!--
+	<property>
+	  <name>fs.trash.interval</name>
+	  <value>0</value>
+	</property>
+-->
+</configuration>

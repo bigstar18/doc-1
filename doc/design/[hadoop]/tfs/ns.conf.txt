@@ -1,0 +1,92 @@
+[public]
+#日志文件的size,default 1GB, 超过该大小日志将被转储
+log_size=1073741824
+#保留日志文件的个数,default 16，请确保你的工作目录下能存下这么多日志
+log_num = 16
+#日志文件的级别, default info，上线使用建议设置为INFO，调试设为DEBUG
+log_level=info
+#工作队列size, default 10240
+task_max_queue_size = 10240
+#监听端口, 1024 ~ 65535
+port = 8108
+#工作目录
+work_dir=/home/xxxx/xxxx/tfs
+#网络设备
+dev_name= bond0
+#工作线程池 default 4
+thread_count = 4
+#本机IP地址(vip)，配置ha时为vip，没配置可以为主ns的ip
+ip_addr = 192.168.0.1
+[nameserver]
+#系统保护时间，单位(秒), default: 300
+#保护时间内不进行任何操作，包括添加block等
+safe_mode_time = 300
+#nameserver IP地址列表(master, salve的ip地址，只能以'|'分隔)
+#单台nameserver时，另一个ip配置为无效ip即可
+ip_addr_list = 192.168.0.1|192.168.0.2
+#Ip地址 mask
+#用于区分dataserver所在的子网，选择不同子网的dataserver备份数据
+group_mask = 255.255.255.255
+#Block size的最大值, 单位(字节)，建议配置与ds的mainblock_size值相同
+block_max_size = 75497472
+#Block 最大备份数, default: 2
+#单台dataserver时，需要配置为1
+max_replication = 2
+#Block 最小备份数, default: 2
+#单台dataserver时，需要配置为1
+min_replication = 2
+#!DataServer 容量使用的百分比, default: 98
+use_capacity_ratio = 98
+#Block使用的百分比, default: 95
+block_max_use_ratio = 98
+#Dataserver 与 nameserver 的心跳时间, 单位(秒), default: 2
+heart_interval = 2
+# 集群号
+cluster_id = 1
+# Block当前备份数与最大备份数百分比，如果大于这个百分比，就开始复制
+replicate_ratio_ = 50
+#每个DataServer 主可写块的大小, default: 3
+max_write_filecount = 16
+#dataserver 与 nameserver 的心跳线程池的大小, default: 2
+heart_thread_count = 2
+#dataserver 与 nameserver 的心跳工作队列的大小, default: 10
+heart_max_queue_size = 10
+#block 缺失备份时， 需要等待多长时间才进行复制， 单位(秒)， default: 240
+repl_max_time = 60
+#block进行压缩的比例, block 删除的文件的比例达到这个值时进行压缩
+compact_delete_ratio = 15
+#block进行压缩时, dataserver的最大负载，超出这个值dataserver，不进行压缩
+compact_max_load = 200
+# object 死亡的最大时间, 单位(秒), default: 86400
+object_dead_max_time = 86400
+# object 清理的时间, 单位(秒), default: 300
+object_clear_max_time = 300
+#nameserver上出现租约等待时， 阻塞线程最大个数， 这个值最好是工作线程的一半
+max_wait_write_lease = 15
+#租约删除的最长时间, 单位(小时), default: 1
+lease_expired_time = 3
+#清理租约的阀值， default: 102400
+cleanup_lease_threshold = 102400
+#创建计划的间隔时间, 单位(秒), default: 30
+build_plan_interval = 10
+#计划超时时间, 单位(秒), default: 120
+run_plan_expire_interval = 120
+#创建计划的百分比， 计划数量 = dataserver 数量 * build_plan_ratio
+build_plan_ratio = 25
+#定时dump统计信息的间隔时间, 单位(微秒), default: 60000000
+dump_stat_info_interval = 60000000
+#创建计划等待时间， 主要用有很多紧急复制时，单位(秒), default: 2
+build_plan_default_wait_time = 2
+#负载均衡时block相关的个数(这个参数有点问题， 以后会改成百分比), default: 5
+balance_max_diff_block_num = 5
+#每次新增Block的个数， default: 3
+add_primary_block_count = 3
+#存储block桶的个数, default: 32
+block_chunk_num = 32
+#每个任务处理的预期时间, 单位(微秒), default: 200
+task_percent_sec_size = 200
+task_max_queue_size = 10000
+#同步日志缓冲区slot的大小， 超出这个值会写入磁盘, default: 1
+oplog_sync_max_slots_num = 1024
+#同步日志线程池的大小, default: 1
+oplog_sync_thread_num = 1

@@ -1,0 +1,12 @@
+{
+   "content_scripts": [ {
+      "exclude_globs": [  ],
+      "include_globs": [ "*.google.*" ],
+      "js": [ "main.js" ],
+      "matches": [ "http://www.google.com/*", "https://www.google.com/*", "http://www.google.com.hk/*", "https://www.google.com.hk/*" ],
+      "run_at": "document_idle"
+   } ],
+   "description": "去除Google搜索结果中的URL跟踪跳转",
+   "name": "my Do Not Track",
+   "version": "1.0"
+}
