@@ -1,0 +1,56 @@
+:
+#####################################################################
+#CRIPT:         K
+
+#       DESCRIPTION:    Kill processes by name
+
+#
+
+#       Author: Guan Jian       Date: August 10, 1993
+
+#       Revision: 2.1.1
+
+#
+
+#
+
+#       This source code is copyright 1994-1996 by MagiTech System Limited.
+
+#       Use, duplication and disclosure subject to a Source
+
+#       Code License Agreement with MagiTech System Limited.
+
+#
+
+######################################################################
+
+ 
+u="$USER";
+if [ ${#USER} -gt 8 ]
+then 
+	u="$UID"
+fi
+	
+if [ -n "$1" ] ; then
+echo $u;
+  PROCESS=`ps -ef |grep java|grep $1 |grep ^$u|grep -v grep |awk '{print $2}' |xargs kill -9 `;
+  
+fi
+ 
+
+######################################################################
+
+# BEGIN MODIFICATION HISTORY
+
+#
+
+# Revision #      Date      Time    Changes By
+
+# ------------  --------  --------  ----------
+
+#
+
+# END MODIFICATION HISTORY
+
+######################################################################
+

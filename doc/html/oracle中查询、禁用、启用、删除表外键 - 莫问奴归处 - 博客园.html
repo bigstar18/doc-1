@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>oracle中查询、禁用、启用、删除表外键 - 莫问奴归处 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=62IP_0cEz3HhbrLfyt0yP7LqLTBi71fpE28OaYc_AIs1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/Cogitation/bundle-Cogitation.css?v=KxzCsGje7vptXKdp2HZBpXmgRp_h-PvgHFxMy8F9r3o1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/chinhr/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/chinhr/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/chinhr/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'chinhr', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=PlJ9KQtkGa_ccgZxU9Fon-EDNUyrm0y3GKrHRkjy4p81" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<div id="page_begin_html"></div><script>load_page_begin_html();</script>
+
+<div id="top">
+	
+<div>
+	<table>
+		<tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/chinhr/"><a href="http://xuanxuanwa.bb.iyaya.com"><font color=red>若得山花插满头，莫问奴归处！</font></a></a></h1>
+				<p id="tagline"></p>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tr>
+			<td class="HeaderBarTab" nowrap>
+&nbsp;
+<a id="Header1_MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a> ::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/chinhr/">首页</a> ::
+<a href="http://q.cnblogs.com" class="menu">博问</a> ::
+<a href="http://home.cnblogs.com/ing/" class="menu">闪存</a> ::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> ::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://msg.cnblogs.com/send/%E8%8E%AB%E9%97%AE%E5%A5%B4%E5%BD%92%E5%A4%84">联系</a> ::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/chinhr/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/chinhr/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a> ::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://i.cnblogs.com/">管理</a> ::
+
+</td>
+			<td><img id="Header1_BlueTab" src="/skins/Cogitation/Images/BlueTabRight.gif" align="absmiddle" /></td>
+			<td class="HeaderBarTabBack" nowrap width="100%">
+				
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap>
+				&nbsp;
+				1375 
+				随笔&nbsp;::
+				0 文章
+				::
+				744 评论
+				::
+				23 引用
+			</td>
+		</tr>
+	</table>
+</div>
+
+			</td>
+		</tr>
+	</table>
+</div>
+
+</div>
+<div id="leftmenu">	
+
+	    <div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+		<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+	
+</div>
+<div id="main">
+	
+<div id="post_detail">
+<div class="post">
+	<div class="postTitle">
+		<a id="cb_post_title_url" href="http://www.cnblogs.com/chinhr/archive/2012/11/26/2788748.html">oracle中查询、禁用、启用、删除表外键</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><div style="margin: 5px 0px; background-color: #ffffff; "><h3><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">oracle中查询、禁用、启用、删除表外键</span></div><div><span style="font-size: 23px; line-height: 30px; font-weight: normal;"><br /></span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">1.查询所有表的外键的：</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">select table_name, constraint_name from user_constraints where constraint_type = 'R';</span></div><div><span style="font-weight: normal;">&nbsp;</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">2.禁用所有外键约束, 使用下面的sql生成对应sql脚本:</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">select 'alter table ' || table_name || ' disable constraint ' || constraint_name || ';' from user_constraints where constraint_type = 'R';</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">生成的sql类似下面的语句：</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">alter table BERTH disable constraint BERTH_FK;</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">alter table BOLLARD disable constraint BOLLARD_FK;</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">alter table YARD_UNAVAIL_REGION disable constraint YARD_UNAVAIL_REGION_FK;</span></div><div><span style="font-weight: normal;">&nbsp;</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">3.启用所有外键约束, 使用下面的sql生成对应sql脚本:</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">select 'alter table ' || table_name || ' enable constraint ' || constraint_name || ';' from user_constraints where constraint_type = 'R';</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">生成的sql类似下面的语句：</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">alter table BERTH enable constraint BERTH_FK;</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">alter table BOLLARD enable constraint BOLLARD_FK;</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">alter table YARD_UNAVAIL_REGION enable constraint YARD_UNAVAIL_REGION_FK;</span></div><div><span style="font-weight: normal;">&nbsp;</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">4.删除所有外键约束, 使用下面的sql生成对应sql脚本:</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">select 'alter table ' || table_name || ' drop constraint ' || constraint_name || ';' from user_constraints where constraint_type = 'R';</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">生成的sql类似下面的语句：</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">alter table BERTH drop constraint BERTH_FK;</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">alter table BOLLARD drop constraint BOLLARD_FK;</span></div><div><span style="font-size: 14pt; line-height: 30px; font-weight: normal;">alter table YARD_UNAVAIL_REGION drop constraint YARD_UNAVAIL_REGION_FK;</span></div></h3></div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+	</div>
+	
+	<div class="postfoot">
+		posted on <span id="post-date">2012-11-26 11:30</span> <a href='http://www.cnblogs.com/chinhr/'>莫问奴归处</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=2788748" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2788748);return false;">收藏</a>
+	</div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=19791,cb_entryId=2788748,cb_blogApp=currentBlogApp,cb_blogUserGuid='9359360b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2012/11/26 11:30:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = canShowAdsense(); 
+    fixPostBodyFormat();
+</script>
+<div id="google_ad_c1" class="c_ad_block"></div>
+<div id="under_post_news"></div>
+<div id="google_ad_c2" class="c_ad_block"></div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script>
+</div>
+
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br />
+	Copyright &copy; 莫问奴归处
+</p>
+</div>
+<!--PageEndHtml Block Begin-->
+<div align="center"><a href="http://xuanxuanwa.bb.iyaya.com">轩轩娃</a></div>
+<!--PageEndHtml Block End-->
+</body>
+</html>
