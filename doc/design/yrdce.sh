@@ -1,11 +1,15 @@
 #!/bin/sh
 #unzip -o   overwrite files WITHOUT prompting  
 
+#./yrdce.sh --tarServAll
+#./yrdce.sh --tarFrontAll
+#./yrdce.sh --tarMgrAll
+
 export LANG=zh_CN.UTF-8
 
 tarAll()
 {
-files=`find ~/ -type f -name "jdbc.properties" -o -name "rmi.properties" -o -name "coreRMI.properties" -o -name "gnnt_profile" -o -name "credentials*.properties" -o -name "start.sh" -o -name "runK.sh" -o -name "activemq.xml" -o -name "MEBS*.xml" -o -name "QSerice.xml"`
+files=`find ~/ -type f -name "jdbc.properties" -o -name "rmi.properties" -o -name "coreRMI.properties" -o -name "gnnt_profile" -o -name "credentials*.properties" -o -name "start.sh" -o -name "runK.sh" -o -name "activemq.xml" -o -name "MEBS*.xml" -o -name "QSerice.xml" -o -name "spring_sys_msg.xml" -o -name "MarketMessage_zh_CN.properties"`
 fname=$1
 fname=${fname:2}.tgz
 rm -f $fname
@@ -83,6 +87,10 @@ case $1 in
 	#shift
 	tarJdbc $@
 	;;
+--tarFrontAll)
+	#shift
+	tarAll $@
+	;;
 --tarFrontProp)
 	#shift
 	tarProp $@
@@ -100,6 +108,30 @@ case $1 in
 	tarXml $@
 	;;
 --tarFrontJdbc)
+	#shift
+	tarJdbc $@
+	;;
+--tarMgrAll)
+	#shift
+	tarAll $@
+	;;
+--tarMgrProp)
+	#shift
+	tarProp $@
+	;;
+--tarMgrSh)
+	#shift
+	tarSh $@
+	;;
+--tarMgrRmi)
+	#shift
+	tarRmi $@
+	;;
+--tarMgrXml)
+	#shift
+	tarXml $@
+	;;
+--tarMgrJdbc)
 	#shift
 	tarJdbc $@
 	;;

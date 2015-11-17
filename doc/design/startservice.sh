@@ -1,6 +1,6 @@
 #!/bin/sh
 
-files=`ls`
+files=`ls ~`
 
 for f in $files ; do
 	mkdir -p $f/logs/

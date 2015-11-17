@@ -1,0 +1,67 @@
+/* Formatted on 2012-10-11 14:17:04 (QP5 v5.115.810.9015) */
+DECLARE
+  i_count INT := 0;
+
+  execsql VARCHAR2(1000);
+
+  CURSOR c_mysql IS
+    SELECT 'alter table  ' || table_name ||
+           '  move tablespace YRDXH' mysql
+      FROM user_all_tables
+     WHERE tablespace_name = 'USERS';
+BEGIN
+  FOR r_mysql IN c_mysql LOOP
+    DBMS_OUTPUT.put_line(r_mysql.mysql);
+  
+    EXECUTE IMMEDIATE r_mysql.mysql;
+  
+    i_count := i_count + 1;
+  END LOOP;
+
+  DBMS_OUTPUT.put_line('i_count: ' || i_count);
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.put_line('异常:' || 'sqlcode:' || SQLCODE || ' sqlerrm : ' ||
+                         SQLERRM);
+END;
+
+
+CREATE OR REPLACE PROCEDURE BATCH_REBUILD_INDEX(USER_NAME IN VARCHAR2) IS
+  S_SQL   VARCHAR2(500);
+  ACCOUNT NUMBER := 0;
+BEGIN
+
+  FOR LINE2 IN (SELECT T.OWNER, T.INDEX_NAME
+                  FROM ALL_INDEXES T
+                 WHERE T.OWNER = UPPER(USER_NAME)
+                   AND T.TABLE_TYPE = 'TABLE'
+                   AND T.TEMPORARY = 'N'
+
+                   AND T.INDEX_TYPE = 'NORMAL') LOOP
+    S_SQL   := 'alter index ' || LINE2.OWNER || '.' || LINE2.INDEX_NAME ||
+               ' rebuild';
+    ACCOUNT := ACCOUNT + 1;
+    EXECUTE IMMEDIATE S_SQL;
+  END LOOP;
+  DBMS_OUTPUT.PUT_LINE(ACCOUNT);
+EXCEPTION
+  WHEN OTHERS THEN
+    DBMS_OUTPUT.PUT_LINE(SQLERRM);
+END BATCH_REBUILD_INDEX;
+
+begin
+
+  -- Call the procedure
+
+  batch_rebuild_index(user_name => 'TRADE_GNNT'); --输入用户名
+
+end;
+ 
+
+也可以利用以下语句获得某个schema下移动索引表空间的所有语句：
+复制代码 代码如下:
+
+select 'alter index '||owner||'.'||index_name||' rebuild tablespace YRDXH ;'
+from dba_indexes 
+where table_owner='TRADE_GNNT'
+order by index_name;

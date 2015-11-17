@@ -7,6 +7,8 @@ sed -i 's#LANG="zh_CN.*"#LANG="en_US.UTF-8"#' /etc/sysconfig/i18n
 #sed -i 's#LANG="en_US.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
 #替换成UTF-8中文
 #sed -i 's#LANG="zh_CN.*"#LANG="zh_CN.UTF-8"#' /etc/sysconfig/i18n
+#export LANG=zh_CN.GB18030
+locale
 
 #vi /etc/resolv.conf 
 echo "nameserver 8.8.8.8" >> /etc/resolv.conf 
@@ -175,6 +177,7 @@ for sun in crond rsyslog sshd network;do chkconfig --level 3 $sun on;done
 #for sun in crond rsyslog sshd network iptables ip6tables;do chkconfig --level 3 $sun on;done
 
 #system core ================================
+#/etc/security/limits.d/90-nproc.conf
 modprobe bridge
 echo "modprobe bridge">> /etc/rc.local
 #cat  /proc/sys/fs/file-max

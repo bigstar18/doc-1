@@ -1,0 +1,1163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>lnux&nbsp;&nbsp;sed&nbsp;替换（整行替换，部分替换）、删除delete、新增add、选取_kk1986happy_新浪博客</title>
+<meta name="keywords" content="lnux&nbsp;&nbsp;sed&nbsp;替换（整行替换，部分替换）、删除delete、新增add、选取_kk1986happy_新浪博客,kk1986happy,it" />
+<meta name="description" content="lnux&nbsp;&nbsp;sed&nbsp;替换（整行替换，部分替换）、删除delete、新增add、选取_kk1986happy_新浪博客,kk1986happy," />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta http-equiv="mobile-agent" content="format=html5; url=http://blog.sina.cn/dpool/blog/s/blog_a39910330101ieh2.html?vt=4">
+<meta http-equiv="mobile-agent" content="format=wml; url=http://blog.sina.cn/dpool/blog/ArtRead.php?nid=a39910330101ieh2&vt=1">
+<!–[if lte IE 6]>
+<script type="text/javascript">
+try{
+document.execCommand("BackgroundImageCache", false, true);
+}catch(e){}
+</script>
+<![endif]–>
+<script type="text/javascript">
+window.staticTime=new Date().getTime();
+</script>
+<link rel="pingback" href="http://upload.move.blog.sina.com.cn/blog_rebuild/blog/xmlrpc.php" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://upload.move.blog.sina.com.cn/blog_rebuild/blog/xmlrpc.php?rsd" />
+<link href="http://blog.sina.com.cn/blog_rebuild/blog/wlwmanifest.xml" type="application/wlwmanifest+xml" rel="wlwmanifest" />
+<link rel="alternate" type="application/rss+xml" href="http://blog.sina.com.cn/rss/2744717363.xml" title="RSS" />
+<link href="http://simg.sinajs.cn/blog7style/css/conf/blog/article.css" type="text/css" rel="stylesheet" /><link href="http://simg.sinajs.cn/blog7style/css/common/common.css" type="text/css" rel="stylesheet" /><link href="http://simg.sinajs.cn/blog7style/css/blog/blog.css" type="text/css" rel="stylesheet" /><link href="http://simg.sinajs.cn/blog7style/css/module/common/blog.css" type="text/css" rel="stylesheet" /><style id="tplstyle" type="text/css">@charset "utf-8";@import url("http://simg.sinajs.cn/blog7newtpl/css/5/5_13/t.css");
+</style>
+<style id="positionstyle"  type="text/css">
+.sinabloghead .blogtoparea{ left:185px;top:110.375px;}
+.sinabloghead .blognav{ left:165px;top:170.234375px;}
+</style>
+<style id="bgtyle"  type="text/css">
+</style>
+<style id="headtyle"  type="text/css">
+</style>
+<style id="navtyle"  type="text/css">
+</style>
+<script type="text/javascript" src="http://d1.sina.com.cn/litong/zhitou/sspnew.js"></script></head>
+<body>
+<!--$sinatopbar-->
+<div style="z-index:512;" class="nsinatopbar">
+  <div style="position:absolute;left:0;top:0;" id="trayFlashConnetion"></div>
+  <div class="ntopbar_main"> 
+    <a id="login_bar_logo_link_350" href="http://blog.sina.com.cn" target="_blank"><img class="ntopbar_logo" src="http://simg.sinajs.cn/blog7style/images/common/topbar/topbar_logo.gif" width="100" alt="新浪博客"></a>
+    <div class="ntopbar_floatL">
+      <div class="ntopbar_search" id="traySearchBar"></div>
+	  <div class="ntopbar_ad" id="loginBarActivity" style="display:none;"></div>
+    </div>
+    <div class="ntopbar_loading"><img src="http://simg.sinajs.cn/blog7style/images/common/loading.gif">加载中…</div>
+  </div>
+</div>
+<!--$end sinatopbar-->
+
+<div class="sinabloga" id="sinabloga">
+	<div id="sinablogb" class="sinablogb">
+
+	   
+ <div id="sinablogHead" class="sinabloghead">
+     <div style="display: none;" id="headflash" class="headflash"></div>
+	   <div id="headarea" class="headarea">
+      <div id="blogTitle" class="blogtoparea">
+      <h1 id="blogname" class="blogtitle"><a href="http://blog.sina.com.cn/u/2744717363"><span id="blognamespan">加载中...</span></a></h1>
+	  		
+					<div id="bloglink" class="bloglink"><a href="http://blog.sina.com.cn/u/2744717363">http://blog.sina.com.cn/u/2744717363</a>  <a onclick="return false;" class="CP_a_fuc" href="#" id="SubscribeNewRss">[<cite>订阅</cite>]</a><a class="CP_a_fuc" href="javascript:void(scope.pa_add.add('2744717363'));">[<cite>手机订阅</cite>]</a></div>
+      </div>
+      <div class="blognav" id="blognav">
+      			  <div id="blognavBg" class="blognavBg"></div> <div class="blognavInfo"> 
+		<span><a   href="http://blog.sina.com.cn/u/2744717363">首页</a></span>
+      <span><a class="on" href="http://blog.sina.com.cn/s/articlelist_2744717363_0_1.html">博文目录</a></span>
+      <span><a href="http://photo.blog.sina.com.cn/u/2744717363">图片</a></span>
+      <span class="last"><a  href="http://blog.sina.com.cn/s/profile_2744717363.html">关于我</a></span></div>
+      </div>      		      		 	
+      
+             <div class="autoskin" id="auto_skin">
+       </div>
+
+<div class="adsarea">
+     <a href="#"><div id="template_clone_pic" class="pic"></div></a>
+     <div id="template_clone_link" class="link wdc_HInf"></div>
+     <div id="template_clone_other" class="other"></div>        
+</div>
+    </div>
+    </div>
+    
+    <!--主题内容开始 -->
+    <div class="sinablogbody" id="sinablogbody">
+		
+	<!--第一列start-->
+    <div id="column_1" class="SG_colW21 SG_colFirst"><div class="SG_conn" id="module_901">
+    <div class="SG_connHead">
+            <span class="title" comp_title="个人资料">个人资料</span>
+            <span class="edit">
+                        </span>
+    </div>
+    <div class="SG_connBody">
+        <div class="info">
+                         
+            <div class="info_img" id="comp_901_head"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src ="http://p4.sinaimg.cn/2744717363/180/93051335881161" id="comp_901_head_image" width="180" height="180" alt="kk1986happy" title="kk1986happy" /></div>
+            
+            <div class="info_txt">
+              <div class="info_nm">
+                <img id="comp_901_online_icon" style="display:none;" class="SG_icon SG_icon1" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="15" height="15" align="absmiddle" />
+                <span class="SG_txtb"><strong id="ownernick">kk1986happy                                </strong></span>
+                
+                <div class="clearit"></div>
+              </div>
+              <div class="info_btn1">
+                <a target="_blank" href="http://weibo.com/u/2744717363?source=blog" class="SG_aBtn SG_aBtn_ico"><cite><img class="SG_icon SG_icon51" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="15" height="15" align="absmiddle" />微博</cite></a>
+                <div class="clearit"></div>
+              </div>
+    <div class="SG_j_linedot"></div>        <div class="info_locate" id = "info_locate_id">
+<div class="SG_j_linedot"></div>
+<div class="info_btn2">
+    <p>
+    <a href="javascript:void(0);" class="SG_aBtn " id="comp901_btn_invite"><cite >加好友</cite></a>
+    <a href="javascript:void(0);" class="SG_aBtn" id="comp901_btn_sendpaper"><cite >发纸条</cite></a>
+    </p>
+    <p>
+    <a href="http://blog.sina.com.cn/s/profile_2744717363.html#write" class="SG_aBtn"   id="comp901_btn_msninfo"><cite>写留言</cite></a>
+    <a href="#" onclick="return false;" class="SG_aBtn"  id="comp901_btn_follow"><cite onclick="Module.SeeState.add()">加关注</cite></a>
+    </p>
+    <div class="clearit"></div>
+</div>
+<div class="SG_j_linedot"></div>
+</div>
+                  <div class="info_list">     
+                                   <ul class="info_list1">
+                    <li><span class="SG_txtc">博客等级：</span><span id="comp_901_grade"><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src="http://simg.sinajs.cn/blog7style/images/common/number/1.gif"  /><img src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" real_src="http://simg.sinajs.cn/blog7style/images/common/number/6.gif"  /></span></li>
+                    <li><span class="SG_txtc">博客积分：</span><span id="comp_901_score"><strong>0</strong></span></li>
+                    </ul>
+                    <ul class="info_list2">
+                    <li><span class="SG_txtc">博客访问：</span><span id="comp_901_pv"><strong>112,350</strong></span></li>
+                    <li><span class="SG_txtc">关注人气：</span><span id="comp_901_attention"><strong>53</strong></span></li>
+                    <li><span class="SG_txtc">获赠金笔：</span><strong id="comp_901_d_goldpen">0支</strong></li>
+                    <li><span class="SG_txtc">赠出金笔：</span><strong id="comp_901_r_goldpen">0支</strong></li>
+					<li class="lisp" id="comp_901_badge"><span class="SG_txtc">荣誉徽章：</span></li>
+                    </ul>
+                  </div>
+<div class="clearit"></div>
+    </div>
+    <div class="clearit"></div>
+</div>
+            </div>       
+            <div class="SG_connFoot"></div>
+</div>
+<div id="module_903" class="SG_conn ">
+    <div class="SG_connHead">
+    <span comp_title="相关博文" class="title">相关博文</span>
+    <span class="edit"> </span>
+    </div>
+    <div class="SG_connBody">
+    <div class="atcTitList relaList">        <ul class="">
+
+                <li class="SG_j_linedot1" style="display:none;">
+            <p id="atcTitLi_SLOT_41" class="atcTitCell_tit SG_dot" style="display:none">
+        </p>
+        </li>
+        <li class="SG_j_linedot1" style="display:none;">
+            <p id="atcTitLi_SLOT_42"  class="atcTitCell_tit SG_dot" style="display:none">
+        </p>
+        </li>
+        
+                	</ul>
+    <div class="atcTit_more"><span class="SG_more"><a href="http://blog.sina.com.cn/" target="_blank">更多&gt;&gt;</a></span></div></div>    </div>
+    <div class="SG_connFoot"></div>
+  </div>
+<div class="SG_conn " id="module_904">
+<div class="SG_connHead">
+<span class="title">推荐博文</span>
+</div>
+<div class="SG_connBody ">
+	<div class="atcTitList relaList">		<ul class="">
+			<li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="从李云迪“马失前蹄”看素质教育" target="_blank" href="http://blog.sina.com.cn/s/blog_477040800102vwhb.html?tj=2?tj=2">从李云迪“马失前蹄”看素质教育</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/1198538880" class="SG_linkb"></a></p>
+		</li><li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="洪都拉斯鳄鱼场9000条鳄鱼濒" target="_blank" href="http://blog.sina.com.cn/s/blog_73f3af200102w003.html?tj=2?tj=2">洪都拉斯鳄鱼场9000条鳄鱼濒</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/1945349920" class="SG_linkb"></a></p>
+		</li><li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="12岁“拇指姑娘”体重如同2岁" target="_blank" href="http://blog.sina.com.cn/s/blog_69f845650102wobc.html?tj=2?tj=2">12岁“拇指姑娘”体重如同2岁</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/1777878373" class="SG_linkb"></a></p>
+		</li><li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="盘点：即将消失的全球18大地标" target="_blank" href="http://blog.sina.com.cn/s/blog_69f845650102wobd.html?tj=2?tj=2">盘点：即将消失的全球18大地标</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/1777878373" class="SG_linkb"></a></p>
+		</li><li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="俄罗斯包出世界最小饺子&nbs" target="_blank" href="http://blog.sina.com.cn/s/blog_73f3af200102w002.html?tj=2?tj=2">俄罗斯包出世界最小饺子&nbs</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/1945349920" class="SG_linkb"></a></p>
+		</li><li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="暖心暖胃，早餐美搭【一碗海鲜粥" target="_blank" href="http://blog.sina.com.cn/s/blog_500017680102vzs5.html?tj=2?tj=2">暖心暖胃，早餐美搭【一碗海鲜粥</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/1342183272" class="SG_linkb"></a></p>
+		</li><li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="在线教育免费在中国真的靠谱吗？" target="_blank" href="http://blog.sina.com.cn/s/blog_4a46c3960102w8sj.html?tj=2?tj=2">在线教育免费在中国真的靠谱吗？</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/1246151574" class="SG_linkb"></a></p>
+		</li><li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="盘点全球怪异运动赛事(组图)" target="_blank" href="http://blog.sina.com.cn/s/blog_69f845650102wbfn.html?tj=2?tj=2">盘点全球怪异运动赛事(组图)</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/1777878373" class="SG_linkb"></a></p>
+		</li><li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="传奇的谢幕，谈岩田聪和他的任天" target="_blank" href="http://blog.sina.com.cn/s/blog_b4474abf0102vqy3.html?tj=2?tj=2">传奇的谢幕，谈岩田聪和他的任天</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/3024571071" class="SG_linkb"></a></p>
+		</li><li class="SG_j_linedot1"><p class="atcTitCell_tit SG_dot"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" title="家常主食轻松做之——培根香葱花" target="_blank" href="http://blog.sina.com.cn/s/blog_500017680102vrck.html?tj=2?tj=2">家常主食轻松做之——培根香葱花</a></p>
+        <p class="atcTitCell_nm"><a suda-uatrack="key=blog_tjblog&value=h_tjblog" target="_blank" href="http://blog.sina.com.cn/u/1342183272" class="SG_linkb"></a></p>
+		</li>		</ul>
+		<div id="atcPicList">
+		</div>
+	<div class="atcTit_more"><span class="SG_more"><a target="_blank" href="http://blog.sina.com.cn/">查看更多</a>&gt;&gt;</span></div></div></div>
+<div class="SG_connFoot"></div>
+</div>
+        <div class="SG_conn" id="module_47"><div class="SG_connHead">
+                <span class="title" comp_title="谁看过这篇博文">谁看过这篇博文</span>
+                                <span class="edit"></span>
+            </div>
+            <div class="SG_connBody">
+            	<div class="wdtLoading"><img src="http://simg.sinajs.cn/blog7style/images/common/loading.gif" />加载中…</div>            </div>
+            <div class="SG_connFoot"></div>
+                  </div></div>
+	<!--第一列end-->
+	
+	<!--第二列start-->
+	<div id="column_2" class="SG_colW73">	
+<div id="module_920" class="SG_conn">
+	<div class="SG_connHead">
+	    <span comp_title="正文" class="title">正文</span>
+	    <span class="edit"><span id="articleFontManage" class="fontSize">字体大小：<a href="javascript:;" onclick="changeFontSize(2);return false;">大</a> <strong>中</strong> <a href="javascript:;" onclick="changeFontSize(0);return false;">小</a></span></span>
+	</div>
+    <div class="SG_connBody">
+<!--博文正文 begin -->
+	<div id="articlebody" class="artical" favMD5='{"a39910330101ieh2":"c25829f8eebbb63a270ce44bfa7a5466"}'>
+		<div class="articalTitle"> 
+			
+								<h2 id="t_a39910330101ieh2" class="titName SG_txta">lnux&nbsp;&nbsp;sed&nbsp;替换（整行替换，部分替换）、删除delete、新增add、选取</h2>
+			
+					<span class="time SG_txtc">(2014-01-22 09:10:00)</span>		</div>
+		<div class="articalTag" id="sina_keyword_ad_area">
+			<table>
+				<tr>
+					<td class="blog_tag">
+					<script>
+					var $tag='it';
+					var $tag_code='adb1f79693deb1571bb466f2681bc309';
+					var $r_quote_bligid='a39910330101ieh2';
+					var $worldcup='0';
+					var $worldcupball='0';
+					</script>
+											<span class="SG_txtb">标签：</span>
+																				<h3><a href="http://search.sina.com.cn/?c=blog&q=it&by=tag" target="_blank">it</a></h3>
+																</td>
+					<td class="blog_class">
+											<span class="SG_txtb">分类：</span>
+						<a target="_blank" href="http://blog.sina.com.cn/s/articlelist_2744717363_4_1.html">linux</a>
+										</td>
+				</tr>
+			</table>
+		</div>
+						<!-- 正文开始 -->
+		<div id="sina_keyword_ad_area2" class="articalContent   ">
+			<div>
+<div><a HREF="http://blog.chinaunix.net/uid-8656705-id-2017937.html" TARGET="_blank">http://blog.chinaunix.net/uid-8656705-id-2017937.html</A></DIV>
+<div><a HREF="http://www.cnblogs.com/dong008259/archive/2011/12/07/2279897.html" NAME="cb_post_title_url">linux之sed用法</A></DIV>
+</DIV>
+<div>
+<div>
+<div>
+<div>
+<p>
+sed是一个很好的文件处理工具，本身是一个管道命令，主要是以行为单位进行处理，可以将数据行进行替换、删除、新增、选取等特定工作，下面先了解一下sed的用法<br />
+
+sed命令行格式为：<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><span STYLE="CoLor: #ff0000">sed
+[-nefri] ‘command’
+输入文本&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN></P>
+<p><span STYLE="CoLor: #ff0000"><span STYLE="CoLor: #0000ff">常用选项：<br /></SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN>-n&#8758;使用安静(silent)模式。在一般
+sed 的用法中，所有来自 STDIN的资料一般都会被列出到萤幕上。<b>但如果加上 -n 参数后，则只有经过sed
+特殊处理的那一行(或者动作)才会被列出来。</B><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+-e&#8758;直接在指令列模式上进行 sed 的动作编辑；<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+-f&#8758;直接将 sed 的动作写在一个档案内， -f filename 则可以执行 filename 内的sed 动作；<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+-r&#8758;sed 的动作支援的是延伸型正规表示法的语法。(预设是基础正规表示法语法)<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+-i&#8758;直接修改读取的档案内容，而不是由萤幕输出。&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></P>
+<p><span STYLE="CoLor: #0000ff">常用命令：</SPAN><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+a&nbsp;<wbr>&nbsp;<wbr> &#8758;新增， a
+的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+c&nbsp;<wbr>&nbsp;<wbr> &#8758;取代， c 的后面可以接字串，这些字串可以取代
+n1,n2 之间的行！<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+d&nbsp;<wbr>&nbsp;<wbr> &#8758;删除，因为是删除啊，所以 d
+后面通常不接任何咚咚；<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+i&nbsp;<wbr>&nbsp;<wbr> &#8758;插入， i
+的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+p&nbsp;<wbr>&nbsp;<wbr>&#8758;列印，亦即将某个选择的资料印出。通常 p 会与参数 sed
+-n 一起运作～<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+s&nbsp;<wbr>&nbsp;<wbr>&#8758;取代，可以直接进行取代的工作哩！通常这个 s
+的动作可以搭配正规表示法！例如 1,20s/old/new/g 就是啦！</P>
+<p><span STYLE="CoLor: #0000ff">举例</SPAN>：（假设我们有一文件名为ab）<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr><font COLOR="#FF0000">&nbsp;<wbr>&nbsp;<wbr>删除某行</FONT><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby<span STYLE="CoLor: #ff0000"><span STYLE="CoLor: #000000">]</SPAN> # sed '1d'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+#删除第一行&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed '$d'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>#删除最后一行<br />
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed '1,2d'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>#删除第一行到第二行<br />
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed '2,$d'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+&nbsp;<wbr>#删除第二行到最后一行</P>
+<p>　　<font COLOR="#FF0000">显示某行</FONT><br />
+.&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby<span STYLE="CoLor: #ff0000"><span STYLE="CoLor: #000000">]</SPAN> # sed -n '1p'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>#显示第一行&nbsp;<wbr><br />
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed -n '$p'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+#显示最后一行<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed -n '1,2p'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+#显示第一行到第二行<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed -n '2,$p'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+#显示第二行到最后一行</P>
+<p>　　使用模式进行<font COLOR="#FF0000">查询</FONT><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed -n
+'/ruby/p'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+#查询包括关键字ruby所在所有行<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed -n '/\$/p'
+ab</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+#查询包括关键字$所在所有行，使用反斜线\屏蔽特殊含义</P>
+<p>　　<font COLOR="#FF0000">增加一行或多行字符串</FONT><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby]# cat ab<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+Hello!<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+ruby is me,welcome to my blog.<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+end<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed '1a drink
+tea' ab&nbsp;<wbr></SPAN> #第一行后增加字符串"drink tea"<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+Hello!<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+drink tea<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+ruby is me,welcome to my blog.&nbsp;<wbr><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>end<br />
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed '1,3a
+drink tea' ab</SPAN> #第一行到第三行后增加字符串"drink tea"<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+Hello!<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>drink
+tea<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+ruby is me,welcome to my blog.<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+drink tea<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>end<br />
+
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+drink tea<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed '1a drink
+tea<span STYLE="CoLor: #0000ff">\n</SPAN>or coffee'
+ab&nbsp;<wbr>&nbsp;<wbr></SPAN>
+#第一行后增加多行，使用换行符\n<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+Hello!<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>drink
+tea<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+or coffee<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+ruby is me,welcome to my blog.<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+end</P>
+<p>　　<b><font COLOR="#FF0000">代替一行或多行</FONT></B><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed '1c Hi'
+ab&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN>
+#第一行代替为Hi<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+Hi<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+ruby is me,welcome to my blog.<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+end<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed '1,2c Hi'
+ab&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN>
+#第一行到第二行代替为Hi<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+Hi<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+end</P>
+<p>　　<font COLOR="#FF0000"><b>替换一行中的某部分</B></FONT><br />
+　　格式：<b><u>sed <span STYLE="CoLor: #ff0000">'s/</SPAN>要替换的字符串<span STYLE="CoLor: #ff0000">/</SPAN>新的字符串<span STYLE="CoLor: #ff0000">/g</SPAN>'&nbsp;<wbr></U>&nbsp;<wbr></B>
+（要替换的字符串可以用正则表达式）<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>[root@localhost
+ruby] <span STYLE="CoLor: #ff0000"># sed -n '/ruby/p' ab | sed
+'s/ruby/bird/g'</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+#替换ruby为bird<br />
+　&nbsp;<wbr> [root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed -n '/ruby/p' ab | sed
+'s/ruby//g'</SPAN>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+#删除ruby</P>
+<p>
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+<b><font COLOR="#FF0000">插入</FONT></B><br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby] <span STYLE="CoLor: #ff0000"># sed -i '$a
+bye'
+ab&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr></SPAN>
+#在文件ab中最后一行直接输入"bye"<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+[root@localhost ruby]# cat ab<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+Hello!<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+ruby is me,welcome to my blog.<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+end<br />
+&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+bye</P>
+<p><br /></P>
+<h1><a HREF="http://www.cnblogs.com/edwardlost/archive/2010/09/17/1829145.html" NAME="cb_post_title_url">sed命令详解</A></H1>
+<div><span STYLE="FonT-siZe: 10pt"><strong>转载：<a HREF="http://blog.chinaunix.net/u/22677/showart_1076318.html">http://blog.chinaunix.net/u/22677/showart_1076318.html</A></STRONG></SPAN></DIV>
+<div><span STYLE="FonT-siZe: 12pt"><strong>&nbsp;<wbr></STRONG></SPAN></DIV>
+<div><span STYLE="FonT-siZe: 12pt"><strong>1.简介</STRONG></SPAN></DIV>
+<div>
+sed是非交互式的编辑器。它不会修改文件，除非使用shell重定向来保存结果。默认情况下，所有的输出行都被打印到屏幕上。</DIV>
+<div>
+sed编辑器逐行处理文件（或输入），并将结果发送到屏幕。具体过程如下：首先sed把当前正在处理的行保存在一个临时缓存区中（也称为模式空间），然后处理临时缓冲区中的行，完成后把该行发送到屏幕上。sed每处理完一行就将其从临时缓冲区删除，然后将下一行读入，进行处理和显示。处理完输入文件的最后一行后，sed便结束运行。sed把每一行都存在临时缓冲区中，对这个副本进行编辑，所以不会修改原文件。</DIV>
+<div>&nbsp;<wbr></DIV>
+<div><span STYLE="FonT-siZe: 12pt"><strong>2.定址</STRONG></SPAN></DIV>
+<div>
+定址用于决定对哪些行进行编辑。地址的形式可以是数字、正则表达式、或二者的结合。如果没有指定地址，sed将处理输入文件的所有行。</DIV>
+<div>&nbsp;<wbr></DIV>
+<div>地址是一个数字，则表示行号；是“$"符号，则表示最后一行。例如：&nbsp;<wbr></DIV>
+<div>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #0000cc">-</SPAN>n <span STYLE="CoLor: #ff00ff">'3p'</SPAN> datafile<br />
+只打印第三行</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV>
+<p>&nbsp;<wbr></P>
+<p>&nbsp;<wbr>只显示指定行范围的文件内容，例如：</P>
+<div>
+<div>#&nbsp;<wbr>只查看文件的第100行到第200行<br />
+sed&nbsp;<wbr>-n&nbsp;<wbr>'100,200p'&nbsp;<wbr>mysql_slow_query.log</DIV>
+</DIV>
+<p>&nbsp;<wbr></P>
+<p>
+地址是逗号分隔的，那么需要处理的地址是这两行之间的范围（包括这两行在内）。范围可以用数字、正则表达式、或二者的组合表示。例如：</P>
+<div>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #ff00ff">'2,5d'</SPAN> datafile<br />
+#删除第二到第五行<br />
+sed <span STYLE="CoLor: #ff00ff">'/My/,/You/d'</SPAN>
+datafile<br />
+#删除包含<span STYLE="CoLor: #ff00ff">"My"<span STYLE="CoLor: #000000">的</SPAN></SPAN>行到包含<span STYLE="CoLor: #ff00ff">"You"<span STYLE="CoLor: #000000">的</SPAN></SPAN>行之间的行<br />
+sed <span STYLE="CoLor: #ff00ff">'/My/,10d'</SPAN> datafile<br />
+#删除包含<span STYLE="CoLor: #ff00ff">"My"<span STYLE="CoLor: #000000">的</SPAN></SPAN>行到第十行的内容</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV>
+<p><span STYLE="FonT-siZe: 12pt"><strong>&nbsp;<wbr></STRONG></SPAN></P>
+<p><span STYLE="FonT-siZe: 12pt"><strong>&nbsp;<wbr></STRONG></SPAN></P>
+<p><span STYLE="FonT-siZe: 12pt"><strong>3.命令与选项</STRONG></SPAN></P>
+<p>sed命令告诉sed如何处理由地址指定的各输入行，如果没有指定地址则处理所有的输入行。</P>
+<p>&nbsp;<wbr></P>
+<p><strong>3.1 sed命令</STRONG></P>
+<div>
+<table BORDER="1" CELLSPACING="1" CELLPADDING="1" WIDTH="500">
+<tbody>
+<tr>
+<td>&nbsp;<wbr><span STYLE="FonT-siZe: 10pt">命令</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>功能</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>a\</SPAN></TD>
+<td>
+<p><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>在当前行后添加一行或多行。多行时除最后一行外，每行末尾需用“\”续行</SPAN></P>
+</TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>c\</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>用此符号后的新文本替换当前行中的文本。多行时除最后一行外，每行末尾需用"\"续行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>i\</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>在当前行之前插入文本。多行时除最后一行外，每行末尾需用"\"续行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>d</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>删除行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>h</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>把模式空间里的内容复制到暂存缓冲区</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>H</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>把模式空间里的内容追加到暂存缓冲区</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>g</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>把暂存缓冲区里的内容复制到模式空间，覆盖原有的内容</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>G</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>把暂存缓冲区的内容追加到模式空间里，追加在原有内容的后面</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>l</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>列出非打印字符</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>p</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>打印行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>n</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>读入下一输入行，并从下一条命令而不是第一条命令开始对其的处理</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>q</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>结束或退出sed</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>r</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>从文件中读取输入行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>!</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>对所选行以外的所有行应用命令</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>s</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>用一个字符串替换另一个</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>g</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>在行内进行全局替换</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr></SPAN></TD>
+<td><br /></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>w</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>将所选的行写入文件</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>x</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>交换暂存缓冲区与模式空间的内容</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>y</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>将字符替换为另一字符（不能对正则表达式使用y命令）</SPAN></TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>3.2 sed选项</STRONG></P>
+<div>
+<table BORDER="1" CELLSPACING="1" CELLPADDING="1" WIDTH="500">
+<tbody>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>选项</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>功能</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>-e</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>进行多项编辑，即对输入行应用多条sed命令时使用</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>-n</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>取消默认的输出</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>-f</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>指定sed脚本的文件名</SPAN></TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV>
+<div><span STYLE="FonT-siZe: 12pt"><strong>&nbsp;<wbr></STRONG></SPAN></DIV>
+<div><span STYLE="FonT-siZe: 12pt"><strong>&nbsp;<wbr></STRONG></SPAN></DIV>
+<div><span STYLE="FonT-siZe: 12pt"><strong>4.退出状态</STRONG></SPAN></DIV>
+<div>
+sed不向grep一样，不管是否找到指定的模式，它的退出状态都是0。只有当命令存在语法错误时，sed的退出状态才不是0。</DIV>
+<div><span STYLE="FonT-siZe: 12pt"><strong>5.正则表达式元字符</STRONG></SPAN></DIV>
+<div>
+&nbsp;<wbr>与grep一样，sed也支持特殊元字符，来进行模式查找、替换。不同的是，sed使用的正则表达式是括在斜杠线"/"之间的模式。</DIV>
+<div>
+如果要把正则表达式分隔符"/"改为另一个字符，比如o，只要在这个字符前加一个反斜线，在字符后跟上正则表达式，再跟上这个字符即可。例如：sed
+-n '\o^Myop' datafile</DIV>
+<div>&nbsp;<wbr></DIV>
+<div>
+<table BORDER="1" CELLSPACING="1" CELLPADDING="1" WIDTH="500">
+<tbody>
+<tr>
+<td>&nbsp;<wbr><span STYLE="FonT-siZe: 10pt">元字符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>功能</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>示例</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>^</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>行首定位符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/^my/&nbsp;<wbr>
+匹配所有以my开头的行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>$</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>行尾定位符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/my$/&nbsp;<wbr>
+匹配所有以my结尾的行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>.</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>匹配除换行符以外的单个字符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/m..y/&nbsp;<wbr>
+匹配包含字母m，后跟两个任意字符，再跟字母y的行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>*</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>匹配零个或多个前导字符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/my*/&nbsp;<wbr>
+匹配包含字母m,后跟零个或多个y字母的行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>[]</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>匹配指定字符组内的任一字符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/[Mm]y/&nbsp;<wbr>
+匹配包含My或my的行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>[^]</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>匹配不在指定字符组内的任一字符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/[^Mm]y/&nbsp;<wbr>
+匹配包含y，但y之前的那个字符不是M或m的行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>\(..\)</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>保存已匹配的字符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>1,20s/\(you\)self/\1r/&nbsp;<wbr>
+标记元字符之间的模式，并将其保存为标签1，之后可以使用\1来引用它。最多可以定义9个标签，从左边开始编号，最左边的是第一个。此例中，对第1到第
+20行进行处理，you被保存为标签1，如果发现youself，则替换为your。</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>&amp;</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>保存查找串以便在替换串中引用</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>s/my&nbsp;<wbr>&nbsp;<wbr>符号&amp;代表查找串。my将被替换为**my**</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>\&lt;&lt;/span&gt;</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>词首定位符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/\</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>\&gt;</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>词尾定位符</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/my\&gt;/&nbsp;<wbr>
+匹配包含以my结尾的单词的行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>x\{m\}</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>连续m个x</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/9\{5\}/
+匹配包含连续5个9的行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>x\{m,\}</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>至少m个x</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/9\{5,\}/&nbsp;<wbr>
+匹配包含至少连续5个9的行</SPAN></TD>
+</TR>
+<tr>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>x\{m,n\}</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>至少m个，但不超过n个x</SPAN></TD>
+<td><span STYLE="FonT-siZe: 10pt">&nbsp;<wbr>/9\{5,7\}/&nbsp;<wbr>
+匹配包含连续5到7个9的行</SPAN></TD>
+</TR>
+</TBODY>
+</TABLE>
+</DIV>
+<div>&nbsp;<wbr></DIV>
+<div><span STYLE="FonT-siZe: 12pt"><strong>6.范例</STRONG></SPAN></DIV>
+<div>&nbsp;<wbr></DIV>
+<div><strong>6.1 p命令</STRONG></DIV>
+<div>
+命令p用于显示模式空间的内容。默认情况下，sed把输入行打印在屏幕上，选项-n用于取消默认的打印操作。当选项-n和命令p同时出现时,sed可打印选定的内容。</DIV>
+<div>&nbsp;<wbr></DIV>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #ff00ff">'/my/p'</SPAN> datafile<br />
+#默认情况下，sed把所有输入行都打印在标准输出上。如果某行匹配模式my，p命令将把该行另外打印一遍。</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><br />
+sed <span STYLE="CoLor: #0000cc">-</SPAN>n <span STYLE="CoLor: #ff00ff">'/my/p'</SPAN> datafile<br />
+#选项<span STYLE="CoLor: #0000cc">-</SPAN>n取消sed默认的打印，p命令把匹配模式my的行打印一遍。<br /></SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.2 d命令</STRONG></P>
+<p>
+命令d用于删除输入行。sed先将输入行从文件复制到模式空间里，然后对该行执行sed命令，最后将模式空间里的内容显示在屏幕上。如果发出的是命令d，当前模式空间里的输入行会被删除，不被显示。</P>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #ff00ff">'$d'</SPAN> datafile<br />
+#删除最后一行，其余的都被显示<br />
+<br />
+sed <span STYLE="CoLor: #ff00ff">'/my/d'</SPAN> datafile<br />
+#删除包含my的行，其余的都被显示</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.3 s命令</STRONG></P>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #ff00ff">'s/^My/You/g'</SPAN> datafile<br />
+#命令末端的g表示在行内进行全局替换，也就是说如果某行出现多个My，所有的My都被替换为You。<br />
+<br />
+sed <span STYLE="CoLor: #0000cc">-</SPAN>n <span STYLE="CoLor: #ff00ff">'1,20s/My$/You/gp'</SPAN> datafile<br />
+#取消默认输出，处理1到20行里匹配以My结尾的行，把行内所有的My替换为You，并打印到屏幕上。</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<div>&nbsp;<wbr>&nbsp;<wbr></DIV>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #ff00ff">'s#My#Your#g'</SPAN> datafile<br />
+#紧跟在s命令后的字符就是查找串和替换串之间的分隔符。分隔符默认为正斜杠，但可以改变。无论什么字符（换行符、反斜线除外），只要紧跟s命令，就成了新的串分隔符。</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.4 e选项</STRONG></P>
+<p>-e是编辑命令，用于sed执行多个编辑任务的情况下。在下一行开始编辑前，所有的编辑动作将应用到模式缓冲区中的行上。</P>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #0000cc">-</SPAN>e <span STYLE="CoLor: #ff00ff">'1,10d'</SPAN> <span STYLE="CoLor: #0000cc">-</SPAN>e <span STYLE="CoLor: #ff00ff">'s/My/Your/g'</SPAN>
+datafile</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">#选项-e用于进行多重编辑。第一重编辑删除第1-3行。第二重编辑将出现的所有My替换为Your。因为是逐行进行这两项编辑（即这两个命令都在模式空间的当前行上执行），所以编辑命令的顺序会影响结果。</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.5 r命令</STRONG></P>
+<p>r命令是读命令。sed使用该命令将一个文本文件中的内容加到当前文件的特定位置上。</P>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #ff00ff">'/My/r introduce.txt'</SPAN>
+datafile<br />
+#如果在文件datafile的某一行匹配到模式My，就在该行后读入文件introduce<span STYLE="CoLor: #0000cc">.</SPAN>txt的内容。如果出现My的行不止一行，则在出现My的各行后都读入introduce<span STYLE="CoLor: #0000cc">.</SPAN>txt文件的内容。</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<div>&nbsp;<wbr></DIV>
+<div><strong>6.6 w命令</STRONG></DIV>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #0000cc">-</SPAN>n <span STYLE="CoLor: #ff00ff">'/hrwang/w me.txt'</SPAN>
+datafile<br /></SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.7 a\ 命令</STRONG></P>
+<p>a\
+命令是追加命令，追加将添加新文本到文件中当前行（即读入模式缓冲区中的行）的后面。所追加的文本行位于sed命令的下方另起一行。如果要追加的内容超过一行，则每一行都必须以反斜线结束，最后一行除外。最后一行将以引号和文件名结束。</P>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #ff00ff">'/^hrwang/a\<br />
+&gt;hrwang and mjfan are husband\<br />
+&gt;and wife'</SPAN> datafile<br />
+#如果在datafile文件中发现匹配以hrwang开头的行，则在该行下面追加hrwang and mjfan are husband
+and wife</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.8 i\ 命令</STRONG></P>
+<p>i\ 命令是在当前行的前面插入新的文本。</P>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.9 c\ 命令</STRONG></P>
+<p>sed使用该命令将已有文本修改成新的文本。</P>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.10 n命令</STRONG></P>
+<p>sed使用该命令获取输入文件的下一行，并将其读入到模式缓冲区中，任何sed命令都将应用到匹配行紧接着的下一行上。</P>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><code><span STYLE="CoLor: #000000"><span STYLE="FonT-siZe: 10pt">sed <span STYLE="CoLor: #ff00ff">'/hrwang/{n;s/My/Your/;}'</SPAN>
+datafile</SPAN><br /></SPAN></CODE></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<div><span STYLE="CoLor: #339999">注：如果需要使用多条命令，或者需要在某个地址范围内嵌套地址，就必须用花括号将命令括起来，每行只写一条命令，或这用分号分割同一行中的多条命令。</SPAN></DIV>
+<div>&nbsp;<wbr></DIV>
+<div><strong>6.11 y命令</STRONG></DIV>
+<div>
+该命令与UNIX/Linux中的tr命令类似，字符按照一对一的方式从左到右进行转换。例如，y/abc/ABC/将把所有小写的a转换成A，小写的b转换成B，小写的c转换成C。</DIV>
+<div>&nbsp;<wbr></DIV>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #ff00ff">'1,20y/hrwang12/HRWANG^$/'</SPAN>
+datafile<br />
+#将1到20行内，所有的小写hrwang转换成大写，将1转换成^<span STYLE="CoLor: #0000cc">,</SPAN>将2转换成<span STYLE="CoLor: #0000ff">$</SPAN><span STYLE="CoLor: #008080">。</SPAN><br />
+#正则表达式元字符对y命令不起作用。与s命令的分隔符一样，斜线可以被替换成其它的字符。</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.12 q命令</STRONG></P>
+<p>q命令将导致sed程序退出，不再进行其它的处理。</P>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><code><span STYLE="CoLor: #000000"><span STYLE="FonT-siZe: 10pt">sed <span STYLE="CoLor: #ff00ff">'/hrwang/{s/hrwang/HRWANG/;q;}'</SPAN>
+datafile</SPAN><br /></SPAN></CODE></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p><strong>&nbsp;<wbr></STRONG></P>
+<p><strong>6.13 h命令和g命令</STRONG></P>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">#cat
+datafile</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">My name is
+hrwang.</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">Your name is
+mjfan.</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">hrwang is
+mjfan's husband.</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">mjfan is
+hrwang's wife.</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">&nbsp;<wbr></SPAN></CODE>&nbsp;<wbr></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed
+<span STYLE="CoLor: #0000cc">-</SPAN>e <span STYLE="CoLor: #ff00ff">'/hrwang/h'</SPAN> <span STYLE="CoLor: #0000cc">-</SPAN>e <span STYLE="CoLor: #ff00ff">'$G'</SPAN>
+datafile</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed -e
+'/hrwang/H' -e '$G' datafile</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">#通过上面两条命令，你会发现h会把原来暂存缓冲区的内容清除，只保存最近一次执行h时保存进去的模式空间的内容。而H命令则把每次匹配hrwnag的行都追加保存在暂存缓冲区。<br />
+</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed -e
+'/hrwang/H' -e '$g' datafile</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed -e
+'/hrwang/H' -e '$G' datafile</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">#通过上面两条命令，你会发现g把暂存缓冲区中的内容替换掉了模式空间中当前行的内容，此处即替换了最后一行。而G命令则把暂存缓冲区的内容追加到了模式空间的当前行后。此处即追加到了末尾。</SPAN></CODE></SPAN></P>
+</TD>
+</TR>
+</TBODY>
+</TABLE>
+<p><span STYLE="FonT-siZe: 12pt"><strong>&nbsp;<wbr></STRONG></SPAN></P>
+<p><span STYLE="FonT-siZe: 12pt"><strong>&nbsp;<wbr></STRONG></SPAN></P>
+<p><span STYLE="FonT-siZe: 12pt"><strong>7.
+sed脚本</STRONG></SPAN></P>
+<p>
+sed脚本就是写在文件中的一列sed命令。脚本中，要求命令的末尾不能有任何多余的空格或文本。如果在一行中有多个命令，要用分号分隔。执行脚本时，sed先将输入文件中第一行复制到模式缓冲区，然后对其执行脚本中所有的命令。每一行处理完毕后，sed再复制文件中下一行到模式缓冲区，对其执行脚本中所有命令。使用sed脚本时，不再用引号来确保sed命令不被shell解释。例如sed脚本script：</P>
+<table STYLE="BorDer-CoLLApse: collapse" BORDER="1" CELLSPACING="0" CELLPADDING="0" WIDTH="95%" BGCOLOR="#F1F1F1">
+<tbody>
+<tr>
+<td>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><span STYLE="CoLor: #ff9900">#handle datafile</SPAN><br />
+3i\<br />
+<span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><br />
+3<span STYLE="CoLor: #0000cc">,</SPAN><span STYLE="CoLor: #0000ff">$</SPAN><span STYLE="CoLor: #008080">s</SPAN><span STYLE="CoLor: #0000cc">/</SPAN><span STYLE="CoLor: #0000cc">\</SPAN><span STYLE="CoLor: #0000cc">(</SPAN>hrwang\<span STYLE="CoLor: #0000cc">)</SPAN> is</SPAN></CODE><code><span STYLE="CoLor: #000000">&nbsp;<wbr>\<span STYLE="CoLor: #0000cc">(</SPAN>mjfan\<span STYLE="CoLor: #0000cc">)</SPAN><span STYLE="CoLor: #0000cc">/</SPAN><span STYLE="CoLor: #0000cc">\</SPAN>2 is
+\1<span STYLE="CoLor: #0000cc">/</SPAN></SPAN></CODE><code><span STYLE="CoLor: #000000"><br />
+<span STYLE="CoLor: #0000ff">$</SPAN><span STYLE="CoLor: #008080">a</SPAN><span STYLE="CoLor: #008080">\</SPAN><br />
+We will love eachother <span STYLE="CoLor: #0000ff">for</SPAN>ever！！</SPAN></CODE><code><span STYLE="CoLor: #000000">&nbsp;<wbr></SPAN></CODE></SPAN></P>
+&nbsp;<wbr></TD>
+</TR>
+</TBODY>
+</TABLE>
+<p>&nbsp;<wbr></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><span STYLE="CoLor: #ff9900">#sed -f script datafile</SPAN><br />
+<span STYLE="CoLor: #000000"><span STYLE="CoLor: #0000ff">My</SPAN></SPAN> name is hrwang<br />
+Your name is mjfan<br />
+<span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><span STYLE="CoLor: #0000cc">~</SPAN><br />
+mjfan is hrwang<span STYLE="CoLor: #ff00ff"><span STYLE="CoLor: #000000">'s</SPAN> <span STYLE="CoLor: #000000">husband</SPAN>.&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>&nbsp;<wbr>
+＃啦啦～～～<br />
+<span STYLE="CoLor: #000000">mjfan is
+hrwang'</SPAN></SPAN><span STYLE="CoLor: #000000">s
+wife<span STYLE="CoLor: #0000cc">.</SPAN><br /></SPAN>We will love
+eachother forever！！</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><br /></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><b><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed -e
+多处理命令的实例：</SPAN></CODE></SPAN></B></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><b><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">说明：</SPAN></CODE></SPAN></B><b><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">处理指定行范围的文件内容，例如：</SPAN></CODE></SPAN></B></P>
+<div>
+<div>#&nbsp;<wbr>只查看文件的第100行到第200行<br />
+sed&nbsp;<wbr>-n&nbsp;<wbr>'100,200p'&nbsp;<wbr>mysql_slow_query.log</DIV>
+</DIV>
+<p>
+&nbsp;<wbr>地址是逗号分隔的，那么需要处理的地址是这两行之间的范围（包括这两行在内）。<b>范围可以用数字、正则表达式、或二者的组合表示。例如：</B></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px">&nbsp;<wbr></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed -e
+'/CREATECRE create/,/CREATECRE OK&nbsp;<wbr> CREATE/!d'
+TC_logs.txt
+&gt;/home/akang/shell_practice/TC_log_sed_e.txt&nbsp;<wbr>
+//含有</SPAN></CODE></SPAN><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">CREATECRE
+create到</SPAN></CODE></SPAN></SPAN></CODE></SPAN><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">CREATECRE
+OK&nbsp;<wbr>
+CREATE的行保留，其他的删除</SPAN></CODE></SPAN></SPAN></CODE></SPAN></SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">sed -e
+'/CREATECRE create/,/CREATECRE OK&nbsp;<wbr> CREATE/!d'
+TC_logs.txt | wc -l</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><br /></SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">[root@akang
+shell_practice]# cat TC_logs.txt<br />
+CREATECRE create<br />
+<br />
+REATECRE create<br />
+asd<br />
+123<br />
+asd<br />
+f<br />
+asd<br />
+CREATECRE OK&nbsp;<wbr> CREAT<br />
+CREATECRE OK&nbsp;<wbr> CREATE<br />
+567<br />
+678<br />
+asd<br />
+vbn<br />
+[root@akang shell_practice]#</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><br /></SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">[root@akang
+shell_practice]# cat TC_log_sed_e.txt<br />
+CREATECRE create<br />
+<br />
+REATECRE create<br />
+asd<br />
+123<br />
+asd<br />
+f<br />
+asd<br />
+CREATECRE OK&nbsp;<wbr> CREAT<br />
+CREATECRE OK&nbsp;<wbr> CREATE<br />
+[root@akang shell_practice]#</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><b>匹配整行</B></SPAN></CODE></SPAN><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">grep -i
+"<b>^</B>行内容<b>$</B>"</SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000">[root@akang
+shell_practice]# grep -i "<b>^</B>CREATECRE OK&nbsp;<wbr>
+CREAT<b>$</B>" TC_logs.txt<br />
+CREATECRE OK&nbsp;<wbr> CREA<br /></SPAN></CODE></SPAN></P>
+<p STYLE="Line-HeiGHT: 150%; MArGin: 5px"><span STYLE="FonT-siZe: 10pt"><code><span STYLE="CoLor: #000000"><br /></SPAN></CODE></SPAN></P>
+</DIV>
+</DIV>
+</DIV>
+</DIV>							
+		</div>
+						<!-- 正文结束 -->
+		<div id='share' class="shareUp">
+        	<div class="share SG_txtb">
+			分享： 
+			<div class="bshare-custom" style="display:inline;margin-left:5px;"><a title="分享到新浪微博" class="bshare-sinaminiblog" href="javascript:void(0);"></a><a title="分享到微信" class="bshare-weixin" href="javascript:void(0);"></a><a title="分享到QQ空间" class="bshare-qzone" href="javascript:void(0);"></a><a title="分享到豆瓣" class="bshare-douban" href="javascript:void(0);"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
+			</div>
+			</div>
+            <div class="up">
+	        	<div title="喜欢后让更多人看到" id="dbox_a39910330101ieh2" class="upBox upBox_click" style="cursor: pointer;">
+	            	<p ti_title="lnux&nbsp;&nbsp;sed&nbsp;替换（整行替换，部分替换）、删除delete、新增add、选取" id="dbox2_a39910330101ieh2" class="count" ></p>
+	                <p class="link"><img width="15" height="15" align="absmiddle" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" class="SG_icon SG_icon34">喜欢</p>
+	            </div>
+<!--
+                <div class="upBox upBox_add">
+                    <p class="count">0</p>
+                    <p class="link"><img width="20" height="16" align="absmiddle" title="推荐" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" class="SG_icon SG_icon214">赠金笔</p>
+                </div>
+-->
+                                <div class="upBox upBox_add">
+                    <p class="count" id="goldPan-num">0</p>
+                    <p class="link" id="goldPan-give"><img class="SG_icon SG_icon214" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="20" height="16" title="赠金笔" align="absmiddle">赠金笔</p>
+                </div>
+                
+	        </div>
+            <div class="clearit"></div>
+		</div>
+		<div class="articalInfo">
+			<!-- 分享到微博 {$t_blog} -->
+			<div class="IL">
+				阅读<span id="r_a39910330101ieh2" class="SG_txtb"></span><em class="SG_txtb">┊</em> 
+								<a href="javascript:;" onclick="$articleManage('a39910330101ieh2',5);return false;">收藏</a><span id="f_a39910330101ieh2"  class="SG_txtb"></span>
+				<em class="SG_txtb">┊</em><span class="SG_txtc">禁止转载</span> 				<span id="fn_lnux&nbsp;&nbsp;sed&nbsp;替换（整行替换，部分替换）、删除delete、新增add、选取" class="SG_txtb"></span><em class="SG_txtb">┊</em>
+				<a onclick="return false;" href="javascript:;" ><cite id="d1_digg_a39910330101ieh2">喜欢</cite></a><a id="d1_digg_down_a39910330101ieh2" href="javascript:;" ><b>▼</b></a>
+									<em class="SG_txtb">┊</em><a href="http://blog.sina.com.cn/main_v5/ria/print.html?blog_id=blog_a39910330101ieh2" target="_blank">打印</a><em class="SG_txtb">┊</em><a id="q_a39910330101ieh2" onclick="report('a39910330101ieh2');return false;" href="#">举报</a>
+											</div>
+			<div class="IR">
+				<table>
+					<tr>
+											<th class="SG_txtb" scope="row">已投稿到：</th>
+						<td>
+							<div class="IR_list">
+								<span><img class="SG_icon SG_icon36" src="http://simg.sinajs.cn/blog7style/images/common/sg_trans.gif" width="15" height="15" title="排行榜" align="absmiddle" /> <a href="http://blog.sina.com.cn/lm/114/113/day.html" class="SG_linkb" target="_blank">排行榜</a></span>							</div>
+						</td>
+										</tr>
+									</table>
+			</div>
+		</div>
+		<div class="clearit"></div>
+		<div class="blogzz_zzlist borderc" id="blog_quote" style="display:none">加载中，请稍候......</div>
+		<div class="articalfrontback SG_j_linedot1 clearfix" id="new_nextprev_a39910330101ieh2">
+							<div><span class="SG_txtb">前一篇：</span><a href="http://blog.sina.com.cn/s/blog_a39910330101iecw.html">Linux系统怎么安装软件</a></div>
+										<div><span class="SG_txtb">后一篇：</span><a href="http://blog.sina.com.cn/s/blog_a39910330101iqo5.html">安装linuxqq-v1.0.2-beta1.i386.rpm&nbsp;提示：相依性失败</a></div>
+					</div>
+		<div class="clearit"></div>
+							
+		<div id="loginFollow"></div>
+				<div class="clearit"></div>
+		
+				
+	</div>
+	<!--博文正文 end -->
+		<script type="text/javascript">
+			var voteid="";
+		</script>
+
+            </div>       
+            <div class="SG_connFoot"></div>
+          </div>
+</div>
+	<!--第二列start-->
+	
+	<!--第三列start-->
+	<div id="column_3" class="SG_colWnone"><div style="width:0px;height:0.1px;margin:0px;">&nbsp;&nbsp;</div></div>
+	<!--第三列end-->
+
+	
+    </div>
+   <!--主题内容结束 -->
+  
+
+	<div id="diggerFla" style="position:absolute;left:0px;top:0px;width:0px"></div>
+    <div class="sinablogfooter" id="sinablogfooter"  style="position:relative;">
+      
+      <p class="SG_linka"><a href="http://control.blog.sina.com.cn/admin/advice/advice_list.php" target="_blank">新浪BLOG意见反馈留言板</a>　<a href="javascript:;" onclick="window.open ('http://control.blog.sina.com.cn/admin/advice/impeach.php?url=http%3A//blog.sina.com.cn/s/blog_4cf7b4ec0100eudp.html%3Ftj%3D1', '','height=495, width=510, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=n o, status=no');">不良信息反馈</a>　电话：4006900000 提示音后按1键（按当地市话标准计费）　欢迎批评指正</p>
+   
+      <p class="SG_linka"><a href="http://corp.sina.com.cn/chn/" target="_blank">新浪简介</a> | <a href="http://corp.sina.com.cn/eng/" target="_blank">About Sina</a> | <a href="http://emarketing.sina.com.cn/" target="_blank">广告服务</a> | <a href="http://www.sina.com.cn/contactus.html" target="_blank">联系我们</a> | <a href="http://corp.sina.com.cn/chn/sina_job.html" target="_blank">招聘信息</a> | <a href="http://www.sina.com.cn/intro/lawfirm.shtml" target="_blank">网站律师</a> | <a href="http://english.sina.com" target="_blank">SINA English</a> | <a href="http://members.sina.com.cn/apply/" target="_blank">会员注册</a> | <a href="http://help.sina.com.cn/" target="_blank">产品答疑</a> </p>
+      <p class="copyright SG_linka"> Copyright &copy; 1996 - 2015 SINA Corporation,  All Rights Reserved</p>
+      <p class="SG_linka"> 新浪公司 <a href="http://www.sina.com.cn/intro/copyright.shtml" target="_blank">版权所有</a></p>
+	  <a href="http://www.bj.cyberpolice.cn/index.jsp"  target="_blank" class="gab_link"></a>
+    </div>
+  </div>
+</div>
+<div id="swfbox"></div>
+<script id="PVCOUNTER_FORIE" type="text/javascript"></script>
+</body>
+<script type="text/javascript">
+var scope = {
+    $newTray : 1,
+    $setDomain : true,
+    $uid : "2744717363",
+    $PRODUCT_NAME : "blog7",      //blog7photo,blog7icp
+    $pageid : "article",
+    $key :  "0bc10f67e82c1052c6d79d8131e8f0dd",
+    $uhost : "",
+    $ownerWTtype :"",
+    $private: {"pageset":0,"tj":0,"adver":0,"sms":0,"ad":0,"blogsize":0,"cms":1,"hidecms":1,"top":"a39910330102v1ef","invitationset":0,"p4p":0,"spamcms":1,"init7":0,"quote":1,"foot":0,"isprivate":0,"headpic":1,"t_sina":"2744717363","oauth_token":1,"oauth_token_secret":1,"uname":"","p_push_t":0,"p_get_t":0,"articleclass":"117","unbind":"1"},
+    $summary: " http://blog.chinaunix.net/uid-8656705-id-2017937.html linux之sed用法       sed是...  (来自 @头条博客)",
+    $is_photo_vip:0,
+		 $nClass:0,
+		 $articleid:"a39910330101ieh2",
+		 $sort_id:113,
+		 $cate_id:187,
+		 $isCommentAllow:1,
+		 $album_pic:"",
+		 $pn_x_rank:0,
+		 $x_quote_c:"",
+		 $flag2008:"",
+		     component_lists:{"2":{"size":730,"list":[920]},"1":{"size":210,"list":[901,903,904,47]}},
+    formatInfo:1,
+    UserPic:[{"pid":"","repeat":"repeat-x","align-h":"center","align-v":"top","apply":"0"},{"pid":"","repeat":"repeat-x","align-h":"center","align-v":"top","apply":"0"},{"pid":"","repeat":"repeat-x","align-h":"center","align-v":"top","apply":"0"}],
+    UserBabyPic:{"photoX":0,"photoY":0,"photoURL":null,"angle":0,"zoom":0,"maskX":0,"maskY":0,"maskURL":null,"frameURL":null},
+    UserColor:1,
+    backgroundcolor:"rgb(220, 236, 204)",
+    tpl:"5_13",
+    reclist:0    };
+var $encrypt_code = "89d1b79a3ad7780c463fa48df6feab3c";
+</script>
+
+<script type="text/javascript" src="http://sjs.sinajs.cn/blog7common/js/boot.js"></script>
+<script type="text/javascript">__load_js();</script>
+<script type="text/javascript">__render_page();</script>
+
+
+<script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=b436f96b-ce3c-469f-93ca-9c0c406fcf10&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
+<script type="text/javascript" charset="utf-8">
+        bShare.addEntry({pic: "", title:"分享自kk1986happy  《lnux  sed 替换（整行替换，部分替换）、删除delete、新增add、选取》", summary:" http://blog.chinaunix.net/uid-8656705-id-2017937.html linux之sed用法       sed是...  (来自 @头条博客)"});
+     </script>
+<script type="text/javascript" src="http://sjs.sinajs.cn/xblogtheme/js/blog680-min.js"></script>
+<script type="text/javascript">
+        var slotArr = ['atcTitLi_SLOT_41', 'atcTitLi_SLOT_42','loginBarActivity']; //广告位id
+        var sourceArr = ['SLOT_41','SLOT_42','SLOT_43,SLOT_47,SLOT_48'];  //广告资源id
+        SinaBlog680.staticBox(slotArr, sourceArr);
+</script>
+</html>

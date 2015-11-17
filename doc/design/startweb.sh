@@ -1,7 +1,7 @@
 #!/bin/sh
 
 i=0
-for name in 'tc_mgr_gnnt' 'tc_front_gnnt' 'tc_tradeweb_gnnt' 'tc_broker_gnnt' 'tc_warehouse_gnnt'
+for name in 'tc_broker_gnnt' 'tc_warehouse_gnnt' 'tc_tradeweb_gnnt' 'tc_mgr_gnnt' 'tc_front_gnnt' 
 do 
 	echo "****************************************************"
 	echo $name
