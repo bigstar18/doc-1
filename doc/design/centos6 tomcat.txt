@@ -19,3 +19,20 @@ vim bin/setenv.sh
 
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CATALINA_HOME/lib
 export LD_LIBRARY_PATH
+
+
+
+
+./configure --with-apr=/usr/bin/apr-1-config \
+            --with-java-home=/users/mgr/soft/JDK/jdk1.7.0_80 \
+            --with-ssl=yes
+
+export CATALINA_OPTS=-Djava.library.path=/usr/local/apr/lib
+
+mv /usr/bin/openssl /usr/bin/openssl.bak
+mv /usr/include/openssl /usr/include/openssl.bak
+ln -s /usr/local/ssl/bin/openssl /usr/bin/openssl
+ln -s /usr/local/ssl/include/openssl /usr/include/openssl
+echo "/usr/local/ssl/lib" >> /etc/ld.so.conf
+ldconfig -v
+openssl version -a
