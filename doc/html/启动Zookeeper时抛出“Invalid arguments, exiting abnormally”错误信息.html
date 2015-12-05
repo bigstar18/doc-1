@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>启动Zookeeper时抛出“Invalid arguments, exiting abnormally”错误信息</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="keywords" content="Invalidarguments,exitingabnormally,Zookeeper错误" />
+<meta name="description" content="2015-04-06 09:05:17,134 [myid:] - WARN  [main:QuorumPeerMain@113] - Either no config or no quorum defined in config, running  in standalone mode 2015-04-06 09:05:17,274 [myid:] - ERROR [main:ZooKeeperServerMain@54] - Invalid arguments, exiting abnormally java.lang.NumberFormatException: For input string: "H:\Z01-Zookeeper01-3.4.6\bin\..\conf\zoo.cfg"" />
+<link rel="bookmark" type="image/x-icon" href="http://www.bug315.com/favicon.ico" />
+<link rel="shortcut icon" href="http://www.bug315.com/favicon.ico" /> 
+<link rel="icon" href="http://www.bug315.com/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="http://www.bug315.com/public/script/ueditor1.4.3/third-party/SyntaxHighlighter/shCoreDefault.css"></link>
+<link rel="stylesheet" type="text/css" href="http://www.bug315.com/webCss/skinBlue/article.css"></link>
+<script  type="text/javascript">
+/* 百度统计代码（开始） */
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?7cbf96622121dae389f9715e8fac6d45";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+/* 百度统计代码（结束） */
+</script>
+</head>
+<body>
+<div class="guanggaoLeftBorder"><script type="text/javascript">
+    /*120*300 创建于 2015-05-09*/
+var cpro_id = "u2094026";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script></div>
+<div class="guanggaoRightBorder"><script type="text/javascript">
+    /*120*300 创建于 2015-05-09*/
+var cpro_id = "u2094026";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script></div>
+<div class="mainContainer">
+<div class="topContainer">
+<center>
+	<div class="topInnerContainer">
+		<div class="topHeader" style="float:left;">
+		    <a href="http://www.bug315.com/index.htm"><img src="http://www.bug315.com/webImg/skinBlue/web_logo_title.png" class="logo"/></a>
+		</div>
+		<div class=topNavigator>
+		    <ul>
+			    <li>
+			    <a href="http://www.bug315.com/index.htm" class="sItem">首 页</a>
+			    </li>
+			    <li>
+			    <a href="http://www.bug315.com/category/0091.htm" class="sItemSelected currentSelected">软件编程</a>
+			    <img src="http://www.bug315.com/webImg/skinBlue/selected_lm.png"/>
+			    </li>
+			    <li>
+			    <a href="http://www.bug315.com/category/0311.htm" class="sItem">WEB前端</a>
+			    </li>
+			    <li>
+			    <a href="http://www.bug315.com/category/0321.htm" class="sItem">数据库</a>
+			    </li>
+			    <li>
+			    <a href="http://www.bug315.com/category/1311.htm" class="sItem">服务器</a>
+			    </li>
+			    <li>
+			    <a href="http://www.bug315.com/category/1241.htm" class="sItem">操作系统</a>
+			    </li>
+			    <li>
+			    <a href="http://www.bug315.com/category/0101.htm" class="sItem">随  笔</a>
+			    </li>
+		    </ul>
+		</div>
+		<div class="topClear"></div>
+	</div>
+</center>
+</div><div class="innerContainer">
+	<div class="guanggaotop"></div>
+    <div class="leftContainer">
+        <div class="currentLocation">
+            <div class="currentLocationLabel">
+                <span><img src="http://www.bug315.com/webImg/skinBlue/location.png"/></span><label>&nbsp;您当前的位置：&nbsp;</label>
+            </div>
+            <div class="currentLocationBar">
+                <a href="http://www.bug315.com/index.htm">首页</a> &nbsp;&gt;&nbsp;
+                <a href="http://www.bug315.com/category/0091.htm">软件编程</a>&nbsp;&gt;&nbsp;
+                <a href="http://www.bug315.com/category/1331.htm">Zookeeper</a>&nbsp;
+            </div>
+        </div>
+        
+        <div class="guanggaoLeftNormal"><center><script type="text/javascript">
+    /*720*70 创建于 2015-05-26*/
+    var cpro_id = "u2123171";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+<br/><br/></center></div>
+        
+        <div class="articleContent">
+            <!-- 文章标题 -->
+            <h1>启动Zookeeper时抛出“Invalid arguments, exiting abnormally”错误信息</h1>
+            <!-- 文章基本信息 -->
+            <div class="articleCommentInfo">
+                <label>发布时间：</label><label>2015-04-06 12:59:58</label>&nbsp;&nbsp;
+                <label>阅读次数：</label><label>1857次</label>
+            </div>
+            
+            
+            <!-- 文章标签分类 -->
+            <div class="articleTag">
+                <div class="articleTagLabel">
+                    <label>标签分类：</label>
+                </div>
+                <div class="articleTags">
+                    <a href="http://www.bug315.com/tags/1191.htm">异常</a>&nbsp;&nbsp;
+                </div>
+                <div class="clear"></div>
+            </div>
+            
+            <!-- 正文信息 -->
+            <div class="articleContentInfo"><p>在使用<strong>zkServer.cmd start</strong>命令启动Zookeeper的时候抛出如下错误信息：<br/></p><pre class="brush:java;toolbar:false">H:\Z01-Zookeeper01-3.4.6\bin&gt;zkServer.cmd&nbsp;start
+
+H:\Z01-Zookeeper01-3.4.6\bin&gt;java&nbsp;&quot;-Dzookeeper.log.dir=H:\Z01-Zookeeper01-3.4.6\bin\..&quot;&nbsp;&quot;-Dzookeeper.root.logger=INFO,CONSOLE&quot;&nbsp;-cp
+&nbsp;&quot;H:\Z01-Zookeeper01-3.4.6\bin\..\build\classes;H:\Z01-Zookeeper01-3.4.6\bin\..\build\lib\*;H:\Z01-Zookeeper01-3.4.6\bin\..\*;H:\Z
+01-Zookeeper01-3.4.6\bin\..\lib\*;H:\Z01-Zookeeper01-3.4.6\bin\..\conf&quot;&nbsp;org.apache.zookeeper.server.quorum.QuorumPeerMain&nbsp;&quot;H:\Z01-
+Zookeeper01-3.4.6\bin\..\conf\zoo.cfg&quot;&nbsp;start
+2015-04-06&nbsp;09:05:17,118&nbsp;[myid:]&nbsp;-&nbsp;INFO&nbsp;&nbsp;[main:DatadirCleanupManager@78]&nbsp;-&nbsp;autopurge.snapRetainCount&nbsp;set&nbsp;to&nbsp;3
+2015-04-06&nbsp;09:05:17,134&nbsp;[myid:]&nbsp;-&nbsp;INFO&nbsp;&nbsp;[main:DatadirCleanupManager@79]&nbsp;-&nbsp;autopurge.purgeInterval&nbsp;set&nbsp;to&nbsp;0
+2015-04-06&nbsp;09:05:17,134&nbsp;[myid:]&nbsp;-&nbsp;INFO&nbsp;&nbsp;[main:DatadirCleanupManager@101]&nbsp;-&nbsp;Purge&nbsp;task&nbsp;is&nbsp;not&nbsp;scheduled.
+2015-04-06&nbsp;09:05:17,134&nbsp;[myid:]&nbsp;-&nbsp;WARN&nbsp;&nbsp;[main:QuorumPeerMain@113]&nbsp;-&nbsp;Either&nbsp;no&nbsp;config&nbsp;or&nbsp;no&nbsp;quorum&nbsp;defined&nbsp;in&nbsp;config,&nbsp;running&nbsp;&nbsp;in&nbsp;s
+tandalone&nbsp;mode
+2015-04-06&nbsp;09:05:17,274&nbsp;[myid:]&nbsp;-&nbsp;ERROR&nbsp;[main:ZooKeeperServerMain@54]&nbsp;-&nbsp;Invalid&nbsp;arguments,&nbsp;exiting&nbsp;abnormally
+java.lang.NumberFormatException:&nbsp;For&nbsp;input&nbsp;string:&nbsp;&quot;H:\Z01-Zookeeper01-3.4.6\bin\..\conf\zoo.cfg&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at&nbsp;java.lang.NumberFormatException.forInputString(NumberFormatException.java:48)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at&nbsp;java.lang.Integer.parseInt(Integer.java:449)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at&nbsp;java.lang.Integer.parseInt(Integer.java:499)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at&nbsp;org.apache.zookeeper.server.ServerConfig.parse(ServerConfig.java:60)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at&nbsp;org.apache.zookeeper.server.ZooKeeperServerMain.initializeAndRun(ZooKeeperServerMain.java:83)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at&nbsp;org.apache.zookeeper.server.ZooKeeperServerMain.main(ZooKeeperServerMain.java:52)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at&nbsp;org.apache.zookeeper.server.quorum.QuorumPeerMain.initializeAndRun(QuorumPeerMain.java:116)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;at&nbsp;org.apache.zookeeper.server.quorum.QuorumPeerMain.main(QuorumPeerMain.java:78)
+2015-04-06&nbsp;09:05:17,290&nbsp;[myid:]&nbsp;-&nbsp;INFO&nbsp;&nbsp;[main:ZooKeeperServerMain@55]&nbsp;-&nbsp;Usage:&nbsp;ZooKeeperServerMain&nbsp;configfile&nbsp;|&nbsp;port&nbsp;datadir&nbsp;[tick
+time]&nbsp;[maxcnxns]
+Usage:&nbsp;ZooKeeperServerMain&nbsp;configfile&nbsp;|&nbsp;port&nbsp;datadir&nbsp;[ticktime]&nbsp;[maxcnxns]
+
+H:\Z01-Zookeeper01-3.4.6\bin&gt;endlocal</pre><p><br/></p><p><strong>解决办法：</strong></p><p>将zkServer.cmd start启动命令改为zkServer.cmd命令。则启动Zookeepe时就OK了！</p><p><br/></p> </div>
+            
+            <!-- 文章备注信息 -->
+            <div class="commentInfomation"><i></i></div>
+            
+            
+            <!-- 文章附件信息 -->
+            
+            <div class="guanggaoLeftNormal"><center><script type="text/javascript">
+    /*720*70 创建于 2015-05-26*/
+    var cpro_id = "u2123171";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script></center></div>
+            
+            <div class="youAbleLike">
+                <div><span>相关推荐</span></div>
+                <ul>
+                    <li><a href="http://www.bug315.com/article/166.htm">Zookeeper节点类型</a></li>
+                    <li><a href="http://www.bug315.com/article/160.htm">ZooKeeper配置项详解</a></li>
+                    <li><a href="http://www.bug315.com/article/159.htm">Zookeeper服务器配置项详解</a></li>
+                    <li><a href="http://www.bug315.com/article/158.htm">Zookeeper配置安装（Windows伪集群安装...</a></li>
+                    <li><a href="http://www.bug315.com/article/157.htm">Zookeeper配置安装（Windows单机模式）</a></li>
+                </ul>
+                <div class="clearBoth"></div>
+            </div>
+            <div class="guanggaoLeftNormal"><center><script type="text/javascript">
+/* 百度猜你喜欢 */
+document.write(unescape('%3Cdiv id="hm_t_59074"%3E%3C/div%3E%3Cscript charset="utf-8" src="http://crs.baidu.com/t.js?siteId=7cbf96622121dae389f9715e8fac6d45&planId=59074&async=0&referer=') + encodeURIComponent(document.referrer) + '&title=' + encodeURIComponent(document.title) + '&rnd=' + (+new Date) + unescape('"%3E%3C/script%3E'));</script></center></div>
+            
+            <div class="articleNavigator">
+                <div class="nviArticle">
+                    <label>上一篇：</label><a href="http://www.bug315.com/article/155.htm">Java -D和Java -d的区别详解</a><div></div>
+                </div>
+                <div class="nviArticle">
+                    <label>下一篇：</label><a href="http://www.bug315.com/article/157.htm">Zookeeper配置安装（Windows单机模式）</a><div></div>
+                </div>
+            </div>
+            
+            <div class="guanggaoLeftNormal"><center><script type="text/javascript">
+    /*300*250 创建于 2015-12-04*/
+var cpro_id = "u2432798";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script></center></div>
+        
+            <!-- 评论框  -->
+            <div style="height:auto;width:100%;">
+                <!-- 多说评论框 start -->
+                <!-- <div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div> -->
+                <div class="ds-thread" data-thread-key="156" data-title="启动Zookeeper时抛出“Invalid arguments, exiting abnormally”错误信息" data-url="http://www.bug315.com/sub.html"></div>
+                <!-- 多说评论框 end -->
+                <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+                <script type="text/javascript">
+                var duoshuoQuery = {short_name:"Bug315"};
+                (function() {
+                    var ds = document.createElement('script');
+                    ds.type = 'text/javascript';ds.async = true;
+                    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+                    ds.charset = 'UTF-8';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                })();
+                </script>
+                <!-- 多说公共JS代码 end -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="rightContainer">
+        
+        <div class="rightSubWin">
+            <div><span>最新文章</span></div>
+            <ul>
+            <li><a href="http://www.bug315.com/article/410.htm">使用MessageDigest类实现MD5算法</a></li>
+            <li><a href="http://www.bug315.com/article/409.htm">java使用Bouncy Castle加密提供者</a></li>
+            <li><a href="http://www.bug315.com/article/408.htm">Java I/O底层是如何工作的？</a></li>
+            <li><a href="http://www.bug315.com/article/407.htm">Java Servlet的工作原理</a></li>
+            <li><a href="http://www.bug315.com/article/406.htm">Redis快速入门</a></li>
+            <li><a href="http://www.bug315.com/article/405.htm">inline、block、inline-block的区别</a></li>
+            <li><a href="http://www.bug315.com/article/404.htm">使用JAVA生成UUID</a></li>
+            <li><a href="http://www.bug315.com/article/403.htm">Log4jdbc入门简介</a></li>
+            <li><a href="http://www.bug315.com/article/402.htm">dhtmlxGrid有用程序片段</a></li>
+            <li><a href="http://www.bug315.com/article/401.htm">使用dhtmlxGrid的uid获取唯一id</a></li>
+            <li><a href="http://www.bug315.com/article/400.htm">在dhtmlxGrid中存储用户自定义的数据</a></li>
+            <li><a href="http://www.bug315.com/article/399.htm">Tomcat的catalina.properties配置作用</a></li>
+            <li><a href="http://www.bug315.com/article/398.htm">Tomcat server.xml配置文件详解</a></li>
+            <li><a href="http://www.bug315.com/article/397.htm">Service和Thread的区别</a></li>
+            <li><a href="http://www.bug315.com/article/396.htm">dhtmlxGrid的getAllRowIds方法详解</a></li>
+            </ul>
+        </div>
+        
+        <div class="guanggaoRight"><center><script type="text/javascript">
+    /*250*100 创建于 2015-05-08*/
+    var cpro_id = "u2093732";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script></center></div>
+        
+        <div class="rightSubWin">
+           <div><span>点击排行</span></div>
+            <ul>
+            <li><a href="http://www.bug315.com/article/12.htm">MyBatis动态传入WHERE子句表名和SELECT子句列名</a></li>
+            <li><a href="http://www.bug315.com/article/122.htm">抛java.lang.NoClassDefFoundError: org.slf4j.Logger...</a></li>
+            <li><a href="http://www.bug315.com/article/126.htm">将activiti的databaseSchemaUpdate设置为drop-create...</a></li>
+            <li><a href="http://www.bug315.com/article/10.htm">Android自定义对话框Dialog</a></li>
+            <li><a href="http://www.bug315.com/article/125.htm">抛org.activiti.engine.ActivitiObjectNotFoundExcept...</a></li>
+            <li><a href="http://www.bug315.com/article/128.htm">Activiti中定时器事件实例</a></li>
+            <li><a href="http://www.bug315.com/article/181.htm">Freemarker的if else语句</a></li>
+            <li><a href="http://www.bug315.com/article/156.htm">启动Zookeeper时抛出“Invalid arguments, exiting ab...</a></li>
+            <li><a href="http://www.bug315.com/article/78.htm">Linux系统修改IP地址的方法</a></li>
+            <li><a href="http://www.bug315.com/article/112.htm">Java调用linux shell脚本的方法</a></li>
+            </ul>
+        </div>
+        
+        <div class="guanggaoRight"><center><script type="text/javascript">
+    /*250*250 创建于 2015-05-08*/
+    var cpro_id = "u2093721";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script></center></div>
+        
+    </div>
+    <div class="innerContainerClear"></div>
+</div>
+<div class="bottomContainer">
+    <br/><div class="btmOpear"><span>&copy;</span>&nbsp;CopyRight&nbsp;2014&nbsp;&nbsp;bug315.com&nbsp;[蜀ICP备14031461号-1]&nbsp;&nbsp;版权所有&nbsp;&nbsp;bug315it@163.com
+&nbsp;&nbsp;
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256902237'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1256902237%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></div><br/>
+</div>
+</div>
+<script type="text/javascript" src="http://www.bug315.com/public/script/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="http://www.bug315.com/public/script/ueditor1.4.3/third-party/SyntaxHighlighter/shCore.js"></script>
+<script type="text/javascript">
+(function(){SyntaxHighlighter.all();})();
+</script>
+<script type="text/javascript">
+$(function(){
+    $.ajax({
+        url:'../servlet/articleCensusServlet',
+        data:{"x0" : 156},
+        type:'post',
+        cache:false,
+        dataType:'json',
+        success:function(data){},
+        error : function(){}
+    });
+});
+</script>
+</body>
+</html>

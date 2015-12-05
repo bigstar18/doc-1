@@ -1,0 +1,931 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head id="Head"><title>
+	oracle 无order by , 默认排序问题 以及oracle的问题 - 疯狂 - BlogJava
+</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta id="metaKeywords" name="keywords" content="oracle 无order by , 默认排序问题 以及oracle的问题" /><link type="text/css" rel="stylesheet" href="/css/common.css" /><link id="MainCss" type="text/css" rel="stylesheet" href="http://www.blogjava.net/Skins/KJC/style.css" /><link id="SecondaryCss" type="text/css" rel="stylesheet" href="http://www.blogjava.net/freeman1984/customcss.aspx" /><link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="http://www.blogjava.net/freeman1984/rss.aspx" /></head>
+<body>
+    <form name="Form1" method="post" action="361633.html" onsubmit="javascript:return WebForm_OnSubmit();" id="Form1">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="
+__VIEWSTATE" value="" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/WebResource.axd?d=hCqqcDq62xC48aLO1-oizzph91mftTcpBQYAMmX9y1_MEKckib0uai68YudFFqahbIRj8ZaZB19FpMr30&amp;t=635295382417495136" type="text/javascript"></script>
+
+<script language=JavaScript>
+									function ctlent(evt,id)
+											{
+												if(evt.ctrlKey && evt.keyCode == 13)
+												{	
+													try
+													{
+														TempSave(id);
+													}
+													catch(ex)
+													{
+													}
+													finally
+													{
+													    __doPostBack('AjaxHolder$PostComment$btnSubmit','')
+													}
+												}
+		
+												}</script>
+												<script language=JavaScript>function SetReplyAuhor(author){document.getElementById('AjaxHolder_PostComment_tbComment').value+="@"+author+"\n";document.getElementById('AjaxHolder_PostComment_tbComment').focus();return false}</script>
+<script src="/ScriptResource.axd?d=TB76SHHPXs0c-M9_tGhAxuTARlsiSpe5Dn70CMDyMu0Be8A_MPH2Z7oqJoDwyxmBxB28VcgK9C-XqFdMNI_DuigegyGH79krj7asDjvAKLqzs7DlCIm2xb4oSA4lM05RrYsRw4Ulp-jfriIG0&amp;t=635295382417495136" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=-BecoVNwDVCZ4TW3gB_ZzPWfgjCQ_C64O4hNc3pweA4UGq0B-lWFnUMMAtqURN0AZF_f7fxk9s5U1gsq0foUhwHdXezBbn_OgCN5EL300MOu7Jb-c7WU_a2OCK01&amp;t=634979389729873750" type="text/javascript"></script>
+<script src="/ScriptResource.axd?d=4npu1eCN6HUVuTPPO5YDuuBNC2hrBvTsGEVYQhhAo9CX_hfoT2Mz1UGnoo5C32pPXZvBizBLMnY0_szRgrGRkyv7-BsG0CvEejE8Vl3Xt8nd-D_58kXSDmaBFOFFj7w3EMKivQ2&amp;t=634979389729873750" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+function WebForm_OnSubmit() {
+if (typeof(ValidatorOnSubmit) == "function" && ValidatorOnSubmit() == false) return false;
+return true;
+}
+//]]>
+</script>
+
+        
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+
+<table class="Framework" cellspacing="0" cellpadding="0" width="100%">
+	<tr>
+		<td colspan="3">
+			
+<div id="top">
+<table cellpadding="10" cellspacing="0">
+	<tr>
+		<td nowrap>
+			<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.blogjava.net/freeman1984/">疯狂</a></h1>
+			STANDING ON THE SHOULDERS OF GIANTS
+
+		</td>
+	</tr>
+</table>
+</div>
+<div id="sub">
+	<div id="sub-right">
+<div class="BlogStats">posts - 475, comments - 479, trackbacks - 0, articles - 1</div></div>
+	
+&nbsp;
+<a id="Header1_MyLinks1_HomeLink" href="http://www.blogjava.net/">BlogJava</a>&nbsp;::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.blogjava.net/freeman1984/">首页</a>&nbsp;::
+<a id="Header1_MyLinks1_NewPostLink" href="http://www.blogjava.net/freeman1984/admin/EditPosts.aspx?opt=1">新随笔</a>&nbsp;::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" href="http://www.blogjava.net/freeman1984/contact.aspx?id=1">联系</a>&nbsp;::
+<a id="Header1_MyLinks1_Syndication" href="http://www.blogjava.net/freeman1984/rss">聚合</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.blogjava.net/freeman1984/rss"><img src="http://www.blogjava.net/images/xml.gif" style="border-width:0px;" /></a>&nbsp;::
+<a id="Header1_MyLinks1_Admin" href="http://www.blogjava.net/freeman1984/admin/EditPosts.aspx">管理</a>
+
+</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="LeftCell">
+			<div id="leftmenu">
+			</div>
+		</td>
+		<td class="MainCell">
+			<div id="main">
+				
+					
+	<div class="post">
+		<div class="posthead">
+			<h2>
+				<a id="viewpost1_TitleUrl" class="singleposttitle" href="http://www.blogjava.net/freeman1984/archive/2011/10/20/361633.html">oracle 无order by , 默认排序问题 以及oracle的问题</a>
+			</h2>
+ 			Posted on 2011-10-20 10:27 <a href='http://www.blogjava.net/freeman1984/'>疯狂</a> 阅读(10190) <a href='#Post'>评论(1)</a> &nbsp;<a href="http://www.blogjava.net/freeman1984/admin/EditPosts.aspx?postid=361633">编辑</a> &nbsp;<a href="http://www.blogjava.net/freeman1984/AddToFavorite.aspx?id=361633">收藏</a>  所属分类: <a href='http://www.blogjava.net/freeman1984/category/38740.html'>database</a> 
+			<img src ="http://www.blogjava.net/freeman1984/aggbug/361633.html?webview=1" width = "1" height = "1" />
+			
+<!--
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:trackback="http://madskills.com/public/xml/rss/module/trackback/">
+<rdf:Description
+rdf:about="http://www.blogjava.net/freeman1984/archive/2011/10/20/361633.html"
+dc:identifier="http://www.blogjava.net/freeman1984/archive/2011/10/20/361633.html"
+dc:title="oracle 无order by , 默认排序问题 以及oracle的问题"
+trackback:ping="http://www.blogjava.net/freeman1984/services/trackbacks/361633.aspx" />
+</rdf:RDF>
+-->
+
+		</div>
+		<div class="postbody"><div>Oracle会根据具体的数据块的存储返回记录.<br />oracle数据库是没有默认排序的&nbsp;<br />要排序必须加上order&nbsp; by&nbsp;<br />因为oracle是按块进行读取数据的&nbsp;<br />如果数据按顺序存储，则可能使读取出来的数据是按顺序的，给用户误解为默认排序<br />oracle没有进行任何排序操作，rowid表示的是数据存放的数据块内部地址，如果没有要求排序，oracle会顺序的从数据块中读取符合条件的数据返回到客户端，不过看起来好像是按照rowid排序似的<br /><br />如果数据量足够大，即使相同的语句，都有可能不同的结果。<br />一般而言<br />表是堆表<br />所以是无序的<br />他是按照也即物理存放顺序来读取的<br />rowid 是自动随行生成的</div>
+<div>&nbsp;</div>
+<div>另：</div>
+<div>oracle&nbsp;的rowid是啥意思<br />---------------------------------------------------------------<br /><br />rowid是数据库的一个伪列，建立表的时候数据库会自动为每个表建立ROWID列<br />用来唯一标识一行记录。<br />rowid是存储每条记录的实际物理地址，对记录的访问是基于ROWID。<br />---------------------------------------------------------------<br /><br />每条记录的物理地址,<br />对数据库中记录行的作快检索方式就是使用rowid来进行查找。<br />---------------------------------------------------------------<br /><br />唯一标识一行记录<br />select&nbsp;rowid,*&nbsp;from&nbsp;表名<br />试一下，你就明白了<br />---------------------------------------------------------------<br /><br />rowid就象是邮递员送信时要找的信封上的家庭地址一样,每个rowid都不会重复,oracle查找通过它可以更快地查找到数据.<br />---------------------------------------------------------------<br /><br />rowid是一个伪列,对应&nbsp;块号,行号,行的序号..<br />---------------------------------------------------------------<br />个人不是dba。上的文章是转载的，其他的东西请知道的补充下，对这一块有点迷惑。<br />关于order by的文章<br /><a href="http://blog.sina.com.cn/s/blog_6ff05a2c0100mlco.html">http://blog.sina.com.cn/s/blog_6ff05a2c0100mlco.html</a><br />关于有null的排序<br /><a href="http://blog.csdn.net/wh62592855/article/details/4813404">http://blog.csdn.net/wh62592855/article/details/4813404</a></div> </div>
+	</div>
+	<script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('AjaxHolder$scriptmanager1', document.getElementById('Form1'));
+Sys.WebForms.PageRequestManager.getInstance()._updateControls(['tAjaxHolder$UpdatePanel1'], [], [], 90);
+//]]>
+</script>
+
+<div id="AjaxHolder_UpdatePanel1">
+	    
+    <a name="pagedcomment"></a>
+<br />
+<h3>评论</h3>
+	
+			<div class="post">
+				<div class="posthead">
+					<h2>
+						<a title="permalink: re: oracle 无order by , 默认排序问题 以及oracle的问题" href="/freeman1984/archive/2011/10/20/361633.html#367416">#</a>&nbsp;<a name="367416"></a>re: oracle 无order by , 默认排序问题 以及oracle的问题<a name="Post"></a>&nbsp;&nbsp;<a onclick="return SetReplyAuhor(&quot;闪字&quot;)" href="/freeman1984/archive/2011/10/20/361633.html#post">回复</a>&nbsp;&nbsp;<a title="查看该作者发表过的评论" href="http://www.blogjava.net/comment?author=%e9%97%aa%e5%ad%97" target="_blank">更多评论</a>
+						<a id="AjaxHolder_Comments_CommentList_ctl00_DeleteLink" href="javascript:__doPostBack('AjaxHolder$Comments$CommentList$ctl00$DeleteLink','')"></a>&nbsp;&nbsp;<a id="AjaxHolder_Comments_CommentList_ctl00_EditLink"></a>
+					</h2>
+					2011-12-28 15:03 by <a id="AjaxHolder_Comments_CommentList_ctl00_NameLink" href="http://www.ftz.la/sz.htm" target="_blank">闪字</a>
+				</div>
+				<div class="postbody">原来是这样~  和MySQL ， 差不多！</div>
+			</div>
+		
+<style>
+td { font-size: 12px }
+.commentTextBox 
+{ 
+    font-family : Verdana; 
+    font-size: 13px;
+ }
+</style>
+<!--Beging Temp Save-->
+<STYLE>.userData { BEHAVIOR: url(#default#userdata) }
+	</STYLE>
+<DIV class="userData" id="CommentsPersistDiv"></DIV>
+
+<script type="text/javascript">
+function pageLoad()
+{
+    Sys.WebForms.PageRequestManager.getInstance().add_initializeRequest(handleInitializeRequest);
+    //Sys.WebForms.PageRequestManager.getInstance().add_endRequest(handleEndRequest);
+}
+
+function handleInitializeRequest(sender, args)
+{
+    var prm = Sys.WebForms.PageRequestManager.getInstance();
+    var eid = args.get_postBackElement().id;
+    if (eid.indexOf("DeleteLink")>0) 
+    {
+       args.get_postBackElement().innerHTML = "<font color='red'>正在删除...</font>";         
+    }    
+    else if (eid.indexOf("btnSubmit")>0) 
+    {
+       document.getElementById("AjaxHolder_PostComment_ltSubmitMsg").innerHTML="正在提交...";
+       document.getElementById("AjaxHolder_PostComment_btnSubmit").disabled = true;       
+    }   
+    else if(eid.indexOf("refreshList")>0)
+    {
+        document.getElementById("AjaxHolder_PostComment_refreshList").innerHTML="<font color='red'>正在刷新...</font>";
+    }
+   
+}	
+
+function TempSave(ElementID)
+{
+	try
+	{
+	CommentsPersistDiv.setAttribute("CommentContent",document.getElementById(ElementID).value);
+	CommentsPersistDiv.save("CommentXMLStore");
+	}
+	catch(ex)
+	{
+	}
+	
+}
+function Restore(ElementID)
+{
+	CommentsPersistDiv.load("CommentXMLStore");
+	document.getElementById(ElementID).value=CommentsPersistDiv.getAttribute("CommentContent");
+}	
+			
+			
+</script>
+<!--Ene TempSave-->
+<div id="divRefreshComments" style="text-align:right;margin-right:10px;margin-bottom:5px;font-size:12px"><a href="/RequireRegister.aspx">新用户注册</a>&nbsp;&nbsp;<a id="AjaxHolder_PostComment_refreshList" href="javascript:__doPostBack('AjaxHolder$PostComment$refreshList','')">刷新评论列表</a>&nbsp;&nbsp;</div>
+<div class="commentform">
+<span id="AjaxHolder_PostComment_ltSubmitMsg" style="color:Red;"></span>
+<br />
+<a name="Feedback"></a>
+	<TABLE cellSpacing="1" cellPadding="1" border="0">	
+		<tr>
+		<td id="AjaxHolder_PostComment_tdOnCommentForm" colspan="3" style="line-height:1.5">		
+		</td>
+	
+		</tr>
+		<div id="AjaxHolder_PostComment_divCommnentArea">
+		<TR>
+			<TD colSpan="3"></TD>
+		</TR>
+		<TR>
+			<TD width="75"></TD>
+			<TD></TD>
+			<TD></TD>
+		</TR>
+		<TR>
+			<TD></TD>
+			<TD colSpan="2">
+			<a href="http://job.cnblogs.com/" target="_blank">找优秀程序员，就在博客园</a>
+			<!--<a href="http://www.cnblogs.com" target="_blank">博客园</a>&nbsp;  <a href="http://q.cnblogs.com/" target="_blank">博问</a>&nbsp; <a href="http://news.cnblogs.com" target="_blank">IT新闻</a>&nbsp; <a href="http://job.cnblogs.com/cate-java_programmer/" target="_blank">Java程序员招聘</a>-->
+			</TD>
+		</TR>
+		<TR>
+			<TD width="55">标题</TD>
+			<TD><input name="AjaxHolder$PostComment$tbTitle" type="text" value="re: oracle 无order by , 默认排序问题 以及oracle的问题" id="AjaxHolder_PostComment_tbTitle" class="commenttb" style="width:320" /></TD>
+			<TD><span id="AjaxHolder_PostComment_RequiredFieldValidator1" style="color:Red;visibility:hidden;">请输入标题</span></TD>
+		</TR>
+		<TR>
+			<TD>姓名</TD>
+			<TD><input name="AjaxHolder$PostComment$tbName" type="text" id="AjaxHolder_PostComment_tbName" class="commenttb" style="width:320" /></TD>
+			<TD><span id="AjaxHolder_PostComment_RequiredFieldValidator2" style="color:Red;visibility:hidden;">请输入你的姓名</span></TD>
+		</TR>
+		<TR>
+			<TD>主页</TD>
+			<TD><input name="AjaxHolder$PostComment$tbUrl" type="text" id="AjaxHolder_PostComment_tbUrl" class="commenttb" style="width:320" /></TD>
+			<TD><FONT face="宋体"></FONT></TD>
+		</TR>
+		<tr>
+			<td align="left" colSpan="3">
+				<table id="AjaxHolder_PostComment_tbCaptchaImage" class="CommentForm" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td colspan="3">
+							<span id="AjaxHolder_PostComment_Requiredfieldvalidator4" style="color:Red;display:none;">请输入验证码</span>
+							<span id="AjaxHolder_PostComment_lblImage" style="color:Red;font-weight:bold;"></span>
+						</td>
+		</tr>
+		<tr>
+			<td width="78">验证码</td>
+			<td><input name="AjaxHolder$PostComment$CodeNumberTextBox" type="text" id="AjaxHolder_PostComment_CodeNumberTextBox" />*&nbsp;&nbsp;<img src="http://www.blogjava.net/Modules/CaptchaImage/JpegImage.aspx?cacheid=20151202101219"/></td>
+			<td align="left"></td>
+		</tr>
+	</table>
+	
+			</td>
+		</tr>
+		<TR>
+			<TD colSpan="3">内容(请不要发表任何与政治相关的内容)
+				<span id="AjaxHolder_PostComment_RequiredFieldValidator3" style="color:Red;visibility:hidden;">请输入评论内容</span><BR>
+				<textarea name="AjaxHolder$PostComment$tbComment" rows="10" cols="50" id="AjaxHolder_PostComment_tbComment" class="commentTextBox" onkeydown="ctlent(event,'AjaxHolder_PostComment_tbComment')" style="Width:480;Height:220"></textarea></TD>
+		</TR>
+		<TR>
+			<TD colSpan="3">
+		<span id="AjaxHolder_PostComment_Message" style="color:Red;"></span>
+		</td>
+		<TR>
+			<TD colSpan="3"><input id="AjaxHolder_PostComment_chkRemember" type="checkbox" name="AjaxHolder$PostComment$chkRemember" checked="checked" tabindex="-1" /><label for="AjaxHolder_PostComment_chkRemember">Remember Me?</label></TD>
+		</TR>
+		<TR>
+			<TD height="23"><input type="submit" name="AjaxHolder$PostComment$btnSubmit" value="提交" onclick="TempSave('AjaxHolder_PostComment_tbComment');WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;AjaxHolder$PostComment$btnSubmit&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, false))" id="AjaxHolder_PostComment_btnSubmit" class="commentButton" />
+				</TD>
+			<td colSpan="2" height="23">&nbsp;
+				<a id="AjaxHolder_PostComment_lnkLogin" href="http://www.blogjava.net/login.aspx?ReturnURL=http://www.blogjava.net/freeman1984/archive/2011/10/20/361633.html&amp;SourceURL=/freeman1984/archive/2011/10/20/361633.html">登录</a>&nbsp;&nbsp;<!--<a id="AjaxHolder_PostComment_linkLoginComment" OnClick="if(document.getElementById('AjaxHolder_PostComment_tbComment').value != '') return confirm('未提交的评论内容将会丢失, 你真的要进入高级评论吗?');" href="http://www.blogjava.net/freeman1984/archive/2011/10/20/361633.html?login=1#Post">使用高级评论</a>&nbsp;&nbsp;<a href="http://www.blogjava.net/RequireRegister.aspx">新用户注册</a>&nbsp;&nbsp;<A href="#Top">返回页首</A>&nbsp;&nbsp;<a id="AjaxHolder_PostComment_lbRestore" OnClick="Restore('AjaxHolder_PostComment_tbComment'); return false;" href="/freeman1984/archive/2011/10/20/361633.html#Post">恢复上次提交</a>&nbsp;&nbsp;-->&nbsp;&nbsp;&nbsp;&nbsp;
+				</td>
+		</TR>
+		<TR>
+			<TD colSpan="3"><label class="CtrlEnter">[使用Ctrl+Enter键可以直接提交]</label></TD>
+		</TR>
+		</div>
+		
+		<TR>
+			<TD colSpan="3"><!--该文被作者在 2011-10-20 10:40 编辑过--></TD>
+		</TR>
+		<!--
+		<TR>
+			<TD colSpan="3" height="5"></TD>
+		</TR>	
+		-->	
+		<TR>
+		<TD colSpan="3">
+		
+<script type='text/javascript'>
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+(function() {
+var gads = document.createElement('script');
+gads.async = true;
+gads.type = 'text/javascript';
+var useSSL = 'https:' == document.location.protocol;
+gads.src = (useSSL ? 'https:' : 'http:') + 
+'//www.googletagservices.com/tag/js/gpt.js';
+var node = document.getElementsByTagName('script')[0];
+node.parentNode.insertBefore(gads, node);
+})();
+</script>
+
+<script type='text/javascript'>
+googletag.cmd.push(function() {
+googletag.defineSlot('/1090369/blogjava_blogpost_bottom', [300, 250], 'div-gpt-ad-1364133350381-0').addService(googletag.pubads());
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+});
+</script>
+<!-- blogjava_blogpost_bottom -->
+<div id='div-gpt-ad-1364133350381-0' style='width:300px; height:250px;'>
+<script type='text/javascript'>
+googletag.cmd.push(function() { googletag.display('div-gpt-ad-1364133350381-0'); });
+</script>
+</div>
+<br/>
+
+		</TD>
+		</TR>
+		<tr>			
+		<td colspan="3">
+		
+		</td>
+		</tr>
+		<TR>
+		<TD colSpan="3"></TD>
+		</TR>
+		<TR>
+			<TD colSpan="3" height="1">网站导航:<div id="blogsite">
+			<a href="http://www.cnblogs.com" title="开发者的网上家园">博客园</a>&nbsp;&nbsp;
+			<a href="http://news.cnblogs.com">IT新闻</a>&nbsp;&nbsp;
+			<a href="http://kb.cnblogs.com">知识库</a>&nbsp;&nbsp;
+			<a href="http://www.cppblog.com">C++博客</a>&nbsp;&nbsp;
+			<a href="http://job.cnblogs.com">程序员招聘</a>&nbsp;&nbsp;
+			<a href="/freeman1984/archive/2011/10/20/361633.html?opt=admin">管理</a>
+			</div>
+		</TD>
+		</TR>
+		<TR>
+			<TD colSpan="3" height="5">
+<div id="divRelativePosts">
+相关文章:
+	
+			<ul style="margin-top:0px;padding-left:0px;">
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl01_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2015/11/15/428197.html">oracle 索引字段包含date类型，使用spring jdbc更新时不走索引，而是走table access full的问题</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl02_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2014/10/27/419097.html">(转)Oracle数据库如何授权收费（Database Licensing） </a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl03_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/11/28/406952.html">ORA-06548错误</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl04_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/09/04/403674.html">ora-01031:insufficient privileges</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl05_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/06/06/400263.html">dbcp重连(转) </a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl06_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/04/23/398301.html">11g oracle 用户密码过期问题</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl07_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/03/29/397132.html">ERROR 1049 (42000): Unknown database 'root' 处理</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl08_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/03/29/397131.html">mysql 1130 错误 处理</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl09_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/02/20/395438.html">oracle ORA-39212异常</a>
+			</li>
+		
+			<li style='list-style:none;'>
+				<a id="AjaxHolder_PostComment_ctl07_RelativePostsList_ctl10_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/01/06/393854.html">Spring jdbc(java类型和oracle类型的转换)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</TD>
+		</TR>	
+		<TR>
+			<TD colSpan="3">&nbsp;</TD>
+		</TR>
+		<TR>
+			<TD colSpan="3" height="5"></TD>
+		</TR>
+		<TR>
+			<TD colSpan="3">
+				</TD>
+		</TR>		
+	</TABLE>	
+</div>
+<div id="AjaxHolder_PostComment_ValidationSummary1" style="color:Red;display:none;">
+
+	</div>
+
+</div>
+
+				
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="FooterCell">
+			
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.blogjava.net/" style="font-family:Verdana;font-size:12px;">BlogJava</a>
+	<br />
+	Copyright &copy; 疯狂
+</p>
+
+		</td>
+	</tr>
+</table>
+<div id="lefttemp" style="DISPLAY:none">
+	
+		
+<div id="Cal">
+<img src="/Skins/KJC/Images/icon-group.jpg" hspace=5 align=left vspace=2><h3>日历</h3>
+<table id="Calendar1_entryCal" cellspacing="0" cellpadding="0" title="日历" border="0" style="color:Black;background-color:#EEEEDD;border-width:0px;font-family:Verdana;height:180px;width:178px;border-collapse:collapse;">
+	<tr><td colspan="7" style="background-color:#EEEEEE;"><table cellspacing="0" border="0" style="color:#666666;font-family:Verdana;font-size:13px;font-weight:bold;width:100%;border-collapse:collapse;">
+		<tr><td valign="bottom" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V4261')" style="color:Black" title="转到上一个月">&lt;</a></td><td align="center" style="width:70%;">2011年10月</td><td align="right" valign="bottom" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V4322')" style="color:Black" title="转到下一个月">&gt;</a></td></tr>
+	</table></td></tr><tr><th align="center" abbr="日" scope="col" style="background-color:#DDDDCC;font-size:12px;">日</th><th align="center" abbr="一" scope="col" style="background-color:#DDDDCC;font-size:12px;">一</th><th align="center" abbr="二" scope="col" style="background-color:#DDDDCC;font-size:12px;">二</th><th align="center" abbr="三" scope="col" style="background-color:#DDDDCC;font-size:12px;">三</th><th align="center" abbr="四" scope="col" style="background-color:#DDDDCC;font-size:12px;">四</th><th align="center" abbr="五" scope="col" style="background-color:#DDDDCC;font-size:12px;">五</th><th align="center" abbr="六" scope="col" style="background-color:#DDDDCC;font-size:12px;">六</th></tr><tr><td align="center" style="color:Gray;font-size:11px;width:14%;">25</td><td align="center" style="color:Gray;font-size:11px;width:14%;">26</td><td align="center" style="color:Gray;font-size:11px;width:14%;">27</td><td align="center" style="color:Gray;font-size:11px;width:14%;">28</td><td align="center" style="color:Gray;font-size:11px;width:14%;">29</td><td align="center" style="color:Gray;font-size:11px;width:14%;">30</td><td align="center" style="font-size:11px;width:14%;">1</td></tr><tr><td align="center" style="font-size:11px;width:14%;">2</td><td align="center" style="font-size:11px;width:14%;">3</td><td align="center" style="font-size:11px;width:14%;">4</td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/05.html"><u>5</u></a></td><td align="center" style="font-size:11px;width:14%;">6</td><td align="center" style="font-size:11px;width:14%;">7</td><td align="center" style="font-size:11px;width:14%;">8</td></tr><tr><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/09.html"><u>9</u></a></td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/10.html"><u>10</u></a></td><td align="center" style="font-size:11px;width:14%;">11</td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/12.html"><u>12</u></a></td><td align="center" style="font-size:11px;width:14%;">13</td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/14.html"><u>14</u></a></td><td align="center" style="font-size:11px;width:14%;">15</td></tr><tr><td align="center" style="font-size:11px;width:14%;">16</td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/17.html"><u>17</u></a></td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/18.html"><u>18</u></a></td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/19.html"><u>19</u></a></td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/20.html"><u>20</u></a></td><td align="center" style="font-size:11px;width:14%;">21</td><td align="center" style="font-size:11px;width:14%;">22</td></tr><tr><td align="center" style="font-size:11px;width:14%;">23</td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/24.html"><u>24</u></a></td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/25.html"><u>25</u></a></td><td align="center" style="font-size:11px;width:14%;">26</td><td align="center" style="font-size:11px;width:14%;">27</td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/28.html"><u>28</u></a></td><td align="center" style="font-size:11px;width:14%;">29</td></tr><tr><td align="center" style="font-size:11px;width:14%;">30</td><td align="center" style="font-size:11px;width:14%;"><a href="http://www.blogjava.net/freeman1984/archive/2011/10/31.html"><u>31</u></a></td><td align="center" style="color:Gray;font-size:11px;width:14%;">1</td><td align="center" style="color:Gray;font-size:11px;width:14%;">2</td><td align="center" style="color:Gray;font-size:11px;width:14%;">3</td><td align="center" style="color:Gray;font-size:11px;width:14%;">4</td><td align="center" style="color:Gray;font-size:11px;width:14%;">5</td></tr>
+</table>
+</div>
+
+		
+<div id=cell>
+<img src="/Skins/KJC/Images/icon-group.jpg" hspace=5 align=left vspace=2><h3>公告</h3>
+	</u></a></u><br />
+</span><span style="font-size: 14pt">疯狂的微</span><span style="font-size: 14pt">博:</span><span style="font-size: 12pt"><iframe style="width: 63px; height: 22px" height="24" marginheight="0" border="0" src="http://widget.weibo.com/relationship/followbutton.php?width=63&amp;height=24&amp;uid=2693752230&amp;style=1&amp;btn=red&amp;dpc=1" frameborder="0" width="63" allowTransparency marginwidth="0" scrolling="no"></iframe></span> <br />
+<br />
+QQjava交流群：<strong>51374316 </strong>          
+</div>
+
+	
+	
+	
+<div id="cell">
+<img src="/Skins/KJC/Images/icon-group.jpg" hspace=5 align=left vspace=2><H3>留言簿<span style="font-size:11px;font-weight:normal;">(7)</span></H3>
+<ul>
+	<li>
+		<a id="Singlecolumn2__328eb023c32d_lnkMessages" href="http://www.blogjava.net/freeman1984/Contact.aspx?id=1">给我留言</a>
+	<li>
+		<a id="Singlecolumn2__328eb023c32d_lnkPublicMsgView" href="http://www.blogjava.net/freeman1984/default.aspx?opt=msg">查看公开留言</a>
+	<li>
+		<a id="Singlecolumn2__328eb023c32d_lnkPrivateMsgView" href="http://www.blogjava.net/freeman1984/admin/MyMessages.aspx">查看私人留言</a>
+	</li>
+</ul>
+</div>
+
+		<div id=cell>
+		<img src="/Skins/KJC/Images/icon-group.jpg" hspace=5 align=left vspace=2><h3>随笔分类</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl01_RssLink" title="Subscribe to all 生活杂谈(15)" href="http://www.blogjava.net/freeman1984/category/26087.html/rss"><img title="Subscribe to all 生活杂谈(15)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl01_Link" href="http://www.blogjava.net/freeman1984/category/26087.html">all 生活杂谈(15)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl02_RssLink" title="Subscribe to android(18)" href="http://www.blogjava.net/freeman1984/category/42532.html/rss"><img title="Subscribe to android(18)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl02_Link" href="http://www.blogjava.net/freeman1984/category/42532.html">android(18)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl03_RssLink" title="Subscribe to apache项目(20)" href="http://www.blogjava.net/freeman1984/category/46243.html/rss"><img title="Subscribe to apache项目(20)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl03_Link" href="http://www.blogjava.net/freeman1984/category/46243.html">apache项目(20)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl04_RssLink" title="Subscribe to chart(1)" href="http://www.blogjava.net/freeman1984/category/43680.html/rss"><img title="Subscribe to chart(1)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl04_Link" href="http://www.blogjava.net/freeman1984/category/43680.html">chart(1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl05_RssLink" title="Subscribe to concurrent(5)" href="http://www.blogjava.net/freeman1984/category/49019.html/rss"><img title="Subscribe to concurrent(5)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl05_Link" href="http://www.blogjava.net/freeman1984/category/49019.html">concurrent(5)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl06_RssLink" title="Subscribe to database(70)" href="http://www.blogjava.net/freeman1984/category/38740.html/rss"><img title="Subscribe to database(70)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl06_Link" href="http://www.blogjava.net/freeman1984/category/38740.html">database(70)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl07_RssLink" title="Subscribe to dwr(3)" href="http://www.blogjava.net/freeman1984/category/42595.html/rss"><img title="Subscribe to dwr(3)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl07_Link" href="http://www.blogjava.net/freeman1984/category/42595.html">dwr(3)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl08_RssLink" title="Subscribe to flex(6)" href="http://www.blogjava.net/freeman1984/category/43586.html/rss"><img title="Subscribe to flex(6)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl08_Link" href="http://www.blogjava.net/freeman1984/category/43586.html">flex(6)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl09_RssLink" title="Subscribe to hibernate(25)" href="http://www.blogjava.net/freeman1984/category/42534.html/rss"><img title="Subscribe to hibernate(25)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl09_Link" href="http://www.blogjava.net/freeman1984/category/42534.html">hibernate(25)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl10_RssLink" title="Subscribe to java (134)" href="http://www.blogjava.net/freeman1984/category/26086.html/rss"><img title="Subscribe to java (134)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl10_Link" href="http://www.blogjava.net/freeman1984/category/26086.html">java (134)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl11_RssLink" title="Subscribe to javafx(2)" href="http://www.blogjava.net/freeman1984/category/41058.html/rss"><img title="Subscribe to javafx(2)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl11_Link" href="http://www.blogjava.net/freeman1984/category/41058.html">javafx(2)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl12_RssLink" title="Subscribe to javascript" href="http://www.blogjava.net/freeman1984/category/54080.html/rss"><img title="Subscribe to javascript" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl12_Link" href="http://www.blogjava.net/freeman1984/category/54080.html">javascript</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl13_RssLink" title="Subscribe to java安全(8)" href="http://www.blogjava.net/freeman1984/category/43930.html/rss"><img title="Subscribe to java安全(8)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl13_Link" href="http://www.blogjava.net/freeman1984/category/43930.html">java安全(8)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl14_RssLink" title="Subscribe to java性能(19)" href="http://www.blogjava.net/freeman1984/category/43783.html/rss"><img title="Subscribe to java性能(19)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl14_Link" href="http://www.blogjava.net/freeman1984/category/43783.html">java性能(19)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl15_RssLink" title="Subscribe to jbpm(1)" href="http://www.blogjava.net/freeman1984/category/38739.html/rss"><img title="Subscribe to jbpm(1)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl15_Link" href="http://www.blogjava.net/freeman1984/category/38739.html">jbpm(1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl16_RssLink" title="Subscribe to jquery(4)" href="http://www.blogjava.net/freeman1984/category/44698.html/rss"><img title="Subscribe to jquery(4)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl16_Link" href="http://www.blogjava.net/freeman1984/category/44698.html">jquery(4)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl17_RssLink" title="Subscribe to linux(16)" href="http://www.blogjava.net/freeman1984/category/46405.html/rss"><img title="Subscribe to linux(16)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl17_Link" href="http://www.blogjava.net/freeman1984/category/46405.html">linux(16)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl18_RssLink" title="Subscribe to lucene(1)" href="http://www.blogjava.net/freeman1984/category/47801.html/rss"><img title="Subscribe to lucene(1)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl18_Link" href="http://www.blogjava.net/freeman1984/category/47801.html">lucene(1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl19_RssLink" title="Subscribe to nginx(1)" href="http://www.blogjava.net/freeman1984/category/50306.html/rss"><img title="Subscribe to nginx(1)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl19_Link" href="http://www.blogjava.net/freeman1984/category/50306.html">nginx(1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl20_RssLink" title="Subscribe to others(2)" href="http://www.blogjava.net/freeman1984/category/26088.html/rss"><img title="Subscribe to others(2)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl20_Link" href="http://www.blogjava.net/freeman1984/category/26088.html">others(2)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl21_RssLink" title="Subscribe to questions(31)" href="http://www.blogjava.net/freeman1984/category/38742.html/rss"><img title="Subscribe to questions(31)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl21_Link" href="http://www.blogjava.net/freeman1984/category/38742.html">questions(31)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl22_RssLink" title="Subscribe to questions_hander(28)" href="http://www.blogjava.net/freeman1984/category/38741.html/rss"><img title="Subscribe to questions_hander(28)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl22_Link" href="http://www.blogjava.net/freeman1984/category/38741.html">questions_hander(28)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl23_RssLink" title="Subscribe to spring(32)" href="http://www.blogjava.net/freeman1984/category/42533.html/rss"><img title="Subscribe to spring(32)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl23_Link" href="http://www.blogjava.net/freeman1984/category/42533.html">spring(32)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl24_RssLink" title="Subscribe to struts(9)" href="http://www.blogjava.net/freeman1984/category/42535.html/rss"><img title="Subscribe to struts(9)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl24_Link" href="http://www.blogjava.net/freeman1984/category/42535.html">struts(9)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl25_RssLink" title="Subscribe to swing" href="http://www.blogjava.net/freeman1984/category/42536.html/rss"><img title="Subscribe to swing" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl25_Link" href="http://www.blogjava.net/freeman1984/category/42536.html">swing</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl26_RssLink" title="Subscribe to UML(2)" href="http://www.blogjava.net/freeman1984/category/48926.html/rss"><img title="Subscribe to UML(2)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl26_Link" href="http://www.blogjava.net/freeman1984/category/48926.html">UML(2)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl27_RssLink" title="Subscribe to unix(13)" href="http://www.blogjava.net/freeman1984/category/49548.html/rss"><img title="Subscribe to unix(13)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl27_Link" href="http://www.blogjava.net/freeman1984/category/49548.html">unix(13)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl28_RssLink" title="Subscribe to web(45)" href="http://www.blogjava.net/freeman1984/category/44672.html/rss"><img title="Subscribe to web(45)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl28_Link" href="http://www.blogjava.net/freeman1984/category/44672.html">web(45)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl29_RssLink" title="Subscribe to webservice(9)" href="http://www.blogjava.net/freeman1984/category/38743.html/rss"><img title="Subscribe to webservice(9)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl29_Link" href="http://www.blogjava.net/freeman1984/category/38743.html">webservice(9)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl30_RssLink" title="Subscribe to xml(5)" href="http://www.blogjava.net/freeman1984/category/43702.html/rss"><img title="Subscribe to xml(5)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl30_Link" href="http://www.blogjava.net/freeman1984/category/43702.html">xml(5)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl31_RssLink" title="Subscribe to 敏捷(6)" href="http://www.blogjava.net/freeman1984/category/46247.html/rss"><img title="Subscribe to 敏捷(6)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl31_Link" href="http://www.blogjava.net/freeman1984/category/46247.html">敏捷(6)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl32_RssLink" title="Subscribe to 方法论(27)" href="http://www.blogjava.net/freeman1984/category/46503.html/rss"><img title="Subscribe to 方法论(27)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl32_Link" href="http://www.blogjava.net/freeman1984/category/46503.html">方法论(27)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl33_RssLink" title="Subscribe to 架构(20)" href="http://www.blogjava.net/freeman1984/category/46575.html/rss"><img title="Subscribe to 架构(20)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl33_Link" href="http://www.blogjava.net/freeman1984/category/46575.html">架构(20)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl34_RssLink" title="Subscribe to 测试(1)" href="http://www.blogjava.net/freeman1984/category/54545.html/rss"><img title="Subscribe to 测试(1)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl34_Link" href="http://www.blogjava.net/freeman1984/category/54545.html">测试(1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl35_RssLink" title="Subscribe to 缓存" href="http://www.blogjava.net/freeman1984/category/50308.html/rss"><img title="Subscribe to 缓存" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl35_Link" href="http://www.blogjava.net/freeman1984/category/50308.html">缓存</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl36_RssLink" title="Subscribe to 网络通讯(9)" href="http://www.blogjava.net/freeman1984/category/49063.html/rss"><img title="Subscribe to 网络通讯(9)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl36_Link" href="http://www.blogjava.net/freeman1984/category/49063.html">网络通讯(9)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl37_RssLink" title="Subscribe to 读代码(6)" href="http://www.blogjava.net/freeman1984/category/49876.html/rss"><img title="Subscribe to 读代码(6)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl37_Link" href="http://www.blogjava.net/freeman1984/category/49876.html">读代码(6)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl38_RssLink" title="Subscribe to 项目管理(19)" href="http://www.blogjava.net/freeman1984/category/46246.html/rss"><img title="Subscribe to 项目管理(19)" src="/Skins/KJC/Images/xmlsmall.gif" style="border-width:0px;" /></a><a id="Singlecolumn2_Categories_CatList_ctl00_LinkList_ctl38_Link" href="http://www.blogjava.net/freeman1984/category/46246.html">项目管理(19)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id=cell>
+		<img src="/Skins/KJC/Images/icon-group.jpg" hspace=5 align=left vspace=2><h3>相册</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_ctl01_LinkList_ctl01_Link" href="http://www.blogjava.net/freeman1984/gallery/42537.html">我的相册</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+
+<script language="JavaScript">
+function SearchGoogle(key,evt,site)
+		{
+			if(evt.keyCode==13 || evt.keyCode==0)
+			{
+				key.focus();
+				var keystr = encodeURIComponent(key.value);
+				url = "http://www.google.com/search?q=";
+				url = url+keystr;
+				url += "&ie=UTF-8&oe=GB2312&hl=zh-CN&domains="+site+"&sitesearch="+site;
+				window.location = url;
+				return false;			
+			}
+			
+		}
+</script>
+<div id="cell">
+<img src="/Skins/KJC/Images/icon-group.jpg" hspace=5 align=left vspace=2><H3>搜索</H3>
+<ul>
+	<li><input style="WIDTH: 130px" type="text" name="q" id="q" onkeydown="return SearchGoogle(document.getElementById('q'),event,'http://www.blogjava.net/freeman1984/')">&nbsp;<input onclick="SearchGoogle(document.getElementById('q'),event,'http://www.blogjava.net/freeman1984/')" type="button" value="搜索" name="sa"></li></ul>
+</div>
+<div id=cell>
+<img src="/Skins/KJC/Images/icon-group.jpg" hspace=5 align=left vspace=2><H3>积分与排名</H3>
+<ul>
+	<li>
+		积分 -
+		1802387
+	<li>
+		排名 -
+		1
+	</li>
+</ul>
+</div>
+
+<div id="cell">
+<img src="/Skins/KJC/Images/icon-group.jpg" hspace=5 align=left vspace=2><h3>最新随笔</h3>
+<ul style="word-break:break-all">
+	
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl00_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2015/11/15/428197.html">1. oracle 索引字段包含date类型，使用spring jdbc更新时不走索引，而是走table access full的问题</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl01_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2015/02/07/422809.html">2. FTP主动模式和被动模式的比较(转载)</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl02_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2014/12/05/421085.html">3. 关于java RMI在多网卡下(或者启动360，百度，腾讯等wifi共享下)无法连接问题(java.rmi.ConnectException: Connection refused to host: xx)</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl03_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2014/10/27/419097.html">4. (转)Oracle数据库如何授权收费（Database Licensing） </a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl04_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2014/10/07/418488.html">5.  成功的 Web 应用系统性能测试 (转载)</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl05_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2014/09/23/418187.html">6. It is indirectly referenced from required .class file异常</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl06_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2014/07/22/416070.html">7. (转)svn cleanup failed–previous operation has not finished; run cleanup if it was interrupted</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl07_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2014/03/21/411308.html">8. automation服务器不能创建对象 解决办法</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl08_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2014/03/12/410935.html">9. ERROR: transport error 202: gethostbyname: unknown host  解决办法</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl09_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/12/28/408152.html">10. JavaScript 跨浏览器事件处理(转)</a></li>
+		
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl09_RecentPostsList2_ctl01_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/12/28/408151.html">11. 函数声明 VS 函数表达式(转)</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl10_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/11/28/406952.html">12. ORA-06548错误</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl11_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/11/18/406461.html">13. 项目规划与管理记录2 </a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl12_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/10/21/405469.html">14. tmpFile.renameTo(classFile) failed</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl13_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/09/04/403675.html">15. redhat6.4 64位安装rlwrap</a></li>
+		
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl13_RecentPostsList2_ctl01_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/09/04/403674.html">16. ora-01031:insufficient privileges</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl14_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/07/12/401488.html">17. mysql远程连接问题 Access denied for user 'root'@' ip ' (using password: YES)</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl15_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/06/06/400263.html">18. dbcp重连(转) </a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl16_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/05/31/400040.html">19. 解决Vmware Workstation上安装Linux系统不能SSH远程连接的问题 </a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl17_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/05/30/399942.html">20. URL最大长度限制(转)</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl18_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/05/28/399863.html">21. 用MyEclipse测试发送email时报java.lang.NoClassDefFoundError: com/sun/mail/util/LineInputStream  </a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl19_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/05/27/399821.html">22. 我应该采用哪一种 WSDL 样式？（转载）</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl20_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/05/17/399427.html">23. linux 挂载ntfs usb 出现mount: unknown filesystem type 'ntfs'</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl21_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/04/23/398301.html">24. 11g oracle 用户密码过期问题</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl22_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/04/11/397697.html">25. Spring和 jms </a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl23_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/04/07/397457.html">26. java.lang.ClassNotFoundException: javax.jms.MessageListener </a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl24_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/04/02/397296.html">27. redhat安装 vnc</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl25_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/03/29/397132.html">28. ERROR 1049 (42000): Unknown database 'root' 处理</a></li>
+		
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl25_RecentPostsList2_ctl01_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/03/29/397131.html">29. mysql 1130 错误 处理</a></li>
+		
+		
+	
+			<li><a id="Singlecolumn2__2a1b5144f716_RecentPostsList_ctl26_RecentPostsList2_ctl00_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2013/02/20/395438.html">30. oracle ORA-39212异常</a></li>
+		
+	
+</ul>
+</div>
+
+<div id="cell">
+<img src="/Skins/KJC/Images/icon-group.jpg" hspace=5 align=left vspace=2><h3>最新评论
+	<a id="Singlecolumn2__3ecd912c26f4_RSSHyperlink1" href="http://www.blogjava.net/freeman1984/CommentsRSS.aspx"><img src="/images/xml.gif" style="border-width:0px;" /></a></h3>
+<div class="RecentComment">
+	
+			<ul>
+		
+			<li style="word-break:break-all">
+				<a id="Singlecolumn2__3ecd912c26f4_CommentList_ctl01_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2015/12/01/428197.html#428441">1. re: oracle 索引字段包含date类型，使用spring jdbc更新时不走索引，而是走table access full的问题</a>
+			</li>
+			<li style="word-break:break-all">
+				支持博主，还是没大看懂
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--报表系统</li>
+		
+			<li style="word-break:break-all">
+				<a id="Singlecolumn2__3ecd912c26f4_CommentList_ctl02_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2015/11/16/360047.html#428215">2. re: Flex Builder 4.5 序列号 及Adobe所有产品注册码生成器 [未登录]</a>
+			</li>
+			<li style="word-break:break-all">
+				sdcsdvsdvsd
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--aaa</li>
+		
+			<li style="word-break:break-all">
+				<a id="Singlecolumn2__3ecd912c26f4_CommentList_ctl03_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2015/11/16/360047.html#428214">3. re: Flex Builder 4.5 序列号 及Adobe所有产品注册码生成器 [未登录]</a>
+			</li>
+			<li style="word-break:break-all">
+				bucuo
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--aaa</li>
+		
+			<li style="word-break:break-all">
+				<a id="Singlecolumn2__3ecd912c26f4_CommentList_ctl04_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2015/09/22/356304.html#427422">4. re: Oracle物化视图创建全过程(转)</a>
+			</li>
+			<li style="word-break:break-all">
+				wss
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--sdsa</li>
+		
+			<li style="word-break:break-all">
+				<a id="Singlecolumn2__3ecd912c26f4_CommentList_ctl05_Hyperlink1" href="http://www.blogjava.net/freeman1984/archive/2015/09/17/343253.html#427370">5. re: rownum用法详解 </a>
+			</li>
+			<li style="word-break:break-all">
+				顶博主！<br>求用rownum来update以表中n条置顶数据教程，<br>即实现sql server中top N的update功能。<br>找好久都没有，急用，<br>谢谢啦^_^
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--zdh</li>
+		
+			</ul>
+		
+</div>
+</div>
+
+</div>
+
+    
+<script type="text/javascript">
+//<![CDATA[
+var Page_ValidationSummaries =  new Array(document.getElementById("AjaxHolder_PostComment_ValidationSummary1"));
+var Page_Validators =  new Array(document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2"), document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4"), document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3"));
+//]]>
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+var AjaxHolder_PostComment_RequiredFieldValidator1 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator1"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator1");
+AjaxHolder_PostComment_RequiredFieldValidator1.controltovalidate = "AjaxHolder_PostComment_tbTitle";
+AjaxHolder_PostComment_RequiredFieldValidator1.errormessage = "请输入标题";
+AjaxHolder_PostComment_RequiredFieldValidator1.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator1.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator2 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator2"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator2");
+AjaxHolder_PostComment_RequiredFieldValidator2.controltovalidate = "AjaxHolder_PostComment_tbName";
+AjaxHolder_PostComment_RequiredFieldValidator2.errormessage = "请输入你的姓名";
+AjaxHolder_PostComment_RequiredFieldValidator2.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator2.initialvalue = "";
+var AjaxHolder_PostComment_Requiredfieldvalidator4 = document.all ? document.all["AjaxHolder_PostComment_Requiredfieldvalidator4"] : document.getElementById("AjaxHolder_PostComment_Requiredfieldvalidator4");
+AjaxHolder_PostComment_Requiredfieldvalidator4.controltovalidate = "AjaxHolder_PostComment_CodeNumberTextBox";
+AjaxHolder_PostComment_Requiredfieldvalidator4.errormessage = "请输入验证码";
+AjaxHolder_PostComment_Requiredfieldvalidator4.display = "Dynamic";
+AjaxHolder_PostComment_Requiredfieldvalidator4.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_Requiredfieldvalidator4.initialvalue = "";
+var AjaxHolder_PostComment_RequiredFieldValidator3 = document.all ? document.all["AjaxHolder_PostComment_RequiredFieldValidator3"] : document.getElementById("AjaxHolder_PostComment_RequiredFieldValidator3");
+AjaxHolder_PostComment_RequiredFieldValidator3.controltovalidate = "AjaxHolder_PostComment_tbComment";
+AjaxHolder_PostComment_RequiredFieldValidator3.errormessage = "请输入评论内容";
+AjaxHolder_PostComment_RequiredFieldValidator3.evaluationfunction = "RequiredFieldValidatorEvaluateIsValid";
+AjaxHolder_PostComment_RequiredFieldValidator3.initialvalue = "";
+var AjaxHolder_PostComment_ValidationSummary1 = document.all ? document.all["AjaxHolder_PostComment_ValidationSummary1"] : document.getElementById("AjaxHolder_PostComment_ValidationSummary1");
+AjaxHolder_PostComment_ValidationSummary1.showmessagebox = "True";
+AjaxHolder_PostComment_ValidationSummary1.showsummary = "False";
+//]]>
+</script>
+
+
+<script type="text/javascript">
+//<![CDATA[
+
+var Page_ValidationActive = false;
+if (typeof(ValidatorOnLoad) == "function") {
+    ValidatorOnLoad();
+}
+
+function ValidatorOnSubmit() {
+    if (Page_ValidationActive) {
+        return ValidatorCommonOnSubmit();
+    }
+    else {
+        return true;
+    }
+}
+        
+document.getElementById('AjaxHolder_PostComment_ValidationSummary1').dispose = function() {
+    Array.remove(Page_ValidationSummaries, document.getElementById('AjaxHolder_PostComment_ValidationSummary1'));
+}
+Sys.Application.initialize();
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator1'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator2'));
+}
+
+document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_Requiredfieldvalidator4'));
+}
+
+document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3').dispose = function() {
+    Array.remove(Page_Validators, document.getElementById('AjaxHolder_PostComment_RequiredFieldValidator3'));
+}
+//]]>
+</script>
+</form>
+    <script type="text/javascript" src="/script/ShowHidden.js"></script>
+	<script type="text/javascript">
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-476124-3']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+	</script>
+</body>
+</html>

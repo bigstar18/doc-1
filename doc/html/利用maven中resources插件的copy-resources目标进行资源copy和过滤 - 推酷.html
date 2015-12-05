@@ -1,0 +1,1088 @@
+<!DOCTYPE HTML>
+
+<!--
+ ______________ 
+< TUICOOL.COM >
+ -------------- 
+        \   ^__^
+         \  (**)\__$__$__
+            (__)\       )\/\
+             U  ||------|
+                ||     ||
+-->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="authenticity_token" name="csrf-param" />
+<meta content="t3SjDGyQkPin2yE/dcpMJq79UR+XVneSvCPPMm+IX+I=" name="csrf-token" />
+    <title>
+            利用maven中resources插件的copy-resources目标进行资源copy和过滤 - 推酷
+   </title>
+    <meta name="description" content="利用maven中resources插件的copy-resources目标进行资源copy和过滤"/>
+  <link rel="shortcut icon" href="http://static0.tuicool.com/favicon.ico" type="image/x-icon" />
+  <link href="/assets/application-bc9f103ffac633f3e0506001890d1135.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="http://static0.tuicool.com/assets/font-awesome.min.css" rel="stylesheet">
+  <script src="/assets/application-9d8e2864bc094ddf228d2147120a4b1f.js" type="text/javascript"></script>
+
+  <!--[if IE 7]>
+  <link rel="stylesheet" href="http://assets.tuicool.com/assets/font-awesome-ie7.min.css">
+  <![endif]--> 
+    <script type="text/javascript" src="http://static2.tuicool.com/assets/tip.js?t=3"></script>
+  
+  <script type="text/javascript" src="http://cbjs.baidu.com/js/m.js"></script>
+<script src="http://dup.baidustatic.com/js/ds.js"></script>
+<script type="text/javascript" src="http://static1.tuicool.com/assets/spin.min.js"></script>
+<link rel="stylesheet" href="http://static0.tuicool.com/assets/github.css">
+
+</head>
+<body>
+  
+  <div id="header" class="navbar-fixed-top">
+    <div class="container">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+            <span class="icon-bar"></span> 
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </a>
+          <a href="http://www.tuicool.com/" class="brand">推酷</a>        
+        <nav class="nav-collapse collapse">
+            <ul class="nav navbar primary-nav">                            
+              <li class="active">
+                <a href="http://www.tuicool.com/ah">
+                  文章
+                </a>
+              </li>              
+              <li class="">
+                <a href="http://www.tuicool.com/sites/hot">
+                  站点
+                </a>
+              </li>
+              <li class="">
+                <a href="http://www.tuicool.com/topics">
+                  主题
+                </a>
+              </li>
+              <li class="">
+                <a href="http://course.tuicool.com/">
+                  公开课
+                </a>
+              </li>
+              <li class="">
+                <a href="http://huodong.tuicool.com/">
+                  活动
+                </a>
+              </li>
+              <li class="">
+                <a href="http://www.tuicool.com/mobile">
+                  客户端
+                    <sup style="font-size:0.8em;color: #16A085;">荐</sup>
+                </a>
+              </li>
+              <li class="dropdown  ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">周刊 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://www.tuicool.com/mags">编程狂人</a></li>
+                  <li><a href="http://www.tuicool.com/mags/design">设计匠艺</a></li> 
+                  <li><a href="http://www.tuicool.com/mags/startup">创业周刊</a></li> 
+                  <li><a href="http://www.tuicool.com/mags/tech">科技周刊</a></li>      
+                  <li><a href="http://www.tuicool.com/mags/guru">Guru Weekly</a></li> 
+                  <li><a href="http://www.tuicool.com/articles/weekly">一周拾遗</a></li>                  
+                </ul>
+              </li>
+              
+               <li class="dropdown  ">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">更多 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="http://www.tuicool.com/bbs">讨论区</a></li>  
+                  <li><a href="http://www.tuicool.com/about">关于我们</a></li>                 
+                </ul>
+              </li>
+              
+              </ul>
+            <form class="navbar-search pull-left" action="http://www.tuicool.com/search">
+              <input type="text" class="search-query span2" name="kw" placeholder="搜索">
+            </form>
+            <ul class="nav pull-right">
+                <li><a href="http://www.tuicool.com/login">登录</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+  </div>   
+</div>
+  <div id ="flash_container" class="noPrint">    
+  </div>
+  
+  <div class="container-fluid">  
+      
+<div class="row-fluid article_row_fluid">
+    <div class="span8 contant article_detail_bg">
+        <h1>利用maven中resources插件的copy-resources目标进行资源copy和过滤</h1>
+        <div class="article_meta">
+            <div style="margin-bottom: 5px;">
+            <span class="timestamp">时间&nbsp;2014-06-16 05:01:30
+            </span>
+            <span class="from">
+                <i class="icon-globe"></i>
+                    <a class="cut cut28 from" href="/sites/jaeeAn" target="_blank">ITeye-博客
+                    </a>
+            </span>
+            </div>
+            <div class="source">
+                <i style="float:left;">原文</i>&nbsp; 
+                <a class="cut cut70" href="http://xigua366.iteye.com/blog/2080668?utm_source=tuicool&amp;utm_medium=referral" style="display:inline-block;">http://xigua366.iteye.com/blog/2080668</a>
+            </div>
+            <div>
+                <span>主题</span>
+                <a href="/topics/11070054" target='_blank' >
+                    <span class="new-label">Maven</span>
+                </a>
+            </div>
+        </div>
+        <div class="article_body" id="nei">
+            <div>
+  <p>maven用可以利用如下配置进行资源过滤，pom.xml的配置如下：</p>
+  <pre class="prettyprint">&lt;build&gt;  
+          
+        &lt;!-- 主资源目录 --&gt;  
+        &lt;resources&gt;  
+            &lt;resource&gt;  
+                &lt;!-- 设定主资源目录  --&gt;  
+                &lt;directory&gt;src/main/resources&lt;/directory&gt;  
+                  
+                &lt;!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，只处理如下配置中包含的资源类型   
+                &lt;includes&gt;  
+                    &lt;include&gt;*.xml&lt;/include&gt;  
+                &lt;/includes&gt;  
+                 --&gt;  
+                   
+                &lt;!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，不处理如下配置中包含的资源类型（剔除下如下配置中包含的资源类型）   
+                &lt;excludes&gt;  
+                    &lt;exclude&gt;*.xml&lt;/exclude&gt;  
+                &lt;/excludes&gt;  
+                --&gt;  
+                  
+                &lt;!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，指定处理后的资源文件输出目录，默认是${build.outputDirectory}指定的目录  
+                &lt;targetPath&gt;d:/&lt;/targetPath&gt;  
+                   --&gt;  
+                    
+                &lt;!-- maven default生命周期，process-resources阶段执行maven-resources-plugin插件的resources目标处理主资源目下的资源文件时，是否对主资源目录开启资源过滤 --&gt;  
+                &lt;filtering&gt;true&lt;/filtering&gt;  
+                  
+            &lt;/resource&gt;  
+        &lt;/resources&gt;  
+    &lt;/build&gt;</pre>
+  <p>利用这个特性可以解决开发跟生产环境数据库连接配置等问题，但有时这个特性并不符合实际。比如，开发环境我们使用tomcat应用服务器，使用dbcp数据源，但是生产则使用jboss应用服务器，使用jndi来管理数据源。开发环境跟生产环境spring容器中对于id=dataSources的bean的配置如下所示：</p>
+  <p>开发环境：</p>
+  <pre class="prettyprint">&lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
+		&lt;property name=&quot;driverClassName&quot; value=&quot;oracle.jdbc.driver.OracleDriver&quot; /&gt;
+		&lt;property name=&quot;url&quot; value=&quot;jdbc:oracle:thin:@localhost:1521:gbst&quot; /&gt; &lt;!-- 开发库 --&gt;
+		&lt;property name=&quot;username&quot; value=&quot;admin&quot; /&gt;
+		&lt;property name=&quot;password&quot; value=&quot;admin&quot; /&gt;
+		&lt;property name=&quot;initialSize&quot; value=&quot;1&quot;/&gt;
+		&lt;property name=&quot;maxActive&quot; value=&quot;2&quot;/&gt;
+	&lt;/bean&gt;</pre>
+  <p>&nbsp;生产环境：</p>
+  <pre class="prettyprint">&lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jndi.JndiObjectFactoryBean&quot;&gt;
+		&lt;property name=&quot;jndiName&quot;&gt;
+			&lt;value&gt;PrdDS&lt;/value&gt;
+		&lt;/property&gt;
+		&lt;property name=&quot;resourceRef&quot;&gt;
+			&lt;value&gt;false&lt;/value&gt;
+		&lt;/property&gt;
+	&lt;/bean&gt;</pre>
+  <p>&nbsp;像这种情况，靠&lt;build&gt;&lt;resources&gt;&lt;resource&gt;的资源过滤功能就不太实用了，这时可以采用resources插件的copy-resources目标进行资源copy，来达到分别配置开发环境与生产环境的数据库连接信息及其它一些配置（缓存服务器地址、短信网关系统连接配置等等），下面分步骤来达到这一目的。</p>
+  <p>第一步，实用maven穿件一个maven 工程（maven-demo），工程结构如下图：</p>
+  <p>
+    <br/>
+    <img src="http://img1.tuicool.com/3YBnyu.jpg" alt="" />
+  </p>
+  <p>第二部，在resources下定义spring的配置文件、log4j.properties等文件，并同时在main目录下创建一个deploy的目录，在deploy目录下创建一个prd的目录，然后在prd的目录下也定义一个spring的配置文件、log4j的文件，文件名相同，只是里面的配置的内容不同。添加文件后的maven-demo工程目录结构如下图：</p>
+  <p>
+    <br/>
+    <img src="http://img2.tuicool.com/fyU3ei.jpg" alt="" />
+    <br/>
+    &nbsp;    <br/>
+    &nbsp;main/resoures下的spring配置文件内容如下：  </p>
+  <pre class="prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:jdbc=&quot;http://www.springframework.org/schema/jdbc&quot;
+	xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot; xmlns:util=&quot;http://www.springframework.org/schema/util&quot;
+	xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+	xsi:schemaLocation=&quot;
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+	
+	&lt;!-- 开发环境采用tomcat应用服务器，dbcp数据源管理 --&gt;
+	&lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;&gt;
+		&lt;property name=&quot;url&quot; value=&quot;jdbc:oracle:thin:@localhost:1521:shell&quot;/&gt; 
+		&lt;property name=&quot;driverClassName&quot; value=&quot;oracle.jdbc.driver.OracleDriver&quot;/&gt;  
+		&lt;property name=&quot;username&quot; value=&quot;scott&quot;/&gt;
+		&lt;property name=&quot;password&quot; value=&quot;admin123&quot;/&gt;
+		&lt;property name=&quot;initialSize&quot; value=&quot;1&quot;/&gt;
+		&lt;property name=&quot;maxActive&quot; value=&quot;2&quot;/&gt;
+	&lt;/bean&gt;
+	
+	&lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+		&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+	&lt;/bean&gt;
+&lt;/beans&gt;</pre>
+  <p>main/deploy/prd目录下的spring配置文件内容如下：</p>
+  <pre class="prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+	xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns:jdbc=&quot;http://www.springframework.org/schema/jdbc&quot;
+	xmlns:tx=&quot;http://www.springframework.org/schema/tx&quot; xmlns:util=&quot;http://www.springframework.org/schema/util&quot;
+	xmlns:aop=&quot;http://www.springframework.org/schema/aop&quot; xmlns:context=&quot;http://www.springframework.org/schema/context&quot;
+	xsi:schemaLocation=&quot;
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd&quot;&gt;
+	
+	&lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jndi.JndiObjectFactoryBean&quot;&gt;
+		&lt;property name=&quot;jndiName&quot;&gt;
+			&lt;value&gt;prdDS&lt;/value&gt;
+		&lt;/property&gt;
+		&lt;property name=&quot;resourceRef&quot;&gt;
+			&lt;value&gt;false&lt;/value&gt;
+		&lt;/property&gt;
+	&lt;/bean&gt;
+	
+	&lt;bean id=&quot;jdbcTemplate&quot; class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+		&lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot;&gt;&lt;/property&gt;
+	&lt;/bean&gt;
+&lt;/beans&gt;</pre>
+  <p>（log4j.properties内容就不列出了，如果要想使得开发环境跟生产环境不一样的配置，原理跟spring的配置文件一样的）</p>
+  <p>第三步，配置pom.xml文件，内容如下：</p>
+  <pre class="prettyprint">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+
+	&lt;groupId&gt;com.shell.maven.demo&lt;/groupId&gt;
+	&lt;artifactId&gt;maven-demo&lt;/artifactId&gt;
+	&lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+
+	&lt;name&gt;maven-demo&lt;/name&gt;
+	&lt;url&gt;http://maven.apache.org&lt;/url&gt;
+	
+	&lt;properties&gt;
+		&lt;!-- system property --&gt;
+		&lt;encoding&gt;UTF-8&lt;/encoding&gt;
+		&lt;maven.test.skip&gt;true&lt;/maven.test.skip&gt;
+		&lt;skipTests&gt;true&lt;/skipTests&gt;
+		
+		&lt;!-- spring版本 --&gt;
+		&lt;springframework.version&gt;3.1.0.RELEASE&lt;/springframework.version&gt;
+	&lt;/properties&gt;
+	
+	&lt;profiles&gt;
+		&lt;profile&gt;
+			&lt;id&gt;prd&lt;/id&gt;
+			&lt;build&gt;
+				&lt;plugins&gt;
+					&lt;plugin&gt;
+					&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+					&lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+					&lt;version&gt;2.6&lt;/version&gt;
+					&lt;executions&gt;
+						&lt;execution&gt;
+							&lt;id&gt;copy-resources&lt;/id&gt;
+							&lt;!-- 在default生命周期的 validate阶段就执行resources插件的copy-resources目标 --&gt;
+							&lt;phase&gt;validate&lt;/phase&gt;
+							&lt;goals&gt;
+								&lt;goal&gt;copy-resources&lt;/goal&gt;
+							&lt;/goals&gt;
+							&lt;configuration&gt;
+								&lt;!-- 指定resources插件处理资源文件到哪个目录下 --&gt;
+								&lt;outputDirectory&gt;${project.build.outputDirectory}&lt;/outputDirectory&gt;
+								&lt;!--  也可以用下面这样的方式（指定相对url的方式指定outputDirectory）
+								&lt;outputDirectory&gt;target/classes&lt;/outputDirectory&gt;
+								 --&gt;
+								&lt;!-- 待处理的资源定义 --&gt;
+								&lt;resources&gt;
+									&lt;resource&gt;
+										&lt;!-- 指定resources插件处理哪个目录下的资源文件 --&gt;
+										&lt;directory&gt;src/main/deploy/prd&lt;/directory&gt;
+										&lt;!-- 指定不需要处理的资源 
+										&lt;excludes&gt;
+										  &lt;exclude&gt;WEB-INF/*.*&lt;/exclude&gt;
+										&lt;/excludes&gt;
+										--&gt;
+										&lt;!-- 是否对待处理的资源开启过滤模式 (resources插件的copy-resources目标也有资源过滤的功能，这里配置的
+										这个功能的效果跟&lt;build&gt;&lt;resources&gt;&lt;resource&gt;下配置的资源过滤是一样的，只不过可能执行的阶段不一样，
+										这里执行的阶段是插件指定的validate阶段，&lt;build&gt;&lt;resources&gt;&lt;resource&gt;下的配置将是在resources插件的resources目标执行时起作用（在process-resources阶段）)--&gt;
+										&lt;filtering&gt;false&lt;/filtering&gt;
+									&lt;/resource&gt;
+								&lt;/resources&gt;
+							&lt;/configuration&gt;
+							&lt;inherited&gt;&lt;/inherited&gt;
+						&lt;/execution&gt;
+					&lt;/executions&gt;
+					
+					&lt;/plugin&gt;			
+				&lt;/plugins&gt;
+			&lt;/build&gt;
+		&lt;/profile&gt;
+	&lt;/profiles&gt;
+	
+	&lt;repositories&gt;
+		&lt;repository&gt;
+			&lt;id&gt;myRepo&lt;/id&gt;
+			&lt;name&gt;myRepo Repository&lt;/name&gt;
+			&lt;url&gt;http://maven.infinitus.com.cn:8081/nexus/content/groups/public/&lt;/url&gt;
+			&lt;releases&gt;
+				&lt;enabled&gt;true&lt;/enabled&gt;
+			&lt;/releases&gt;
+			&lt;snapshots&gt;
+				&lt;enabled&gt;true&lt;/enabled&gt;
+			&lt;/snapshots&gt;
+		&lt;/repository&gt;
+	&lt;/repositories&gt;
+	&lt;pluginRepositories&gt;
+		&lt;pluginRepository&gt;
+			&lt;id&gt;myRepo&lt;/id&gt;
+			&lt;name&gt;myRepo Repository&lt;/name&gt;
+			&lt;url&gt;http://maven.infinitus.com.cn:8081/nexus/content/groups/public/&lt;/url&gt;
+			&lt;releases&gt;
+				&lt;enabled&gt;true&lt;/enabled&gt;
+			&lt;/releases&gt;
+			&lt;snapshots&gt;
+				&lt;enabled&gt;true&lt;/enabled&gt;
+			&lt;/snapshots&gt;
+		&lt;/pluginRepository&gt;
+	&lt;/pluginRepositories&gt;
+	
+	&lt;build&gt;
+		
+		&lt;!-- 
+		&lt;resources&gt;
+			&lt;resource&gt;
+				&lt;directory&gt;src/main/resources&lt;/directory&gt;
+				&lt;filtering&gt;true&lt;/filtering&gt;
+			&lt;/resource&gt;
+		&lt;/resources&gt;
+		 --&gt;
+		&lt;plugins&gt;
+		&lt;!-- 指定在jdk1.6环境下编译 --&gt;
+		
+			&lt;plugin&gt;
+				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+				&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+				&lt;version&gt;3.1&lt;/version&gt;
+				&lt;configuration&gt;
+					&lt;source&gt;1.6&lt;/source&gt;
+					&lt;target&gt;1.6&lt;/target&gt;
+				&lt;/configuration&gt;
+			&lt;/plugin&gt;
+		&lt;/plugins&gt;
+	&lt;/build&gt;
+
+	&lt;dependencies&gt;
+		&lt;!-- spring 有关jar --&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-core&lt;/artifactId&gt;
+			&lt;version&gt;${springframework.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-context&lt;/artifactId&gt;
+			&lt;version&gt;${springframework.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-beans&lt;/artifactId&gt;
+			&lt;version&gt;${springframework.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-web&lt;/artifactId&gt;
+			&lt;version&gt;${springframework.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-jdbc&lt;/artifactId&gt;
+			&lt;version&gt;${springframework.version}&lt;/version&gt;
+		&lt;/dependency&gt;
+
+		&lt;!-- oracle 驱动 --&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;com.oracle&lt;/groupId&gt;
+			&lt;artifactId&gt;ojdbc6&lt;/artifactId&gt;
+			&lt;version&gt;11.2.0.3.0&lt;/version&gt;
+		&lt;/dependency&gt;
+
+		&lt;!-- 采用dbcp数据源 --&gt;
+			&lt;dependency&gt;
+				&lt;groupId&gt;commons-dbcp&lt;/groupId&gt;
+				&lt;artifactId&gt;commons-dbcp&lt;/artifactId&gt;
+				&lt;version&gt;1.4&lt;/version&gt;
+			&lt;/dependency&gt;
+
+			&lt;!-- comomons jar --&gt;
+			&lt;dependency&gt;
+				&lt;groupId&gt;commons-lang&lt;/groupId&gt;
+				&lt;artifactId&gt;commons-lang&lt;/artifactId&gt;
+				&lt;version&gt;2.4&lt;/version&gt;
+			&lt;/dependency&gt;
+
+			&lt;dependency&gt;
+				&lt;groupId&gt;commons-io&lt;/groupId&gt;
+				&lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+				&lt;version&gt;2.4&lt;/version&gt;
+			&lt;/dependency&gt;
+
+			&lt;dependency&gt;
+				&lt;groupId&gt;commons-logging&lt;/groupId&gt;
+				&lt;artifactId&gt;commons-logging&lt;/artifactId&gt;
+				&lt;version&gt;1.1.1&lt;/version&gt;
+			&lt;/dependency&gt;
+
+			&lt;dependency&gt;
+				&lt;groupId&gt;commons-collections&lt;/groupId&gt;
+				&lt;artifactId&gt;commons-collections&lt;/artifactId&gt;
+				&lt;version&gt;3.2&lt;/version&gt;
+			&lt;/dependency&gt;
+
+			&lt;dependency&gt;
+				&lt;groupId&gt;commons-beanutils&lt;/groupId&gt;
+				&lt;artifactId&gt;commons-beanutils&lt;/artifactId&gt;
+				&lt;version&gt;1.8.3&lt;/version&gt;
+			&lt;/dependency&gt;
+	&lt;/dependencies&gt;
+	
+	
+&lt;/project&gt;</pre>
+  <p>&nbsp;resources插件的目标共有三个，见下图：（截图自Apache官网）</p>
+  <p>
+    <br/>
+    <img src="http://img0.tuicool.com/VFFrUj.jpg" alt="" />
+    <br/>
+    &nbsp;分别是resources目标 &nbsp;testResources目标 及copy-resources目标。  </p>
+  <p>
+    resources目标默认绑定到了default生命周期的process-resources阶段，    <span>&nbsp;testResources目标默认绑定到了default生命周期的</span>
+    <span>process-test-resources阶段。default生命周期阶段及resources插件这两个目标绑定的阶段和主要作用见下图：</span>
+  </p>
+  <p>
+    <span>
+      <br/>
+      <img src="http://img1.tuicool.com/Jfuiuey.jpg" alt="" />
+      <br/>
+      <span>&nbsp;</span>
+      <span>对于上图中说到的这两个插件目标的主要功能需要进行一下补充：</span>
+    </span>
+  </p>
+  <p>
+    <span>
+      <span>如果配置了如下代码，那么这个时候resources插件的resources目标会进行资源过滤处理，pom.xml配置如下：</span>
+    </span>
+  </p>
+  <pre class="prettyprint">&lt;build&gt;
+		
+		 
+		&lt;resources&gt;
+			&lt;resource&gt;
+				&lt;directory&gt;src/main/resources&lt;/directory&gt;
+				&lt;filtering&gt;true&lt;/filtering&gt;
+			&lt;/resource&gt;
+		&lt;/resources&gt;
+   &lt;/build&gt;</pre>
+  <p>
+    <span>
+      <span>&nbsp;</span>
+    </span>
+  </p>
+  <p>
+    <span>
+      <span>同样，如果配置了如下代码，那么这个时候resources的testResources目标会进行资源过滤处理，pom.xml配置如下：</span>
+    </span>
+  </p>
+  <pre class="prettyprint">&lt;build&gt;
+		&lt;testResources&gt;
+			&lt;testResource&gt;
+				&lt;directory&gt;src/test/resources&lt;/directory&gt;
+				&lt;filtering&gt;true&lt;/filtering&gt;
+			&lt;/testResource&gt;
+		&lt;/testResources&gt;
+   &lt;/build&gt;</pre>
+  <p>
+    <span>
+      <span>&nbsp;</span>
+    </span>
+  </p>
+  <p>
+    <span>
+      <span>现在回到讲解resources插件的copy-resources目标上来，这个插件目标有两项内容是必须配置的，见下图：</span>
+    </span>
+  </p>
+  <p>
+    <span>
+      <span>
+        <br/>
+        <img src="http://img2.tuicool.com/ZBfie2.jpg" alt="" />
+        <br/>
+        &nbsp;      </span>
+    </span>
+  </p>
+  <p>
+    <span>
+      <span>resources插件的resources目标跟testResources目标都只有outputDirectory一个必须的配置项（都表示要讲资源文件处理到那个目录下去），而copy-resources目标多了一个resources的必须配置项，我个人的理解是这样的。首先这个resources配置项也是用来处理资源的，也包含资源过滤等功能，而copy-resources插件目标往往需要配置到resources插件目标及testResources插件目标的绑定的阶段的前面的阶段去执行，所以在resources插件目标还没有起作用执行时，可以利用copy-resources的resources必须配置项做一些预处理，比如资源过滤等</span>
+    </span>
+    <span>（这里的resources必须项配置了之后由copy-resoueces插件目标来执行，与&lt;build&gt;&lt;resources&gt;&lt;resources&gt;下的配置没有直接关系，而且互不干涉。可以这么去理解，在main/deploy/prd下的spring配置文件，如果里面也有一些内容是用${properties}来写的，那里在copy-resources插件目标执行拷贝操作前做一个资源过滤的处理，这个功能实现就得靠copy-resouces插件目标的resources必须配置项来完成了）</span>
+    <span>。</span>
+  </p>
+  <p>
+    <span>第四步，验证效果。先运行mvn clean install命令，然后查看applicationContext.xml文件的内容，再运行mvn clean install -P prd 命令，然后查看applicationContext.xml文件的内容，比较两次有何不同。</span>
+  </p>
+  <p>
+    <span>执行mvn clean install命令如下图：</span>
+  </p>
+  <p>
+    <span>
+      <br/>
+      <img src="http://img1.tuicool.com/yqEbU3r.jpg" alt="" />
+      <br/>
+      &nbsp;    </span>
+  </p>
+  <p>
+    <span>运行成功，如下图：</span>
+  </p>
+  <p>
+    <span>
+      <br/>
+      <img src="http://img1.tuicool.com/e2yUvi.jpg" alt="" />
+      <br/>
+      &nbsp;    </span>
+  </p>
+  <p>
+    <span>编译成功后查看编译后的applicationContext.xml文件内容，如下图：</span>
+  </p>
+  <p>
+    <span>
+      <br/>
+      <img src="http://img2.tuicool.com/Z3aeauu.jpg" alt="" />
+      <br/>
+      &nbsp;从图中可以看到，id=dataSource的配置是开发环境的。    </span>
+  </p>
+  <p>
+    <span>现在运行mvn clean install -P prd命令，如下图：</span>
+  </p>
+  <p>
+    <span>
+      <br/>
+      <img src="http://img1.tuicool.com/zqumEr.jpg" alt="" />
+      <br/>
+      &nbsp;    </span>
+  </p>
+  <p>
+    <span>运行成功，如下图：</span>
+  </p>
+  <p>
+    <span>
+      <br/>
+      <img src="http://img1.tuicool.com/Ib2Ur2.jpg" alt="" />
+      <br/>
+      &nbsp;    </span>
+  </p>
+  <p>
+    <span>此时再来查看编译后的applicationContext.xml文件的内容，如下图：</span>
+  </p>
+  <p>
+    <span>
+      <br/>
+      <img src="http://img2.tuicool.com/uQnyYv.jpg" alt="" />
+      <br/>
+      &nbsp;从上图中可以看到，applicationContext.xml文件被替换成生产环境下的了。    </span>
+  </p>
+  <p>
+    <span>以上就是resources插件的copy-resources插件目标的作用。对于该插件目标下的resources必须配置项的验证，有兴趣的可以敲代码验证。</span>
+  </p>
+</div>
+
+        </div>
+        <div class="article_social">
+         <div class="article_like">
+    <div class="circle circle-like" id="my_zan" data_id="JfaA7r">
+    </div>
+</div>
+        <div id="share_weixin_image">
+            <img width="100px" height="100px" src="http://s.jiathis.com/qrcode.php?url=http://www.tuicool.com/articles/JfaA7r?via=wechat_qr">
+        </div>
+<div class="article_share_fav">
+    <div class="share" id="ckepop">
+        <span>分享</span>
+        <button class="share_weibo" id="share_weibo_id"  title="分享到新浪微博"></button>
+        <button class="share_qq" id="share_qq_id"  title="分享到QQ空间"></button>
+        <button class="share_weixin" id="share_weixin_id"></button>
+    </div>
+    <div class="fav_correct">
+        <button id="my_fav" data_id="JfaA7r">
+            <i class="icon icon-star-empty"></i> <span id="fav_tip">收藏</span>
+        </button>
+        <button id="article-correct" data_id="JfaA7r">
+            <i class="icon icon-warning-sign"></i>
+            <span>纠错</span>
+        </button>
+    </div>
+</div>
+<script type="text/javascript">
+$("#share_weibo_id").click( function() {
+   window.open("http://share.baidu.com/s?type=text&searchPic=0&sign=on&to=tsina&url=http://www.tuicool.com/articles/JfaA7r&title=%E5%88%A9%E7%94%A8maven%E4%B8%ADresources%E6%8F%92%E4%BB%B6%E7%9A%84copy-resources%E7%9B%AE%E6%A0%87%E8%BF%9B%E8%A1%8C%E8%B5%84%E6%BA%90copy%E5%92%8C%E8%BF%87%E6%BB%A4++%28%E5%88%86%E4%BA%AB%E8%87%AA+%40%E6%8E%A8%E9%85%B7%E7%BD%91%29&key=3113829255");
+});
+$("#share_qq_id").click( function() {
+   window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.tuicool.com/articles/JfaA7r&title=%E5%88%A9%E7%94%A8maven%E4%B8%ADresources%E6%8F%92%E4%BB%B6%E7%9A%84copy-resources%E7%9B%AE%E6%A0%87%E8%BF%9B%E8%A1%8C%E8%B5%84%E6%BA%90copy%E5%92%8C%E8%BF%87%E6%BB%A4&desc=&summary=&site=");
+});
+$("#share_weixin_id").click( function() {
+  $("#share_weixin_image").toggle();
+});
+</script>
+
+
+            <div class="bottom_ad huodong-detail-ad-banner clearfix">
+            <script type="text/javascript">
+    var cpro_id = "u1665123";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+
+            </div>
+        </div>
+        <div id="site_articles" style="clear:both;">
+              <div class="article-part-title">
+                <span>推荐文章</span>
+              </div>
+          <ul class="side_article_list">
+                <li class="side_article_list_item">
+                    1.<a href="/articles/feeqUfz" target="_blank" title="Java内部类的一些总结">
+                    Java内部类的一些总结
+                    </a>
+                </li>
+                <li class="side_article_list_item">
+                    2.<a href="/articles/BNJrUvN" target="_blank" title="找出链表的第一个公共节点">
+                    找出链表的第一个公共节点
+                    </a>
+                </li>
+                <li class="side_article_list_item">
+                    3.<a href="/articles/raq6B3y" target="_blank" title="Java系列：关于Java中的桥接方法">
+                    Java系列：关于Java中的桥接方法
+                    </a>
+                </li>
+                <li class="side_article_list_item">
+                    4.<a href="/articles/BrEfMv7" target="_blank" title="poi 输出Excel显示内容">
+                    poi 输出Excel显示内容
+                    </a>
+                </li>
+                <li class="side_article_list_item">
+                    5.<a href="/articles/6FFRjmB" target="_blank" title="Android 开发必备知识：我和 Gradle 有个约会">
+                    Android 开发必备知识：我和 Gradle 有个约会
+                    </a>
+                </li>
+                <li class="side_article_list_item">
+                    6.<a href="/articles/muIRZf" target="_blank" title="Java工程师如何在Docker上进行开发">
+                    Java工程师如何在Docker上进行开发
+                    </a>
+                </li>
+          </ul>
+        </div>
+        <div id="kan_articles"></div>
+        <div id="article_weibo" style="display:none;">
+            <div class='article-part-title'>
+                <span>相关微博</span>
+                <sub>
+                    <a href="/articles/weibo_list/JfaA7r" target="_blank">(<i id="weibo_num"></i>)</a> 
+               </sub>
+            </div>
+            <div class="related-weibo-list"></div>
+        </div>
+        <div class="comments">
+    <div class="comments-area">
+    <div class="comments-header">
+        <h5>我来评几句</h5>
+        <div class="alert comment-alert alert-error" style="display:none;">
+            错误
+        </div>
+            <textarea cols="60" rows="5" id="comment-body" placeholder="请输入评论内容..." style="resize: none;"></textarea>
+            <span class="btn btn-medium btn-submit"  id="comment-submit">登录后评论</span>
+        <p style="margin-top: 5px;margin-left:10px;">
+            已发表评论数(<span class="comment_cnt"></span>)
+        </p>
+    </div>
+    <div class="comments-list">
+        <div class="empty-cmts alert alert-success" style="display:none;">
+            没有更多评论了^^
+        </div>
+    </div>
+    <div class="more-comments" style="display:none;">
+        <a href="">更多评论</a>
+    </div>
+    <div class="load-fail" style="display:none;">
+        评论加载失败，<a href="javascript:reload_comments('JfaA7r',1,0,-1);">重新加载</a>
+    </div>
+    </div>
+</div>
+
+    </div>
+        <div class="span4 article_right_side">
+            <div class="right_top">
+    <div class="article_related_site article_detail_bg">
+    <h4 class="article-part-title">相关站点</h4>
+    <div class="article_related_site_body clearfix">
+        <div class="logo">
+            <img src="http://stimg0.tuicool.com/jaeeAn.png"/>
+        </div>
+        <div class="name">
+            <div>
+                <a href="/sites/jaeeAn" target="_blank"> ITeye-博客</a>
+            </div>
+            <div>
+                    <input type="button" class="btn btn-success right_site_follow" value="+&nbsp;订阅" id="my_follow" data_id="jaeeAn"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="right-ad">
+      <a href="https://www.jpush.cn/?f=tc" target="_blank"><img src="http://static1.tuicool.com/images/ad/jpush300.jpg"/></a>
+
+</div>
+<div class="right-ad" style="margin-top: 8px">
+      <script type="text/javascript">BAIDU_CLB_fillSlot("1161131");</script>
+
+</div>
+<div class="right-ad" style="margin-top: 8px">
+      <a href="http://yacebao.com/?utm_source=web&utm_medium=banner&utm_campaign=tuicool" target="_blank"><img src="http://static2.tuicool.com/images/ad/yunzhihui300.jpg"/></a>
+
+</div>
+<div class="right-ad" style="margin-top: 8px">
+      <a href="https://www.teambition.com/?utm_source=tuicool&utm_medium=banner01" target="_blank"><img src="http://static1.tuicool.com/images/ad/teambition300.jpg"/></a>
+
+</div>
+<div id="right_site_articles" class="article_detail_bg">
+    <div class="article-part-title">
+        <span>热门文章</span>
+    </div>
+    <ul class="side_article_list">
+        <li class="side_article_list_item">
+            1.<a href="/articles/feeqUfz" target="_blank" title="Java内部类的一些总结"> Java内部类的一些总结 </a>
+        </li>
+        <li class="side_article_list_item">
+            2.<a href="/articles/36bEzyQ" target="_blank" title="深入分析JavaWeb Item5 -- Servlet开发"> 深入分析JavaWeb Item5 -- Servlet开发 </a>
+        </li>
+        <li class="side_article_list_item">
+            3.<a href="/articles/BNJrUvN" target="_blank" title="找出链表的第一个公共节点"> 找出链表的第一个公共节点 </a>
+        </li>
+        <li class="side_article_list_item">
+            4.<a href="/articles/raq6B3y" target="_blank" title="Java系列：关于Java中的桥接方法"> Java系列：关于Java中的桥接方法 </a>
+        </li>
+        <li class="side_article_list_item">
+            5.<a href="/articles/BrUNru2" target="_blank" title="内存数据网格提供商一头扎进Java"> 内存数据网格提供商一头扎进Java </a>
+        </li>
+        <li class="side_article_list_item">
+            6.<a href="/articles/BrEfMv7" target="_blank" title="poi 输出Excel显示内容"> poi 输出Excel显示内容 </a>
+        </li>
+    </ul>
+</div>
+</div>
+
+<div class="operate_zone">
+    <div class="container-body share-body">
+        <div class="article-part-title">
+            <span>分享本文</span>
+        </div>
+        <div class="share_zone">
+    <div class="bdsharebuttonbox"> 
+         <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+        <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+        <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_more" data-cmd="more"></a>
+     </div>
+    <script>
+        window._bd_share_config = {
+            "common" : {
+                "bdSnsKey" : {
+                    "tsina" : "3113829255",
+                    "tqq" : "801536792"
+                },
+                "bdText" : "利用maven中resources插件的copy-resources目标进行资源copy和过滤 (分享自 @推酷网)",
+                "bdMini" : "2",
+                "bdMiniList" : false,
+                "bdPic" : "http://aimg1.tuicool.com/3YBnyu.jpg",
+                "bdStyle" : "1",
+                "bdSize" : "24"
+            },
+            "share" : {}
+        };
+        with (document)
+        0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+    </script>
+</div>
+    </div>
+        <div class="frd_pos">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-7054762349007490"
+     data-ad-slot="5705695566"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        </div>
+</div>
+         </div>
+</div>
+
+<div class="read-later-alert">
+</div>
+<div>
+   <a href="#add-article-to-kan" id="add-article-to-kan-btn" class="btn" data-toggle="modal" style="display:none;">添加到推刊</a>
+   <!-- add_article to kan -->
+<div id="add-article-to-kan" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <span class="add-title">收藏到推刊</span>
+    <a href="#new-kan" class="btn pull-right" data-toggle="modal">创建推刊</a>
+    <i class="clearfix"></i>
+  </div>
+  <div class="modal-body">
+    <ul id="add-kan-list">
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <input type="hidden" value="JfaA7r" class="article-id" /> 
+    <button class="btn btn-primary pull-left add-to-btn">  收 藏  </button>
+    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+  </div>
+</div>
+<div class="add-article-to-kan-alert">
+  已收藏到推刊！
+</div>
+
+   <div id="new-kan" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-body">
+    <input type="text" name="name" id="new-kan-name"  placeholder="推刊名(必填)" required data-validation-required-message="请填写推刊名" />
+    <span class="new-ness-name">请填写推刊名</span>
+    <br/>
+    <textarea name="desc" id="desc" rows="6" placeholder="推刊描述"></textarea>
+    <span class="new-ness-desc">描述不能大于100个字符!</span>
+    <br/>
+    权限设置：<input type="radio" name="type" value="1" checked="checked" /> 公开
+    <input type="radio" name="type" value="0"> 仅自己可见
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary pull-left create-kan-btn" disabled>创建</button>
+    <button class="btn dismiss-new-kan" data-dismiss="modal" aria-hidden="true">取消</button>
+  </div>
+</div>
+
+
+</div>
+<div id="article-correct-modal" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            &times;
+        </button>
+        <h3>文章纠错</h3>
+    </div>
+    <div class="modal-body">
+        <input type="hidden" value="JfaA7r" id="article-correct-source">
+        <div>
+            <label for="article-correct-email">
+                邮箱地址
+            </label>
+            <input type="email" id="article-correct-email" class="input-large" />
+        </div>
+        <div>
+            <label for="article-correct-select">
+                错误类型
+            </label>
+            <select id="article-correct-select">
+                <option value="正文不准确">正文不准确</option>
+                <option value="排版有问题">排版有问题</option>
+                <option value="没有分页内容">没有分页内容</option>
+                <option value="视频无法显示">视频无法显示</option>
+                <option value="图片无法显示">图片无法显示</option>
+            </select>
+        </div>
+        <div>
+            <label for="article-correct-other">
+                补充信息
+            </label>
+            <textarea id="article-correct-other" class="span6"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary pull-right huodong_correct_submit" id="article-correct-submit">
+            &nbsp;&nbsp;提交&nbsp;&nbsp;
+        </button>
+    </div>
+</div>
+    <div class="share_zone">
+    <div class="bdsharebuttonbox"> 
+         <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+        <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+        <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+        <a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a>
+        <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+        <a href="#" class="bds_more" data-cmd="more"></a>
+     </div>
+    <script>
+        window._bd_share_config = {
+            "common" : {
+                "bdSnsKey" : {
+                    "tsina" : "3113829255",
+                    "tqq" : "801536792"
+                },
+                "bdText" : "利用maven中resources插件的copy-resources目标进行资源copy和过滤 (分享自 @推酷网)",
+                "bdMini" : "2",
+                "bdMiniList" : false,
+                "bdPic" : "http://aimg1.tuicool.com/3YBnyu.jpg",
+                "bdStyle" : "1",
+                "bdSize" : "24"
+            },
+            "share" : {}
+        };
+        with (document)
+        0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+    </script>
+</div>
+
+<style type="text/css">
+    .btn-large {
+        padding: 0;
+    }
+    .load-fail {
+        display: none;
+    }
+</style>
+<script src="http://static1.tuicool.com//assets/highlight.pack.js"></script>
+<script type="text/javascript">
+    $('table').each(function(i) {
+        var size = $(this).children().size();
+        if (size > 1) {
+            $(this).attr('class',"table table-bordered");
+        } else if (size == 1) {
+            var e11 = $(this).children(":first");
+            var e1 = e11[0];
+            var name = e1.nodeName.toLowerCase();
+            if ("tbody" == name) {
+                if (e11.children().size() > 1) {
+                     $(this).attr('class',"table table-bordered");
+                }
+            }
+        }
+    });
+        window.page = 0;
+        window.last = 0;    
+        window.first = true;
+        resize_article_image('#nei', 550);
+                load_comments("JfaA7r",1,0,-1);
+                window.uid = -1;
+        open_add_article_to_kan("false");
+        async_do_zan_article(); 
+        $('pre').each(function(i, e) {
+            hljs.highlightBlock(e, "<span class='indent'>  </span>", false)
+        });
+       
+          
+       handle_follow_site("#my_follow","已订阅","+ 订阅");
+</script>
+
+
+  </div>
+
+    <div class="footer">
+    <div class="footer-inner">
+    <dl class="about-link site-link">
+        <dt>
+            网站相关
+        </dt>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/about">关于我们</a>
+        </dd>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/mobile">移动应用</a>
+        </dd>
+        <dd>
+            <a target="_blank" href="http://www.tuicool.com/bbs/go/issues">建议反馈</a>
+        </dd>
+    </dl>
+    <dl class="site-link follow-link">
+        <dt>
+            关注我们
+        </dt>
+        <dd>
+            <a target="_blank" href="http://e.weibo.com/tuicool2012"><img src="http://static1.tuicool.com/images/weibo-32.png">推酷网</a>
+        </dd>
+        <dd><img src="http://static1.tuicool.com/images/weixin-32.png">tuicool2012
+        </dd>
+        <dd><img src="http://static1.tuicool.com/images/qun-54.png">QQ群:164644910
+        </dd>
+    </dl>
+    <dl class="site-link links">
+        <dt>
+            友情链接
+        </dt>
+        <dd>
+                <a href="http://www.woshipm.com/" title="人人都是产品经理" target="_blank">人人都是产品经理</a>
+                <a href="http://www.tmtforum.com/" title="TMTForum" target="_blank">TMTForum</a>
+                <a href="http://www.moobuu.com/" title="魔部网" target="_blank">魔部网</a>
+                <a href="http://www.pm265.com/" title="PM256" target="_blank">PM256</a>
+                <a href="http://www.pintu360.com/" title="品途网" target="_blank">品途网</a>
+                <a href="http://www.yidonghua.com/" title="移动信息化" target="_blank">移动信息化</a>
+                <a href="http://www.snsiu.com/" title="行晓网" target="_blank">行晓网</a>
+                <a href="http://code4app.com/" title="Code4App" target="_blank">Code4App</a>
+                <a href="http://www.taskcity.com/" title="智城外包网" target="_blank">智城外包网</a>
+                <a href="http://blog.lamper.cn/" title="LAMP人" target="_blank">LAMP人</a>
+                <a href="http://www.apkway.com/forum.php" title="安卓航班网" target="_blank">安卓航班网</a>
+                <a href="http://www.huxiu.com/" title="虎嗅" target="_blank">虎嗅</a>
+                <a href="http://www.ycpai.com/" title="缘创派" target="_blank">缘创派</a>
+                <a href="http://www.iterduo.com/" title="IT耳朵" target="_blank">IT耳朵</a>
+                <a href="http://www.iresearch.cn/" title="艾瑞网" target="_blank">艾瑞网</a>
+                <a href="http://mediaworks.caixin.com/" title="创媒工场" target="_blank">创媒工场</a>
+                <a href="http://www.leiphone.com/" title="雷锋网" target="_blank">雷锋网</a>
+                <a href="http://www.managershare.com/" title="经理人分享" target="_blank">经理人分享</a>
+                <a href="http://www.shichangbu.com/" title="市场部网" target="_blank">市场部网</a>
+                <a href="http://www.ikanchai.com/" title="砍柴网" target="_blank">砍柴网</a>
+                <a href="http://www.cocoachina.com/" title="CocoaChina" target="_blank">CocoaChina</a>
+                <a href="http://www.ibeifeng.com/" title="北风网" target="_blank">北风网</a>
+                <a href="http://www.jiankongbao.com/" title="云智慧" target="_blank">云智慧</a>
+                <a href="http://www.wyzc.com" title="我赢职场" target="_blank">我赢职场</a>
+                <a href="http://www.thebigdata.cn/" title="大数据时代" target="_blank">大数据时代</a>
+                <a href="http://www.qidic.com/" title="奇笛网" target="_blank">奇笛网</a>
+                <a href="http://www.cngulu.com/" title="咕噜网" target="_blank">咕噜网</a>
+                <a href="http://www.linuxdiyf.com/" title="红联linux" target="_blank">红联linux</a>
+                <a href="http://win10.ithome.com" title="Win10之家" target="_blank">Win10之家</a>
+                <a href="http://www.niaogebiji.com/" title="鸟哥笔记" target="_blank">鸟哥笔记</a>
+                <a href="http://www.play.cn" title="爱游戏" target="_blank">爱游戏</a>
+                <a href="http://www.investide.cn/" title="投资潮" target="_blank">投资潮</a>
+                <a href="http://www.31huiyi.com/" title="31会议网" target="_blank">31会议网</a>
+                <a href="https://www.jpush.cn/" title="极光推送" target="_blank">极光推送</a>
+                <a href="https://www.teambition.com/" title="Teambition" target="_blank">Teambition</a>
+                <a href="http://cn.cocos2d-x.org/ " title="Cocos引擎中文官网" target="_blank">Cocos引擎中文官网</a>
+                <a href="http://www.guigu.org/" title="硅谷网" target="_blank">硅谷网</a>
+            <a href="/links">更多链接>></a>&nbsp;&nbsp;
+        </dd>
+    </dl>
+    <div class="clear"></div>
+    </div>
+</div>
+
+<div style="display:none;">
+   <script src="http://s22.cnzz.com/stat.php?id=5541078&web_id=5541078&show=pic" language="JavaScript"></script>
+</div>
+
+
+</body>
+</html>

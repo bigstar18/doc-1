@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<title>Linux查看物理CPU个数、核数、逻辑CPU个数 - emanlee - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=BNTzSvLwNXn9Gosp1wnExkS6uN3StsznJyScAxSe-tg1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/Custom/bundle-Custom.css?v=Z683z9azGWin6jOfOyAHK6FgPVxm_nmCnl3EFztc2eE1"/>
+<link type="text/css" rel="stylesheet" href="/blog/customcss/16876.css?v=lTEOnuMw7LEPyQBRCIhSeddHKs8%3d"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/emanlee/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/emanlee/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/emanlee/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'emanlee', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=CLLiFNNgL6CohO3Olq2i7r9tPyHtCoryr0KngxdwUm41" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/emanlee/"><img id="blogLogo" src="/Skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/emanlee/">EmanLee, Eman Lee's Space (blog, website) </a></h1>
+<h2>EmanLee, Eman Lee's Space (blog, website) </h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li></li>
+<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/emanlee/">首页</a></li>
+<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li></li>
+<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/emanlee/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/emanlee/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/emanlee/p/3587571.html">Linux查看物理CPU个数、核数、逻辑CPU个数</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><div class="cnblogs_code">
+<pre># 总核数 =<span style="color: #000000;"> 物理CPU个数 X 每颗物理CPU的核数 
+# 总逻辑CPU数 </span>=<span style="color: #000000;"> 物理CPU个数 X 每颗物理CPU的核数 X 超线程数
+
+# 查看物理CPU个数
+</span><span style="color: #0000ff;">cat</span> /proc/cpuinfo| <span style="color: #0000ff;">grep</span> <span style="color: #800000;">"</span><span style="color: #800000;">physical id</span><span style="color: #800000;">"</span>| <span style="color: #0000ff;">sort</span>| <span style="color: #0000ff;">uniq</span>| <span style="color: #0000ff;">wc</span> -<span style="color: #000000;">l
+
+# 查看每个物理CPU中core的个数(即核数)
+</span><span style="color: #0000ff;">cat</span> /proc/cpuinfo| <span style="color: #0000ff;">grep</span> <span style="color: #800000;">"</span><span style="color: #800000;">cpu cores</span><span style="color: #800000;">"</span>| <span style="color: #0000ff;">uniq</span><span style="color: #000000;">
+
+# 查看逻辑CPU的个数
+</span><span style="color: #0000ff;">cat</span> /proc/cpuinfo| <span style="color: #0000ff;">grep</span> <span style="color: #800000;">"</span><span style="color: #800000;">processor</span><span style="color: #800000;">"</span>| <span style="color: #0000ff;">wc</span> -l</pre>
+</div>
+<p>&nbsp;查看CPU信息（型号）<br />cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c</p>
+<p>&nbsp;</p>
+<p><span style="color: #009902;">查看内 存信息<br style="color: #009902;" /><span style="color: #009902;"># cat /proc/meminfo<br style="color: #009902;" /></span></span></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2014-03-08 10:05</span> <a href='http://www.cnblogs.com/emanlee/'>emanlee</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=3587571" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3587571);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=16876,cb_entryId=3587571,cb_blogApp=currentBlogApp,cb_blogUserGuid='564e360b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2014/3/8 10:05:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    fixPostBodyFormat();
+</script>
+<div id="google_ad_c1" class="c_ad_block"></div>
+<div id="under_post_news"></div>
+<div id="google_ad_c2" class="c_ad_block"></div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2015 emanlee
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+</body>
+</html>
