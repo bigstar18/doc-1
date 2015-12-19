@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="keywords" content="码迷,mamicode.com,互联网,软件开发,开源,asp,asp.net,android,apple,jsp,php,Windows,数据库,HTML,JS,CSS,技术文章,游戏,创业,手机相关" /><meta name="baidu-site-verification" content="TEj1q15lpz" /><meta name="description" content="maven依赖本地非repository中的jar包http://www.cnblogs.com/piaolingxue/archive/2011/10/12/2208871.html博客分类：MAVEN今天在使用maven编译打包一个web应用的时候，碰到一个问题：项目在开发是引入了依赖jar包，..." /><title>
+	maven依赖本地非repository中的jar包-依赖jar包放在WEB-INF/lib等目录下的情况客户端编译出错的处理
+</title><link href="css/css.css" type="text/css" rel="stylesheet" />
+<script src="/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script><link rel="stylesheet" type="text/css" href="/kindeditor416/plugins/code/prettify.css" />
+    <script type="text/javascript" charset="utf-8" src="/kindeditor416/plugins/code/prettify.js"></script>
+</head>
+<body>
+    <div class="width100bi height20px divbackgroundcolor">
+    <div class="width1000px divmargin0auto">
+        <div class="divfloatleft">
+        </div>
+        <div class="divfloatright">
+            <div id="logintopdescription" class="paddingtop3">
+            </div>
+        </div>
+        <div class="divfloatclear">
+        </div>
+    </div>
+</div>
+<div class="width1000px divmargin0auto margintop20bottom20">
+    <div class="width120px divfloatleft">
+        <a href="/" title="码迷，mamicode.com">
+            <img src="/img/logo.png" alt="码迷，mamicode.com" width="109" height="60" border="0" />
+        </a>
+    </div>
+    <div class="width880px divfloatright">
+        <div class="menuDiv">
+            <ul>
+                <li class="bottomline width10px">&nbsp;</li>
+                <li id="default-aspx" class="title0"><a href="/" title="码迷，mamicode.com">首页</a></li>
+                <li id="infolist-2" class="title1"><a href="/info-list-2-1.html" title="Web开发">Web开发</a></li>
+                <li id="infolist-3" class="title1"><a href="/info-list-3-1.html" title="Windows程序">Windows程序</a></li>
+                <li id="infolist-4" class="title1"><a href="/info-list-4-1.html" title="编程语言">编程语言</a></li>
+                <li id="infolist-5" class="title1"><a href="/info-list-5-1.html" title="数据库">数据库</a></li>
+                <li id="infolist-6" class="title1"><a href="/info-list-6-1.html" title="移动开发">移动开发</a></li>
+                <li id="infolist-8" class="title1"><a href="/info-list-8-1.html" title="系统相关">系统相关</a></li>
+                <li id="infolist-9" class="title1"><a href="/info-list-9-1.html" title="微信">微信</a></li>
+                <li id="infolist-11" class="title1"><a href="/info-list-11-1.html" title="其他好文">其他好文</a></li>
+                <li id="memberhtml" class="title1"><a href="/member.html" title="会员">会员</a></li>
+                <li class="bottomline width10px">&nbsp;</li>
+            </ul>
+        </div>
+    </div>
+    <div class="divfloatclear">
+    </div>
+</div>
+<div style="margin: 0px auto; width:1000px;" class="margintop10bottom10">
+    <script type="text/javascript">
+        var cpro_id = "u2192072";
+        (window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id] = { at: "3", rsi0: "1000", rsi1: "120", pat: "6", tn: "baiduCustNativeAD", rss1: "#FFFFFF", conBW: "1", adp: "1", ptt: "0", titFF: "%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91", titFS: "14", rss2: "#000000", titSU: "0", ptbg: "90", piw: "0", pih: "0", ptp: "0" }
+    </script>
+    <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+
+    <div class="divdaohang">
+        <div class="divtitlefont">
+            <a href="/" title="码迷首页">首页</a>
+            <span id="lbltitle"> > <a href='/infolist-2-1.html'>Web开发</a> > 详细</span>
+        </div>
+    </div>
+    <div class="divmain">
+        <div class="width70bi divfloatleft" style="min-height:2000px;">
+            <div class="marginright20">
+                <div class="divtextaligncenter">
+    <script type="text/javascript">
+        var cpro_id = "u2391650";
+        (window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id] = { at: "3", rsi0: "680", rsi1: "250", pat: "6", tn: "baiduCustNativeAD", rss1: "#FFFFFF", conBW: "1", adp: "1", ptt: "0", titFF: "%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91", titFS: "14", rss2: "#000000", titSU: "0", ptbg: "90", piw: "0", pih: "0", ptp: "0" }
+    </script>
+    <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+
+                <div class="detailtitle divtextaligncenter divborderbottomdotted">
+                    <h1 id="Htitle" class="detailtitle">maven依赖本地非repository中的jar包-依赖jar包放在WEB-INF/lib等目录下的情况客户端编译出错的处理</h1>
+                </div>
+                <div class="detail1 divtextaligncenter">
+                    时间：<span id="Label2" class="colorlv">2014-08-20 13:56:42</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp; 阅读：<span id="Label1" class="colorCheng">6624</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp; 评论：<span id="lblcommentcount" class="colorCheng">0</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp; 收藏：<span id="lblfavorite" class="colorCheng">0</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp; <a id="infofavorite" class="acursorpointer">[点我收藏+]</a>
+                </div>
+                
+                <div class="detailcontennt">
+                    <span id="Label3"><p>标签：<a href='http://www.mamicode.com/so/1/style' title='style'>style</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/blog' title='blog'>blog</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/http' title='http'>http</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/color' title='color'>color</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/%e4%bd%bf%e7%94%a8' title='使用'>使用</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/os' title='os'>os</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/io' title='io'>io</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/ar' title='ar'>ar</a>&nbsp;&nbsp;&nbsp;</p><p>maven依赖本地非repository中的jar包&nbsp;</p>
+<p>http://www.cnblogs.com/piaolingxue/archive/2011/10/12/2208871.html</p>
+<p>博客分类：&nbsp;<br />MAVEN&nbsp;<br />今天在使用maven编译打包一个web应用的时候，碰到一个问题：&nbsp;<br />项目在开发是引入了依赖jar包，放在了WEB-INF/lib目录下，并通过buildpath中将web libariary导入。&nbsp;<br />在eclipse中开发没有问题，但是使用maven编译插件开始便宜总是报找不到WEB-INF/lib这个jar包中的类。&nbsp;<br />显然实在编译的时候WEB-INF/lib并没有配置到maven-complier-plugin插件src目录中去，&nbsp;<br />于是将这个目录添加进去，还是不好使。无赖，先把这个jar包安装到本地库中，然后添加dependency。&nbsp;<br /><br />后来google了下，发现maven提供了scope为system的依赖，文档的原文如下：&nbsp;<br />system&nbsp;<br />This scope is similar to provided except that you have to provide the JAR which contains it explicitly.&nbsp;<br />The artifact is always available and is not looked up in a repository.&nbsp;<br /><br />这样就可以添加dependency而不需要再将WEB-INF/lib目录下的jar包安装到本地库中了。&nbsp;<br />具体配置录下:&nbsp;<br />Xml代码&nbsp;<br />&lt;dependency&gt;&nbsp;<br />&lt;groupId&gt;org.apache&lt;/groupId&gt;&nbsp;<br />&lt;artifactId&gt;test&lt;/artifactId&gt;&nbsp;<br />&lt;version&gt;1.0&lt;/version&gt;&nbsp;<br />&lt;scope&gt;system&lt;/scope&gt;&nbsp;<br />&lt;systemPath&gt;${basedir}/src/main/webapp/WEB-INF/lib/paypal_base.jar&lt;/systemPath&gt;&nbsp;<br />&lt;/dependency&gt;&nbsp;<br /><br /></p>
+<p><span style="color: #993366; font-size: 14pt;">！更好的方式是配置编译参数&lt;compilerArguments&gt;，添加extdirs将jar包相对路径添加到配置中，如下：</span></p>
+<p><span style="color: #993366;">&lt;build&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;plugins&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;plugin&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;configuration&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;source&gt;1.6&lt;/source&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;target&gt;1.6&lt;/target&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;compilerArguments&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;extdirs&gt;src\main\webapp\WEB-INF\lib&lt;/extdirs&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/compilerArguments&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/configuration&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/plugin&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/plugins&gt;</span><br /><span style="color: #993366;">&nbsp;&nbsp;&nbsp; &lt;/build&gt;</span></p><P style="COLOR: #ffffff"><A style="COLOR: #ffffff" title="maven依赖本地非repository中的jar包-依赖jar包放在WEB-INF/lib等目录下的情况客户端编译出错的处理,bubuko.com" href="http://www.bubuko.com/infodetail-322950.html" target=_blank>maven依赖本地非repository中的jar包-依赖jar包放在WEB-INF/lib等目录下的情况客户端编译出错的处理,布布扣,bubuko.com</A></P><p><a href="http://www.mamicode.com/info-detail-169419.html" title="maven依赖本地非repository中的jar包-依赖jar包放在WEB-INF/lib等目录下的情况客户端编译出错的处理,mamicode.com" style="color:#ffffff"  target="_blank">maven依赖本地非repository中的jar包-依赖jar包放在WEB-INF/lib等目录下的情况客户端编译出错的处理</a></p><p>标签：<a href='http://www.mamicode.com/so/1/style' title='style'>style</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/blog' title='blog'>blog</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/http' title='http'>http</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/color' title='color'>color</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/%e4%bd%bf%e7%94%a8' title='使用'>使用</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/os' title='os'>os</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/io' title='io'>io</a>&nbsp;&nbsp;&nbsp;<a href='http://www.mamicode.com/so/1/ar' title='ar'>ar</a>&nbsp;&nbsp;&nbsp;</p></span>
+                </div>
+                <div id="divcomment">
+                    <div>
+                        <div class=" divtextaligncenter">
+                            <div class="detailcai" id="infono">
+                                <div class="detailcai1 colorboldlan">
+                                    踩</div>
+                                <div class="detailcai2 colorboldlan">
+                                    (<span id="spanNo">0</span>)</div>
+                            </div>
+                            <div class="detailzan" id="infoyes">
+                                <div class="detailzan1 colorboldHong">
+                                    赞</div>
+                                <div class="detailzan2 colorboldHong">
+                                    (<span id="spanYes">1</span>)</div>
+                            </div>
+                            <div class="divfloatclear">
+                            </div>
+                        </div>
+                        <div class="divtextalignright margintop10">
+                            <div class="width100bi paddingleft10right10">
+                                <span id="spanYesContent" class="colorboldHong"></span>&nbsp; <span id="spanNoContent"
+                                    class="colorboldlan"></span>&nbsp; <span id="spanBadContent" class="colorboldHong">
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divtextalignright margintop10">
+                        <span class="detailjubao" id="infobad">举报</span>
+                    </div>
+                    <div class="margintop20bottom20">
+    <div class="divfloatleft">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- mamicode-infodetail-336x280-1 -->
+        <ins class="adsbygoogle" style="display: inline-block; width: 336px; height: 280px"
+            data-ad-client="ca-pub-8616102841876629" data-ad-slot="6851602680"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <div class="divfloatright">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- mamicode-infodetail-336x280-2 -->
+        <ins class="adsbygoogle" style="display: inline-block; width: 336px; height: 280px"
+            data-ad-client="ca-pub-8616102841876629" data-ad-slot="8328335888"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <div class="divfloatclear">
+    </div>
+</div>
+
+                    <div id="comment" class="divtextalignleft margintop20">
+                        <div class="detailpinglun1">
+                            <span class="detailpinglun2 title6">评论</span> <span class="detailpinglun3">一句话评论（<span id="commentCount" class="colorboldHong">0</span>）</span>
+                        </div>
+                        <div class="paddingtop20">
+                            
+                            <div id="commentlistend" name="commentlistend" class="divtextaligncenter margintop20">
+                                <span id="lblpage">共<span class='pagecolorc'>0</span>条&nbsp;&nbsp;</span>
+                            </div>
+                        </div>
+                        <div class="margintop20">
+                            <form method="post" action="/ajaxjs/info_detail_commentadd.aspx">
+                            <div class="divtextalignleft paddingtop20">
+                                <div id="commenthf" class="divbackgroundcolor1">
+                                </div>
+                                <div>
+                                    <textarea name="tbcommentcontent" id="tbcommentcontent" class="tb" style="width: 680px;
+                                        height: 120px;"></textarea>
+                                </div>
+                            </div>
+                            <div class="divtextalignright paddingtop10 ">
+                                <span id="addCommentTishi" class="colorboldHong">登录后才能评论！</span>
+                                <span id="loginno"><input type="button" class="mbtn1" value="登录" onclick="location.href='http://member.mamicode.com/login.aspx?returnUrl=http://www.mamicode.com/infodetail.aspx?id=169419';" /></span>
+                            </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="width30bi divfloatright">
+            
+            <div class="paddingbottom20">
+    <script type="text/javascript">        (function () { document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E')); var bdcs = document.createElement('script'); bdcs.type = 'text/javascript'; bdcs.async = true; bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=7490613033886828738' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date() / 3600000); var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(bdcs, s); })();</script>
+</div>
+<div class="paddingbottom10">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- 1-mamicode-right-300x600 -->
+    <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 600px"
+        data-ad-client="ca-pub-8616102841876629" data-ad-slot="8947049888"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+    <script type="text/javascript">
+        /*mamicode-infodetail-zuoyouxuanfu-120*300 创建于 2015-03-13*/
+        var cpro_id = "u1987286";
+    </script>
+    <script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script>
+    <script>
+        var baiduImagePlus = {
+            noLogo: true,
+            unionId: 'u2416663',
+            formList: [{ formId: 2}]
+        };
+    </script>
+    <script src="http://cpro.baidustatic.com/cpro/ui/i.js"></script>
+</div>
+
+<div class="width100bi divborder">
+    <div class="divtitle">
+        <div id="infofile1_div1" class="divfloatleft divtitlefont">
+            分享档案</div>
+        <div class="divfloatright">
+            <a href="/infotimemore.html" title="分享档案更多" class="colorCheng">更多></a>
+        </div>
+        <div class="divfloatclear">
+        </div>
+    </div>
+    <div class="divtextalignleft paddingleft10right10 margintop10bottom10 heightline30px">
+        
+                <a class="taga" href="/info-time-20151208-1.html" target="_blank" title="2015年12月08日技术分享文章">
+                        2015年12月08日
+                        (774)</a><br />
+            
+                <a class="taga" href="/info-time-20151207-1.html" target="_blank" title="2015年12月07日技术分享文章">
+                        2015年12月07日
+                        (1410)</a><br />
+            
+                <a class="taga" href="/info-time-20151206-1.html" target="_blank" title="2015年12月06日技术分享文章">
+                        2015年12月06日
+                        (982)</a><br />
+            
+                <a class="taga" href="/info-time-20151205-1.html" target="_blank" title="2015年12月05日技术分享文章">
+                        2015年12月05日
+                        (914)</a><br />
+            
+                <a class="taga" href="/info-time-20151204-1.html" target="_blank" title="2015年12月04日技术分享文章">
+                        2015年12月04日
+                        (1264)</a><br />
+            
+                <a class="taga" href="/info-time-20151203-1.html" target="_blank" title="2015年12月03日技术分享文章">
+                        2015年12月03日
+                        (1293)</a><br />
+            
+                <a class="taga" href="/info-time-20151202-1.html" target="_blank" title="2015年12月02日技术分享文章">
+                        2015年12月02日
+                        (1234)</a><br />
+            
+                <a class="taga" href="/info-time-20151201-1.html" target="_blank" title="2015年12月01日技术分享文章">
+                        2015年12月01日
+                        (948)</a><br />
+            
+                <a class="taga" href="/info-time-20151130-1.html" target="_blank" title="2015年11月30日技术分享文章">
+                        2015年11月30日
+                        (1036)</a><br />
+            
+                <a class="taga" href="/info-time-20151129-1.html" target="_blank" title="2015年11月29日技术分享文章">
+                        2015年11月29日
+                        (899)</a><br />
+            
+    </div>
+</div>
+
+            
+<div class="width100bi margintop20 divborder">
+    <div class="divtitle">
+        <div id="infotop2_divtitle" class="divfloatleft divtitlefont">周排行</div>
+        <div class="divfloatright">
+            <img src="/img/j01.jpg" width="14" height="14" alt="mamicode.com排行更多图片" /></div>
+        <div class="divfloatright">
+            <a href="/info-toplist-2-2-1.html" id="infotop2_amore" title="周排行更多">更多</a></div>
+        <div class="divfloatclear">
+        </div>
+    </div>
+    <div>
+        <ul>
+            <li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-876695.html"
+                        title="AFNetWorking的实现分析以及简单使用" target="_blank">
+                        AFNetWorking的实现分析以及简单使用
+                        &nbsp;<span class="colorlan">2015-06-22</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-512207.html"
+                        title="Webpack: 为Web开发而生的模块管理器[转]" target="_blank">
+                        Webpack: 为Web开发而生的模块管理器[转]
+                        &nbsp;<span class="colorlan">2015-03-12</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-511816.html"
+                        title="设置AFNetworking网络请求的超时时间" target="_blank">
+                        设置AFNetworking网络请求的超时时间
+                        &nbsp;<span class="colorlan">2015-03-11</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-394986.html"
+                        title="HttpServletResponse和HttpServletRequest详解" target="_blank">
+                        HttpServletResponse和HttpServletRequest详解
+                        &nbsp;<span class="colorlan">2014-12-29</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-578520.html"
+                        title="@jsonignore的作用" target="_blank">
+                        @jsonignore的作用
+                        &nbsp;<span class="colorlan">2015-04-18</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-513556.html"
+                        title="Webrtc服务器搭建" target="_blank">
+                        Webrtc服务器搭建
+                        &nbsp;<span class="colorlan">2015-03-12</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-572305.html"
+                        title="浅谈 C/S 和 B/S 架构" target="_blank">
+                        浅谈 C/S 和 B/S 架构
+                        &nbsp;<span class="colorlan">2015-04-15</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-500319.html"
+                        title="JS 时间字符串与时间戳之间的转换" target="_blank">
+                        JS 时间字符串与时间戳之间的转换
+                        &nbsp;<span class="colorlan">2015-03-05</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-317383.html"
+                        title="React JS快速入门教程" target="_blank">
+                        React JS快速入门教程
+                        &nbsp;<span class="colorlan">2014-11-17</span> </a></li><li class="divullititle heightline25px divtextalignleft"><a href="/info-detail-407754.html"
+                        title="Angular-ui-router + oclazyload + requirejs实现资源随route懒加载" target="_blank">
+                        Angular-ui-router + oclazyload + requirejs实现资源随route懒加载
+                        &nbsp;<span class="colorlan">2015-01-06</span> </a></li>
+        </ul>
+    </div>
+</div>
+
+            <div class="margintop20">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- mamicode-300x600-pipei -->
+    <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 600px"
+        data-ad-client="ca-pub-8616102841876629" data-ad-slot="9360520689"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+<div id="xuanting" class="width300px">
+    <div class="margintop10">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- mamicode-xuanting-300x250 -->
+        <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px"
+            data-ad-client="ca-pub-8616102841876629" data-ad-slot="3583171088"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <div class="margintop10">
+        <script type="text/javascript">
+            var cpro_id = "u2208973";
+            (window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id] = { at: "3", rsi0: "300", rsi1: "300", pat: "17", tn: "baiduCustNativeAD", rss1: "#FFFFFF", conBW: "1", adp: "1", ptt: "0", titFF: "", titFS: "14", rss2: "#000000", titSU: "0" }
+        </script>
+        <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+    </div>
+</div>
+
+        </div>
+        <div class="divfloatclear">
+        </div>
+    </div>
+    <div class="width1000px divmargin0auto paddingtop20bottom20">
+    <div class="divfloatleft">
+        <script type="text/javascript">
+            var cpro_id = "u1995297";
+            (window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id] = { at: "3", rsi0: "680", rsi1: "250", pat: "6", tn: "baiduCustNativeAD", rss1: "#FFFFFF", conBW: "1", adp: "1", ptt: "0", titFF: "%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91", titFS: "14", rss2: "#000000", titSU: "0", ptbg: "90", piw: "0", pih: "0", ptp: "0" }
+        </script>
+        <script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+    </div>
+    <div class="divfloatright">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- mamicode-bottom-300x250 -->
+        <ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px"
+            data-ad-client="ca-pub-8616102841876629" data-ad-slot="8957115489"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <div class="divfloatclear">
+    </div>
+</div>
+<div class="width1000px divmargin0auto paddingtop20bottom20">
+    <div class="width1000px divborder margintop20">
+        <div class="youqingtitle">
+            <a title="友情链接">友情链接</a>
+        </div>
+        <div class="youqingcontent">
+            <a href='http://www.guozhihua.net/' target='_blank'>国之画</a>&nbsp;&nbsp;<a href='http://tongji.baidu.com'
+                target='_blank'>百度统计</a>&nbsp;&nbsp; <a href='http://www.cnzz.com/' target='_blank'>
+                    站长统计</a>&nbsp;&nbsp;<a href='http://www.aliyun.com/' target='_blank'>阿里云</a>&nbsp;&nbsp;
+        </div>
+    </div>
+</div><div class="bottomdiv">
+    <div class="width1000px divmargin0auto paddingtop20">
+        <div class="height30px divtextalignleft">
+            <a href="/about.html" title="mamicode.com关于我们">关于我们</a> - <a href="/contactus.html"
+                title="mamicode.com联系我们">联系我们</a> - <a href="/guest.html" title="mamicode.com留言反馈">留言反馈</a>
+        </div>
+        <div class="height30px divtextalignleft">
+            © 2014 <a href="http://www.mamicode.com" target="_blank" title="mamicode.com,技术分享">mamicode.com</a>
+            版权所有 京ICP备13008772号-2
+        </div>
+        <div class="divtextalignleft">
+            <span class="colorlan">迷上了代码！</span>
+        </div>
+        <div class="paddingtop20">
+            <script type="text/javascript">                var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://"); document.write(unescape("%3Cspan id='cnzz_stat_icon_1254666564'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1254666564%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <script type="text/javascript">
+                var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb65e01a9bac157f881c4d8cbac4b6995' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+        </div>
+        <br />
+        <br />
+        <br />
+    </div>
+</div>
+<script type="text/javascript" src="/js/mamicodejs.js"></script>
+
+    <script type="text/javascript">        var mid = ''; var id = '169419'; var idm = '668ed3'; var commentitemcount = '0'; var memberhost = 'http://member.mamicode.com/'; prettyPrint(); </script>  
+    <script src="/js/infodetail.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/member.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

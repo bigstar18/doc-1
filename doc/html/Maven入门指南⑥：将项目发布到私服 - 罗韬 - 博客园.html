@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Maven入门指南⑥：将项目发布到私服 - 罗韬 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=xCq7zOzG7ffmeoIZ8ptO6h_XQZKuhaCdCqXw425T8aQ1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/LessIsMore/bundle-LessIsMore.css?v=0F7NKnmmVYJDCp-KQ2sA7Dn1GREfDmWWyNjiJP9YrzE1"/>
+<link type="text/css" rel="stylesheet" href="/blog/customcss/109642.css?v=2YcURhyBZwJQyW78omjLNfequa0%3d"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/luotaoyeah/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/luotaoyeah/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/luotaoyeah/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'luotaoyeah', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=vfyaOatuLMyj5RwdSGYAF5dymrCScyt2dbQ1pH4gldc1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/luotaoyeah/">luotao</a></div>
+<div class="subtitle">你必须很努力，才能看上去毫不费力。</div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/luotaoyeah/">首页</a></li>
+<li id="nav_q"><a class="menu" href="http://q.cnblogs.com/">博问</a></li>
+<li id="nav_ing"><a class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+<li id="nav_newpost"><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/%E7%BD%97%E9%9F%AC">联系</a></li>
+<li id="nav_rss">
+<!----></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-29&nbsp;
+文章-0&nbsp;
+评论-47&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/luotaoyeah/p/3817465.html">Maven入门指南⑥：将项目发布到私服</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p class="post-title">1 . 修改私服中仓库的部署策略</p>
+<p>　　Release版本的项目应该发布到Releases仓库中，对应的，Snapshot版本应该发布到Snapshots仓库中。Maven根据pom.xml文件中版本号&lt;version&gt;节点的属性是否包含-SNAPSHOT，来判断该项目是否是snapshot版本。如果是snapshot版本，在执行mvn deploy部署命令时，maven会自动将项目发布到Snapshots仓库。要发布项目，首先需要将Releases仓库和Snapshots仓库的&ldquo;Deployment Policy&rdquo;设置为&ldquo;Allow Redeploy&rdquo;：</p>
+<p><img src="http://images.cnitblog.com/i/293735/201406/302236089652297.png" alt="" /></p>
+<p class="post-title">2 . 配置项目的部署仓库</p>
+<p>在pom.xml中分别对Release版本和Snapshot版本配置部署仓库，其中id唯一，url分别对应私服中Releases和Snapshots仓库的Repository Path：</p>
+<p><img src="http://images.cnitblog.com/i/293735/201406/302252426059391.png" alt="" /></p>
+<p>&lt;uniqueVersion&gt;表示是否为Snapshot版本分配一个包含时间戳的构建号，效果如下：</p>
+<p><img src="http://images.cnitblog.com/i/293735/201406/302304059962571.png" alt="" /></p>
+<div class="cnblogs_code">
+<pre>    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">distributionManagement</span><span style="color: #0000ff;">&gt;</span>
+        <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">snapshotRepository</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>user-snapshot<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">name</span><span style="color: #0000ff;">&gt;</span>User Porject Snapshot<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">name</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">url</span><span style="color: #0000ff;">&gt;</span>http://localhost:8081/nexus/content/repositories/snapshots/<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">url</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">uniqueVersion</span><span style="color: #0000ff;">&gt;</span>true<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">uniqueVersion</span><span style="color: #0000ff;">&gt;</span>
+        <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">snapshotRepository</span><span style="color: #0000ff;">&gt;</span>
+        <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">repository</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>user-release<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">name</span><span style="color: #0000ff;">&gt;</span>User Porject Release<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">name</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">url</span><span style="color: #0000ff;">&gt;</span>http://localhost:8081/nexus/content/repositories/releases/<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">url</span><span style="color: #0000ff;">&gt;</span>
+        <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">repository</span><span style="color: #0000ff;">&gt;</span>
+    <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">distributionManagement</span><span style="color: #0000ff;">&gt;</span></pre>
+</div>
+<p class="post-title">3 . 启用Deployment用户</p>
+<p>Nexus默认有三个用户，其中Deployment用户用于部署项目：</p>
+<p><img src="http://images.cnitblog.com/i/293735/201406/302255399651911.png" alt="" /></p>
+<p>Deployment用户默认密码为deployment123，右键菜单可修改或重置密码：</p>
+<p><img src="http://images.cnitblog.com/i/293735/201406/302257306847235.png" alt="" /></p>
+<p>在settings.xml中分别为上面配置的部署仓库配置server，其中id需要分别对应上面的部署仓库id：</p>
+<div class="cnblogs_code">
+<pre>    <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">servers</span><span style="color: #0000ff;">&gt;</span>
+        <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">server</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>user-release<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">username</span><span style="color: #0000ff;">&gt;</span>deployment<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">username</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">password</span><span style="color: #0000ff;">&gt;</span>deployment123<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">password</span><span style="color: #0000ff;">&gt;</span>
+        <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">server</span><span style="color: #0000ff;">&gt;</span>
+        <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">server</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>user-snapshot<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">id</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">username</span><span style="color: #0000ff;">&gt;</span>deployment<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">username</span><span style="color: #0000ff;">&gt;</span>
+            <span style="color: #0000ff;">&lt;</span><span style="color: #800000;">password</span><span style="color: #0000ff;">&gt;</span>deployment123<span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">password</span><span style="color: #0000ff;">&gt;</span>
+        <span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">server</span><span style="color: #0000ff;">&gt;</span><span style="color: #000000;">
+        &hellip;        
+    </span><span style="color: #0000ff;">&lt;/</span><span style="color: #800000;">servers</span><span style="color: #0000ff;">&gt;</span></pre>
+</div>
+<p class="post-title">4 . 发布项目</p>
+<p>　　右键pom.xml - Run As - 2 Maven build...</p>
+<p><img src="http://images.cnitblog.com/i/293735/201406/302309511055471.png" alt="" /></p>
+<p>发布成功后，在私服的仓库中就能看到了：</p>
+<p><img src="http://images.cnitblog.com/i/293735/201406/302311224183467.png" alt="" /></p>
+<p class="post-title">5 . 在Nexus中手动上传项目构件</p>
+<p>　　在Nexus仓库的Artifact Upload选项卡中，填写相关信息，可以手动的方式上传项目构件：</p>
+<p><img src="http://images.cnitblog.com/i/293735/201406/302318276523412.png" alt="" /></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2014-06-30 23:20</span> <a href='http://www.cnblogs.com/luotaoyeah/'>罗韬</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=3817465" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3817465);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=109642,cb_entryId=3817465,cb_blogApp=currentBlogApp,cb_blogUserGuid='9d0ae39b-0f6b-e011-a53f-842b2b196315',cb_entryCreatedDate='2014/6/30 23:20:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    fixPostBodyFormat();
+</script>
+<div id="google_ad_c1" class="c_ad_block"></div>
+<div id="under_post_news"></div>
+<div id="google_ad_c2" class="c_ad_block"></div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+});
+</script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2015 罗韬
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+</body>
+</html>

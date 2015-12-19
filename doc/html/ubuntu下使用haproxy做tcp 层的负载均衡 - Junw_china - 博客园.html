@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>ubuntu下使用haproxy做tcp 层的负载均衡 - Junw_china - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=BNTzSvLwNXn9Gosp1wnExkS6uN3StsznJyScAxSe-tg1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/nature/bundle-nature.css?v=SMSmqROZamyrz003uRLsZZQqisVE_ymEDyPy07GKHPw1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/junw_china/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/junw_china/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/junw_china/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'junw_china', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=CLLiFNNgL6CohO3Olq2i7r9tPyHtCoryr0KngxdwUm41" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="banner"><div id="bnr_pic">
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/junw_china/">曲线救国</a><br>
+	</div><br>
+	<div class="headerDis"></div>
+</div>
+</div></div>
+<div id="main">
+	<!-- left starts -->
+	<div id="left">
+		<DIV id="mystats">
+			<br/>
+				
+<!--done-->
+<div class="blogStats">
+随笔 - 8&nbsp;
+文章 - 11&nbsp;
+评论 - 15&nbsp;
+
+</div>
+			
+		</DIV>
+		<div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/junw_china/">首页</a>&nbsp;&nbsp;<a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;<a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/Junw_china">联系</a>&nbsp;&nbsp;<a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a>&nbsp;&nbsp;<a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/junw_china/rss">订阅</a>&nbsp;<a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/junw_china/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a></div>
+		<div id="topics">
+			
+<div id="post_detail">
+<div class="post">
+	<div class="postTitle">
+		<h1><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/junw_china/archive/2011/03/22/1991167.html">ubuntu下使用haproxy做tcp 层的负载均衡</a></h1>
+	</div>
+	<div id="cnblogs_post_body"><p>首先下载haproxy包：</p>
+<p>wget http://haproxy.1wt.eu/download/1.4/src/haproxy-1.4.13.tar.gz</p>
+<p>安装：</p>
+<p>tar zxvf haproxy-1.4.13.tar.gz</p>
+<p>make TARGET=linux26 PREFIX=/usr/local/haproxy　　##我的系统内核为2.6，所以target=linux26</p>
+<p>make install PREFIX=/usr/local/haproxy</p>
+<p>然后进行配置：</p>
+<p>vi /etc/haproxy/haproxy.cfg</p>
+<p>##写入以下内容：</p>
+
+<div class="cnblogs_code">
+<pre><div><span style="color: #000000;">###########全局配置#########<br /></span><span style="color: #0000ff;">global</span><span style="color: #000000;"><br />        daemon<br />        nbproc </span><span style="color: #800080;">1</span><span style="color: #000000;"><br />        pidfile </span><span style="color: #000000;">/</span><span style="color: #000000;">var</span><span style="color: #000000;">/</span><span style="color: #000000;">run</span><span style="color: #000000;">/</span><span style="color: #000000;">haproxy.pid<br /><br /><br />########默认配置############<br />defaults<br />        mode http               #默认的模式mode { tcp</span><span style="color: #000000;">|</span><span style="color: #000000;">http</span><span style="color: #000000;">|</span><span style="color: #000000;">health }，tcp是4层，http是7层，health只会返回OK<br />        retries </span><span style="color: #800080;">2</span><span style="color: #000000;">               #两次连接失败就认为是服务器不可用，也可以通过后面设置<br />        option redispatch       #当serverId对应的服务器挂掉后，强制定向到其他健康的服务器<br />        option abortonclose     #当服务器负载很高的时候，自动结束掉当前队列处理比较久的链接<br />        maxconn </span><span style="color: #800080;">4096</span><span style="color: #000000;">            #默认的最大连接数<br />        timeout connect 5000ms  #连接超时<br />        timeout client 30000ms  #客户端超时<br />        timeout server 30000ms  #服务器超时<br />        #timeout check </span><span style="color: #800080;">2000</span><span style="color: #000000;">      #</span><span style="color: #000000;">=</span><span style="color: #000000;">心跳检测超时<br />        log </span><span style="color: #800080;">127.0</span><span style="color: #000000;">.</span><span style="color: #800080;">0.1</span><span style="color: #000000;"> local0 err #[err warning info debug]<br /><br /><br />########统计页面配置########<br />listen admin_stats<br />        bind </span><span style="color: #800080;">0.0</span><span style="color: #000000;">.</span><span style="color: #800080;">0.0</span><span style="color: #000000;">:</span><span style="color: #800080;">1080</span><span style="color: #000000;">               #监听端口<br />        mode http                       #http的7层模式<br />        option httplog                  #采用http日志格式<br />        #log </span><span style="color: #800080;">127.0</span><span style="color: #000000;">.</span><span style="color: #800080;">0.1</span><span style="color: #000000;"> local0 err<br />        maxconn </span><span style="color: #800080;">10</span><span style="color: #000000;"><br />        stats refresh 30s               #统计页面自动刷新时间<br />        stats uri </span><span style="color: #000000;">/</span><span style="color: #000000;">stats                #统计页面url<br />        stats realm XingCloud\ Haproxy  #统计页面密码框上提示文本<br />        stats auth admin:admin          #统计页面用户名和密码设置<br />        stats hide</span><span style="color: #000000;">-</span><span style="color: #000000;">version              #隐藏统计页面上HAProxy的版本信息<br /><br /><br />########test1配置#################<br />listen test1<br />        bind </span><span style="color: #800080;">0.0</span><span style="color: #000000;">.</span><span style="color: #800080;">0.0</span><span style="color: #000000;">:</span><span style="color: #800080;">90</span><span style="color: #000000;"><br />        mode tcp<br />        #maxconn </span><span style="color: #800080;">4086</span><span style="color: #000000;"><br />        #log </span><span style="color: #800080;">127.0</span><span style="color: #000000;">.</span><span style="color: #800080;">0.1</span><span style="color: #000000;"> local0 debug<br />        server s1 </span><span style="color: #800080;">10.18</span><span style="color: #000000;">.</span><span style="color: #800080;">138.201</span><span style="color: #000000;">:</span><span style="color: #800080;">80</span><span style="color: #000000;"><br />        server s2 </span><span style="color: #800080;">10.18</span><span style="color: #000000;">.</span><span style="color: #800080;">102.190</span><span style="color: #000000;">:</span><span style="color: #800080;">80</span><span style="color: #000000;"><br />        server s3 </span><span style="color: #800080;">10.18</span><span style="color: #000000;">.</span><span style="color: #800080;">102.189</span><span style="color: #000000;">:</span><span style="color: #800080;">80</span><span style="color: #000000;"><br />        server s4 </span><span style="color: #800080;">10.18</span><span style="color: #000000;">.</span><span style="color: #800080;">102.188</span><span style="color: #000000;">:</span><span style="color: #800080;">80</span><span style="color: #000000;"><br />        server s5 </span><span style="color: #800080;">10.18</span><span style="color: #000000;">.</span><span style="color: #800080;">102.187</span><span style="color: #000000;">:</span><span style="color: #800080;">80</span><span style="color: #000000;"><br />########frontend配置##############<br /><br /><br />########test2配置#################<br />listen test2<br />        bind </span><span style="color: #800080;">0.0</span><span style="color: #000000;">.</span><span style="color: #800080;">0.0</span><span style="color: #000000;">:</span><span style="color: #800080;">91</span><span style="color: #000000;"><br />        mode tcp<br />        #maxconn </span><span style="color: #800080;">4086</span><span style="color: #000000;"><br />        #log </span><span style="color: #800080;">127.0</span><span style="color: #000000;">.</span><span style="color: #800080;">0.1</span><span style="color: #000000;"> local0 debug<br />        server s1 </span><span style="color: #800080;">10.18</span><span style="color: #000000;">.</span><span style="color: #800080;">138.130</span><span style="color: #000000;">:</span><span style="color: #800080;">80</span><span style="color: #000000;">      weight </span><span style="color: #800080;">1</span><span style="color: #000000;"><br />        server s2 </span><span style="color: #800080;">10.18</span><span style="color: #000000;">.</span><span style="color: #800080;">138.201</span><span style="color: #000000;">:</span><span style="color: #800080;">8080</span><span style="color: #000000;">    weight </span><span style="color: #800080;">6</span><span style="color: #000000;"><br />########frontend配置##############</span></div></pre>
+</div>
+
+<p><br />ok. 启动haproxy.</p>
+<p>haproxy /etc/haproxy/haproxy.cfg</p>
+<p>马上试试， 发现负载已经成功了。&nbsp; </p>
+<p>但是有一个问题， 不能看到log.&nbsp;&nbsp;&nbsp;&nbsp; 是因为我没有启动syslog.</p>
+<p>在ubuntu下， 需要启动的是rsyslogd.</p>
+<p>我的机器上没有安装，先安装rsyslogd.</p>
+<p>apt-get install rsyslog</p>
+<p><br />安装完成之后，配置rsyslog</p>
+<p>vi /etc/rsyslog.d/haproxy.conf</p>
+<p>加入以下内容：</p>
+<p>$ModLoad imudp<br />$UDPServerRun 514<br /><br />local0.* /var/log/haproxy.log</p>
+<p>保存， 重启rsyslogd.</p>
+<p>restart rsyslogd</p>
+<p>ok.现在你就可以看到日志了。</p>
+<p><br />试试看。</p>
+<p>tail -f /var/log/haproxy.log</p>
+
+<p>最后，再加一个平滑重启的命令：</p>
+<p>haproxy -f /etc/haproxy/haproxy.cfg -sf `cat /var/run/haproxy.pid`</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+	<div class="postDesc">posted on <span id="post-date">2011-03-22 11:29</span> <a href='http://www.cnblogs.com/junw_china/'>Junw_china</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=1991167" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(1991167);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=68682,cb_entryId=1991167,cb_blogApp=currentBlogApp,cb_blogUserGuid='2b64785e-7539-df11-ba8f-001cf0cd104b',cb_entryCreatedDate='2011/3/22 11:29:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    fixPostBodyFormat();
+</script>
+<div id="google_ad_c1" class="c_ad_block"></div>
+<div id="under_post_news"></div>
+<div id="google_ad_c2" class="c_ad_block"></div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script>
+</div>
+
+		</div>
+	</div>
+	<!-- left ends -->
+	<!-- right starts -->
+	<div id="right">
+		<!-- 右侧工具部分 -->
+		<div id="right_content">
+	
+			
+<!--done-->
+<h2 class="listtitle">公告</h2>
+<div class="newsItem">
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+	
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+				<DIV id="leftcontentcontainer">
+					<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+				</DIV>
+			
+		</div>
+		<!-- //右侧工具部分 -->
+		<div id="footer">
+			
+<!--done-->
+Copyright &copy;2015 Junw_china
+		</div>
+	</div>
+	<!-- right ends -->
+	<div class="clear"></div>
+	
+</div>
+
+</body>
+</html>

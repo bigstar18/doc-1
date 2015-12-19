@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<title>[原]HAproxy 代理技术原理探究 - _Boz - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=BNTzSvLwNXn9Gosp1wnExkS6uN3StsznJyScAxSe-tg1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/CodingLife/bundle-CodingLife.css?v=wEuhyZa8-q0-oVr3xsB-DbG-owpVX8M_ZSKCCZRXtEU1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/Bozh/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/Bozh/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/Bozh/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'Bozh', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=CLLiFNNgL6CohO3Olq2i7r9tPyHtCoryr0KngxdwUm41" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/Bozh/"><img id="blogLogo" src="/Skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/Bozh/">破修电脑的</a></h1>
+<h2>对细节的思考是你如何优异于别人最简单的方式</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/Bozh/">首页</a></li>
+<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/_Boz">联系</a></li>
+<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/Bozh/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/Bozh/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔- 63&nbsp;
+文章- 0&nbsp;
+评论- 166&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/Bozh/p/4019607.html">[原]HAproxy 代理技术原理探究</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="cnblogs-markdown"><h1 id="haproxy-">HAproxy 技术分享</h1>
+<h2>简介</h2>
+<p>HAProxy是一款提供高可用性、负载均衡以及基于TCP（第四层）和HTTP（第七层）应用的代理软件</p>
+<hr />
+<h2 id="features">Features</h2>
+<p>1.免费<br /> 2.能够做到4层以上代理<br /> 3.高性能<br /> 4.高稳定性</p>
+<hr />
+<h2>使用案例</h2>
+<p>淘宝CDN(HTTP反向代理)</p>
+<hr />
+<h2>测试:</h2>
+<h3 id="http-ab--i--c-500--n-100000">HTTP代理 <code>ab -i -c 500 -n 100000</code></h3>
+<pre><code>       | --- node 8910 URL = /
+HAproxy| --- node 8911 URL = /
+       | --- node 8912 URL = /
+       | --- node 8913 /test/ (reqisetbe ^[^\ ]*\ /(test|uri)/ server_uri_route) #按照规则转发</code></pre>
+<pre><code>####### haproxy :  (单独由haproxy进行均衡负载)
+
+Concurrency Level:      500
+Time taken for tests:   32.562 seconds
+Complete requests:      100000
+Failed requests:        0
+Write errors:           0
+Total transferred:      36606588 bytes
+HTML transferred:       0 bytes
+Requests per second:    3071.02 [#/sec] (mean)
+Time per request:       162.812 [ms] (mean)
+Time per request:       0.326 [ms] (mean, across all concurrent requests)
+Transfer rate:          1097.85 [Kbytes/sec] received
+
+ 
+
+####### nginx : (单独由nginx进行均衡负载)
+
+Concurrency Level:      500
+Time taken for tests:   36.539 seconds
+Complete requests:      100000
+Failed requests:        0
+Write errors:           0
+Total transferred:      38600000 bytes
+HTML transferred:       0 bytes
+Requests per second:    2736.82 [#/sec] (mean)
+Time per request:       182.694 [ms] (mean)
+Time per request:       0.365 [ms] (mean, across all concurrent requests)
+Transfer rate:          1031.65 [Kbytes/sec] received</code></pre>
+<hr />
+<h2 id="nginx">对比Nginx</h2>
+<h3 id="section"></h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="right">Nginx</th>
+<th align="center">HAproxy</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">HTTP代理性能</td>
+<td align="right">9</td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td align="left">TCP 代理性能</td>
+<td align="right">0</td>
+<td align="center">10</td>
+</tr>
+<tr class="odd">
+<td align="left">稳定性</td>
+<td align="right">10</td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td align="left">转发规则</td>
+<td align="right">10</td>
+<td align="center">7</td>
+</tr>
+<tr class="odd">
+<td align="left">HTTP代理性能</td>
+<td align="right">9</td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td align="left">平滑升级</td>
+<td align="right">10</td>
+<td align="center">8</td>
+</tr>
+</tbody>
+</table>
+<h2 id="-epoll-">原理 <code>epoll 转发</code></h2>
+<p><code>验证 转发方式为如下</code><br /><code>通过TCP代理请求 www.baidu.com</code></p>
+<pre><code>client                   HAProxy                     Backend
+curl |-----------------&gt;| 
+                         accept(client)
+                         recvfrom(client)
+                         sendto(Backent)   
+                                          |--------&gt;|
+                                                     dowith(HAProxy)
+                                          |&lt;--------|
+                         recvfrom(Backend)
+                         sendto(Client)
+     |&lt;-----------------|
+</code></pre>
+<p><code>strace 查看系统调用</code></p>
+<pre><code>    zhangbo3@vm-222:/etc/haproxy$ sudo strace -p 7876
+    
+    epoll_wait(0, {{EPOLLIN, {u32=5, u64=5}}}, 7, 1000) = 1
+    *** (事件循环，监听连接事件)
+    
+    accept(5, {
+        sa_family=AF_INET, 
+        sin_port=htons(56479), 
+        sin_addr=inet_addr(&quot;127.0.0.1&quot;)
+    }, [16]) = 1
+    *** (来自客户端[127.0.0.1]的请求, 端口56479[随机端口])
+    
+    fcntl(1, F_SETFL, O_RDONLY|O_NONBLOCK)  = 0
+    *** (设置连接socket为非阻塞)
+    
+    setsockopt(1, SOL_TCP, TCP_NODELAY, [1], 4) = 0
+    *** (设置TCP连接为 NODELAY, 禁止Nagle算法)
+    
+    accept(5, 0x7fff8da2d7a0, [128]) = -1 EAGAIN 
+    (Resource temporarily unavailable)
+    *** (再次去accept连接失败，因为accept被循环包裹，需要返回 EAGAIN才break)
+    
+    recvfrom(1, &quot;GET HTTP://www.baidu.com HTTP/1.&quot;..., 8192) = 212
+    *** (收到来自客户端的请求 curl -x 127.0.0.1:1180 www.baidu.com)
+    
+    recvfrom(1, 0x2560ac4, 7980, 0, 0, 0)   = -1 EAGAIN 
+    (Resource temporarily unavailable)
+    *** (返回EAGAIN后break,表示收到完整的TCP数据, 开始处理请求数据)
+    
+    epoll_ctl(0, EPOLL_CTL_ADD, 1, {EPOLLIN, {u32=1, u64=1}}) = 0
+    *** (将来自客户端的socket加入epoll监听队列)
+    
+    socket(PF_INET, SOCK_STREAM, IPPROTO_TCP) = 2
+    fcntl(2, F_SETFL, O_RDONLY|O_NONBLOCK)  = 0
+    setsockopt(2, SOL_TCP, TCP_NODELAY, [1], 4) = 0
+    connect(2, {
+        sa_family=AF_INET, 
+        sin_port=htons(8912), 
+        sin_addr=inet_addr(&quot;127.0.0.1&quot;)
+    }, 16) = -1 EINPROGRESS (Operation now in progress)
+    *** (创建到backend的socket连接,这里backend配置为8912)
+    *** (server server3 127.0.0.1:8912)
+    
+    sendto(2, &quot;GET HTTP://www.baidu.com HTTP/1.&quot;..., 
+    212, MSG_DONTWAIT|MSG_NOSIGNAL, NULL, 0) = 212
+    *** (发送数据到backend)
+    epoll_wait(0, {}, 7, 0)                 = 0
+    *** (继续进入epoll_wait,等待来自backend的数据返回)
+    
+    gettimeofday({1413020002, 322710}, NULL) = 0
+    recvfrom(2, 0x255c960, 16384, 0, 0, 0)  = -1 EAGAIN 
+    (Resource temporarily unavailable)
+    *** (Backend数据来了)
+    
+    epoll_ctl(0, EPOLL_CTL_ADD, 2, {EPOLLIN, {u32=2, u64=2}}) = 0
+    epoll_wait(0, {{EPOLLIN, {u32=2, u64=2}}}, 7, 1000) = 1
+    gettimeofday({1413020003, 308930}, NULL) = 0
+    
+    recvfrom(2, &quot;HTTP/1.1 200 OK\r\nDate: Sat, 11 O&quot;...,16384) = 2896
+    *** (backend 返回 HTTP 200, 这是标准HTTP协议头)
+    
+    recvfrom(2, 0x255d4b0, 13488, 0, 0, 0)  = -1 EAGAIN 
+    (Resource temporarily unavailable)
+    
+    sendto(1, &quot;HTTP/1.1 200 OK\r\nDate: Sat, 11 O&quot;...) = 2896
+    *** (将backend返回的数据发送到front end)
+    
+    epoll_wait(0, {{EPOLLIN, {u32=2, u64=2}}}, 7, 1000) = 1
+    *** (继续进入epoll_wait)
+    gettimeofday({1413020003, 309695}, NULL) = 0
+    *** (客户端连接超时，关闭连接)
+    shutdown(2, 1 /* send */)               = 0
+    close(2)                                = 0
+    shutdown(1, 1 /* send */)               = 0
+    close(1)                                = 0
+</code></pre>
+<p><code>验证单进程模型 -&gt; 查看线程数</code><br /><code>cat /proc/7878/status</code></p>
+<pre class="java"><code>    Name:   haproxy
+    State:  S (sleeping)
+    ...
+    Threads:        1
+    SigQ:   0/15594
+    SigPnd: 0000000000000000
+    ShdPnd: 0000000000000000
+    ...</code></pre></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2014-10-11 18:42</span> <a href='http://www.cnblogs.com/Bozh/'>_Boz</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=4019607" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(4019607);return false;">收藏</a></div>
+	</div>
+	<script src="http://common.cnblogs.com/highlight/highlight.min.js"></script><script>markdown_highlight();</script><script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=114561,cb_entryId=4019607,cb_blogApp=currentBlogApp,cb_blogUserGuid='f8274efc-e083-e111-aa3f-842b2b196315',cb_entryCreatedDate='2014/10/11 18:42:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    fixPostBodyFormat();
+</script>
+<div id="google_ad_c1" class="c_ad_block"></div>
+<div id="under_post_news"></div>
+<div id="google_ad_c2" class="c_ad_block"></div>
+<div id="under_post_kb"></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2015 _Boz
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+4AI?Z:cp1z?_RJQle1]Gs;P!T)RHroW|
+<!--PageEndHtml Block End-->
+</body>
+</html>

@@ -1,0 +1,2712 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>电子交易系统 交易客户端使用手册-南方文交所钱币邮票交易中心</title>
+<link href="http://bbs.zgqw.com/thread-158902-1-1.html" rel="canonical" />
+<meta name="keywords" content="电子交易系统 交易客户端使用手册" />
+<meta name="description" content=" 电子交易系统 交易客户端使用手册 " />
+<meta name="MSSmartTagsPreventParsing" content="True" />
+<meta http-equiv="MSThemeCompatible" content="Yes" />
+<meta name="baidu-site-verification" content="Y1ypVebVeU" />
+<base href="http://bbs.zgqw.com/" /><link rel="stylesheet" type="text/css" href="data/cache/style_4_common.css?FJm" /><link rel="stylesheet" type="text/css" href="data/cache/style_4_forum_viewthread.css?FJm" /><script type="text/javascript">var STYLEID = '4', STATICURL = 'static/', IMGDIR = 'static/image/common', VERHASH = 'FJm', charset = 'utf-8', discuz_uid = '0', cookiepre = '4QDb_2132_', cookiedomain = '', cookiepath = '/', showusercard = '1', attackevasive = '0', disallowfloat = 'newthread', creditnotice = '1|威望|', defaultstyle = '', REPORTURL = 'aHR0cDovL2Jicy56Z3F3LmNvbS90aHJlYWQtMTU4OTAyLTEtMS5odG1s', SITEURL = 'http://bbs.zgqw.com/', JSPATH = 'static/js/';</script>
+<script src="static/js/common.js?FJm" type="text/javascript"></script>
+
+<script src="static/js/analytics_jquery.js?FJm" type="text/javascript"></script>
+<script type="text/javascript">
+var analytics_jquery = $.noConflict();
+var analytics_ip = "218.2.224.66";
+var analytics_gid = "257";
+var analytics_fid = "258";
+var analytics_name = encodeURI("南方文交所钱币邮票交易中心");
+var analytics_tid = "158902";
+var analytics_title = encodeURI("电子交易系统 交易客户端使用手册");
+var analytics_last_page_zgqw = encodeURI(document.referrer);
+var analytics_now_page_zgqw = encodeURI(window.location.href);
+analytics_jquery.ajax({
+type: "GET",
+url: "http://news.zgqw.com/s_api/bbs_analytics_insert.php?callbak=?",
+data: {"ip":analytics_ip,"lastpage":analytics_last_page_zgqw,"nowpage":analytics_now_page_zgqw,"gid":analytics_gid,"fid":analytics_fid,"name":analytics_name,"tid":analytics_tid,"title":analytics_title},
+dataType: "jsonp",
+success: function(msg){
+analytics_jquery(document).mousemove(function(e){
+analytics_jquery.ajax({
+type: "GET",
+url: "http://news.zgqw.com/s_api/bbs_analytics_update.php?callbak=?",
+data: {"id":msg.id,"rand":msg.rand,"pw":"zgqw2013"},
+dataType: "jsonp",
+success: function(){
+analytics_jquery(document).unbind("mousemove");
+}
+});
+});
+}
+});
+</script>
+
+<script src="static/js/jquery1.9.1.js?FJm" type="text/javascript"></script>
+<script type="text/javascript">
+var zgqw = $.noConflict();
+zgqw.ajax({//交易提醒
+type: "POST",
+url: "/transaction.php?mod=get_text",
+data: {'pw':'zgqw2013','username':""},
+dataType: "html",
+success: function(msg){
+if( msg > 0 ){
+if( confirm("你有 "+msg+" 个交易正在进行，是否查看？") ){
+window.location.href = "/transaction.php";
+}
+}
+}
+}); 
+</script>
+<meta name="application-name" content="中国钱网" />
+<meta name="msapplication-tooltip" content="中国钱网" />
+<meta name="msapplication-task" content="name=论坛;action-uri=http://bbs.zgqw.com/forum.php;icon-uri=http://bbs.zgqw.com/static/image/common/bbs.ico" />
+<link rel="archives" title="中国钱网" href="http://bbs.zgqw.com/archiver/" />
+<script src="static/js/forum.js?FJm" type="text/javascript"></script>
+
+</head>
+
+<body id="nv_forum" class="pg_viewthread" onkeydown="if(event.keyCode==27) return false;">
+<div id="append_parent"></div><div id="ajaxwaitid"></div>
+
+<div id="qmenu_menu" class="p_pop blk" style="display: none;">
+<div class="ptm pbw hm">
+请 <a href="javascript:;" class="xi2" onclick="lsSubmit()"><strong>登录</strong></a> 后使用快捷导航<br />没有帐号？<a href="member.php?mod=register" class="xi2 xw1">立即注册</a>
+</div>
+</div>
+<div id="hd">
+<div style="width:120px;top:110px;text-align:center;right:30px;position:fixed;_position:absolute;_right:expression(eval(document.documentElement.scrollRight+30));_top:expression(eval(document.documentElement.scrollTop+110));">
+<img width="120" height="160" border="0" src="http://www.zgqw.com/images/wx.jpg?v=wx"><br>
+</div>
+<div class="wp" style="margin-bottom:10px;">
+<div class="hdc cl"><!--logo 头部广告--><!--LOGO-->	<h2><a href="./" title="中国钱网"><img src="static/image/common/logo1.png" alt="中国钱网" border="0" /></a></h2>
+<div class="y"><a href="javascript:;"  onclick="setHomepage('http://bbs.zgqw.com/');">设为首页</a><br/><a href="http://bbs.zgqw.com/"  onclick="addFavorite(this.href, '中国钱网');return false;">收藏本站</a><br/></div>
+</div>
+                <div id="nv">
+<a href="javascript:;" id="qmenu" onMouseOver="showMenu({'ctrlid':'qmenu','pos':'34!','ctrlclass':'a','duration':2});">快捷导航</a>
+<!----主导航菜单--><ul><li id="mn_Nfc64" ><a href="http://www.zgqw.com" hidefocus="true"  >首页</a></li><li id="mn_N6689" ><a href="http://mall.zgqw.com/store/6568" hidefocus="true" target="_blank"  >网上商城</a></li><li id="mn_N48eb" ><a href="http://bbs.zgqw.com/forum-7-1.html" hidefocus="true"  >交易中介</a></li><li id="mn_Ncdc4" ><a href="http://news.zgqw.com" hidefocus="true" target="_blank"  >资讯</a></li><li class="a" id="mn_forum" ><a href="forum.php" hidefocus="true" title="BBS"  >论坛<span>BBS</span></a></li><li id="mn_N1fad" ><a href="http://star.zgqw.com" hidefocus="true" target="_blank"  >名人榜</a></li><li id="mn_N9c1b" ><a href="http://bbs.zgqw.com/forum-229-1.html" hidefocus="true"   style="color: yellow">嘉宾对话</a></li><li id="mn_N3c3d" ><a href="http://bbs.zgqw.com/forum.php?gid=114" hidefocus="true"  >拍卖区</a></li><li id="mn_Nbf5f" ><a href="http://vip.zgqw.com" hidefocus="true" target="_blank"  >会员认证</a></li><li id="mn_N80df" ><a href="http://bbs.zgqw.com/forum-226-1.html" hidefocus="true"  >意见反馈</a></li></ul><!--主导航菜单-->
+</div>
+           
+   <!--用户信息修改部分-->
+<!--用户登陆 注册-->
+<script src="static/js/logging.js?FJm" type="text/javascript"></script>
+<div id="um" style="border:1px #2a77c7 solid;background:#e4ebf1;padding:0px 10px;margin:0;height:32px;">
+<form method="post" autocomplete="off" id="lsform" action="member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes" style="float:left;">
+用户名:<input type="text" name="username" id="ls_username" autocomplete="off" class="px vm" tabindex="901" />
+密码:<input type="password" name="password" id="ls_password" class="px vm" autocomplete="off" tabindex="902" />
+<input type="submit" class="pn vm" tabindex="904" style="width: 75px;" value="登录"/>
+</form>
+<a href="http://bbs.zgqw.com/connect.php?mod=login&amp;op=init&amp;referer=forum.php&amp;statfrom=login_simple"><img alt="QQ登录" class="vm" src="static/image/common/qq_login.gif"></a>
+&nbsp;<a href="member.php?mod=register" class="xi2 xw1">有奖注册</a>
+&nbsp;<a class="xi2 xw1" href="javascript:;" onclick="showWindow('login', 'member.php?mod=logging&action=login&viewlostpw=1')">找回密码</a>
+</div>
+<!--用户信息修改部分 end-->
+</div>
+</div>
+     
+<div class="wp" style="font-weight:bold; text-align:center;">
+<table width="100%" border="1" bordercolor="#2a77c7" align="center">
+  <tr>
+<td width="12.5%"><a href="http://bbs.zgqw.com/forum-7-1.html" target="_blank">安全支付通道</a></td>
+<td width="12.5%"><a href="http://bbs.zgqw.com/thread-21652-1-1.html" style="color:red;" target="_blank">交易频道防骗必看</a></td>
+<td width="12.5%"><a href="http://bbs.zgqw.com/thread-21649-1-1.html" style="color:red;" target="_blank">交易风险提示</a></td>
+<td width="12.5%"><a href="http://bbs.zgqw.com/thread-21529-1-1.html" style="color:red;" target="_blank">交易规则</a></td>
+<td width="12.5%"><a href="http://bbs.zgqw.com/thread-21714-1-1.html" style="color:blue;" target="_blank">如何上传图片</a></td>
+<td width="12.5%"><a href="http://bbs.zgqw.com/forum-226-1.html" style="color:blue;" target="_blank">意见反馈</a></td>
+<td width="12.5%"><a href="http://bbs.zgqw.com/thread-21655-1-1.html" target="_blank">信用积分纠错</a></td>
+<td width="12.5%"><a href="http://bbs.zgqw.com/thread-23569-1-1.html" style="color:blue;">交易评分指南</a></td>
+  </tr>
+  <tr>
+<td><a href="http://bbs.zgqw.com/thread-21653-1-1.html" target="_blank">交易认证流程</a></td>
+<td><a href="http://bbs.zgqw.com/thread-21656-1-1.html" target="_blank">新手注册指南</a></td>
+<td><a href="http://vip.zgqw.com/index.php" target="_blank">申请纯买家会员</a></td>
+<td><a href="http://vip.zgqw.com/salesman.php" target="_blank">卖家快速认证</a></td>
+<td><a href="http://bbs.zgqw.com/thread-21654-1-1.html" target="_blank">推荐新会员</a></td>
+<td><a href="http://bbs.zgqw.com/forum-3-1.html" target="_blank">钱币仲裁区</a></td>
+<td><a href="/home.php?mod=spacecp&amp;ac=invite">邀请好友</a></td>
+<td><a href="/thread-25705-1-1.html">如何邀请好友</a></td>
+  </tr>
+</table>
+</div>
+<div class="wp"><div id="scbar" class="scbar_narrow cl" style="border:1px solid #2a77c7; border-top:none;padding-top:8px;">
+<form id="scbar_form" method="post" autocomplete="off" onsubmit="searchFocus($('scbar_txt'))" action="search.php?searchsubmit=yes" target="_blank">
+<input type="hidden" name="mod" id="scbar_mod" value="search" />
+<input type="hidden" name="formhash" value="5124f7f4" />
+<input type="hidden" name="srchtype" value="title" />
+<input type="hidden" name="srhfid" value="258" />
+<input type="hidden" name="srhlocality" value="forum::viewthread" />
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="scbar_icon_td"></td>
+<td class="scbar_txt_td"><input type="text" name="srchtxt" id="scbar_txt" value="请输入搜索内容" autocomplete="off" x-webkit-speech speech /></td>
+<td class="scbar_type_td"><a href="javascript:;" id="scbar_type" class="showmenu xg1 xs2" onclick="showMenu(this.id)" hidefocus="true">搜索</a></td>
+<td class="scbar_btn_td"><button type="submit" name="searchsubmit" id="scbar_btn" sc="1" class="pn pnc" value="true"><strong class="xi2 xs2">搜索</strong></button></td>
+<td class="scbar_hot_td">
+<div id="scbar_hot">
+<strong class="xw1">热搜: </strong>
+
+<a href="search.php?mod=forum&amp;srchtxt=%E5%8D%97%E6%96%B9%E6%96%87%E4%BA%A4%E6%89%80%E9%92%B1%E5%B8%81%E9%82%AE%E7%A5%A8%E4%BA%A4%E6%98%93%E4%B8%AD%E5%BF%83&amp;formhash=5124f7f4&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">南方文交所钱币邮票交易中心</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E5%BB%BA%E5%9B%BD%E9%92%9E&amp;formhash=5124f7f4&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">建国钞</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=%E7%BB%BF%E5%B9%BD%E7%81%B5&amp;formhash=5124f7f4&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">绿幽灵</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=8002&amp;formhash=5124f7f4&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">8002</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=8050&amp;formhash=5124f7f4&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">8050</a>
+
+
+
+<a href="search.php?mod=forum&amp;srchtxt=80100&amp;formhash=5124f7f4&amp;searchsubmit=true&amp;source=hotsearch" target="_blank" class="xi2" sc="1">80100</a>
+
+</div>
+</td>
+</tr>
+</table>
+</form>
+</div>
+<ul id="scbar_type_menu" class="p_pop" style="display: none;"><li><a href="javascript:;" rel="curforum" fid="258" >本版</a></li><li><a href="javascript:;" rel="forum" class="curtype">帖子</a></li><li><a href="javascript:;" rel="user">用户</a></li></ul>
+<script type="text/javascript">
+initSearchmenu('scbar', '');
+</script>
+<div><a href="http://bbs.zgqw.com/thread-739363-1-1.html" target="_blank"><img src="http://bbs.zgqw.com/template/pun_qing/image/123.jpg"/>
+</a>	
+</div>
+</div>
+
+<div id="wp" class="wp">
+<!--活动广告图 start-->
+<!--div id="index_sidebar_ad" style="width:77px;top:40px;text-align:center;left:10px;position:fixed;_position:absolute; _left:expression(eval(document.documentElement.scrollLeft+10)); _top:expression(eval(document.documentElement.scrollTop+40));">
+</div-->
+<!--div id="index_dcwj" style="width:77px;top:500px;text-align:center;left:10px;position:fixed;_position:absolute; _left:expression(eval(document.documentElement.scrollLeft+10)); _top:expression(eval(document.documentElement.scrollTop+500));">
+<div style="width: 180px; text-align: center;">
+<a target="_blank" href="http://bbs.zgqw.com/dcwj.php"><img width="180" height="120" border="0" src="http://bbs.zgqw.com/static/image/dcwj/dc.gif" title="中国钱网调查问卷活动" alt="中国钱网调查问卷活动"></a>
+</div>
+</div-->
+<!--中国钱网调查问卷活动 start-->
+<!--<style type="text/css">
+#msg_win{border:1px solid #A67901;background:#EAEAEA;width:180px;position:absolute;right:0;font-size:12px;font-family:Arial;margin:0px;display:none;overflow:hidden;z-index:99;}
+#msg_win .icos{position:absolute;top:2px;*top:0px;right:2px;z-index:9;}
+.icos a{float:left;color:#833B02;margin:1px;text-align:center;font-weight:bold;width:14px;height:22px;line-height:22px;padding:1px;text-decoration:none;font-family:webdings;}
+.icos a:hover{color:#fff;}
+#msg_title{background:#FECD00;border-bottom:1px solid #A67901;border-top:1px solid #FFF;border-left:1px solid #FFF;color:#000;height:25px;line-height:25px;text-indent:5px;}
+#msg_content{width:180px;height:120px;overflow:hidden;}
+</style>
+<div id="msg_win" style="display:block;top:490px;visibility:visible;opacity:1;">
+<div class="icos"><a id="msg_min" title="最小化" href="javascript:void 0">_</a><a id="msg_close" title="关闭" href="javascript:void 0">×</a></div>
+<div id="msg_title">钱网问卷调查活动</div>
+<div id="msg_content"><a target="_blank" href="http://bbs.zgqw.com/dcwj.php"><img width="180" height="120" border="0" src="http://bbs.zgqw.com/static/image/dcwj/dc.gif" title="中国钱网调查问卷活动" alt="中国钱网调查问卷活动"></a></div>
+</div>
+<script language="javascript">
+var Message={
+set: function() {//最小化与恢复状态切换
+var set=this.minbtn.status == 1?[0,1,'block',this.char[0],'最小化']:[1,0,'none',this.char[1],'展开'];
+this.minbtn.status=set[0];
+this.win.style.borderBottomWidth=set[1];
+this.content.style.display =set[2];
+this.minbtn.innerHTML =set[3]
+this.minbtn.title = set[4];
+this.win.style.top = this.getY().top;
+},
+close: function() {//关闭
+this.win.style.display = 'none';
+window.onscroll = null;
+},
+setOpacity: function(x) {//设置透明度
+var v = x >= 100 ? '': 'Alpha(opacity=' + x + ')';
+this.win.style.visibility = x<=0?'hidden':'visible';//IE有绝对或相对定位内容不随父透明度变化的bug
+this.win.style.filter = v;
+this.win.style.opacity = x / 100;
+},
+show: function() {//渐显
+clearInterval(this.timer2);
+var me = this,fx = this.fx(0, 100, 0.1),t = 0;
+this.timer2 = setInterval(function() {
+t = fx();
+me.setOpacity(t[0]);
+if (t[1] == 0) {clearInterval(me.timer2) }
+},10);
+},
+fx: function(a, b, c) {//缓冲计算
+var cMath = Math[(a - b) > 0 ? "floor": "ceil"],c = c || 0.1;
+return function() {return [a += cMath((b - a) * c), a - b]}
+},
+getY: function() {//计算移动坐标
+var d = document,b = document.body, e = document.documentElement;
+var s = Math.max(b.scrollTop, e.scrollTop);
+var h = /BackCompat/i.test(document.compatMode)?b.clientHeight:e.clientHeight;
+var h2 = this.win.offsetHeight;
+return {foot: s + h + h2 + 2+'px',top: s + h - h2 - 2+'px'}
+},
+moveTo: function(y) {//移动动画
+clearInterval(this.timer);
+var me = this,a = parseInt(this.win.style.top)||0;
+var fx = this.fx(a, parseInt(y));
+var t = 0 ;
+this.timer = setInterval(function() {
+t = fx();
+me.win.style.top = t[0]+'px';
+if (t[1] == 0) {
+clearInterval(me.timer);
+me.bind();
+}
+},10);
+},
+bind:function (){//绑定窗口滚动条与大小变化事件
+var me=this,st,rt;
+window.onscroll = function() {
+clearTimeout(st);
+clearTimeout(me.timer2);
+me.setOpacity(0);
+st = setTimeout(function() {
+me.win.style.top = me.getY().top;
+me.show();
+},600);
+};
+window.onresize = function (){
+clearTimeout(rt);
+rt = setTimeout(function() {me.win.style.top = me.getY().top},100);
+}
+},
+init: function() {//创建HTML
+function $(id) {return document.getElementById(id)};
+this.win=$('msg_win');
+var set={minbtn: 'msg_min',closebtn: 'msg_close',title: 'msg_title',content: 'msg_content'};
+for (var Id in set) {this[Id] = $(set[Id])};
+var me = this;
+this.minbtn.onclick = function() {me.set();this.blur()};
+this.closebtn.onclick = function() {me.close()};
+this.char=navigator.userAgent.toLowerCase().indexOf('firefox')+1?['_','::','×']:['0','2','r'];//FF不支持webdings字体
+this.minbtn.innerHTML=this.char[0];
+this.closebtn.innerHTML=this.char[2];
+setTimeout(function() {//初始化最先位置
+me.win.style.display = 'block';
+me.win.style.top = me.getY().foot;
+me.moveTo(me.getY().top);
+},0);
+return this;
+}
+};
+Message.init();
+</script>
+-->
+<!--中国钱网调查问卷活动 end-->
+<script type="text/javascript">
+zgqw(function(){
+zgqw.ajax({
+type: "GET",
+url: "http://news.zgqw.com/s_api/sidebar_ad_bbs.php?callbak=?",
+dataType: "jsonp",
+data: {"pw":"zgqw2013"},
+success: function(jsonp){
+zgqw("#index_sidebar_ad").html( '' );
+zgqw("#index_sidebar_ad").append( jsonp.html );
+}
+});
+magic_top_show();
+});
+
+function magic_top_show()
+{
+zgqw.ajax({
+type: "GET",
+url: "http://bbs.zgqw.com/s_api/magic_top_thread_show.php",
+dataType: "html",
+data: {"pw":"zgqw2013"},
+success: function(data){
+zgqw("#magic_top_show").html( '' );
+zgqw("#magic_top_show").append( data );
+}
+});
+}
+
+</script>
+<!--活动广告图 end--><script type="text/javascript">var fid = parseInt('258'), tid = parseInt('158902');</script>
+
+<script src="static/js/forum_viewthread.js?FJm" type="text/javascript"></script>
+<script type="text/javascript">zoomstatus = parseInt(1);var imagemaxwidth = '600';var aimgcount = new Array();</script>
+
+<style id="diy_style" type="text/css"></style>
+<!--[diy=diynavtop]--><div id="diynavtop" class="area"></div><!--[/diy]-->
+<div id="pt" class="bm cl">
+<div class="z">
+<a href="./" class="nvhm" title="首页">中国钱网</a><em>&raquo;</em><a href="forum.php">论坛</a> <em>&rsaquo;</em> <a href="forum.php?gid=257">钱网聚焦</a> <em>&rsaquo;</em> <a href="forum-258-1.html">南方文交所钱币邮票交易中心</a> <em>&rsaquo;</em> <a href="thread-158902-1-1.html">电子交易系统 交易客户端使用手册</a>
+</div>
+</div>
+
+<style id="diy_style" type="text/css"></style>
+<div class="wp">
+<!--[diy=diy1]--><div id="diy1" class="area"></div><!--[/diy]-->
+</div>
+
+<div id="ct" class="wp cl">
+<div id="pgt" class="pgs mbm cl ">
+<div class="pgt"></div>
+<span class="y pgb"><a href="forum-258-1.html">返回列表</a></span>
+<a href="forum.php?mod=post&amp;action=newthread&amp;fid=258" title="发新帖" style="margin-right:5px;"><img src="static/image/common/pn_post.gif" alt="发新帖" /></a>
+<a href="forum.php?mod=post&amp;action=newthread&amp;fid=258&amp;special=2" title="发起交易" style="margin-right:5px;"><img src="static/image/common/pn_pay.gif" alt="发起交易" /></a>
+</div>
+
+<!--帖子按钮-->
+
+<!--帖子按钮-->
+
+<!--标题-->
+<div style="background:#2a77c7;color:#ffffff;padding:3px 10px;">
+<table width="100%"><tr>
+  <td width="85%">标题：<h1 class="ts"><a href="thread-158902-1-1.html" id="thread_subject"><SPAN style="COLOR:#FFFFFF">电子交易系统 交易客户端使用手册</SPAN></a>
+</h1>
+<span class="xg1" >
+<a href="thread-158902-1-1.html" onclick="return copyThreadUrl(this)" ><SPAN style="COLOR:#FFFFFF">[复制链接]</SPAN></a>
+</span><!--复制链接--></td>
+<td width="15%" align="right"><div class="y" ><a href="forum.php?mod=viewthread&amp;action=printable&amp;tid=158902" title="打印" target="_blank"><img src="static/image/common/print.png" alt="打印" class="vm" /></a>
+<a href="forum.php?mod=redirect&amp;goto=nextoldset&amp;tid=158902" title="上一主题"><img src="static/image/common/thread-prev.png" alt="上一主题" class="vm" /></a>
+<a href="forum.php?mod=redirect&amp;goto=nextnewset&amp;tid=158902" title="下一主题"><img src="static/image/common/thread-next.png" alt="下一主题" class="vm" /></a>
+</div><!--打印按钮---></td></tr></table>
+                <!--标题内容结束---> 
+</div>
+<!--帖子内容显示-->
+<div id="postlist" class="pl bm">
+
+
+
+<table cellspacing="0" cellpadding="0" class="ad"><tr><td class="pls"></td><td class="plc"></td></tr></table><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_294138"><div id="threadstamp"><img src="static/image/stamp/005.gif" title="置顶" /></div>
+<script type="text/javascript">
+//加载签名
+function get_signature_bbs(uid, groupid, authorid, number){
+/*zgqw.get("/s_api/get_signature_bbs.php", { 'pw': 'zgqw2013', 'uid': uid, 'authorid': authorid, 'groupid': groupid },
+function(data){
+zgqw('#my_sign_html_'+number).html('');
+zgqw('#my_sign_html_'+number).html(data);
+});*/
+zgqw.ajax({
+type: "GET",
+url: "/s_api/get_signature_bbs.php",
+dataType:'html',
+data: { 'pw': 'zgqw2013', 'uid': uid, 'authorid': authorid, 'groupid': groupid },
+success: function(data){
+zgqw('#my_sign_html_'+number).html('');
+zgqw('#my_sign_html_'+number).html(data);
+}
+});
+}
+</script>
+<table id="pid294138" summary="pid294138" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="space-uid-7327.html" target="_blank" class="xw1">小美</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo294138" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo294138_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="space-uid-7327.html" target="_blank" class="xi2">小美</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>注册时间</dt><dd>2013-3-21</dd><dt>最后登录</dt><dd>2015-11-27</dd><dt>阅读权限</dt><dd>200</dd><dt>积分</dt><dd>6617</dd><dt>精华</dt><dd>1</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=7327&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">2166</a></dd></dl>
+<div class="imicn">
+<a href="home.php?mod=space&amp;uid=7327&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo294138')"><a href="space-uid-7327.html" target="_blank"><img src="http://bbs.zgqw.com/uc_server/avatar.php?uid=7327&size=middle?v=1449799958" /></a></div>
+
+<p>交易等级：<font color="#FF0000">管理员</font></p>
+<!--等级图标 start-->
+<p><img src="static/image/common/star_level3.gif" alt="Rank: 25" /><img src="static/image/common/star_level3.gif" alt="Rank: 25" /><img src="static/image/common/star_level3.gif" alt="Rank: 25" /><img src="static/image/common/star_level3.gif" alt="Rank: 25" /><img src="static/image/common/star_level3.gif" alt="Rank: 25" /><img src="static/image/common/star_level3.gif" alt="Rank: 25" /><img src="static/image/common/star_level1.gif" alt="Rank: 25" /></p>
+<!--等级图标 end-->
+<p>交易评分：0</p>
+<p>评分次数：0</p>
+<p>发帖积分：6617</p>
+<p>发贴次数：2166</p>
+<p>金豆：1121个<span style="font-weight:bolder;color:red;">(已使用0个，余额1121个)</span></p>
+<p>注册日期：2013-3-21</p>
+<!--<p>最后登录：<!--echo dnumber(2015-11-27)-- ></p>-->
+</div>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_7327&amp;touid=7327&amp;pmid=0&amp;daterange=2&amp;pid=294138&amp;tid=158902" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<strong>
+<a href="thread-158902-1-1.html"  id="postnum294138" onclick="setCopy(this.href, '帖子地址复制成功');return false;">楼主</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon294138" src="static/image/common/online_admin.gif" />
+<em id="authorposton294138">发表于 2014-7-8 11:32</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=7327" rel="nofollow">只看该作者</a>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;extra=page%3D1&amp;ordertype=1">倒序浏览</a>
+</div>
+</div>
+</div><div class="pct"><style type="text/css">.pcb{margin-right:0}</style><div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_294138">
+<font size="2"><strong><font color="black"><font face="宋体">一．引言</font></font></strong><br />
+<br />
+</font><div align="left"><font size="2">&nbsp; &nbsp;&nbsp; &nbsp;本手册是交易客户端使用手册。本手册的目的是要清楚的讲解交易界面的使用方法及有关概念。</font></div><div align="left"><font size="2">交易客户端由交易系统、发行申购系统、竞价交易系统、仓单管理系统、过户申请、银行转账系统、报表查询、消息查询、网络设置等模块组成。该系统是客户通过Internet访问系统服务器，进行交易活动的工具。</font></div><div align="left"><font size="2">系统运行于Windows 98以上版本，全中文界面，多窗口显示，采用面板按钮将各种交易活动（下单、撤单）及查询功能完整地组织在一起。本系统只是一个界面系统，所有的内部处理（包括委托指令买卖对盘）和交易结果及行情数值均在主机服务器中，而本系统只提供访问服务器的手段。</font></div><font size="2"><br />
+<strong><font face="宋体">二．系统登录</font></strong><strong><strong><font face="宋体">1.</font></strong><strong><font face="宋体">登陆步骤</font></strong></strong><br />
+<br />
+</font><div align="left"><font size="2">① 如图1-1为客户端图标，双击桌面的客户端图标，打开交易客户端操作界面。</font></div><font size="2"><br />
+</font><div align="center"><font size="2"><font face="宋体"> </font>
+<ignore_js_op>
+
+<img id="aimg_13671" aid="13671" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/102043s6gs712bg1ngs66z.png" file="data/attachment/forum/201407/09/102043s6gs712bg1ngs66z.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="68" id="aimg_13671" inpost="1" alt="图片1.png" title="图片1.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13671_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:20 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2NzF8Y2UzZDUyNDh8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片1.png 下载次数:161" target="_blank"><strong>下载附件</strong> <span class="xs0">(3.46 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+<font face="宋体">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</font></font></div><div align="center"><font face="宋体"><font size="2">图1-1</font></font></div><br />
+<div align="left"><font size="2">②如图1-2，左侧为客户端系统菜单切换目录，右侧为内容显示区，双击左侧目录可进入相应系统登陆界面，输入用户名和密码登陆。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13672" aid="13672" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/102105ixp331phrf11w91x.png" file="data/attachment/forum/201407/09/102105ixp331phrf11w91x.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13672" inpost="1" alt="图片2.png" title="图片2.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13672_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:21 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2NzJ8MTg2NzYwN2F8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片2.png 下载次数:59" target="_blank"><strong>下载附件</strong> <span class="xs0">(53.61 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="left"><font face="宋体"><font size="2"> </font></font></div><div align="center"><font face="宋体"><font size="2">图1-2</font></font></div><strong><font size="2"><strong><font face="宋体">2.</font></strong><strong><font face="宋体">网络设置</font></strong></font></strong><br />
+<br />
+<div align="left"><font size="2">双击图1-2左侧目录的“网络设置”，右侧会进入网络设置窗框，如图1-3界面，点击相应的菜单可配置服务器的ip地址和端口。初始化时系统默认带有ip地址和端口，发生变化时可以在这里进行修改。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13673" aid="13673" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/102130g2kgavgroj2ga3by.png" file="data/attachment/forum/201407/09/102130g2kgavgroj2ga3by.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13673" inpost="1" alt="图片3.png" title="图片3.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13673_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:21 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2NzN8NWVlMTljM2F8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片3.png 下载次数:18" target="_blank"><strong>下载附件</strong> <span class="xs0">(13.28 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font face="宋体"><font size="2">图1-3</font></font></div><font size="2"><font face="宋体"><br />
+</font><strong><strong><font face="宋体">3.</font></strong><strong><font face="宋体">基本术语解释</font></strong></strong></font><br />
+<br />
+<div align="left"><font size="2">下面一些术语在以后会经常出现，其解释如下：</font></div><br />
+<div align="left"><font size="2"><strong>委托单：</strong>经由计算机终端（本系统）委托成功的申请单。</font></div><br />
+<div align="left"><font size="2"><strong>成交单号：</strong>系统为成交单分配的唯一标识。</font></div><br />
+<div align="left"><font size="2"><strong>平均价：</strong>当天某商品所有成交单的加权平均价。</font></div><br />
+<div align="left"><font size="2"><strong>最高价：</strong>当天某商品的最高成交价。</font></div><br />
+<div align="left"><font size="2"><strong>最低价：</strong>当天某商品的最低成交价。</font></div><br />
+<div align="left"><font size="2"><strong>最新价：</strong>某商品当前最新成交价。</font></div><br />
+<div align="left"><font size="2"><strong>买价：</strong>某商品当前未成交的最高申报买入价格。</font></div><br />
+<div align="left"><font size="2"><strong>买量：</strong>某商品当前未成交的最高申报买入价格所对应的买入数量。</font></div><br />
+<div align="left"><font size="2"><strong>卖价：</strong>某商品当前未成交的最低申报卖出价格。</font></div><br />
+<div align="left"><font size="2"><strong>卖量：</strong>某商品当前未成交的最低申报卖出价格所对应的卖出数量。</font></div><br />
+<div align="left"><font size="2"><strong>涨跌：</strong>某商品当前最新价与昨日收盘价之间的差额。</font></div><br />
+<div align="left"><font size="2"><strong>当日涨幅上限：</strong>某商品当日可输入的最高报价（昨日收盘价 + 最大波动幅度）。</font></div><br />
+<div align="left"><font size="2"><strong>当日涨幅下限：</strong>某商品当日可输入的最低报价（昨日收盘价 - 最大波动幅度）。</font></div><br />
+<strong><font size="2"><strong><font face="宋体">4.</font></strong><strong><font face="宋体">基本功能</font></strong></font></strong><br />
+<br />
+<div align="left"><font size="2">本系统可以为用户完成以下几个基本功能：</font></div><br />
+<div align="left"><font size="2">1.&nbsp;&nbsp;查看行情：通过行情分析系统可以查看到商品的实时行情。</font></div><br />
+<div align="left"><font size="2">2.&nbsp;&nbsp;发行申购：通过发行申购系统可以进行网上申购及申购情况的查询。</font></div><br />
+<div align="left"><font size="2">3.&nbsp;&nbsp;交易：通过交易系统进行委托下单、撤单，查询委托的成交情况，未成交挂单情况，买卖数量及当日的所有委托单等。</font></div><br />
+<div align="left"><font size="2">4.&nbsp;&nbsp;竞价交易：通过竞价交易系统进行竞买、竞卖交易及竞价信息的查询。</font></div><br />
+<div align="left"><font size="2">5.&nbsp;&nbsp;仓单管理：通过仓单管理系统可以完成提货单的注册、注销、打印自提、过户、在线配送、选号提货及相关信息的查询等。</font></div><br />
+<div align="left"><font size="2">6.&nbsp;&nbsp;过户申请：在过户申请页面完成过户申请操作。</font></div><br />
+<div align="left"><font size="2">7.&nbsp;&nbsp;查看报表：可以随时查看某一交易日的结算报表，以便客户核对自己的资金状况。</font></div><br />
+<div align="left"><font size="2">8.&nbsp;&nbsp;其它功能：包括更改口令，查询用户信息、商品信息，了解市场最新消息等。</font></div><br />
+<div align="left"><font size="2">9.&nbsp;&nbsp;安全保护：锁定，当用户暂时离开时可不需要退出本系统，系统会在指定时间内自动锁定下单系统，以防止他人盗用或信息泄露。</font></div><br />
+<font size="2"><strong>三．交易系统</strong><strong><strong><font color="black"><font face="宋体">1</font></font></strong><strong><font face="宋体">.</font></strong><font face="宋体"><strong>本系统主要功能键</strong></font></strong></font><br />
+<br />
+<div align="left"><strong><font size="2">一．主要功能快捷键：</font></strong></div><br />
+<div align="left"><font size="2">F2 ：委托</font></div><br />
+<div align="left"><font size="2">F3 ：查委托</font></div><br />
+<div align="left"><font size="2">F4 ：查成交</font></div><br />
+<div align="left"><font size="2">F5 ：持有量</font></div><br />
+<div align="left"><font size="2">F6 ：资金查询</font></div><br />
+<div align="left"><font size="2">F7 ：预埋委托</font></div><br />
+<strong><font size="2"><strong><font face="宋体">2.</font></strong><strong><font face="宋体">交易界面介绍</font></strong></font></strong><br />
+<br />
+<div align="left"><font size="2">如图2-1所示，为交易客户端的组织界面。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13674" aid="13674" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/102315mzbif4iigqyzkl0r.png" file="data/attachment/forum/201407/09/102315mzbif4iigqyzkl0r.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13674" inpost="1" alt="图片4.png" title="图片4.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13674_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:23 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2NzR8ZTdkMTBiOTh8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片4.png 下载次数:35" target="_blank"><strong>下载附件</strong> <span class="xs0">(72.77 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="left"><font face="宋体"><font size="2"> </font></font></div><div align="center"><font size="2">图3-1</font></div><div align="left"><font size="2"><strong>行情显示区域：</strong>如图3-2可以查看当前市场商品行情。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13675" aid="13675" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/102405zxigto118b8i9iu5.png" file="data/attachment/forum/201407/09/102405zxigto118b8i9iu5.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13675" inpost="1" alt="图片5.png" title="图片5.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13675_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:24 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2NzV8Yzc0YjFjZGV8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片5.png 下载次数:19" target="_blank"><strong>下载附件</strong> <span class="xs0">(31.93 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font size="2">图3-2</font></div><div align="left"><font size="2"><strong>下单系统：</strong>供用户进行委托、撤单、查询成交情况、持有量情况和不同商品的交易情况等操作。此界面由两部分组成，交易查询面板和委托面板。</font></div><br />
+<div align="left"><font size="2"><strong><font face="宋体">交易查询面板：</font></strong><font face="宋体">该面板为交易模块的信息查询区域，如图3-3</font></font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13676" aid="13676" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/102603sjjdaj5uusdg5ugw.png" file="data/attachment/forum/201407/09/102603sjjdaj5uusdg5ugw.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13676" inpost="1" alt="图片6.png" title="图片6.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13676_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:26 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2NzZ8YmZjYWUwMjh8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片6.png 下载次数:18" target="_blank"><strong>下载附件</strong> <span class="xs0">(24.76 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="left"><strong><font face="宋体"><font size="2"> </font></font></strong></div><div align="center"><font size="2">图3-3</font></div><br />
+<div align="left"><font size="2"><strong><font face="宋体">交易委托面板：</font></strong><font face="宋体">该面板主要包括委托指令区域和行情区域，如图3-4</font></font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13677" aid="13677" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/102637ohvmki3l3mwo0daw.png" file="data/attachment/forum/201407/09/102637ohvmki3l3mwo0daw.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="368" id="aimg_13677" inpost="1" alt="图片7.png" title="图片7.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13677_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:26 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2Nzd8Zjc5ODhjMGN8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片7.png 下载次数:15" target="_blank"><strong>下载附件</strong> <span class="xs0">(10.25 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font face="宋体"><font size="2">图3-4</font></font></div><br />
+<div align="left"><font size="2"><strong>信息栏：</strong>针对目前操作的提示信息,包括登陆用户信息和当前的系统时间等。如图2-5，信息栏右侧显示的为登陆用户信息，当前连接状态，系统时间.信息栏左侧信息为针对用户当前操作行为的提示，如：资金不足下单导致下单失败的提示信息。</font></div><br />
+<div align="left"><div align="center"><font size="2"><font face="宋体">&nbsp; &nbsp;&nbsp;&nbsp;</font>
+<ignore_js_op>
+
+<img id="aimg_13678" aid="13678" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/102708io448k492yoiaaxz.png" file="data/attachment/forum/201407/09/102708io448k492yoiaaxz.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="520" id="aimg_13678" inpost="1" alt="图片8.png" title="图片8.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13678_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:27 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2Nzh8ZjYyMzg2NWJ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片8.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(3.89 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><br />
+</div><div align="center"><font size="2">图3-5</font></div><strong><font size="2"><font face="宋体"><strong>3.1 F</strong></font><font face="宋体"><strong>2</strong></font><font face="宋体"><strong>委托</strong></font></font></strong><br />
+<br />
+<div align="left"><font size="2">客户可以在这里查询到自己当天所下的委托信息，该页面分为两部分，未成交委托和已成交委托。可以对未成交委托进行撤单操作，如图2-6所示。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13679" aid="13679" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/103010yzh3h3lmhspfchpb.png" file="data/attachment/forum/201407/09/103010yzh3h3lmhspfchpb.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13679" inpost="1" alt="图片9.png" title="图片9.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13679_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:30 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2Nzl8MTJmNzA0MzN8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片9.png 下载次数:14" target="_blank"><strong>下载附件</strong> <span class="xs0">(9.68 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font size="2">图3-6</font></div><div align="left"><font size="2"><strong>1.&nbsp; &nbsp;&nbsp;&nbsp;</strong><strong>功能简介:</strong></font></div><br />
+<div align="left"><font size="2">本页可以查看到所有未成交委托信息和已成交委托信息，每一个信息栏均带有右键刷新功能，方便用户获取及时信息，已撤销的委托单不在此显示。</font></div><br />
+<div align="left"><font size="2"><strong>2.</strong><strong>未成交委托:</strong>未成交委托信息栏显示当天开盘到目前为止该用户所有未成交的委托单，双击该信息栏中的委托记录，可撤销此委托单。</font></div><br />
+<div align="left"><font size="2"><strong>3.</strong><strong>已成交委托: </strong>已成交委托方便用户查询当日开盘到目前为止所有成交委托的信息，包括成交价格和费用等重要数据。</font></div><br />
+<div align="left"><font size="2"><strong>4</strong><strong>．图2-6界面</strong><strong>名词解释:</strong></font></div><br />
+<div align="left"><font size="2">委托单号：系统为每个委托单分配的唯一委托标识。</font></div><br />
+<div align="left"><font size="2">时间：未成交委托窗口的时间指提交此委托的时间。</font></div><br />
+<div align="left"><font size="2">已成交委托窗口的时间指委托单成交配对的时间。</font></div><br />
+<div align="left"><font size="2">商品代码：是指交易商品的唯一标识，每个交易代码对应一个商品。</font></div><br />
+<div align="left"><font size="2">买/卖：交易方向。</font></div><br />
+<div align="left"><font size="2">委托价格：该笔委托的价格。</font></div><br />
+<div align="left"><font size="2">成本价：卖出商品的购买价格。</font></div><br />
+<div align="left"><font size="2">费用:即成交手续费。</font></div><br />
+<strong><font size="2"><font face="宋体"><strong>3.2 F</strong></font><font face="宋体"><strong>3</strong></font><font face="宋体"><strong>查委托</strong></font></font></strong><br />
+<br />
+<div align="left"><font size="2">在该页面客户可以查询到目前为止当天所有的委托信息，可针对未成交或部分成交的委托进行撤单，，如图2-7所示。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13680" aid="13680" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/103232xo17iiqi9y9pk54y.png" file="data/attachment/forum/201407/09/103232xo17iiqi9y9pk54y.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13680" inpost="1" alt="图片10.png" title="图片10.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13680_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:32 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODB8ZjZkNzMxNDJ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片10.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(10.56 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="center"> <font face="宋体"><font size="2">图3-7</font></font></div><div align="left"><font size="2">本页面中列出当日开盘到目前为止该用户所有的委托单，这些委托指令可能已成交，或已撤销，或部分成交或完全未成交。</font></div><br />
+<div align="left"><font size="2">委托查询：</font></div><br />
+<div align="left"><font size="2">可按照“商品代码”和“买/卖”查询委托单，若选择“全部”可查看所有委托单，选择“可撤”只能查看到所有可撤委托单。</font></div><br />
+<div align="left"><font size="2"><font face="宋体">刷新：显示当前最新信息。</font></font></div><br />
+<div align="left"><font size="2"><font face="宋体">全选：选中所有可撤单。</font></font></div><br />
+<div align="left"><font size="2"><font face="宋体">撤单：撤掉选中的可撤委托单。</font></font></div><br />
+<div align="left"><font size="2"><font face="宋体">注：“未成交”表示未成交的数量，双击未成交委托单可将其撤销，已成交的委托不能撤销。</font></font></div><br />
+<strong><font size="2"><font face="宋体"><strong>3.3 F</strong></font><font face="宋体"><strong>4</strong></font><font face="宋体"><strong>查成交</strong></font></font></strong><br />
+<br />
+<div align="left"><font size="2">客户可以在这里查询到目前为止，自己当天的成交记录，如图2-8所示。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13681" aid="13681" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/103255ky3khlr3s4a3rhlh.png" file="data/attachment/forum/201407/09/103255ky3khlr3s4a3rhlh.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13681" inpost="1" alt="图片11.png" title="图片11.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13681_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:32 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODF8OWNjNmQxMGJ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片11.png 下载次数:12" target="_blank"><strong>下载附件</strong> <span class="xs0">(9.21 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font size="2">图3-8</font></div><div align="left"><font size="2">可按照商品代码、买/卖类型查询成交单，选择“全部”可查看所有成交记录，选择“买入”可查看买入交易的成交单，选择“卖出”可查看卖出交易的成交单。</font></div><br />
+<div align="left"><font size="2">卖出盈亏：客户发生卖出交易后，由卖出价和买入价之间的差额产生的盈亏。</font></div><br />
+<strong><font size="2"><font face="宋体"><strong>3.4 F</strong></font><font face="宋体"><strong>5</strong></font><font face="宋体"><strong>持有量</strong></font></font></strong><br />
+<br />
+<div align="left"><font size="2">客户可以在这里查询到目前为止，商品的持有情况。</font></div><br />
+<div align="left"><font size="2">1.持有汇总</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13682" aid="13682" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/103345jfmmiygm7h5q7iqh.png" file="data/attachment/forum/201407/09/103345jfmmiygm7h5q7iqh.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13682" inpost="1" alt="图片12.png" title="图片12.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13682_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:33 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODJ8NTI1YTU4ZGR8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片12.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(11.33 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font size="2">图3-9</font></div><br />
+<div align="left"><font size="2">可根据“商品代码”查询当前用户到目前为止没有卖出的持有情况，显示信息包括：商品代码、总持有量、持有均价、货款、可用数量、持有盈亏、市值。</font></div><br />
+<div align="left"><font size="2">2.&nbsp; &nbsp;&nbsp; &nbsp;持有明细</font></div><br />
+<br />
+<div align="left"><font size="2">可根据“商品代码”查询当前用户到目前为止没有卖出的持有情况，显示信息包括：商品代码、持有量、成本价、货款。</font></div><br />
+<div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13683" aid="13683" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/103413lx1sz4g2818ssigs.png" file="data/attachment/forum/201407/09/103413lx1sz4g2818ssigs.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13683" inpost="1" alt="图片13.png" title="图片13.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13683_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:34 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODN8ZTVhZjczZjN8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片13.png 下载次数:12" target="_blank"><strong>下载附件</strong> <span class="xs0">(10.92 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+<strong><font face="宋体"><strong>3.5 F</strong></font><font face="宋体"><strong>6</strong></font><font face="宋体"><strong>资金信息</strong></font></strong></font><br />
+<br />
+<div align="left"><font size="2">客户可以在这里查询到目前为止，自己的资金状况信息，如图2-11所示。</font></div><br />
+<font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13684" aid="13684" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/103506ppp7zbz7yjfj889e.png" file="data/attachment/forum/201407/09/103506ppp7zbz7yjfj889e.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13684" inpost="1" alt="图片14.png" title="图片14.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13684_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:35 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODR8Y2I0NGM3NjJ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片14.png 下载次数:15" target="_blank"><strong>下载附件</strong> <span class="xs0">(12.34 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font size="2">图3-10</font></div><div align="left"><font size="2">打开此页面，客户可以查看到自己的资金分布情况，上日资金余额为开市前的资金余额。当日可用余额等于上日资金余额加减两者之间相应项目。</font></div><br />
+<strong><font size="2"><font face="宋体"><strong>3.6</strong></font><font face="宋体"><strong>预埋委托</strong></font></font></strong><br />
+<br />
+<div align="left"><font size="2">客户可以在这里查询自己所下的预埋委托记录，如图2-12所示。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13685" aid="13685" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/103527h0c0cmblmqgzwaw0.png" file="data/attachment/forum/201407/09/103527h0c0cmblmqgzwaw0.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13685" inpost="1" alt="图片15.png" title="图片15.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13685_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:35 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODV8MGIyMjM3MWJ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片15.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(9.48 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font size="2">图3-12</font></div><br />
+<br />
+<div align="left"><font size="2">预埋委托：是一种辅助客户快速抢单的功能。客户可先在‘委托面板’中设置好委托单，然后单击“预埋委托”，此委托单将被保存到“预埋委托”面板，存放到本地，不提交服务器。当行情走势达到预期时可快捷下单，从而把握下单良机。</font></div><br />
+<div align="left"><font size="2">通过该页面客户可以实现预埋委托的下单、删除，可以一次选中多个预埋委托记录进行操作。</font></div><br />
+<font size="2"><strong><font face="宋体"><strong>3.8 </strong></font><font face="宋体"><strong>行情委托面板</strong></font></strong><br />
+<br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13686" aid="13686" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104034pnmt9nn0e093strt.png" file="data/attachment/forum/201407/09/104034pnmt9nn0e093strt.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="300" id="aimg_13686" inpost="1" alt="图片16.png" title="图片16.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13686_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:40 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODZ8YjkxNTEzOTV8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片16.png 下载次数:14" target="_blank"><strong>下载附件</strong> <span class="xs0">(7.97 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font face="宋体"><font size="2">图3-13</font></font></div><div align="left"><font size="2"><strong><font face="宋体">1</font></strong><strong><font face="宋体">委托面板</font></strong></font></div><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13687" aid="13687" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104048d5cd05ccgigrz3r0.png" file="data/attachment/forum/201407/09/104048d5cd05ccgigrz3r0.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="161" id="aimg_13687" inpost="1" alt="图片17.png" title="图片17.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13687_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:40 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODd8YWY2YWNlMDF8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片17.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(4.25 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+<br />
+</font><br />
+<div align="center"><font face="宋体"><font size="2">图3-14</font></font></div><br />
+<div align="left"><font size="2">买入/卖出：用户选择买入或卖出的方向。</font></div><br />
+<div align="left"><font size="2">立即提交：立即提交当前的委托，见4.1。</font></div><br />
+<div align="left"><font size="2">预埋委托：暂时不入单，只是保存在本地计算机，不提交服务器，不冻结资金，见4.1。</font></div><br />
+<div align="left"><font size="2"><strong>2 </strong><strong>行情信息栏：</strong></font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13688" aid="13688" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104058q1nnfkn0fb0pmftf.png" file="data/attachment/forum/201407/09/104058q1nnfkn0fb0pmftf.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="160" id="aimg_13688" inpost="1" alt="图片18.png" title="图片18.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13688_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:40 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODh8ZjllMjc4NmZ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片18.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(4.86 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="center"><strong><font face="宋体"><font size="2"> </font></font></strong></div><div align="center"><font face="宋体"><font size="2">图3-15</font></font></div><div align="left"><font size="2">分时：点击进入当前行情的分时图。</font></div><br />
+<div align="left"><font size="2">k线：点击进入当前行前的k线图。</font></div><br />
+<div align="left"><font size="2">买价和卖价可点选自动填写为委托价。</font></div><br />
+<div align="left"><font size="2">买量和卖量可点选自动填写为委托量。</font></div><br />
+<font size="2"><strong><strong><font face="宋体">3.</font></strong><strong><font face="宋体">入单与撤单</font></strong></strong><strong><font face="宋体"><strong>3.1</strong></font><font face="宋体"><strong>入委托单</strong></font></strong></font><br />
+<br />
+<div align="left"><font size="2">步骤如下：</font></div><br />
+<div align="left"><font size="2"><strong>1. </strong><strong>选择商品</strong></font></div><br />
+<div align="left"><font size="2">在“委托面板”选择好商品后，立即可以在“行情信息栏”中看到该商品的行情。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13689" aid="13689" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104114q6pfu8fwcpcl206y.png" file="data/attachment/forum/201407/09/104114q6pfu8fwcpcl206y.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="372" id="aimg_13689" inpost="1" alt="图片19.png" title="图片19.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13689_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:41 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2ODl8NDRkY2FhYjV8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片19.png 下载次数:14" target="_blank"><strong>下载附件</strong> <span class="xs0">(10.58 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><br />
+<font size="2"><br />
+</font><div align="center"><font face="宋体"><font size="2"> </font></font></div><div align="center"><font face="宋体"><font size="2">图4-1</font></font></div><br />
+<div align="left"><font size="2"><strong>2</strong><strong>．选择是买入/卖出,买入/卖出</strong></font></div><br />
+<div align="left"><font size="2">选择委托指令的方向。</font></div><br />
+<div align="left"><font size="2"><strong>3</strong><strong>．填入委托价格和委托数量</strong></font></div><br />
+<div align="left"><font size="2">委托价格和委托数量可以直接填写，也可以通过“行情”信息栏自动填写。</font></div><br />
+<div align="left"><font size="2">将鼠标移动到行情的买价(或卖价)的数值上，单击鼠标，此时买价(或卖价)会出现一个红色的小方框，并将买价(或卖价)的数值自动填入委托价格中；同样，将鼠标移动到买量(或卖量)的数值上，单击鼠标，买量(或卖量)也会出现一个红色的小方框，并将买量(或卖量)的数值自动填入委托数量中。当填入价格后，委托价格下方会出现“参考可买入量”或“参考可卖出量”，单击此数值即可将其填入“委托数量”表格中。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13690" aid="13690" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104131pkdgsacx21a5mycu.png" file="data/attachment/forum/201407/09/104131pkdgsacx21a5mycu.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="358" id="aimg_13690" inpost="1" alt="图片20.png" title="图片20.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13690_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:41 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTB8ZDkyZjU0MmZ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片20.png 下载次数:18" target="_blank"><strong>下载附件</strong> <span class="xs0">(12.08 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="center"><font face="宋体"><font size="2"> </font></font></div><div align="center"><font face="宋体"><font size="2">图4-2</font></font></div><div align="left"><font size="2">参考可卖量：系统根据客户的持有量给出其最大可卖出数量，根据客户的资金余额计算出其最大可买入数量。</font></div><br />
+<div align="left"><font size="2"><strong>注</strong>：只有在商品有行情时(即当前市场有未成交单在委托队列中)，鼠标点击时才会启用。</font></div><br />
+<div align="left"><font size="2"><strong><font face="宋体">4.</font></strong><strong><font face="宋体">提交报单，完成入单操作：</font></strong></font></div><br />
+<div align="left"><font size="2">如果报单需要直接进入委托队列，请以“立即提交”方式完成入单；如果报单暂时不进入委托队列，请以“预录入”方式完成入单。</font></div><div align="left"><font size="2">委托阶段冻结买方全额货款、手续费；卖方不冻结资金。委托以价格优先、时间优先的规则撮合成交，成交价以买卖双方先入的价格为准。</font></div><br />
+<div align="left"><font face="宋体"><font size="2">成交时释放买方冻结的货款和手续费，按真实成交的货款、手续费收取；卖方收取成交手续费、保险费、仓储费、托管费、清算费和所得税，并在可用资金上增加卖出货款。</font></font></div><br />
+<strong><font size="2"><font face="宋体"><strong>3.2</strong></font><font face="宋体"><strong>撤委托单</strong></font></font></strong><br />
+<br />
+<div align="left"><font size="2">在“委托”面板中，双击某个未成交委托，则可撤销该委托。</font></div><br />
+<div align="left"><font size="2">在“查委托”面板中，双击某个未成交委托，则可撤销该委托。</font></div><br />
+<div align="left"><font size="2">在“查委托”面板中，客户首先选中要撤销的未成交委托记录，然后点击撤单即可实现撤销委托指令的操作。客户进行委托撤单后会相应的释放其冻结的商品货款和手续费。</font></div><br />
+<font size="2"><strong>四．发行申购系统</strong><strong><strong><font color="black"><font face="宋体">1.&nbsp;&nbsp;</font></font></strong><strong><font color="black"><font face="宋体">主界面</font></font></strong></strong></font><br />
+<br />
+<div align="left"><font size="2">当用户登录成功后, 进入发行申购系统主界面，如图1-1所示。该界面由发行商品、申购委托、申购成交和增发配售四部分组成；在该界面用户可以完成发行阶段的申购业务，及申购业务信息的查询。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13691" aid="13691" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104805kbxqcmwxbwm46ozb.png" file="data/attachment/forum/201407/09/104805kbxqcmwxbwm46ozb.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13691" inpost="1" alt="图片21.png" title="图片21.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13691_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:48 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTF8ZGI3Mzk1ZjF8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片21.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(9.66 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font color="black"><font face="宋体"><font size="2">图1-1&nbsp;&nbsp;系统主界面</font></font></font></div><strong><font size="2"><strong><font color="black"><font face="宋体">2. </font></font></strong><strong><font color="black"><font face="宋体">发行商品</font></font></strong></font></strong><br />
+<br />
+<div align="left"><font size="2">客户可以通过该页面完成发行商品的申购操作，该页面只显示当前发行中的商品（即该页面只显示在发行开始日期与发行结束日期之间的商品），如图1-2所示可以看到发行商品对应的代码、名称、发行价、发行数量、发行开始时间及发行结束时间等信息。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13692" aid="13692" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104816qfzcmlp3icnvl3b5.png" file="data/attachment/forum/201407/09/104816qfzcmlp3icnvl3b5.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13692" inpost="1" alt="图片22.png" title="图片22.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13692_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:48 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTJ8OTk2MWNjYTF8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片22.png 下载次数:12" target="_blank"><strong>下载附件</strong> <span class="xs0">(11.2 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font color="black"><font face="宋体"><font size="2">图1-2 发行商品显示区</font></font></font></div><br />
+<br />
+<div align="left"><font size="2">点击发行商品右侧的 进入申购页面，</font></div><br />
+<div align="center"><font color="black"><font face="宋体"><font size="2"> </font></font></font></div><div align="left"><font size="2">根据商品信息填写申购的数量，提交即可完成申购委托操作，委托成功后会冻结客户相应的手续费和货款，系统同时会生成连续的申购序号区间，该序号主要用于后续的摇号业务，根据该序号得知自己的中签情况。</font></div><br />
+<div align="left"><font size="2">申购数量：需要保证申购数量是最小变动量的整数倍并大于最小申购量。</font></div><br />
+<div align="left"><font size="2">申购序号的个数 = 申购数量 / 最小变动量</font></div><br />
+<strong><font size="2"><strong><font color="black"><font face="宋体">3.&nbsp;&nbsp;</font></font></strong><strong><font color="black"><font face="宋体">申购委托</font></font></strong></font></strong><br />
+<br />
+<div align="left"><font size="2">本栏目客户可以查看到自己申购的委托情况。申购委托的状态主要包括已委托、部分成交、部分成交后撤单、全部成交、全部撤单。</font></div><div align="left"><font size="2">开始序号、结束序号表示该笔委托的数量在整个商品申购数量中所占的排号区间，该序号主要用于摇号业务。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13693" aid="13693" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104830y2fa61frx22xqakz.png" file="data/attachment/forum/201407/09/104830y2fa61frx22xqakz.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13693" inpost="1" alt="图片23.png" title="图片23.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13693_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:48 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTN8ZTUyMzA2M2R8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片23.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(14.06 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font color="black"><font face="宋体"><font size="2">图1-4&nbsp;&nbsp;申购委托</font></font></font></div><strong><font size="2"><strong><font color="black"><font face="宋体">4. </font></font></strong><font color="black"><font face="宋体">申购成交</font></font></font></strong><br />
+<br />
+<div align="left"><font size="2">该页面主要用于查询交易商申购后的中签成交情况，并且可以通过查询条件时间段，查询历史的成交情况。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13694" aid="13694" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104852o0wtc6kj8ttj2zj0.png" file="data/attachment/forum/201407/09/104852o0wtc6kj8ttj2zj0.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13694" inpost="1" alt="图片24.png" title="图片24.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13694_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:48 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTR8NWFiNTM3Njd8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片24.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(15.76 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="center"><font color="black"><font face="宋体"><font size="2">图1-5申购成交</font></font></font></div><strong><font size="2"><strong><font color="black"><font face="宋体">5.&nbsp;&nbsp;</font></font></strong><font color="black"><font face="宋体">增发配售</font></font></font></strong><br />
+<br />
+<div align="left"><font size="2">商品到了增发日期，增发的信息就会显示到客户端，需要当天交易商进行确认购买的数量，同时根据购买数量扣除货款和手续费。</font></div><div align="left"><font size="2">通过该页面可以查询到当前登录交易商的增发配售信息。</font></div><div align="left"><div align="center"> <font size="2">
+<ignore_js_op>
+
+<img id="aimg_13695" aid="13695" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104922rszivwziywhooio9.png" file="data/attachment/forum/201407/09/104922rszivwziywhooio9.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="496" id="aimg_13695" inpost="1" alt="图片25.png" title="图片25.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13695_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:49 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTV8MDk5YjFkODd8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片25.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(28.09 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+&nbsp; &nbsp; </font></div></div><div align="left"><font size="2">点击‘配售’按钮，填写确认购买的数量，提交完成配售确认。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13696" aid="13696" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/104953c8t8c8uu6ex8y6e2.png" file="data/attachment/forum/201407/09/104953c8t8c8uu6ex8y6e2.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="328" id="aimg_13696" inpost="1" alt="图片26.png" title="图片26.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13696_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:49 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTZ8YmU2ZGRiM2V8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片26.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(3.06 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><br />
+<div align="left"><font face="宋体"><font size="2">提交成功后，增发配售的记录状态由‘配售’变为‘已配售’。</font></font></div><br />
+<font size="2"><strong>六．仓单管理系统</strong><strong>1.<font face="黑体">主界面</font></strong></font><br />
+<br />
+<div align="left"><font size="2">仓单管理系统主要用于交易成功后，进入交收环节需要做的工作，主要内容包括提货单的注册、提货单注销、在线配送提货、选号提货及提货单费用相关数据展示等。如图1-1为仓单管理系统的主界面，包括提货单注册、提货单查询、提货单注销、在线配送、选号与查询、提货单费用查询。</font></div><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13698" aid="13698" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105224d74x5e826sy47s2y.png" file="data/attachment/forum/201407/09/105224d74x5e826sy47s2y.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="600" id="aimg_13698" inpost="1" alt="图片37.png" title="图片37.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13698_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:52 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTh8NDY5NjBlMDh8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片37.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(16.15 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+<br />
+</font><div align="center"><font face="宋体"><font size="2"> </font></font></div><div align="center"><font size="2">图1-1</font></div><strong><font size="2"><strong><font color="black"><font face="宋体">2</font></font></strong><strong><font color="black"><font face="宋体">相关业务流程</font></font></strong></font></strong><br />
+<br />
+<div align="left"><font size="2">该模块一共包括出库流程、提货单过户两个流程，而出库流程又包括在线配送、打印自提两种提货方式的出库流程。</font></div><br />
+<div align="left"><strong><font size="2">出库流程：在线配送</font></strong></div><br />
+<br />
+<div align="left"><font size="2">在线配送是指客户在客户端进行物流配送的申请，以物流配送的方式进行提货。</font></div><div align="center"><strong><font size="2">在线配送提货方式出库流程图</font></strong></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13699" aid="13699" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105405bw1ljml4fwfkfmko.png" file="data/attachment/forum/201407/09/105405bw1ljml4fwfkfmko.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="554" id="aimg_13699" inpost="1" alt="图片28.png" title="图片28.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13699_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:54 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTl8NTJjMmU0ZDV8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片28.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(21.06 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="left"><div align="center"><font size="2">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;</font></div></div><div align="left"><strong><font size="2">出库流程：打印自提</font></strong></div><br />
+<br />
+<div align="left"><font size="2">打印自提是指客户不通过物流公司进行商品的配送，采取自行上门的方式提货。</font></div><div align="center"><strong><font size="2">打印自提提货方式出库流程图</font></strong></div><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13700" aid="13700" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105429k7087oo30yi9cb3c.png" file="data/attachment/forum/201407/09/105429k7087oo30yi9cb3c.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="518" id="aimg_13700" inpost="1" alt="图片29.png" title="图片29.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13700_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:54 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM3MDB8N2E2OWY1OWV8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片29.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(10.65 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="left"><strong><font size="2">提货单过户流程：</font></strong></div><br />
+<br />
+<div align="left"><font size="2">提货单过户是指采用正常的程序，把本属于一个所有人的商品变为另一个所有人的过程。</font></div><br />
+<div align="center"><strong><font size="2">提货单过户流程图</font></strong></div><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13701" aid="13701" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105500om2186nvam7p88m7.png" file="data/attachment/forum/201407/09/105500om2186nvam7p88m7.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="418" id="aimg_13701" inpost="1" alt="图片30.png" title="图片30.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13701_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:55 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM3MDF8NTZiODMzYjN8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片30.png 下载次数:12" target="_blank"><strong>下载附件</strong> <span class="xs0">(9.48 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+<strong><font face="宋体"><strong>八．银行转账系统</strong></font></strong></font><br />
+<br />
+<div align="left"><font size="2">说明：银行接口需要根据各市场与银行协商的结果进行定制。将另行出具材料。</font></div><br />
+<br />
+<div align="left"><font size="2">客户通过该页面可以实现出入金的申请和申请记录的查询，以及当前登录客户的资金余额和银行信息的查看。</font></div><br />
+<br />
+<div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13702" aid="13702" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105534w55nsisjiins3bks.png" file="data/attachment/forum/201407/09/105534w55nsisjiins3bks.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="372" id="aimg_13702" inpost="1" alt="图片31.png" title="图片31.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13702_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:55 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM3MDJ8MTAzMGE0ZmJ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片31.png 下载次数:14" target="_blank"><strong>下载附件</strong> <span class="xs0">(26.72 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+<font face="宋体">&nbsp; &nbsp;&nbsp;&nbsp;</font></font></div><strong><font size="2">1<font face="黑体">出入金处理</font></font></strong><br />
+<br />
+<div align="left"><font face="宋体"><font size="2">出金：从市场交易账户把款项划转到交易商自有账户下。同时，扣减交易系统里的交易商可用余额。</font></font></div><br />
+<div align="left"><font size="2"><font face="宋体">入金：从交易商自有账户把款项划转到市场交易账户下。同时，增加交易系统里的交易商可用余额。</font></font></div><br />
+<div align="left"><font size="2">提交申请：选择出入金方向，选择银行，填写申请金额最后提交。</font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13705" aid="13705" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105602f6d3acqmyxd6qwby.png" file="data/attachment/forum/201407/09/105602f6d3acqmyxd6qwby.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="556" id="aimg_13705" inpost="1" alt="图片32.png" title="图片32.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13705_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:56 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM3MDV8Njc1ZGNhNjl8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片32.png 下载次数:16" target="_blank"><strong>下载附件</strong> <span class="xs0">(25.15 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+<strong>2 <font face="黑体">出入金查询</font></strong></font><br />
+<br />
+<div align="left"><font face="宋体"><font size="2">输入查询时间可以查看该交易商某段时间的所有申请信息。</font></font></div><font size="2"><br />
+</font><div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13706" aid="13706" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105634bjucm76tucuc7str.png" file="data/attachment/forum/201407/09/105634bjucm76tucuc7str.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="556" id="aimg_13706" inpost="1" alt="图片33.png" title="图片33.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13706_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:56 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM3MDZ8YWQzZjQxYTZ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片33.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(47.5 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="left"><font face="楷体_GB2312"><font size="2">&nbsp; &nbsp;&nbsp;&nbsp;</font></font></div><div align="left"><font size="2">得到出入金查询结果包括记录流水号，市场流水号，转账银行，转账类型，交易金额，状态，备注和经办日期。</font></div><div align="left"><font size="2">其中，状态包括：成功、失败、待审核和处理中。</font></div><br />
+<strong><font size="2">3<font face="黑体">余额查询</font></font></strong><br />
+<br />
+<div align="left"><font size="2">客户可以通过该页面查看其账户的资金余额。</font></div><br />
+<br />
+<div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13707" aid="13707" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105656uoaylvscvddllccp.png" file="data/attachment/forum/201407/09/105656uoaylvscvddllccp.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="299" id="aimg_13707" inpost="1" alt="图片34.png" title="图片34.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13707_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:56 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM3MDd8MjkyODNmYzJ8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片34.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(8.72 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+</font><div align="left"><font size="2">选择银行，点击查询余额，内容显示在余额信息栏中。如下图</font></div><br />
+<br />
+<div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13708" aid="13708" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105723dsrllv6egj5vgwpv.png" file="data/attachment/forum/201407/09/105723dsrllv6egj5vgwpv.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="392" id="aimg_13708" inpost="1" alt="图片35.png" title="图片35.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13708_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:57 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM3MDh8ZjE1YzBlODV8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片35.png 下载次数:13" target="_blank"><strong>下载附件</strong> <span class="xs0">(20.71 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><font size="2"><br />
+<strong>4<font face="黑体">交易商信息</font></strong></font><br />
+<br />
+<div align="left"><font size="2">在该页面可以查询当前登录客户的银行账号信息。当客户的银行账号的签约状态为‘未签约’时，可以通过“签约账号”按钮，实现客户与银行账号归属银行的签约业务。</font></div><br />
+<br />
+<div align="left"><font size="2">选中要进行签约的银行账号，填写银行账号密码，点击“签约账号”即可实现客户与银行账号归属银行的签约业务。</font></div><br />
+<br />
+<div align="center"><font size="2">
+<ignore_js_op>
+
+<img id="aimg_13709" aid="13709" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105746qzht4oqx3ci3xbss.png" file="data/attachment/forum/201407/09/105746qzht4oqx3ci3xbss.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="334" id="aimg_13709" inpost="1" alt="图片36.png" title="图片36.png" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" />
+
+<div class="tip tip_4 aimg_tip" id="aimg_13709_menu" style="position: absolute; display: none" disautofocus="true">
+<div class="tip_c xs0">
+<div class="y">2014-7-9 10:57 上传</div>
+<a href="forum.php?mod=attachment&amp;aid=MTM3MDl8MTFjYWEyMDF8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" title="图片36.png 下载次数:14" target="_blank"><strong>下载附件</strong> <span class="xs0">(20.52 KB)</span></a>
+
+</div>
+<div class="tip_horn"></div>
+</div>
+
+</ignore_js_op>
+</font></div><br />
+<font size="2"><br />
+</font><div align="left"><font size="2">注：1.在客户端实现客户与银行的签约业务，系统目前只支持平安、中行、农行。</font></div><br />
+<div align="left"><font size="2">2.只有成功签约的银行账号才能进行出入金操作。</font></div><font size="2"><br />
+</font><br />
+</td></tr></table>
+<div class="pattl">
+
+
+<ignore_js_op>
+
+<dl class="tattl attm">
+<dt></dt>
+<dd>
+<p class="mbn">
+<a href="forum.php?mod=attachment&amp;aid=MTM2OTd8Mjk0MmEzNzN8MTQ0OTc5OTk1OHwwfDE1ODkwMg%3D%3D&amp;nothumb=yes" onmouseover="showMenu({'ctrlid':this.id,'pos':'12'})" id="aid13697" class="xw1" target="_blank">图片35.png</a>
+<em class="xg1">(20.71 KB, 下载次数: 13)</em>
+
+</p>
+<div class="tip tip_4" id="aid13697_menu" style="display: none" disautofocus="true">
+<div class="tip_c">
+<p class="y">2014-7-9 10:51 上传</p>
+<p>点击文件名下载附件</p>
+<p>
+<a href="javascript:;" onclick="imageRotate('aimg_13697', 1)"><img src="static/image/common/rleft.gif" class="vm" /></a>
+<a href="javascript:;" onclick="imageRotate('aimg_13697', 2)"><img src="static/image/common/rright.gif" class="vm" /></a>
+</p>
+</div>
+<div class="tip_horn"></div>
+</div>
+<p class="mbn">
+
+</p>
+
+
+
+<p class="mbn">
+
+<img id="aimg_13697" aid="13697" src="static/image/common/none.gif" zoomfile="data/attachment/forum/201407/09/105137zs8j3n13fn0w0azf.png" file="data/attachment/forum/201407/09/105137zs8j3n13fn0w0azf.png" class="zoom" onclick="zoom(this, this.src, 0, 0, 0)" width="392" alt="图片35.png" title="图片35.png" w="392" />
+
+</p>
+
+</dd>
+</dl>
+
+</ignore_js_op>
+
+</div>
+</div>
+<div id="comment_294138" class="cm">
+</div>
+<div id="post_rate_div_294138"></div>
+</div></div>
+
+<style type="text/css">
+.bgc8{background:#c8dcea;color:#444444;width:100%}
+.bgff{background:#ffffff;}
+.bb184{border-bottom:1px #84bce2 solid;}
+.bc1{border:1px #cccccc solid;}
+.ls{list-style:none;}
+.mp0{margin:0px;padding:0px;}
+.m15{margin:15px;}
+.mr10{margin-right:10px;}
+.mb10{margin-bottom:10px;}
+.p5{padding:5px;border:none;}
+.pb5{padding-bottom:5px;}
+.w105{width:105px;}
+.w250{width:250px;}
+.w300{width:300px;}
+.w400{width:400px;}
+.fl{float:left;}
+.f13{font-size:13px;}
+.f16{font-size:16px;}
+.lh150{line-height:150%}
+.lh180{line-height:180%}
+.cfe{color:#fe0000;}
+.fb{font-weight:bold;}
+.clearfix{*zoom:1;background:#c8dcea;border:none;}
+.clear{clear:both;display:block;line-height:0;font-size:0;overflow:hidden;visibility:hidden;}
+#my_news_relative li{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:300px;}
+</style>
+<div class="bgc8">
+<div class="clearfix fl w300 m15">
+<div class="f16 fb p5 mb10 cfe">中国钱网今日推荐</div>
+<div class="f13 lh180 clearfix">
+<ul class="ls mp0" id="my_news_relative">
+</ul>
+</div>   
+</div>
+
+<div class="clearfix fl m15">
+<div class="f16 fb p5 mb10 cfe">最新活动</div>
+<div class="f13 clearfix lh150">
+<ul class="ls mp0 clearfix" id="my_new_active">
+</ul>
+</div>
+<div style="clear:both;"></div> 
+</div>
+
+<div style="clear:both;"></div> 
+</div>
+<script type="text/javascript">
+zgqw(function(){
+/*zgqw.ajax({
+type: "GET",
+url: "http://news.zgqw.com/s_api/relative_and_active_bbs.php?callbak=?",
+dataType: 'jsonp',
+data: {'id': Math.random()},
+cache: false;
+success: function(data){
+var news_relative = data.news_relative;
+var new_active = data.new_active;
+zgqw('#my_news_relative').html( news_relative );
+zgqw('#my_new_active').html( new_active );
+},
+});*/
+var url = "http://www.zgqw.com/s_api/relative_and_active_bbs.php";
+zgqw.getJSON(url + "?callbak=?", function(data)  
+{  
+var news_relative = data.news_relative;
+var new_active = data.new_active;
+zgqw('#my_news_relative').html( news_relative );
+zgqw('#my_new_active').html( new_active );
+});
+});
+</script>
+</td></tr>
+<tr><td class="plc plm">
+<div class="modact"><a href="forum.php?mod=misc&amp;action=viewthreadmod&amp;tid=158902" title="帖子模式" onclick="showWindow('viewthreadmod', this.href)">本主题由 有钱大晒 于 2015-7-18 17:09 删除回复</a></div>
+<div id="p_btn" class="mtw mbm cl">
+<div class="tshare cl">
+<strong>分享到:</strong>
+<!-- JiaThis Button BEGIN -->
+<div >
+<a class="jiathis_button_weixin"><img src="static/image/common/wx.png">微信</a> 
+<script src="http://v3.jiathis.com/code/jia.js?uid=1" type="text/javascript" charset="utf-8"></script>
+</div> 
+<!-- JiaThis Button END -->
+
+
+<a href="javascript:void(0);" id="k_qqshare" onclick="postToQzone();" title="QQ空间"><i><img src="static/image/common/qzone.gif" alt="QQ空间" />QQ空间</i></a>
+<a href="javascript:void(0)" onclick="postToWb();" id="k_weiboshare" title="腾讯微博"><i><img src="static/image/common/weibo.png" alt="腾讯微博" />腾讯微博</i></a>
+<a href="javascript:void(0);" onclick="postToPengyou();" id="k_pengyoushare" title="腾讯朋友"><i><img src="static/image/common/pengyou.png" alt="腾讯朋友" />腾讯朋友</i></a>
+<script type="text/javascript">
+function postToWb(){
+var _t = encodeURI(document.title);
+var _url = encodeURIComponent(document.location);
+var _appkey = encodeURI("ce7fb946290e4109bdc9175108b6db3a");
+var _pic = "http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13681%26size%3D400x400%26key%3D7ee257fe2600fe70%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13680%26size%3D400x400%26key%3D68f45d6fb714ccfb%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13679%26size%3D400x400%26key%3D2795d4fd078636e3%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13678%26size%3D400x400%26key%3D687df93feb84c8b7%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13677%26size%3D400x400%26key%3D8aaf283225b01332%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13676%26size%3D400x400%26key%3D3ffb9fc6855b5744%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13675%26size%3D400x400%26key%3Df20bba10ba4f8baa%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13674%26size%3D400x400%26key%3D236ca8e8bcedfe86%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13683%26size%3D400x400%26key%3D5de7ffcb4386ee30%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13682%26size%3D400x400%26key%3D3284aedbacc8f428%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13685%26size%3D400x400%26key%3Daf256769b982c27a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13684%26size%3D400x400%26key%3Dbd997cb3ea6f7f62%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13673%26size%3D400x400%26key%3D98f90548751efd3c%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13672%26size%3D400x400%26key%3Db2380e2d93a0d5f4%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13671%26size%3D400x400%26key%3D29f6c56918480e46%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13686%26size%3D400x400%26key%3D5ceed775e6726d8e%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13687%26size%3D400x400%26key%3Db09272cec03e0be5%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13688%26size%3D400x400%26key%3D60b1587246374ad3%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13689%26size%3D400x400%26key%3D210365ab58c21035%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13690%26size%3D400x400%26key%3Db021ffcd6d3fb4ae%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13691%26size%3D400x400%26key%3D0c14d6274c773fd8%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13692%26size%3D400x400%26key%3Dff3e26a789e28941%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13693%26size%3D400x400%26key%3D2418220e2af7a569%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13694%26size%3D400x400%26key%3Df9406cf2640482bd%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13695%26size%3D400x400%26key%3D25b731815ec02c76%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13696%26size%3D400x400%26key%3Df56de3a641f41a81%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13697%26size%3D400x400%26key%3D54679e2b8e183a4a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13698%26size%3D400x400%26key%3Dd7c21840edf02e21%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13699%26size%3D400x400%26key%3Dc40a527ebeb51398%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13700%26size%3D400x400%26key%3D4dad62dac236f3fc%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13701%26size%3D400x400%26key%3D6998517b56b75ede%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13702%26size%3D400x400%26key%3D6b9f580b75f0605e%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13705%26size%3D400x400%26key%3D29444fac3051360a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13706%26size%3D400x400%26key%3Dd4a1c8846e639b62%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13707%26size%3D400x400%26key%3D520888c2c6cd18a2%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13708%26size%3D400x400%26key%3D3ccfd6ad7a0fa3a6%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13709%26size%3D400x400%26key%3D37ae5227d99fea8e%26nocache%3Dyes%26type%3Dfixnone";
+var _site = encodeURIComponent("中国钱网");
+var _from = 'discuz';
+var _u = 'http://v.t.qq.com/share/share.php?url='+_url+'&appkey='+_appkey+'&site='+_site+'&pic='+_pic+'&title='+_t+'&from='+_from;
+window.open( _u,'', 'width=700, height=680, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no' );
+}
+function postToQzone(){
+var _url = encodeURIComponent(document.location.href);
+var _site = encodeURIComponent("中国钱网");
+var _title = encodeURIComponent("电子交易系统 交易客户端使用手册");
+var _pics = "http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13681%26size%3D400x400%26key%3D7ee257fe2600fe70%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13680%26size%3D400x400%26key%3D68f45d6fb714ccfb%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13679%26size%3D400x400%26key%3D2795d4fd078636e3%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13678%26size%3D400x400%26key%3D687df93feb84c8b7%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13677%26size%3D400x400%26key%3D8aaf283225b01332%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13676%26size%3D400x400%26key%3D3ffb9fc6855b5744%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13675%26size%3D400x400%26key%3Df20bba10ba4f8baa%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13674%26size%3D400x400%26key%3D236ca8e8bcedfe86%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13683%26size%3D400x400%26key%3D5de7ffcb4386ee30%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13682%26size%3D400x400%26key%3D3284aedbacc8f428%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13685%26size%3D400x400%26key%3Daf256769b982c27a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13684%26size%3D400x400%26key%3Dbd997cb3ea6f7f62%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13673%26size%3D400x400%26key%3D98f90548751efd3c%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13672%26size%3D400x400%26key%3Db2380e2d93a0d5f4%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13671%26size%3D400x400%26key%3D29f6c56918480e46%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13686%26size%3D400x400%26key%3D5ceed775e6726d8e%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13687%26size%3D400x400%26key%3Db09272cec03e0be5%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13688%26size%3D400x400%26key%3D60b1587246374ad3%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13689%26size%3D400x400%26key%3D210365ab58c21035%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13690%26size%3D400x400%26key%3Db021ffcd6d3fb4ae%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13691%26size%3D400x400%26key%3D0c14d6274c773fd8%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13692%26size%3D400x400%26key%3Dff3e26a789e28941%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13693%26size%3D400x400%26key%3D2418220e2af7a569%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13694%26size%3D400x400%26key%3Df9406cf2640482bd%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13695%26size%3D400x400%26key%3D25b731815ec02c76%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13696%26size%3D400x400%26key%3Df56de3a641f41a81%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13697%26size%3D400x400%26key%3D54679e2b8e183a4a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13698%26size%3D400x400%26key%3Dd7c21840edf02e21%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13699%26size%3D400x400%26key%3Dc40a527ebeb51398%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13700%26size%3D400x400%26key%3D4dad62dac236f3fc%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13701%26size%3D400x400%26key%3D6998517b56b75ede%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13702%26size%3D400x400%26key%3D6b9f580b75f0605e%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13705%26size%3D400x400%26key%3D29444fac3051360a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13706%26size%3D400x400%26key%3Dd4a1c8846e639b62%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13707%26size%3D400x400%26key%3D520888c2c6cd18a2%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13708%26size%3D400x400%26key%3D3ccfd6ad7a0fa3a6%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13709%26size%3D400x400%26key%3D37ae5227d99fea8e%26nocache%3Dyes%26type%3Dfixnone";
+var _from = 'discuz';
+var _u = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url='+_url+'&site='+_site+'&title='+_title+'&pics='+_pics+'&from='+_from;
+window.open(_u);
+}
+function postToPengyou(){
+var _url = encodeURIComponent(document.location.href);
+var _site = encodeURIComponent("中国钱网");
+var _title = encodeURIComponent("电子交易系统 交易客户端使用手册");
+var _pics = "http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13681%26size%3D400x400%26key%3D7ee257fe2600fe70%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13680%26size%3D400x400%26key%3D68f45d6fb714ccfb%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13679%26size%3D400x400%26key%3D2795d4fd078636e3%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13678%26size%3D400x400%26key%3D687df93feb84c8b7%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13677%26size%3D400x400%26key%3D8aaf283225b01332%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13676%26size%3D400x400%26key%3D3ffb9fc6855b5744%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13675%26size%3D400x400%26key%3Df20bba10ba4f8baa%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13674%26size%3D400x400%26key%3D236ca8e8bcedfe86%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13683%26size%3D400x400%26key%3D5de7ffcb4386ee30%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13682%26size%3D400x400%26key%3D3284aedbacc8f428%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13685%26size%3D400x400%26key%3Daf256769b982c27a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13684%26size%3D400x400%26key%3Dbd997cb3ea6f7f62%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13673%26size%3D400x400%26key%3D98f90548751efd3c%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13672%26size%3D400x400%26key%3Db2380e2d93a0d5f4%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13671%26size%3D400x400%26key%3D29f6c56918480e46%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13686%26size%3D400x400%26key%3D5ceed775e6726d8e%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13687%26size%3D400x400%26key%3Db09272cec03e0be5%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13688%26size%3D400x400%26key%3D60b1587246374ad3%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13689%26size%3D400x400%26key%3D210365ab58c21035%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13690%26size%3D400x400%26key%3Db021ffcd6d3fb4ae%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13691%26size%3D400x400%26key%3D0c14d6274c773fd8%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13692%26size%3D400x400%26key%3Dff3e26a789e28941%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13693%26size%3D400x400%26key%3D2418220e2af7a569%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13694%26size%3D400x400%26key%3Df9406cf2640482bd%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13695%26size%3D400x400%26key%3D25b731815ec02c76%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13696%26size%3D400x400%26key%3Df56de3a641f41a81%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13697%26size%3D400x400%26key%3D54679e2b8e183a4a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13698%26size%3D400x400%26key%3Dd7c21840edf02e21%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13699%26size%3D400x400%26key%3Dc40a527ebeb51398%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13700%26size%3D400x400%26key%3D4dad62dac236f3fc%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13701%26size%3D400x400%26key%3D6998517b56b75ede%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13702%26size%3D400x400%26key%3D6b9f580b75f0605e%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13705%26size%3D400x400%26key%3D29444fac3051360a%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13706%26size%3D400x400%26key%3Dd4a1c8846e639b62%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13707%26size%3D400x400%26key%3D520888c2c6cd18a2%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13708%26size%3D400x400%26key%3D3ccfd6ad7a0fa3a6%26nocache%3Dyes%26type%3Dfixnone|http%3A%2F%2Fbbs.zgqw.com%2Fforum.php%3Fmod%3Dimage%26aid%3D13709%26size%3D400x400%26key%3D37ae5227d99fea8e%26nocache%3Dyes%26type%3Dfixnone";
+var _from = 'discuz';
+var _u = 'http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?to=pengyou&url='+_url+'&site='+_site+'&title='+_title+'&pics='+_pics+'&from='+_from;
+window.open(_u);
+}
+</script>
+
+</div>
+<a href="home.php?mod=spacecp&amp;ac=favorite&amp;type=thread&amp;id=158902" id="k_favorite" onclick="showWindow(this.id, this.href, 'get', 0);" onmouseover="this.title = $('favoritenumber').innerHTML + ' 人收藏'"><i><img src="static/image/common/fav.gif" alt="收藏" />收藏<span id="favoritenumber">0</span></i></a>
+</div>
+<div class="sign" id="my_sign_html_1" style="max-height:600px;maxHeightIE:600px;">
+签名档加载中......
+</div>
+<script type="text/javascript">
+get_signature_bbs(0,7,7327,1);
+</script>
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_294138" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport294138', 'misc.php?mod=report&rtype=post&rid=294138&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;reppost=294138&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">回复</a>
+
+<!-- if 1 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=294138', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_294138_menu" class="p_pop mgcmn" style="display: none;">
+<li><a href="home.php?mod=magic&amp;mid=bump&amp;idtype=tid&amp;id=158902" id="a_bump" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/bump.small.gif" />提升卡</a></li>
+<li><a href="home.php?mod=magic&amp;mid=stick&amp;idtype=tid&amp;id=158902" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/stick.small.gif" />大救生圈</a></li>
+<li><a href="home.php?mod=magic&amp;mid=open&amp;idtype=tid&amp;id=158902" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/open.small.gif" />小救生圈</a></li>
+<li><a href="home.php?mod=magic&amp;mid=highlight&amp;idtype=tid&amp;id=158902" id="a_stick" onclick="showWindow(this.id, this.href)"><img src="static/image/magic/highlight.small.gif" />变色卡</a></li>
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_294138')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+<script type="text/javascript" reload="1">
+aimgcount[294138] = ['13681','13680','13679','13678','13677','13676','13675','13674','13683','13682','13685','13684','13673','13672','13671','13686','13687','13688','13689','13690','13691','13692','13693','13694','13695','13696','13697','13698','13699','13700','13701','13702','13705','13706','13707','13708','13709'];
+attachimggroup(294138);
+attachimgshow(294138);
+var aimgfid = 0;
+</script>
+</div><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_298518"><table id="pid298518" summary="pid298518" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="space-uid-43155.html" target="_blank" class="xw1">随意</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo298518" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo298518_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="space-uid-43155.html" target="_blank" class="xi2">随意</a></strong>
+<em>当前在线</em>
+</div>
+<dl class="cl"><dt>注册时间</dt><dd>2014-5-6</dd><dt>最后登录</dt><dd>2015-12-11</dd><dt>阅读权限</dt><dd>100</dd><dt>积分</dt><dd>199</dd><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=43155&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">93</a></dd></dl>
+<div class="imicn">
+<a href="home.php?mod=space&amp;uid=43155&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo298518')"><a href="space-uid-43155.html" target="_blank"><img src="http://bbs.zgqw.com/uc_server/avatar.php?uid=43155&size=middle?v=1449799958" /></a></div>
+
+<p>交易等级：版主</p>
+<!--等级图标 start-->
+<p><img src="static/image/common/star_level3.gif" alt="Rank: 15" /><img src="static/image/common/star_level3.gif" alt="Rank: 15" /><img src="static/image/common/star_level3.gif" alt="Rank: 15" /><img src="static/image/common/star_level2.gif" alt="Rank: 15" /><img src="static/image/common/star_level1.gif" alt="Rank: 15" /></p>
+<!--等级图标 end-->
+<p>交易评分：0</p>
+<p>评分次数：0</p>
+<p>发帖积分：199</p>
+<p>发贴次数：93</p>
+<p>金豆：175个<span style="font-weight:bolder;color:red;">(已使用0个，余额175个)</span></p>
+<p>注册日期：2014-5-6</p>
+<!--<p>最后登录：<!--echo dnumber(2015-12-11)-- ></p>-->
+</div>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_43155&amp;touid=43155&amp;pmid=0&amp;daterange=2&amp;pid=298518&amp;tid=158902" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=158902&pid=298518"  id="postnum298518" onclick="setCopy(this.href, '帖子地址复制成功');return false;">沙发</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon298518" src="static/image/common/online_moderator.gif" />
+<em id="authorposton298518">发表于 2014-7-29 11:13</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=43155" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_298518">
+<img src="static/image/smiley/default/em17.gif" smilieid="652" border="0" alt="" /><img src="static/image/smiley/default/em17.gif" smilieid="652" border="0" alt="" /><img src="static/image/smiley/default/em17.gif" smilieid="652" border="0" alt="" /></td></tr></table>
+</div>
+<div id="comment_298518" class="cm">
+</div>
+<div id="post_rate_div_298518"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_298518" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport298518', 'misc.php?mod=report&rtype=post&rid=298518&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;repquote=298518&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >回复</a>
+<!-- if 0 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=298518', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_298518_menu" class="p_pop mgcmn" style="display: none;">
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_298518')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_301900"><table id="pid301900" summary="pid301900" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="space-uid-16747.html" target="_blank" class="xw1">云德辉</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo301900" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo301900_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="space-uid-16747.html" target="_blank" class="xi2">云德辉</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>注册时间</dt><dd>2013-11-1</dd><dt>最后登录</dt><dd>2015-9-25</dd><dt>阅读权限</dt><dd>10</dd><dt>积分</dt><dd>556</dd><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=16747&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">276</a></dd></dl>
+<div class="imicn">
+<a href="home.php?mod=space&amp;uid=16747&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo301900')"><a href="space-uid-16747.html" target="_blank"><img src="http://bbs.zgqw.com/uc_server/avatar.php?uid=16747&size=middle?v=1449799958" /></a></div>
+
+<p>交易等级：营销员1年</p>
+<!--等级图标 start-->
+<p><img src="static/image/common/star_level3.gif" alt="Rank: 5" /><img src="static/image/common/star_level1.gif" alt="Rank: 5" /></p>
+<!--等级图标 end-->
+<p>交易评分：0</p>
+<p>评分次数：0</p>
+<p>发帖积分：556</p>
+<p>发贴次数：276</p>
+<p>金豆：126个<span style="font-weight:bolder;color:red;">(已使用10个，余额116个)</span></p>
+<p>注册日期：2013-11-1</p>
+<!--<p>最后登录：<!--echo dnumber(2015-9-25)-- ></p>-->
+</div>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_16747&amp;touid=16747&amp;pmid=0&amp;daterange=2&amp;pid=301900&amp;tid=158902" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=158902&pid=301900"  id="postnum301900" onclick="setCopy(this.href, '帖子地址复制成功');return false;">板凳</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon301900" src="static/image/common/online_member.gif" />
+<em id="authorposton301900">发表于 2014-8-14 16:53</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=16747" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_301900">
+非常详细，感谢小美<img src="static/image/smiley/default/lol.gif" smilieid="614" border="0" alt="" /></td></tr></table>
+</div>
+<div id="comment_301900" class="cm">
+</div>
+<div id="post_rate_div_301900"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+<div class="sign" id="my_sign_html_3" style="max-height:600px;maxHeightIE:600px;">
+签名档加载中......
+</div>
+<script type="text/javascript">
+get_signature_bbs(0,7,16747,3);
+</script>
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_301900" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport301900', 'misc.php?mod=report&rtype=post&rid=301900&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;repquote=301900&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >回复</a>
+<!-- if 0 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=301900', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_301900_menu" class="p_pop mgcmn" style="display: none;">
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_301900')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_303468"><table id="pid303468" summary="pid303468" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="space-uid-50115.html" target="_blank" class="xw1">蔚长冲</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo303468" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo303468_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="space-uid-50115.html" target="_blank" class="xi2">蔚长冲</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>注册时间</dt><dd>2014-7-29</dd><dt>最后登录</dt><dd>2014-8-20</dd><dt>阅读权限</dt><dd>10</dd><dt>积分</dt><dd>2</dd><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=50115&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">1</a></dd></dl>
+<div class="imicn">
+<a href="http://wpa.qq.com/msgrd?V=3&amp;Uin=398887981&amp;Site=中国钱网&amp;Menu=yes&amp;from=discuz" target="_blank" title="QQ"><img src="static/image/common/qq.gif" alt="QQ" /></a><a href="home.php?mod=space&amp;uid=50115&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo303468')"><a href="space-uid-50115.html" target="_blank"><img src="http://bbs.zgqw.com/uc_server/avatar.php?uid=50115&size=middle?v=1449799958" /></a></div>
+
+<p>交易等级：普通会员</p>
+<!--等级图标 start-->
+<p><img src="static/image/common/star_level2.gif" alt="Rank: 2" /></p>
+<!--等级图标 end-->
+<p>交易评分：0</p>
+<p>评分次数：0</p>
+<p>发帖积分：2</p>
+<p>发贴次数：1</p>
+<p>金豆：0个<span style="font-weight:bolder;color:red;">(已使用0个，余额0个)</span></p>
+<p>注册日期：2014-7-29</p>
+<!--<p>最后登录：<!--echo dnumber(2014-8-20)-- ></p>-->
+</div>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_50115&amp;touid=50115&amp;pmid=0&amp;daterange=2&amp;pid=303468&amp;tid=158902" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=158902&pid=303468"  id="postnum303468" onclick="setCopy(this.href, '帖子地址复制成功');return false;">地板</a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon303468" src="static/image/common/online_member.gif" />
+<em id="authorposton303468">发表于 2014-8-20 22:31</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=50115" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_303468">
+<strong>江苏资讯</strong> <strong>jszixun.cn</strong> </td></tr></table>
+</div>
+<div id="comment_303468" class="cm">
+</div>
+<div id="post_rate_div_303468"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_303468" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport303468', 'misc.php?mod=report&rtype=post&rid=303468&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;repquote=303468&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >回复</a>
+<!-- if 0 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=303468', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_303468_menu" class="p_pop mgcmn" style="display: none;">
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_303468')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_319344"><table id="pid319344" summary="pid319344" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="space-uid-52194.html" target="_blank" class="xw1">潮妈</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo319344" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo319344_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="space-uid-52194.html" target="_blank" class="xi2">潮妈</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>注册时间</dt><dd>2014-9-23</dd><dt>最后登录</dt><dd>2014-10-2</dd><dt>阅读权限</dt><dd>10</dd><dt>积分</dt><dd>46</dd><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=52194&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">46</a></dd></dl>
+<div class="imicn">
+<a href="http://wpa.qq.com/msgrd?V=3&amp;Uin=666725632&amp;Site=中国钱网&amp;Menu=yes&amp;from=discuz" target="_blank" title="QQ"><img src="static/image/common/qq.gif" alt="QQ" /></a><a href="home.php?mod=space&amp;uid=52194&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo319344')"><a href="space-uid-52194.html" target="_blank"><img src="http://bbs.zgqw.com/uc_server/avatar.php?uid=52194&size=middle?v=1449799958" /></a></div>
+
+<p>交易等级：普通会员</p>
+<!--等级图标 start-->
+<p><img src="static/image/common/star_level2.gif" alt="Rank: 2" /></p>
+<!--等级图标 end-->
+<p>交易评分：0</p>
+<p>评分次数：0</p>
+<p>发帖积分：46</p>
+<p>发贴次数：46</p>
+<p>金豆：0个<span style="font-weight:bolder;color:red;">(已使用0个，余额0个)</span></p>
+<p>注册日期：2014-9-23</p>
+<!--<p>最后登录：<!--echo dnumber(2014-10-2)-- ></p>-->
+</div>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_52194&amp;touid=52194&amp;pmid=0&amp;daterange=2&amp;pid=319344&amp;tid=158902" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=158902&pid=319344"  id="postnum319344" onclick="setCopy(this.href, '帖子地址复制成功');return false;"><em>5</em><sup>#</sup></a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon319344" src="static/image/common/online_member.gif" />
+<em id="authorposton319344">发表于 2014-9-24 13:25</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=52194" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_319344">
+- -.......<br />
+<font size="1"><font color="white">西子之心</font></font><font size="1"><font color="white">cqwpk.com</font></font><br />
+<font size="1"><font color="white">西子之心护肤品</font></font><font size="1"><font color="white">user.qzone.qq.com/314338024</font></font><br />
+<font size="1"><font color="white">滨海论坛</font></font><font size="1"><font color="white">365jxdt.com</font></font><br />
+<font size="1"><font color="white">滨海县驾校</font></font><font size="1"><font color="white">shdgjw.com</font></font><br />
+<font size="1"><font color="white">苏州驾校</font></font><font size="1"><font color="white">jsjp365.com</font></font><br />
+<font size="1"><font color="white">西子之心博客</font></font><font size="1"><font color="white">szssfp.blog.163.com/</font></font></td></tr></table>
+</div>
+<div id="comment_319344" class="cm">
+</div>
+<div id="post_rate_div_319344"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_319344" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport319344', 'misc.php?mod=report&rtype=post&rid=319344&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;repquote=319344&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >回复</a>
+<!-- if 0 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=319344', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_319344_menu" class="p_pop mgcmn" style="display: none;">
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_319344')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_349414"><table id="pid349414" summary="pid349414" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="space-uid-53323.html" target="_blank" class="xw1">wwjjxx</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo349414" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo349414_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="space-uid-53323.html" target="_blank" class="xi2">wwjjxx</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>注册时间</dt><dd>2014-10-23</dd><dt>最后登录</dt><dd>2014-11-8</dd><dt>阅读权限</dt><dd>10</dd><dt>积分</dt><dd>10</dd><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=53323&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">8</a></dd></dl>
+<div class="imicn">
+<a href="http://wpa.qq.com/msgrd?V=3&amp;Uin=512631118&amp;Site=中国钱网&amp;Menu=yes&amp;from=discuz" target="_blank" title="QQ"><img src="static/image/common/qq.gif" alt="QQ" /></a><a href="home.php?mod=space&amp;uid=53323&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo349414')"><a href="space-uid-53323.html" target="_blank"><img src="http://bbs.zgqw.com/uc_server/avatar.php?uid=53323&size=middle?v=1449799958" /></a></div>
+
+<p>交易等级：普通会员</p>
+<!--等级图标 start-->
+<p><img src="static/image/common/star_level2.gif" alt="Rank: 2" /></p>
+<!--等级图标 end-->
+<p>交易评分：0</p>
+<p>评分次数：0</p>
+<p>发帖积分：10</p>
+<p>发贴次数：8</p>
+<p>金豆：13个<span style="font-weight:bolder;color:red;">(已使用0个，余额13个)</span></p>
+<p>注册日期：2014-10-23</p>
+<!--<p>最后登录：<!--echo dnumber(2014-11-8)-- ></p>-->
+</div>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_53323&amp;touid=53323&amp;pmid=0&amp;daterange=2&amp;pid=349414&amp;tid=158902" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=158902&pid=349414"  id="postnum349414" onclick="setCopy(this.href, '帖子地址复制成功');return false;"><em>6</em><sup>#</sup></a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon349414" src="static/image/common/online_member.gif" />
+<em id="authorposton349414">发表于 2014-11-5 17:25</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=53323" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_349414">
+<font color="Red">湖北华中文交所邮币卡运营中心<br />
+挂牌品种征集公告<br />
+<br />
+湖北华中文交所是2011年经湖北省人民政府批准成立，国务院证监会、中宣部审核通过的交易平台。<br />
+<br />
+邮币卡运营中心成立于2014年9月28日，作为湖北省首家大型的邮币卡交易平台,坚持公平、公正、公开的原则，以服务客户为宗旨，以推进文化产业发展为己任，力图打造诚信可靠、公开高效的电子盘交易平台。<br />
+<br />
+湖北华中文交所邮币卡运营中心主要负责运营邮票、钱币、磁卡等文化产权交易，立足华中，面向全国，为邮币卡收藏爱好者和投资者提供最为优质的服务。&nbsp; &nbsp; <br />
+&nbsp; &nbsp; <br />
+&nbsp; &nbsp; 本中心现面向全国广大邮币卡交易用户征集挂牌邮币卡品类：<br />
+<br />
+1、国家邮政主管部门发行的邮资票品；<br />
+2、现代流通纪念币；<br />
+3、现代贵金属纪念币、纪念钞、连体钞；<br />
+4、退出流通领域的现代纸币、硬币；<br />
+5、国家主管部门发行电话磁卡。<br />
+<br />
+联系人：康经理（13125163733）&nbsp; &nbsp;&nbsp;&nbsp;电话：027-87892161<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;林经理（13125158987）&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;027-87716938<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;马经理（13125159009）&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;027-87716838<br />
+<br />
+联系地址：湖北武汉武昌区楚河汉街-汉街总部国际B座708室<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; <br />
+<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;湖北华中文交所邮币卡运营中心<br />
+&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;2014年11月5日</font></td></tr></table>
+</div>
+<div id="comment_349414" class="cm">
+</div>
+<div id="post_rate_div_349414"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_349414" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport349414', 'misc.php?mod=report&rtype=post&rid=349414&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;repquote=349414&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >回复</a>
+<!-- if 0 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=349414', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_349414_menu" class="p_pop mgcmn" style="display: none;">
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_349414')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+</div><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_887169"><table id="pid887169" summary="pid887169" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="space-uid-58833.html" target="_blank" class="xw1">那位的情</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo887169" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo887169_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="space-uid-58833.html" target="_blank" class="xi2">那位的情</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>注册时间</dt><dd>2015-3-24</dd><dt>最后登录</dt><dd>2015-3-27</dd><dt>阅读权限</dt><dd>10</dd><dt>积分</dt><dd>1</dd><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=58833&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">1</a></dd></dl>
+<div class="imicn">
+<a href="http://wpa.qq.com/msgrd?V=3&amp;Uin=123143669&amp;Site=中国钱网&amp;Menu=yes&amp;from=discuz" target="_blank" title="QQ"><img src="static/image/common/qq.gif" alt="QQ" /></a><a href="home.php?mod=space&amp;uid=58833&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo887169')"><a href="space-uid-58833.html" target="_blank"><img src="http://bbs.zgqw.com/uc_server/avatar.php?uid=58833&size=middle?v=1449799958" /></a></div>
+
+<p>交易等级：普通会员</p>
+<!--等级图标 start-->
+<p><img src="static/image/common/star_level2.gif" alt="Rank: 2" /></p>
+<!--等级图标 end-->
+<p>交易评分：0</p>
+<p>评分次数：0</p>
+<p>发帖积分：1</p>
+<p>发贴次数：1</p>
+<p>金豆：0个<span style="font-weight:bolder;color:red;">(已使用0个，余额0个)</span></p>
+<p>注册日期：2015-3-24</p>
+<!--<p>最后登录：<!--echo dnumber(2015-3-27)-- ></p>-->
+</div>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_58833&amp;touid=58833&amp;pmid=0&amp;daterange=2&amp;pid=887169&amp;tid=158902" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=158902&pid=887169"  id="postnum887169" onclick="setCopy(this.href, '帖子地址复制成功');return false;"><em>7</em><sup>#</sup></a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon887169" src="static/image/common/online_member.gif" />
+<em id="authorposton887169">发表于 2015-3-26 07:42</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=58833" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_887169">
+支持一下哈<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<img id="aimg_vn77R" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" src="static/image/common/sigline.gif" onmouseover="img_onmouseoverfunc(this)" onload="thumbImg(this)" border="0" alt="" /><br />
+<font size="2">电子厂招聘男女普工<br />
+招聘要求: 18-40周岁<br />
+性别要求：男女不限<br />
+薪水范围: 4000元-6000元<br />
+联系电话：18818006978<br />
+全国咨询QQ：188308678</font></td></tr></table>
+</div>
+<div id="comment_887169" class="cm">
+</div>
+<div id="post_rate_div_887169"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_887169" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport887169', 'misc.php?mod=report&rtype=post&rid=887169&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;repquote=887169&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >回复</a>
+<!-- if 0 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=887169', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_887169_menu" class="p_pop mgcmn" style="display: none;">
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_887169')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+<script type="text/javascript" reload="1">
+aimgcount[887169] = ['vn77R'];
+attachimggroup(887169);
+attachimgshow(887169);
+var aimgfid = 0;
+</script>
+</div><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_899919"><table id="pid899919" summary="pid899919" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+<div class="authi"><a href="space-uid-59414.html" target="_blank" class="xw1">ziwh7bm</a>
+
+</div>
+</div>
+<div class="p_pop blk bui" id="userinfo899919" style="display: none; margin-top: -11px;">
+<div class="m z">
+<div id="userinfo899919_ma"></div>
+</div>
+<div class="i y">
+<div>
+<strong><a href="space-uid-59414.html" target="_blank" class="xi2">ziwh7bm</a></strong>
+<em>当前离线</em>
+</div>
+<dl class="cl"><dt>注册时间</dt><dd>2015-4-11</dd><dt>最后登录</dt><dd>2015-4-14</dd><dt>阅读权限</dt><dd>10</dd><dt>积分</dt><dd>30</dd><dt>精华</dt><dd>0</dd><dt>帖子</dt><dd><a href="home.php?mod=space&uid=59414&do=thread&type=reply&view=me&from=space" target="_blank" class="xi2">30</a></dd></dl>
+<div class="imicn">
+<a href="http://wpa.qq.com/msgrd?V=3&amp;Uin=937625185&amp;Site=中国钱网&amp;Menu=yes&amp;from=discuz" target="_blank" title="QQ"><img src="static/image/common/qq.gif" alt="QQ" /></a><a href="home.php?mod=space&amp;uid=59414&amp;do=profile" target="_blank" title="查看详细资料"><img src="static/image/common/userinfo.gif" alt="查看详细资料" /></a>
+</div>
+<div id="avatarfeed"><span id="threadsortswait"></span></div>
+</div>
+</div>
+<div>
+<div class="avatar" onmouseover="showauthor(this, 'userinfo899919')"><a href="space-uid-59414.html" target="_blank"><img src="http://bbs.zgqw.com/uc_server/avatar.php?uid=59414&size=middle?v=1449799958" /></a></div>
+
+<p>交易等级：普通会员</p>
+<!--等级图标 start-->
+<p><img src="static/image/common/star_level2.gif" alt="Rank: 2" /></p>
+<!--等级图标 end-->
+<p>交易评分：0</p>
+<p>评分次数：0</p>
+<p>发帖积分：30</p>
+<p>发贴次数：30</p>
+<p>金豆：0个<span style="font-weight:bolder;color:red;">(已使用0个，余额0个)</span></p>
+<p>注册日期：2015-4-11</p>
+<!--<p>最后登录：<!--echo dnumber(2015-4-14)-- ></p>-->
+</div>
+<ul class="xl xl2 o cl">
+<li class="pm2"><a href="home.php?mod=spacecp&amp;ac=pm&amp;op=showmsg&amp;handlekey=showmsg_59414&amp;touid=59414&amp;pmid=0&amp;daterange=2&amp;pid=899919&amp;tid=158902" onclick="showWindow('sendpm', this.href);" title="发消息" class="xi2">发消息</a></li>
+</ul>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=158902&pid=899919"  id="postnum899919" onclick="setCopy(this.href, '帖子地址复制成功');return false;"><em>8</em><sup>#</sup></a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon899919" src="static/image/common/online_member.gif" />
+<em id="authorposton899919">发表于 2015-4-13 01:58</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=59414" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<div class="pcb">
+<div class="t_fsz">
+<table cellspacing="0" cellpadding="0"><tr><td class="t_f" id="postmessage_899919">
+谢谢您阿，我非常高兴<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<img id="aimg_e6IDd" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" src="static/image/common/sigline.gif" onmouseover="img_onmouseoverfunc(this)" onload="thumbImg(this)" border="0" alt="" /><br />
+<font size="2"><strong>【这是特价爆款/史前最底价的导购网】</strong><font size="4"><font color="sienna"><strong>97U站秒杀网</strong></font></font> <font size="4"><font color="blue"><strong>97uz.com</strong></font></font>&nbsp;&nbsp;<strong>全场一折9元/19元/29元全场包邮，男女装/手机/护肤品/数码/箱包/鞋子/电脑周边/内衣/童装等</strong> <font size="4"><font color="red"><strong>上千万件商品等你来抢购</strong></font></font><br />
+<strong><font size="5">QQ群:</font></strong><strong><font size="5">305823152</font></strong><br />
+<strong>97u站秒杀网,十九块九包邮,全场19.9元包邮,淘800九块邮独享专区,97优站中心<br />
+</strong><img id="aimg_Yek8l" onclick="zoom(this, this.src, 0, 0, 0)" class="zoom" src="http://www.97uz.com/data/upload/cate/logoh.jpg" onmouseover="img_onmouseoverfunc(this)" onload="thumbImg(this)" border="0" alt="" /></font></td></tr></table>
+</div>
+<div id="comment_899919" class="cm">
+</div>
+<div id="post_rate_div_899919"></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_899919" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport899919', 'misc.php?mod=report&rtype=post&rid=899919&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;repquote=899919&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >回复</a>
+<!-- if 0 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=899919', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_899919_menu" class="p_pop mgcmn" style="display: none;">
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_899919')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+<script type="text/javascript" reload="1">
+aimgcount[899919] = ['e6IDd','Yek8l'];
+attachimggroup(899919);
+attachimgshow(899919);
+var aimgfid = 0;
+</script>
+</div><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_1073534"><table id="pid1073534" summary="pid1073534" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <div class="pi">
+teqlhuuw <em>该用户已被删除</em>
+</div>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=158902&pid=1073534"  id="postnum1073534" onclick="setCopy(this.href, '帖子地址复制成功');return false;"><em>9</em><sup>#</sup></a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1073534" src="static/image/common/online_member.gif" />
+<em id="authorposton1073534">发表于 2015-7-18 21:55</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=62139" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<div class="pcb">
+<div class="locked">提示: <em>作者被禁止或删除 内容自动屏蔽</em></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_1073534" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1073534', 'misc.php?mod=report&rtype=post&rid=1073534&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;repquote=1073534&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >回复</a>
+<!-- if 0 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=1073534', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_1073534_menu" class="p_pop mgcmn" style="display: none;">
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1073534')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+<script type="text/javascript" reload="1">
+aimgcount[1073534] = ['VzDu3'];
+attachimggroup(1073534);
+attachimgshow(1073534);
+var aimgfid = 0;
+</script>
+</div><!--删掉将不显示下面帖子具体内容-->
+            <div id="post_1143415"><table id="pid1143415" summary="pid1143415" cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls" rowspan="2">
+ <a name="lastpost"></a><div class="pi">
+6k6r8h1q <em>该用户已被删除</em>
+</div>
+</td>
+<td class="plc">
+<div class="pi">
+<strong>
+<a href="forum.php?mod=redirect&goto=findpost&ptid=158902&pid=1143415"  id="postnum1143415" onclick="setCopy(this.href, '帖子地址复制成功');return false;"><em>10</em><sup>#</sup></a>
+</strong>
+<div class="pti">
+<div class="pdbt">
+</div>
+<div class="authi">
+<img class="authicn vm" id="authicon1143415" src="static/image/common/online_member.gif" />
+<em id="authorposton1143415">发表于 2015-8-18 09:10</em>
+<span class="pipe">|</span><a href="forum.php?mod=viewthread&amp;tid=158902&amp;page=1&amp;authorid=63154" rel="nofollow">只看该作者</a>
+</div>
+</div>
+</div><div class="pct"><div id="fj" class="y">
+<label class="z">电梯直达</label>
+<input type="text" class="px p_fre z" size="2" onkeyup="$('fj_btn').href='forum.php?mod=redirect&ptid=158902&authorid=0&postno='+this.value" onkeydown="if(event.keyCode==13) {window.location=$('fj_btn').href;return false;}" title="跳转到指定楼层" />
+<a href="javascript:;" id="fj_btn" class="z" title="跳转到指定楼层"><img src="static/image/common/fj_btn.png" alt="跳转到指定楼层" class="vm" /></a>
+</div>
+<div class="pcb">
+<div class="locked">提示: <em>作者被禁止或删除 内容自动屏蔽</em></div>
+</div></div>
+
+</td></tr>
+<tr><td class="plc plm">
+</td>
+</tr>
+<tr>
+<td class="pls"></td>
+<td class="plc" style="overflow:visible;">
+<div class="po">
+<div class="pob cl">
+<p>
+<!--举报 s-->
+<a href="javascript:;" id="mgc_post_1143415" onmouseover="showMenu(this.id)" class="showmenu">使用道具</a>
+<a href="javascript:;" onclick="showWindow('miscreport1143415', 'misc.php?mod=report&rtype=post&rid=1143415&tid=158902&fid=258', 'get', -1);return false;">举报</a>
+
+<!--举报 end-->
+</p>
+<p>
+<em>
+<!--编辑&引用 s-->
+<a class="fastre" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;repquote=1143415&amp;extra=page%3D1&amp;page=1" onclick="showWindow('reply', this.href)">引用</a>
+<a class="fastqu" href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" >回复</a>
+<!-- if 0 && } ><a class="push" href="javascript:;" onclick="modaction('recommend', '294138', 'op=recommend&idtype= if 0}gtid else}tid /if}&id=158902&pid=1143415', 'portal.php?mod=portalcp&ac=portalblock')"> lang modmenu_blockrecommend}</a><!-- /if}-->
+
+
+<!--编辑&引用 end-->	
+</em>
+</p>
+
+<ul id="mgc_post_1143415_menu" class="p_pop mgcmn" style="display: none;">
+</ul>
+<script type="text/javascript" reload="1">checkmgcmn('post_1143415')</script>
+</div>
+</div>
+</td>
+</tr>
+<tr class="ad">
+<td class="pls"></td>
+<td class="plc">
+</td>
+</tr>
+</table>
+<script type="text/javascript" reload="1">
+aimgcount[1143415] = ['y6Fcc'];
+attachimggroup(1143415);
+attachimgshow(1143415);
+var aimgfid = 0;
+</script>
+</div>
+<div id="postlistreply" class="pl"><div id="post_new" class="viewthread_table" style="display: none"></div></div>
+</div>
+
+
+<form method="post" autocomplete="off" name="modactions" id="modactions">
+<input type="hidden" name="formhash" value="5124f7f4" />
+<input type="hidden" name="optgroup" />
+<input type="hidden" name="operation" />
+<input type="hidden" name="listextra" value="page%3D1" />
+<input type="hidden" name="page" value="1" />
+</form>
+
+<!--下面回复发帖-->
+<div class="pgs mtm mbm cl">
+<span class="pgb y"><a href="forum-258-1.html">返回列表</a></span>
+<a href="forum.php?mod=post&amp;action=newthread&amp;fid=258" title="发新帖" style="margin-right:5px;"><img src="static/image/common/pn_post.gif" alt="发新帖" /></a>
+<a href="forum.php?mod=post&amp;action=newthread&amp;fid=258&amp;special=2" title="发起交易" style="margin-right:5px;"><img src="static/image/common/pn_pay.gif" alt="发起交易" /></a>
+</div>
+
+<!--[diy=diyfastposttop]--><div id="diyfastposttop" class="area"></div><!--[/diy]-->
+<script type="text/javascript">
+var postminchars = parseInt('10');
+var postmaxchars = parseInt('100000');
+var disablepostctrl = parseInt('0');
+</script>
+
+<div id="f_pst" class="pl bm bmw">
+<form method="post" autocomplete="off" id="fastpostform" action="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902&amp;extra=page%3D1&amp;replysubmit=yes&amp;infloat=yes&amp;handlekey=fastpost" onSubmit="return fastpostvalidate(this)">
+<table cellspacing="0" cellpadding="0">
+<tr>
+<td class="pls">
+</td>
+<td class="plc">
+
+<span id="fastpostreturn"></span>
+
+
+<div class="cl">
+<div id="fastsmiliesdiv" class="y"><div id="fastsmiliesdiv_data"><div id="fastsmilies"></div></div></div><div class="hasfsl" id="fastposteditor">
+<div class="tedt mtn">
+<div class="bar">
+<span class="y">
+<a href="forum.php?mod=post&amp;action=reply&amp;fid=258&amp;tid=158902" onclick="return switchAdvanceMode(this.href)">高级模式</a>
+</span><script src="static/js/seditor.js?FJm" type="text/javascript"></script>
+<div class="fpd">
+<a href="javascript:;" title="文字加粗" class="fbld">B</a>
+<a href="javascript:;" title="设置文字颜色" class="fclr" id="fastpostforecolor">Color</a>
+<a id="fastpostimg" href="javascript:;" title="图片" class="fmg">Image</a>
+<a id="fastposturl" href="javascript:;" title="添加链接" class="flnk">Link</a>
+<a id="fastpostquote" href="javascript:;" title="引用" class="fqt">Quote</a>
+<a id="fastpostcode" href="javascript:;" title="代码" class="fcd">Code</a>
+<a href="javascript:;" class="fsml" id="fastpostsml">Smilies</a>
+</div></div>
+<div class="area">
+<div class="pt hm">
+您需要登录后才可以回帖 <a href="member.php?mod=logging&amp;action=login" onclick="showWindow('login', this.href)" class="xi2">登录</a> | <a href="member.php?mod=register" class="xi2">有奖注册</a>
+
+
+<a href="http://bbs.zgqw.com/connect.php?mod=login&op=init&referer=forum.php%3Fmod%3Dviewthread%26tid%3D158902%26extra%3Dpage%3D1%26page%3D1&statfrom=login" target="_top" rel="nofollow"><img src="static/image/common/qq_login.gif" class="vm" /></a>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<input type="hidden" name="formhash" value="5124f7f4" />
+<input type="hidden" name="usesig" value="" />
+<input type="hidden" name="subject" value="  " />
+<p class="ptm pnpost">
+<button type="button" onclick="showWindow('login', 'member.php?mod=logging&action=login&guestmessage=yes')" name="replysubmit" id="fastpostsubmit" class="pn pnc vm" value="replysubmit" tabindex="5"><strong>发表回复</strong></button>
+<label for="fastpostrefresh"><input id="fastpostrefresh" type="checkbox" class="pc" />回帖后跳转到最后一页</label>
+<script type="text/javascript">if(getcookie('fastpostrefresh') == 1) {$('fastpostrefresh').checked=true;}</script>
+</p>
+</td>
+</tr>
+</table>
+</form>
+</div>
+
+<script type="text/javascript">
+var connect_qzone_share_url = 'http://bbs.zgqw.com/home.php?mod=spacecp&ac=plugin&id=qqconnect:spacecp&pluginop=share&sh_type=1&thread_id=158902';
+var connect_weibo_share_url = 'http://bbs.zgqw.com/home.php?mod=spacecp&ac=plugin&id=qqconnect:spacecp&pluginop=share&sh_type=2&thread_id=158902';
+var connect_thread_info = {
+thread_url: 'http://bbs.zgqw.com/thread-158902-1-1.html',
+thread_id: '158902',
+post_id: '294138',
+forum_id: '258',
+author_id: '7327',
+author: '小美'
+};
+
+connect_autoshare = '0';
+connect_isbind = '';
+if(connect_autoshare == 1 && connect_isbind) {
+_attachEvent(window, 'load', function(){
+connect_share(connect_weibo_share_url, connect_openid);
+});
+}
+</script>
+
+
+  <script type="text/javascript">document.onkeyup = function(e){keyPageScroll(e, 0, 0, 'forum.php?mod=viewthread&tid=158902', 1);}</script>
+</div>
+
+<div class="wp mtn">
+<!--[diy=diy3]--><div id="diy3" class="area"></div><!--[/diy]-->
+</div>
+
+
+<script type="text/javascript">
+function succeedhandle_followmod(url, msg, values) {
+var fObj = $('followmod_'+values['fuid']);
+if(values['type'] == 'add') {
+fObj.innerHTML = '不收听';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=del&fuid='+values['fuid'];
+} else if(values['type'] == 'del') {
+fObj.innerHTML = '收听TA';
+fObj.href = 'home.php?mod=spacecp&ac=follow&op=add&hash=5124f7f4&fuid='+values['fuid'];
+}
+}
+</script>	</div>
+
+
+<div id="ft" class="wp cl">
+<div id="flk" class="y">
+<p>
+<a href="archiver/" >Archiver</a><span class="pipe">|</span><a href="forum.php?mobile=yes" >手机版</a><span class="pipe">|</span><a href="http://bbs.zgqw.com/forum-229-1.html" >嘉宾对话</a><span class="pipe">|</span><a href="http://bbs.zgqw.com/forum-226-1.html" >意见反馈</a><span class="pipe">|</span><strong><a href="http://bbs.zgqw.com/" target="_blank">中国钱网</a></strong>
+( <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备11100448号</a> )<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F43755235a6547e2303a98259c3f55d97' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<iframe src="http://bbs.zgqw.com/s_api/bbs_analytics.php?v=4" frameborder="0" scrolling="no" width="1" height="1"></iframe>
+<iframe src="http://bbs.zgqw.com/s_api/bbs_auto_update_magic.php?v=4" frameborder="0" scrolling="no" width="1" height="1"></iframe>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1000457280'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1000457280%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></p>
+<p class="xs0">
+GMT+8, 2015-12-11 10:12<span id="debuginfo">
+, Processed in 0.187040 second(s), 52 queries
+.
+</span>
+</p>
+</div>
+<div id="frt">
+<p>Powered by <strong><a href="http://www.discuz.net" target="_blank">Discuz!</a></strong> <em>X2.5</em></p>
+<p class="xs0">&copy; 2001-2012 <a href="http://www.comsenz.com" target="_blank">Comsenz Inc.</a></p>
+</div></div>
+
+<div id="g_upmine_menu" class="tip tip_3" style="display:none;">
+<div class="tip_c">
+积分 0, 距离下一级还需  积分
+</div>
+<div class="tip_horn"></div>
+</div>
+<script src="home.php?mod=misc&ac=sendmail&rand=1449799958" type="text/javascript"></script>
+<span id="scrolltop" onclick="window.scrollTo('0','0')">回顶部</span>
+<script type="text/javascript">_attachEvent(window, 'scroll', function(){showTopLink();});checkBlind();</script>
+			<div id="discuz_tips" style="display:none;"></div>
+			<script type="text/javascript">
+				var discuzSId = '23625577';
+				var discuzVersion = 'X2.5';
+				var discuzRelease = '20130222';
+				var discuzApi = '0.6';
+				var discuzIsFounder = '';
+				var discuzFixbug = '25000004';
+				var discuzAdminId = '0';
+				var discuzOpenId = '';
+				var discuzUid = '0';
+				var discuzGroupId = '7';
+				var ts = '1449799958';
+				var sig = 'f1e7f1385626baf5ab341ba6b8ce0cbc';
+				var discuzTipsCVersion = '2';
+			</script>
+			<script src="http://discuz.gtimg.cn/cloud/scripts/discuz_tips.js?v=1" type="text/javascript" charset="UTF-8"></script></body>
+</html>

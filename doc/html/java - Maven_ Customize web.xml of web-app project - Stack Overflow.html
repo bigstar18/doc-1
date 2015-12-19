@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/QAPage">
+<head>
+
+<title>java - Maven: Customize web.xml of web-app project - Stack Overflow</title>
+    <link rel="shortcut icon" href="//cdn.sstatic.net/stackoverflow/img/favicon.ico?v=4f32ecc8f43d">
+    <link rel="apple-touch-icon image_src" href="//cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="/opensearch.xml">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:domain" content="stackoverflow.com"/>
+    <meta property="og:type" content="website" />    
+    <meta property="og:image" itemprop="image primaryImageOfPage" content="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon@2.png?v=73d79a89bded&a" />
+    <meta name="twitter:title" property="og:title" itemprop="title name" content="Maven: Customize web.xml of web-app project" />
+    <meta name="twitter:description" property="og:description" itemprop="description" content="
+
+I have a web application Maven project, and I want to customize the web.xml file depending on the Profile that is running. I am using the Maven-War-plugin, which allows me to define a &quot;resources&quot; " />
+    <meta property="og:url" content="http://stackoverflow.com/questions/3298763/maven-customize-web-xml-of-web-app-project/15006170"/>
+    <link rel="canonical" href="http://stackoverflow.com/questions/3298763/maven-customize-web-xml-of-web-app-project/15006170" />
+
+    
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="//cdn.sstatic.net/Js/stub.en.js?v=9a3ccd165d60"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.sstatic.net/stackoverflow/all.css?v=ba1fa51f5a47">
+
+            <link rel="alternate" type="application/atom+xml" title="Feed for question &#39;Maven: Customize web.xml of web-app project&#39;" href="/feeds/question/3298763">
+            <meta name="twitter:app:country" content="US" />
+            <meta name="twitter:app:name:iphone" content="Stack Exchange iOS" />
+            <meta name="twitter:app:id:iphone" content="871299723" />
+            <meta name="twitter:app:url:iphone" content="se-zaphod://stackoverflow.com/questions/3298763/maven-customize-web-xml-of-web-app-project/15006170" />
+            <meta name="twitter:app:name:ipad" content="Stack Exchange iOS" />
+            <meta name="twitter:app:id:ipad" content="871299723" />
+            <meta name="twitter:app:url:ipad" content="se-zaphod://stackoverflow.com/questions/3298763/maven-customize-web-xml-of-web-app-project/15006170" />
+            <meta name="twitter:app:name:googleplay" content="Stack Exchange Android">
+            <meta name="twitter:app:url:googleplay" content="http://stackoverflow.com/questions/3298763/maven-customize-web-xml-of-web-app-project/15006170">
+            <meta name="twitter:app:id:googleplay" content="com.stackexchange.marvin">
+        <script>
+        
+            StackExchange.ready(function () {
+                    
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.initSnippetRenderer();
+                    });
+                    
+
+                StackExchange.using("postValidation", function () {
+                    StackExchange.postValidation.initOnBlurAndSubmit($('#post-form'), 2, 'answer');
+                });
+
+                
+                StackExchange.question.init({showAnswerHelp:true,totalCommentCount:0,shownCommentCount:0,highlightColor:'#F4A83D',backgroundColor:'#FFF',questionId:3298763});
+
+                styleCode();
+
+                    StackExchange.realtime.subscribeToQuestion('1', '3298763');
+                                                                    StackExchange.using("gps", function () { StackExchange.gps.trackOutboundClicks('#content', '.post-text'); });
+
+            });
+        </script>
+
+
+    <script>
+        StackExchange.init({"locale":"en","stackAuthUrl":"https://stackauth.com","serverTime":1449564658,"networkMetaHostname":"meta.stackexchange.com","routeName":"Questions/Show","styleCode":true,"enableUserHovercards":true,"snippets":{"enabled":true,"domain":"stacksnippets.net"},"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers","isNoticesTabEnabled":true,"recaptchaPublicKey":"6LdchgIAAAAAAJwGpIzRQSOFaO0pU6s44Xt8aTwc","recaptchaAudioLang":"en","enableNewTagCreationWarning":true,"insertSpaceAfterNameTabCompletion":false,"id":1,"nonAsciiTags":true,"enableSocialMediaInSharePopup":true},"user":{"fkey":"69bdc14455181d6b2617a8625366c534","rep":0,"isAnonymous":true,"isAnonymousNetworkWide":true}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.en.js":"1a93a14b2d41","js/moderator.en.js":"24ee4d052056","js/full-anon.en.js":"e8213c45176a","js/full.en.js":"c6989fad92ae","js/wmd.en.js":"e43dfb04dbf5","js/third-party/jquery.autocomplete.min.js":"e5f01e97f7c3","js/third-party/jquery.autocomplete.min.en.js":"","js/mobile.en.js":"79e99fb3684a","js/help.en.js":"dbd4f489eff2","js/tageditor.en.js":"48ff9497244d","js/tageditornew.en.js":"8d7b68a3cdf9","js/inline-tag-editing.en.js":"de80429b1816","js/revisions.en.js":"df3cb25dfabf","js/review.en.js":"7da9aceffd51","js/tagsuggestions.en.js":"d1ff9b84abe5","js/post-validation.en.js":"4efbc3a081e9","js/explore-qlist.en.js":"415c9ef1f829","js/events.en.js":"acfec7eb097d","js/keyboard-shortcuts.en.js":"aa3c2915fec9","js/external-editor.en.js":"cf58cc6630ef","js/external-editor.en.js":"cf58cc6630ef","js/snippet-javascript.en.js":"433470c8fb5e","js/snippet-javascript-codemirror.en.js":"ec0182ba6a21"});
+        StackExchange.using("gps", function() {
+             StackExchange.gps.init(true);
+        });
+    </script>
+    
+        <script>
+            StackExchange.ready(function () {
+                $('#nav-tour').click(function () {
+                    StackExchange.using("gps", function() {
+                        StackExchange.gps.track("aboutpage.click", { aboutclick_location: "headermain" }, true);
+                    });
+                });
+            });
+        </script>
+    
+    
+</head>
+<body class="question-page new-topbar">
+    <noscript><div id="noscript-padding"></div></noscript>
+    <div id="notify-container"></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+
+
+
+
+<div class="topbar">
+    <div class="topbar-wrapper">
+
+        <div class="js-topbar-dialog-corral">
+
+
+<div class="topbar-dialog siteSwitcher-dialog dno">
+    <div class="header">
+        <h3><a href="//stackoverflow.com">current community</a></h3>
+    </div>
+    <div class="modal-content current-site-container">
+        <ul class="current-site">
+                <li>
+                        <div class="related-links">
+                    <a href="http://chat.stackoverflow.com" class="js-gps-track"     data-gps-track="site_switcher.click({ item_type:6 })"
+>chat</a>
+            </div>
+
+
+
+
+    <a href="//stackoverflow.com"
+       class="current-site-link site-link js-gps-track"
+       data-id="1"
+       data-gps-track="
+        site_switcher.click({ item_type:3 })">
+        <div class="site-icon favicon favicon-stackoverflow" title="Stack Overflow"></div>
+        Stack Overflow
+    </a>
+
+                </li>
+                <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    
+
+
+
+    <a href="http://meta.stackoverflow.com"
+       class="site-link js-gps-track"
+       data-id="552"
+       data-gps-track="
+            site.switch({ target_site:552, item_type:3 }),
+        site_switcher.click({ item_type:4 })">
+        <div class="site-icon favicon favicon-stackoverflowmeta" title="Meta Stack Overflow"></div>
+        Meta Stack Overflow
+    </a>
+
+                </li>
+                            <li class="related-site">
+                        <div class="L-shaped-icon-container">
+        <span class="L-shaped-icon"></span>
+    </div>
+
+                    <a class="site-link js-gps-track"
+                       href="//careers.stackoverflow.com?utm_source=stackoverflow.com&amp;utm_medium=site-ui&amp;utm_campaign=multicollider"
+                            data-gps-track="site_switcher.click({ item_type:9 })"
+>
+                        <div class="site-icon favicon favicon-careers" title="Stack Overflow Careers"></div>
+                        Stack Overflow Careers
+                    </a>
+                </li>
+        </ul>
+    </div>
+    
+    <div class="header" id="your-communities-header">
+        <h3>
+your communities        </h3>
+            
+    </div>
+    <div class="modal-content" id="your-communities-section">
+            
+            <div class="call-to-login">
+<a href="https://stackoverflow.com/users/signup?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f3298763%2fmaven-customize-web-xml-of-web-app-project%2f15006170" class="login-link js-gps-track"     data-gps-track="site_switcher.click({ item_type:10 })"
+>Sign up</a> or <a href="https://stackoverflow.com/users/login?ssrc=site_switcher&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f3298763%2fmaven-customize-web-xml-of-web-app-project%2f15006170" class="login-link js-gps-track"     data-gps-track="site_switcher.click({ item_type:11 })"
+>log in</a> to customize your list.
+            </div>
+    </div>
+    
+    <div class="header">
+        <h3><a href="//stackexchange.com/sites">more stack exchange communities</a></h3>
+        <a href="http://blog.stackoverflow.com" class="fr">company blog</a>
+    </div>
+    <div class="modal-content">
+            <div class="child-content"></div>
+    </div>
+</div>
+        </div>
+
+        <div class="network-items">
+
+            <a href="//stackexchange.com"
+               class="topbar-icon icon-site-switcher yes-hover js-site-switcher-button js-gps-track"
+               data-gps-track="site_switcher.show"
+               title="A list of all 150 Stack Exchange sites">
+                <span class="hidden-text">Stack Exchange</span>
+            </a>
+
+    <a href="#"
+       class="topbar-icon icon-inbox yes-hover js-inbox-button"
+       title="Recent inbox messages">
+        <span class="hidden-text">Inbox</span>
+        <span class="unread-count" style="display:none"></span>
+    </a>
+    <a href="#"
+       class="topbar-icon icon-achievements yes-hover js-achievements-button "
+       data-unread-class=""
+       title="Recent achievements: reputation, badges, and privileges earned">
+        <span class="hidden-text">Reputation and Badges</span>
+        <span class="unread-count" style="display:none">
+            
+        </span>
+    </a>
+        </div>
+
+        <div class="topbar-links">
+
+                <div class="links-container">
+                <span class="topbar-menu-links">
+                                    <a href="https://stackoverflow.com/users/signup?ssrc=head&returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f3298763%2fmaven-customize-web-xml-of-web-app-project%2f15006170" class="login-link">sign up</a>
+                                <a href="https://stackoverflow.com/users/login?ssrc=head&returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f3298763%2fmaven-customize-web-xml-of-web-app-project%2f15006170" class="login-link">log in</a>
+
+                        <a href="/tour">tour</a>
+                            <a href="#" class="icon-help js-help-button" title="Help Center and other resources">
+        help
+        <span class="triangle"></span>
+    </a>
+    <div class="topbar-dialog help-dialog js-help-dialog dno">
+        <div class="modal-content">
+            <ul>
+                                    <li>
+                        <a href="/tour" class="js-gps-track" data-gps-track="help_popup.click({ item_type:1 })">
+                            Tour
+                            <span class="item-summary">
+                                Start here for a quick overview of the site
+                            </span>
+                        </a>
+                    </li>
+                <li>
+                    <a href="/help" class="js-gps-track" data-gps-track="help_popup.click({ item_type:4 })">
+                        Help Center
+                        <span class="item-summary">
+                            Detailed answers to any questions you might have
+                        </span>
+                    </a>
+                </li>
+                    <li>
+                        <a href="//meta.stackoverflow.com" class="js-gps-track" data-gps-track="help_popup.click({ item_type:2 })">
+                            Meta
+                            <span class="item-summary">
+                                Discuss the workings and policies of this site
+                            </span>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+
+                            <a href="//careers.stackoverflow.com?utm_source=stackoverflow.com&amp;utm_medium=site-ui&amp;utm_campaign=anon-topbar">stack overflow careers</a>
+                    </span>
+                </div>
+
+            <div class="search-container">
+                <form id="search" action="/search" method="get" autocomplete="off">
+                    <input name="q" type="text" placeholder="search" value="" tabindex="1" autocomplete="off" maxlength="240" />
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script>
+        StackExchange.ready(function() { StackExchange.topbar.init(); });
+    </script>
+
+    <div class="container">
+        <div id="header">
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="/" >
+                    Stack Overflow
+                </a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="/tags">Tags</a></li>
+                        <li><a id="nav-users" href="/users">Users</a></li>
+                        <li><a id="nav-badges" href="/help/badges">Badges</a></li>
+                                                                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion"  href="/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+        <div id="content" class="snippet-hidden">
+            
+
+<div itemscope itemtype="http://schema.org/Question">
+    <link itemprop="image" href="//cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png?v=c78bd457575a">
+			<!--googleoff: all-->
+
+<div id="herobox-mini">
+    <div id="hero-content">
+        <span id="controls">
+                <a href="/users/signup?ssrc=hero&amp;returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f3298763%2fmaven-customize-web-xml-of-web-app-project%2f15006170" id="tell-me-more" class="button">Sign up</a>
+            <span id="close"><a title="click to dismiss">&times;</a></span>
+        </span>
+        <div id="blurb">
+            Stack Overflow is a community of 4.7 million programmers, just like you, helping each other. Join them; it only takes a minute:
+        </div>        
+    </div>
+    <script>
+        StackExchange.ready(function() {
+            var clickSource = $("body").attr("class") + '-mini';
+            var location = 0;
+            if ($("body").hasClass("questions-page")) {
+                clickSource = 'questionpagemini';
+                location = 2;
+            } else if ($("body").hasClass("question-page")) {
+                clickSource = 'questionpagemini';
+                location = 2;
+            } else if ($("body").hasClass("home-page")) {
+                clickSource = 'homepagemini';
+                location = 4;
+            }
+
+            $('#tell-me-more').click(function () {
+                StackExchange.using("gps", function () {
+                    StackExchange.gps.track("hero.action", { hero_action_type: 'cta', location: location }, true);
+                });
+            });
+            $('#herobox-mini #close').click(function () {
+                StackExchange.using("gps", function () {
+                    StackExchange.gps.track("hero.action", { hero_action_type: "close", location: location }, true);
+                });
+                $.cookie("hero", "none", { path: "/", expires: 365 });
+                var $hero = $("#herobox-mini");
+                $hero.slideUp('fast', function () { $hero.remove(); });
+                return false;
+            });
+        });
+    </script>
+</div>
+			<!--googleon: all-->
+			<div id="question-header">
+                <h1 itemprop="name"><a href="/questions/3298763/maven-customize-web-xml-of-web-app-project" class="question-hyperlink">Maven: Customize web.xml of web-app project</a></h1>
+		</div>
+			<div id="mainbar">
+
+			
+
+<div class="question" data-questionid="3298763"  id="question">
+
+    <script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk1089849466",4).setZone(43); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk1089849466">
+            </div>    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="3298763">
+        <a class="vote-up-off" title="This question shows research effort; it is useful and clear">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">41</span>
+        <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful">down vote</a>
+
+        <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+        <div class="favoritecount"><b>17</b></div>
+
+
+</div>
+
+            </td>
+            
+<td class="postcell">
+<div>
+    <div class="post-text" itemprop="text">
+
+
+
+<p>I have a web application Maven project, and I want to customize the web.xml file depending on the Profile that is running. I am using the Maven-War-plugin, which allows me to define a "resources" directory, where the files may be filtered. However, filtering alone is not sufficient for me.</p>
+
+<p>In more detail, I want to <strong>include (or exclude)</strong> the whole section on security, depending on the profile I an running. This is the part:</p>
+
+<pre class="lang-xml prettyprint-override"><code>....
+....
+
+&lt;security-constraint&gt;
+
+    &lt;web-resource-collection&gt;
+        &lt;web-resource-name&gt;protected&lt;/web-resource-name&gt;
+        &lt;url-pattern&gt;/pages/*.xhtml&lt;/url-pattern&gt;
+        &lt;url-pattern&gt;/pages/*.jsp&lt;/url-pattern&gt;
+    &lt;/web-resource-collection&gt;
+
+    &lt;auth-constraint&gt;
+        &lt;role-name&gt;*&lt;/role-name&gt;
+    &lt;/auth-constraint&gt;
+
+    &lt;/security-constraint&gt;
+        &lt;login-config&gt;
+        &lt;auth-method&gt;${web.modules.auth.type}&lt;/auth-method&gt;
+        &lt;realm-name&gt;MyRealm&lt;/realm-name&gt;
+    &lt;/login-config&gt;
+
+&lt;security-constraint&gt;
+
+....
+....
+</code></pre>
+
+<p>If this is not done easily, is there a way to have two web.xml files and select the appropriate one depending on the profile?</p>
+    </div>
+    <div class="post-taglist">
+        <a href="/questions/tagged/java" class="post-tag" title="show questions tagged &#39;java&#39;" rel="tag">java</a> <a href="/questions/tagged/web-applications" class="post-tag" title="show questions tagged &#39;web-applications&#39;" rel="tag">web-applications</a> <a href="/questions/tagged/maven-2" class="post-tag" title="show questions tagged &#39;maven-2&#39;" rel="tag">maven-2</a> <a href="/questions/tagged/profile" class="post-tag" title="show questions tagged &#39;profile&#39;" rel="tag">profile</a> <a href="/questions/tagged/web.xml" class="post-tag" title="show questions tagged &#39;web.xml&#39;" rel="tag">web.xml</a> 
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/q/3298763" title="short permalink to this question" class="short-link" id="link-post-3298763">share</a><span class="lsep">|</span><a href="/posts/3298763/edit" class="suggest-edit-post" title="">improve this question</a></div>        
+    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/3298763/revisions" title="show all edits to this post">edited <span title="2013-09-05 09:12:29Z" class="relativetime">Sep 5 '13 at 9:12</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/563970/bart"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/cb892e9029aaaaa25612cb7131be71c1?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/563970/bart">Bart</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1,713</span><span title="7 silver badges"><span class="badge2"></span><span class="badgecount">7</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
+        </div>
+    </div>
+</div>    </td>
+    <td class="post-signature owner">
+        <div class="user-info user-hover">
+    <div class="user-action-time">
+        asked <span title="2010-07-21 11:36:43Z" class="relativetime">Jul 21 '10 at 11:36</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/125713/markos-fragkakis"><div class="gravatar-wrapper-32"><img src="https://i.stack.imgur.com/Vghay.jpg?s=32&amp;g=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/125713/markos-fragkakis">Markos Fragkakis</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">2,797</span><span title="9 gold badges"><span class="badge1"></span><span class="badgecount">9</span></span><span title="44 silver badges"><span class="badge2"></span><span class="badgecount">44</span></span><span title="84 bronze badges"><span class="badge3"></span><span class="badgecount">84</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</div>
+</td>
+        </tr>
+                
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-3298763" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-3298763" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid answering questions in comments."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>        </table>
+</div>
+
+			<div id="answers">
+
+				<a name="tab-top"></a>
+				<div id="answers-header">
+					<div class="subheader answers-subheader">
+						<h2>
+								7 Answers
+                                <span style="display:none;" itemprop="answerCount">7</span>
+						</h2>
+						<div>
+							<div id="tabs">
+        <a href="/questions/3298763/maven-customize-web-xml-of-web-app-project?answertab=active#tab-top" data-nav-xhref="" title="Answers with the latest activity first" data-value="active">active</a>
+        <a href="/questions/3298763/maven-customize-web-xml-of-web-app-project?answertab=oldest#tab-top" data-nav-xhref="" title="Answers in the order they were provided" data-value="oldest">oldest</a>
+        <a class="youarehere" href="/questions/3298763/maven-customize-web-xml-of-web-app-project?answertab=votes#tab-top" data-nav-xhref="" title="Answers with the highest score first" data-value="votes">votes</a>
+</div>
+						</div>
+					</div>    
+				</div>    
+
+
+
+
+  
+<a name="3298876"></a>
+<div id="answer-3298876" class="answer accepted-answer" data-answerid="3298876"  itemscope itemtype="http://schema.org/Answer" itemprop="acceptedAnswer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="3298876">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">47</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+        <span class="vote-accepted-on load-accepted-answer-date" title="loading when this answer was accepted...">accepted</span>
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<blockquote>
+  <p>is there a way to have two web.xml files and select the appropriate one depending on the profile?</p>
+</blockquote>
+
+<p>Yes, within each profile you can add a configuration of the <a href="http://maven.apache.org/plugins/maven-war-plugin/"><code>maven-war-plugin</code></a> and configure each to point at a different <code>web.xml</code>.</p>
+
+<pre><code>&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;id&gt;profile1&lt;/id&gt;
+        &lt;build&gt;
+            &lt;plugins&gt;
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+                    &lt;configuration&gt;
+                        &lt;webXml&gt;/path/to/webXml1&lt;/webXml&gt;
+                    &lt;/configuration&gt;
+                &lt;/plugin&gt;
+                 ...
+</code></pre>
+
+<p>As an alternative to having to specify the <a href="http://maven.apache.org/plugins/maven-war-plugin/"><code>maven-war-plugin</code></a> configuration in each profile, you can supply a default configuration in the main section of the POM and then just override it for specific profiles.</p>
+
+<p>Or to be even simpler, in the main <code>&lt;build&gt;&lt;plugins&gt;</code> of your POM, use a property to refer to the <code>webXml</code> attribute and then just change it's value in different profiles</p>
+
+<pre><code>&lt;properties&gt;
+    &lt;webXmlPath&gt;path/to/default/webXml&lt;/webXmlPath&gt;
+&lt;/properties&gt;
+&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;id&gt;profile1&lt;/id&gt;
+        &lt;properties&gt;
+            &lt;webXmlPath&gt;path/to/custom/webXml&lt;/webXmlPath&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;
+&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+            &lt;configuration&gt;
+                &lt;webXml&gt;${webXmlPath}&lt;/webXml&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        ...
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/3298876" title="short permalink to this answer" class="short-link" id="link-post-3298876">share</a><span class="lsep">|</span><a href="/posts/3298876/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/3298876/revisions" title="show all edits to this post">edited <span title="2013-05-20 14:37:36Z" class="relativetime">May 20 '13 at 14:37</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/1411160/emil-sier%c5%bc%c4%99ga"><div class="gravatar-wrapper-32"><img src="https://i.stack.imgur.com/P4XMo.jpg?s=32&amp;g=1" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/1411160/emil-sier%c5%bc%c4%99ga">Emil Sierżęga</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">355</span><span title="6 silver badges"><span class="badge2"></span><span class="badgecount">6</span></span><span title="18 bronze badges"><span class="badge3"></span><span class="badgecount">18</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-07-21 11:52:52Z" class="relativetime">Jul 21 '10 at 11:52</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/4249/matt-b"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/c11c60c7e6d29cb4b87f3c0a3b692181?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/4249/matt-b">matt b</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score 85790" dir="ltr">85.8k</span><span title="38 gold badges"><span class="badge1"></span><span class="badgecount">38</span></span><span title="192 silver badges"><span class="badge2"></span><span class="badgecount">192</span></span><span title="270 bronze badges"><span class="badge3"></span><span class="badgecount">270</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-3298876" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-3298876" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk195712573",4).setZone(44); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk195712573">
+            </div>
+  
+<a name="8593041"></a>
+<div id="answer-8593041" class="answer" data-answerid="8593041"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="8593041">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">32</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>There's a third, compromise option which I implemented in my project.  It keeps everything in one web.xml while still making both it and the pom.xml readable.  In my case, I had a need to sometimes have security and sometimes have no security, depending on the environment.</p>
+
+<p>So what I did was:</p>
+
+<p>In the pom.xml, define two profiles (or however many you need).  Within the profiles, include two properties.  When you want security, you leave them empty, like this:</p>
+
+<pre><code>&lt;enable.security.start&gt;&lt;/enable.security.start&gt;
+&lt;enable.security.end&gt;&lt;/enable.security.end&gt;
+</code></pre>
+
+<p>When you want to exclude all of the security, you define them as follows:</p>
+
+<pre><code>&lt;enable.security.start&gt;&amp;lt;!--&lt;/enable.security.start&gt;
+&lt;enable.security.end&gt;--&amp;gt;&lt;/enable.security.end&gt;
+</code></pre>
+
+<p>Then, you have a single web.xml file with the following:</p>
+
+<pre><code>${enable.security.start}
+&lt;security-constraint&gt;
+  ...
+  // all of the XML that you need, in a completely readable format
+  ...
+&lt;/login-config&gt;  
+${enable.security.end}
+</code></pre>
+
+<p>The pom.xml maven-war-plugin has to be configured to use filtering.  Mine looks like this:</p>
+
+<pre><code>   &lt;configuration&gt;
+      &lt;webResources&gt;
+        &lt;resource&gt;
+          &lt;filtering&gt;true&lt;/filtering&gt;
+          &lt;directory&gt;src/main/webapp&lt;/directory&gt;
+          &lt;includes&gt;
+            &lt;include&gt;**/web.xml&lt;/include&gt;
+          &lt;/includes&gt;
+        &lt;/resource&gt;
+      &lt;/webResources&gt;
+      &lt;warSourceDirectory&gt;src/main/webapp&lt;/warSourceDirectory&gt;
+      &lt;webXml&gt;src/main/webapp/WEB-INF/web.xml&lt;/webXml&gt;
+      ...
+</code></pre>
+
+<p>So, basically, when you select the profile to include security, you get two extra CRLF's in your web.xml.  When you select the profile to NOT include security, the XML is all still in the web.xml, but it's commented out so it gets ignored.  I like this because you don't have to worry about keeping multiple files in sync, yet the XML is still readable (and it's in the web.xml file where people would naturally look for it).</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/8593041" title="short permalink to this answer" class="short-link" id="link-post-8593041">share</a><span class="lsep">|</span><a href="/posts/8593041/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2011-12-21 16:26:50Z" class="relativetime">Dec 21 '11 at 16:26</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/1110250/chris-clark"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/5eb65554fa2bf972e7ce82655eadae02?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/1110250/chris-clark">Chris Clark</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">321</span><span title="3 silver badges"><span class="badge2"></span><span class="badgecount">3</span></span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-8593041" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+
+
+    <tr id="comment-28094363" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="cool">3</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I used a similar technique. Instead of using comment start and end nodes, I created a commented macro like &lt;security-constraint&gt;&lt;!--${dev.security.constraint}--&gt;...&lt;/security-constraint&gt;. Because it was commented out, it is still a valid XML document. In my dev profile I had &lt;profile&gt;&lt;id&gt;dev&lt;/id&gt;&lt;properties&gt;&lt;dev.security.constraint&gt;--&amp;gt;[Content goes here]&amp;lt;&lt;/dev.security.constraint&gt;&lt;properties&gt;&lt;/profile&gt;. This means that if I don&#39;t define dev.security.constraint, it is becomes a harmless comment, but when it is defined, it is the content sandwiched between two empty comments.</span>
+                    &ndash;&nbsp;<a href="/users/330086/ryan-beesley"
+                       title="477 reputation"
+                       class="comment-user">Ryan Beesley</a>
+                <span class="comment-date" dir="ltr"><span title="2013-09-25 20:42:14Z" class="relativetime-clean">Sep 25 '13 at 20:42</span></span>
+                    <span class="edited-yes" title="this comment was edited 2 times"></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-31722211" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I&#39;d do more than +1 for this solution if I could.  Very nice!</span>
+                    &ndash;&nbsp;<a href="/users/191214/april26"
+                       title="511 reputation"
+                       class="comment-user">april26</a>
+                <span class="comment-date" dir="ltr"><span title="2014-01-13 11:06:23Z" class="relativetime-clean">Jan 13 '14 at 11:06</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-32437981" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="cool">1</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I like the idea of this, except for the invalid XML errors which are resolved by @ajozwik answer below.  +1 for heading in the right direction though!</span>
+                    &ndash;&nbsp;<a href="/users/572954/rwyland"
+                       title="1097 reputation"
+                       class="comment-user">rwyland</a>
+                <span class="comment-date" dir="ltr"><span title="2014-01-31 20:52:39Z" class="relativetime-clean">Jan 31 '14 at 20:52</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-8593041" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="3327543"></a>
+<div id="answer-3327543" class="answer" data-answerid="3327543"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="3327543">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">15</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+
+
+<p>"matt b" has already posted the answer that is the most maven way of doing it.  It is the way I'd recommend doing it 99% of the time.</p>
+
+<p>However, occasionally, your configuration file might be quite complicated, and it doesn't make much sense to duplicate the whole file for each environment when only one XML stanza differs.  In these cases, you can abuse property filtering to accomplish your goal.</p>
+
+<p>Warning, a very duct-tape-y solution follows, and will not be for the faint of heart:</p>
+
+<p>In your pom.xml:  </p>
+
+<p>Attention StackOverflow Editors!!!!  The html entity escaping is a part of the solution.  The solution will NOT work if you replace it all with greater-than and less-than signs.  Please leave the answer as is...</p>
+
+<pre class="lang-xml prettyprint-override"><code>&lt;properties&gt;
+    &lt;test.security.config&gt;
+        &amp;lt;security-constraint&amp;gt;
+            &amp;lt;web-resource-collection&amp;gt;
+                &amp;lt;web-resource-name&amp;gt;protected&amp;lt;/web-resource-name&amp;gt;
+                &amp;lt;url-pattern&amp;gt;/pages/*.xhtml&amp;lt;/url-pattern&amp;gt;
+                &amp;lt;url-pattern&amp;gt;/pages/*.jsp&amp;lt;/url-pattern&amp;gt;
+            &amp;lt;/web-resource-collection&amp;gt;
+
+            &amp;lt;auth-constraint&amp;gt;
+                &amp;lt;role-name&amp;gt;*&amp;lt;/role-name&amp;gt;
+            &amp;lt;/auth-constraint&amp;gt;
+
+            &amp;lt;/security-constraint&amp;gt;
+                &amp;lt;login-config&amp;gt;
+                &amp;lt;auth-method&amp;gt;${web.modules.auth.type}&amp;lt;/auth-method&amp;gt;
+                &amp;lt;realm-name&amp;gt;MyRealm&amp;lt;/realm-name&amp;gt;
+            &amp;lt;/login-config&amp;gt;
+
+        &amp;lt;security-constraint&amp;gt;
+    &lt;/test.security.config&gt;
+&lt;/properties&gt;
+</code></pre>
+
+<p>in your web.xml</p>
+
+<pre class="lang-xml prettyprint-override"><code>....
+${test.security.config}
+....
+</code></pre>
+
+<p>Because non-existent properties evaluate to an empty string, your configurations which do not have this property set (or the property is an empty xml tag) will evaluate to a blank line here.  </p>
+
+<p>It's ugly, and the  xml is hard to modify in this form.  However, if your web.xml is complex and you pose a greater risk of 4-5 copies of the web.xml getting out of sync, this may be an approach that will work for you.</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/3327543" title="short permalink to this answer" class="short-link" id="link-post-3327543">share</a><span class="lsep">|</span><a href="/posts/3327543/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/3327543/revisions" title="show all edits to this post">edited <span title="2013-09-05 09:08:06Z" class="relativetime">Sep 5 '13 at 9:08</span></a>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/563970/bart"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/cb892e9029aaaaa25612cb7131be71c1?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/563970/bart">Bart</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1,713</span><span title="7 silver badges"><span class="badge2"></span><span class="badgecount">7</span></span><span title="16 bronze badges"><span class="badge3"></span><span class="badgecount">16</span></span>
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2010-07-25 00:51:50Z" class="relativetime">Jul 25 '10 at 0:51</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/190189/brian-m-carr"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/0fd04dbadaefe8b88e3e1bb3aac5949d?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/190189/brian-m-carr">Brian M. Carr</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">910</span><span title="4 silver badges"><span class="badge2"></span><span class="badgecount">4</span></span><span title="13 bronze badges"><span class="badge3"></span><span class="badgecount">13</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-3327543" class="comments ">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+
+
+    <tr id="comment-12594013" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="cool">2</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I actually prefer this way. It&#39;s not ugly, and with different web.xml files, I could see a situation where someone made a change to the development web.xml, and it worked, then built with production&#39;s web.xml, deployed, and the site went down.</span>
+                    &ndash;&nbsp;<a href="/users/643928/philihp-busby"
+                       title="1897 reputation"
+                       class="comment-user">Philihp Busby</a>
+                <span class="comment-date" dir="ltr"><span title="2012-03-26 16:11:36Z" class="relativetime-clean">Mar 26 '12 at 16:11</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-12594032" class="comment ">
+        <td>
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                &nbsp;&nbsp;
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">I had to wrap the property in &lt;![CDATA[ ... ]]&gt; in order for this to work.</span>
+                    &ndash;&nbsp;<a href="/users/643928/philihp-busby"
+                       title="1897 reputation"
+                       class="comment-user">Philihp Busby</a>
+                <span class="comment-date" dir="ltr"><span title="2012-03-26 16:11:58Z" class="relativetime-clean">Mar 26 '12 at 16:11</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+    <tr id="comment-20586004" class="comment ">
+        <td class="comment-actions">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class=" comment-score">
+                                <span title="number of &#39;useful comment&#39; votes received"
+                                      class="cool">3</span>
+                        </td>
+                        <td>
+                                &nbsp;
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="comment-text">
+            <div style="display: block;" class="comment-body">
+                <span class="comment-copy">since people keep helpfully editing the original (hint, the &amp;gt; is a part of the solution!!!!), note that the above will not work out of the box.  I&#39;ve already fixed it, but people keep changing it back...</span>
+                    &ndash;&nbsp;<a href="/users/190189/brian-m-carr"
+                       title="910 reputation"
+                       class="comment-user">Brian M. Carr</a>
+                <span class="comment-date" dir="ltr"><span title="2013-02-05 20:48:21Z" class="relativetime-clean">Feb 5 '13 at 20:48</span></span>
+                                                                            </div>
+                    </td>
+    </tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-3327543" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="15006170"></a>
+<div id="answer-15006170" class="answer" data-answerid="15006170"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="15006170">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">11</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>Comment to <a href="http://stackoverflow.com/a/8593041/651140">Chris Clark</a> answer. You can reverse - so in development you do not want to have any constraints (security or jndi, other)</p>
+
+<pre><code>&lt;!-- ${enable.security.end}
+&lt;security-constraint&gt;
+    ...
+&lt;/security-constraint&gt;
+
+
+${enable.security.start} --&gt;
+</code></pre>
+
+<p>So in development you have commented out section. But in production it will be translated to (with maven profile):</p>
+
+<pre><code>&lt;!-- --&gt;
+&lt;security-constraint&gt;
+    ...
+&lt;/security-constraint&gt;
+
+
+&lt;!-- --&gt;
+</code></pre>
+
+<p>and commented section will be visible. </p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/15006170" title="short permalink to this answer" class="short-link" id="link-post-15006170">share</a><span class="lsep">|</span><a href="/posts/15006170/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/15006170/revisions" title="show all edits to this post">edited <span title="2013-02-27 14:05:10Z" class="relativetime">Feb 27 '13 at 14:05</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2013-02-21 15:36:44Z" class="relativetime">Feb 21 '13 at 15:36</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/651140/andrzej-jozwik"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/bb1c10e76b3b540abcc2bf4889a0e52f?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/651140/andrzej-jozwik">Andrzej Jozwik</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">5,987</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="23 silver badges"><span class="badge2"></span><span class="badgecount">23</span></span><span title="37 bronze badges"><span class="badge3"></span><span class="badgecount">37</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-15006170" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-15006170" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="26281260"></a>
+<div id="answer-26281260" class="answer" data-answerid="26281260"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="26281260">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">2</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>A new configuration was added to maven-war-plugin in version 2.1-alpha-2.
+Its name is <code>filteringDeploymentDescriptors</code> and it does exacly what you want.</p>
+
+<p>This works:</p>
+
+<pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+    &lt;version&gt;2.4&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;filteringDeploymentDescriptors&gt;true&lt;/filteringDeploymentDescriptors&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<p>And this also works:</p>
+
+<pre><code>&lt;properties&gt;
+    &lt;maven.war.filteringDeploymentDescriptors&gt;true&lt;/maven.war.filteringDeploymentDescriptors&gt;
+&lt;/properties&gt;
+</code></pre>
+
+<p>More information is available in the <a href="http://maven.apache.org/plugins/maven-war-plugin/war-mojo.html#filteringDeploymentDescriptors" rel="nofollow">official documentation of filteringDeploymentDescriptors</a>.</p>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/26281260" title="short permalink to this answer" class="short-link" id="link-post-26281260">share</a><span class="lsep">|</span><a href="/posts/26281260/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info user-hover">
+    <div class="user-action-time">
+        answered <span title="2014-10-09 14:38:55Z" class="relativetime">Oct 9 '14 at 14:38</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/11451/kristof-neirynck"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/ad917cae8ce92bbd69332f8d5735e54a?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/11451/kristof-neirynck">Kristof Neirynck</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1,876</span><span title="15 silver badges"><span class="badge2"></span><span class="badgecount">15</span></span><span title="31 bronze badges"><span class="badge3"></span><span class="badgecount">31</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-26281260" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-26281260" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="19007768"></a>
+<div id="answer-19007768" class="answer" data-answerid="19007768"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="19007768">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<pre><code>is there a way to have two web.xml files and select the appropriate one depending on the profile?
+</code></pre>
+
+<p>Other than the approach suggested by matt b, it is useful to think it the other way around, mainly because in many cases you will have to bundle application server specific configurations that are not covered by the maven plugins (afaik). These may very well have differences between profiles.</p>
+
+<p>Specifically, you can use a parent project that has all the common files between web projects of different profiles. Then child projects can have different web.xml files and the rest id done with profiles and the <code>maven-war-plugin</code>. For example, I have used this layout to achieve unattended builds (other than specifying a profile) for different target environments (development, uat etc.)</p>
+
+<pre><code>WebPc
+├── common
+│   ├── css
+│   ├── images
+│   ├── js
+│   └── WEB-INF
+│   └──├── wsdl
+│── pom.xml
+│
+├── WebPc-DEV
+│   ├── pom.xml
+│   └── src
+│       └── main
+│           └── webapp
+│               └── WEB-INF
+│                   ├── geronimo-web.xml
+│                   ├── ibm-web-bnd.xml
+│                   ├── ibm-web-ext.xml
+│                   └── web.xml
+├── WebPc-UAT
+│   ├── pom.xml
+│   └── src
+│       └── main
+│           └── webapp
+│               └── WEB-INF
+│                   ├── geronimo-web.xml
+│                   ├── ibm-web-bnd.xml
+│                   ├── ibm-web-ext.xml
+│                   └── web.xml
+</code></pre>
+
+<p>The pom of WebPc has the following pom</p>
+
+<pre><code>&lt;groupId&gt;my.grp&lt;/groupId&gt;
+&lt;artifactId&gt;WebPc&lt;/artifactId&gt;
+&lt;packaging&gt;pom&lt;/packaging&gt;
+
+&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;id&gt;DEV&lt;/id&gt;
+        &lt;activation&gt;
+            &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+        &lt;/activation&gt;
+        &lt;modules&gt;
+            &lt;module&gt;WebPc-DEV&lt;/module&gt;
+        &lt;/modules&gt;
+    &lt;/profile&gt;
+    &lt;profile&gt;
+        &lt;id&gt;UAT&lt;/id&gt;
+        &lt;modules&gt;
+            &lt;module&gt;WebPc-UAT&lt;/module&gt;
+        &lt;/modules&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;
+
+&lt;build&gt;
+    &lt;pluginManagement&gt;
+        &lt;plugins&gt;
+
+            &lt;!-- copy common resources located on parent
+                 project common folder for packaging --&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.4&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;resourceEncoding&gt;${project.build.sourceEncoding}&lt;/resourceEncoding&gt;
+                    &lt;webResources&gt;
+                        &lt;resource&gt;
+                            &lt;directory&gt;../common&lt;/directory&gt;
+                            &lt;excludes&gt;
+                                &lt;exclude&gt;WEB-INF/**&lt;/exclude&gt;
+                            &lt;/excludes&gt;
+                        &lt;/resource&gt;
+                        &lt;resource&gt;
+                            &lt;directory&gt;../common/WEB-INF&lt;/directory&gt;
+                            &lt;includes&gt;
+                                &lt;include&gt;wsdl/*.wsdl&lt;/include&gt;
+                                &lt;include&gt;wsdl/*.xsd&lt;/include&gt;
+                            &lt;/includes&gt;
+                            &lt;targetPath&gt;WEB-INF&lt;/targetPath&gt;
+                        &lt;/resource&gt;
+                    &lt;/webResources&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+&lt;/build&gt;
+</code></pre>
+
+<p>And this is the pom for WebPc-DEV</p>
+
+<pre><code>&lt;parent&gt;
+    &lt;groupId&gt;my.grp&lt;/groupId&gt;
+    &lt;artifactId&gt;WebPc&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+&lt;/parent&gt;
+
+&lt;artifactId&gt;WebPc-DEV&lt;/artifactId&gt;
+&lt;packaging&gt;war&lt;/packaging&gt;
+&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/19007768" title="short permalink to this answer" class="short-link" id="link-post-19007768">share</a><span class="lsep">|</span><a href="/posts/19007768/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+    <td align="right" class="post-signature">
+<div class="user-info ">
+    <div class="user-action-time">
+        <a href="/posts/19007768/revisions" title="show all edits to this post">edited <span title="2013-09-25 16:03:52Z" class="relativetime">Sep 25 '13 at 16:03</span></a>
+    </div>
+    <div class="user-gravatar32">
+        
+    </div>
+    <div class="user-details">
+        
+        <div class="-flair">
+            
+        </div>
+    </div>
+</div>    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2013-09-25 14:31:09Z" class="relativetime">Sep 25 '13 at 14:31</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/987401/dkateros"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/9505bbaeacedb844a73931ce875ed2bc?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/987401/dkateros">dkateros</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">1,021</span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="10 bronze badges"><span class="badge3"></span><span class="badgecount">10</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-19007768" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-19007768" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+
+  
+<a name="27106040"></a>
+<div id="answer-27106040" class="answer" data-answerid="27106040"  itemscope itemtype="http://schema.org/Answer">
+    <table>
+        <tr>
+            <td class="votecell">
+                
+
+<div class="vote">
+        <input type="hidden" name="_id_" value="27106040">
+        <a class="vote-up-off" title="This answer is useful">up vote</a>
+        <span itemprop="upvoteCount" class="vote-count-post ">0</span>
+        <a class="vote-down-off" title="This answer is not useful">down vote</a>
+
+
+
+
+</div>
+
+            </td>
+            
+
+
+<td class="answercell">
+    <div class="post-text" itemprop="text">
+<p>An improvement to <a href="http://stackoverflow.com/a/3298876/2379360">http://stackoverflow.com/a/3298876/2379360</a></p>
+
+<p>Instead of specifying a custom property, use the default property maven.war.webxml in your different profiles.</p>
+
+<pre><code>&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;id&gt;profile1&lt;/id&gt;
+        &lt;properties&gt;
+            &lt;maven.war.webxml&gt;path/to/custom/webXml&lt;/webXmlPath&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;
+</code></pre>
+    </div>
+    <table class="fw">
+    <tr>
+    <td class="vt">
+<div class="post-menu"><a href="/a/27106040" title="short permalink to this answer" class="short-link" id="link-post-27106040">share</a><span class="lsep">|</span><a href="/posts/27106040/edit" class="suggest-edit-post" title="">improve this answer</a></div>                    </td>
+            
+
+
+    <td align="right" class="post-signature">   
+       
+
+    <div class="user-info ">
+    <div class="user-action-time">
+        answered <span title="2014-11-24 13:30:49Z" class="relativetime">Nov 24 '14 at 13:30</span>
+    </div>
+    <div class="user-gravatar32">
+        <a href="/users/2379360/tuckerpm"><div class="gravatar-wrapper-32"><img src="https://www.gravatar.com/avatar/0acb11aefb86bc9b7759167d8ba3cf50?s=32&amp;d=identicon&amp;r=PG" alt="" width="32" height="32"></div></a>
+    </div>
+    <div class="user-details">
+        <a href="/users/2379360/tuckerpm">tuckerpm</a>
+        <div class="-flair">
+            <span class="reputation-score" title="reputation score " dir="ltr">17</span><span title="5 bronze badges"><span class="badge3"></span><span class="badgecount">5</span></span>
+        </div>
+    </div>
+</div>
+    </td>
+    </tr>
+    </table>
+</td>
+        </tr>
+            
+<tr>
+    <td class="votecell"></td>
+    <td>
+	    <div id="comments-27106040" class="comments  dno">
+		    <table>
+                <tbody data-remaining-comments-count="0"
+                       data-canpost="false"
+                       data-cansee="true"
+                       data-comments-unavailable="false"
+                       data-addlink-disabled="true">
+
+                        <tr><td></td><td></td></tr>
+                </tbody>
+		    </table>
+	    </div>
+
+        <div id="comments-link-27106040" data-rep=50 data-anon=true>
+
+                <a class="js-add-link comments-link disabled-link "
+                   title="Use comments to ask for more information or suggest improvements. Avoid comments like “+1” or “thanks”."
+                   >add a comment</a><span class="js-link-separator dno">&nbsp;|&nbsp;</span>
+            <a class="js-show-link comments-link dno" title="expand to show all comments on this post" href=# onclick=""></a>
+        </div>         
+    </td>
+</tr>    </table>
+</div>
+									<a name='new-answer'></a>
+						<form id="post-form" action="/questions/3298763/answer/submit" method="post"  class="post-form">
+						    <input type="hidden" id="post-id" value="3298763" />
+                            <input type="hidden" id="qualityBanWarningShown" name="qualityBanWarningShown" value="false" />
+                            <input type="hidden" name="referrer" value="http://stackoverflow.com/questions/15355708/how-to-replace-a-value-in-web-xml-with-a-maven-property"/>
+							<h2 class="space">Your Answer</h2>
+
+
+            <script>
+            StackExchange.ifUsing("editor", function () {
+                StackExchange.using("externalEditor", function () {
+                    StackExchange.using("snippets", function () {
+                        StackExchange.snippets.init();
+                    });
+                });
+            }, "code-snippets");
+        </script>
+    
+
+<script>
+    StackExchange.ready(function() {
+        initTagRenderer("".split(" "), "".split(" "));
+       
+        StackExchange.using("externalEditor", function() {
+                // Have to fire editor after snippets, if snippets enabled
+                if (StackExchange.options.snippets.enabled) {
+                    StackExchange.using("snippets", function() {
+                        createEditor();
+                    });
+                }
+                else {
+                    createEditor();
+                }
+            });
+
+            function createEditor() {
+                prepareEditor({
+                    heartbeatType: 'answer',
+                convertImagesToLinks: true,
+                reputationToPostImages: 10,
+                bindNavPrevention: true,
+                postfix: "",
+                    onDemand: true,
+                    discardSelector: ".discard-answer"
+                    ,immediatelyShowMarkdownHelp:true
+                    });
+                
+
+        }
+    });  
+</script>
+
+
+<div id="post-editor" class="post-editor js-post-editor">
+
+    <div style="position: relative;">     
+        <div class="wmd-container">
+            <div id="wmd-button-bar" class="wmd-button-bar"></div>
+            <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101" data-min-length=""></textarea>
+        </div>
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height:24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height:24px; display:none;">draft saved</div>
+
+    <div id="draft-discarded" class="draft-discarded community-option fl" style="margin-top: 8px; height:24px; display:none;">draft discarded</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" type="hidden" value="69bdc14455181d6b2617a8625366c534">
+        <input id="author" name="author" type="text">
+    </div>
+
+
+
+</div>
+							<div style="position: relative;">
+								
+								            <div class="form-item dno new-post-login">
+        
+                <div class="new-login-form">
+                    <div class="new-login-left">
+                        <h3>Sign up or <a id="login-link" href="/users/login?ssrc=question_page&returnurl=http%3a%2f%2fstackoverflow.com%2fquestions%2f3298763%2fmaven-customize-web-xml-of-web-app-project%23new-answer">log in</a></h3>
+                        <script>
+                            StackExchange.ready(function () {
+                                StackExchange.helpers.onClickDraftSave('#login-link');
+                            });
+                        </script>
+                        <div class="preferred-login google-login">
+                            <p><span class="icon"></span><span>Sign up using Google</span></p>
+                        </div>
+                        <div class="preferred-login facebook-login">
+                            <p><span class="icon"></span><span>Sign up using Facebook</span></p>
+                        </div>
+                        <div class="preferred-login stackexchange-login">
+                            <p><span class="icon"></span><span>Sign up using Email and Password</span></p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="manual-openid" class="manual-openid" />
+                    <input type="hidden" name="use-facebook" class="use-facebook" value="false" />
+                    <input type="hidden" name="use-google" class="use-google" value="false" />
+                    <input type="button" class="submit-openid" value="Submit" style="display:none" />
+                    <div class="new-login-right">
+                                <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" />
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+                    </div>
+                </div>
+            </div>
+            <script>
+                StackExchange.ready(
+                    function () {
+                        StackExchange.openid.initPostLogin('.new-post-login', 'http%3a%2f%2fstackoverflow.com%2fquestions%2f3298763%2fmaven-customize-web-xml-of-web-app-project%23new-answer', 'question_page');
+                    }
+                );
+            </script>
+            <noscript>
+                        <h3>Post as a guest</h3>
+    <div class="form-item">
+        <table>
+        <tr>
+                    <td class="vm">
+                <div>
+                    <label for="display-name">Name</label>
+                    <input id="display-name" name="display-name" type="text" size="30" maxlength="30" value="" tabindex="105">
+                </div>
+                <div>
+                    <label for="m-address">Email</label>
+                    <input id="m-address" name="m-address" type="email" size="30" maxlength="100" value="" tabindex="106" placeholder="required, but never shown" />
+                </div>
+            </td>
+        </tr>
+        </table>
+    </div>
+
+            </noscript>
+
+							</div>
+           
+															<div class="form-submit cbt">
+									<input id="submit-button" type="submit" value="Post Your Answer" tabindex="110">
+									<a href="#" class="discard-answer dno">discard</a>
+
+<p class="privacy-policy-agreement">
+By posting your answer, you agree to the <a href='http://stackexchange.com/legal/privacy-policy' target='_blank'>privacy policy</a> and <a href='http://stackexchange.com/legal/terms-of-service' target='_blank'>terms of service</a>.</p>
+<input type="hidden" name="legalLinksShown" value="1" />								</div>
+						</form>
+
+
+
+						<h2 class="bottom-notice" data-loc="1">
+Not the answer you&#39;re looking for?							Browse other questions tagged <a href="/questions/tagged/java" class="post-tag" title="show questions tagged &#39;java&#39;" rel="tag">java</a> <a href="/questions/tagged/web-applications" class="post-tag" title="show questions tagged &#39;web-applications&#39;" rel="tag">web-applications</a> <a href="/questions/tagged/maven-2" class="post-tag" title="show questions tagged &#39;maven-2&#39;" rel="tag">maven-2</a> <a href="/questions/tagged/profile" class="post-tag" title="show questions tagged &#39;profile&#39;" rel="tag">profile</a> <a href="/questions/tagged/web.xml" class="post-tag" title="show questions tagged &#39;web.xml&#39;" rel="tag">web.xml</a>  or <a href="/questions/ask">ask your own question</a>.						</h2>
+			</div>
+		</div>
+				<div id="sidebar" class="show-votes">
+						    <div class="module question-stats">
+			        <table id="qinfo">
+			            <tr>
+			                <td>
+			                    <p class="label-key">asked</p>
+			                </td>
+			                <td style="padding-left: 10px">
+			                    <p class="label-key" title="2010-07-21 11:36:43Z"><b>5 years ago</b></p>
+			                </td>
+			            </tr>
+			            <tr>
+			                <td>
+			                    <p class="label-key">viewed</p>
+			                </td>
+
+			                <td style="padding-left: 10px">
+			                    <p class="label-key">
+			                        <b>33094 times</b>
+			                    </p>
+			                </td>
+			            </tr>
+			                <tr>
+			                    <td>
+			                        <p class="label-key">active</p>
+			                    </td>
+			                    <td style="padding-left: 10px">
+			                        <p class="label-key"><b><a href="?lastactivity" class="lastactivity-link" title="2014-11-24 13:30:49Z">1 year ago</a></b></p>
+			                    </td>
+			                </tr>
+			        </table>
+			    </div>
+						
+			<script>
+                var ados = ados || {}; ados.run = ados.run || [];
+                ados.run.push(function () { ados_add_placement(22,8277,"adzerk819712252",[17,2221]).setZone(45); });
+            </script>
+            <div class="everyonelovesstackoverflow" id="adzerk819712252">
+            </div>
+        <div id="hireme">
+            <script>
+(function(){function f(t,r,f,e){var s=(r.cl||[]).join(" "),o=i.getElementById(t);o&&(s&&(o.className+=" "+s),o.innerHTML=r.cn.replace("&pt=0","&pt="+(e||"0")),o.onmousedown=function(t){for(var i=t.target,s,e;i.tagName!=="A"&&i!==o;)i=i.parentNode;i!==o&&(s=n.enc,e=f,r.an&&(e+="?an="+r.an),[].forEach.call(i.attributes,function(n){var t=n.name.match(/^data-(.*)$/);t&&(e+="&"+s(t[1])+"="+s(n.value))}),e+="&utm="+s(u+r.utm),i.href=e)})}function e(){return[].map.call(n.qsa(".post-taglist .post-tag"),function(n){return n.innerText}).join(";")||null}if(!window.clc){var t=window,i=document,r=i.getElementsByTagName("head")[0],u="&utm_source="+location.hostname+"&utm_medium=ad&utm_campaign=",n={doc:i,head:r,enc:encodeURIComponent,dec:decodeURIComponent,se:t.StackExchange,ts:function(){return(new Date).getTime()},st:setTimeout,ct:clearTimeout,qsa:function(n){return document.querySelectorAll(n)}};n.as=function(n){var t=i.createElement("link");t.type="text/css";t.rel="stylesheet";t.href=n;r.appendChild(t)};n.ls=function(n,t,u){var f=i.createElement("script"),e=!1;f.async=!0;f.src=n;t&&(f.onload=f.onreadystatechange=function(){e||f.readyState&&f.readyState!=="loaded"&&f.readyState!=="complete"||(e=!0,t(f),f.onload=f.onreadystatechange=null,u&&f.parentNode.removeChild(f))});r.appendChild(f)};n.init=function(i){function a(){h.forEach(n.as);c.forEach(function(n){f(n,r[n],e,l)});typeof t.clc_after_init=="function"&&t.clc_after_init()}var r=i.cr,o=i.h,s=i.ct,u=i.an,h=i.st,c=Object.keys(r),l=n.cps?n.ts()-n.cps:0,e="//"+o+s;u&&(e+="?an="+u);a()};n.lo=function(i){var u=undefined,f=t.location.hash,s=n.dec,r=n.se,o;i=i||{};switch(f){case"#large":i.l=1;break;case"#abort":i.abort=1;break;default:f.length>0&&f.substr(1).split("&").forEach(function(n){var t=n.split("=",2);i[s(t[0])]=s(t[1])})}return o=i.ac||i.accountid||r&&r.options&&r.options.user&&r.options.user.accountId,o&&(i.ac=o),i.tags||(u=e(),u&&(i.tags=u)),i};n.o2q=function(t,i){var r=n.enc;return Object.keys(t).filter(function(n){return i.indexOf(n)!==-1}).map(function(n){return r(n)+"="+r(t[n])}).join("&")};n.load=function(i,r,u){n.ls(i+"?"+n.o2q(r,u),function(){typeof t.clc_loaded=="function"&&t.clc_loaded()});n.cps=n.ts()};n.el=function(t){var i=n.qsa(t);return i.length>0?i[0]:null};n.hc=function(n){return n&&n.innerHTML&&n.innerHTML.replace(/\s+/g,"").length>0};n.wfc=function(t,i,r,u){var h=n.el(t),c=n.st,f=n.ct,o=undefined,e=undefined,s,l;return h===null?function(){}:(s=function s(){n.hc(h)?(f(o),f(e),u(!0)):e=c(s,i)},l=function(){f(e);u(!1)},s(),r&&(o=c(l,r)),function(){e&&f(e);o&&f(o)})};t.clc=n}})();;(function(n){var l=n.adurl,r=window,i=r.clc,f=i.ts,a=i.st,v=i.lo,y=i.qsa,p=i.load,w=i.wfc,b=i.el,e=r.innerWidth,k=f(),o="#sidebar [id^='adzerk'].everyonelovesstackoverflow",t=v({d:"hireme"}),s=["stackoverflow.com","serverfault.com"],u,h;if((s[0]==="*"||s.indexOf(r.location.hostname)!==-1)&&(u=!1,h=function(n){if(!u){u=!0;var i=y("#"+t.d);i.length!==0&&(n||(t.azt=!0),t.lw=f()-k,t.l||b("#careersadsdoublehigh")===null||(t.l=1),typeof e=="number"&&(t.bw=e),p(l,t,["d","l","ip","ac","eng","prov","tags","theme","remote","seed","lw","azt","sysadmin","bw"]))}},!t.abort)){var c=w(o,20,null,h),d=function(){var n=clc.el(o);clc.hc(n)||(n.parentNode.removeChild(n),typeof c=="function"&&c())};a(d,2e3)}}).call(null, {"adurl":"//clc.stackoverflow.com/j/p.js"});            </script>
+        </div>
+			  
+    
+            <div class="module sidebar-linked">
+	<h4 id="h-linked">Linked</h4>
+	<div class="linked" data-tracker="lq=1">
+<div class="spacer">
+	<a href="/q/15355708" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">17</div>
+	</a>
+	<a href="/questions/15355708/how-to-replace-a-value-in-web-xml-with-a-maven-property" class="question-hyperlink">How to replace a value in web.xml with a Maven property?</a>
+</div><div class="spacer">
+	<a href="/q/21309983" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">2</div>
+	</a>
+	<a href="/questions/21309983/how-to-replace-web-xml-during-build-with-maven" class="question-hyperlink">How to replace web.xml during build with Maven?</a>
+</div><div class="spacer">
+	<a href="/q/13720208" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes answered-accepted default">3</div>
+	</a>
+	<a href="/questions/13720208/ignoring-web-xml-security-constraint-in-jetty" class="question-hyperlink">Ignoring web.xml security-constraint in Jetty</a>
+</div><div class="spacer">
+	<a href="/q/12221012" title="Vote score (upvotes - downvotes)">
+		<div class="answer-votes  default">1</div>
+	</a>
+	<a href="/questions/12221012/how-to-dynamically-update-the-constant-values-in-tiles-xml-during-maven-packagin" class="question-hyperlink">How to dynamically update the constant values in tiles.xml during maven packaging?</a>
+</div>			</div>
+</div>
+
+				<div class="module sidebar-related">
+					<h4 id="h-related">Related</h4>
+                    <div class="related js-gps-related-questions" data-tracker="rq=1">
+                        <div class="spacer">
+<a href="/q/364114" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes large">528
+    </div>
+</a><a href="/questions/364114/can-i-add-jars-to-maven-2-build-classpath-without-installing-them" class="question-hyperlink">Can I add jars to maven 2 build classpath without installing them?</a>
+</div>
+<div class="spacer">
+<a href="/q/574594" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted extra-large">1074
+    </div>
+</a><a href="/questions/574594/how-can-i-create-an-executable-jar-with-dependencies-using-maven" class="question-hyperlink">How can I create an executable JAR with dependencies using Maven?</a>
+</div>
+<div class="spacer">
+<a href="/q/2255814" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">36
+    </div>
+</a><a href="/questions/2255814/can-i-turn-off-the-httpsession-in-web-xml" class="question-hyperlink">Can I turn off the HttpSession in web.xml?</a>
+</div>
+<div class="spacer">
+<a href="/q/4392010" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">2
+    </div>
+</a><a href="/questions/4392010/java-web-application-global-parameters-from-web-xml-in-jsp" class="question-hyperlink">Java web application global parameters from web.xml in jsp</a>
+</div>
+<div class="spacer">
+<a href="/q/6978117" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">1
+    </div>
+</a><a href="/questions/6978117/is-there-any-way-to-restrict-access-to-web-resources-without-using-web-xml-in-a" class="question-hyperlink">Is there any way to restrict access to web resources without using web.xml in a Java web app?</a>
+</div>
+<div class="spacer">
+<a href="/q/7761647" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes answered-accepted default">0
+    </div>
+</a><a href="/questions/7761647/config-xml-vs-web-xml-in-web-application" class="question-hyperlink">config.xml vs web.xml in web application</a>
+</div>
+<div class="spacer">
+<a href="/q/12472541" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">7
+    </div>
+</a><a href="/questions/12472541/the-content-of-element-type-must-match-in-web-xml" class="question-hyperlink">The content of element type &ldquo;&hellip;&rdquo; must match in web.xml</a>
+</div>
+<div class="spacer">
+<a href="/q/14377750" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">-1
+    </div>
+</a><a href="/questions/14377750/what-is-correct-way-to-import-java-web-maven-project-to-eclipse" class="question-hyperlink">What is correct way to import java web maven project to eclipse?</a>
+</div>
+<div class="spacer">
+<a href="/q/17509761" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">0
+    </div>
+</a><a href="/questions/17509761/why-i-cant-success-when-i-set-spring-profiles-active-in-web-xml" class="question-hyperlink">Why I can&#39;t success when I set spring.profiles.active in web.xml</a>
+</div>
+<div class="spacer">
+<a href="/q/25221207" title="Vote score (upvotes - downvotes)">
+    <div class="answer-votes default">2
+    </div>
+</a><a href="/questions/25221207/default-web-xml-in-maven-project" class="question-hyperlink">default web.xml in maven project</a>
+</div>
+
+                    </div>
+				</div>
+            
+<div id="hot-network-questions" class="module">
+    <h4>
+        <a href="//stackexchange.com/questions?tab=hot" 
+           class="js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:1, location:11 })">
+            Hot Network Questions
+        </a>
+    </h4>
+    <ul>
+            <li >
+                <div class="favicon favicon-rpg" title="Role-playing Games Stack Exchange"></div><a href="http://rpg.stackexchange.com/questions/71949/what-5e-spells-summon-outsiders-besides-celestials-fey-and-elementals" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:122 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What 5e spells summon outsiders besides celestials, fey, and elementals?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-aviation" title="Aviation Stack Exchange"></div><a href="http://aviation.stackexchange.com/questions/23460/do-unused-parachutes-need-to-be-repacked-if-so-how-often-and-why" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:528 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Do unused parachutes need to be repacked? If so how often and why?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/30978/anatomically-correct-santa" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Anatomically correct Santa?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-diy" title="Home Improvement Stack Exchange"></div><a href="http://diy.stackexchange.com/questions/79545/is-this-exposed-wire-dangerous" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:73 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is this exposed wire dangerous?
+                </a>
+
+            </li>
+            <li >
+                <div class="favicon favicon-scifi" title="Science Fiction &amp; Fantasy Stack Exchange"></div><a href="http://scifi.stackexchange.com/questions/109829/why-did-the-paint-behave-this-way-in-hell-bent" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:186 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why did the paint behave this way in Hell Bent?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-cooking" title="Seasoned Advice"></div><a href="http://cooking.stackexchange.com/questions/64190/wet-toasted-bread" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:49 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Wet toasted bread
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/113238/printing-all-primes-1-000-000-to-a-text-file" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Printing all primes &lt; 1,000,000 to a text file
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-music" title="Music: Practice &amp; Theory Stack Exchange"></div><a href="http://music.stackexchange.com/questions/40075/how-best-to-handwrite-scores" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:240 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How best to handwrite scores?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/30998/what-kind-of-historic-event-would-precipitate-a-worldwide-corporate-dystopia" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What kind of historic event would precipitate a worldwide corporate dystopia?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-mathematica" title="Mathematica Stack Exchange"></div><a href="http://mathematica.stackexchange.com/questions/101475/easy-code-to-toggle-between-a-graph-and-a-blank-graph" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:387 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Easy code to toggle between a graph and a blank graph
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-french" title="French Language Stack Exchange"></div><a href="http://french.stackexchange.com/questions/16862/faut-pas-trop-y-compter" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:299 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    &quot;Faut pas trop y compter&quot;?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codereview" title="Code Review Stack Exchange"></div><a href="http://codereview.stackexchange.com/questions/113225/non-curses-pager-in-c" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:196 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Non-curses pager in C
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stackoverflow" title="Stack Overflow"></div><a href="http://stackoverflow.com/questions/34122193/big-difference-x9-in-the-execution-time-between-almost-identical-code-in-c-and" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:1 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Big difference (x9) in the execution time between almost identical code in C and C++
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-math" title="Mathematics Stack Exchange"></div><a href="http://math.stackexchange.com/questions/1562729/is-there-a-name-for-this-type-of-polygon" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:69 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Is there a name for this type of polygon?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-english" title="English Language &amp; Usage Stack Exchange"></div><a href="http://english.stackexchange.com/questions/291790/how-to-indicate-that-ive-exceeded-my-planned-spending-for-some-time-period-but" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:97 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    How to indicate that I&#39;ve exceeded my planned spending for some time period, but am not completely lacking money
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-puzzling" title="Puzzling Stack Exchange"></div><a href="http://puzzling.stackexchange.com/questions/24377/chopping-a-cube-into-different-sized-subcubes" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:559 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Chopping a cube into different sized subcubes
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-judaism" title="Mi Yodeya"></div><a href="http://judaism.stackexchange.com/questions/66051/yosef-sold-into-prostitution" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:248 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Yosef sold into prostitution
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/65925/generating-brainf-nops" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Generating Brainf*** NOPs
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-stats" title="Cross Validated"></div><a href="http://stats.stackexchange.com/questions/185507/what-happens-if-the-explanatory-and-response-variables-are-sorted-independently" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:65 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    What happens if the explanatory and response variables are sorted independently before regression?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-academia" title="Academia Stack Exchange"></div><a href="http://academia.stackexchange.com/questions/59271/if-i-quit-my-phd-would-it-make-my-advisor-look-bad" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:415 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    If I quit my PhD, would it make my advisor look bad?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-tex" title="TeX - LaTeX Stack Exchange"></div><a href="http://tex.stackexchange.com/questions/281998/use-of-spaces-for-readability" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:85 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Use of spaces for readability
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-worldbuilding" title="Worldbuilding Stack Exchange"></div><a href="http://worldbuilding.stackexchange.com/questions/30944/why-would-pmcs-be-in-politically-unstable-places-as-opposed-to-waiting-in-comfo" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:579 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why would PMCs be in politically-unstable places, as opposed to waiting in comfort to be called?
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-codegolf" title="Programming Puzzles &amp; Code Golf Stack Exchange"></div><a href="http://codegolf.stackexchange.com/questions/65641/the-versatile-integer-printer" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:200 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    The versatile integer printer
+                </a>
+
+            </li>
+            <li class="dno js-hidden">
+                <div class="favicon favicon-money" title="Personal Finance &amp; Money Stack Exchange"></div><a href="http://money.stackexchange.com/questions/56591/why-invest-for-the-long-term-rather-than-buy-and-sell-for-quick-big-gains" class="js-gps-track" data-gps-track="site.switch({ item_type:11, target_site:93 }); posts_hot_network.click({ item_type:2, location:11 })">
+                    Why invest for the long-term rather than buy and sell for quick, big gains?
+                </a>
+
+            </li>
+    </ul>
+
+        <a href="#" 
+           class="show-more js-show-more js-gps-track" 
+           data-gps-track="posts_hot_network.click({ item_type:3, location:11 })">
+            more hot questions
+        </a>
+</div>
+		</div>
+	
+<div id="feed-link">
+    <div id="feed-link-text">
+        <a href="/feeds/question/3298763" title="feed of this question and its answers">
+            <span class="feed-icon"></span>question feed
+        </a>
+    </div>
+</div>	<script>
+StackExchange.ready(function(){$.get('/posts/3298763/ivc/23e5');});
+</script>
+<noscript>
+    <div><img src="/posts/3298763/ivc/23e5" class="dno" alt="" width="0" height="0"></div>
+</noscript><div style="display:none" id="prettify-lang">lang-java</div></div>
+
+
+        </div>
+    </div>
+    <div id="footer" class="categories">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <div class="top-footer-links">
+                        <a href="/tour">tour</a>
+                    <a href="/help">help</a>
+                    <a href="http://blog.stackoverflow.com?blb=1">blog</a>
+                        <a href="http://chat.stackoverflow.com">chat</a>
+                    <a href="http://data.stackexchange.com">data</a>
+                    <a href="http://stackexchange.com/legal">legal</a>
+                    <a href="http://stackexchange.com/legal/privacy-policy">privacy policy</a>
+                    <a href="http://stackexchange.com/work-here">work here</a>
+                    <a href="http://stackexchange.com/mediakit">advertising info</a>
+
+                    <a onclick='StackExchange.switchMobile("on")'>mobile</a>
+                    <b><a href="/contact">contact us</a></b>
+                        <b><a href="http://meta.stackoverflow.com">feedback</a></b>
+                    
+                </div>
+                <div id="footer-sites">
+                    <table>
+    <tr>
+            <th colspan=3>
+                Technology
+            </th>
+            <th >
+                Life / Arts
+            </th>
+            <th >
+                Culture / Recreation
+            </th>
+            <th >
+                Science
+            </th>
+            <th >
+                Other
+            </th>
+    </tr>
+    <tr>
+            <td>
+                <ol>
+                        <li><a href="//stackoverflow.com" title="professional and enthusiast programmers">Stack Overflow</a></li>
+                        <li><a href="//serverfault.com" title="system and network administrators">Server Fault</a></li>
+                        <li><a href="//superuser.com" title="computer enthusiasts and power users">Super User</a></li>
+                        <li><a href="//webapps.stackexchange.com" title="power users of web applications">Web Applications</a></li>
+                        <li><a href="//askubuntu.com" title="Ubuntu users and developers">Ask Ubuntu</a></li>
+                        <li><a href="//webmasters.stackexchange.com" title="pro webmasters">Webmasters</a></li>
+                        <li><a href="//gamedev.stackexchange.com" title="professional and independent game developers">Game Development</a></li>
+                        <li><a href="//tex.stackexchange.com" title="users of TeX, LaTeX, ConTeXt, and related typesetting systems">TeX - LaTeX</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//programmers.stackexchange.com" title="professional programmers interested in conceptual questions about software development">Programmers</a></li>
+                        <li><a href="//unix.stackexchange.com" title="users of Linux, FreeBSD and other Un*x-like operating systems">Unix &amp; Linux</a></li>
+                        <li><a href="//apple.stackexchange.com" title="power users of Apple hardware and software">Ask Different (Apple)</a></li>
+                        <li><a href="//wordpress.stackexchange.com" title="WordPress developers and administrators">WordPress Development</a></li>
+                        <li><a href="//gis.stackexchange.com" title="cartographers, geographers and GIS professionals">Geographic Information Systems</a></li>
+                        <li><a href="//electronics.stackexchange.com" title="electronics and electrical engineering professionals, students, and enthusiasts">Electrical Engineering</a></li>
+                        <li><a href="//android.stackexchange.com" title="enthusiasts and power users of the Android operating system">Android Enthusiasts</a></li>
+                        <li><a href="//security.stackexchange.com" title="information security professionals">Information Security</a></li>
+                            </ol></td><td><ol>
+                        <li><a href="//dba.stackexchange.com" title="database professionals who wish to improve their database skills and learn from others in the community">Database Administrators</a></li>
+                        <li><a href="//drupal.stackexchange.com" title="Drupal developers and administrators">Drupal Answers</a></li>
+                        <li><a href="//sharepoint.stackexchange.com" title="SharePoint enthusiasts">SharePoint</a></li>
+                        <li><a href="//ux.stackexchange.com" title="user experience researchers and experts">User Experience</a></li>
+                        <li><a href="//mathematica.stackexchange.com" title="users of Mathematica">Mathematica</a></li>
+                        <li><a href="//salesforce.stackexchange.com" title="Salesforce administrators, implementation experts, developers and anybody in-between">Salesforce</a></li>
+                        <li><a href="//expressionengine.stackexchange.com" title="administrators, end users, developers and designers for ExpressionEngine&#174; CMS">ExpressionEngine&#174; Answers</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#technology" class="more">
+                                more (13)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//photo.stackexchange.com" title="professional, enthusiast and amateur photographers">Photography</a></li>
+                        <li><a href="//scifi.stackexchange.com" title="science fiction and fantasy enthusiasts">Science Fiction &amp; Fantasy</a></li>
+                        <li><a href="//graphicdesign.stackexchange.com" title="Graphic Design professionals, students, and enthusiasts">Graphic Design</a></li>
+                        <li><a href="//movies.stackexchange.com" title="movie and tv enthusiasts">Movies &amp; TV</a></li>
+                        <li><a href="//cooking.stackexchange.com" title="professional and amateur chefs">Seasoned Advice (cooking)</a></li>
+                        <li><a href="//diy.stackexchange.com" title="contractors and serious DIYers">Home Improvement</a></li>
+                        <li><a href="//money.stackexchange.com" title="people who want to be financially literate">Personal Finance &amp; Money</a></li>
+                        <li><a href="//academia.stackexchange.com" title="academics and those enrolled in higher education">Academia</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#lifearts" class="more">
+                                more (9)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//english.stackexchange.com" title="linguists, etymologists, and serious English language enthusiasts">English Language &amp; Usage</a></li>
+                        <li><a href="//skeptics.stackexchange.com" title="scientific skepticism">Skeptics</a></li>
+                        <li><a href="//judaism.stackexchange.com" title="those who base their lives on Jewish law and tradition and anyone interested in learning more">Mi Yodeya (Judaism)</a></li>
+                        <li><a href="//travel.stackexchange.com" title="road warriors and seasoned travelers">Travel</a></li>
+                        <li><a href="//christianity.stackexchange.com" title="committed Christians, experts in Christianity and those interested in learning more">Christianity</a></li>
+                        <li><a href="//gaming.stackexchange.com" title="passionate videogamers on all platforms">Arqade (gaming)</a></li>
+                        <li><a href="//bicycles.stackexchange.com" title="people who build and repair bicycles, people who train cycling, or commute on bicycles">Bicycles</a></li>
+                        <li><a href="//rpg.stackexchange.com" title="gamemasters and players of tabletop, paper-and-pencil role-playing games">Role-playing Games</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#culturerecreation" class="more">
+                                more (21)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//math.stackexchange.com" title="people studying math at any level and professionals in related fields">Mathematics</a></li>
+                        <li><a href="//stats.stackexchange.com" title="people interested in statistics, machine learning, data analysis, data mining, and data visualization">Cross Validated (stats)</a></li>
+                        <li><a href="//cstheory.stackexchange.com" title="theoretical computer scientists and researchers in related fields">Theoretical Computer Science</a></li>
+                        <li><a href="//physics.stackexchange.com" title="active researchers, academics and students of physics">Physics</a></li>
+                        <li><a href="//mathoverflow.net" title="professional mathematicians">MathOverflow</a></li>
+                        <li><a href="//chemistry.stackexchange.com" title="scientists, academics, teachers and students">Chemistry</a></li>
+                        <li><a href="//biology.stackexchange.com" title="biology researchers, academics, and students">Biology</a></li>
+                    
+                        <li>
+                            <a href="http://stackexchange.com/sites#science" class="more">
+                                more (5)
+                            </a>
+                        </li>
+                </ol>
+            </td>
+            <td>
+                <ol>
+                        <li><a href="//stackapps.com" title="apps, scripts, and development with the Stack Exchange API">Stack Apps</a></li>
+                        <li><a href="//meta.stackexchange.com" title="meta-discussion of the Stack Exchange family of Q&amp;A websites">Meta Stack Exchange</a></li>
+                        <li><a href="//area51.stackexchange.com" title="proposing new sites in the Stack Exchange network">Area 51</a></li>
+                        <li><a href="//careers.stackoverflow.com">Stack Overflow Careers</a></li>
+                    
+                </ol>
+            </td>
+    </tr>
+</table>
+                </div>
+            </div>
+
+            <div id="copyright">
+                site design / logo &#169; 2015 Stack Exchange Inc; user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc by-sa 3.0</a> 
+                with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            <div id="svnrev">
+                rev 2015.12.8.3052
+            </div>
+            
+        </div>
+    </div>
+    <noscript>
+        <div id="noscript-warning">Stack Overflow works best with JavaScript enabled<img src="http://pixel.quantserve.com/pixel/p-c1rF4kxgLUzNc.gif" alt="" class="dno"></div>
+    </noscript>
+<script>var p = "http", d = "static"; if (document.location.protocol == "https:") { p += "s"; d = "engine"; } var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = p + "://" + d + ".adzerk.net/ados.js"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);</script>
+<script>
+    var ados = ados || {};
+    ados.run = ados.run || [];
+    ados.run.push(function () { ados_setKeywords('java,web-applications,maven-2,profile,web.xml');; ados_load(); });         
+</script>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m);
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-5620270-1');
+                        ga('set', 'dimension2', '|java|web-applications|maven-2|profile|web.xml|');         ga('send', 'pageview');
+        var _qevents = _qevents || [],
+            _comscore = _comscore || [];
+        (function () {
+            var ssl='https:'==document.location.protocol,
+                s=document.getElementsByTagName('script')[0],
+                qc=document.createElement('script');
+            qc.async=true;
+            qc.src=(ssl?'https://secure':'http://edge')+'.quantserve.com/quant.js';
+            s.parentNode.insertBefore(qc, s);
+            var sc=document.createElement('script');
+            sc.async=true;
+            sc.src=(ssl?'https://sb':'http://b') + '.scorecardresearch.com/beacon.js';
+            s.parentNode.insertBefore(sc, s);
+        })();
+        _comscore.push({ c1: "2", c2: "17440561" });
+        _qevents.push({ qacct: "p-c1rF4kxgLUzNc" });
+    </script>
+            
+    </body>
+</html>

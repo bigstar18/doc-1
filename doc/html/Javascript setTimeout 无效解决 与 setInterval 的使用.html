@@ -1,0 +1,729 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="360doc" name="classification" />
+    
+    <link rel="alternate" media="only screen and (max-width: 640px)" href="http://www.360doc.cn/article/7851074_242860644.html"/>
+    <meta content="settimeout,setinterval,函数" name=keywords>
+    <meta content="Javascript setTimeout 无效解决 与 setInterval 的使用" name=description>
+    <meta name="mobile-agent" content="format=html5;url=http://www.360doc.cn/article/7851074_242860644.html"/>
+
+    <meta content="www.360doc.com" name="author" />
+
+    <title>
+        Javascript setTimeout 无效解决 与 setInterval 的使用
+    </title>
+    <link href="http://bdimg.share.baidu.com/static/css/bdsstyle.css?cdnversion=20130704" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="http://www.360doc.com/js/jquery1.js?t=2015041801"></script>
+    <script type="text/javascript" src="http://www.360doc.com/js/jQuery.md5.js?t=2013121101"></script>
+    
+    <script type="text/javascript" language="javascript">
+        window.onerror = ignoreError;
+        function ignoreError() {
+            return true;
+        }
+    </script>
+
+    <link href="http://css.360doc.com/wzhead-cleaned.css?t=2014082005" rel="stylesheet" type="text/css" />
+    <link href="http://css.360doc.com/wz20130912-cleaned.css?t=2015111702" rel="stylesheet" type="text/css" />
+   
+
+    
+
+    <script type="text/javascript" src="/js/indexhead.js?t=2015111101"></script>
+    <script type="text/javascript" src="/js/showarticlefollow20130912.js?t=2015101001"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?d86954201130d615136257dde062a503";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif;" onmouseup="setDragEnd()"
+    onmousemove="DragDiv();" onclick="delAllDiv(event)">
+
+
+    <span id="LayerLogin"></span>
+    <div style="position: fixed; width: 100%; z-index: 1000;">
+        <div class="mainnav">
+            <div class="mainnav1">
+                <div class="lf360" style="padding-left: 5px;">
+                    <a href="http://www.360doc.com/index.html">
+                        <img src="http://pubimage.360doc.com/newsite/logoo.gif" /></a>
+                </div>
+                <div style="width: 625px; padding-top: 0px; padding-left: 4px; position: absolute;">
+                    <table height="34" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr id="daohangtr">
+                                <td style="width: 185px; _width: 0px; *width: 0px !important;"></td>
+                                <td class="navwz1" width="95">
+                                    <a href="http://www.360doc.com/index.html">首&nbsp;页</a>
+                                </td>
+                                <td width="100" class="  navwz1">
+                                    <a href="http://www.360doc.com/readroom.html">阅览室</a>
+                                </td>
+                                <td width="88" class="  navwz1">
+                                    <a href="http://www.360doc.com/weekstar.html">馆友</a>
+                                </td>
+                                <td width="132" class="  navwz1">
+                                    <a href="http://www.360doc.com/my360doc.aspx">我的图书馆</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="rt360" style="padding-top: 6px; width: 133px; padding-left: 38px;" id="outerdiv">
+                </div>
+                <div class=" rt360" style="padding-top: 6px; padding-right: 0px;">
+                    <div class="lf360 serch">
+                        <input name="input2" class="serchpt" id="txtSearchword" onkeydown="ongosearch()"
+                            onkeyup="showIntelliSense()" onfocus="if(this.value=='搜文章 找馆友') this.value='';this.style.color='#272727'"
+                            onblur="if(!this.value) {this.value='搜文章 找馆友';this.style.color='#b2b2b2';}" onpaste="showIntelliSense1()"
+                            type="text" value="搜文章 找馆友">
+                    </div>
+                    <div class="lf360 ssuo">
+                        <a id="searchlinkid" href="javascript:gosearch();"></a>
+                    </div>
+                    <div id="divsearch" style="margin-top: 25px; margin-left: 1px; display: block; position: absolute; z-index: 100;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navxt">
+        </div>
+    </div>
+    <div style="height: 44px; _height: 0px; width: 100%;"></div>
+
+    <div class="both">
+    </div>
+    <div id="docTotalInfo" class="mainzt">
+        <table class="index_main" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td align="left" valign="top" width="727px">
+                        <div id='ADAboveArtContent'>
+                        </div>
+                        <div style="height: 7px;">
+                        </div>
+                        <table border="0" cellpadding="0" cellspacing="0" class="mainbj" id="docArtClass">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <table border="0" cellpadding="0" cellspacing="0" style="width: 100%; text-align: center;">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <table style="width: 100%; text-align: left;" border="0" cellpadding="0" cellspacing="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="biaoti">
+                                                                        <div class="biaoti2 lf360">
+                                                                            Javascript setTimeout 无效解决 与 setInterval 的使用
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="height: 32px;">
+
+
+                                                                        <div style="width: 670px; height: 28px; padding-left: 26px; color: #777b7a;">
+                                                                            <table>
+                                                                                <tr>
+                                                                                    <td>收藏人：<span class="name" onclick="wzhitnew(1);"><A href="http://www.360doc.com/userhome/7851074" target="_blank">青松卓然</A></span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="btzctsg" id="spanfollowstatus">
+                                                                                        </div>
+                                                                                        <script>isfollow(7851074);</script>
+
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div class="ytdh1"><a onclick="doctalk();wzhitnew(106);" href="javascript:void(0)"></a></div>
+
+                                                                                    </td>
+
+                                                                                </tr>
+                                                                            </table>
+                                                                        </div>
+
+
+
+
+                                                                        <div class="wztopxx">
+                                                                            <div style="float: left; height: 28px; padding-top: 7px;">
+                                                                                <table cellpadding="0" cellspacing="0" style="position: relative; z-index: 4">
+                                                                                    <tbody>
+                                                                                        <tr>
+
+                                                                                            <td>
+                                                                                                2012-10-21&nbsp;|&nbsp;阅：<span id="360doc_Readnum"></span>&nbsp;&nbsp;<span
+                                                                                                    style="position: relative;">转：<span onclick="wzhitnew(3)" id="360doc_saverNum"></span><span
+                                                                                                        id="360doc_saverUser"></span></span>&nbsp;&nbsp;
+
+
+
+                                                                                            </td>
+
+                                                                                            <td>
+                                                                                                <div style="position: relative;">
+                                                                                                    &nbsp;|&nbsp;<span id="docsource"></span>
+                                                                                                </div>
+                                                                                                <div class="sekuaibox" style="display: none; margin-left: 48px;" id="zihaoboxID">
+                                                                                                    <div style="padding-top: 10px; padding-left: 5px;">
+                                                                                                        <div class="lf360 danxunbt">
+                                                                                                            <input id="artdocfont3" onclick="ChangeArtSize(3, this); wzhitnew(15); " name="radio"
+                                                                                                                type="radio" value="1" />
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunwz" onclick="ChangeArtSize(3,this);wzhitnew(15); " style="cursor: pointer;">
+                                                                                                            大
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunbt">
+                                                                                                            <input id="artdocfont2" onclick="ChangeArtSize(2, this); wzhitnew(16); " name="radio"
+                                                                                                                type="radio" value="2" />
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunwz" onclick="ChangeArtSize(2,this);wzhitnew(16); " style="cursor: pointer;">
+                                                                                                            中
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunbt">
+                                                                                                            <input id="artdocfont1" onclick="ChangeArtSize(1, this); wzhitnew(17); " name="radio"
+                                                                                                                type="radio" value="3" />
+                                                                                                        </div>
+                                                                                                        <div class="lf360 danxunwz" onclick="ChangeArtSize(1,this);wzhitnew(17); " style="cursor: pointer;">
+                                                                                                            小
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div class="sekuaibox" style="margin-left: 76px; display: none;" id="sekuaiboxID">
+                                                                                                    <div style="padding-top: 10px; padding-left: 5px;">
+                                                                                                        <img src="http://pubimage.360doc.com/wz/cr1.gif" id="docArtC1" onclick="ChangeArtClass(1,this);wzhitnew(18);"
+                                                                                                            style="cursor: pointer;" /><img src="http://pubimage.360doc.com/wz/cr2.gif" id="docArtC2"
+                                                                                                                onclick="ChangeArtClass(2,this);wzhitnew(19);" style="cursor: pointer;" /><img src="http://pubimage.360doc.com/wz/cr3.gif"
+                                                                                                                    id="docArtC3" onclick="ChangeArtClass(3,this);wzhitnew(20);" style="cursor: pointer;" /><img
+                                                                                                                        src="http://pubimage.360doc.com/wz/cr4.gif" id="docArtC4" onclick="ChangeArtClass(4,this);wzhitnew(21);"
+                                                                                                                        style="cursor: pointer;" /><img src="http://pubimage.360doc.com/wz/cr5.gif" id="docArtC5"
+                                                                                                                            onclick="ChangeArtClass(5,this);wzhitnew(22);" style="cursor: pointer;" /><img src="http://pubimage.360doc.com/wz/cr6.gif"
+                                                                                                                                id="docArtC6" onclick="ChangeArtClass(6,this);wzhitnew(23);" style="cursor: pointer;" />
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <div style="padding-left: 10px;">
+                                                                                                    <a href="javascript:void(0)">
+                                                                                                        <img onmouseover="changedivdisplay(1);" src="http://pubimage.360doc.com/wz/wz1.gif" /></a>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <div style="padding-left: 10px;" onmouseover="changedivdisplay(2);">
+                                                                                                    <a href="javascript:void(0)">
+                                                                                                        <img src="http://pubimage.360doc.com/wz/wz2.gif" /></a>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#" onclick=" setTimeout(showShareLayer, 10);wzhitnew(4);">分享</a>&nbsp;</td>
+                                                                                            <td>
+                                                                                                <a href="#" onclick="  setTimeout(showShareLayer, 10);wzhitnew(5);">
+                                                                                                    <img style="cursor: pointer;" src="http://pubimage.360doc.com/wz/tb10.gif"></a><div
+                                                                                                        class="fenxiang" id="fenxiangLayer" style="display: none; border: none; width: 110px; margin-left: -28px; _margin-left: -40px;">
+                                                                                                    </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                            <div id="resavelayer1" class="rt360">
+                                                                            </div>
+
+
+                                                                            <div id="shareweixinabove" class="rt360">
+                                                                            </div>
+
+
+                                                                            <table cellpadding="0" cellspacing="0" style="text-align: center; margin: 0px auto;">
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <div id="AlertArt1" style="display: none; position: absolute;">
+                                                                                            </div>
+                                                                                            <div id="SendToFriends1" style="display: none; position: absolute; z-index: 100;">
+                                                                                            </div>
+                                                                                            <div class="lf360 zcbutton" style="margin-left: 100px;">
+                                                                                            </div>
+                                                                                            <div class="lf360">
+                                                                                                &nbsp;&nbsp;
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        
+                                                        <table class="wenzhangcss" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="xiantao">
+                                                                        </div>
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left" valign="top" width="670px" style="height: 200px;">
+                                                                        <span id="articlecontent" onmousedown="newhighlight = true;" onmouseup="NewHighlight(event)">
+                                                                            <table>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td width="670px" style="position: relative;">
+
+                                                                                            <h2 class="post-title"><a href="http://www.chncms.com/2011/04/1/JAVASCRIPTSETTIMEOUT.html" rel="bookmark" title="Javascript setTimeout 无效解决 与 setInterval 的使用">Javascript setTimeout 无效解决 与 setInterval 的使用</a></h2>
+				<div class="postmetadata-top">
+					<span class="post-comments"><a href="http://www.chncms.com/2011/04/1/JAVASCRIPTSETTIMEOUT.html#comments">0 条评论</a></span>
+					<span class="post-date">2011/04/01 16:04</span>
+					<span class="post-views"><a href="http://www.chncms.com/2011/04/1/JAVASCRIPTSETTIMEOUT.html">1112 次阅读</a></span>
+				</div>
+				<div class="entry">
+					<p><strong>setTimeout()的作用是指定在多少毫秒后执行一个JS函数或者表达式代码</strong></p><p><strong>setTimeout的用法、语法、参数</strong>：setTimeout(code,millisec)</p><p><strong>setTimeout参数说明</strong>：</p><p>code是必需参数。要调用的函数后要执行的 JavaScript 代码串。 <br>millisec是必需参数。在执行代码前需等待的毫秒数。毫秒和秒之间的换算是：1000毫秒=1秒</p><p><strong>setTimeout实例代码（1秒后页面跳转到指定的URL）：</strong></p><p style="border: 1px solid rgb(102, 102, 102); padding: 7px; background-color: rgb(200, 233, 177);">&lt;script language="javascript"&gt;<br>function go(){//定义函数<br>window.location="main.html";//页面跳转<br>}<br>window.setTimeout("go()",1000);//1秒后执行函数go<br>&lt;/script&gt;</p><p>但是以上JS代码是无法兼容火狐的，这主要是因为IE和火狐的浏览器引擎是不同的。让这段页面跳转JS代码兼容IE、火狐、SAFARI、OPERA：</p><p style="border: 1px solid rgb(102, 102, 102); padding: 7px; background-color: rgb(200, 233, 177);">&lt;script language="javascript"&gt;<br>function go(){//定义函数<br>window.location="main.html";//页面跳转<br>}<br>window.setTimeout(function(){go()},1000);//1秒后执行函数go<br>&lt;/script&gt;</p><p>它完美地兼容了各主流浏览器，特此写出来和大家分享。值得注意的是实现页面跳转的JS代码我们习惯写作location.href=页面地址，而这段代码在火狐下也是不能运行的，你需要写作window.location=页面地址。</p><p><br></p><hr><strong>setInterval：</strong><p>setInterval() 方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。　　setInterval() 方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。由 setInterval() 返回的 ID 值可用作 clearInterval() 方法的参数。</p><p><br></p><p>语法<br>　　setInterval(code,millisec[,"lang"])<br>　　<br>参数&nbsp;&nbsp;&nbsp; 描述<br>code&nbsp;&nbsp;&nbsp; 必需。要调用的函数或要执行的代码串。<br>millisec&nbsp;&nbsp;&nbsp; 必需。周期性执行或调用 code 之间的时间间隔，以毫秒计。<br><br>返回值<br>　　一个可以传递给 Window.clearInterval() 从而取消对 code 的周期性执行的值。<br><br><br>实例<br>　　&lt;html&gt;<br>　　&lt;body&gt;<br>　　&lt;input type="text" id="clock" size="35" /&gt;<br>　　&lt;script language=javascript&gt;<br>　　var int=self.setInterval("clock()",50)<br>　　function clock(){var t=new Date()<br>　　document.getElementById("clock").value=t<br>　　}<br>　　&lt;/script&gt;<br>　　&lt;/form&gt;<br>　　&lt;button onclick="int=window.clearInterval(int)"&gt;Stop interval&lt;/button&gt;<br>　　&lt;/body&gt;<br>　　&lt;/html&gt;<br></p>
+					<p><b>转载请注明：来自</b><a href="http://www.chncms.com" title="ChnCMS">ChnCMS</a>
+					<br><b>本文地址：</b><a href="http://www.chncms.com/2011/04/1/JAVASCRIPTSETTIMEOUT.html" title="Javascript setTimeout 无效解决 与 setInterval 的使用">http://www.chncms.com/2011/04/1/JAVASCRIPTSETTIMEOUT.html</a></p></div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <div id="viewerPlaceHolder" style="width: 717px; height: 700px; display: none;">
+                                                                            </div>
+                                                                        </span>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td></td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left">
+                                                                        <a name="anchordoc1" id="anchordoc1"></a>
+                                                                        <div style="height: 28px">
+                                                                            <div style="font-size: 14px; color: #797b7a; float: left;">
+                                                                                来自：<span class="name" onclick="wzhitnew(59)"><A href="http://www.360doc.com/userhome/7851074" target="_blank">青松卓然</A></span>&nbsp;>&nbsp;<span
+                                                                                    id="cname" onclick="wzhitnew(60)"></span>
+                                                                            </div>
+                                                                            <div style="float: left;">
+                                                                                <div class="btzctsg" id="spanfollowstatus1">
+                                                                                </div>
+                                                                                <script>isfollow(7851074);</script>
+
+                                                                            </div>
+                                                                            <div style="float: left;">
+                                                                                <div class="ytdh1"><a onclick="doctalk();wzhitnew(107);" href="javascript:void(0)"></a></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div>
+                                                                            <div class="modlist lf360 list" style="padding-top: 0px;">
+                                                                                <ul>
+                                                                                    <div id='lastart'>
+                                                                                    </div>
+                                                                                    <div id='nextart'>
+                                                                                    </div>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left">
+                                                                        <div style="padding-top: 12px;">
+                                                                            <div id='docAdBelowContent'>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align: left;">
+                                                                        <div style="padding-top: 15px; width: 670px;">
+                                                                            <table style="width: 670px;" cellpadding="0" cellspacing="0">
+                                                                                <tbody>
+                                                                                    <tr>
+
+                                                                                        <td style="width: 530px;">
+                                                                                            <div class=" lf360" style="cursor: pointer" onmouseover="ChangeBtnStyle(1);" onmouseout="ChangeBtnStyle(2);">
+                                                                                                <div class="zscbt">
+                                                                                                    <a href="javascript:void(0);" onclick="SaveArt();wzhitnew(26);">
+                                                                                                        <div id="zscbtword" class="lf360 xianhua" style="padding-left: 38px;">
+                                                                                                            转藏到我的图书馆
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                            <div style="margin-left: 10px; cursor: pointer;" class="lf360 xhmainbox" id="sendflowerdiv"
+                                                                                                onclick='Showflowerlayer("sendedLayer1");wzhitnew(27)' onmouseover="ChangeFlowerBtnStyle(1);"
+                                                                                                onmouseout="ChangeFlowerBtnStyle(2);">
+
+                                                                                                <div id="flowimg2" class="lf360">
+                                                                                                    <div style="padding-left: 10px; padding-top: 10px;">
+                                                                                                        <img id="flowimg3" src="http://pubimage.360doc.com/wz/huahuanew.gif">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                                <div id="flowimg5" class=" lf360 xianhua">
+                                                                                                    献花(<span id="articleflowernum">0</span>)<div id='flowernumadd' class="addtionone">
+                                                                                                        +1
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                            </div>
+
+
+
+
+                                                                                            <div class="lf360" style="cursor: pointer; padding-left: 10px;" onmouseover="ChangeBtnStyle(3);" onmouseout="ChangeBtnStyle(4);">
+                                                                                                <div class="fxwxbt">
+
+                                                                                                    <a href="javascript:void(0);" onclick="shareWeixin();wzhitnew(64);">
+                                                                                                        <div id="fxwxword" class="lf360 xianhua" style="padding-left: 38px;">
+                                                                                                            分享到微信
+                                                                                                        </div>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                            <div class="lf360" style="cursor: pointer; padding-left: 10px;" onmouseover="ChangeBtnStyle(5);" onmouseout="ChangeBtnStyle(6);">
+                                                                                                <div class="ywzwbt">
+
+                                                                                                    <a id="ywzwa" href=" http://www.baidu.com/s?wd=settimeout+setinterval+%e5%87%bd%e6%95%b0&tn=SE_hldp01010_6r0gix1f" onclick="wzhitnew(100);" target="_blank">
+                                                                                                        <div id="ywzwword" class="lf360 xianhua" style="padding-left: 44px;">
+                                                                                                            以文找文
+                                                                                                        </div>
+                                                                                                    </a>
+
+                                                                                                </div>
+                                                                                            </div>
+
+
+
+                                                                                        </td>
+                                                                                        <td style="vertical-align: bottom; font-size: 12px;" width="140">
+                                                                                            <div class="rt360" id="sharediv2">
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td height="10"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="lswzbox" style="padding-top: 10px;">
+                            <div>
+                                <table cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                        <tr>
+                                            <td width="330" valign="top">
+                                                <div class="lswz" style="height: 300px;">
+                                                    <div class="lstwtop">
+                                                        <div class="lswztit">
+                                                            <div class=" lf360">
+                                                                <div class="titwx1">
+                                                                    类似文章
+                                                                </div>
+                                                            </div>
+                                                            <div class="rt360" style="padding-top: 5px; padding-right: 9px;">
+                                                                <a href=http://www.360doc.com/relevant/242860644_more.shtml  target='_blank'  onclick='wzhitnew(38)'>更多</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modlist2 list">
+                                                            <ul>
+                                                                
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/10/0304/16/861352_17555584.shtml target=_blank onclick='wzhitnew(37)'>js弹出窗口和对话框_地球村_百度空间</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/10/0505/22/111404_26265878.shtml target=_blank onclick='wzhitnew(37)'>AS入门第八课：日期与时间—Flash教程</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/10/0929/14/1542811_57310184.shtml target=_blank onclick='wzhitnew(37)'>JavaScript 定时器，定时调度任务实现方...</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/13/0424/16/168576_280628947.shtml target=_blank onclick='wzhitnew(37)'>渲染主循环（main loop)和requestAnimat...</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/11/1212/10/8185352_171623086.shtml target=_blank onclick='wzhitnew(37)'>深入理解JavaScript定时机制</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/12/0821/08/10504424_231443634.shtml target=_blank onclick='wzhitnew(37)'>javascript测试题总结</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/09/0813/10/88230_4889623.shtml target=_blank onclick='wzhitnew(37)'>JavaScript的单线程性质以及定时器的工作....</a></span></li>
+                                                                    
+                                                                        <li style="height: 30px; line-height: 30px;"><span>
+                                                                            <a href=http://www.360doc.com/content/09/1121/14/493767_9475435.shtml target=_blank onclick='wzhitnew(37)'>Javascript 定时器的工作原理 ? IdeaFor...</a></span></li>
+                                                                    
+                                                            </ul>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                            <td width="330" valign="top">
+                                                <div class="lswz" style="margin-left: 9px; height: 300px;">
+                                                    <div class="lstwtop">
+                                                        <div class="lswztit">
+                                                            <div class=" lf360">
+                                                                <div class="titwx1">
+                                                                    热门推广
+                                                                </div>
+                                                            </div>
+                                                            <div class="rt360" style="padding-top: 5px; padding-right: 9px;">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modlist2 list" id="dochotartabovecontent">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div style="background-color: #fafafa; width: 670px; height: 317px; margin-top: 10px;">
+                                    <div style=' padding-top:7px; padding-left:12px; '> <div style=' height:30px;'><div class='titwx3 lf360'>猜你喜欢</div><div class=' rt360' style=' padding-right:18px;'><img onclick='changefiveart2("19999","19999");wzhitnew(62);' src='http://pubimage.360doc.com/wz/hyz.gif' onmouseover='this.src="http://pubimage.360doc.com/wz/hyza.gif"' onmouseout='this.src="http://pubimage.360doc.com/wz/hyz.gif"' width='76' height='24' style='cursor:pointer;' /></div></div><table cellpadding='0' cellspacing='0'><tr id='fivearttdid' style="height:138px"><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/15/1203/14/2280746_517637716.shtml' target='_blank'><img src='http://artpic2.360doc.com/15/1211/04/2280746_201512110450400455.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/15/1203/14/2280746_517637716.shtml' target='_blank'>航拍摄影欣赏</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/1121/22/1676089_331149404.shtml' target='_blank'><img src='http://artpic.360doc.com/13/1202/16/331149404_201312021641280202.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/1121/22/1676089_331149404.shtml' target='_blank'>CEO们喜欢看什么书?</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/1209/13/7010028_335695036.shtml' target='_blank'><img src='http://artpic.360doc.com/13/1220/09/335695036_201312200935450231.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/1209/13/7010028_335695036.shtml' target='_blank'>顶级销售高手经验——助你一句话搞...</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/14/1117/23/14567236_426009654.shtml' target='_blank'><img src='http://artpic2.360doc.com/14/1123/00/14567236_201411230011020489.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/14/1117/23/14567236_426009654.shtml' target='_blank'>三十部科幻烧脑电影大盘点</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/07/0414/18/19762_447663.shtml' target='_blank'><img src='http://artpic.360doc.com/13/0927/09/19762_201309270942010665.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/07/0414/18/19762_447663.shtml' target='_blank'>另外一个真实的中国</a></div></td></tr><tr id='fivearttdidtwo'><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/0204/00/8801485_264119570.shtml' target='_blank'><img src='http://artpic.360doc.com/13/0926/15/264119570_201309261532380602.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/0204/00/8801485_264119570.shtml' target='_blank'>学习寺庙70道素菜---清淡可口</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/0827/20/3397672_310324521.shtml' target='_blank'><img src='http://artpic.360doc.com/13/0927/16/310324521_201309271614570367.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/0827/20/3397672_310324521.shtml' target='_blank'>有驾照的关注这开车技巧</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/12/0802/14/3595709_227832809.shtml' target='_blank'><img src='http://artpic.360doc.com/13/1007/17/227832809_201310071725250396.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/12/0802/14/3595709_227832809.shtml' target='_blank'>男人三七开-------女人不许看</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/1016/14/8801485_321867276.shtml' target='_blank'><img src='http://artpic.360doc.com/13/1022/00/8801485_201310220010120445.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/1016/14/8801485_321867276.shtml' target='_blank'>清理体内12种毒素</a></div></td><td valign='top' width='131'><div><a onclick='wzhitnew(39);' href='http://www.360doc.com/content/13/1027/16/5052258_324566573.shtml' target='_blank'><img src='http://artpic.360doc.com/13/1106/09/324566573_201311060905190981.jpg' width='114' height='86'/></a></div><div class='lan twentit'><a  onclick='wzhitnew(40);' href='http://www.360doc.com/content/13/1027/16/5052258_324566573.shtml' target='_blank'>面试的12条黄金法则</a></div></td></tr></table></div>
+
+                                    <div id="adabtest">
+                                    </div>
+
+                                </div>
+
+
+
+
+
+                                <div id="Reflction" style="padding-top: 15px; padding-left: 15px;">
+                                    <div id="360docRefTN">
+                                    </div>
+                                    <div id="360docRefCT">
+                                    </div>
+                                    <div id="360docRefPB" align="center">
+                                    </div>
+                                </div>
+                                <a name="sf"></a>
+                                
+                                <div id="ReflectionPart">
+                                    <div style="height: 206px; margin: 0px 0px;">
+                                        <div class="plbox">
+                                            <div class="plmain">
+                                                <div class="titwx" style="height: 23px;">
+                                                    发表评论：
+                                                </div>
+                                                <textarea name="SendRefTB" id="SendRefTB" style="width: 100%; height: 75px; border: 1px solid #e7e7e7; background-color: #fff; overflow: auto; font-size: 12px;"
+                                                    onfocus="testContent(1);" onblur="testContent(2)"></textarea>
+                                                <div style="text-align: right; padding-right: 3px; padding-top: 6px;">
+                                                    <div class="huifubt">
+                                                        <a id="ImgSendPL" href="javascript:void(0);"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td align="center" valign="top" width="18px"></td>
+                    <td align="left" valign="top" width="252px">
+                        
+
+
+<div style='height: 98px' id="artrightad1">
+ 
+</div>
+
+
+    <div  id="artrightnewarticle" class="remenwz" style="height:219px;"><div class="rementop"><div class="titwx" style=" padding-top:10px; padding-left:24px;">最新文章</div></div><div class="modlist3 list" style=" padding-left:15px;"><ul><li><span><a href=http://www.360doc.com/content/13/0130/09/6979751_263177149.shtml target=_blank onclick='wzhitnew(51)'>mp4文件格式解析</a></span></li><li><span><a href=http://www.360doc.com/content/12/1119/13/7851074_248755312.shtml target=_blank onclick='wzhitnew(51)'>C   如何初始化静态类成员</a></span></li><li><span><a href=http://www.360doc.com/content/12/1115/17/7851074_248041158.shtml target=_blank onclick='wzhitnew(51)'>RTP  协  议</a></span></li><li><span><a href=http://www.360doc.com/content/12/1115/10/7851074_247949067.shtml target=_blank onclick='wzhitnew(51)'>C++的static关键字</a></span></li><li><span><a href=http://www.360doc.com/content/12/1113/17/7851074_247636415.shtml target=_blank onclick='wzhitnew(51)'>清晨迷雾 ? php session</a></span></li><li><span><a href=http://www.360doc.com/content/12/1113/16/7851074_247623967.shtml target=_blank onclick='wzhitnew(51)'>由Uploadify插件想到的Flash无法传递S...</a></span></li></ul> <div class=" rt360" style=" padding-right:23px;"><a href="http://www.360doc.com/userhome/7851074" target="_blank" onclick="wzhitnew(52);">更多</a></div></div></div>
+
+
+<div class="both" style="padding-top: 10px; height: 260px;">
+   <iframe id="ifartad1" height="250px" width="250px" frameborder="0" scrolling="no"></iframe>
+    <div style="height: 10px;">
+    </div>
+</div>
+
+<div class="remenwz" id="artrighthotarticle">
+    <div class="rementop">
+        <div class="titwx" style="padding-top: 10px; padding-left: 24px;">
+            热门文章</div>
+    </div>
+    <div class="modlist3 list" style="padding-left: 15px;">
+        <ul>
+            
+                    <li><span>
+                        <a href=http://www.360doc.com/content/14/0721/14/10902412_396028854.shtml target=_blank onclick='wzhitnew(55)'>【销售人员的三个层次】</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0625/23/37063_480706523.shtml target=_blank onclick='wzhitnew(55)'>诡异的宇宙之从相对论到量子力学 </a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0629/07/11498314_481373860.shtml target=_blank onclick='wzhitnew(55)'>郑振铎谈《金瓶梅词话》（1-5）</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0725/12/11827681_487291507.shtml target=_blank onclick='wzhitnew(55)'>太极拳视频 如何通过练太极拳打通任督...</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/13/1021/05/6641940_322925438.shtml target=_blank onclick='wzhitnew(55)'>厨师都不会出卖实用小窍门</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/14/0205/00/5473201_349864440.shtml target=_blank onclick='wzhitnew(55)'>中国地理知识全知道</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/13/1102/09/8146344_326018686.shtml target=_blank onclick='wzhitnew(55)'>顶级佳丽 勾魂摄魄（5）---高清大图</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/13/1209/11/793160_335666204.shtml target=_blank onclick='wzhitnew(55)'>手把手教你做五百多道家常菜【值得收...</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0924/19/17753496_501301534.shtml target=_blank onclick='wzhitnew(55)'>企业大裁员，你的职场未来在哪里</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/14/0118/12/14349089_346157895.shtml target=_blank onclick='wzhitnew(55)'>植物美容，天然妙方</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0802/17/14018215_489062240.shtml target=_blank onclick='wzhitnew(55)'>图说丨四季的别称，你都知道吗？</a></span></li>
+                
+                    <li><span>
+                        <a href=http://www.360doc.com/content/15/0602/15/10702576_475133508.shtml target=_blank onclick='wzhitnew(55)'>上下针的棒针花样（儿童毛衣不错的选...</a></span></li>
+                
+        </ul>
+        
+        <div style="padding-right: 23px;text-align: right;">
+            <a href="http://www.360doc.com/readroom.html" target="_blank" onclick='wzhitnew(56)'>更多>></a></div>
+        
+    </div>
+</div>
+
+<div class="both" style="padding-top: 10px;">
+    <iframe id="ifartad2" height="250px" width="250px" frameborder="0" scrolling="no"></iframe>
+</div>
+<br />
+
+
+ <iframe id="ifartrightsogou" height="328px" width="250px" frameborder="0" scrolling="no"></iframe>
+
+
+
+<script>
+    function change(pro_name, i) {
+        var pro = document.getElementById(pro_name); 
+        var pro_arr = pro.getElementsByTagName("span");
+
+        for (var m = 0; m < pro_arr.length; m++) {
+            pro_arr[m].className = "unclecked link_black";
+        }
+        pro_arr[i].className = "checked link_bai";
+
+        if (i == 1) {
+            document.getElementById("qh_ul_1").style.display = "";
+            document.getElementById("qh_ul_0").style.display = "none";
+        }
+        else if (i == 0) {
+            document.getElementById("qh_ul_1").style.display = "none";
+            document.getElementById("qh_ul_0").style.display = "";
+        }
+    }
+</script>
+
+                        <div class="both" id="divad5" style="padding-top: 11px; zoom: 1;">
+                            <div id="divad4" style="display: none;">
+                                <div>
+                                    <iframe id="ifartad" height="250px" width="250px" frameborder="0" scrolling="no"></iframe>
+                                </div>
+                                <div class="ggwz">
+                                    <a href="javascript:void(0);" onclick="closead(2);">关闭</a>
+                                </div>
+                                <div style="height: 13px;">
+                                </div>
+                            </div>
+                            <div style="clear: both; display: none;" id="divad6">
+                                <div id="adfloatbaidu">
+                                    <iframe id="ifartadfloadbaidu" height="250px" width="250px" frameborder="0" scrolling="no"></iframe>
+                                </div>
+                                <div class="ggwz">
+                                    <a href="javascript:void(0);" onclick="closead(3);">关闭</a>
+                                </div>
+                                <div style="height: 13px;">
+                                </div>
+                            </div>
+
+                            <div style="clear: both; display: none;" id="divDwnloadDocApp">
+
+                            </div>
+                             <div style="height: 75px;">
+                              </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <input type="hidden" id="docarttitle" value="Javascript+setTimeout+%e6%97%a0%e6%95%88%e8%a7%a3%e5%86%b3+%e4%b8%8e+setInterval+%e7%9a%84%e4%bd%bf%e7%94%a8" />
+    <input type="hidden" id="artreadroomid" value="0" />
+    <script>var asw='Javascript+setTimeout+%e6%97%a0%e6%95%88%e8%a7%a3%e5%86%b3+%e4%b8%8e+setInterval+%e7%9a%84%e4%bd%bf%e7%94%a8'</script>
+    <div id="docdiviframe"></div>
+
+
+    <script language="javascript" type="text/javascript">
+        var appName = navigator.appName.toLowerCase();
+        if (appName.indexOf("microsoft internet explorer") > -1) {
+            document.write("<scr" + "ipt type='text/javascript' src='http://www.360doc.com/js/StickySystemIE20130911.js?t=2015120901'></sc" + "ript>");
+        }
+        else {
+
+            document.write("<scr" + "ipt type='text/javascript' src='http://www.360doc.com/js/StickySystemOther20130911.js?t=2015120901'></sc" + "ript>");
+        }
+    </script>
+
+    <script>GerLookingUserInfo(1,7851074,1,0,'-1',-1,10,0);OutputSource('http%3a%2f%2fwww.chncms.com%2f2011%2f04%2f1%2fJAVASCRIPTSETTIMEOUT.html');OutputCategory(7851074,16,'%e3%80%8aJS%26jQuery%e3%80%8b');OutputLastNextArt('%5b%e5%8e%9f%5dJavaScript%e7%9a%84window.setTimeout()%e6%96%b9%e6%b3%95','http://www.360doc.com/content/12/1021/22/7851074_242860161.shtml',0);OutputLastNextArt('JQuery%e4%b9%8b%e5%9b%9b%3a+%e6%93%8d%e4%bd%9c%e5%85%83%e7%b4%a0%e7%9a%84CSS%e6%a0%b7%e5%bc%8f','http://www.360doc.com/content/12/1024/16/7851074_243514797.shtml',1);</script>
+
+  
+
+    <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6857724" src="http://bdimg.share.baidu.com/static/js/bds_s_v2.js?cdnversion=384393"></script>
+
+    <script type="text/javascript">
+        document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date() / 3600000);
+    </script>
+    <!-- Baidu Button END -->
+    <script src="http://bdimg.share.baidu.com/static/js/logger.js?cdnversion=384393"></script>
+
+
+</body>
+</html>
