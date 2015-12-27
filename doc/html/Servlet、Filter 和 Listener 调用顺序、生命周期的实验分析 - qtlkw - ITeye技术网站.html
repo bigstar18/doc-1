@@ -1,0 +1,532 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Servlet、Filter 和 Listener 调用顺序、生命周期的实验分析 - qtlkw - ITeye技术网站</title>
+    <meta name="description" content="通过实验来验证Servlet、Filter和Listener的调用顺序、生命周期。 1、示例项目 目录结构： web.xml &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;  &lt;!DOCTYPE web-app PUBLIC &quot;-//Sun Microsystems, Inc.//DTD Web App ..." />
+    <meta name="keywords" content=" Servlet、Filter 和 Listener 调用顺序、生命周期的实验分析" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="ITeye" />
+    <link href="/rss" rel="alternate" title="qtlkw" type="application/rss+xml" />
+    <link href="http://www.iteye.com/stylesheets/blog.css?1450926710" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://www.iteye.com/stylesheets/themes/blog/orange.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://www.iteye.com/javascripts/application.js?1448702469" type="text/javascript"></script>
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="http://www.iteye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.iteye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/hotkey.js?1448702469" type="text/javascript"></script>
+  <script src="http://www.iteye.com/javascripts/code_favorites.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/weiboshare.js?1448702469" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">招聘</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="/">qtlkw</a></h1>
+        </div>
+        <div id='fd'></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class='blog_navbar_for'><a href="http://qtlkw.iteye.com"><strong>博客</strong></a></li>
+            <li ><a href="/weibo">微博</a></li>
+            <li ><a href="/album">相册</a></li>
+            <li ><a href="/link">收藏</a></li>
+            <li ><a href="/blog/guest_book">留言</a></li>
+            <li ><a href="/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="" />
+              <input class="submit_search" type="submit" value="" />
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style='display:none'>
+  <a href="http://qtlkw.iteye.com" class="p-author" target="_blank">qtlkw</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="/blog/2037493">Servlet、Filter 和 Listener 调用顺序、生命周期的实验分析</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class='blog_categories'><strong>博客分类：</strong> <li><a href="/category/130876">JAVA</a></li> </ul>
+        <div class='news_tag'>&nbsp;</div>
+  </div>
+
+  <div id="blog_content" class="blog_content">
+    通过实验来验证Servlet、Filter和Listener的调用顺序、生命周期。<br /><br />1、示例项目<br /><br />目录结构：<br /><br />web.xml<br /><br /><pre class="java" name="code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd"&gt;
+&lt;web-app&gt;
+    &lt;listener&gt;
+        &lt;listener-class&gt;edu.shao.webapp.sample.listener.MyServletRequestListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+    &lt;listener&gt;
+        &lt;listener-class&gt;edu.shao.webapp.sample.listener.MyServletContextListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+    
+    &lt;filter&gt;
+        &lt;filter-name&gt;ResponseFilter&lt;/filter-name&gt;
+        &lt;filter-class&gt;edu.shao.webapp.sample.filter.ResponseFilter&lt;/filter-class&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;ResponseFilter&lt;/filter-name&gt;
+        &lt;servlet-name&gt;hello_world&lt;/servlet-name&gt;
+    &lt;/filter-mapping&gt;
+    
+    &lt;filter&gt;
+        &lt;filter-name&gt;LogFilter&lt;/filter-name&gt;
+        &lt;filter-class&gt;edu.shao.webapp.sample.filter.LogFilter&lt;/filter-class&gt;
+    &lt;/filter&gt;
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;LogFilter&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+    
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;hello_world&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;edu.shao.webapp.sample.HelloServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;hello_world&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;early_servlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;edu.shao.webapp.sample.EarlyServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;early_servlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/early&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;</pre><br /><br />MyServletContextListener类：<br /><br /><pre class="java" name="code">public class MyServletContextListener implements ServletContextListener {
+    public static Logger logger=LogManager.getLogger(MyServletContextListener.class);
+
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        logger.info("Servlet context initialized.");
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        logger.info("Servlet context destroyed.");
+    }
+}
+</pre><br />MyServletRequestListener类：<br /><br /><pre class="java" name="code">public class MyServletRequestListener implements ServletRequestListener {
+    public static Logger logger=LogManager.getLogger(MyServletRequestListener.class);
+
+    @Override
+    public void requestDestroyed(ServletRequestEvent sre) {
+        logger.info("Servlet request destroyed.");
+    }
+
+    @Override
+    public void requestInitialized(ServletRequestEvent sre) {
+        logger.info("Servlet request initialized.");
+    }
+}
+</pre><br />ResponseFilter类：<br /><br /><pre class="java" name="code">public class ResponseFilter implements Filter {
+    public static Logger logger=LogManager.getLogger(ResponseFilter.class);
+    
+    @Override
+    public void init(FilterConfig arg0) throws ServletException {
+        logger.info("Response Filter initialized.");
+    }
+
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse res,
+            FilterChain chain) throws IOException, ServletException {
+        chain.doFilter(req, res);
+        res.getWriter().write("--@2013 Mr.Shao");
+    }
+
+    @Override
+    public void destroy() {
+        logger.info("Response Filter destroyed.");
+    }
+}</pre><br /><br />LogFilter类：<br /><br /><pre class="java" name="code">public class LogFilter implements Filter {
+    public static Logger logger=LogManager.getLogger(LogFilter.class);
+    
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        logger.info("Log Filter initialized.");
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+            FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpServletRequest = (HttpServletRequest)request;
+        logger.info("Intercept Url="+httpServletRequest.getRequestURI());
+        
+        long start=System.currentTimeMillis();
+        chain.doFilter(request, response);
+        long end=System.currentTimeMillis();
+        logger.info(request.getRemoteAddr()+": time used :"+(end-start));
+    }
+
+    @Override
+    public void destroy() {
+        logger.info("Log Filter destroyed.");
+    }
+}</pre><br /><br />HelloServlet类：<br /><br /><pre class="java" name="code">public class HelloServlet extends HttpServlet {
+    public static Logger logger=LogManager.getLogger(HelloServlet.class);
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        logger.debug("Do Get Method.");
+        resp.getWriter().print("Hello World");
+    }
+    
+    public void init() throws ServletException {
+        logger.debug("Hello Servlet initialized.");
+    }
+    
+    public void destroy() {
+        logger.debug("Hello Servlet destroyed.");
+    }
+}</pre><br /><br />EarlyServlet类：<br /><br /><pre class="java" name="code">public class EarlyServlet extends HttpServlet {
+    public static Logger logger=LogManager.getLogger(EarlyServlet.class);
+
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        logger.debug("Do Get Method.");
+        resp.getWriter().print("This message is created in EarlyServlet");
+    }
+    
+    public void init() throws ServletException {
+        logger.debug("Early Servlet initialized.");
+    }
+    
+    public void destroy() {
+        logger.debug("Early Servlet destroyed.");
+    }
+}</pre><br /><br />2、测试操作<br />1、启动tomcat服务<br />2、访问http://10.130.29.198:8080/test/&nbsp; （访问index.html）<br />3、访问http://10.130.29.198:8080/test/hello<br />4、访问http://10.130.29.198:8080/test/early<br />5、停止tomcat服务<br /><br />3、Log输出<br /><br />(根据输出的时间，人为的把日志分割开来，便于观察)<br />1、启动tomcat服务<br />2013-03-28 18:14:08,954 INFO&nbsp; - [MyServletContextListener - contextInitialized] Servlet context initialized.<br />2013-03-28 18:14:08,983 INFO&nbsp; - [LogFilter - init] Log Filter initialized.<br />2013-03-28 18:14:08,984 INFO&nbsp; - [ResponseFilter - init] Response Filter initialized.<br />2013-03-28 18:14:08,991 DEBUG - [EarlyServlet - init] Early Servlet initialized.<br />2、访问http://10.130.29.198:8080/test/&nbsp; （访问index.html）<br />2013-03-28 18:14:18,946 INFO&nbsp; - [MyServletRequestListener - requestInitialized] Servlet request initialized.<br />2013-03-28 18:14:18,957 INFO&nbsp; - [LogFilter - doFilter] Intercept Url=/test/<br />2013-03-28 18:14:18,962 INFO&nbsp; - [LogFilter - doFilter] 10.130.29.198: time used :4<br />2013-03-28 18:14:18,963 INFO&nbsp; - [MyServletRequestListener - requestDestroyed] Servlet request destroyed.<br />3、访问http://10.130.29.198:8080/test/hello<br />2013-03-28 18:14:34,713 INFO&nbsp; - [MyServletRequestListener - requestInitialized] Servlet request initialized.<br />2013-03-28 18:14:34,714 DEBUG - [HelloServlet - init] Hello Servlet initialized.<br />2013-03-28 18:14:34,716 INFO&nbsp; - [LogFilter - doFilter] Intercept Url=/test/hello<br />2013-03-28 18:14:34,717 DEBUG - [HelloServlet - doGet] Do Get Method.<br />2013-03-28 18:14:34,720 INFO&nbsp; - [LogFilter - doFilter] 10.130.29.198: time used :3<br />2013-03-28 18:14:34,721 INFO&nbsp; - [MyServletRequestListener - requestDestroyed] Servlet request destroyed.<br />4、访问http://10.130.29.198:8080/test/early<br />2013-03-28 18:14:42,124 INFO&nbsp; - [MyServletRequestListener - requestInitialized] Servlet request initialized.<br />2013-03-28 18:14:42,127 INFO&nbsp; - [LogFilter - doFilter] Intercept Url=/test/early<br />2013-03-28 18:14:42,128 DEBUG - [EarlyServlet - doGet] Do Get Method.<br />2013-03-28 18:14:42,129 INFO&nbsp; - [LogFilter - doFilter] 10.130.29.198: time used :1<br />2013-03-28 18:14:42,130 INFO&nbsp; - [MyServletRequestListener - requestDestroyed] Servlet request destroyed.<br />5、停止tomcat服务<br />2013-03-28 18:14:49,723 DEBUG - [EarlyServlet - destroy] Early Servlet destroyed.<br />2013-03-28 18:14:49,724 DEBUG - [HelloServlet - destroy] Hello Servlet destroyed.<br />2013-03-28 18:14:49,724 INFO&nbsp; - [LogFilter - destroy] Log Filter destroyed.<br />2013-03-28 18:14:49,726 INFO&nbsp; - [ResponseFilter - destroy] Response Filter destroyed.<br />2013-03-28 18:14:49,727 INFO&nbsp; - [MyServletContextListener - contextDestroyed] Servlet context destroyed.<br /><br />4、分析<br /><br />1、在Tomcat（Servlet容器）启动时，Listener和 ServletContext 最先初始化。因为最先输出的日志是：<br />　　2013-03-28 18:14:08,954 INFO - [MyServletContextListener - contextInitialized] Servlet context initialized.<br />2、Filter在Tomcat（Servlet容器）启动时初始化。<br />　　2013-03-28 18:14:08,983 INFO - [LogFilter - init] Log Filter initialized.<br />　　2013-03-28 18:14:08,984 INFO - [ResponseFilter - init] Response Filter initialized.<br />3、如果某个Servlet配置了 &lt;load-on-startup &gt;1 &lt;/load-on-startup &gt;，该Servlet也是在Tomcat（Servlet容器）启动时初始化。例如 EarlyServlet：<br />　　2013-03-28 18:14:08,991 DEBUG - [EarlyServlet - init] Early Servlet initialized.<br />4、每次请求， Request都会被初始化，响应请求后，请求被销毁：<br />　　2013-03-28 18:14:18,946 INFO - [MyServletRequestListener - requestInitialized] Servlet request initialized.<br />　　......<br />　　2013-03-28 18:14:18,963 INFO - [MyServletRequestListener - requestDestroyed] Servlet request destroyed.<br />5、Filter在请求执行前后，都能做一些处理。<br />　　（1）请求执行前：2013-03-28 18:14:34,716 INFO - [LogFilter - doFilter] Intercept Url=/test/hello<br />　　（2）执行请求：2013-03-28 18:14:34,717 DEBUG - [HelloServlet - doGet] Do Get Method.<br />　　（3）请求执行后：2013-03-28 18:14:34,720 INFO - [LogFilter - doFilter] 10.130.29.198: time used :3<br />6、如果Servlet没有配置&lt;load-on-startup &gt;1 &lt;/load-on-startup &gt;，该Servlet不会在Tomcat启动时初始化，而是在请求到来时初始化。例如 HelloServlet：<br />　　2013-03-28 18:14:34,714 DEBUG - [HelloServlet - init] Hello Servlet initialized.<br />7、Servlet初始化后，将不会随着请求的结束而注销。HelloServlet 初始化，当请求结束了，HelloServlet 的 destroy() 没有被调用。<br />8、关闭Tomcat时，Servlet、Filter、Listener依次被注销。<br />
+  </div>
+
+  
+
+  
+  
+  <IFRAME SRC="/iframe_ggbd/794" SCROLLING=no WIDTH=680 HEIGHT=90 FRAMEBORDER=0></IFRAME>
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type='sina' href="javascript:;" title="分享到新浪微博"><img src="/images/sina.jpg"></a>
+      <a data-type='qq' href="javascript:;" title="分享到腾讯微博"><img src="/images/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="/blog/2038895" class="next" title="Servlet 3.0 新特性详解">Servlet 3.0 新特性详解</a>
+      |
+      <a href="/blog/2036728" class="pre" title="Hibernate session 获取方式浅谈">Hibernate session 获取方式浅谈</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2014-03-27 13:43</li>
+      <li>浏览 1248</li>
+      <li><a href="#comments">评论(0)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/language">编程语言</a></li>      
+      <li class='last'><a href="http://www.iteye.com/wiki/blog/2037493" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="/login" style="background-color:white;"> <img src="/images/login_icon.png" style="vertical-align:middle; margin-right: 10px;" /></a><a href="/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 2037493;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'Servlet、Filter 和 Listener 调用顺序、生命周期的实验分析');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'Servlet、Filter 和 Listener 调用顺序、生命周期的实验分析');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href='http://qtlkw.iteye.com'><img alt="qtlkw的博客" class="logo" src="http://www.iteye.com/images/user-logo.gif?1448702469" title="qtlkw的博客: qtlkw" width="" /></a></div>
+  <div id="blog_owner_name">qtlkw</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 116341 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="http://www.iteye.com/images/icon_minigender_1.gif?1448702469" title="男" /></li>
+              <li>来自: 杭州</li>
+              <li><img src='/images/status/offline.gif'/></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style='font-weight:normal;font-size:12px;padding-left:30px;'><a href="/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://manyhappy.iteye.com' target='_blank'><img alt="manyhappy的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="manyhappy的博客: manyhappy" width="48px" /></a></div>
+                <div class="left"><a href='http://manyhappy.iteye.com' target='_blank' title='manyhappy'>manyhappy</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://longxq.iteye.com' target='_blank'><img alt="longxq的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="longxq的博客: JAVA" width="48px" /></a></div>
+                <div class="left"><a href='http://longxq.iteye.com' target='_blank' title='longxq'>longxq</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://wengxf.iteye.com' target='_blank'><img alt="wengxf的博客" class="logo" src="http://www.iteye.com/upload/logo/user/530355/1823a3aa-ab25-3a85-bf71-d81228a26c1f-thumb.jpg?1312423416" title="wengxf的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://wengxf.iteye.com' target='_blank' title='wengxf'>wengxf</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://yuchangcheng.iteye.com' target='_blank'><img alt="yuchangcheng的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="yuchangcheng的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://yuchangcheng.iteye.com' target='_blank' title='yuchangcheng'>yuchangcheng</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="/">全部博客 (170)</a></li>
+                
+                  <li><a href="/category/130875">ORACLE (11)</a></li>
+                
+                  <li><a href="/category/130876">JAVA (77)</a></li>
+                
+                  <li><a href="/category/130877">Linux (11)</a></li>
+                
+                  <li><a href="/category/130878">DB2 (11)</a></li>
+                
+                  <li><a href="/category/130880">Hudson配置 (6)</a></li>
+                
+                  <li><a href="/category/159977">Lucene (1)</a></li>
+                
+                  <li><a href="/category/159978">SQL SERVER (2)</a></li>
+                
+                  <li><a href="/category/161346">JMS (3)</a></li>
+                
+                  <li><a href="/category/167137">LDAP (3)</a></li>
+                
+                  <li><a href="/category/202585">OFFICE (2)</a></li>
+                
+                  <li><a href="/category/249631">Browser (3)</a></li>
+                
+                  <li><a href="/category/278817">Visual Basic (1)</a></li>
+                
+                  <li><a href="/category/320359">Maven (4)</a></li>
+                
+                  <li><a href="/category/320360">Servicemix (0)</a></li>
+                
+                  <li><a href="/category/320361">Camel (2)</a></li>
+                
+                  <li><a href="/category/320362">Drool (0)</a></li>
+                
+                  <li><a href="/category/320363">OSGI (1)</a></li>
+                
+              </ul>
+            </div>
+            <div id='month_blogs'>
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="/blog/post">我的论坛</a> (5)
+                </li>
+                <li><a href="/blog/answered_problems">我的问答</a> (0)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="/blog/monthblog/2015-11">2015-11</a> (3)</li>
+                
+                  <li><a href="/blog/monthblog/2015-08">2015-08</a> (2)</li>
+                
+                  <li><a href="/blog/monthblog/2015-07">2015-07</a> (6)</li>
+                
+                <li><a href="/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href='http://tuspark.iteye.com' target='_blank' title='tuspark'>tuspark</a>： 
+                  Eclipse中高亮设置内容还有很多细节选项可以设置的，可以看 ...<br />
+                  <a href="/blog/1465029#bc2374483">Eclipse 设置匹配代码高亮</a>
+                </li>
+                
+                <li>
+                  <a href='http://xichao1929.iteye.com' target='_blank' title='xichao1929'>xichao1929</a>： 
+                  这个时候，怎么启动发布的项目呢？？？？？<br />
+                  <a href="/blog/588428#bc2360020">JBoss设置为Windows服务</a>
+                </li>
+                
+                <li>
+                  <a href='http://xiaozi7.iteye.com' target='_blank' title='xiaozi7'>xiaozi7</a>： 
+                  非常感谢，楼主的英语水平不一般那<br />
+                  <a href="/blog/683394#bc2286815">WebSphere MQ Version 7 发布订阅相关配置</a>
+                </li>
+                
+                <li>
+                  <a href='http://qtlkw.iteye.com' target='_blank' title='qtlkw'>qtlkw</a>： 
+                  slave没玩过<br />
+                  <a href="/blog/773640#bc2283099">Hudson: java.lang.OutOfMemoryError: Java heap space error</a>
+                </li>
+                
+                <li>
+                  <a href='http://wuliupo.iteye.com' target='_blank' title='wuliupo'>wuliupo</a>： 
+                  如果我的是 slave 机器，怎么设置呢？<br />
+                  <a href="/blog/773640#bc2273143">Hudson: java.lang.OutOfMemoryError: Java heap space error</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr/>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br />
+          &copy; 2003-2015 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script>
+
+<script src="http://csdnimg.cn/pubfooter/js/tracking.js?version=20130923164150" type="text/javascript"></script>
+
+    
+    
+  </body>
+</html>
