@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<!--[if IE 6]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 7]><html class="ie lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="ie ie8"><![endif]-->
+<!--[if IE 9]><html class="ie ie9"><![endif]-->
+<!--[if !IE]><!--> <html> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="description"  content="携程推行事业部制已有一段时间，在这种新的组织架构下，技术应如何和业务接合紧密？技术如何给业务创造更多的价值？事业部CTO应如何辅佐事业部CEO？这不仅是每个事业部CTO感兴趣的话题，也是每个对自己职业发展有着雄心壮志的技术人感兴趣的话题。4月26日，Eric在2014年一季度的技术管理会...">
+  <meta property="wb:webmaster" content="294ec9de89e7fadb" />
+  <meta property="qc:admins" content="104102651453316562112116375" />
+  <meta property="qc:admins" content="11635613706305617" />
+  <meta property="qc:admins" content="1163561616621163056375" />
+  <meta name="google-site-verification" content="cV4-qkUJZR6gmFeajx_UyPe47GW9vY6cnCrYtCHYNh4" />
+  <meta name="google-site-verification" content="HF7lfF8YEGs1qtCE-kPml8Z469e2RHhGajy6JPVy5XI" />
+  <meta http-equiv="mobile-agent" content="format=html5; url=http://www.jianshu.com/p/753d809663b6">
+    <!--  Meta for Smart App Banner -->
+  <meta name="apple-itunes-app" content="app-id=888237539, app-argument=jianshu://notes/641197">
+  <!-- End -->
+
+  <!--  Meta for Twitter Card -->
+  <meta content="summary" property="twitter:card">
+  <meta content="@jianshucom" property="twitter:site">
+  <meta content="Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理" property="twitter:title">
+  <meta content="携程推行事业部制已有一段时间，在这种新的组织架构下，技术应如何和业务接合紧密？技术如何给业务创造更多的价值？事业部CTO应如何辅佐事业部CEO？这不仅是每个事业部CTO感兴趣的话题，也是每个对自己职业发展有着雄心壮志的技术人感兴趣的话题。4月26日，Eric在2014年一季度的技术管理会..." property="twitter:description">
+  <meta content="http://www.jianshu.com/p/753d809663b6" property="twitter:url">
+  <!-- End -->
+
+  <!--  Meta for OpenGraph -->
+  <meta property="fb:app_id" content="865829053512461">
+  <meta property="og:site_name" content="简书">
+  <meta property="og:title" content="Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="http://www.jianshu.com/p/753d809663b6">
+  <meta property="og:description" content="携程推行事业部制已有一段时间，在这种新的组织架构下，技术应如何和业务接合紧密？技术如何给业务创造更多的价值？事业部CTO应如何辅佐事业部CEO？这不仅是每个事业部CTO感兴趣的话题，也是每个对自...">
+
+  <!-- End -->
+
+  <!--  Meta for Facebook Applinks -->
+  <meta property="al:ios:url" content="jianshu://notes/641197" />
+  <meta property="al:ios:app_store_id" content="888237539" />
+  <meta property="al:ios:app_name" content="简书" />
+
+  <meta property="al:android:url" content="jianshu://notes/641197" />
+  <meta property="al:android:package" content="com.jianshu.haruki" />
+  <meta property="al:android:app_name" content="简书" />
+  <!-- End -->
+
+  <title>Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理 - 简书</title>
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="8Nt+hbBg78qbYHv8XKPbA34QqlZiIXezADCNSGkEvcIYeINWUQVlLLfLEUn4NC188MXpZe37c0Apr1LbYPYEzg==" />
+  <!--[if lte IE 8]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/base-2ee9afc13fa80dc67defc3e3cf998d50.css" />
+
+    <link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/reading-note-477afdea41063058ed8d2309d56cc801.css" />
+  <link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/base-read-mode-fed239ce355de33c73dca2655a418148.css" />
+  <script src="http://cdn0.jianshu.io/assets/modernizr-8310b02f56277a1101d09f83069a465d.js"></script>
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if IE 8]><link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/scaffolding/for_ie-c6182786e742ff7467a374a2af472828.css" /><![endif]-->
+  <!--[if lt IE 9]><link rel="stylesheet" media="all" href="http://cdn0.jianshu.io/assets/scaffolding/for_ie-c6182786e742ff7467a374a2af472828.css" /><![endif]-->
+  <link href="http://baijii-common.b0.upaiyun.com/icons/favicon.ico" rel="icon">
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/57-7597f1cff93b0f41cd16ca7641e477eb.png" sizes="57x57" />
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/72-e02c647005f01e2d24778ac8e7f9dc45.png" sizes="72x72" />
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/76-4788ffdcd445555b5b93bfb4d1f4747c.png" sizes="76x76" />
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/114-e89d888a7bce6222606e46082dcab634.png" sizes="114x114" />
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/120-c7cdad6dd50db5a93175a6e015d6dc08.png" sizes="120x120" />
+      <link rel="apple-touch-icon-precomposed" href="http://cdn0.jianshu.io/assets/apple-touch-icons/152-21fa4ed7968f6503816524e90dcb3d91.png" sizes="152x152" />
+  <script>
+    var _czc = _czc || [];
+    _czc.push(["_setAccount", "1253183112"]);
+  </script>
+</head>
+
+<body class="post output zh cn win reader-day-mode reader-font2" data-js-module="note-show" data-locale="zh-CN">
+  
+  <div class="navbar navbar-jianshu shrink">
+  <div class="dropdown">
+    <a class="dropdown-toggle logo" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="javascript:void(0)">
+      简
+    </a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+      <li><a href="/"><i class="fa fa-home"></i> 首页</a></li>
+      <li><a href="/collections"><i class="fa fa-th"></i> 专题</a></li>
+      <li><a href="/user_invitations"><i class="fa fa-money"></i> 发钱啦</a></li>
+    </ul>
+  </div>
+</div>
+<div class="navbar-user">
+    <a class="login" data-signup-link="true" data-toggle="modal" href="/sign_up">
+      <i class="fa fa-user"></i> 注册
+</a>    <a class="login" data-signin-link="true" data-toggle="modal" href="/sign_in">
+      <i class="fa fa-sign-in"></i> 登录
+</a>    <a class="daytime set-view-mode pull-right" href="javascript:void(0)"><i class="fa fa-moon-o"></i></a>
+</div>
+<div class="navbar navbar-jianshu expanded">
+  <div class="dropdown">
+      <a class="active logo" role="button" data-original-title="个人主页" data-container="div.expanded" href="/">
+        <b>简</b><i class="fa fa-home"></i><span class="title">首页</span>
+</a>      <a data-toggle="tooltip" data-placement="right" data-original-title="专题" data-container="div.expanded" href="/collections">
+        <i class="fa fa-th"></i><span class="title">专题</span>
+</a>    <a data-toggle="tooltip" data-placement="right" data-original-title="下载手机应用" data-container="body" href="/apps">
+      <i class="fa fa-mobile"></i><span class="title">下载手机应用</span>
+</a>  </div>
+  <div class="nav-user">
+      <a href='#view-mode-modal' data-toggle='modal'><i class="fa fa-font"></i><span class="title">显示模式</span></a>
+
+      <a class="signin" data-signin-link="true" data-toggle="modal" data-placement="right" data-original-title="登录" data-container="div.expanded" href="/sign_in">
+        <i class="fa fa-sign-in"></i><span class="title">登录</span>
+</a>    </div>
+  </div>
+
+  
+    <div class="fixed-btn">
+    <a class="go-top hide-go-top" href="#"> <i class="fa fa-angle-up"></i></a>
+    <a class="qrcode" data-target="#bottom-qrcode" data-toggle="modal" href="javascript:void(0)"><i class="fa fa-qrcode"></i></a>
+    <a class="writer" href="/writer#/" data-toggle="tooltip" data-placement="left" title="写篇文章"><i class="fa fa-pencil"></i></a>
+    <!-- qrcode modal -->
+    <div id="bottom-qrcode" class="modal panel-modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+      <h4>下载简书移动应用</h4>
+      <div class="panel-body"><img src="http://cdn0.jianshu.io/assets/app-page/download-app-qrcode-85008f146773a25ce86bcc4d7858af68.png" alt="Download app qrcode" /></div>
+    </div>
+  </div>
+
+
+  <div id="show-note-container">
+    
+
+<div class="post-bg" id="flag">
+  <div class="wrap-btn">
+    <!-- Notebook and collections button upper left -->
+      <div class="article-related pull-left">
+          <a class="collection-menu-btn" data-toggle="modal" data-target="#collection-menu" href="javascript:void(null);">
+            <i class="fa fa-th"></i>
+</a>          <a class="notebooks-menu-btn" data-toggle="modal" data-target="#notebooks-menu" href="javascript:void(null);"><i class="fa fa-list-ul"></i></a>
+        <div class="related-avatar-group activities"></div>
+      </div>
+    <!-- ******* -->
+
+      <a class="login" data-signup-link="true" data-toggle="modal" href="/sign_up">
+    <i class="fa fa-user"></i> 注册
+</a>  <a class="login" data-signin-link="true" data-toggle="modal" href="/sign_in">
+    <i class="fa fa-sign-in"></i> 登录
+</a>
+
+    <!-- Buttons upper right -->
+    <!-- ******* -->
+  </div>
+
+  <div class="container">
+    <!-- Article activities for width under 768px -->
+    <div class="related-avatar-group activities"></div>
+      <div class="article">
+        <div class="preview">
+          <div class="author-info">
+              <div class="btn btn-small btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="/sign_in"><i class="fa fa-plus"></i>  <span>添加关注</span></a>
+  </div>
+
+            <a class="avatar" href="/users/6cb3a9a8ae3b">
+              <img src="http://qzapp.qlogo.cn/qzapp/100410602/0055322CFAB952F6F558D96A36AEDC4F/100" alt="100" />
+</a>            <span class="label">
+                作者
+            </span>
+            <a class="author-name blue-link" href="/users/6cb3a9a8ae3b">
+              <span>Minimalism</span>
+</a>              <span>2015.02.09 23:50</span>
+            <div>
+              <span>写了12206字</span>，<span>被74人关注</span>，<span>获得了312个喜欢</span>
+            </div>
+          </div>
+          <h1 class="title">Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理</h1>
+          <div class="meta-top">
+            <span class="wordage"></span>
+            <span class="views-count"></span>
+            <span class="comments-count"></span>
+            <span class="likes-count"></span>
+          </div>
+
+          <!-- Collection/Bookmark/Share for width under 768px -->
+          <div class="article-share"></div>
+          <!-- -->
+
+          <div class="show-content"><p>携程推行事业部制已有一段时间，在这种新的组织架构下，技术应如何和业务接合紧密？技术如何给业务创造更多的价值？事业部CTO应如何辅佐事业部CEO？这不仅是每个事业部CTO感兴趣的话题，也是每个对自己职业发展有着雄心壮志的技术人感兴趣的话题。</p><p>4月26日， Eric在2014年一季度的技术管理会上和技术骨干分享了这个话题，并以他数十年海内外技术管理经验给大家带来不少“干货”。</p><p>大家都知道，在传统意义上CTO需要具备的能力包括：</p><p>1.树立团队的技术愿景 (Create Technology Vision)</p><p>2.组建高效的技术团队 (Build Talent Team)</p><p>3.带领团队交付项目和任务，并实现业务需求 (Delivery)</p><p>以上是每个CTO都需要学习、掌握并不断发展的必备能力，并贯穿在CTO的整个职业生涯中。CTO将致力于发展这些能力，并且持续学习和不断进步。</p><p>不过，Eric更想跟大家分享的是其在携程的CTO职业生涯体验。在携程，他带领整个技术团队从开始到现在已经超过两年了，同时这也是携程提出二次创业和飞速发展的两年。就Eric个人而言，几乎每天都在迎接和面对各种挑战。他所经历和学习到的经验，对每个CTO的成长都会有借鉴意义和帮助。</p><p>Eric在管理会上分享的特别话题是：在今天的携程，如何才能成为一个称职的BU CTO？他归纳了六大要点：</p><p>首先，对今天的携程来说，BU CTO最重要的是要具备解决技术问题的能力，英文叫做Problem solving skills。一个合格的技术领导，需要具备快速解决疑难杂症的高超技巧。携程现处在一个正高速发展的行业，每天都会面临很多技术问题。 遇到这些问题时该怎么办？CTO这时候要能够提出有效的解决方案，技术实现的成本低，并且能够快速交付，这样业务也随之受益。</p><p>例子：酒店价格和房态更新数据库R+W设计，安全政策的实施，解决不同业务线的架构耦合，搭建使我们在未来5年受益的可扩展的测试环境。</p><p>不过除了解决问题，CTO更需要具备发现问题的能力。当别人还没意识到时，你能预知问题的存在。你能在问题爆发前，指导团队成员及时解决。我们都知道，问题不会自动消失，而只是在等待爆发的时机，它们早晚会出现在你面前，并打你个措手不及。然后，你必然会在混乱中被动地处理这些问题。这不但会对你的领导力和执行力造成损害，而且会在业务甚至是用户面前造成负面影响。作为CTO，你应该带领你的团队远离问题，或者说走在问题的前面。</p><p>其次，CTO要有“还债”意识 (Technology Debt)，需要能够找出并解决历史积累下来的技术问题。通常，我们自己也是历史的一员，无形中也会欠下很多“技术债”。几乎每一个公司都会有这种“技术债”， 即使像eBay这样的国际一流互联网公司。这是因为技术在前进，当时还算一流的技术可能转眼就落伍了；同时业务也在前进，当时还能支持业务的技术可能现在就不管用了。我们的技术应该跟能够随技术的发展而发展，随业务的改变而改变。在今天的携程，我们可以看到很多历史积累下来的技术债，怎么办？作为CTO，需要有技术的前瞻性，客观的审视这些“债”，勇敢的面对他们，并且领导你的团队(利用一部分的资源) 在合适的时机还“债”。如果CTO听之任之，你的团队也会亦步亦趋，久而久之，“技术债”越积越多，就很难还清了。Eric期望还“技术债”成为携程CTO自身DNA的一部分。</p><p>例子: 各业务间的数据耦合(ReportDB， EntryDB)， 统一登录，用于实时排障的集中日志（原先使用数据库日志）， 硬编码配置，酒店订单调度设计无法应对国庆高峰，发布时间变长(从10到200分钟)，老的图片服务器无法分布和无法扩展，移动 FAT和UAT环境问题， 移动发布耦合， 后台服务耦合</p><p>第三，CTO需要与CEO建立良好的合作关系 (Partnership)。 CTO 首先要做到的是改变思路——学会像CEO一样去思考，把实现业务目标放在第一位。CTO不能向CEO抱怨任何事，而是要积极地配合CEO的工作。如果做不到，那是CTO的问题，不是CEO的问题。至少，你要对此进行自我的心态调整。</p><p>在过去，领导部门项目开发、选择和部署合适技术几乎就是CTO的所有工作了。然而，在今天的携程，我们处在一个不同的世界，一切都在快速前进。这意味CTO需要深入学习业务知识并决定业务项目什么该做和什么不该做，而不仅仅限于软件研发与交付。如果你是酒店业务的CTO，你要对酒店的业务的变化了如指掌，例如现在的酒店业务与两年前就有着天差地别。这种业务知识的积累是与时俱进的，更重要的是CTO需要具备这种学习意识。</p><p>其次是平衡好产品需求。产品和技术日新月异，CTO每天都会收到很多需求，业务上的、服务上的、营销上的、技术改造上的，不一而足。CTO如果具有一流的战略和市场意识，就能站在CEO的高度来评估这些需求的优先级，并从技术的角度给予最佳的实现方案。这就需要CTO除了掌握足够多技术手段和行业知识外，还要对公司当前的重点业务有清晰的认知。总之，就是用最合适的资源实现最大的业务效果。</p><p>例子：每周回顾你的团队在做些什么？哪些事是不必要做的？ 关注能够获取80%回报的那20%的项目；什么不该做: 火车票+酒店的项目。</p><p>再有是提高交付满意度。CTO必须具有强大的执行和交付能力。有很多产品和技术问题是说说容易，做做难。你要带领你的团队解决实际问题并按时交付。讲概念很多人都会，但如何在多变的市场环境和紧迫的竞争条件下，快速而高质量的交付产品，是检验CTO成功或失败的试金石之一。</p><p>例子：我们是否需要百度盒子计算? 如何实现SBU 解耦? 如何做到移动发布解耦? 如何解决H5与支付结合的问题? 如何提升机+酒的可预订率?</p><p>第四，CTO要有清晰的自我认识。CTO对自己和团队要有正确的认识。中国有句古话叫做“自省”。工作一天后，我自己回家也常常在想，今天做了什么? 什么值得改进？错过了什么？有新的知识和业务需要学习吗？几乎每天都自我调整。作为CTO，我觉得了解自己和团队处在什么水平或位置， 是一个不可多得的技能。因为只有认清了自己的短板，才能够迅速填补。</p><p>例子：322安全事件，虽然这是个别人偶发的错误，但反思时， 我发现把太多的精力花在交付业务需求的产品、架构的提升、以及基础设施建设。 在安全方面没有投入足够的时间。现在，我自己需要更加关注安全，提高携程的安全系统，并 提升用户的信任度。</p><p>第五，CTO需要进行团队的人才建设。首先，你是否雇到了让你骄傲的人才? 你是否可以告诉他人， 他是我招聘到的优秀的工程师、架构师、管理者，他解决了疑难问题，他找到了突破性的解决方案。一个优秀员工和一个平庸的员工之间的区别是巨大的，对于互联网企业，甚至可能是10比1的区别。CTO需要有能力去评判谁是优秀人才，并能把他们招募到你的队伍中来。</p><p>Eric在分享过程中提过一个问题：如果你加入携程超过2年了，请举手? 只有少数人。你们知道你们大部分人加入的时间不长。我找你们这些有能力的人来做部门领导，同样，你们也有责任招募一流人才加入你的团队。</p><p>其次，要有接班人能够接替你的工作？如果你离开团队，谁可以管理你的团队? CTO要有宽广的胸襟来培养接班人。当然，团队里的每个重要岗位 (不管是管理岗还是技术岗)，都要有接班人计划。这样才能够保证团队发展后继有人，保证关键岗位随时有胜任的人员补充。同样这对于你个人成长特很重要，可以为你自己将来承担更大的责任打好基础。</p><p>最后，你需要具备人格魅力，并创造能吸引优秀人才的团队文化。真正的一流人才只会去一流团队。你的团队是一流的吗？你能吸引到一流人才吗？能留住他们吗？一流人才到你这里会不会泯然众人？如何领导一流团队? 这些都是CTO要考虑并持续学习的问题。简言之，CTO通过建立互联网的工程师文化：公平、公正、分享，可以帮助每个人实现个人价值。</p><p>例子：当一个一流员工选择离开队伍的时候，原因是什么？当他们加入团队的时候，原因又是什么？你的团队是不是一流团队? 谁是你团队里的一流人才? 一流员工离开是否对你和团队造成影响？</p><p>最后，CTO需要能够给工作注入 (inject) 新的东西。简单的讲，就是每天你给你的团队带来什么？什么需要改变？什么事行不通？ CTO应该具备微创新和改变的精神。携程是中国领先的OTA，我们面对很多公司的竞争。作为一个CTO，你要思考带入技术上和产品上新的东西，如：在你负责的业务线上，这些行业领先者(Priceline、Expedia、Tripadvisor)最近新设计了什么产品？国内的竞争对手在玩什么？美团，大众点评，去哪儿的无线产品有什么新花样？国内一流互联网企业最佳实践有什么? 安全、云计算、手机技术、H5，哪些技术我们可以立即用，哪些可以改良现有的系统？如果你的技术落后于竞争对手，如何提升？技术驱动业务，需要你勇于承担起业务成功与否的责任。</p><p>例子：2013年携程技术中心引进工程师文化，我们完成了很多目标：招募一流员工，打造更好的办公环境，提升技术品牌，组织UED大会，在国内和国际大会或大学作演讲，提升校招质量，优化组织结构，技术专利申请，编程大赛，技术Open House，人员轮岗制度，淘汰落后员工，项目激励计划，为团队设定新的战略，为成员设定职业目标等等。</p><p>能够切实地实践和履行这六大要点，我相信能够帮助你们成为合格的携程事业部 CTO。</p></div>
+        </div>
+      </div>
+
+      <div class="visitor_edit">
+        <!-- further readings -->
+        <div id="further-readings" data-user-slug="" data-user-nickname="">
+          <div id="further-reading-line" class="hide further-reading-line"></div>
+          <ul id="further-readings-list" class="reading-list unstyled"></ul>
+          <div id="further-reading-new" class="reading-edit">
+              <a data-signin-link="true" data-toggle="modal" href="/sign_in">
+                <i class="fa fa-plus-circle"></i> 推荐拓展阅读
+</a>            <div id="further-reading-form"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reward / Support Author -->
+        <div class="support-author">
+          <p>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！</p>
+            <a class="btn btn-pay" data-toggle="modal" href="#pay-modal">¥ 打赏支持</a>
+          <div class="avatar-list"></div>
+        </div>
+
+      <!-- article meta bottom -->
+      <div class="meta-bottom clearfix">
+        <!--  Like Button -->
+        <div class="like ">
+            <div class="like-button">
+              <a id="like-note" class="like-content" data-signin-link="true" data-toggle="modal" href="/sign_in">
+                <i class="fa fa-heart-o"></i>  喜欢
+</a></div>          <span id="likes-count" data-toggle="tooltip" data-placement="right" title="查看所有喜欢的用户">
+            <i class="fa fa-spinner fa-pulse"></i>
+</span>        </div>
+        <!--  share group -->
+        <div class="share-group pull-right">
+          <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f=&#39;http://v.t.sina.com.cn/share/share.php?appkey=1881139527&#39;,u=z||d.location,p=[&#39;&amp;url=&#39;,e(u),&#39;&amp;title=&#39;,e(t||d.title),&#39;&amp;source=&#39;,e(r),&#39;&amp;sourceUrl=&#39;,e(l),&#39;&amp;content=&#39;,c||&#39;gb2312&#39;,&#39;&amp;pic=&#39;,e(p||&#39;&#39;)].join(&#39;&#39;);function%20a(){if(!window.open([f,p].join(&#39;&#39;),&#39;mb&#39;,[&#39;toolbar=0,status=0,resizable=1,width=440,height=430,left=&#39;,(s.width-440)/2,&#39;,top=&#39;,(s.height-430)/2].join(&#39;&#39;)))u.href=[f,p].join(&#39;&#39;);};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,&#39;&#39;,&#39;&#39;,&#39;http://cwb.assets.jianshu.io/notes/images/641197/weibo/image_3aa0188723bd.jpg&#39;, &#39;推荐 Minimalism 的文章《Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理》（ 分享自 @简书 ）&#39;,&#39;http://www.jianshu.com/p/753d809663b6&#39;,&#39;页面编码gb2312|utf-8默认gb2312&#39;));" data-name="weibo">
+            <i class="fa fa-weibo"></i><span>分享到微博</span>
+          </a>
+          <a data-toggle="modal" href="#share-weixin-modal" data-name="weixin">
+            <i class="fa fa-weixin"></i><span>分享到微信</span>
+          </a>
+          <div class="more">
+            <a href="javascript:void(0)" data-toggle="dropdown">更多分享<i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu arrow-top">
+                <li><a href="http://cwb.assets.jianshu.io/notes/images/641197/weibo/image_3aa0188723bd.jpg" target="_blank" data-name="changweibo"><i class="fa fa-arrow-circle-o-down"></i> 下载长微博图片</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://share.v.t.qq.com/index.php?c=share&amp;a=index&amp;url=&#39;+e(&#39;http://www.jianshu.com/p/753d809663b6&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Minimalism 的文章《Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理》（ 分享自 @jianshuio ）&#39;),x=function(){if(!window.open(r,&#39;tweibo&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="tweibo"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/tweibo.png">分享到腾讯微博</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=&#39;+e(&#39;http://www.jianshu.com/p/753d809663b6&#39;)+&#39;&amp;title=&#39;+e(&#39;推荐 Minimalism 的文章《Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理》&#39;),x=function(){if(!window.open(r,&#39;qzone&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="qzone"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/qzone.png">分享到QQ空间</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://twitter.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/753d809663b6&#39;)+&#39;&amp;text=&#39;+e(&#39;推荐 Minimalism 的文章《Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理》（ 分享自 @jianshucom ）&#39;)+&#39;&amp;related=&#39;+e(&#39;jianshucom&#39;),x=function(){if(!window.open(r,&#39;twitter&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="twitter"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/twitter.png">分享到Twitter</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://www.facebook.com/sharer.php?s=100&amp;p[url]=&#39;+e(&#39;http://www.jianshu.com/p/753d809663b6&#39;)+&#39;&amp;p[title]=&#39;+e(&#39;Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理 - 简书社&#39;)+&#39;&amp;p[summary]=&#39;+e(&#39;推荐 Minimalism 的文章《Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理》&#39;),x=function(){if(!window.open(r,&#39;facebook&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="facebook"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/facebook.png">分享到Facebook</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;https://plus.google.com/share?url=&#39;+e(&#39;http://www.jianshu.com/p/753d809663b6&#39;),x=function(){if(!window.open(r,&#39;google_plus&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="google_plus"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/google_plus.png">分享到Google+</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,r=&#39;http://widget.renren.com/dialog/share?resourceUrl=&#39;+e(&#39;http://www.jianshu.com/p/753d809663b6&#39;)+&#39;&amp;description=&#39;+e(&#39;推荐 Minimalism 的文章《Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理》&#39;)+&#39;&amp;title=&#39;+e(&#39;Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理&#39;),x=function(){if(!window.open(r,&#39;renren&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=600,height=600&#39;))location.href=r};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})();" data-name="renren"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/renren.png">分享到人人网</a></li>
+                <li><a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:&#39;&#39;,r=&#39;http://www.douban.com/recommend/?url=&#39;+e(&#39;http://www.jianshu.com/p/753d809663b6&#39;)+&#39;&amp;title=&#39;+e(&#39;Eric Ye (2014 CSDN 年度最佳CTO)内部讲话整理&#39;)+&#39;&amp;sel=&#39;+e(s)+&#39;&amp;v=1&#39;,x=function(){if(!window.open(r,&#39;douban&#39;,&#39;toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330&#39;))location.href=r+&#39;&amp;r=1&#39;};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()" data-name="douban"><img src="http://baijii-common.b0.upaiyun.com/social_icons/32x32/douban.png">分享到豆瓣</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modals -->
+      <div id="share-weixin-modal" class="modal hide fade share-weixin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+    <h5>打开微信“扫一扫”，打开网页后点击屏幕右上角分享按钮</h5>
+  </div>
+</div>
+
+      
+      <div id="notebooks-menu" class="panel notebooks-menu arrow-top modal hide fade"><img class="loader-tiny" src="http://baijii-common.b0.upaiyun.com/loaders/tiny.gif" alt="Tiny" /></div>
+      <div id="collection-menu" class="panel collection-menu arrow-top modal hide fade"><img class="loader-tiny" src="http://baijii-common.b0.upaiyun.com/loaders/tiny.gif" alt="Tiny" /></div>
+      
+      <div id="likes-modal" class="modal modal_new support_list-modal fullscreen hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>喜欢的用户</h3>
+      </div>
+      <div class="modal-body">
+        <ul class="unstyled users">
+          <img class="loader-tiny editor-loading" src="http://baijii-common.b0.upaiyun.com/loaders/tiny.gif" alt="Tiny" />
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- Comments -->
+    <div id="comments" class="comment-list clearfix">
+        <div class="comment-head clearfix">
+          3条评论
+          <span class="order">
+            （
+            <a data-order="asc" class="active" href="javascript:void(0)">按时间正序</a>·
+            <a data-order="desc" href="javascript:void(0)">按时间倒序</a>·
+            <a data-order="likes_count" href="javascript:void(0)">按喜欢排序</a>
+            ）
+          </span>
+            <a class="goto-comment pull-right" data-signin-link="true" data-toggle="modal" href="/sign_in">
+              <i class="fa fa-pencil"></i>添加新评论
+</a>        </div>
+        <div id="comment-list">
+          <img class="loader-tiny" src="http://baijii-common.b0.upaiyun.com/loaders/tiny.gif" alt="Tiny" />
+        </div>
+          <p class="signout-comment">
+    <a class="btn btn-info" data-signin-link="true" data-toggle="modal" href="/sign_in">
+      登录后发表评论
+</a>  </p>
+
+    </div>
+    <!-- -->
+
+  </div>
+
+  <script type='application/json' data-name='note'>
+    {"id":641197,"abbr":"携程推行事业部制已有一段时间，在这种新的组织架构下，技术应如何和业务接合紧密？技术如何给业务创造更多的价值？事业部CTO应如何辅佐事业部CEO？这不仅是每个事业部CTO感兴趣的话题，也是每个对自己职业发展有着雄心壮志的技术人感兴趣的话题。4月26日，Eric在2014年一季度的技术管理会...","slug":"753d809663b6","url":"http://www.jianshu.com/p/753d809663b6","image_url":"http://cwb.assets.jianshu.io/notes/images/641197/weibo/image_3aa0188723bd.jpg","wordage":3195,"has_further_readings":false,"views_count":312,"likes_count":3,"comments_count":3,"rewards_total_count":0}
+  </script>
+
+  <script type='application/json' data-name='uuid'>
+    {"uuid":"dfa95ae0-9265-0133-1f4d-52540095852f"}
+  </script>
+
+  <script type='application/json' data-name='author'>
+    {"id":152090,"nickname":"Minimalism","slug":"6cb3a9a8ae3b","public_notes_count":39,"followers_count":74,"total_likes_count":312,"is_current_user":false}
+  </script>
+
+
+    <div class="include-collection">
+      <div class="content">
+        <h5>被以下专题收入，发现更多相似内容：</h5>
+        <ul id="all-collections" class="unstyled collections-list">
+            <li>
+              <a class="avatar" href="/collection/bddfaadd13fc"><img src="http://upload.jianshu.io/collections/images/3036/pmskill20151010093655967_easyicon_net_512.png?imageMogr2/auto-orient/strip|imageView2/2/w/180" alt="180" /></a>              <div class="collections-info">
+                <h5>
+                  <a href="/collection/bddfaadd13fc">PMskill</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>9.9K</span>
+  </div>
+
+                <p class="description">产品经理的实战</p>
+                <p>
+                  <a class="blue-link" href="/collection/bddfaadd13fc">2372篇文章</a> · 9993人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="/collection/0f5e015fc36c"><img src="http://upload.jianshu.io/collections/images/2150/3.png?imageMogr2/auto-orient/strip|imageView2/2/w/180" alt="180" /></a>              <div class="collections-info">
+                <h5>
+                  <a href="/collection/0f5e015fc36c">代码改变世界</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>8.3K</span>
+  </div>
+
+                <p class="description">Write the Code, Change the World, 改变世界从编程开始, 收集编程相关的干货</p>
+                <p>
+                  <a class="blue-link" href="/collection/0f5e015fc36c">1211篇文章</a> · 8322人关注
+                </p>
+              </div>
+            </li>
+            <li>
+              <a class="avatar" href="/collection/bd97f28042fd"><img src="http://upload.jianshu.io/collections/images/838/%E4%B8%8B%E8%BD%BD.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/180" alt="180" /></a>              <div class="collections-info">
+                <h5>
+                  <a href="/collection/bd97f28042fd">互联网的世界</a>
+                </h5>
+                
+  <div class="btn btn-success follow">
+    <a data-signin-link="true" data-toggle="modal" href="/sign_in"><i class="fa fa-fw fa-plus"></i>  <span>添加关注</span></a>
+    <span>6.9K</span>
+  </div>
+
+                <p class="description">搞硬件的被软件的搞死的，搞软件被搞互联网搞死的，搞互联网的呢？目前还没有被搞死，赶紧赶上这个浪潮吧。</p>
+                <p>
+                  <a class="blue-link" href="/collection/bd97f28042fd">603篇文章</a> · 6901人关注
+                </p>
+              </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+  <!-- Modal -->
+    <div class="modal pay-modal text-center hide fade" id="pay-modal">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  </div>
+  <form id="new_reward" class="new_reward" target="_blank" action="/notes/641197/rewards" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="4KLgUqyWASK40k7WvENznV8PVS8Q3HBBbgOfI2futmQIAR2BTfOLxJR5JGMY1IXi0doWHJ8GdLJHnECwbhwPaA==" />
+    <div class="modal-body">
+      <a href="/users/6cb3a9a8ae3b">
+        <div class="avatar"><img src="http://qzapp.qlogo.cn/qzapp/100410602/0055322CFAB952F6F558D96A36AEDC4F/100" alt="100" /></div>
+</a>      <p><i class="fa fa-quote-left pull-left"></i>如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作！<i class="fa fa-quote-right pull-right"></i></p>
+      <div class="main-inputs text-left">
+        <div class="control-group">
+          <label for="reward_amount">打赏金额</label><i class="fa fa-yen"></i>
+          <input value="2.00" type="text" name="reward[amount_in_yuan]" id="reward_amount_in_yuan" />
+        </div>
+        <div class="control-group message">
+          <textarea placeholder="给Ta留言" name="reward[message]" id="reward_message">
+</textarea>
+        </div>
+      </div>
+      <div class="choose-pay text-left">
+        <h5>选择支付方式：</h5>
+        <div>
+          <label for="reward_channel_alipay">
+            <input type="radio" value="alipay" checked="checked" name="reward[channel]" id="reward_channel_alipay" />
+            <span class="alipay-bg"></span>
+</label>
+          
+          <label for="reward_channel_wx_pub_qr">
+            <input type="radio" value="wx_pub_qr" name="reward[channel]" id="reward_channel_wx_pub_qr" />
+            微信支付
+</label>        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button name="button" type="submit" class="btn btn-large btn-pay">立即支付</button>
+    </div>
+</form></div>
+
+    <div class="modal success-pay text-center hide fade" id="success-pay">
+  <div class="modal-header clearfix">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+  </div>
+  <div class="modal-body">
+    <h3><i class="icon-ok"></i>打赏成功</h3>
+    <img src="http://cdn0.jianshu.io/assets/complete-pay-42a51932f3a745f4f2f7a81b04d6fb02.png" alt="Complete pay" />
+  </div>
+  <div class="modal-footer">
+    
+  </div>
+</div>
+
+</div>
+
+  </div>
+  <div id="flash" class="hide"></div>
+  
+  <div id="view-mode-modal" tabindex="-1" class="modal hide read-modal" aria-hidden="false" data-js-module='view-mode-modal'>
+    <div class="btn-group change-background" data-toggle="buttons-radio">
+      <a class="btn btn-daytime active" data-mode="day" href="javascript:void(null);">
+        <i class="fa fa-sun-o"></i>
+</a>      <a class="btn btn-nighttime " data-mode="night" href="javascript:void(null);">
+        <i class="fa fa-moon-o"></i>
+</a>    </div>
+    <div class="btn-group change-font" data-toggle="buttons-radio">
+      <a class="btn font " data-font="font1" href="javascript:void(null);">宋体</a>
+      <a class="btn font hei active" data-font="font2" href="javascript:void(null);">黑体</a>
+    </div>
+    <div class="btn-group change-locale" data-toggle="buttons-radio">
+      <a class="btn font active" data-locale="zh-CN" href="javascript:void(null);">简</a>
+      <a class="btn font hei " data-locale="zh-TW" href="javascript:void(null);">繁</a>
+    </div>
+  </div>
+
+  
+
+  <script src="http://cdn0.jianshu.io/assets/base-523a7d113c8c8a25ede8efb803097832.js"></script>
+  
+  <script src="http://cdn0.jianshu.io/assets/reading-base-e921efa363e3e3bdd25c39a685b450a7.js"></script>
+  <script src="http://cdn0.jianshu.io/assets/reading/module_sets/note_show-fc7f229a4dd28e7a07f8bf263b3c195d.js"></script>
+  <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-35169517-1']);
+  _gaq.push(['_setCustomVar', 2, 'User Type', 'Visitor', 1 ]);
+  _gaq.push(['_trackPageview']);
+
+  
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+<div style="display:none">
+<script src="http://s95.cnzz.com/z_stat.php?id=1253183112&web_id=1253183112" language="JavaScript"></script>
+</div>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</body>
+</html>
