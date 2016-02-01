@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>[转]Oracle字符串拼接的方法 - freeliver54 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=Jsknfrse2BShd-7DrxM42RyulObn44e4JjkI6-WX6zk1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/AnotherEon001/bundle-AnotherEon001.css?v=dNz80TfH9-81kuLR86t4JWgT2tb_J0B779DQM4kw0WU1"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/freeliver54/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/freeliver54/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/freeliver54/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'freeliver54', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=V3tkfsuahqfUzgmqZVwj2QjsxodIvgDfvPKdn8yDuMY1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<div id="wrapper">
+<div id="header">
+
+<div id="top">
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/freeliver54/"><font face="Monotype Corsiva" size="6" color="#99cc33">Love in coding...</font></a></h1>
+<div id="subtitle"><p></p>
+<font size="4" face="Gessele" color="white"><B>&nbsp;&nbsp;&nbsp;&nbsp;Free and Susan</B></font></div>
+</div>
+<div id="sub">
+<div class="BlogStats">随笔 - 2041, 文章 - 3, 评论 - 2123, 引用 - 157</div>
+</div>
+
+
+
+</div>
+<div id="main_container">
+<div id="main_content">
+<div id="content">
+	
+<div id="post_detail">
+	<div class="post">
+		<h2>
+			<a id="cb_post_title_url" href="http://www.cnblogs.com/freeliver54/p/3165144.html">[转]Oracle字符串拼接的方法</a>
+		</h2>
+		<div class="postbody">
+		<div id="cnblogs_post_body"><p>本文转自：<a href="http://www.blogjava.net/liuwuping12064915/archive/2011/06/27/353096.html" target="_blank">http://www.blogjava.net/liuwuping12064915/archive/2011/06/27/353096.html</a></p>
+<p style="margin: 10px 0px; padding: 0px; color: #333333; text-indent: 28px; background-color: transparent;">和其他数据库系统类似，<a style="color: #004276; text-decoration: underline;" href="http://database.51cto.com/art/201010/231973.htm">Oracle</a>字符串连接使用&ldquo;||&rdquo;进行字符串拼接，其使用方式和MSSQLServer中的加号&ldquo;+&rdquo;一样。</p>
+<p style="margin: 10px 0px; padding: 0px; color: #333333; text-indent: 28px; background-color: transparent;">比如执行下面的SQL语句： <br style="width: 0px; height: 0px; clear: both;" />SELECT  '工号为'||FNumber||'的员工姓名为'||FName FROM T_Employee<br style="width: 0px; height: 0px; clear: both;" />WHERE FName IS NOT NULL</p>
+<p style="margin: 10px 0px; padding: 0px; color: #333333; text-indent: 28px; background-color: transparent;">除了&ldquo;||&rdquo;，Oracle还支持使用CONCAT()函数进行字符串拼接，比如执行下面的SQL语句：<br style="width: 0px; height: 0px; clear: both;" />SELECT CONCAT('工号:',FNumber) FROM  T_Employee</p>
+<p style="margin: 10px 0px; padding: 0px; color: #333333; text-indent: 28px; background-color: transparent;">如果CONCAT中连接的值不是字符串，Oracle会尝试将其转换为字符串，比如执行下面的SQL语句： <br style="width: 0px; height: 0px; clear: both;" />SELECT CONCAT('年龄:',FAge) FROM  T_Employee</p>
+<p style="margin: 10px 0px; padding: 0px; color: #333333; text-indent: 28px; background-color: transparent;">与MYSQL的CONCAT()函数不同，Oracle的CONCAT()函数只支持两个参数，不支持两个以上字符串的拼接，比如下面的SQL语句在Oracle中是错误的：<br style="width: 0px; height: 0px; clear: both;" />SELECT  CONCAT('工号为',FNumber,'的员工姓名为',FName) FROM T_Employee<br style="width: 0px; height: 0px; clear: both;" />WHERE FName IS NOT NULL<br style="width: 0px; height: 0px; clear: both;" />运行以后Oracle会报出下面的错误信息：<br style="width: 0px; height: 0px; clear: both;" />参数个数无效</p>
+<p style="margin: 10px 0px; padding: 0px; color: #333333; text-indent: 28px; background-color: transparent;">如果要进行多个字符串的拼接的话，可以使用多个CONCAT()函数嵌套使用，上面的SQL可以如下改写：<br style="width: 0px; height: 0px; clear: both;" />SELECT  CONCAT(CONCAT(CONCAT('工号为',FNumber),'的员工姓名为'),FName) FROM<br style="width: 0px; height: 0px; clear: both;" />T_Employee<br style="width: 0px; height: 0px; clear: both;" />WHERE FName IS NOT NULL</p>
+<p class="postfoot">posted on 2011</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<p class="postfoot">
+			posted on <span id="post-date">2013-07-01 16:47</span> <a href='http://www.cnblogs.com/freeliver54/'>freeliver54</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=3165144" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3165144);return false;">收藏</a>
+		</p>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=16722,cb_entryId=3165144,cb_blogApp=currentBlogApp,cb_blogUserGuid='bc4d360b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2013/7/1 16:47:00';loadViewCount(cb_entryId);</script>
+	
+	</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='ad_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+</div>
+</div>
+<div id="leftmenu">
+
+
+<h3>导航</h3>
+<ul>
+<li>
+<a id="MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a></li>
+<li>
+<a id="MyLinks1_MyHomeLink" class="two_words" href="http://www.cnblogs.com/freeliver54/">首页</a></li>
+<li>
+<a id="MyLinks1_NewPostLink" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li>
+<a id="MyLinks1_ContactLink" accesskey="9" class="two_words" rel="nofollow" href="http://msg.cnblogs.com/send/freeliver54">联系</a></li>
+<li>
+<a id="MyLinks1_Syndication" class="two_words" href="http://www.cnblogs.com/freeliver54/rss">订阅</a>
+<a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/freeliver54/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>
+</li>
+<li>
+<a id="MyLinks1_Admin" class="two_words" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+
+<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+<meta name="vs_showGrid" content="False">
+
+<h3>公告</h3>
+<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+
+<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+
+</div>
+</div>
+<div class="clear"></div>
+<div id="footer">
+
+<p id="footer">
+	Powered by: 
+	<br />
+	
+	<a id="Footer1_Hyperlink3" NAME="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br />
+	Copyright &copy; freeliver54
+</p>
+</div>
+</div>
+
+</body>
+</html>

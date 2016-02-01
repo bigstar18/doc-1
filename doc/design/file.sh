@@ -19,6 +19,12 @@
 #./file.sh --replaceStr .bash_profile GNNT YRDCE
 #/users/file.sh --replaceStr .bash_profile GNNT YRDCE
 
+#find ~/ -type f -name "keycode.js" -o -name "InstallOCX.zip" -o -name "GnntKey.cab"  -exec rm -f  {} \;   problem：多个不行
+#find ~/ -type f -name "keycode.js" -o -name "InstallOCX.zip" -o -name "GnntKey.cab" | xargs -i rm -f {}\; 
+#find ~/ -type f -name "keycode.js" -o -name "InstallOCX.zip" -o -name "GnntKey.cab" | xargs rm -f; 
+#find . -name *.pdf | xargs -i cp {} ../docbook_pdf/           xargs -i xxx ：其中xxx==cp {} ../docbook_pdf/，表示将输入的内容，用{}替换   xargs -I{} cp {} dir
+
+
 export LANG=zh_CN.UTF-8
 
 chgMem()
