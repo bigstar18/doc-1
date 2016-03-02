@@ -1,0 +1,23 @@
+http://www.zentao.net/book/zentaopmshelp/90.html
+
+linux一键安装包内置了apache, php, mysql这些应用程序，只需要下载解压缩即可运行禅道。
+从7.3版本开始，linux一键安装包分为32位和64位两个包，请大家根据操作系统的情况下载相应的包。
+
+
+1、将安装包直接解压到/opt目录下，不要解压到别的目录再拷贝到/opt/，因为这样会导致文件的所有者和读写权限改变。
+可以使用命令： tar zxvf  ZenTaoPMS.7.3.stable.zbox_32.tar.gz  -C /opt/
+2、执行/opt/zbox/zbox start 命令开启Apache和Mysql。
+     执行/opt/zbox/zbox stop 命令停止Apache和Mysql。
+     执行/opt/zbox/zbox restart 命令重启Apache和Mysql。
+    可以使用/opt/zbox/zbox -h命令来获取关于zbox命令的帮助
+    其中 -ap参数 可以修改Apache的端口，-mp参数 可以修改Mysql的端口
+3、浏览器访问 http://ip:端口
+4、数据库的用户名：root，密码为空。数据库管理用的是adminer，但是为了安全，访问adminer的时候需要身份验证，需要运行/opt/zbox/auth/adduser.sh来添加用户(先 cd /opt/zbox/auth/ 然后执行 ./adduser.sh)。
+5、网页访问禅道，点击数据库管理有2层验证：
+1）弹窗验证是输入运行 addusers.sh添加的帐号和密码；
+2）网页直接显示登录界面：服务器：127.0.0.1:mysql端口  帐号 root  数据库填写zentao
+
+
+
+
+@reboot /opt/zbox/zbox start

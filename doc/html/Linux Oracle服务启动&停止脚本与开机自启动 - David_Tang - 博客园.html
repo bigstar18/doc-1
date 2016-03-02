@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Linux Oracle服务启动&amp;停止脚本与开机自启动 - David_Tang - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=Jsknfrse2BShd-7DrxM42RyulObn44e4JjkI6-WX6zk1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/SimpleBlue/bundle-SimpleBlue.css?v=jJERBFSojhmgst84aaRDal9S3q1WoO-WcNudmMzGJS81"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/mchina/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/mchina/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/mchina/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'mchina', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=9L_w0MEfELQG9nFB8p64U8rNrp1QzDOdn2O29x5bbqA1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+<div id="page_begin_html"></div><script>load_page_begin_html();</script>
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/mchina/">David Camp</a></div>
+<div class="subtitle"></div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/mchina/">首页</a></li>
+<li id="nav_q"><a class="menu" href="http://q.cnblogs.com/">博问</a></li>
+<li id="nav_ing"><a class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+<li id="nav_newpost"><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="MyLinks1_ContactLink" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/David_Tang">联系</a></li>
+<li id="nav_rss"><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/mchina/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/mchina/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔-115&nbsp;
+文章-0&nbsp;
+评论-559&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/mchina/archive/2012/11/27/2782993.html">Linux Oracle服务启动&amp;停止脚本与开机自启动</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>在CentOS 6.3下安装完Oracle 10g R2，重开机之后，你会发现Oracle没有自行启动，这是正常的，因为在Linux下安装Oracle的确不会自行启动，必须要自行设定相关参数，首先先介绍一般而言如何启动oracle。</p>
+<p><span style="color: #800000; font-size: 16px;"><strong>一、在Linux下启动Oracle</strong></span></p>
+<p>登录到CentOS，切换到oracle用户权限</p>
+<p># su &ndash; oracle</p>
+<p>接着输入：</p>
+<p>$ sqlplus "/as sysdba"</p>
+<p>原本的画面会变为<br />
+SQL&gt;</p>
+<p>接着请输入<br />
+SQL&gt; startup</p>
+<p>
+就可以正常的启动数据库了。</p>
+<p><img src="http://pic002.cnblogs.com/images/2012/370046/2012112316015357.jpg" alt="" /></p>
+<p>另外停止数据库的指令如下：<br />
+SQL&gt; shutdown immediate</p>
+<p align="left"><span style="color: #800000; font-size: 16px;"><strong>二、检查Oracle DB监听器是否正常</strong></span></p>
+<p align="left">回到终端机模式，输入：</p>
+<p align="left">$ lsnrctl status</p>
+<p align="left">检查看看监听器是否有启动<br />
+</p>
+<p><img src="http://pic002.cnblogs.com/images/2012/370046/2012112316023398.jpg" alt="" /></p>
+<p align="left">如果没有启动，可以输入：<br />
+</p>
+<p align="left">$ lsnrctl start</p>
+<p align="left">启动监听器</p>
+<p><img src="http://pic002.cnblogs.com/images/2012/370046/2012112316025926.jpg" alt="" /></p>
+<p align="left">SQL&gt; conn sys@orcl as sysdba<br />
+</p>
+<p align="left">然后输入密码，sys以sysdba身份登入数据库。</p>
+<p><img src="http://pic002.cnblogs.com/images/2012/370046/2012112316034994.jpg" alt="" /></p>
+<p align="left"><span style="color: #800000; font-size: 16px;"><strong>三、启动emctl</strong></span></p>
+<p align="left">另外也可以发现http://localhost.localdomain:1158/em 目前是没有反应的，这边要另外启动，启动的指令如下：</p>
+<p align="left">$ emctl start dbconsole<br />
+</p>
+<p align="left">这个指令运行时间较长，执行完的画面如下：</p>
+<p><img src="http://pic002.cnblogs.com/images/2012/370046/2012112316032450.jpg" alt="" /></p>
+<p>手动启动Oracle数据库完毕，下面创建系统自行启动Oracle的脚本。</p>
+<p><span style="font-size: 16px;"><strong><span style="color: #800000;">四、Oracle启动&amp;停止脚本</span></strong></span></p>
+<p> 1. 修改Oracle系统配置文件：/etc/oratab，只有这样，Oracle 自带的dbstart和dbshut才能够发挥作用。</p>
+<p># vi /etc/oratab<br />orcl:/opt/oracle/102:Y<br />
+</p>
+<p><em># Entries are of the form:</em><br /><em>#&nbsp;&nbsp; $ORACLE_SID:$ORACLE_HOME:&lt;N|Y&gt;:</em><br />
+</p>
+<p>2. 在 /etc/init.d/ 下创建文件oracle，内容如下：</p>
+<div class="cnblogs_code">
+<pre>#!/bin/<span style="color: #0000ff;">sh</span><span style="color: #000000;">
+# chkconfig: </span><span style="color: #800080;">35</span> <span style="color: #800080;">80</span> <span style="color: #800080;">10</span><span style="color: #000000;">
+# description: Oracle auto start</span>-<span style="color: #000000;">stop script.
+
+#
+# Set ORA_HOME to be equivalent to the $ORACLE_HOME
+# from </span><span style="color: #0000ff;">which</span><span style="color: #000000;"> you wish to execute dbstart and dbshut;
+#
+# Set ORA_OWNER to the user </span><span style="color: #0000ff;">id</span><span style="color: #000000;"> of the owner of the
+# Oracle database </span><span style="color: #0000ff;">in</span><span style="color: #000000;"> ORA_HOME.
+ORA_HOME</span>=<span style="color: #ff0000;">/opt/oracle/</span><span style="color: #800080;">102</span><span style="color: #000000;">
+ORA_OWNER</span>=<span style="color: #ff0000;">oracle
+</span><span style="color: #0000ff;">if</span> [ ! -f $ORA_HOME/bin/<span style="color: #000000;">dbstart ]
+</span><span style="color: #0000ff;">then</span>
+    <span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">Oracle startup: cannot start</span><span style="color: #800000;">"</span><span style="color: #000000;">
+    exit
+</span><span style="color: #0000ff;">fi</span>
+<span style="color: #0000ff;">case</span> <span style="color: #800000;">"</span><span style="color: #800000;">$1</span><span style="color: #800000;">"</span> <span style="color: #0000ff;">in</span>
+<span style="color: #800000;">'</span><span style="color: #800000;">start</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+# Start the Oracle databases:
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">Starting Oracle Databases ... </span><span style="color: #800000;">"</span>
+<span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">date</span> +<span style="color: #800000;">"</span><span style="color: #800000;"> %T %a %D : Starting Oracle Databases as part of system up.</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">su</span> - $ORA_OWNER -c <span style="color: #800000;">"</span><span style="color: #800000;">$ORA_HOME/bin/dbstart</span><span style="color: #800000;">"</span> &gt;&gt;/var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">Done</span><span style="color: #800000;">"</span><span style="color: #000000;">
+
+# Start the Listener:
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">Starting Oracle Listeners ... </span><span style="color: #800000;">"</span>
+<span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">date</span> +<span style="color: #800000;">"</span><span style="color: #800000;"> %T %a %D : Starting Oracle Listeners as part of system up.</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">su</span> - $ORA_OWNER -c <span style="color: #800000;">"</span><span style="color: #800000;">$ORA_HOME/bin/lsnrctl start</span><span style="color: #800000;">"</span> &gt;&gt;/var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">Done.</span><span style="color: #800000;">"</span>
+<span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">date</span> +<span style="color: #800000;">"</span><span style="color: #800000;"> %T %a %D : Finished.</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">touch</span> /var/lock/subsys/<span style="color: #000000;">oracle
+;;
+
+</span><span style="color: #800000;">'</span><span style="color: #800000;">stop</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+# Stop the Oracle Listener:
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">Stoping Oracle Listeners ... </span><span style="color: #800000;">"</span>
+<span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">date</span> +<span style="color: #800000;">"</span><span style="color: #800000;"> %T %a %D : Stoping Oracle Listener as part of system down.</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">su</span> - $ORA_OWNER -c <span style="color: #800000;">"</span><span style="color: #800000;">$ORA_HOME/bin/lsnrctl stop</span><span style="color: #800000;">"</span> &gt;&gt;/var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">Done.</span><span style="color: #800000;">"</span>
+<span style="color: #0000ff;">rm</span> -f /var/lock/subsys/<span style="color: #000000;">oracle
+
+# Stop the Oracle Database:
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">Stoping Oracle Databases ... </span><span style="color: #800000;">"</span>
+<span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">date</span> +<span style="color: #800000;">"</span><span style="color: #800000;"> %T %a %D : Stoping Oracle Databases as part of system down.</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">su</span> - $ORA_OWNER -c <span style="color: #800000;">"</span><span style="color: #800000;">$ORA_HOME/bin/dbshut</span><span style="color: #800000;">"</span> &gt;&gt;/var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">Done.</span><span style="color: #800000;">"</span>
+<span style="color: #0000ff;">echo</span> <span style="color: #800000;">""</span>
+<span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">date</span> +<span style="color: #800000;">"</span><span style="color: #800000;"> %T %a %D : Finished.</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+</span><span style="color: #0000ff;">echo</span> <span style="color: #800000;">"</span><span style="color: #800000;">-------------------------------------------------</span><span style="color: #800000;">"</span> &gt;&gt; /var/log/<span style="color: #000000;">oracle
+;;
+
+</span><span style="color: #800000;">'</span><span style="color: #800000;">restart</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+$</span><span style="color: #800080;">0</span><span style="color: #000000;"> stop
+$</span><span style="color: #800080;">0</span><span style="color: #000000;"> start
+;;
+</span><span style="color: #0000ff;">esac</span></pre>
+</div>
+<p>3. 改变文件权限<br />
+# chmod 755 /etc/init.d/oracle</p>
+<p>4. 添加服务<br />
+# chkconfig --level 35 oracle on</p>
+<p>5. 需要在关机或重启机器之前停止数据库，做一下操作<br />
+# ln -s /etc/init.d/oracle /etc/rc0.d/K01oracle&nbsp;&nbsp; //关机<br />
+# ln -s /etc/init.d/oracle /etc/rc6.d/K01oracle&nbsp;&nbsp; //重启&nbsp;</p>
+<p>6. 使用方法<br />
+# service oracle start&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; //启动oracle<br />
+# service oracle stop&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //关闭oracle<br />
+# service oracle restart&nbsp;&nbsp;&nbsp;&nbsp; //重启oracle</p>
+<p>7. 测试</p>
+<p style="margin-left: 30px;"><strong>a. 开机自启动</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">Last login: Mon Nov 26 19:57:06 2012 from 10.0.0.145<br />[root@ORS ~]# su - oracle<br />[oracle@ORS ~]$ sqlplus "/as sysdba"<br /><br />SQL*Plus: Release 10.2.0.1.0 - Production on Mon Nov 26 20:07:33 2012<br /><br />Copyright (c) 1982, 2005, Oracle.&nbsp; All rights reserved.<br /><br /><br />Connected to:<br />Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production<br />With the Partitioning, OLAP and Data Mining options<br /><br />SQL&gt; set linesize 300;<br />SQL&gt; set pagesize 30;<br />SQL&gt; select * from scott.emp;<br /><br />&nbsp;&nbsp;&nbsp;&nbsp; EMPNO ENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; JOB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MGR HIREDATE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; COMM&nbsp;&nbsp;&nbsp;&nbsp; DEPTNO<br />---------- ---------- --------- ---------- --------- ---------- ---------- ----------<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7369 SMITH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7902 17-DEC-80&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 800&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7499 ALLEN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SALESMAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7698 20-FEB-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1600&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7521 WARD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SALESMAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7698 22-FEB-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1250&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7566 JONES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7839 02-APR-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2975&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7654 MARTIN&nbsp;&nbsp;&nbsp;&nbsp; SALESMAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7698 28-SEP-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1250&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1400&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7698 BLAKE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7839 01-MAY-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2850&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7782 CLARK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MANAGER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7839 09-JUN-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2450&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7788 SCOTT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ANALYST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7566 19-APR-87&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7839 KING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PRESIDENT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 17-NOV-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7844 TURNER&nbsp;&nbsp;&nbsp;&nbsp; SALESMAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7698 08-SEP-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1500&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7876 ADAMS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7788 23-MAY-87&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7900 JAMES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7698 03-DEC-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 950&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 30<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7902 FORD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ANALYST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7566 03-DEC-81&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3000&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7934 MILLER&nbsp;&nbsp;&nbsp;&nbsp; CLERK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7782 23-JAN-82&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1300&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10<br /><br />14 rows selected.<br /><br />SQL&gt; <br /></span></pre>
+</div>
+<p><img src="http://pic002.cnblogs.com/images/2012/370046/2012112714382845.jpg" alt="" /></p>
+<p style="margin-left: 30px;"><strong>b. service oracle stop</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">SQL&gt; Disconnected from Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+[oracle@ORS ~]$ logout
+[root@ORS ~]# service oracle stop
+Stoping Oracle Listeners ... 
+Done.
+Stoping Oracle Databases ... 
+Done.
+
+[root@ORS ~]# su - oracle
+[oracle@ORS ~]$ sqlplus "/as sysdba"
+
+SQL*Plus: Release 10.2.0.1.0 - Production on Mon Nov 26 20:17:20 2012
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL&gt; set linesize 300;
+SQL&gt; set pagesize 30;
+SQL&gt; select * from scott.emp;
+select * from scott.emp
+*
+ERROR at line 1:
+ORA-01034: ORACLE not available
+
+
+SQL&gt; </span></pre>
+</div>
+<p><img src="http://pic002.cnblogs.com/images/2012/370046/2012112714442927.jpg" alt="" /></p>
+<p style="margin-left: 30px;"><strong>c. service oracle start</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">SQL&gt; Disconnected
+[oracle@ORS ~]$ logout
+[root@ORS ~]# service oracle start
+Starting Oracle Databases ... 
+Done
+Starting Oracle Listeners ... 
+Done.
+[root@ORS ~]# </span></pre>
+</div>
+<p><img src="http://pic002.cnblogs.com/images/2012/370046/2012112714524977.jpg" alt="" /></p>
+<p style="margin-left: 30px;"><strong>d. service oracle restart</strong></p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">[root@ORS ~]# service oracle restart
+Stoping Oracle Listeners ... 
+Done.
+Stoping Oracle Databases ... 
+Done.
+
+Starting Oracle Databases ... 
+Done
+Starting Oracle Listeners ... 
+Done.
+[root@ORS ~]# </span></pre>
+</div>
+<p><img src="http://pic002.cnblogs.com/images/2012/370046/2012112715005379.jpg" alt="" /></p>
+<p>至此，Oracle服务启动&amp;停止脚本与开机自启动设置完毕。</p>
+<p>&nbsp;</p>
+<p><strong><span style="color: #800000;">CentOS 6.3(x32)下安装Oracle 10g R2</span></strong></p>
+<p><strong><span style="color: #800000;"><a href="http://www.cnblogs.com/mchina/archive/2012/11/06/2737472.html" target="_blank"><span style="color: #800000;">http://www.cnblogs.com/mchina/archive/2012/11/06/2737472.html</span></a></span></strong></p>
+<p>&nbsp;</p>
+<hr style="font: 14px/25px verdana, Arial, Helvetica, sans-serif; margin: 0px; padding: 0px; color: #333333; text-transform: none; text-indent: 0px; letter-spacing: normal; word-spacing: 0px; white-space: normal; orphans: 2; widows: 2; font-size-adjust: none; font-stretch: normal; background-color: #ffffff; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;" />
+<p style="font: 14px/25px verdana, Arial, Helvetica, sans-serif; margin: 10px auto; padding: 0px; color: #333333; text-transform: none; text-indent: 0px; letter-spacing: normal; word-spacing: 0px; white-space: normal; orphans: 2; widows: 2; font-size-adjust: none; font-stretch: normal; background-color: #ffffff; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;"><span style="margin: 0px; padding: 0px; color: #800000;"><strong style="margin: 0px; padding: 0px;">David Camp</strong></span></p>
+<ul style="font: 14px/25px verdana, Arial, Helvetica, sans-serif; margin: 0px 0px 0px 45px; padding: 0px; color: #333333; text-transform: none; text-indent: 0px; letter-spacing: normal; word-spacing: 0px; list-style-type: disc; white-space: normal; orphans: 2; widows: 2; font-size-adjust: none; font-stretch: normal; background-color: #ffffff; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;">
+<li style="list-style: inherit; margin: 0px; padding: 0px;">技术交流，请加QQ群：</li>
+</ul>
+<p style="list-style: inherit; margin: 0px; padding: 0px;">　　　　系统运维技术分享：315871865</p>
+<ul style="font: 14px/25px verdana, Arial, Helvetica, sans-serif; margin: 0px 0px 0px 45px; padding: 0px; color: #333333; text-transform: none; text-indent: 0px; letter-spacing: normal; word-spacing: 0px; list-style-type: disc; white-space: normal; orphans: 2; widows: 2; font-size-adjust: none; font-stretch: normal; background-color: #ffffff; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;">
+<li style="list-style: inherit; margin: 0px; padding: 0px;">业务合作，请联系作者QQ：562866602</li>
+<li style="list-style: inherit; margin: 0px; padding: 0px;">我的微信号：mchina_tang</li>
+<li style="list-style: inherit; margin: 0px; padding: 0px;">给我写信：mchina_tang@qq.com</li>
+<li style="list-style: inherit; margin: 0px; padding: 0px;">我的地址：江苏&middot;苏州</li>
+</ul>
+<p style="font: 14px/25px verdana, Arial, Helvetica, sans-serif; margin: 10px auto; padding: 0px; color: #333333; text-transform: none; text-indent: 0px; letter-spacing: normal; word-spacing: 0px; white-space: normal; orphans: 2; widows: 2; font-size-adjust: none; font-stretch: normal; background-color: #ffffff; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;"><span style="margin: 0px; padding: 0px; color: #800000;"><strong style="margin: 0px; padding: 0px;"><strong style="margin: 0px; padding: 0px;"><strong style="margin: 0px; padding: 0px;">我们永远相信，分享是一种美德 |&nbsp;</strong></strong>We Believe, Great People Share Knowledge...</strong></span></p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2012-11-27 15:35</span> <a href='http://www.cnblogs.com/mchina/'>David_Tang</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=2782993" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2782993);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=107026,cb_entryId=2782993,cb_blogApp=currentBlogApp,cb_blogUserGuid='2e55a023-ab40-e111-9590-842b2b196315',cb_entryCreatedDate='2012/11/27 15:35:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='ad_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2016 David_Tang
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+</body>
+</html>

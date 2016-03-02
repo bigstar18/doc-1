@@ -1,0 +1,935 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>   
+    
+     
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙) - ktyl2000的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Android是如何在不同屏幕上适配图片的" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/default/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/ktyl2000/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+</head>
+<body>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/ktyl2000">ktyl2000的专栏</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/ktyl2000?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/ktyl2000?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/ktyl2000/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "ktyl2000";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/ktyl2000";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://blog.csdn.net/qinyuanpei/article/details/50763768">
+<font color=red>Unity3D中基于订阅者模式实现事件机制
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://huiyi.csdn.net/activity/product/goods_list?project_id=2818">
+<font color=blue>云计算行业圆桌论坛
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://lib.csdn.net/base/15/structure">
+<font color=red>一张大图看懂Android架构
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/blogdevteam/article/details/50737496">
+<font color=blue>【征文】Hadoop十周年特别策划——我与Hadoop不得不说的故事
+</font></a>
+</div>                        </div>
+                        
+
+<!--AdForward Begin:-->
+<script type="text/javascript" ads-src="http://csdnim.qtmojo.com/main/s?user=csdn|blog|fumeiti&db=csdnim&border=0&local=yes&js=ie" src="http://creatim.qtmojo.cn/td/AllyesDeliver.min.js" charset="gbk"></script>
+<!--AdForward End-->
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/ktyl2000/article/details/4485896">
+        RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/%e9%98%b2%e7%81%ab%e5%a2%99' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">防火墙</a><a href='http://www.csdn.net/tag/string' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">string</a><a href='http://www.csdn.net/tag/%e8%b7%af%e7%94%b1%e5%99%a8' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">路由器</a><a href='http://www.csdn.net/tag/exception' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">exception</a><a href='http://www.csdn.net/tag/socket' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">socket</a><a href='http://www.csdn.net/tag/import' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">import</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2009-08-26 11:00</span>
+            <span class="link_view" title="阅读次数">8620人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(12)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)','4485896');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(4485896,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('401217','ktyl2000','top','4485896');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">Java技术/J2EE <em>（4）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/ktyl2000/article/category/401217"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_401217">                            
+                            </ul>
+                        </div>
+                    </label>                    
+                    <label  onclick="GetCategoryArticles('401223','ktyl2000','top','4485896');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">互联互通网相关<em>（3）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/ktyl2000/article/category/401223"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_401223">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+        <div   class="bog_copyright">         
+            <p  class="copyright_p" >版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+<p>以下是一个RMI项目的实施笔记:</p>
+<p>环境：防火墙(XX卫士)&nbsp;&nbsp; 外网IP：x.x.x.135 port:8400/8500&nbsp;&nbsp; 内网IP: x.x.x.90 port:8400/8500</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 内外网IP及port互相映射. (外网IP是设定的防火墙上的，管理员进行映射配置）</p>
+<p>&nbsp;</p>
+<p>1.RMI远程调用的服务注册到：内网的8400端口上 (不用创建stub/skeleton,不使用缺省的1099)</p>
+<p>&nbsp; //LocateRegistry.createRegistry(rmiServerPort); //定义服务注册与查找服务端口 8400</p>
+<p>2.RMI远程调用的数据通信端口绑定到：内网的8500端口上</p>
+<p>&nbsp;&nbsp; // RMISocketFactory.setSocketFactory(new SMRMISocket());&nbsp; //定义数据传输端口 8500</p>
+<p>3.设定访问外网：x.x.x.135:8400时穿透防火墙访问内网:x.x.x.90:8400</p>
+<p>&nbsp; //在sun.rmi.server.UnicastRef调用时的服务IP为：x.x.x.135,而不是x.x.x.90(客户的本地不存在RMI服务嘛)</p>
+<p>&nbsp; //System.setProperty("java.rmi.server.hostname","x.x.x.135");&nbsp; </p>
+<p>&nbsp;</p>
+<p>4.RMI调用穿透防火墙不是自动的，需要我们手工指定,就如3所指，如果不加设定，在互联网上就不能通过外网IP访问内网IP上绑定的RMI服务</p>
+<p>&nbsp;</p>
+<p>5.通过本项目，明白了RMI可以不用rmic创建stub/skeleton的，也可以不用启动rmiRegistry而通过程序直接启动RMI服务，这样方便了代码的修改与项目的实施.</p>
+<p>&nbsp;</p>
+<p>由于是项目代码，所以不打包上传代码了。简写如下：</p>
+<p>///////RMI服务端代码</p>
+<p>&nbsp;&nbsp;&nbsp; String hostIP = InetAddress.getLocalHost().getHostAddress();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int rmiServerPort = 8400;&nbsp; //数据传输服务为8400<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String bindName = "licenseServer";<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //下面这行代码不能少，否则当路由器x.x.x.135映射到的内网IP：x.x.x.90时，<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //访问RMI服务时将导向本地的x.x.x.90，那么客户端就是访问本地x.x.x.90，<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //这绝对错误.服务是在公网路由器（含公共IP）的后面，不在客户的本地<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.setProperty("java.rmi.server.hostname","x.x.x.135");<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; try {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RMISocketFactory.setSocketFactory(new SMRMISocket());&nbsp; //定义数据传输端口 8500<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; LocateRegistry.createRegistry(rmiServerPort); //定义服务注册与查找服务端口 8400<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; catch (Exception ex) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("服务器端口绑定时发生错误:"+ex.getMessage());<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ex.printStackTrace();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //创建license生成器的服务对象<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MakeLicense licenseService = new MakeLicenseService();<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //绑定一个服务对象到一个服务端口<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; //URL format (without the scheme component)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String bindUrl = "//"+hostIP+":"+ rmiServerPort +"/"+bindName;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Naming.rebind(bindUrl, licenseService);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(bindUrl+" server is ready.");</p>
+<p>&nbsp;</p>
+<p>////SMRMISocket.java</p>
+<p>import java.rmi.server.*;<br />import java.io.*;<br />import java.net.*;</p>
+<p>public class SMRMISocket<br />&nbsp;&nbsp;&nbsp; extends RMISocketFactory {</p>
+<p>&nbsp; public Socket createSocket(String host, int port) throws IOException {<br />&nbsp;&nbsp;&nbsp; return new Socket(host, port);<br />&nbsp; }</p>
+<p>&nbsp; public ServerSocket createServerSocket(int port) throws IOException {<br />&nbsp;&nbsp;&nbsp; if (port == 0)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; port = 8500;</p>
+<p>&nbsp;&nbsp;&nbsp; System.out.println("RMI服务器的注册与数据传输端口 ="+port);<br />&nbsp;&nbsp;&nbsp; return new ServerSocket(port);<br />&nbsp; }</p>
+<p>}</p>
+<p>////客户端代码：</p>
+<p>private String remoteHost = "x.x.x.135";&nbsp;&nbsp; //公网IP或局域网IP<br />&nbsp; private int rmiServerPort=8400;&nbsp; //查找服务端口 8400<br />&nbsp; private String bindName = "licenseServer";&nbsp;&nbsp; //RMI服务名称<br />&nbsp; private int revCount = 0;<br />&nbsp; private MakeLicense remoteObject=null;<br />&nbsp; public LicenseRequestClient()&nbsp; {<br />&nbsp;&nbsp;&nbsp; try{<br />//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if(System.getSecurityManager()==null){<br />//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.setSecurityManager(new RMISecurityManager());<br />//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; String bindUrl = "//"+remoteHost+":"+ rmiServerPort +"/"+bindName;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("请求的远程服务URL="+bindUrl);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MakeLicense remoteObject = (MakeLicense) Naming.lookup(bindUrl);<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.remoteObject = remoteObject;<br />//&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.print("远程remoteObject="+remoteObject);<br />&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; catch (RemoteException re) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("RemoteException:" + re);<br />&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; catch (NotBoundException nbe) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("NotBoundException:" + nbe);<br />&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; catch (MalformedURLException mfe) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println("MalformedURLException:" + mfe);<br />&nbsp;&nbsp;&nbsp; }<br />&nbsp; }</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>/////如果您在开发中遇到了RMI的问题，请发邮件(<a href="mailto:ktyl2000@163.com">ktyl2000@163.com</a>)或留言讨论！</p>   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.11-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" ArticleId="4485896">
+            <dl id="btnDigg" class="digg digg_disable">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+            <dl id="btnBury" class="digg digg_disable">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>
+            </dl>
+        </div>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/ktyl2000/article/details/4404597';">上一篇</span><a href="/ktyl2000/article/details/4404597" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">导出oracle8i/9i/10g中所有表的数据结构语句</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/ktyl2000/article/details/4567479';">下一篇</span><a href="/ktyl2000/article/details/4567479" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">BT3&amp;amp;spoonwep无线破解与Q3&amp;amp;spoonwep无线破解哪个容易</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('401217','ktyl2000','foot','4485896');">Java技术/J2EE <em>（4）</em></span>
+                                </label>
+                                <label class="">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('401223','ktyl2000','foot','4485896');">互联互通网相关<em>（3）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('401217', 'ktyl2000','foot','4485896');
+        });
+    </script>
+      
+</div>
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/ktyl2000/svc/GetSuggestContent/4485896",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "4485896",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>   
+
+    <div id="ad_cen">        
+<!--AdForward Begin:-->
+<script type="text/javascript" src="http://csdnim.qtmojo.com/main/s?user=csdn|blog|banner2&db=csdnim&border=0&local=yes&js=ie" charset="gbk"></script>
+<!--AdForward End-->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '4485896';
+    var commentscount = 12;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/ktyl2000/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });
+        },200);  
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }    
+
+</script>
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/ktyl2000" target="_blank">
+    <img src="http://avatar.csdn.net/1/B/7/1_ktyl2000.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/ktyl2000" class="user_name" target="_blank">ktyl2000</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=ktyl2000','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>70280次</span></li>
+    <li>积分：<span>1078</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog4.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：1078 </div>
+        </span>  </li>
+    <li>排名：<span>千里之外</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>31篇</span></li>
+    <li>转载：<span>6篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>44条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/ktyl2000/article/category/403241" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ESB/SOA/BMP</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/ktyl2000/article/category/401225" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JavaScript/AJax </a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/ktyl2000/article/category/401217" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Java技术/J2EE </a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/ktyl2000/article/category/546392" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">MYSQL </a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/ktyl2000/article/category/401224" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">oracle管理与性能调优</a><span>(9)</span>
+                </li>
+                 <li>
+                    <a href="/ktyl2000/article/category/542104" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Redhat Linux Enterprise 5 </a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/ktyl2000/article/category/401223" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">互联互通网相关</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/ktyl2000/article/category/401220" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">手机开发/WinCE/Windows Mobile 5.0 6.0</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/ktyl2000/article/category/402230" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">软件工程与项目管理</a><span>(2)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/ktyl2000/article/month/2009/09">2009年09月</a><span>(1)</span></li><li><a href="/ktyl2000/article/month/2009/08">2009年08月</a><span>(2)</span></li><li><a href="/ktyl2000/article/month/2009/06">2009年06月</a><span>(1)</span></li><li><a href="/ktyl2000/article/month/2009/05">2009年05月</a><span>(7)</span></li><li><a href="/ktyl2000/article/month/2009/04">2009年04月</a><span>(1)</span></li><li><a href="/ktyl2000/article/month/2008/11">2008年11月</a><span>(3)</span></li><li><a href="/ktyl2000/article/month/2008/10">2008年10月</a><span>(1)</span></li><li><a href="/ktyl2000/article/month/2008/09">2008年09月</a><span>(1)</span></li><li><a href="/ktyl2000/article/month/2008/06">2008年06月</a><span>(3)</span></li><li><a href="/ktyl2000/article/month/2008/05">2008年05月</a><span>(17)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/ktyl2000/article/details/4485896" title="RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)">RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)</a><span>(8607)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4156769" title="Linux中LANG,LC_ALL,local详解">Linux中LANG,LC_ALL,local详解</a><span>(8277)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4200546" title="mySQL中构建树形结构(类似oracle的树形结构)">mySQL中构建树形结构(类似oracle的树形结构)</a><span>(7783)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/2491307" title="软件开发生命周期">软件开发生命周期</a><span>(3941)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/3194322" title="xsl样式解析时全局变量的用法">xsl样式解析时全局变量的用法</a><span>(2884)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4154064" title="linux enterprise5 &amp; oracle10g中如何修改oracle的字符集(测试与整理)">linux enterprise5 &amp; oracle10g中如何修改oracle的字符集(测试与整理)</a><span>(2597)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/2466876" title="oracle10 + JDBC 使用classes12.jar还是ojdbc.jar包">oracle10 + JDBC 使用classes12.jar还是ojdbc.jar包</a><span>(2290)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4567479" title="BT3&amp;amp;spoonwep无线破解与Q3&amp;amp;spoonwep无线破解哪个容易">BT3&amp;amp;spoonwep无线破解与Q3&amp;amp;spoonwep无线破解哪个容易</a><span>(1734)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/2493747" title="在Jboss修改Web 访问路径或去除不必要的上下文空间">在Jboss修改Web 访问路径或去除不必要的上下文空间</a><span>(1648)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/2496642" title="向Java转C++或C++初学者推荐一本C++入门书">向Java转C++或C++初学者推荐一本C++入门书</a><span>(1616)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/ktyl2000/article/details/2486423" title="oracle 10g企业正版下载共享(无限制期)">oracle 10g企业正版下载共享(无限制期)</a><span>(19)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4485896" title="RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)">RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)</a><span>(12)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4156769" title="Linux中LANG,LC_ALL,local详解">Linux中LANG,LC_ALL,local详解</a><span>(9)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/2496642" title="向Java转C++或C++初学者推荐一本C++入门书">向Java转C++或C++初学者推荐一本C++入门书</a><span>(2)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4154064" title="linux enterprise5 &amp; oracle10g中如何修改oracle的字符集(测试与整理)">linux enterprise5 &amp; oracle10g中如何修改oracle的字符集(测试与整理)</a><span>(1)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/3404467" title="在WEB应用中htc文件为何不能被引用或执行">在WEB应用中htc文件为何不能被引用或执行</a><span>(1)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4200546" title="mySQL中构建树形结构(类似oracle的树形结构)">mySQL中构建树形结构(类似oracle的树形结构)</a><span>(1)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4241390" title="oracle管理时DBA需要使用的系统表--摘录">oracle管理时DBA需要使用的系统表--摘录</a><span>(1)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/2486434" title="IBMWebshpere 6.1 企业版正版 下载与共享(无限制期)">IBMWebshpere 6.1 企业版正版 下载与共享(无限制期)</a><span>(1)</span>
+</li>
+<li>
+<a href="/ktyl2000/article/details/4567479" title="BT3&amp;amp;spoonwep无线破解与Q3&amp;amp;spoonwep无线破解哪个容易">BT3&amp;amp;spoonwep无线破解与Q3&amp;amp;spoonwep无线破解哪个容易</a><span>(0)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/androidlushangderen/article/details/50760170" 
+
+target="_blank">* HDFS如何检测并删除多余副本块</a></li>
+<li><a href="http://blog.csdn.net/kinfey/article/details/50754770" 
+target="_blank">* Project Perfect让Swift在服务器端跑起来－让Perfect更Rails (五)</a></li>
+<li><a href="http://blog.csdn.net/u011225629/article/details/50492403" 
+
+target="_blank">* 数据库性能优化之SQL语句优化</a></li>
+<li><a 
+
+href="http://blog.csdn.net/harvic880925/article/details/50598322"target="_blank">* Animation动画详解(七)——ObjectAnimator基本使用</a></li>
+<li><a href="http://blog.csdn.net/han_xiaoyang/article/details/50759472" 
+target="_blank">* 机器学习系列(7)_机器学习路线图（附资料）</a></li>
+<li><a href="http://jiezhu2007.iteye.com/blog/2277613"  
+
+target="_blank">* 大数据三种典型云服务模式</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/ktyl2000/article/details/2486423#comments">oracle 10g企业正版下载共享(无限制期)</a>
+    <p style="margin:0px;"><a href="/win5xp" class="user_name">win5xp</a>:
+我现在很是需要！win5xp@163.com
+    </p>
+    </li>
+    <li>
+   
+         <a href="/ktyl2000/article/details/2486423#comments">oracle 10g企业正版下载共享(无限制期)</a>
+    <p style="margin:0px;"><a href="/win5xp" class="user_name">win5xp</a>:
+我现在很需要这个！win5xp@163.com
+    </p>
+    </li>
+    <li>
+   
+         <a href="/ktyl2000/article/details/4156769#comments">Linux中LANG,LC_ALL,local详解</a>
+    <p style="margin:0px;"><a href="/ziyeyouling2008" class="user_name">ziyeyouling2008</a>:
+写得很详细！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/ktyl2000/article/details/4200546#comments">mySQL中构建树形结构(类似oracle的树形结构)</a>
+    <p style="margin:0px;"><a href="/tmaclc" class="user_name">tmaclc</a>:
+mysql想要实现树形结构好复杂啊
+    </p>
+    </li>
+    <li>
+   
+         <a href="/ktyl2000/article/details/4200546#comments">oracle 10g企业正版下载共享(无限制期)</a>
+    <p style="margin:0px;"><a href="/tanhaihanqq" class="user_name">tanhaihanqq</a>:
+我非常想要这个版本，希望楼主发一份给我吧！感激不尽，好人一生平安！E-mail:tanhaihanq...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/ktyl2000/article/details/4485896#comments">RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)</a>
+    <p style="margin:0px;"><a href="/smallfishson" class="user_name">smallfishson</a>:
+太帅了  膜拜
+    </p>
+    </li>
+    <li>
+   
+         <a href="/ktyl2000/article/details/4485896#comments">oracle 10g企业正版下载共享(无限制期)</a>
+    <p style="margin:0px;"><a href="/u011063293" class="user_name">u011063293</a>:
+忘记写邮箱了，1070654298@qq.com
+    </p>
+    </li>
+    <li>
+   
+         <a href="/ktyl2000/article/details/4485896#comments">oracle 10g企业正版下载共享(无限制期)</a>
+    <p style="margin:0px;"><a href="/u011063293" class="user_name">u011063293</a>:
+朋友，清发一份给我，太谢谢您了。内网测试一下
+    </p>
+    </li>
+    <li>
+   
+         <a href="/ktyl2000/article/details/4485896#comments">RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)</a>
+    <p style="margin:0px;"><a href="/joniy01" class="user_name">joniy01</a>:
+@Cherry8811cy:有木有路由器，有的话看看你的路由器上的端口映射咋设置！不过我服务器是wi...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/ktyl2000/article/details/4485896#comments">RMI远程调用时的内外网端口映射问题(RMI远程调用如何穿透防火墙)</a>
+    <p style="margin:0px;"><a href="/Cherry8811cy" class="user_name">Cherry8811cy</a>:
+@joniy01:为什么我照着这个方法弄，服务端房子Linux(虚机)上，客户端放在Windows上...
+    </p>
+    </li>
+</ul>
+</div>
+
+
+<div id="custom_column_947548" class="panel">
+<ul class="panel_head"><span>图片趣事</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://photo.huanqiu.com/wuman/show/2008-05/104663_2.html" target=_blank>世界各国第一美女</a></li><li><a href="http://china.huanqiu.com/roll/2008-05/117437.html" target=_blank>全世界都看到温家宝总理半白头发(图)</a></li><li><a href="http://china.huanqiu.com/roll/2008-05/113547.html" target=_blank>地震经验：躲在桌下最危险(组图)</a></li><li><a href="http://news.sina.com.cn/photo/2008-05-22/326/756.html" target=_blank>感人的照片</a></li><li><a href="http://blog.csdn.net/danforn/archive/2006/05/18/744753.aspx" target=_blank>Linux网络命令详解</a></li></ul>
+</ul>
+</div>    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=29166"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+</body>
+</html>   
+ 

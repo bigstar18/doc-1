@@ -71,3 +71,13 @@ sys/yrdce!@#
 
 #sudo export DISPLAY=:0.0 
 #sudo xhost + 
+
+
+vim /etc/oratab 
+gnnt:/u01/app/oracle/product/11.2.0.4/dbhome_1:Y
+
+su - oracle
+crontab -e
+
+@reboot /u01/app/oracle/product/11.2.0.4/dbhome_1/bin/lsnrctl start
+@reboot /u01/app/oracle/product/11.2.0.4/dbhome_1/bin/dbstart
