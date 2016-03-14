@@ -1,0 +1,1136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>   
+    
+     
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>Git revert 恢复服务器端历史 - herbert的知识库
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="本文转自：http://blog.sina.com.cn/s/blog_969555e3010135s6.htmlcss2中有五个与背景相关的属性。它们是：background-color:完全填充背景的颜色&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;background-image:用作背景的图片&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;background-posi" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/ink/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/herbert5069/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default_big.css" />
+ 
+
+
+</head>
+<body>
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/herbert5069">herbert的知识库</a></h2>
+            <h3>How Fun the coding is!</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/herbert5069?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/herbert5069?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/herbert5069/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "herbert5069";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/herbert5069";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://blog.csdn.net/qinyuanpei/article/details/50763768">
+<font color=red>Unity3D中基于订阅者模式实现事件机制
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+<a href="http://huiyi.csdn.net/activity/product/goods_list?project_id=2818">
+<font color=blue>云计算行业圆桌论坛
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/blogdevteam/article/details/50737496">
+<font color=red>【征文】Hadoop十周年特别策划——我与Hadoop不得不说的故事
+</font></a>
+</div>                        </div>
+                        
+
+
+
+<!--AdForward Begin:-->
+<script type="text/javascript" ads-src="http://csdnim.qtmojo.com/main/s?user=csdn|blog|fumeiti&db=csdnim&border=0&local=yes&js=ie" src="http://creatim.qtmojo.cn/td/AllyesDeliver.min.js" charset="gbk"></script>
+<!--AdForward End-->
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+ <script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Original"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/herbert5069/article/details/7085459">
+        Git revert 恢复服务器端历史            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/git' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">git</a><a href='http://www.csdn.net/tag/%e6%9c%8d%e5%8a%a1%e5%99%a8' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">服务器</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2011-12-19 20:36</span>
+            <span class="link_view" title="阅读次数">3852人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(2)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('Git revert 恢复服务器端历史','7085459');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(7085459,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody"  style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            var lib = eval("("+$("#lib").attr("value")+")");
+            var html = "";
+            if (lib.err == 0) {
+                $.each(lib.data, function (i) {
+                    var obj = lib.data[i];
+                    //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                    html += ' <a href="' + obj.url + '" target="_blank">';
+                    html += ' <img src="' + obj.logo + '">';
+                    html += ' <em><b>' + obj.name + '</b></em>';
+                    html += ' </a>';
+                });
+                if (html != "") {
+                    setTimeout(function () {
+                        $("#lib").html(html);
+                        /*
+                        var testhtml = "";
+                        testhtml += '<a href="#">';
+                        testhtml += '<img src="http://img.knowledge.csdn.net/upload/base/1455589744328_328.jpg">';
+                        testhtml += '<em>Android知识库</em>';
+                        testhtml += '</a>';
+                        $(".embody_c").html(testhtml);
+                        */
+                        $("#embody").show();
+                    }, 100);
+                }
+            }          
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('902702','herbert5069','top','7085459');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">git<em>（5）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/herbert5069/article/category/902702"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_902702">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+        <div   class="bog_copyright">         
+            <p  class="copyright_p" >版权声明：本文为博主原创文章，未经博主允许不得转载。</p>
+        </div>
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<p>如果一不把错误的代码Commit到本地，这时倒可以用Git reset HEAD^1 --hard来恢复到上个Commit，</p>
+<p>可是如果已经把这个错误的代码错误的上传到服务器上，那么用git reset HEAD 就不管用了，因为再pull又会把错误的代码拿下来，</p>
+<p>所以git revert 出场了， git revert &#43; revision（如HEAD），就可以回退到HEAD之前的那个版本，并产生一个新的commit。</p>
+<p><br>
+</p>
+<p><br>
+</p>
+<p>（本文完）<br>
+</p>
+<br>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.12-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" ArticleId="7085459">
+            <dl id="btnDigg" class="digg digg_disable">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+            <dl id="btnBury" class="digg digg_disable">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>
+            </dl>
+        </div>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/herbert5069/article/details/7079117';">上一篇</span><a href="/herbert5069/article/details/7079117" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Climbing 大蜀山.</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/herbert5069/article/details/7104133';">下一篇</span><a href="/herbert5069/article/details/7104133" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">快升级Eclipse吧</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('902702','herbert5069','foot','7085459');">git<em>（5）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('902702', 'herbert5069','foot','7085459');
+        });
+    </script>
+      
+</div>
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/herbert5069/svc/GetSuggestContent/7085459",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+    <div class="embody embody_b" id="libkeyparent"  style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "7085459",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'Git revert 恢复服务器端历史' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+    <div id="ad_cen">        
+<!--AdForward Begin:-->
+<script type="text/javascript" src="http://csdnim.qtmojo.com/main/s?user=csdn|blog|banner2&db=csdnim&border=0&local=yes&js=ie" charset="gbk"></script>
+<!--AdForward End-->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '7085459';
+    var commentscount = 2;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/herbert5069/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });
+        },200);  
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }    
+
+
+    $(function()
+    {
+        $.ajax({
+            type: 'get',
+            url: 'http://internalapi.csdn.net/knowledge/public/public/api/words?x-acl-token=9DeJLGuYSy/6nSmDQen5amEWUh0K',
+            async: false,
+            dataType: 'jsonp',
+            jsonp:'callback',
+            success: function (resobj) {
+                if(resobj.msg == "ok")
+                {
+                    var resData = resobj.data,
+                            data=[];
+
+                    var storage = window.localStorage;
+                    storage.setItem('preData',resData);
+                    storage.setItem('realData',JSON.stringify(resData));
+
+                    var strRealData = storage.realData;
+                    data = eval(strRealData);
+
+                    /*if(+new Date() > +new Date() -1)
+                     {
+                     storage.removeItem('realData');
+                     }*/
+                    var wsCache = new WebStorageCache();
+                    if(wsCache.isSupported())
+                    {
+                        wsCache.set(strRealData,'relData',{exp:86400});
+                    }
+
+                    var regarr = [],
+                            regs = [],
+                            arrUrl = [];
+                    for(var a=0; a<data.length;a++)
+                    {
+                        data[a].flg = false;
+                    }
+                    start($("#article_content"));                   
+                    function start(obj)
+                    {
+                        var tags = [];
+                        depe(obj);
+                        function depe(obj)
+                        {
+                            var subobj = obj.find('*');
+                            var l = subobj.length;
+
+                            if(l<=0)
+                            {
+                                return false;
+                            }
+                            for(var q=0;q<l;q++)
+                            {
+                                var s = subobj.eq(q).find('*');
+                                if(!subobj.eq(q).hasClass('dp-highlighter'))
+                                {
+                                    if(s.length>0)
+                                    {
+                                        depe(subobj.eq(q));
+                                    }else{
+                                        tags.push((subobj.eq(q))[0]);
+                                    }
+                                }
+                            }
+                        }
+                        for(var n=0;n<tags.length;n++)
+                        {
+                            selectext($(tags[n]));
+                        }
+                        for(var p=0;p<regarr.length;p++)
+                        {
+                            var Regs = eval(regarr[p]);
+                            Regs.flg = false;
+                            regs.push(Regs);
+                        }
+                        console.log(regarr);
+                        for(var n=0;n<tags.length;n++)
+                        {
+                            for(var i=0;i<regs.length;i++)
+                            {
+                                callback($(tags[n]),regs[i],arrUrl[i]);
+                            }
+                        }
+                    }
+                    function selectext(subs)
+                    {
+                        var oHtml = subs.html();
+                        var regflg = false;
+
+                        if(resobj.msg == 'ok')
+                        {
+                            for(var i=0; i<data.length; i++)
+                            {
+                                var str = data[i].word;
+                                var regStr = /([\u4e00-\u9fa5]+)\w*/ig.test(str) ? '^'+str+'$': '\\b'+str+'\\b';
+                                var Reg = new RegExp(regStr,'i');
+                                if(oHtml.search(Reg) !== -1)
+                                {
+                                    if(regarr.length<=0)
+                                    {
+                                        regarr.push((Reg+''));
+                                    }else{
+                                        for(var e=0;e<regarr.length;e++)
+                                        {
+                                            if(Reg!=regarr[e])
+                                            {
+                                                regflg=true;
+                                                //continue;
+                                            }else{
+                                                // break;
+                                                regflg = false;
+                                            }
+                                        }
+                                    }
+                                    if(regflg)
+                                    {
+                                        regarr.push((Reg+''));
+                                    }
+                                    var strUrl = data[i].url;
+                                    arrUrl.push(strUrl);
+                                }
+                            }
+                        }
+                    }
+                    function callback(obj,Reg,arrUrl)
+                    {
+                        var oHtml = obj.html();
+                        if(Reg.flg)
+                        {
+                            return false;
+                        }
+                        var s = oHtml.replace(Reg,function(word){
+                            Reg.flg=true;
+                            var str="<a href="+arrUrl+" target='_blank'>"+word+"</a>"
+                            var str2="<a href="+arrUrl+" target='_blank'><b>"+word+"知识库</b></a>"
+                            if($("#libkey").html().toString().indexOf(word)==-1)
+                            {
+                                $("#libkey").append(str2).append("&nbsp;&nbsp;&nbsp;&nbsp;");
+                            }
+                            $("#libkeyparent").show()
+                            return str;
+                        });
+                        obj.html(s);
+                    }
+                }
+            },
+            error: function () {
+                console.log("Send Ajax error ...")
+            }
+        });
+    });
+
+</script>
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/herbert5069" target="_blank">
+    <img src="http://avatar.csdn.net/3/0/F/1_herbert5069.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/herbert5069" class="user_name" target="_blank">herbert5069</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=herbert5069','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>168244次</span></li>
+    <li>积分：<span>2492</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog5.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：2492 </div>
+        </span>  </li>
+    <li>排名：<span>第8942名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>73篇</span></li>
+    <li>转载：<span>15篇</span></li>
+    <li>译文：<span>4篇</span></li>
+    <li>评论：<span>65条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/herbert5069/article/category/620826" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Android</a><span>(40)</span>
+                </li>
+                 <li>
+                    <a href="/herbert5069/article/category/620827" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">活着的乐趣</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/herbert5069/article/category/893612" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">lisp+Emacs</a><span>(16)</span>
+                </li>
+                 <li>
+                    <a href="/herbert5069/article/category/896149" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ubuntu</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/herbert5069/article/category/902702" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">git</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="/herbert5069/article/category/929387" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">网络编程</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/herbert5069/article/category/1069654" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">计算机科学与艺术</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/herbert5069/article/category/1071346" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C/C++</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/herbert5069/article/category/1144130" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">活着</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/herbert5069/article/category/1552467" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">linux</a><span>(1)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/herbert5069/article/month/2015/06">2015年06月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2014/10">2014年10月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2014/06">2014年06月</a><span>(2)</span></li><li><a href="/herbert5069/article/month/2014/05">2014年05月</a><span>(2)</span></li><li><a href="/herbert5069/article/month/2014/04">2014年04月</a><span>(6)</span></li><li><a href="/herbert5069/article/month/2013/10">2013年10月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2013/09">2013年09月</a><span>(2)</span></li><li><a href="/herbert5069/article/month/2013/08">2013年08月</a><span>(4)</span></li><li><a href="/herbert5069/article/month/2013/05">2013年05月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2013/04">2013年04月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2013/03">2013年03月</a><span>(2)</span></li><li><a href="/herbert5069/article/month/2013/02">2013年02月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2012/10">2012年10月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2012/08">2012年08月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2012/07">2012年07月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2012/06">2012年06月</a><span>(2)</span></li><li><a href="/herbert5069/article/month/2012/05">2012年05月</a><span>(9)</span></li><li><a href="/herbert5069/article/month/2012/04">2012年04月</a><span>(5)</span></li><li><a href="/herbert5069/article/month/2012/03">2012年03月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2012/02">2012年02月</a><span>(8)</span></li><li><a href="/herbert5069/article/month/2012/01">2012年01月</a><span>(5)</span></li><li><a href="/herbert5069/article/month/2011/12">2011年12月</a><span>(6)</span></li><li><a href="/herbert5069/article/month/2011/11">2011年11月</a><span>(8)</span></li><li><a href="/herbert5069/article/month/2011/10">2011年10月</a><span>(7)</span></li><li><a href="/herbert5069/article/month/2011/09">2011年09月</a><span>(3)</span></li><li><a href="/herbert5069/article/month/2011/08">2011年08月</a><span>(2)</span></li><li><a href="/herbert5069/article/month/2011/07">2011年07月</a><span>(4)</span></li><li><a href="/herbert5069/article/month/2011/04">2011年04月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2010/05">2010年05月</a><span>(1)</span></li><li><a href="/herbert5069/article/month/2009/11">2009年11月</a><span>(3)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/herbert5069/article/details/24587085" title="设置TextView下划线并响应点击事件(SpannableString)">设置TextView下划线并响应点击事件(SpannableString)</a><span>(7908)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/8589418" title="Android Vertical TextView 文字竖排">Android Vertical TextView 文字竖排</a><span>(7796)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/6702461" title="Android manifest &lt;uses-permission&gt; 的位置千万别放错">Android manifest &lt;uses-permission&gt; 的位置千万别放错</a><span>(7568)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/6894188" title="git fetch 拉取而不合并">git fetch 拉取而不合并</a><span>(7442)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/7671801" title="Android 4.04 源码编译 (ubuntu 12.04)">Android 4.04 源码编译 (ubuntu 12.04)</a><span>(7436)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/31358641" title="网络基本概念之TCP, UDP, 单播（Unicast）, 多播（组播）（Multicast）">网络基本概念之TCP, UDP, 单播（Unicast）, 多播（组播）（Multicast）</a><span>(7337)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/6941739" title="Common Lisp 开发环境搭建">Common Lisp 开发环境搭建</a><span>(7001)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/12782977" title="IntelliJ IDEA 显示中文字符">IntelliJ IDEA 显示中文字符</a><span>(5025)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/27314873" title="Follow谷大哥－使用Android studio + gradle">Follow谷大哥－使用Android studio + gradle</a><span>(4584)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/7286203" title="ROOT android 原理。 基于（zergRush）">ROOT android 原理。 基于（zergRush）</a><span>(4471)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/herbert5069/article/details/6702461" title="Android manifest &lt;uses-permission&gt; 的位置千万别放错">Android manifest &lt;uses-permission&gt; 的位置千万别放错</a><span>(12)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/7242155" title="android加载固定内容数据库的妙法">android加载固定内容数据库的妙法</a><span>(6)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/7048037" title="Android Jni 学习实战之(一)">Android Jni 学习实战之(一)</a><span>(5)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/7671801" title="Android 4.04 源码编译 (ubuntu 12.04)">Android 4.04 源码编译 (ubuntu 12.04)</a><span>(5)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/6923306" title="蚂蚁迷呀 （附源码）">蚂蚁迷呀 （附源码）</a><span>(4)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/24587085" title="设置TextView下划线并响应点击事件(SpannableString)">设置TextView下划线并响应点击事件(SpannableString)</a><span>(3)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/8589418" title="Android Vertical TextView 文字竖排">Android Vertical TextView 文字竖排</a><span>(3)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/7231592" title="在C中如何使函数返回数组">在C中如何使函数返回数组</a><span>(3)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/7085459" title="Git revert 恢复服务器端历史">Git revert 恢复服务器端历史</a><span>(2)</span>
+</li>
+<li>
+<a href="/herbert5069/article/details/7104133" title="快升级Eclipse吧">快升级Eclipse吧</a><span>(2)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/androidlushangderen/article/details/50760170" 
+
+target="_blank">* HDFS如何检测并删除多余副本块</a></li>
+<li><a href="http://blog.csdn.net/kinfey/article/details/50754770" 
+target="_blank">* Project Perfect让Swift在服务器端跑起来－让Perfect更Rails (五)</a></li>
+<li><a href="http://blog.csdn.net/u011225629/article/details/50492403" 
+
+target="_blank">* 数据库性能优化之SQL语句优化</a></li>
+<li><a 
+
+href="http://blog.csdn.net/harvic880925/article/details/50598322"target="_blank">* Animation动画详解(七)——ObjectAnimator基本使用</a></li>
+<li><a href="http://blog.csdn.net/han_xiaoyang/article/details/50759472" 
+target="_blank">* 机器学习系列(7)_机器学习路线图（附资料）</a></li>
+<li><a href="http://jiezhu2007.iteye.com/blog/2277613"  
+
+target="_blank">* 大数据三种典型云服务模式</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/herbert5069/article/details/24587085#comments">设置TextView下划线并响应点击事件(SpannableString)</a>
+    <p style="margin:0px;"><a href="/u012678876" class="user_name">u012678876</a>:
+写的很好   解决的大问题   如果希望在点击的文本上设置颜色选择器怎么设
+    </p>
+    </li>
+    <li>
+   
+         <a href="/herbert5069/article/details/7231592#comments">在C中如何使函数返回数组</a>
+    <p style="margin:0px;"><a href="/sinat_32344291" class="user_name">sinat_32344291</a>:
+第二种方法的返回值为什么是0
+    </p>
+    </li>
+    <li>
+   
+         <a href="/herbert5069/article/details/7231592#comments">在C中如何使函数返回数组</a>
+    <p style="margin:0px;"><a href="/sinat_32344291" class="user_name">sinat_32344291</a>:
+我想把第一种方法里面，给数组赋值的，改成自己输入，代码怎么写？
+    </p>
+    </li>
+    <li>
+   
+         <a href="/herbert5069/article/details/7231592#comments">在C中如何使函数返回数组</a>
+    <p style="margin:0px;"><a href="/sinat_32344291" class="user_name">sinat_32344291</a>:
+请问一下，第一种方法，在函数(*retArray())中，如果赋值想赋输入的值的话，代码应该怎么改？...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/herbert5069/article/details/6941739#comments">Common Lisp 开发环境搭建</a>
+    <p style="margin:0px;"><a href="/XUESHUMENG" class="user_name">XUESHUMENG</a>:
+Documentation: man /usr/local/sbcl//share/man/man1...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/herbert5069/article/details/7212675#comments">Content Provider 中 UriMatcher的用法</a>
+    <p style="margin:0px;"><a href="/cheetah747" class="user_name">cheetah747</a>:
+确实讲得很清晰，比李刚的《疯子安卓讲义》讲得要清楚。。。。赞！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/herbert5069/article/details/7212675#comments">设置TextView下划线并响应点击事件(SpannableString)</a>
+    <p style="margin:0px;"><a href="/qq_25474979" class="user_name">qq_25474979</a>:
+请问为什么添加之后几个关键字统一跑到末尾去了，而且只有末尾那几个字有单击事件
+    </p>
+    </li>
+    <li>
+   
+         <a href="/herbert5069/article/details/6923306#comments">蚂蚁迷呀 （附源码）</a>
+    <p style="margin:0px;"><a href="/youknowwhatgirl" class="user_name">youknowwhatgirl</a>:
+帮助按钮有问题怎么改
+    </p>
+    </li>
+    <li>
+   
+         <a href="/herbert5069/article/details/6923306#comments">Content Provider 中 UriMatcher的用法</a>
+    <p style="margin:0px;"><a href="/woshiminzai" class="user_name">woshiminzai</a>:
+之前总是疑惑，实现query、insert.....方法都已经指定操作入口了，为何还要matcher...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/herbert5069/article/details/24197825#comments">Git rebase 简明用法</a>
+    <p style="margin:0px;"><a href="/u010313671" class="user_name">u010313671</a>:
+专门登陆就为给个赞
+    </p>
+    </li>
+</ul>
+</div>
+
+
+<div id="custom_column_18141407" class="panel">
+<ul class="panel_head"><span>最近可乐</span></ul>
+<ul class="panel_body">
+
+搞了个二手城市山地车骑，每天骑到出汗，一身轻松。 ======================================== 开始写些学习心得，既有利于整理自己思路，又能存档备查，真好，也有不好的，就是学习到很晚了，还要花不短的时间来写，那个困啊。 ================================================================ 排名19675，“千里之内”了！ 要继续努力！
+
+</ul>
+</div>    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=338076"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+</body>
+</html>   
+ 
