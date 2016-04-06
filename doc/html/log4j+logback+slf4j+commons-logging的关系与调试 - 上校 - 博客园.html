@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>log4j+logback+slf4j+commons-logging的关系与调试 - 上校 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=iaIBFyx6Vr94NzNO_3ZPrlgjC7pN1OGR4X2wPvP0lwg1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/coffee/bundle-coffee.css?v=H7P3zU3_M529NtLVh9kKULJaZLDGv9Qz_L_VdgyN1P41"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/zhuawang/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/zhuawang/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/zhuawang/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'zhuawang', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=ykDTFH9FE4CgKmGT6HilV870QfVPxO515wqgmKkq4MU1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/zhuawang/"><img id="blogLogo" src="/Skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/zhuawang/">zhuawang's blog</a></h1>
+<h2><br><h1>淡泊以明志,宁静以致远</h1></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<!--done-->
+			<ul id="navList">
+				<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+				<li><a id="MyLinks1_IngLink" class="menu" href="http://home.cnblogs.com/ing/">闪存</a></li>
+				<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/zhuawang/">首页</a></li>
+				<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+				<li><a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/%E4%B8%8A%E6%A0%A1">联系</a></li>
+				<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+				<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/zhuawang/rss">订阅</a>
+				<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/zhuawang/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a></li>
+			</ul>
+
+
+			<div class="blogStats">
+				
+				
+<!--done-->
+随笔- 675&nbsp;
+文章- 0&nbsp;
+评论- 129&nbsp;
+
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/zhuawang/p/3999235.html">log4j+logback+slf4j+commons-logging的关系与调试</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>背景&nbsp;<br />&nbsp;&nbsp;&nbsp; 由于现在开源框架日益丰富，好多开源框架使用的日志组件不尽相同。存在着在一个项目中，不同的版本，不同的框架共存。导致日志输出异常混乱。虽然也不至于对系统造成致命伤害，但是明显可以看出，架构不够精良，追求极致略有不足。&nbsp;<br />&nbsp;&nbsp;&nbsp; 其中有一些标准通用接口，标准实现，各种桥接器的存在，下面就让笔者树立一下这些框架之间的关系。&nbsp;<br /><img src="http://dl2.iteye.com/upload/attachment/0094/4628/79ed7797-0037-36a5-aa6b-d34f17d685d5.jpg" alt="" />&nbsp;<br />从上图中，我们可以看到4部分。&nbsp;<br />接口：将所有日志实现适配到了一起，用统一的接口调用。&nbsp;<br />实现：目前主流的日志实现&nbsp;<br />旧日志到slf4j的适配器：如果使用了slf4j，但是只想用一种实现，想把log4j的日志体系也从logback输出，这个是很有用的。&nbsp;<br />slf4j到实现的适配器：如果想制定slf4j的具体实现，需要这些包。&nbsp;<br /><br />slf4J与旧日志框架的关系&nbsp;<br /><strong>slf4j等于commons-logging，是各种日志实现的通用入口，会根据classpath中存在下面哪一个Jar来决定具体的日志实现库。</strong>&nbsp;<br />logback-classic(默认的logback实现)&nbsp;<br />slf4j-jcl.jar(apache commons logging)&nbsp;<br />slf4j-logj12.jar(log4j 1.2.4)&nbsp;<br />slf4j-jdk14(java.util.logging)&nbsp;<br /><strong>将所有使用旧式日志API的第三方类库或旧代码的日志调用转到slfj</strong>&nbsp;<br />jcl-over-slf4j.jar/jcl104-over-slf4j：apache commons logging 1.1.1/1.0.4，直接替换即可。&nbsp;<br />log4j-over-slf4j.jar：log4j，直接替换即可。&nbsp;<br />jul-to-slf4j：jdk logging，需要在程序开始时调用SLF4JBridgeHandler.install()来注册listener参考JulOverSlf4jProcessor，可在applicationContext.xml中定义该bean来实现初始化。注意原有的log4j.properites将失效，logback网站上提供转换器，支持从log4j.properties 转换到logback.xml 。&nbsp;<br /><br />优势：转移到logback的理由&nbsp;<br />&nbsp;&nbsp;&nbsp; slf4j支持参数化的logger.error("帐号ID：{}不存在", userId);告别了if(logger.isDebugEnable()) 时代。&nbsp;<br />&nbsp;&nbsp;&nbsp; 另外logback的整体性能比log4j也较佳，hibernate等项目已经采用了slf4j:"某些关键操作，比如判定是否记录一条日志语句的操作，其性能得到了显著的提高。这个操作在LOGBack中需要3纳秒，而在Log4J中则需要30纳秒。 LOGBack创建记录器（logger）的速度也更快：13毫秒，而在Log4J中需要23毫秒。更重要的是，它获取已存在的记录器只需94纳秒，而 Log4J需要2234纳秒，时间减少到了1/23。"&nbsp;<br /><br />slf4j和logback的使用&nbsp;<br />1.如果日志的参数超过3个，需要写成&nbsp;<br />Object[] params = {newVal, below, above}; logger.debug("Value {} was inserted between {} and {}.", params);&nbsp;<br />commons-logging 和slf4j的代码比较：commons-logging 示例代码：&nbsp;</p>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Java代码&nbsp;<object width="14" height="15" data="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" type="application/x-shockwave-flash"><param name="src" value="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" /><param name="wmode" value="transparent" /><param name="flashvars" value="clipboard=import%20org.apache.commons.logging.Log%3B%0Aimport%20org.apache.commons.logging.LogFactory%3B%0A%0Apublic%20class%20TestLog%20%7B%0A%20%20%20%20Log%20log%20%3D%20LogFactory.getLog(TestLog.class)%3B%0A%0A%20%20%20%20public%20void%20print()%20%7B%0A%20%20%20%20%20%20%20%20if%20(log.isDebugEnabled())%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20log.debug(sql)%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20log.debug(%22My%20name%20is%20%22%20%2B%20name%20%2B%20%22%EF%BC%8C%20I%20am%20%22%20%2B%20age%20%2B%20%22%20years%20old.%22)%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%7D" /><param name="quality" value="high" /><param name="allowscriptaccess" value="always" /><param name="pluginspage" value="http://www.macromedia.com/go/getflashplayer" /></object>&nbsp;<a title="收藏这段代码"><img class="star" src="http://phl.iteye.com/images/icon_star.png" alt="收藏代码" /></a></div>
+
+
+</div>
+<ol class="dp-j" start="1">
+<li><span class="keyword">import&nbsp;org.apache.commons.logging.Log;&nbsp;&nbsp;</span></li>
+<li><span class="keyword">import&nbsp;org.apache.commons.logging.LogFactory;&nbsp;&nbsp;</span></li>
+<li>&nbsp;&nbsp;</li>
+<li><span class="keyword">public&nbsp;<span class="keyword">class&nbsp;TestLog&nbsp;{&nbsp;&nbsp;</span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;Log&nbsp;log&nbsp;=&nbsp;LogFactory.getLog(TestLog.<span class="keyword">class);&nbsp;&nbsp;</span></li>
+<li>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public&nbsp;<span class="keyword">void&nbsp;print()&nbsp;{&nbsp;&nbsp;</span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if&nbsp;(log.isDebugEnabled())&nbsp;{&nbsp;&nbsp;</span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.debug(sql);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log.debug(<span class="string">"My&nbsp;name&nbsp;is&nbsp;"&nbsp;+&nbsp;name&nbsp;+&nbsp;<span class="string">"，&nbsp;I&nbsp;am&nbsp;"&nbsp;+&nbsp;age&nbsp;+&nbsp;<span class="string">"&nbsp;years&nbsp;old.");&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>}&nbsp;&nbsp;</li>
+
+
+</ol></div>
+<p>
+<br />slf4j的示例代码：&nbsp;</p>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Java代码&nbsp;<object width="14" height="15" data="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" type="application/x-shockwave-flash"><param name="src" value="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" /><param name="wmode" value="transparent" /><param name="flashvars" value="clipboard=import%20org.slf4j.Logger%3B%0Aimport%20org.slf4j.LoggerFactory%3B%0A%0Apublic%20class%20TestLogBySlf4J%20%7B%0A%20%20%20%20Logger%20logger%20%3D%20LoggerFactory.getLogger(TestLogBySlf4J.class)%3B%0A%0A%20%20%20%20public%20void%20print()%20%7B%0A%20%20%20%20%20%20%20%20logger.debug(sql)%3B%0A%20%20%20%20%20%20%20%20logger.debug(%22My%20name%20is%20%7B%7D%EF%BC%8C%20I%20am%20%7B%7D%20years%20old.%22%2C%20name%2C%20age)%3B%0A%20%20%20%20%7D%0A%7D" /><param name="quality" value="high" /><param name="allowscriptaccess" value="always" /><param name="pluginspage" value="http://www.macromedia.com/go/getflashplayer" /></object>&nbsp;<a title="收藏这段代码"><img class="star" src="http://phl.iteye.com/images/icon_star.png" alt="收藏代码" /></a></div>
+
+
+</div>
+<ol class="dp-j" start="1">
+<li><span class="keyword">import&nbsp;org.slf4j.Logger;&nbsp;&nbsp;</span></li>
+<li><span class="keyword">import&nbsp;org.slf4j.LoggerFactory;&nbsp;&nbsp;</span></li>
+<li>&nbsp;&nbsp;</li>
+<li><span class="keyword">public&nbsp;<span class="keyword">class&nbsp;TestLogBySlf4J&nbsp;{&nbsp;&nbsp;</span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;Logger&nbsp;logger&nbsp;=&nbsp;LoggerFactory.getLogger(TestLogBySlf4J.<span class="keyword">class);&nbsp;&nbsp;</span></li>
+<li>&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public&nbsp;<span class="keyword">void&nbsp;print()&nbsp;{&nbsp;&nbsp;</span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logger.debug(sql);&nbsp;&nbsp;</li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;logger.debug(<span class="string">"My&nbsp;name&nbsp;is&nbsp;{}，&nbsp;I&nbsp;am&nbsp;{}&nbsp;years&nbsp;old.",&nbsp;name,&nbsp;age);&nbsp;&nbsp;</span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</li>
+<li>}&nbsp;&nbsp;</li>
+
+
+</ol></div>
+<p>
+<br />2.因为内部已优化，作者认为slf4j的logger不需要定义为static。&nbsp;<br />3.可设置缓存后批量写日志文件(但服务器如果重启，可能会丢失未写到磁盘的记录)&nbsp;<br />4.MDC，用Filter，将当前用户名等业务信息放入MDC中，在日志format定义中即可使用该变量。&nbsp;<br />5.JMS Appender用于告警, DB Appender用于业务日志等&nbsp;<br /><br />生产环境情况以及优雅方案&nbsp;<br />&nbsp;&nbsp;&nbsp; 我厂的项目由于使用了众多的开源架构，所以导致项目中的日志体系非常混乱。经常出现日志包冲突的情况。例如：commons-logging-1.0.4，commons-logging-1.1.3，log4j，logback，jboss-logging，java.util.logging......不同的版本，不同的实现。之前笔者至少要配置log4j，logback，commons-logging三个配置文件，才能完成日志的输出。研究了日志体系以后，我厂的maven的pom.xml如下&nbsp;</p>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Xml代码&nbsp;<object width="14" height="15" data="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" type="application/x-shockwave-flash"><param name="src" value="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" /><param name="wmode" value="transparent" /><param name="flashvars" value="clipboard=%20%09%09%3C!--%20log%20--%3E%0A%09%09%3Cdependency%3E%0A%09%09%09%3CgroupId%3Eorg.slf4j%3C%2FgroupId%3E%0A%09%09%09%3CartifactId%3Eslf4j-api%3C%2FartifactId%3E%0A%09%09%09%3Cversion%3E%24%7Borg.slf4j-version%7D%3C%2Fversion%3E%0A%09%09%3C%2Fdependency%3E%0A%09%09%3Cdependency%3E%0A%09%09%09%3CgroupId%3Eorg.slf4j%3C%2FgroupId%3E%0A%09%09%09%3CartifactId%3Ejcl-over-slf4j%3C%2FartifactId%3E%0A%09%09%09%3Cversion%3E%24%7Borg.slf4j-version%7D%3C%2Fversion%3E%0A%09%09%3C%2Fdependency%3E%0A%09%09%3Cdependency%3E%0A%09%09%09%3CgroupId%3Eorg.slf4j%3C%2FgroupId%3E%0A%09%09%09%3CartifactId%3Elog4j-over-slf4j%3C%2FartifactId%3E%0A%09%09%09%3Cversion%3E%24%7Borg.slf4j-version%7D%3C%2Fversion%3E%0A%09%09%3C%2Fdependency%3E%0A%09%09%3Cdependency%3E%0A%09%09%09%3CgroupId%3Eorg.slf4j%3C%2FgroupId%3E%0A%09%09%09%3CartifactId%3Ejul-to-slf4j%3C%2FartifactId%3E%0A%09%09%09%3Cversion%3E%24%7Borg.slf4j-version%7D%3C%2Fversion%3E%0A%09%09%3C%2Fdependency%3E%0A%09%09%3Cdependency%3E%0A%09%09%09%3CgroupId%3Eorg.jboss.logging%3C%2FgroupId%3E%0A%09%09%09%3CartifactId%3Ejboss-logging%3C%2FartifactId%3E%0A%09%09%09%3Cversion%3E3.1.4.GA%3C%2Fversion%3E%0A%09%09%3C%2Fdependency%3E%0A%09%09%3C!--%20%0A%09%09%3Cdependency%3E%0A%09%09%09%3CgroupId%3Ecommons-logging%3C%2FgroupId%3E%0A%09%09%09%3CartifactId%3Ecommons-logging%3C%2FartifactId%3E%0A%09%09%09%3Cversion%3E1.1.3%3C%2Fversion%3E%0A%09%09%3C%2Fdependency%3E%0A%09%09%3Cdependency%3E%0A%09%09%09%3CgroupId%3Elog4j%3C%2FgroupId%3E%0A%09%09%09%3CartifactId%3Elog4j%3C%2FartifactId%3E%0A%09%09%09%3Cversion%3E1.2.17%3C%2Fversion%3E%0A%09%09%3C%2Fdependency%3E%09%09%0A%09%09%20--%3E" /><param name="quality" value="high" /><param name="allowscriptaccess" value="always" /><param name="pluginspage" value="http://www.macromedia.com/go/getflashplayer" /></object>&nbsp;<a title="收藏这段代码"><img class="star" src="http://phl.iteye.com/images/icon_star.png" alt="收藏代码" /></a></div>
+
+
+</div>
+<ol class="dp-xml" start="1">
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="comments">&lt;!--&nbsp;log&nbsp;--&gt;&nbsp;&nbsp;</span></li>
+<li><span class="tag">&lt;<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">groupId<span class="tag">&gt;org.slf4j<span class="tag">&lt;/<span class="tag-name">groupId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">artifactId<span class="tag">&gt;slf4j-api<span class="tag">&lt;/<span class="tag-name">artifactId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">version<span class="tag">&gt;${org.slf4j-version}<span class="tag">&lt;/<span class="tag-name">version<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li><span class="tag">&lt;/<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li><span class="tag">&lt;<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">groupId<span class="tag">&gt;org.slf4j<span class="tag">&lt;/<span class="tag-name">groupId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">artifactId<span class="tag">&gt;jcl-over-slf4j<span class="tag">&lt;/<span class="tag-name">artifactId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">version<span class="tag">&gt;${org.slf4j-version}<span class="tag">&lt;/<span class="tag-name">version<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li><span class="tag">&lt;/<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li><span class="tag">&lt;<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">groupId<span class="tag">&gt;org.slf4j<span class="tag">&lt;/<span class="tag-name">groupId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">artifactId<span class="tag">&gt;log4j-over-slf4j<span class="tag">&lt;/<span class="tag-name">artifactId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">version<span class="tag">&gt;${org.slf4j-version}<span class="tag">&lt;/<span class="tag-name">version<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li><span class="tag">&lt;/<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li><span class="tag">&lt;<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">groupId<span class="tag">&gt;org.slf4j<span class="tag">&lt;/<span class="tag-name">groupId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">artifactId<span class="tag">&gt;jul-to-slf4j<span class="tag">&lt;/<span class="tag-name">artifactId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">version<span class="tag">&gt;${org.slf4j-version}<span class="tag">&lt;/<span class="tag-name">version<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li><span class="tag">&lt;/<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li><span class="tag">&lt;<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">groupId<span class="tag">&gt;org.jboss.logging<span class="tag">&lt;/<span class="tag-name">groupId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">artifactId<span class="tag">&gt;jboss-logging<span class="tag">&lt;/<span class="tag-name">artifactId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">version<span class="tag">&gt;3.1.4.GA<span class="tag">&lt;/<span class="tag-name">version<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li><span class="tag">&lt;/<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&lt;!--&nbsp;&nbsp;&nbsp;</li>
+<li><span class="tag">&lt;<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">groupId<span class="tag">&gt;commons-logging<span class="tag">&lt;/<span class="tag-name">groupId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">artifactId<span class="tag">&gt;commons-logging<span class="tag">&lt;/<span class="tag-name">artifactId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">version<span class="tag">&gt;1.1.3<span class="tag">&lt;/<span class="tag-name">version<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li><span class="tag">&lt;/<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li><span class="tag">&lt;<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">groupId<span class="tag">&gt;log4j<span class="tag">&lt;/<span class="tag-name">groupId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">artifactId<span class="tag">&gt;log4j<span class="tag">&lt;/<span class="tag-name">artifactId<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">version<span class="tag">&gt;1.2.17<span class="tag">&lt;/<span class="tag-name">version<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></li>
+<li><span class="tag">&lt;/<span class="tag-name">dependency<span class="tag">&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;--<span class="tag">&gt;&nbsp;&nbsp;</span></li>
+
+
+</ol></div>
+<p>
+<br />&nbsp;&nbsp;&nbsp; 加了几个重要的实现适配器，log4j-over-slf4j，log4j-over-slf4j，jul-to-slf4j。然后jboss-logging部分也进行了统一的版本控制。同时删除及exclude掉所有log4j，commons-logging的各个版本。适配器和具体日志实现，不能共存，否则适配器不生效。这样的话，我们只有logback配置文件即可，因为log4j的输出已经委托给了slf4j（通过log4j-over-slf4j），而slf4j的默认实现是logback。&nbsp;<br />其中JUL需要额外执行一行初始化代码&nbsp;</p>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Java代码&nbsp;<object width="14" height="15" data="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" type="application/x-shockwave-flash"><param name="src" value="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" /><param name="wmode" value="transparent" /><param name="flashvars" value="clipboard=SLF4JBridgeHandler.install()%3B%2F%2F%20jul%20to%20slf4j%0A" /><param name="quality" value="high" /><param name="allowscriptaccess" value="always" /><param name="pluginspage" value="http://www.macromedia.com/go/getflashplayer" /></object>&nbsp;<a title="收藏这段代码"><img class="star" src="http://phl.iteye.com/images/icon_star.png" alt="收藏代码" /></a></div>
+
+
+</div>
+<ol class="dp-j" start="1">
+<li>SLF4JBridgeHandler.install();<span class="comment">//&nbsp;jul&nbsp;to&nbsp;slf4j&nbsp;&nbsp;</span></li>
+
+
+</ol></div>
+<p>
+<br /><br />常见错误调试&nbsp;<br />【错误1】只是一个典型错误，主要是错误的第二行红色部分&nbsp;<br />log4j:WARN No appenders could be found for logger (com.mchange.v2.log.MLog).&nbsp;<br />log4j:WARN Please initialize the log4j system properly.&nbsp;<br />log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.&nbsp;<br />出现此错误是由于没有log4j配置文件导致。在classpath下添加log4j.xml，并做一些配置即可。配置完以后，启动输出&nbsp;<br />2014-02-25 09:30:31:743[INFO ][com.mchange.v2.log.MLog.&lt;clinit&gt;(MLog.java:80)] - MLog clients using log4j logging.&nbsp;<br />2014-02-25 09:30:31:780[INFO ][com.mchange.v2.c3p0.C3P0Registry.banner(C3P0Registry.java:204)] - Initializing c3p0-0.9.1.2 [built 21-May-2007 15:04:56; debug? true; trace: 10]&nbsp;<br />即表示回复正常&nbsp;<br />。例如我的配置文件如下&nbsp;<br />log4j.xml&nbsp;</p>
+<div id="" class="dp-highlighter">
+<div class="bar">
+<div class="tools">Xml代码&nbsp;<object width="14" height="15" data="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" type="application/x-shockwave-flash"><param name="src" value="http://phl.iteye.com/javascripts/syntaxhighlighter/clipboard_new.swf" /><param name="wmode" value="transparent" /><param name="flashvars" value="clipboard=%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22UTF-8%22%3F%3E%0A%3C!DOCTYPE%20log4j%3Aconfiguration%20SYSTEM%20%22log4j.dtd%22%3E%0A%3Clog4j%3Aconfiguration%20xmlns%3Alog4j%3D'http%3A%2F%2Fjakarta.apache.org%2Flog4j%2F'%3E%0A%09%3Cappender%20name%3D%22console%22%20class%3D%22org.apache.log4j.ConsoleAppender%22%3E%0A%09%09%3Clayout%20class%3D%22org.apache.log4j.PatternLayout%22%3E%0A%09%09%09%3Cparam%20name%3D%22ConversionPattern%22%20value%3D%22%25d%7Byyyy-MM-dd%20HH%3Amm%3Ass%3ASSS%7D%5B%25-5p%5D%5B%25l%5D%20-%20%25m%25n%22%20%2F%3E%0A%09%09%3C%2Flayout%3E%0A%09%3C%2Fappender%3E%0A%09%3Clogger%20name%3D%22org.springframework%22%20additivity%3D%22false%22%3E%0A%09%09%3Clevel%20value%3D%22info%22%20%2F%3E%0A%09%09%3Cappender-ref%20ref%3D%22console%22%20%2F%3E%0A%09%3C%2Flogger%3E%0A%09%3Croot%3E%0A%09%09%3Clevel%20value%3D%22info%22%20%2F%3E%0A%09%09%3Cappender-ref%20ref%3D%22console%22%20%2F%3E%0A%09%3C%2Froot%3E%0A%3C%2Flog4j%3Aconfiguration%3E" /><param name="quality" value="high" /><param name="allowscriptaccess" value="always" /><param name="pluginspage" value="http://www.macromedia.com/go/getflashplayer" /></object>&nbsp;<a title="收藏这段代码"><img class="star" src="http://phl.iteye.com/images/icon_star.png" alt="收藏代码" /></a></div>
+
+
+</div>
+<ol class="dp-xml" start="1">
+<li><span class="tag">&lt;?<span class="tag-name">xml&nbsp;<span class="attribute">version=<span class="attribute-value">"1.0"&nbsp;<span class="attribute">encoding=<span class="attribute-value">"UTF-8"<span class="tag">?&gt;&nbsp;&nbsp;</span></span></span></span></span></span></span></li>
+<li>&lt;!DOCTYPE&nbsp;log4j:configuration&nbsp;SYSTEM&nbsp;"log4j.dtd"<span class="tag">&gt;&nbsp;&nbsp;</span></li>
+<li><span class="tag">&lt;<span class="tag-name">log4j:configuration&nbsp;<span class="attribute">xmlns:log4j=<span class="attribute-value">'http://jakarta.apache.org/log4j/'<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">appender&nbsp;<span class="attribute">name=<span class="attribute-value">"console"&nbsp;<span class="attribute">class=<span class="attribute-value">"org.apache.log4j.ConsoleAppender"<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">layout&nbsp;<span class="attribute">class=<span class="attribute-value">"org.apache.log4j.PatternLayout"<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">param&nbsp;<span class="attribute">name=<span class="attribute-value">"ConversionPattern"&nbsp;<span class="attribute">value=<span class="attribute-value">"%d{yyyy-MM-dd&nbsp;HH:mm:ss:SSS}[%-5p][%l]&nbsp;-&nbsp;%m%n"&nbsp;<span class="tag">/&gt;&nbsp;&nbsp;</span></span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/<span class="tag-name">layout<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/<span class="tag-name">appender<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">logger&nbsp;<span class="attribute">name=<span class="attribute-value">"org.springframework"&nbsp;<span class="attribute">additivity=<span class="attribute-value">"false"<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">level&nbsp;<span class="attribute">value=<span class="attribute-value">"info"&nbsp;<span class="tag">/&gt;&nbsp;&nbsp;</span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">appender-ref&nbsp;<span class="attribute">ref=<span class="attribute-value">"console"&nbsp;<span class="tag">/&gt;&nbsp;&nbsp;</span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/<span class="tag-name">logger<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">root<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">level&nbsp;<span class="attribute">value=<span class="attribute-value">"info"&nbsp;<span class="tag">/&gt;&nbsp;&nbsp;</span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;<span class="tag-name">appender-ref&nbsp;<span class="attribute">ref=<span class="attribute-value">"console"&nbsp;<span class="tag">/&gt;&nbsp;&nbsp;</span></span></span></span></span></li>
+<li>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/<span class="tag-name">root<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+<li><span class="tag">&lt;/<span class="tag-name">log4j:configuration<span class="tag">&gt;&nbsp;&nbsp;</span></span></span></li>
+
+
+</ol></div>
+<p>
+<br /><br /><br />参考文章&nbsp;<br />log4j.xml详细配置 http://zhangxiang390.iteye.com/blog/258455</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2014-09-28 23:30</span> <a href='http://www.cnblogs.com/zhuawang/'>上校</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=3999235" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3999235);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=25488,cb_entryId=3999235,cb_blogApp=currentBlogApp,cb_blogUserGuid='b46f3d0b-63cf-dd11-9e4d-001cf0cd104b',cb_entryCreatedDate='2014/9/28 23:30:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='ad_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='ad_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2016 上校
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+</body>
+</html>
