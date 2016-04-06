@@ -1,0 +1,1560 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html class='csdn-bbs'>
+  <head>
+    <script id="allmobilize" charset="utf-8" src="http://a.yunshipei.com/1327c36bdd7197e30fd9f4b48d1a5bcc/allmobilize.min.js"></script>
+<meta http-equiv="Cache-Control" content="no-transform" />
+<link rel="alternate" media="handheld" href="#" />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>关于Oracle系统视图dba_tables字段num_rows值与实际表记录不一致的疑问-CSDN论坛-CSDN.NET-中国最大的IT技术社区</title>
+
+    <link href="/assets/main-2f6438a00c3b478f4a4b115469078547.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="//c.csdnimg.cn/public/themes/default/css/btn.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="/assets/application-73a79ab67b5eca88701b728d54cb956b.js" type="text/javascript"></script>
+    <script src="http://c.csdnimg.cn//atsuggest/atsuggest.js" type="text/javascript"></script>
+    <meta content="authenticity_token" name="csrf-param" />
+<meta content="nhKuX+y5lasCxuIWHtSRFsDcc9n9gImJLQBOQERR4wQ=" name="csrf-token" />
+    <link href="http://c.csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+<link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">
+<script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+
+      <link href="/assets/sh-7ba87e2a26838d9e4e41a78d9a2405e6.css" media="all" rel="stylesheet" type="text/css" />
+  <script src="/assets/sh-83dfe6b3d61bfd8fe4da30e0d7046ae0.js" type="text/javascript"></script>
+  <script src="http://passport.csdn.net/content/loginbox/login.js" type="text/javascript"></script>
+    <style>
+        #topic-detail-ad-ul{width:960px;float:left;font-size:1px;margin:0;padding:0}
+        #topic-detail-ad-l{float:left;}
+        #topic-detail-ad-r{float:right;}
+        #topic-detail-ad-ul li{list-style: none;}
+    </style>
+
+    <!--  js for ask-->
+      <script type="text/javascript" >
+          window.bbsInfoflag = true;
+      </script>
+
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/comm_ask/js/libs/wmd.js"></script>
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/comm_ask/js/libs/showdown.js"></script>
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/comm_ask/js/libs/prettify.js"></script>
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js"></script>
+
+      <script type="text/javascript">
+          // 快速回复
+          $(document).ready(function () {
+          $("#com-quick-reply-bbs").bind("click", function(){
+              //_gaq.push(['_trackEvent','function', 'onclick', 'BBS_articles_youhuifu']);
+              $("#post_body").focus();
+              window.scrollTo(0, $(document).height());
+          });
+        });
+      </script>
+    <!--  js for ask  end-->
+  </head>
+  <body id='topics-show'>
+    <!-- <script type="text/javascript" src="http://c.csdnimg.cn/pubnav/js/pub_topnav_2011.js"></script> -->
+
+<!--全屏-->
+<script type="text/javascript" ads-src="http://csdnim.qtmojo.com/main/s?user=allyestest|allyestest|allyestest0410&db=csdnim&border=0&local=yes&js=ie" src="http://creatim.qtmojo.cn/td/AllyesDeliver.min.js" charset="gbk"></script>
+<!--全屏-->
+
+<script id="toolbar-tpl-scriptId" skin="black" prod="bbs" fixed="true" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+      <!-- 统计代码 -->
+<script type="text/javascript">
+  var protocol = window.location.protocol;
+  document.write('<script type="text/javascript" src="' +protocol+ '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></'+'script>');
+</script>
+
+
+    <div class="news-nav">
+  <div class="container">
+    <div class="nav-bar">
+      <a href="/home" class="">首页</a>
+      <span class="dropdown">
+  <a href="#">精选版块</a>
+  <span class="caret"></span>
+  <div class="dropdown-menu">
+    <dl>
+      <dt><a href="/forums/Mobile">移动开发</a></dt>
+      <dd>
+        <a href="/forums/ios">iOS</a>
+        <a href="/forums/Android">Android</a>
+        <a href="/forums/Qt">Qt</a>
+        <a href="/forums/WindowsMobile">WP</a>
+      </dd>
+    </dl>
+    <dl>
+      <dt><a href="/forums/CloudComputing">云计算</a></dt>
+      <dd>
+        <a href="/forums/AWS">IaaS</a>
+        <a href="/forums/CloudFoundry">Pass/SaaS</a>
+        <a href="/forums/hadoop">分布式计算/Hadoop</a>
+      </dd>
+    </dl>
+    <dl>
+      <dt><a href="/forums/Java">Java技术</a></dt>
+      <dd>
+        <a href="/forums/J2SE">Java SE</a>
+        <a href="/forums/Java_WebDevelop">Java Web 开发</a>
+        <a href="/forums/J2EE">Java EE</a>
+        <a href="/forums/JavaOther">Java其他相关</a>
+      </dd>
+    </dl>
+    <dl>
+      <dt><a href="/forums/DotNET">.NET技术</a></dt>
+      <dd>
+        <a href="/forums/DotNETFramework">.NET Framework</a>
+        <a href="/forums/CSharp">C#</a>
+        <a href="/forums/DotNETAnalysisAndDesign">.NET分析与设计</a>
+        <a href="/forums/ASPDotNET">ASP .NET</a>
+        <a href="/forums/VBDotNET">VB .NET</a>
+      </dd>
+    </dl>
+    <dl>
+      <dt><a href="/forums/WebDevelop">Web开发</a></dt>
+      <dd>
+        <a href="/forums/PHP">PHP</a>
+        <a href="/forums/JavaScript">JavaScript</a>
+        <a href="/forums/ASP">ASP</a>
+        <a href="/forums/HTMLCSS">HTML(CSS)</a>
+        <a href="/forums/HTML5">HTML5</a>
+        <a href="/forums/Apache">Apache</a>
+      </dd>
+    </dl>
+    <dl>
+      <dt><a href="#">开发语言/框架</a></dt>
+      <dd>
+        <a href="/forums/Delphi">Delphi</a>
+        <a href="/forums/VC">VC/MFC</a>
+        <a href="/forums/VB">VB</a>
+        <a href="/forums/Cpp">C/C++</a>
+        <a href="/forums/BCB">C++ Builder</a>
+        <a href="/forums/OtherLanguage">其他开发语言</a>
+      </dd>
+    </dl>
+    <dl>
+      <dt><a href="#">数据库开发</a></dt>
+      <dd>
+        <a href="/forums/MSSQL">MS-SQL Server</a>
+        <a href="/forums/Oracle">Oracle</a>
+        <a href="/forums/PowerBuilder">PowerBuilder</a>
+        <a href="/forums/Informatica">Informatica</a>
+        <a href="/forums/OtherDatabase">其他数据库开发</a>
+      </dd>
+    </dl>
+    <dl>
+      <dt><a href="/forums/Embedded">硬件/嵌入式开发</a></dt>
+      <dd>
+        <a href="/forums/WinCE">嵌入开发(WinCE)</a>
+        <a href="/forums/Embedded_driver">驱动开发/核心开发</a>
+        <a href="/forums/Embedded_hardware">硬件设计</a>
+        <a href="/forums/Embedded_SCM">单片机/工控</a>
+        <a href="/forums/ASM">汇编语言</a>
+        <a href="/forums/VxWorks">VxWorks开发</a>
+      </dd>
+    </dl>
+    <dl>
+      <dt><a href="/forums/Linux">Linux/Unix社区</a></dt>
+      <dd>
+        <a href="/forums/Linux_System">系统维护与使用区</a>
+        <a href="/forums/Linux_Development">应用程序开发区</a>
+        <a href="/forums/Linux_Kernel">内核源代码研究区</a>
+        <a href="/forums/Linux_Driver">驱动程序开发区</a>
+        <a href="/forums/Linux_Hardware">CPU和硬件区</a>
+      </dd>
+    </dl>
+  </div>
+</span>
+
+      <a href="/help" class="">论坛帮助</a>
+      <a href="/rank" class="">论坛牛人</a>
+      <a href="/map" class="">论坛地图</a>
+      <a href="/ask" class="">专家问答</a>
+    </div>
+  </div>
+</div>
+    <div class="wraper">
+        <!-- 页顶通栏 -->
+    <div id="Topic_Top">
+      <!--<style type="text/css">-->
+          <!--/*body,ul{width:960px;float:left;font-size:1px;margin:0;padding:0}*/-->
+          <!--/*ul li.l{float:left;}*/-->
+          <!--/*ul li.r{float:right;}*/-->
+          <!--/*li{list-style: none;}*/-->
+      <!--</style>-->
+      <!--<body>-->
+      <ul id="topic-detail-ad-ul">
+        <li class="l" id="topic-detail-ad-l">
+          <ins data-revive-zoneid="53" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+        </li>
+        <li class="r" id="topic-detail-ad-r">
+          <ins data-revive-zoneid="54" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+        </li>
+      </ul>
+      <!--</body>-->
+    </div>
+
+      <!--[if IE]>
+<style type="text/css" media="screen">
+  .control_area .control .drop_menu{border:3px solid #ccc \9; _*border:3px solid #ccc;}
+</style>
+<![endif]-->
+
+<!-- 页顶Button (D3) -->
+<div marginwidth="0" marginheight="0" scrolling="no" width="100%">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <style>
+      body {margin:0px;padding:0px;}
+      .bbs_top_ad{clear:both; text-align:left; display:block; *display:inline-block; width:940px; margin:2px 0; padding:2px 9px; border:solid 1px #a9cbee; /* -moz-border-radius:8px; background:#d8d8d8; */ color:#000; list-style:none; font-size:12px; line-height:20px;}
+      .bbs_top_ad:after{content:"."; display:block; height:0; clear:both; visibility:hidden;}
+      .bbs_top_ad a{color:#666; text-decoration:none;}
+      .bbs_top_ad a:hover{text-decoration:underline;}
+      .bbs_top_ad *{margin:0; padding:0; list-style:none;}
+      .bbs_top_ad h3{width:330px; max-width:330px; height:20px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; font-size:14px; line-height:20px;}
+      .bbs_top_ad h3:after{content:"...";}
+      .bbs_top_ad h3 a{color:#000;}
+      .bbs_top_ad .area_1 li,
+      .bbs_top_ad .area_2 li{padding:0 0 0 9px; background:url(http://c.csdnimg.cn/www/images/point_1.gif) no-repeat left 8px; width:340px; height:20px; overflow:hidden; display:inline-block;}
+      .bbs_top_ad .area_1{float:left; width:350px; overflow:hidden; margin:0 10px 0 0; padding:4px 0; /*background:#f8f8f8;*/}
+      .bbs_top_ad .area_2{position:relative; float:left; width:350px; overflow:hidden; margin:0 20px 0 0; padding:4px 0; /*background:#f8f8f8;*/}
+      .bbs_top_ad .area_2 ul{height:80px; overflow:hidden;}
+      .area_1 ul {height:40px; overflow:hidden;}
+      #scrollDiv li { display:inherit; width:200px; }
+      #scrollDiv2 li { background:url(http://c.csdnimg.cn/www/images/point_pin.gif) no-repeat left 4px; }
+      .bbs_top_ad #btn1{float:left; width:15px; height:15px; border:none; background:#5d5d5d; color:#fff; font-size:12px; line-height:15px; cursor:pointer;}
+      .bbs_top_ad #btn2{float:left; margin-left:10px; width:15px; height:15px; border:none; background:#5d5d5d; color:#fff; font-size:12px; line-height:15px; cursor:pointer;}
+      .bbs_top_ad .area_3{float:left; width:210px; overflow:hidden; padding:4px 0 0 0;}
+      .bbs_top_ad .area_3 a{color:#000;}
+      .bbs_top_ad .area_3 dt{margin-bottom: 5px;}
+      .bbs_top_ad .area_3 dd{width:193px; height:20px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; padding:0 0 0 17px; background:url(http://c.csdnimg.cn/www/images/point_huo.gif) no-repeat left 3px;}
+      /* .bbs_top_ad .area_3 dd:after{content:"...";}*/
+      .bbs_top_ad .area_1 h3 li,.bbs_top_ad .area_2 h3 li { list-style:none; background:none; padding:0;}
+  </style>
+  <script type="text/javascript" src="http://ag.csdn.net/js/jquery.scroll.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $("#scrollDiv").Scroll({ line: 4, speed: 1, timer: 6000, left: "btn1", right: "btn2" });
+          $("#scrollDiv2").Scroll({ line: 8, speed: 1, timer: 6000 });
+          jQuery.noConflict();
+      });
+  </script>
+</head>
+
+<body>
+<div class="bbs_top_ad">
+  <div class="area_1">
+    <h3>
+      <script type="text/javascript" src="http://ag.csdn.net/common/jobsget.ashx?rssurl=http://temp.csdn.net/Feed.aspx?Column=5001c99f-c2c9-4db6-b263-0c2c1c30f64b&count=1"></script>
+    </h3>
+    <ul>
+      <script type="text/javascript" src="http://ag.csdn.net/common/jobsget.ashx?rssurl=http://temp.csdn.net/Feed.aspx?Column=df5147d1-1fb4-434c-be66-2293268d8920&count=2"></script>
+    </ul>
+    <div style="float:left;width:260px;">
+      <div id="scrollDiv1">
+        <script type="text/javascript" src="http://ag.csdn.net/common/ArticleGet.ashx"></script>
+      </div>
+    </div><div style="float:left;padding-top:22px;">
+    <button id="btn1">&lt;&lt;</button>
+    <button id="btn2">&gt;&gt;</button></div>
+  </div>
+  <div class="area_2">
+    <h3>
+      <script type="text/javascript" src="http://ag.csdn.net/common/getcmsad.ashx?column=1463c0fb-6332-4732-aa50-cc4c0668a14e&count=1"></script>
+    </h3>
+    <div id="scrollDiv" class="scrollDiv">
+      <ul>
+        <!--<script type="text/javascript">-->
+        <!--var url = encodeURIComponent(location.href);-->
+        <!--var id = 3;-->
+        <!--function ad_two_callback(ad_result){-->
+        <!--$('#scrollDiv2 ul').append(ad_result);-->
+        <!--};-->
+        <!--document.write(unescape('%3Cscript%20src%3D%22http%3A//a.pongo.cn/Job/GetAdForCallBack%3Fid%3D'+id+'%26UrlAdParam%3D'+encodeURIComponent(url)+'%26CallBack%3D'+ 'ad_two_callback' +'%22%20type%3D%22text/javascript%22%3E%3C/script%3E')); -->
+        <!--</script>-->
+        <script type="text/javascript" src="http://ag.csdn.net/common/getcmsad.ashx?column=69f12a65-956a-4647-b352-642016a4d64d&count=1"></script>
+      </ul>
+    </div>
+  </div>
+  <div class="area_3">
+    <dl>
+      <dt>
+        <script type="text/javascript" ads-src="http://csdnim.qtmojo.com/main/s?user=csdn|bbs|topics_button2&db=csdnim&border=0&local=yes&js=ie" src=" http://creatim.qtmojo.cn/td/AllyesDeliver.min.js" charset="gbk"></script>
+      </dt>
+
+    </dl>
+  </div>
+</div>
+</body>
+</div>
+<!--<iframe id="frm_tt1" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" width="100%" src="/sda/TopicBodyTop.htm?v=1"></iframe>-->
+<script type="text/javascript">
+//  setTimeout(function () { document.getElementById("frm_tt1").src = "/sda/TopicBodyTop.htm?v="+new Date().getTime(); }, 5000);
+
+  $(function(){
+      //获取要定位元素距离浏览器顶部的距离
+      $ = jQuery;
+      var navH = $(".detail_title_fixed").offset().top;
+      $(".detail_title_fixed").hide();
+
+      var show_detail_title_fixed = true;
+      //滚动条事件
+      $(window).scroll(function(){
+
+          //获取滚动条的滑动距离
+          var scroH = $(this).scrollTop();
+
+          //滚动条的滑动距离大于等于定位元素距离浏览器顶部的距离，就固定，反之就不固定
+          if(show_detail_title_fixed){
+              if(scroH>=navH){
+                  $(".detail_title_fixed").css({"position":"fixed","top":"0","border":"1px #198cc5 solid","z-index":"99999"});
+                  $(".detail_title_fixed").show();
+              }else if(scroH<navH){
+                  $(".detail_title_fixed").css({"position":"static"});
+                  $(".detail_title_fixed").hide();
+              }
+          }
+      });
+
+      $("#close_detail_title_fixed").click(function(){
+          show_detail_title_fixed = false;
+          $(".detail_title_fixed").hide();
+      });
+
+      $("#com-back-home").click(function(){
+        window.location.href="/";
+      });
+
+      $("#com-back-channel").click(function(){
+          window.location.href="/forums/Oracle_Technology";
+      });
+  })
+</script>
+
+<div class="bread_nav">
+  <a href="http://www.csdn.net" target="_blank">CSDN</a> <em>&gt;</em>
+  <a href="/" target="_blank">CSDN论坛</a> <em>&gt;</em>
+    <a href="/forums/Oracle" target="_blank">Oracle</a> <em>&gt;</em>
+  <a href="/forums/Oracle_Technology" target="_blank">高级技术</a>
+</div>
+
+<div class="flash_messages">
+</div>
+
+<div class="control_area top">
+  <form name="form" id="form">
+    
+    <span class='back_to_forum_list'><a href="/forums/Oracle_Technology">返回列表</a></span>
+    <div class="control">
+      <ul>
+        <li class="drop_menu_wrap drop_menu_down">
+          <a href="#" class="drop_toggle btn_1 " rel='nofollow'>
+            <span>
+              <img src="/assets/ico_set.gif" alt="" />管理菜单<img src="/assets/arrow_down.gif" alt="" />
+            </span>
+          </a>
+          <ul class="drop_menu" style="display: none; top:26px;">
+              <li><a href="/topics/350143397/top" class="fancybox" rel="nofollow">置顶</a></li>
+
+  <li><a href="/topics/350143397/recommend" data-confirm="您确定要推荐该帖吗？帖子被推荐后将奖励发帖用 户88个可用分和3个C币!" data-method="put" rel="nofollow">推荐</a></li>
+
+  <li><a href="/topics/350143397/lock" class="fancybox" rel="nofollow">锁定</a></li>
+
+<li><a href="/topics/350143397/move" class="fancybox" rel="nofollow">移动</a></li>
+<li><a href="/topics/350143397/edit" class="fancybox" rel="nofollow">编辑</a></li>
+<li><a href="/topics/350143397/destroy_edit" class="fancybox" rel="nofollow">删除</a></li>
+<li><a href="/topics/350143397/add_point" class="fancybox" rel="nofollow">帖子加分</a></li>
+  <li><a href="/topics/350143397/highlight" class="fancybox" rel="nofollow">帖子高亮</a></li>
+
+          </ul>
+        </li>
+        <li>
+          <a href="/topics/350143397/close" class="btn_1 close_topic" rel='nofollow'>
+            <span><img src="/assets/ico_over.gif" alt="" />结帖</span>
+          </a>
+        </li>
+        <li>
+          <a href="/topics/new?forum_id=Oracle_Technology" class="btn_1 create_topic" rel='nofollow'>
+            <span><img src="/assets/ico_publish.gif" alt="" />发帖</span>
+          </a>
+        </li>
+        <li>
+          <a href="#new_post" class="btn_1 reply_topic" rel='nofollow'>
+            <span><img src="/assets/ico_return.gif" alt="" />回复</span>
+          </a>
+        </li>
+          <li>
+            <a href="/topics/350143397/attetion" class="btn_1 reply_topic" rel='nofollow'>
+              <span><img src="/assets/ico_attention_topic.png" title="关注" />关注</span>
+            </a>
+          </li>
+      </ul>
+    </div>
+  </form>
+</div>
+
+<div class="h-entry">
+  <a class="p-author" href="#">yanbin_ben</a>
+</div>
+
+
+<div class="detail_tbox">
+    <div class="detail_title_fixed">
+      <h1>
+            <span class="title text_overflow">关于Oracle系统视图dba_tables字段num_rows值与实际表记录不一致的疑问</span>
+        <span>
+          [问题点数：20分，结帖人wildwave]
+        </span>
+      </h1>
+
+      <div class="fixed-r">
+        <a href="#new_post" class="bbs-btn-blue26">快速回复</a>
+            <a href="/topics/350143397?list=lz" class="bbs-btn-blue26">只显示楼主</a>
+            <a href="/topics/350143397/attetion" class="bbs-btn-blue26">关注帖子</a>
+        <a href="javascript:void(0);" id="close_detail_title_fixed" class="bbs-btn-close"> </a>
+      </div>
+    </div>
+    <div class="detail_title">
+      <h1>
+          <span class="title text_overflow">关于Oracle系统视图dba_tables字段num_rows值与实际表记录不一致的疑问</span>
+        <span>
+          [问题点数：20分，结帖人wildwave]
+        </span>
+      </h1>
+      <div class="fr">
+        <select name="filter_posts">
+          <option value="default">不显示删除回复</option>
+          <option value="all">显示所有回复</option>
+          <option value="star">显示星级回复</option>
+          <option value="pointed">显示得分回复</option>
+          <option value="lz">只显示楼主</option>
+        </select>
+        <a href="http://my.csdn.net/my/favorite/miniadd?u=http://bbs.csdn.net/topics/350143397&amp;t=%E5%85%B3%E4%BA%8EOracle%E7%B3%BB%E7%BB%9F%E8%A7%86%E5%9B%BEdba_tables%E5%AD%97%E6%AE%B5num_rows%E5%80%BC%E4%B8%8E%E5%AE%9E%E9%99%85%E8%A1%A8%E8%AE%B0%E5%BD%95%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E7%96%91%E9%97%AE" id="fav" class="fav" rel='nofollow'><img src="/assets/nolines_plus.gif" alt="" />收藏</a>
+      </div>
+    </div>
+</div>
+<div class="detailed">
+    
+
+<table border="0" cellspacing="0" cellpadding="0" id="post-350143397"
+  class="post topic "
+  data-post-id="350143397" data-is-topic-locked="false">
+  <colgroup><col width="180" /><col /></colgroup>
+  <tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="yanbin_ben">
+            <a href="http://my.csdn.net/yanbin_ben" rel="nofollow" target="_blank"><img alt="yanbin_ben" class="avatar" src="http://avatar.csdn.net/F/A/C/1_yanbin_ben.jpg" /></a>
+          </dt>
+
+            <dd id="15274662_bbs-btn-close-attention" class="bbs-user-att" style="display:none;">
+              <a href="/users/15274662/cancel_attention" class="bbs-btn-blue25 bbs-btn-close-attention" data-method="get" data-remote="true">取消关注</a>
+            </dd>
+            <dd id="15274662_bbs-btn-attention" class="bbs-user-att">
+              <a href="/users/15274662/attention" class="bbs-btn-blue25 bbs-btn-attention" data-method="get" data-remote="true">关注</a>
+            </dd>
+
+          <dd class="username">
+            <a href="http://my.csdn.net/yanbin_ben" rel="nofollow" target="_blank" title="yanbin_ben">yanbin_ben</a>
+            
+          </dd>
+          <dd class="nickname">
+            <span class="name2nick">yanbin_ben</span>
+          </dd>
+
+          <dd>
+            本版等级：<img alt="T1" class="topic_show_user_level" src="http://c.csdnimg.cn/jifen/images/xunzhang/t/t1.png" />
+            <div class="topic_show_posts">
+              <div class="smallTittle">
+                <div class="JianJiao" style="left: 40%; top: -8px; position: absolute; width: 0; height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent; border-bottom: 8px solid #ffffff;" ></div>
+                本版专家分：0
+              </div>
+            </div>
+          </dd>
+
+          <dd class="close_rate" title="用户结帖率：50%
+总发帖：2
+正常结帖：1
+未结帖：1">结帖率：50%</dd>
+
+          <dd class="showTittleDD">
+
+          </dd>
+
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info topic pointed" data-username="yanbin_ben" data-floor="">
+                <div class="data">
+            <strong class="fr">
+              楼主
+            </strong>
+          <span class="time">
+              发表于：
+            2010-11-04 22:24:14
+          </span>
+        </div>
+        <div class="post_body">
+
+              <div class="tag">
+              </div>
+
+            <br />
+问题：<br />
+<br />
+首先，通过SQL语句查询表的行数：<br />
+SQL&gt;&nbsp;select&nbsp;owner,&nbsp;table_name,tablespace_name,&nbsp;num_rows,table_lock&nbsp;from&nbsp;dba_tables&nbsp;where&nbsp;table_name='OBJ$';<br />
+&nbsp;<br />
+OWNER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLESPACE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NUM_ROWS&nbsp;TABLE_LOCK<br />
+------------------------------&nbsp;------------------------------&nbsp;------------------------------&nbsp;----------&nbsp;----------<br />
+SYS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBJ$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SYSTEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENABLED<br />
+<br />
+发现NUM_ROWS没有值；<br />
+<br />
+然后，&nbsp;直接查询表OBJ$<br />
+SQL&gt;&nbsp;select&nbsp;OWNER#&nbsp;from&nbsp;OBJ$;<br />
+&nbsp;<br />
+&nbsp;&nbsp;&nbsp;&nbsp;OWNER#<br />
+----------<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0<br />
+<br />
+发现存在记录。<br />
+<br />
+请社区对Oracle比较熟的朋友帮忙解释，&nbsp;谢谢。
+
+              <div id='topic-extra-info'>
+                <div class='social-share' >
+  <!-- Baidu Button BEGIN -->
+  <span id="bdshare" class="bdshare_t bds_tools get-codes-bdshare">
+    <a class="bds_tsina"></a>
+    <a class="bds_tqq"></a>
+    <span class="bds_more">更多</span>
+    <a class="shareCount"></a>
+  </span>
+  <span class='prompt'>分享到：</span>
+  <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=3329407" ></script>
+  <script type="text/javascript" id="bdshell_js"></script>
+  <script type="text/javascript">
+    var bds_config = {
+      "snsKey": { 
+        'tsina': '3657746030',
+        'tqq': '801356742',
+      }
+    };
+
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+  </script>
+  <!-- Baidu Button END -->
+</div>
+
+              </div>
+
+              <!-- 主帖下Banner (D4) -->
+              <!-- 主帖下文字 (D5) -->
+                  <div marginwidth="0" marginheight="0" scrolling="no" width="100%">
+                    <style type="text/css">
+    /***Business text AD***/
+    /*body {margin:0; padding: 0;font:normal 12px simsun; }*/
+    .adtxt{text-align:center;}
+    .adtxt ul{margin:5px 0;border-top:1px solid #B9B9B9;border-bottom:1px solid #B9B9B9;background-color:#F2F6FB;padding:5px 0;}
+    .adtxt ul li{display: inline-block;font-size:12px;}
+    .adtxt ul li a{color:#333;}
+    /*a{color: #002D93;text-decoration:none;}*/
+    /*a:visited{color: #B00;text-decoration:none;}*/
+    /*a:hover{color: #B00; text-decoration: underline;}*/
+</style>
+
+<body>
+<div id="bd_ad_2" style="margin:0; padding-bottom:5px; display:block; text-align: center">
+  <ins data-revive-zoneid="58" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+</div>
+<div class="adtxt">
+  <ul>
+    <li>
+      <ins data-revive-zoneid="59" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    </li>
+    <li>
+      <ins data-revive-zoneid="60" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    </li>
+    <li>
+      <ins data-revive-zoneid="61" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    </li>
+  </ul>
+</div>
+</body>
+                  </div>
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+          <div class="control">
+  <div class="fr">
+      <a href="/posts/350143397/digg?topic_id=350143397" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+      <a href="/posts/350143397/bury?topic_id=350143397" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+      <a href="#quote" class="quote" rel='nofollow'>引用</a> |
+      <a href="/posts/350143397/report?topic_id=350143397" class="fancybox red report_spam" rel="nofollow">举报 </a> |
+    <span class="manage-toggle">
+      <div class="manage" style="display: none;">
+          <a href="/topics/350143397/edit" class="fancybox" rel="nofollow">编辑</a>
+          <a href="/topics/350143397/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+      </div>
+      管理
+    </span>
+  </div>
+    <span class="return_time">回复次数：4</span>
+</div>
+
+
+      </td>
+  </tr>
+</table>
+
+
+    <div id="topic-suggest">
+        <div id="real_topic">
+          <div class="related-tags" id="suggest_tags">
+</div>
+          <div class="related-topics tracking-ad" data-pid="bbs" data-mod="popu_18"  id="suggest_topics">
+</div>
+          <div class="related-topics" data-pid="bbs" data-mod="popu_84" id="suggest_course">
+</div>
+        </div>
+        <!--<div id="job_bbs_reco">-->
+          <!--<script src="http://c.csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script>-->
+        <!--</div>-->
+</div>
+    <script>
+        var topic_suggest = $('#topic-suggest');
+        $('#topic-extra-info').append(topic_suggest);
+      </script>
+
+
+  
+
+<table border="0" cellspacing="0" cellpadding="0" id="post-382780691"
+  class="post  "
+  data-post-id="382780691" data-is-topic-locked="false">
+  <colgroup><col width="180" /><col /></colgroup>
+  <tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="wu_xiang_ni">
+            <a href="http://my.csdn.net/wu_xiang_ni" rel="nofollow" target="_blank"><img alt="wu_xiang_ni" class="avatar" src="http://avatar.csdn.net/D/C/9/1_wu_xiang_ni.jpg" /></a>
+          </dt>
+
+            <dd id="9748528_bbs-btn-close-attention" class="bbs-user-att" style="display:none;">
+              <a href="/users/9748528/cancel_attention" class="bbs-btn-blue25 bbs-btn-close-attention" data-method="get" data-remote="true">取消关注</a>
+            </dd>
+            <dd id="9748528_bbs-btn-attention" class="bbs-user-att">
+              <a href="/users/9748528/attention" class="bbs-btn-blue25 bbs-btn-attention" data-method="get" data-remote="true">关注</a>
+            </dd>
+
+          <dd class="username">
+            <a href="http://my.csdn.net/wu_xiang_ni" rel="nofollow" target="_blank" title="wu_xiang_ni">wu_xiang_ni</a>
+            
+          </dd>
+          <dd class="nickname">
+            <span class="name2nick">wu_xiang_ni</span>
+          </dd>
+
+          <dd>
+            本版等级：<img alt="T1" class="topic_show_user_level" src="http://c.csdnimg.cn/jifen/images/xunzhang/t/t1.png" />
+            <div class="topic_show_posts">
+              <div class="smallTittle">
+                <div class="JianJiao" style="left: 40%; top: -8px; position: absolute; width: 0; height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent; border-bottom: 8px solid #ffffff;" ></div>
+                本版专家分：0
+              </div>
+            </div>
+          </dd>
+
+          <dd class="close_rate" title="用户结帖率：0%
+总发帖：0
+正常结帖：0
+未结帖：0">结帖率：0%</dd>
+
+          <dd class="showTittleDD">
+
+          </dd>
+
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="wu_xiang_ni" data-floor="1">
+                <div class="data">
+            <span class="fr">
+              <a href="#post-382780691">#1</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-02-09 08:55:13
+          </span>
+        </div>
+        <div class="post_body">
+
+
+            analysize&nbsp;后才有值
+
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+          <div class="control">
+    <div id='post-forum-bulletin-1'  class='fl tracking-ad' data-mod='popu_9'>
+    </div>
+  <div class="fr">
+      <a href="/posts/382780691/digg?topic_id=350143397" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+      <a href="/posts/382780691/bury?topic_id=350143397" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+      <a href="#quote" class="quote" rel='nofollow'>引用</a> |
+      <a href="/posts/382780691/report?topic_id=350143397" class="fancybox red report_spam" rel="nofollow">举报 </a> |
+    <span class="manage-toggle">
+      <div class="manage" style="display: none;">
+          <a href="/posts/382780691/edit" class="fancybox" rel="nofollow">编辑</a>
+          <a href="/posts/382780691/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+      </div>
+      管理
+    </span>
+  </div>
+</div>
+
+
+      </td>
+  </tr>
+</table>
+
+
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" id="post-382781538"
+  class="post  "
+  data-post-id="382781538" data-is-topic-locked="false">
+  <colgroup><col width="180" /><col /></colgroup>
+  <tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="minitoy">
+            <a href="http://my.csdn.net/minitoy" rel="nofollow" target="_blank"><img alt="minitoy" class="avatar" src="http://avatar.csdn.net/E/D/7/1_minitoy.jpg" /></a>
+          </dt>
+
+            <dd id="1046048_bbs-btn-close-attention" class="bbs-user-att" style="display:none;">
+              <a href="/users/1046048/cancel_attention" class="bbs-btn-blue25 bbs-btn-close-attention" data-method="get" data-remote="true">取消关注</a>
+            </dd>
+            <dd id="1046048_bbs-btn-attention" class="bbs-user-att">
+              <a href="/users/1046048/attention" class="bbs-btn-blue25 bbs-btn-attention" data-method="get" data-remote="true">关注</a>
+            </dd>
+
+          <dd class="username">
+            <a href="http://my.csdn.net/minitoy" rel="nofollow" target="_blank" title="minitoy">minitoy</a>
+            
+          </dd>
+          <dd class="nickname">
+            <span class="name2nick">minitoy</span>
+          </dd>
+
+          <dd>
+            本版等级：<img alt="T7" class="topic_show_user_level" src="http://c.csdnimg.cn/jifen/images/xunzhang/t/t7.png" />
+            <div class="topic_show_posts">
+              <div class="smallTittle">
+                <div class="JianJiao" style="left: 40%; top: -8px; position: absolute; width: 0; height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent; border-bottom: 8px solid #ffffff;" ></div>
+                本版专家分：24506
+              </div>
+            </div>
+          </dd>
+
+          <dd class="close_rate" title="用户结帖率：95.45%
+总发帖：22
+正常结帖：21
+未结帖：1">结帖率：95.45%</dd>
+
+          <dd class="showTittleDD">
+                <span>
+                   <img  src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/honghua.png" alt="Blank"  class="xunZhang" >
+                   <div class="showTittle">
+                     <div style="left: 18%; top: -8px; position: absolute; width: 0; height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent; border-bottom: 8px solid #ffffff;"></div>
+                     <dl>
+                       <dt><img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/honghuamiddle.png"></dt>
+                       <dd>
+                         <strong>红花</strong>
+                         2010年9月 Oracle大版内专家分月排行榜第一<br/>2010年8月 Oracle大版内专家分月排行榜第一
+                       </dd>
+                     </dl>
+                   </div>
+                </span>
+                <span>
+                   <img  src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/huanghua.png" alt="Blank"  class="xunZhang" >
+                   <div class="showTittle">
+                     <div style="left: 18%; top: -8px; position: absolute; width: 0; height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent; border-bottom: 8px solid #ffffff;"></div>
+                     <dl>
+                       <dt><img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/huanghuamiddle.png"></dt>
+                       <dd>
+                         <strong>黄花</strong>
+                         2011年3月 Oracle大版内专家分月排行榜第二<br/>2011年2月 Oracle大版内专家分月排行榜第二
+                       </dd>
+                     </dl>
+                   </div>
+                </span>
+                <span>
+                   <img  src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/lanhua.png" alt="Blank"  class="xunZhang" >
+                   <div class="showTittle">
+                     <div style="left: 18%; top: -8px; position: absolute; width: 0; height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent; border-bottom: 8px solid #ffffff;"></div>
+                     <dl>
+                       <dt><img src="http://c.csdnimg.cn/jifen/images/xunzhang/xunzhang/lanhuamiddle.png"></dt>
+                       <dd>
+                         <strong>蓝花</strong>
+                         2010年10月 Oracle大版内专家分月排行榜第三
+                       </dd>
+                     </dl>
+                   </div>
+                </span>
+
+          </dd>
+
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info star" data-username="minitoy" data-floor="2">
+                <div class="data">
+            <span class="fr">
+              <a href="#post-382781538">#2</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-02-09 09:42:39
+          </span>
+        </div>
+        <div class="post_body">
+
+
+            不一致是正常的。这个不是实时更新的。只是你上次analyze时的值。
+
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+          <div class="control">
+    <div id='post-forum-bulletin-2'  class='fl tracking-ad' data-mod='popu_9'>
+    </div>
+  <div class="fr">
+      <a href="/posts/382781538/digg?topic_id=350143397" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+      <a href="/posts/382781538/bury?topic_id=350143397" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+      <a href="#quote" class="quote" rel='nofollow'>引用</a> |
+      <a href="/posts/382781538/report?topic_id=350143397" class="fancybox red report_spam" rel="nofollow">举报 </a> |
+    <span class="manage-toggle">
+      <div class="manage" style="display: none;">
+          <a href="/posts/382781538/edit" class="fancybox" rel="nofollow">编辑</a>
+          <a href="/posts/382781538/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+      </div>
+      管理
+    </span>
+  </div>
+</div>
+
+
+      </td>
+  </tr>
+</table>
+
+
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" id="post-382781635"
+  class="post  "
+  data-post-id="382781635" data-is-topic-locked="false">
+  <colgroup><col width="180" /><col /></colgroup>
+  <tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="TorresDrogba">
+            <a href="http://my.csdn.net/TorresDrogba" rel="nofollow" target="_blank"><img alt="TorresDrogba" class="avatar" src="http://avatar.csdn.net/E/E/8/1_torresdrogba.jpg" /></a>
+          </dt>
+
+            <dd id="16689210_bbs-btn-close-attention" class="bbs-user-att" style="display:none;">
+              <a href="/users/16689210/cancel_attention" class="bbs-btn-blue25 bbs-btn-close-attention" data-method="get" data-remote="true">取消关注</a>
+            </dd>
+            <dd id="16689210_bbs-btn-attention" class="bbs-user-att">
+              <a href="/users/16689210/attention" class="bbs-btn-blue25 bbs-btn-attention" data-method="get" data-remote="true">关注</a>
+            </dd>
+
+          <dd class="username">
+            <a href="http://my.csdn.net/TorresDrogba" rel="nofollow" target="_blank" title="TorresDrogba">TorresDrogba</a>
+            
+          </dd>
+          <dd class="nickname">
+            <span class="name2nick">TorresDrogba</span>
+          </dd>
+
+          <dd>
+            本版等级：<img alt="T2" class="topic_show_user_level" src="http://c.csdnimg.cn/jifen/images/xunzhang/t/t2.png" />
+            <div class="topic_show_posts">
+              <div class="smallTittle">
+                <div class="JianJiao" style="left: 40%; top: -8px; position: absolute; width: 0; height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent; border-bottom: 8px solid #ffffff;" ></div>
+                本版专家分：154
+              </div>
+            </div>
+          </dd>
+
+          <dd class="close_rate" title="用户结帖率：100%
+总发帖：14
+正常结帖：14
+未结帖：0">结帖率：100%</dd>
+
+          <dd class="showTittleDD">
+
+          </dd>
+
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="TorresDrogba" data-floor="3">
+                <div class="data">
+            <span class="fr">
+              <a href="#post-382781635">#3</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-02-09 09:47:46
+          </span>
+        </div>
+        <div class="post_body">
+
+
+            二楼正解，oracle&nbsp;没有搜集表的统计信息<br />
+用dbms_stats.gather_table_stats();<br />
+oracle&nbsp;sql语句的执行计划就是根据这个统计信息来指定的，若是没有，oracle采用动态采样技术来选择基于CBO优化器的最小代价的执行计划
+
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+          <div class="control">
+    <div id='post-forum-bulletin-3'  class='fl tracking-ad' data-mod='popu_9'>
+    </div>
+  <div class="fr">
+      <a href="/posts/382781635/digg?topic_id=350143397" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+      <a href="/posts/382781635/bury?topic_id=350143397" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+      <a href="#quote" class="quote" rel='nofollow'>引用</a> |
+      <a href="/posts/382781635/report?topic_id=350143397" class="fancybox red report_spam" rel="nofollow">举报 </a> |
+    <span class="manage-toggle">
+      <div class="manage" style="display: none;">
+          <a href="/posts/382781635/edit" class="fancybox" rel="nofollow">编辑</a>
+          <a href="/posts/382781635/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+      </div>
+      管理
+    </span>
+  </div>
+</div>
+
+
+      </td>
+  </tr>
+</table>
+
+
+
+
+
+<table border="0" cellspacing="0" cellpadding="0" id="post-390486156"
+  class="post  "
+  data-post-id="390486156" data-is-topic-locked="false">
+  <colgroup><col width="180" /><col /></colgroup>
+  <tr>
+      <td rowspan="2" valign="top" class="wirter">
+                <dl class="user_info ">
+          <dt class="user_head" data-username="20804036">
+            <a href="http://my.csdn.net/20804036" rel="nofollow" target="_blank"><img alt="20804036" class="avatar" src="http://avatar.csdn.net/D/6/9/1_20804036.jpg" /></a>
+          </dt>
+
+            <dd id="295193_bbs-btn-close-attention" class="bbs-user-att" style="display:none;">
+              <a href="/users/295193/cancel_attention" class="bbs-btn-blue25 bbs-btn-close-attention" data-method="get" data-remote="true">取消关注</a>
+            </dd>
+            <dd id="295193_bbs-btn-attention" class="bbs-user-att">
+              <a href="/users/295193/attention" class="bbs-btn-blue25 bbs-btn-attention" data-method="get" data-remote="true">关注</a>
+            </dd>
+
+          <dd class="username">
+            <a href="http://my.csdn.net/20804036" rel="nofollow" target="_blank" title="20804036">20804036</a>
+            
+          </dd>
+          <dd class="nickname">
+            <span class="name2nick">20804036</span>
+          </dd>
+
+          <dd>
+            本版等级：<img alt="T2" class="topic_show_user_level" src="http://c.csdnimg.cn/jifen/images/xunzhang/t/t2.png" />
+            <div class="topic_show_posts">
+              <div class="smallTittle">
+                <div class="JianJiao" style="left: 40%; top: -8px; position: absolute; width: 0; height: 0;border-left: 10px solid transparent;border-right: 10px solid transparent; border-bottom: 8px solid #ffffff;" ></div>
+                本版专家分：112
+              </div>
+            </div>
+          </dd>
+
+          <dd class="close_rate" title="用户结帖率：96.55%
+总发帖：29
+正常结帖：28
+未结帖：1">结帖率：96.55%</dd>
+
+          <dd class="showTittleDD">
+
+          </dd>
+
+        </dl>
+
+      </td>
+      <td valign="top" class="post_info " data-username="20804036" data-floor="4">
+                <div class="data">
+            <span class="fr">
+              <a href="#post-390486156">#4</a>
+              得分：0
+            </span>
+          <span class="time">
+              回复于：
+            2012-03-01 20:27:18
+          </span>
+        </div>
+        <div class="post_body">
+
+
+            num_rows字段的值是在最后一次收集统计信息之后更新的。<br />
+如果是频繁变化（批量变化）的表，这个字段的值极为不准确。<br />
+如果数据量变化不频繁，这个字段的值也只是个大概数。
+
+        </div>
+
+      </td>
+    </tr>
+    <tr>
+      <td valign="bottom">
+          <div class="control">
+    <div id='post-forum-bulletin-4'  class='fl tracking-ad' data-mod='popu_9'>
+    </div>
+  <div class="fr">
+      <a href="/posts/390486156/digg?topic_id=350143397" class="red digg" data-method="put" data-remote="true" rel="nofollow">对我有用[0]</a>
+      <a href="/posts/390486156/bury?topic_id=350143397" class="bury" data-method="put" data-remote="true" rel="nofollow">丢个板砖[0]</a>
+      <a href="#quote" class="quote" rel='nofollow'>引用</a> |
+      <a href="/posts/390486156/report?topic_id=350143397" class="fancybox red report_spam" rel="nofollow">举报 </a> |
+    <span class="manage-toggle">
+      <div class="manage" style="display: none;">
+          <a href="/posts/390486156/edit" class="fancybox" rel="nofollow">编辑</a>
+          <a href="/posts/390486156/destroy_edit" class="fancybox" rel="nofollow">删除</a>
+      </div>
+      管理
+    </span>
+  </div>
+</div>
+
+
+      </td>
+  </tr>
+</table>
+
+
+
+
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(function(){
+        topics_page_js.show_page();
+    });
+</script>
+
+<input type="hidden" id="autosave_post_val" value="" />
+<input type="hidden" id="autosave_old_post_val"  />
+<!-- <div class='around&#45;topics'> -->
+<!--   <span class='preview'> -->
+<!--      -->
+<!--   </span> -->
+<!--   | -->
+<!--   <span class='next'> -->
+<!--      -->
+<!--   </span> -->
+<!-- </div> -->
+
+<div class="control_area bottom">
+  <form name="form" id="form">
+    
+    <span class='back_to_forum_list'><a href="/forums/Oracle_Technology">返回列表</a></span>
+    <div class="control">
+      <ul>
+        <li class="drop_menu_wrap drop_menu_up">
+          <a href="#" class="drop_toggle btn_1 drop_toggle_up" rel='nofollow'>
+            <span>
+              <img src="/assets/ico_set.gif" alt="" />管理菜单<img src="/assets/arrow_down.gif" alt="" />
+            </span>
+          </a>
+          <ul class="drop_menu" style="display: none; bottom:26px">
+              <li><a href="/topics/350143397/top" class="fancybox" rel="nofollow">置顶</a></li>
+
+  <li><a href="/topics/350143397/recommend" data-confirm="您确定要推荐该帖吗？帖子被推荐后将奖励发帖用 户88个可用分和3个C币!" data-method="put" rel="nofollow">推荐</a></li>
+
+  <li><a href="/topics/350143397/lock" class="fancybox" rel="nofollow">锁定</a></li>
+
+<li><a href="/topics/350143397/move" class="fancybox" rel="nofollow">移动</a></li>
+<li><a href="/topics/350143397/edit" class="fancybox" rel="nofollow">编辑</a></li>
+<li><a href="/topics/350143397/destroy_edit" class="fancybox" rel="nofollow">删除</a></li>
+<li><a href="/topics/350143397/add_point" class="fancybox" rel="nofollow">帖子加分</a></li>
+  <li><a href="/topics/350143397/highlight" class="fancybox" rel="nofollow">帖子高亮</a></li>
+
+          </ul>
+        </li>
+        <li>
+          <a href="/topics/350143397/close" class="btn_1 close_topic" rel='nofollow'>
+            <span><img src="/assets/ico_over.gif" alt="" />结帖</span>
+          </a>
+        </li>
+        <li>
+          <a href="/topics/new?forum_id=Oracle_Technology" class="btn_1 create_topic" rel='nofollow'>
+            <span><img src="/assets/ico_publish.gif" alt="" />发帖</span>
+          </a>
+        </li>
+        <li>
+          <a href="#new_post" class="btn_1 reply_topic" rel='nofollow'>
+            <span><img src="/assets/ico_return.gif" alt="" />回复</span>
+          </a>
+        </li>
+          <li>
+            <a href="/topics/350143397/attetion" class="btn_1 reply_topic" rel='nofollow'>
+              <span><img src="/assets/ico_attention_topic.png" title="关注" />关注</span>
+            </a>
+          </li>
+      </ul>
+    </div>
+  </form>
+</div>
+<!--AdForward Begin:-->
+<ins data-revive-zoneid="62" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<!--AdForward End-->
+<div class="comt">
+  <div class="ad_l">
+    <!-- 回复框文字 (D6) -->
+    <div id="topic_buttom_left_ad">
+      <ins data-revive-zoneid="63" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    </div>
+    <ul class='tracking-ad' data-mod='popu_10'>
+        <li><a href="http://bbs.csdn.net/topics/391924570" class="title_style_red title_style_bold" target="_blank">【社区问答】构建分布式服务化系统</a></li>
+        <li><a href="http://lib.csdn.net/base/16/structure" class="title_style_red title_style_bold" target="_blank">知识库-大型网站架构</a></li>
+        <li><a href="http://bbs.csdn.net/topics/391909809" class="title_style_red title_style_bold" target="_blank">问答3月活动开始啦</a></li>
+        <li><a href="http://bbs.csdn.net/topics/391917610" class="title_style_red title_style_bold" target="_blank">2016年上半年热门下载资源</a></li>
+    </ul>
+    <div class="ad_new tracking-ad" style='padding: 0 0 50px 0' data-mod='popu_11'>
+      <h4><img alt="" src="http://c.csdnimg.cn/www/images/csdn_logo_blue.gif"></h4>
+      <p class='title'>
+      
+      </p>
+      <p class='con'>
+      
+      </p>
+    </div>
+  </div>
+  <div class="reply">
+      <h3>本帖子已过去太久远了，不再提供回复功能。</h3>
+  </div>
+</div>
+<script>
+  $(function(){
+    $('.refresh-captcha').on('click', function(e){
+      e.preventDefault();
+      $('.captcha').load('/captchas/new');
+    });
+  });
+  $(function(){
+      showsuggest('post_body');
+  });
+</script>
+
+
+
+<!-- 对联广告 -->
+<div id="ad_left" style="display:none">
+  <div>
+    <ins data-revive-zoneid="56" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<script type="text/javascript">  
+  $(function(){
+      if ($(parent.window).width() >= 1280) {
+          parent.$('#ad_left').show();
+      }
+  });
+</script>
+  </div>
+</div>
+<div id="ad_right" style="display:none">
+  <div>
+    <ins data-revive-zoneid="57" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<script type="text/javascript">    
+    $(function(){
+        if ($(parent.window).width() >= 1280) {
+            parent.$('#ad_right').show();
+        }
+    });
+</script>
+  </div>
+</div>
+
+<script>
+  $(function(){
+    window.onresize = function(){
+      if($(parent.window).width() <= 1280){
+        $('#ad_right').hide();
+        $('#ad_left').hide();
+      } else {
+          $('#ad_right').show();
+          $('#ad_left').show();
+      }
+    };
+      if ($(parent.window).width() >= 1280) {
+          $('#ad_right').show();
+          $('#ad_left').show();
+      }
+  });
+
+</script>
+
+
+<!-- 浮层弹窗广告 -->
+<!--AdForward Begin:-->
+<ins data-revive-zoneid="64" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<!--AdForward End-->
+
+<!-- go-backhome   go-backchannel-->
+<!-- <button id="com-back-home" class="btn btn-top bbs-btn-gray28 bbs-btn-backhome" title="回到首页" style="cursor: pointer; border: 0px none; bottom: 35px; width: 80px; height: 28px; margin: 0px; padding: 0px; position: fixed; right: 40px; display: block; padding-right:13px;">回到首页</button>
+<button id="com-back-channel" class="btn btn-top bbs-btn-gray28 bbs-btn-backchannel" title="回到频道" style="cursor: pointer; border: 0px none; bottom:68px; width: 80px; height: 28px; margin: 0px; padding: 0px; position: fixed; right: 40px; display: block; padding-right:13px;">回到频道</button> -->
+    </div>
+    <script type="text/javascript" language="javascript" charset="utf-8">
+window.bbsInfoflag = true;
+
+//<![CDATA[
+$(function(){
+  $('.post .post_body fieldset+br').remove();
+  $('.post .post_body blockquote').each(function(index, item) {
+    var first_child = $(item).find(':first');
+    if($(item).contents().get(0) !== undefined &&
+      $(item).contents().get(0).nodeName.toLowerCase() === 'br' &&
+      first_child.prop('tagName').toLowerCase() === 'br') {
+      first_child.remove();
+    }
+  });
+  
+});
+
+$(".showTittleDD span").hover(
+        function () {
+            $(this).find(".showTittle")[0].style.display="inline-block";
+        },
+        function () {
+                $(this).find(".showTittle")[0].style.display="none";
+        }
+);
+
+$(".topic_show_user_level").hover(
+    function () {
+    $(this).next().find(".smallTittle")[0].style.display="inline-block";
+
+
+    },
+    function () {
+        $(this).next().find(".smallTittle")[0].style.display="none";
+    }
+);
+//]]>
+var auto_save_time = null;
+$(document).ready(function(){
+    autosavecontent = $("#autosave_post_val").val();
+    if(autosavecontent != ''){$("#post_body").val(autosavecontent);}
+    auto_save_time = setInterval(autosave, 90*1000);
+});
+function autosave(){
+    var content =  $("#post_body").val();
+    var old_content = $("#autosave_old_post_val").val();
+    topic_id = 350143397
+    if(content != "" && content != old_content) {
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: '/posts/autosave_post',
+            data: {
+                content: content,
+                topic_id: topic_id
+            },
+            success: function (result) {
+                $("#autosave_old_post_val").val(content);
+            },
+            error: function (result) {
+              if(result.status == 403 && result.responseText == '需要登录'){
+                  clearInterval(auto_save_time);
+              }
+            }
+        })
+    }
+}
+
+$(function(){
+    // 课程推荐
+    $.ajax({
+        url: "http://internalapi.csdn.net/psearch/psearch/query",
+        type: "GET",
+        data: {_client_: "rcommend_course",
+                pro_id: "350143397",
+                pro_type: "discussion_topic",
+                fields: "created_at,tag,id,title,pic,stu_count,good_ratio,rc_flag,source_type",
+                size: 4,
+                user_id: "",
+                index_name: "pro_course_v2",
+                "x-acl-token": "wU4kru3sXrPwPGLhVloh9PV-n4YK"
+               },
+        dataType: 'JSONP',
+        success: function(result){
+            var res_arr = result['hits'];
+            var text = "";
+            if(res_arr.length > 0){
+                text = "<span>相关推荐：</span><ul>";
+                for(var key in res_arr){
+                    var id = res_arr[key]['object']['id'];
+                    var title = res_arr[key]['object']['title'];
+                    text += "<li><a href='http://edu.csdn.net/course/detail/" +  id + "'" + " target='_blank'>" + title + "</a></li>";
+                }
+                text += "</ul>";
+            }
+
+            $('#suggest_course').html(text);
+
+            var m = $("#suggest_course");
+
+            //控制新创基数据触发曝光开关
+            if(m.length>0){
+                m.each(function(i){
+                    console.log(i);
+                    trackingAd($(this));
+                });
+            }
+        }
+    });
+
+    // 标签推荐
+    $.ajax({
+        type: 'get',
+        url: 'http://internalapi.csdn.net/recommend/tag/suggest',
+        dataType: 'JSONP',
+        data: {title: "关于Oracle系统视图dba_tables字段num_rows值与实际表记录不一致的疑问",
+                body: "问题：首先，通过SQL语句查询表的...",
+                type: "csdn",
+                "x-acl-token": "b4PPTlauakrI2cRr1Tg3PzfykTMK"
+        },
+        success: function(data){
+            var text= "";
+            var es = [];
+            if(data.length > 0){
+                text += "<span>相关主题推荐：</span>";
+                for(var key in data){
+                    var name = data[key]['name'];
+                    es[key] = name;
+                    text += "<a href='http://www.csdn.net/tag/" +  name + "'" + " target='_blank'>" + name + "</a>";
+                }
+            }
+
+
+            $('#suggest_tags').html(text);
+
+            // 帖子推荐
+            if(es.length > 0){
+                $.ajax({
+                    url: "http://internalapi.csdn.net/tag/tag/search",
+                    size: 4,
+                    type: "GET",
+                    data: {
+                        types: "topic",
+                        tagNames: es.join(','),
+                        size: 4,
+                        "x-acl-token": "dDH/ijXIA58154g38-QLg8mnNAsK"
+                    },
+                    dataType: 'JSONP',
+                    success: function(result){
+                        var res_arr = result['result'];
+                        var text = "";
+                        if(res_arr.length > 0){
+                            text = "<span>相关推荐：</span><ul>";
+                            for(var key in res_arr){
+                                var id = res_arr[key]['id'];
+                                var title = res_arr[key]['title'];
+                                var url = res_arr[key]['url'];
+                                text += "<li><a href='" +  url + "'" + " target='_blank'>" + title + "</a></li>";
+                            }
+                            text += "</ul>";
+                        }
+
+                        $('#suggest_topics').html(text);
+                    }
+                });     
+            }
+
+        }
+    });
+
+});
+
+$(function(){
+    // 课程推荐
+    $.ajax({
+        url: "http://internalapi.csdn.net/psearch/psearch/query",
+        type: "GET",
+        data: {_client_: "rcommend_course",
+                pro_id: "350143397",
+                pro_type: "discussion_topic",
+                fields: "created_at,tag,id,title,pic,stu_count,good_ratio,rc_flag,source_type",
+                size: 4,
+                user_id: "",
+                index_name: "pro_course_v2",
+                "x-acl-token": "wU4kru3sXrPwPGLhVloh9PV-n4YK"
+               },
+        dataType: 'JSONP',
+        success: function(result){
+            var res_arr = result['hits'];
+            var text = "";
+            if(res_arr.length > 0){
+                text += "<span>相关课程推荐：</span><ul>";
+                for(var key in res_arr){
+                    var id = res_arr[key]['object']['id'];
+                    var title = res_arr[key]['object']['title'];
+                    text += "<li><a href='http://edu.csdn.net/course/detail/" +  id + "'" + " target='_blank'>" + title + "</a></li>";
+                }
+                text += "</ul>";
+            }
+
+            $('#suggest_course').html(text);
+
+            var m = $("#suggest_course");
+
+            //控制新创基数据触发曝光开关
+            if(m.length>0){
+                m.each(function(i){
+                    console.log(i);
+                    trackingAd($(this));
+                });
+            }
+        }
+    });
+
+    // 标签推荐
+    $.ajax({
+        type: 'get',
+        url: 'http://internalapi.csdn.net/recommend/tag/suggest',
+        dataType: 'JSONP',
+        data: {title: "关于Oracle系统视图dba_tables字段num_rows值与实际表记录不一致的疑问",
+                body: "问题：首先，通过SQL语句查询表的...",
+                type: "csdn",
+                "x-acl-token": "b4PPTlauakrI2cRr1Tg3PzfykTMK"
+        },
+        success: function(data){
+            var text= "";
+            var es = [];
+
+            if(data.length > 0){
+                text += "<span>相关主题推荐：</span>";
+                for(var key in data){
+                    var name = data[key]['name'];
+                    es[key] = name;
+                    text += "<a href='http://www.csdn.net/tag/" +  name + "'" + " target='_blank'>" + name + "</a>";
+                }
+            }
+
+            $('#suggest_tags').html(text);
+
+            // 帖子推荐
+            if(es.length > 0){
+                $.ajax({
+                    url: "http://internalapi.csdn.net/tag/tag/search",
+                    size: 4,
+                    type: "GET",
+                    data: {
+                        types: "topic",
+                        tagNames: es.join(','),
+                        size: 4,
+                        "x-acl-token": "dDH/ijXIA58154g38-QLg8mnNAsK"
+                    },
+                    dataType: 'JSONP',
+                    success: function(result){
+                        var res_arr = result['result'];
+                        var text = "";
+
+                        if(res_arr.length > 0){
+                            text += "<span>相关帖子推荐：</span><ul>";
+                            for(var key in res_arr){
+                                var id = res_arr[key]['id'];
+                                var title = res_arr[key]['title'];
+                                var url = res_arr[key]['url'];
+                                text += "<li><a href='" +  url + "'" + " target='_blank'>" + title + "</a></li>";
+                            }
+                            text += "</ul>";
+                        }
+
+                        $('#suggest_topics').html(text);
+                    }
+                });
+            }
+
+        }
+    });
+
+});
+
+</script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-bbs.js"></script>
+
+    
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+ 
+</style>
+
+    <script src="http://c.csdnimg.cn/www/js/component.js"></script>
+    <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>
+<div id="a9784604d" style="width: 1px; height: 1px; display: none;">
+	<script id="adJs9784604"></script>
+	<script>document.getElementById("adJs9784604").src = "http://ads.csdn.net/js/opt/9784604.js?t=" + Math.random();</script>
+</div>
+<script type="text/javascript">
+  document.write('<script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/publib_footer.js?' + Math.floor(new Date()/120000).toString(36) + '="></'+'script>');
+</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+
+<script type="text/javascript" src="http://c.csdnimg.cn/pig/pubjs/cnick.js"></script>
+<script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>
+  </body>
+</html>

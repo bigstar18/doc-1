@@ -1,0 +1,802 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <title>
+        oracle教程之DBMS_STATS包_数据库开发_数据库学院_希赛网
+    </title>
+    <meta name="keywords" content="数据库">
+    <meta name="description" content="DBMS_STAS包不仅能够对表进行分析，它还可以对数据库分析进行管理。按照功能可以分一下几类：（1）性能数据的收集（2）性能数据的设置（3）性能数据的删除（4）性能数据的备份和恢更多信息参考Oracle联机文档：11gDBMS_STATS10gDBMS_STATS1、DBMS_STATS包的几个常用功能：性能的手机，设定和删除性能数据的收集包含这样几个存储过程：GATHER..">
+    <meta name="classification" content="数据库开发" />
+    <meta name="author" content="数据库学院_希赛网" />
+    <meta name="copyright" content="希赛网" />
+    <link rel="canonical" href="http://www.educity.cn/shujuku/1176983.html" />
+    <link rel="stylesheet" type="text/css" href="/css/article_cnt.css" />
+    
+    <link rel="stylesheet" type="text/css" href="/css/nei.css" />
+    <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript">
+        $(function() { 
+             //阅读数
+            $.ajax({
+                type: "post",
+                url: "/ajax/articleHandler.ashx",
+                dataType: "text",
+                data: { article_id: "1176983", action: "redcount" },
+                success: function (result) { },
+                error: function () { },
+                cache: false
+            });
+        });
+    </script>
+</head>
+<body>
+    <!--顶部Begin-->
+    <div id="topHdead">
+<link href="http://www.educity.cn/config/head.css" rel="stylesheet" type="text/css" />
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" class="top_bg">
+    <tr>
+      <td>&nbsp;</td>
+      <td class="top"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="line-height:33px">
+          <tr>
+            <td style="color:#666;" width="300"><a href="http://www.educity.cn/" target="_blank">希赛网</a>&nbsp;·&nbsp;<a href="http://www.educity.cn/biaoqian/" target="_blank"><font color="#FF0000">知识导航</font></a></td>
+            <td style="text-align:center;color:#666;" width="380"><a href="http://www.educity.cn/usercenter/member.aspx" target="_blank"><font color="#0595e8">成为希赛网会员，免费学习软件开发视频课程</font></a></td>
+            <td style="text-align:right;color:#666" width="300"><script language="javascript" type="text/javascript" src="http://www.educity.cn/usercenter/user_state.aspx"></script></td>
+          </tr>
+        </table></td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+<div style="margin:0px auto;height:70px;background:#fff">
+  <div class="width980">
+    <div class="logo_y fl"><a href="http://www.educity.cn/shujuku/" target="_blank" title="数据库学院"><img src="http://www.educity.cn/shujuku/images/pm_logo.jpg" alt="数据库学院" width="320" height="69" /></a></div>
+  <!--搜索开始-->
+  <form action="http://zhannei.baidu.com/cse/search" target="_blank">
+    <div class="search fl">
+      
+       <div class="search_input fl"><input name="q" id="top_keyword" class="ser_input" placeholder="请输入要搜索的内容" type="text"/></div>
+       <div class="fl"><input type="submit" id="" class="inputnone" value="" style="cursor:pointer;" /><input type="hidden" name="s" value="17363339108322086375" /><input type="hidden" name="entry" value="1" /><input type="hidden" name="ie" value="gbk" /></div>
+    </div>
+    <input name="type" type="hidden" value="1" id="Select1" />
+  </form>
+  <!--搜索结束-->
+    <div class="header_icon fr">
+      <dl>
+        <dt><a href="http://www.educity.cn/tiku/" target="_blank"><img src="http://www.educity.cn/js/article/images/header_icon1_zys.jpg" width="15" height="16" border="0" alt="在线测试平台"/></a></dt>
+        <dd><a href="http://www.educity.cn/tiku/" target="_blank">在线考试</a></dd>
+      </dl>
+      <dl>
+        <dt><a href="http://www.educity.cn/shipin/" target="_blank"><img src="http://www.educity.cn/js/article/images/header_icon2_zys.jpg" width="15" height="16" border="0" alt="视频教学平台"/></a></dt>
+        <dd><a href="http://www.educity.cn/shipin/" target="_blank">视频课程</a></dd>
+      </dl>
+      <dl>
+        <dt><a href="http://www.educity.cn/jiaocheng/" target="_blank"><img src="http://www.educity.cn/js/article/images/header_icon2_zys.jpg" width="15" height="16" border="0" alt="在线阅读"/></a></dt>
+        <dd><a href="http://www.educity.cn/jiaocheng/" target="_blank">在线阅读</a></dd>
+      </dl>
+    </div>
+  </div>
+</div>
+  <div class="h10"></div>
+<table width="100%" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td background="http://www.educity.cn/images/menu_bg.png">&nbsp;</td>
+    <td width="980" background="http://www.educity.cn/images/menu_bg.png" style="text-align:left;" class="zysmenu" height="37">&nbsp;
+      <a href="http://www.educity.cn/shujuku/c256.html" target="_blank">Oracle</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/shujuku/c257.html" target="_blank">MySQL</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/shujuku/c258.html" target="_blank">Sybase</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/shujuku/c259.html" target="_blank">DB2</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/shujuku/c328.html" target="_blank">Informix</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/shujuku/c260.html" target="_blank">SQL Server</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/help/c150.html" target="_blank">Access</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/shujuku/c327.html" target="_blank">数据仓库</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/shujuku/c29.html" target="_blank">数据库开发</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/zk/c68.html" target="_blank">数据库原理</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/jiaocheng/zl4.html" target="_blank">数据库教材</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/shipin/ct4.html" target="_blank">数据库视频</a>&nbsp; &nbsp;
+      <a href="http://www.educity.cn/wenda/t4.html" target="_blank">专家答疑</a></td>
+    <td background="http://www.educity.cn/images/menu_bg.png">&nbsp;</td>
+  </tr>
+</table>
+  <div class="width980">
+    <div style="padding:0px 0px;background-color:#FFF;margin-top:6px"><script type="text/javascript" src="http://www.educity.cn/self_text/text_disp.aspx?id=31"></script></div>
+  </div>
+</div>
+<script src="/js/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/eduPlay.js"></script>
+    <!--顶部End-->
+    <div class="topxian">
+        <div class="width980">
+            <div class="daohang">
+                <a href="http://www.educity.cn/" title="希赛网">希赛网</a> &gt;
+                <a id="HL_channel" title="数据库学院" href="http://www.educity.cn/shujuku/" style="color:#BC2931;">数据库学院</a>
+                &gt;
+                <a id="HL_class" title="数据库开发" href="http://www.educity.cn/shujuku/c29.html">数据库开发</a>
+                &gt;
+                oracle教程之DBMS_STATS包</div>
+        </div>
+        <div class="h10">
+        </div>
+    </div>
+    <div class="h30">
+    </div>
+    <div class="width980">
+        <div class="wen_left">
+            <h1>
+                oracle教程之DBMS_STATS包</h1>
+            <div class="wen_info">
+                <font color="#bc2931">www.educity.cn</font> &nbsp;&nbsp;发布者：suchanghua
+                &nbsp;&nbsp;来源：<span id="lb_fromurl" title="网络转载">网络转载</span>
+                &nbsp;&nbsp;发布日期：2014年05月07日
+                &nbsp;&nbsp;
+                
+            </div>
+            <div>
+                <div style="background-color:#F4F4F4; height:100px; ">
+<div style="float:left; width:240px;">
+<script type="text/javascript">
+    /*edu_wenzhang_内容上标签云240_100*/
+    var cpro_id = "u2137144";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+<div style="float:right; width:380px;">
+<script type="text/javascript">
+var cpro_id="u2137215";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"380",rsi1:"100",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"0",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+</div>
+</div>
+            </div>
+            <div class="h10">
+            </div>
+            <div class="wen_context" id="ArticleCnt">
+                <p>　　DBMS_STAS包不仅能够对表进行分析，它还可以对数据库分析进行管理。 按照功能可以分一下几类：</p><p>　　（1） &nbsp; &nbsp; &nbsp; 性能数据的收集</p><p>　　（2） &nbsp; &nbsp; &nbsp; 性能数据的设置</p><p>　　（3） &nbsp; &nbsp; &nbsp; 性能数据的删除</p><p>　　（4） &nbsp; &nbsp; &nbsp; 性能数据的备份和恢</p><p>　　更多信息参考Oracle 联机文档：</p><p>　　11g DBMS_STATS</p><p>　　10g DBMS_STATS</p><p>　　1、DBMS_STATS包的几个常用功能：性能的手机，设定 和删除</p><p>　　性能数据的收集包含这样几个存储过程：</p><p>　　GATHER_DATABASE_STATS Procedures</p><p>　　GATHER_DICTIONARY_STATS Procedure</p><p>　　GATHER_FIXED_OBJECTS_STATS Procedure</p><p>　　GATHER_INDEX_STATS Procedure</p><p>　　GATHER_SCHEMA_STATS Procedures</p><p>　　GATHER_SYSTEM_STATS Procedure</p><p>　　GATHER_TABLE_STATS Procedure</p><p>　　从名字也可以看出各自的作用，这些存储过程用来收集数据库不同级别对象的性能数据，包括：数据库，数据字典，表，索引，SCHEMA的性能等。</p><p>　　（1） GATHER_TABLE_STATS Procedure 存储过程</p><p>　　在10g中, GATHER_TABLE_STATS的参数如下：</p><p>　　DBMS_STATS.GATHER_TABLE_STATS (</p><p>　　ownname &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2,</p><p>　　tabname &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2,</p><p>　　partname &nbsp; &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT NULL,</p><p>　　estimate_percent NUMBER &nbsp; DEFAULT to_estimate_percent_type</p><p>　　(get_param(&#39;ESTIMATE_PERCENT&#39;)),</p><p>　　block_sample &nbsp; &nbsp; BOOLEAN &nbsp;DEFAULT FALSE,</p><p>　　method_opt &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT get_param(&#39;METHOD_OPT&#39;),</p><p>　　degree &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NUMBER &nbsp; DEFAULT to_degree_type(get_param(&#39;DEGREE&#39;)),</p><p>　　granularity &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT GET_PARAM(&#39;GRANULARITY&#39;),</p><p>　　cascade &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BOOLEAN &nbsp;DEFAULT to_cascade_type(get_param(&#39;CASCADE&#39;)),</p><p>　　stattab &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT NULL,</p><p>　　statid &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT NULL,</p><p>　　statown &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT NULL,</p><p>　　no_invalidate &nbsp; &nbsp;BOOLEAN &nbsp;DEFAULT &nbsp;to_no_invalidate_type (</p><p>　　get_param(&#39;NO_INVALIDATE&#39;)),</p><p>　　force &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BOOLEAN DEFAULT FALSE);</p><p>　　到了11g，对参数做了调整：</p><p>　　DBMS_STATS.GATHER_TABLE_STATS (</p><p>　　ownname &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2,</p><p>　　tabname &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2,</p><p>　　partname &nbsp; &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT NULL,</p><p>　　estimate_percent NUMBER &nbsp; DEFAULT to_estimate_percent_type</p><p>　　(get_param(&#39;ESTIMATE_PERCENT&#39;)),</p><p>　　block_sample &nbsp; &nbsp; BOOLEAN &nbsp;DEFAULT FALSE,</p><p>　　method_opt &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT get_param(&#39;METHOD_OPT&#39;),</p><p>　　degree &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NUMBER &nbsp; DEFAULT to_degree_type(get_param(&#39;DEGREE&#39;)),</p><p>　　granularity &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT GET_PARAM(&#39;GRANULARITY&#39;),</p><p>　　cascade &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BOOLEAN &nbsp;DEFAULT to_cascade_type(get_param(&#39;CASCADE&#39;)),</p><p>　　stattab &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT NULL,</p><p>　　statid &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT NULL,</p><p>　　statown &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT NULL,</p><p>　　no_invalidate &nbsp; &nbsp;BOOLEAN &nbsp;DEFAULT &nbsp;to_no_invalidate_type (</p><p>　　get_param(&#39;NO_INVALIDATE&#39;)),</p><p>　　force &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BOOLEAN DEFAULT FALSE);</p><p>　　在gather_table_stats 存储过程的所有参数中，除了ownname和tabname，其他的参数都有默认值。 所以我们在调用这个存储过程时，Oracle 会使用参数的默认值对表进行分析。如：</p><p>　　SQL&gt; exec dbms_stats.gather_table_STATS(&#39;SYS&#39;,&#39;T&#39;);</p><p>　　PL/SQL 过程已成功完成。</p><p>　　如果想查看当前的默认值，可以使用dbms_stats.get_param函数来获取：</p><p>　　SQL&gt; select dbms_stats.get_param(&#39;method_opt&#39;) from dual;</p><p>　　DBMS_STATS.GET_PARAM(&#39;METHOD_OPT&#39;)</p><p>　　------------------------------------------------------------</p><p>　　FOR ALL COLUMNS SIZE AUTO</p><p>　　结合上面对参数的说明：</p><p>　　- AUTO : Oracle determines the columns to collect histograms based on data distribution and the workload of the columns.</p><p>　　我们可以看出，就是对所有的列做直方图分析，直方图设置的bucket值由Oracle自己决定。</p><p>　　（a）estimate_percent 参数</p><p>　　这个参数是一个百分比值，它告诉分析包需要使用表中数据的多大比例来做分析。</p><p>　　理论上来讲，采样的数据越多，得到的信息就越接近于实际，CBO做出的执行计划就越优化，但是，采样越多，消耗的系统资源必然越多。 对系统的影响也越大。 所以对于这个值的设置，要根据业务情况来。 如果数据的直方图分布比较均匀，就可以使用默认值：AUTO_SAMPLE_SIZE，即让Oracle 自己来判断采样的比例。有时，特别是对于批量加载的表，我们可以预估表中的数据量，可以人工地设置一个合理的值。 一般，对于一个有1000万数据的表分区，可以把这个参数设置为0.000001.</p><p>　　（b）Method_option 参数</p><p>　　这个参数用来定义直方图分析的一些值。</p><p>　　FOR ALL [INDEXED | HIDDEN] COLUMNS [size_clause]</p><p>　　FOR COLUMNS [size clause] column|attribute [size_clause] [,column|attribute [size_clause]...]</p><p>　　这里给出了4种指定哪些列进行分析的方式：</p><p>　　（1）所有列：for all column</p><p>　　（2）索引列：只对有索引的列进行分析，for all indexed columns</p><p>　　（3）影藏列：只对影藏的列进行分析，for all hidden columns</p><p>　　（4）显示指定列：显示的指定那些列进行分析，for columns columns_name</p><p>　　该参数默认值：for all columns size auto.</p><p>　　（c）degree 参数</p><p>　　用来指定分析时使用的并行度。 有以下这些设置：</p><p>　　（1）Null： 如果设置为null，Oracle 将使用被分析表属性的并行度，比如表在创建时指定的并行度，或者后者使用alter table 重新设置的并行度。</p><p>　　（2）一个数值： 可以显示地指定分析时使用的并行度。</p><p>　　（3）Default_degree: 如果设置为default，Oracle 将根据初始化参数中相关参数的设置来决定使用的并行度。</p><p>　　这个参数的默认值是Null，即通过表上的并行度属性来决定分析使用的并行度。 当需要分析的表或表分区非常大，并且系统资源比较充分的时候，就可以考虑使用并行的方式来做分析，这样就会大大提高分析的速度。 相反，如果你的系统资源比较吃紧，那么启用并行可能会适得其反。</p><p>　　（d）Granularity</p><p>　　分析的粒度，有以下几个配置：</p><p>　　（1）ALL : 将会对表的全局（global），分区，子分区的数据都做分析</p><p>　　（2）AUTO: Oracle 根据分区的类型，自动决定做哪一种粒度的分析。</p><p>　　（3）GLOBAL：只做全局级别的分析。</p><p>　　（4）GLOBAL AND PARTITION: 只对全局和分区级别做分析，对子分区不做分析，这是和ALL的一个区别。</p><p>　　（5）PARTITION: 只在分区级别做分析。</p><p>　　（6）SUBPARTITION: 只在子分区做分析。</p><p>　　在生产环境中，特别是OLAP 或者数据仓库的环境中，这个参数的设置会直接影响到CBO的执行计划选择。</p><p>　　在OLAP或者数据仓库系统中，经常有这样的事情，新创建一个分区，将批量的数据（通常是很大的数据）加载到分区中，对分区做分析，然后做报表或者数据挖掘。 在理想的情况下，对表的全局，分区都做分析，这样才能得到最充足的数据，但是通常这样的表都非常大，如果每增加一个分区都需要做一次全局分析，那么会消耗极大的系统资源。 但是如果只对新加入的分区进行分区而不做全局分析，oracle 在全局范围内的信息就会不准确。</p><p>　　该参数在默认情况下，DBMS_STATS 包会对表级（全局），分区级（对应参数partition）都会进行分析。 如果把cascade 设置为true，相应索引的全局和分区级别也都会被分析。 如果只对分区级进行分析，而全局没有分析，那么全局信息没有更新，依然会导致CBO 作出错误的执行计划。</p><p>　　所以当一些新的数据插入到表中时，如果对这些新的数据进行分析，是一个非常重要的问题。 一般参考如下原则：</p><p>　　（1）看一下新插入的数据在全表中所占的比例，如果所占比例不是很大，那么可以考虑不做全局分析，否则就需要考虑，一句是业务的实际运行情况。</p><p>　　（2）采样比例。 如果载入的数据量非常大，比如上千万或者更大，就要把采样比例压缩的尽可能地小，但底线是不能影响CBO做出正确的执行计划，采样比例的上线是不能消耗太多的资源而影响到业务的正常运行。</p><p>　　（3）新加载的数据应该要做分区级的数据分析。 至于是否需要直方图分析，以及设置多少个buckets（size参数指定），需要DBA一句数据的分布情况进行考虑，关键是视数据的倾斜程度而定。</p><p>　　（2）GATHER_SCHEMA_STATS 存储过程</p><p>　　这个存储过程用于对某个用户下所有的对象进行分析。如果你的数据用户对象非常多，单独对每个对象进行分析设定会非常不方便，这个存储过程就很方便。 它的好处在于如果需要分析的对象非常多，将可以大大降低DBA的工作量，不足之处是所有分析使用相同的分析策略，可能会导致分析不是最优。 所以要根据实际情况来决定。</p><p>　　该存储过程参数如下：</p><p>　　DBMS_STATS.GATHER_SCHEMA_STATS (</p><p>　　ownname &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2,</p><p>　　estimate_percent NUMBER &nbsp; DEFAULT to_estimate_percent_type</p><p>　　(get_param(&#39;ESTIMATE_PERCENT&#39;)),</p><p>　　block_sample &nbsp; &nbsp; BOOLEAN &nbsp;DEFAULT FALSE,</p><p>　　method_opt &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT get_param(&#39;METHOD_OPT&#39;),</p><p>　　degree &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NUMBER &nbsp; DEFAULT to_degree_type(get_param(&#39;DEGREE&#39;)),</p><p>　　granularity &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT GET_PARAM(&#39;GRANULARITY&#39;),</p><p>　　cascade &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BOOLEAN &nbsp;DEFAULT to_cascade_type(get_param(&#39;CASCADE&#39;)),</p><p>　　stattab &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT NULL,</p><p>　　statid &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT NULL,</p><p>　　options &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT &#39;GATHER&#39;,</p><p>　　objlist &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;OUT &nbsp; &nbsp; &nbsp;ObjectTab,</p><p>　　statown &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT NULL,</p><p>　　no_invalidate &nbsp; &nbsp;BOOLEAN &nbsp;DEFAULT to_no_invalidate_type (</p><p>　　get_param(&#39;NO_INVALIDATE&#39;)),</p><p>　　force &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; BOOLEAN DEFAULT FALSE,</p><p>　　obj_filter_list &nbsp;ObjectTab DEFAULT NULL);</p><p>　　（3）DBMS_STATS.GATHER_INDEX_STATS 存储过程</p><p>　　该存储过程用于对索引的分析，如果我们在使用DBMS_STATS.GATHER_TABLES_STATS的分析时设置参数cascade=&gt;true。 那么Oracle会同时执行这个存储过程来对索引进行分析。</p><p>　　存储过程参数：</p><p>　　DBMS_STATS.GATHER_INDEX_STATS (</p><p>　　ownname &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2,</p><p>　　indname &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2,</p><p>　　partname &nbsp; &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT NULL,</p><p>　　estimate_percent NUMBER &nbsp; DEFAULT to_estimate_percent_type</p><p>　　(GET_PARAM(&#39;ESTIMATE_PERCENT&#39;)),</p><p>　　stattab &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT NULL,</p><p>　　statid &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; VARCHAR2 DEFAULT NULL,</p><p>　　statown &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT NULL,</p><p>　　degree &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; NUMBER &nbsp; DEFAULT to_degree_type(get_param(&#39;DEGREE&#39;)),</p><p>　　granularity &nbsp; &nbsp; &nbsp;VARCHAR2 DEFAULT GET_PARAM(&#39;GRANULARITY&#39;),</p><p>　　no_invalidate &nbsp; &nbsp;BOOLEAN &nbsp;DEFAULT to_no_invalidate_type</p><p>　　(GET_PARAM(&#39;NO_INVALIDATE&#39;)),</p><p>　　force &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;BOOLEAN DEFAULT FALSE);</p><p>　　上面讨论了三个常用的存储过程。 分析对CBO 来说非常重要，如果不能按照自己的系统指定出切合实际的数据分析方案，可能会导致如下问题的发生：</p><p>　　（1）分析信息不充分导致CBO 产生错误的执行计划，导致SQL执行效率低下。</p><p>　　（2）过多的分析工具带来系统性能的严重下降。</p><p>　　</p><p>　　2、DBMS_STATS包管理功能</p><p>　　（1）获取分析数据</p><p>　　GET_COLUMN_STATS Procedures</p><p>　　GET_INDEX_STATS Procedures</p><p>　　GET_SYSTEM_STATS Procedure</p><p>　　GET_TABLE_STATS Procedure</p><p>　　这四个存储过程分别为用户获取字段，索引，表和系统的统计信息。 它的用法是首先定义要获取性能指标的变量，然后使用存储过程将性能指标的值赋给变量，最后将变量的值输出。 &nbsp;如：</p><p>　　SQL&gt; set serveroutput on</p><p>　　SQL&gt; declare</p><p>　　2 &nbsp;dist number;</p><p>　　3 &nbsp;dens number;</p><p>　　4 &nbsp;ncnt number;</p><p>　　5 &nbsp;orec dbms_stats.statrec;</p><p>　　6 &nbsp;avgc number;</p><p>　　7 &nbsp;begin</p><p>　　8 &nbsp;dbms_stats.get_column_stats(&#39;SYS&#39;,&#39;T&#39;,&#39;object_ID&#39;,distcnt=&gt;dist,density=&gt;dens,nullcnt=&gt;ncnt,srec=&gt;orec,avgclen=&gt;avgc);</p><p>　　9 &nbsp;dbms_output.put_line(&#39;the distcnt is:&#39; ||to_char(dist));</p><p>　　10 &nbsp;dbms_output.put_line(&#39;the density is:&#39; ||to_char(dens));</p><p>　　11 &nbsp;dbms_output.put_line(&#39;the nullcnt is:&#39; ||to_char(ncnt));</p><p>　　12 &nbsp;dbms_output.put_line(&#39;the srec is:&#39; ||to_char(ncnt));</p><p>　　13 &nbsp;dbms_output.put_line(&#39;the avgclen is:&#39; ||to_char(avgc));</p><p>　　14 &nbsp;end;</p><p>　　15 &nbsp;/</p><p>　　the distcnt is:72926</p><p>　　the density is:.0000137125305103804</p><p>　　the nullcnt is:0</p><p>　　the srec is:0</p><p>　　the avgclen is:5</p><p>　　PL/SQL 过程已成功完成。</p><p>　　更多信息参考：</p><p>　　（2）设置分析数据</p><p>　　SET_COLUMN_STATS Procedures</p><p>　　SET_INDEX_STATS Procedures</p><p>　　SET_SYSTEM_STATS Procedure</p><p>　　SET_TABLE_STATS Procedure</p><p>　　这几个存储过程允许我们手工地为字段，索引，表和系统性能数据赋值。 它的一个用处是当相应的指标不准确导致执行计划失败时，可以使用这种方法手工地来为这些性能数据赋值。 在极端情况下，这也不失为一个解决问题的方法。</p><p>　　关于这4个存储过程的绝提用法参考 oracle 联机文档：</p><p>　　（3）删除分析数据</p><p>　　DELETE_COLUMN_STATS Procedure</p><p>　　DELETE_DATABASE_STATS Procedure</p><p>　　DELETE_DICTIONARY_STATS Procedure</p><p>　　DELETE_FIXED_OBJECTS_STATS Procedure</p><p>　　DELETE_INDEX_STATS Procedure</p><p>　　DELETE_SCHEMA_STATS Procedure</p><p>　　DELETE_SYSTEM_STATS Procedure</p><p>　　DELETE_TABLE_STATS Procedure</p><p>　　当性能数据出现异常导致CBO判断错误时，为了立刻修正这个错误，删除性能数据也是一种补救的方法，比如删除了表的数据，让CBO重新对表做动态采样分析，得到一个正确的结果。</p><p>　　它可以删除字段，数据库，数据字典，基表，索引，表等级别的性能数据。</p><p>　　具体参考oracle 联机文档：</p><p>　　（4）保存分析数据</p><p>　　CREATE_STAT_TABLE Procedure</p><p>　　DROP_STAT_TABLE Procedure</p><p>　　可以用这两个存储过程创建一个表，用于存放性能数据，这样有利于对性能数据的管理，也可以删除这个表。</p><p>　　具体参考oracle 联机文档：</p><p>　　（5）导入和导出分析数据</p><p>　　EXPORT_COLUMN_STATS Procedure</p><p>　　EXPORT_DATABASE_STATS Procedure</p><p>　　EXPORT_DICTIONARY_STATS Procedure</p><p>　　EXPORT_FIXED_OBJECTS_STATS Procedure</p><p>　　EXPORT_INDEX_STATS Procedure</p><p>　　EXPORT_SCHEMA_STATS Procedure</p><p>　　EXPORT_SYSTEM_STATS Procedure</p><p>　　EXPORT_TABLE_STATS Procedure</p><p>　　IMPORT_COLUMN_STATS Procedure</p><p>　　IMPORT_DATABASE_STATS Procedure</p><p>　　IMPORT_DICTIONARY_STATS Procedure</p><p>　　IMPORT_FIXED_OBJECTS_STATS Procedure</p><p>　　IMPORT_INDEX_STATS Procedure</p><p>　　IMPORT_SCHEMA_STATS Procedure</p><p>　　IMPORT_SYSTEM_STATS Procedure</p><p>　　IMPORT_TABLE_STATS Procedure</p><p>　　这些存储过程可以将已经有的性能指标导入到用户创建好的表中存放，需要时，可以从表中倒回来。</p><p>　　具体参考oracle 联机文档：</p><p>　　（6）锁定分析数据</p><p>　　LOCK_SCHEMA_STATS Procedure</p><p>　　LOCK_TABLE_STATS Procedure</p><p>　　UNLOCK_SCHEMA_STATS Procedure</p><p>　　UNLOCK_TABLE_STATS Procedure</p><p>　　The LOCK_* procedures either freeze the current set of the statistics or to keep the statistics empty (uncollected).When statistics on a table are locked, all the statistics depending on the table, including table statistics, column statistics, histograms and statistics on all dependent indexes, are considered to be locked.</p><p>　　可能在某些时候，我们觉得当前的统计信息非常好，执行计划很准确，并且表中数据几乎不变化，那么可以使用LOCK_TABLE_STATS Procedure 来锁定表的统计信息，不允许对表做分析或者设定分析数据。 当表的分析数据被锁定之后，相关的所有分析数据，包括表级，列级，直方图，索引的分析数据都将被锁定，不允许被更新。</p><p>　　具体参考oracle 联机文档：</p><p>　　（7）分析数据的恢复</p><p>　　RESET_PARAM_DEFAULTS Procedure</p><p>　　RESTORE_DICTIONARY_STATS Procedure</p><p>　　RESTORE_FIXED_OBJECTS_STATS Procedure</p><p>　　RESTORE_SCHEMA_STATS Procedure</p><p>　　RESTORE_SYSTEM_STATS Procedure</p><p>　　RESTORE_TABLE_STATS Procedure</p><p>　　Whenever statistics in dictionary are modified, old versions of statistics are saved automatically for future restoring. The old statistics are purged automatically at regular intervals based on the statistics history retention setting and the time of recent statistics gathering performed in the system. Retention is configurable using the ALTER_STATS_HISTORY_RETENTION Procedure.</p><p>　　比如我们重新分析了表，发现分析的数据导致了CBO选择了错误的执行计划，为了挽救这种局面，可以将统计信息恢复到从前的那个时间点，也就是CBO执行计划正确的时间点，先解决这个问题，再来分析问题的原因。</p><p>　　具体参考oracle 联机文档：</p>
+            </div>
+            <div class="wen_tag">
+                标签： <a href="http://s.educity.cn/search.php?q=%e6%95%b0%e6%8d%ae%e5%ba%93&type=1" target="_blank">数据库</a>
+            </div>
+            <div class="h10">
+            </div>
+            
+            <div class="h10">
+            </div>
+            <div class="bi_fk">
+                <div class="bi_fy">
+                    <span class="kuw">1</span> <span><a target="_blank" href="http://www.educity.cn/shujuku/c29.html">2</a></span>
+                </div>
+            </div>
+            <div class="h10">
+            </div>
+            <div class="page">
+                <span id="lbl_pagebottom"></span>
+            </div>
+            <div class="h10">
+            </div>
+            <div>
+                <script type="text/javascript">
+   /*文章页面左边第2个广告*/
+   var cpro_id = "u1343900";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+            </div>
+            <div class="h10">
+            </div>
+            <div class="wen_tag2">
+                本文标题：<a id="Literal_Title_bottom" title="oracle教程之DBMS_STATS包" href="http://www.educity.cn/shujuku/1176983.html">oracle教程之DBMS_STATS包</a></div>
+            
+            <div class="wen_tag2">
+                本文链接：<a id="Literal_CurLink" title="oracle教程之DBMS_STATS包" href="http://www.educity.cn/shujuku/1176983.html">http://www.educity.cn/shujuku/1176983.html</a></div>
+            <div class="h10">
+            </div>
+
+            <script language="javascript" type="text/javascript" src="/js/shengming.js"></script>
+
+            
+            <div class="h30">
+            </div>
+            <div class="wen_heixian">
+            </div>
+            <div class="wen_gengduo_title">
+                <span><a href="http://www.educity.cn/news.asp" target="_blank" title="更多最新文章">更多>></a></span>
+                <a id="Literal_ClassNameAbout" title="数据库学院：数据库开发 栏目最近更新" href="http://www.educity.cn/shujuku/c29.html" target="_blank">数据库学院：数据库开发 栏目最近更新</a>
+            </div>
+            <div>
+                <div class="wen_gengduo_left">
+                    <ul>
+                        
+                                <li>·<a title="通过Oracle函数实现.NET String.Format函数的简单版" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1600248.html">
+                                    通过Oracle函数实现.NET String.Format函数的简单版</a></li>
+                            
+                                <li>·<a title="浅谈Oracle闪回删除表限制" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1597898.html">
+                                    浅谈Oracle闪回删除表限制</a></li>
+                            
+                                <li>·<a title="Oracle 查看表空间使用情况的SQL语言" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1598064.html">
+                                    Oracle 查看表空间使用情况的SQL语言</a></li>
+                            
+                                <li>·<a title="Ubuntu下安装MongoDB 及自启动启动方法" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1592759.html">
+                                    Ubuntu下安装MongoDB 及自启动启动方法</a></li>
+                            
+                                <li>·<a title="Oracle重做日志组状态及切换解析" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1592635.html">
+                                    Oracle重做日志组状态及切换解析</a></li>
+                            
+                                <li>·<a title="MySQL--binlog日志恢复数据" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1594697.html">
+                                    MySQL--binlog日志恢复数据</a></li>
+                            
+                                <li>·<a title="Oracle根据SCN号闪回表" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1594636.html">
+                                    Oracle根据SCN号闪回表</a></li>
+                            
+                                <li>·<a title="Mysql JDBC驱动版本与Mysql版本的对应问题解决" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1602297.html">
+                                    Mysql JDBC驱动版本与Mysql版本的对应问题解决</a></li>
+                            
+                                <li>·<a title="DB2 数据库应用中使用受信任上下文" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1190844.html">
+                                    DB2 数据库应用中使用受信任上下文</a></li>
+                            
+                                <li>·<a title="Oracle存储过程for语句用法" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1596154.html">
+                                    Oracle存储过程for语句用法</a></li>
+                            
+                                <li>·<a title="SQL点滴之重置win7登录密码对SQL登录的影响" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1471525.html">
+                                    SQL点滴之重置win7登录密码对SQL登录的影响</a></li>
+                            
+                                <li>·<a title="Linux上system用户不能以normal身份登陆的解决" target="_blank"
+                                    href="http://www.educity.cn/shujuku/1602275.html">
+                                    Linux上system用户不能以normal身份登陆的解决</a></li>
+                            
+                    </ul>
+                </div>
+                <div class="wen_gengduo_rigth">
+                    <script type="text/javascript">
+    /*文章页面左边第3个广告*/
+    var cpro_id = "u1373299";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+                </div>
+            </div>
+            <div class="h10">
+            </div>
+            
+            <div class="h10">
+            </div>
+            <div class="wen_heixian">
+            </div>
+            <div class="wen_gengduo_title">
+                <span><a href="http://www.educity.cn/xiazai/roll.asp" target="_blank" title="更多最新下载资料">
+                    更多>></a></span>
+                <a id="Literal_ClassNameAbout_down" title="数据库下载：数据库开发资料下载 栏目最近更新" href="http://www.educity.cn/xiazai/c29.html" target="_blank">数据库下载：数据库开发资料下载 栏目最近更新</a>
+            </div>
+            <div>
+                <div class="wen_gengduo_left">
+                    <ul>
+                        
+                                <li>·<a title="S60sign手机软件签名工具 V1. 0塞班绿色免费版软件下载" target="_blank"
+                                    href="http://www.educity.cn/xiazai/2547969.html">
+                                    S60sign手机软件签名工具 V1. 0塞班绿色免费版软件下载</a></li>
+                                <li>·<a title="数据挖掘技术在燃气负荷预测的应用资料下载" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3687091.html">
+                                    数据挖掘技术在燃气负荷预测的应用资料下载</a></li>
+                                <li>·<a title="基于数据挖掘技术的信用卡申请评分模型研究" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3591582.html">
+                                    基于数据挖掘技术的信用卡申请评分模型研究</a></li>
+                                <li>·<a title="基于网格技术的空间知识发现与数据挖掘研究" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3687115.html">
+                                    基于网格技术的空间知识发现与数据挖掘研究</a></li>
+                                <li>·<a title="数据仓库与数据挖掘综述下载(ZIP格式)" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3450923.html">
+                                    数据仓库与数据挖掘综述下载(ZIP格式)</a></li>
+                                <li>·<a title="1995年家庭增长的全国调查-第五波有关怀孕的文件数据挖掘科研数据. . 下载(ZIP格式)" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3450811.html">
+                                    1995年家庭增长的全国调查-第五波有关怀孕的文件数据挖掘..</a></li>
+                                <li>·<a title="SQL语言快速入门(DOC格式)" target="_blank"
+                                    href="http://www.educity.cn/xiazai/2635111.html">
+                                    SQL语言快速入门(DOC格式)</a></li>
+                                <li>·<a title="数据仓库实现下载(ZIP格式)" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3450936.html">
+                                    数据仓库实现下载(ZIP格式)</a></li>
+                                <li>·<a title="数据挖掘在基于时间序列的水文数据分析的应用资料下载" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3687087.html">
+                                    数据挖掘在基于时间序列的水文数据分析的应用资料下载</a></li>
+                                <li>·<a title="3GP手机视频转换王 V2. 0. 1" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3696649.html">
+                                    3GP手机视频转换王 V2. 0. 1</a></li>
+                                <li>·<a title="Oracle存储过程基本语法格式" target="_blank"
+                                    href="http://www.educity.cn/xiazai/2834975.html">
+                                    Oracle存储过程基本语法格式</a></li>
+                                <li>·<a title="最全最快的手机3gp电影格式转换工具" target="_blank"
+                                    href="http://www.educity.cn/xiazai/3131482.html">
+                                    最全最快的手机3gp电影格式转换工具</a></li>
+                    </ul>
+                </div>
+                <div class="wen_gengduo_rigth">
+                    <script type="text/javascript">
+    /*文章页面左边第4个广告*/
+    var cpro_id = "u1737883";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+                </div>
+            </div>
+        </div>
+        <div class="wen_right">
+            <div style="padding-left: 15px">
+                <tr>
+    <td height="26" style="background-color:#EFFDFE;border-bottom:#CCCCCC 1px solid">&nbsp;&nbsp;&nbsp;<strong class="neblack">主编推荐</strong></td>
+  </tr>
+  <tr>
+    <td class="neblack" style="text-align:center;padding:5px 0px"><script type="text/javascript" src="http://www.educity.cn/self_text/text_disp.aspx?id=1"></script></td>
+  </tr>
+            </div>
+            <div class="t1">
+                <h2>
+                    <span>
+                        <a id="Literal_HotPaper" title="更多试卷" href="http://www.educity.cn/tiku/" target="_blank">更多>></a></span>热门试卷</h2>
+                <ul>
+                    
+                            <li>·<a href="http://www.educity.cn/tiku/tp661.html" target="_blank"
+                                title='2011年下半年系统架构设计师考试论文真题（权威解析）'>
+                                2011年下半年系统架构设计师考试论文真题（权威解析）</a></li>
+                        
+                            <li>·<a href="http://www.educity.cn/tiku/tp659.html" target="_blank"
+                                title='2012年上半年软件设计师考试上午真题（权威解析+标准答案）'>
+                                2012年上半年软件设计师考试上午真题（权威解析+标准答案）</a></li>
+                        
+                            <li>·<a href="http://www.educity.cn/tiku/tp645.html" target="_blank"
+                                title='2012年上半年系统集成项目管理工程师考试上午真题（权威解析+标准答案）'>
+                                2012年上半年系统集成项目管理工程师考试上午真题（权威解..</a></li>
+                        
+                            <li>·<a href="http://www.educity.cn/tiku/tp643.html" target="_blank"
+                                title='2012年上半年信息系统监理师考试上午真题（权威解析+标准答案）'>
+                                2012年上半年信息系统监理师考试上午真题（权威解析+标准答..</a></li>
+                        
+                            <li>·<a href="http://www.educity.cn/tiku/tp642.html" target="_blank"
+                                title='2012年上半年网络管理员考试上午真题（权威解析+标准答案）'>
+                                2012年上半年网络管理员考试上午真题（权威解析+标准答案）</a></li>
+                        
+                </ul>
+            </div>
+            <div class="t2">
+                
+            </div>
+            <div class="t1">
+                <h2>
+                    <span>
+                        <a id="Literal_NewShiPin" title="更多视频" href="http://www.educity.cn/shipin/" target="_blank">更多>></a></span>最新视频</h2>
+                <ul>
+                    
+                            <li>· <a href="http://www.educity.cn/shipin/v3699.html" target="_blank"
+                                title='信息系统监理师网络课堂（2016年上半年）'>
+                                信息系统监理师网络课堂（2016年上半年）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3700.html" target="_blank"
+                                title='信息系统管理工程师网络课堂（2016年上半年）'>
+                                信息系统管理工程师网络课堂（2016年上半年）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3703.html" target="_blank"
+                                title='系统分析师网络课堂（2016年上半年）'>
+                                系统分析师网络课堂（2016年上半年）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3702.html" target="_blank"
+                                title='网络工程师网络课堂（2016年上半年）'>
+                                网络工程师网络课堂（2016年上半年）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/shipin/v3705.html" target="_blank"
+                                title='数据库系统工程师网络课堂（2016年上半年）'>
+                                数据库系统工程师网络课堂（2016年上半年）</a></li>
+                        
+                </ul>
+            </div>
+            <div class="t2">
+                <link href="http://www.ixueyi.com/xiaohua/css/edu_wen_xiaohua.css" rel="stylesheet"
+                    type="text/css" />
+
+                <script src="http://www.ixueyi.com/xiaohua/js/xiaohua.js" type="text/javascript"></script>
+
+            </div>
+            <div class="t1">
+                <h2>
+                    <span>
+                        <a id="Literal_HotJiaoCheng" title="更多教程" href="http://www.educity.cn/jiaocheng/" target="_blank">更多>></a></span>热门阅读</h2>
+                <ul>
+                    
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt172.html" target="_blank"
+                                title='系统架构设计师教程（第3版）'>
+                                系统架构设计师教程（第3版）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt39.html" target="_blank"
+                                title='信息系统项目管理师教程（第3版）'>
+                                信息系统项目管理师教程（第3版）</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt110.html" target="_blank"
+                                title='PHP开发从入门到精通'>
+                                PHP开发从入门到精通</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt117.html" target="_blank"
+                                title='Java Web标签应用开发'>
+                                Java Web标签应用开发</a></li>
+                        
+                            <li>· <a href="http://www.educity.cn/jiaocheng/zt111.html" target="_blank"
+                                title='ASP.NET应用开发(C#版)'>
+                                ASP.NET应用开发(C#版)</a></li>
+                        
+                </ul>
+            </div>
+            <div class="t2">
+                
+            </div>
+            <div class="t1">
+                <h2>
+                    <span><a href="http://www.educity.cn/wenda/" target="_blank">更多>></asp:HyperLink></span>最新问题</h2>
+                <ul>
+                    
+        <li>&middot;&nbsp;<a title="关于试题（编号：83787）的疑问集中解答贴" target="_blank" href="http://www.educity.cn/wenda/696645.html">关于试题（编号：83787）的疑问集中解答贴</a></li>
+        <li>&middot;&nbsp;<a title="关于试题（编号：30875）的疑问集中解答贴" target="_blank" href="http://www.educity.cn/wenda/696647.html">关于试题（编号：30875）的疑问集中解答贴</a></li>
+        <li>&middot;&nbsp;<a title="关于试题（编号：42796）的疑问集中解答贴" target="_blank" href="http://www.educity.cn/wenda/696646.html">关于试题（编号：42796）的疑问集中解答贴</a></li>
+        <li>&middot;&nbsp;<a title="邻接表存图" target="_blank" href="http://www.educity.cn/wenda/696644.html">邻接表存图</a></li>
+        <li>&middot;&nbsp;<a title="关于试题（编号：6756）的疑问集中解答贴" target="_blank" href="http://www.educity.cn/wenda/696640.html">关于试题（编号：6756）的疑问集中解答贴</a></li>
+        <li>&middot;&nbsp;<a title="关于试题（编号：85088）的疑问集中解答贴" target="_blank" href="http://www.educity.cn/wenda/696639.html">关于试题（编号：85088）的疑问集中解答贴</a></li>
+        <li>&middot;&nbsp;<a title="关于试题（编号：83417）的疑问集中解答贴" target="_blank" href="http://www.educity.cn/wenda/696638.html">关于试题（编号：83417）的疑问集中解答贴</a></li>
+        <li>&middot;&nbsp;<a title="关于试题（编号：13560）的疑问集中解答贴" target="_blank" href="http://www.educity.cn/wenda/696637.html">关于试题（编号：13560）的疑问集中解答贴</a></li></ul>
+            </div>
+            <div class="t2">
+                <script type="text/javascript">
+var cpro_id="u2047949";
+(window["cproStyleApi"] = window["cproStyleApi"] || {})[cpro_id]={at:"3",rsi0:"300",rsi1:"300",pat:"6",tn:"baiduCustNativeAD",rss1:"#FFFFFF",conBW:"0",adp:"1",ptt:"0",titFF:"%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91",titFS:"14",rss2:"#000000",titSU:"0",ptbg:"90",piw:"0",pih:"0",ptp:"0"}
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/c.js" type="text/javascript"></script>
+            </div>
+            <div class="t2">
+                
+            </div>
+        </div>
+    </div>
+    <div class="h10">
+    </div>
+    <div>
+        <script type="text/javascript">
+    /* 创建于 2014-09-29*/
+var cpro_id = "u1740074";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/cnw.js" type="text/javascript"></script>
+        <script type="text/javascript">
+ /*文章页悬浮广告*/
+var cpro_id = "u1347884";
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/f.js" type="text/javascript"></script>
+        <div class="h30">
+        </div>
+        <div class="width980">
+            <div class="wen_map_btn">
+                全局导航</div>
+        </div>
+        <div class="wen_map">
+            <div class="width980">
+                <dl class="site_map">
+    <dt><a href="http://www.educity.cn/it/" target="_blank">IT认证学院</a></dt><dd><a href="http://www.educity.cn/it/c1.html"
+        target="_blank">Adobe认证</a><a href="http://www.educity.cn/it/c2.html" target="_blank">Cisco认证</a><a
+            href="http://www.educity.cn/it/c3.html" target="_blank">H3C认证</a><a href="http://www.educity.cn/it/c4.html"
+                target="_blank">IBM认证</a><a href="http://www.educity.cn/it/c5.html" target="_blank">IT认证资讯</a><a
+                    href="http://www.educity.cn/it/c6.html" target="_blank">Java认证</a><a href="http://www.educity.cn/it/c7.html"
+                        target="_blank">Linux认证</a><a href="http://www.educity.cn/it/c8.html" target="_blank">Microsoft认证</a><a
+                            href="http://www.educity.cn/it/c9.html" target="_blank">Oracle认证</a><a href="http://www.educity.cn/it/c292.html"
+                                target="_blank">华为认证</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/ite/" target="_blank">IT英语</a></dt><dd><a href="http://www.educity.cn/ite/c10.html"
+        target="_blank">IT新技术</a><a href="http://www.educity.cn/ite/c11.html" target="_blank">操作系统</a><a
+            href="http://www.educity.cn/ite/c12.html" target="_blank">基础英语</a><a href="http://www.educity.cn/ite/c13.html"
+                target="_blank">计算机网络</a><a href="http://www.educity.cn/ite/c14.html" target="_blank">软件工程</a><a
+                    href="http://www.educity.cn/ite/c15.html" target="_blank">软考英语</a><a href="http://www.educity.cn/ite/c16.html"
+                        target="_blank">数据库系统</a><a href="http://www.educity.cn/ite/c17.html" target="_blank">通信专业英语</a><a
+                            href="http://www.educity.cn/ite/c18.html" target="_blank">项目管理英语</a><a href="http://www.educity.cn/ite/c19.html"
+                                target="_blank">应用系统</a><a href="http://www.educity.cn/ite/c20.html" target="_blank">硬件数码</a><a
+                                    href="http://www.educity.cn/ite/c21.html" target="_blank">职场英语</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/develop/" target="_blank">程序开发学院</a></dt><dd><a
+        href="http://www.educity.cn/develop/c22.html" target="_blank">.NET</a><a href="http://www.educity.cn/develop/c23.html"
+            target="_blank">C语言_C++语言</a><a href="http://www.educity.cn/develop/c24.html" target="_blank">Delphi</a><a
+                href="http://www.educity.cn/develop/c26.html" target="_blank">PowerBuilder</a><a
+                    href="http://www.educity.cn/develop/c27.html" target="_blank">Web开发</a><a href="http://www.educity.cn/develop/c28.html"
+                        target="_blank">嵌入式开发</a><a href="http://www.educity.cn/develop/c30.html" target="_blank">移动开发</a><a
+                            href="http://www.educity.cn/develop/c31.html" target="_blank">游戏开发</a><a href="http://www.educity.cn/develop/c184.html"
+                                target="_blank">PHP</a><a href="http://www.educity.cn/develop/c322.html" target="_blank">Python</a><a
+                                    href="http://www.educity.cn/develop/c323.html" target="_blank">Perl</a><a href="http://www.educity.cn/develop/c324.html"
+                                        target="_blank">Ruby</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/ncre/" target="_blank">等考学院</a></dt><dd><a href="http://www.educity.cn/ncre/c32.html"
+        target="_blank">考试大纲</a><a href="http://www.educity.cn/ncre/c33.html" target="_blank">二级考试经验</a><a
+            href="http://www.educity.cn/ncre/c34.html" target="_blank">二级模拟试题</a><a href="http://www.educity.cn/ncre/c35.html"
+                target="_blank">一级考试资料</a><a href="http://www.educity.cn/ncre/c36.html" target="_blank">二级考试资料</a><a
+                    href="http://www.educity.cn/ncre/c246.html" target="_blank">一级模拟试题</a><a href="http://www.educity.cn/ncre/c247.html"
+                        target="_blank">三级模拟试题</a><a href="http://www.educity.cn/ncre/c248.html" target="_blank">四级模拟试题</a><a
+                            href="http://www.educity.cn/ncre/c249.html" target="_blank">一级考试经验</a><a href="http://www.educity.cn/ncre/c250.html"
+                                target="_blank">三级考试经验</a><a href="http://www.educity.cn/ncre/c251.html" target="_blank">四级考试经验</a><a
+                                    href="http://www.educity.cn/ncre/c252.html" target="_blank">四级考试资料</a><a href="http://www.educity.cn/ncre/c253.html"
+                                        target="_blank">三级考试资料</a><a href="http://www.educity.cn/ncre/c330.html" target="_blank">等级考试动态</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/jianzaoshi/" target="_blank">建造师学院</a></dt><dd><a
+        href="http://www.educity.cn/jianzaoshi/c37.html" target="_blank">港口与航道工程</a><a href="http://www.educity.cn/jianzaoshi/c38.html"
+            target="_blank">公路工程</a><a href="http://www.educity.cn/jianzaoshi/c39.html" target="_blank">机电工程</a><a
+                href="http://www.educity.cn/jianzaoshi/c40.html" target="_blank">建设工程法规及相关知识</a><a
+                    href="http://www.educity.cn/jianzaoshi/c41.html" target="_blank">建设工程经济</a><a href="http://www.educity.cn/jianzaoshi/c42.html"
+                        target="_blank">建设工程项目管理</a><a href="http://www.educity.cn/jianzaoshi/c43.html" target="_blank">建筑工程</a><a
+                            href="http://www.educity.cn/jianzaoshi/c44.html" target="_blank">考试大纲</a><a href="http://www.educity.cn/jianzaoshi/c45.html"
+                                target="_blank">考试经验</a><a href="http://www.educity.cn/jianzaoshi/c46.html" target="_blank">考试试题</a><a
+                                    href="http://www.educity.cn/jianzaoshi/c47.html" target="_blank">矿业工程</a><a href="http://www.educity.cn/jianzaoshi/c48.html"
+                                        target="_blank">民航机场工程</a><a href="http://www.educity.cn/jianzaoshi/c49.html" target="_blank">施工管理</a><a
+                                            href="http://www.educity.cn/jianzaoshi/c50.html" target="_blank">市政公用工程</a><a href="http://www.educity.cn/jianzaoshi/c51.html"
+                                                target="_blank">水利水电工程</a><a href="http://www.educity.cn/jianzaoshi/c52.html" target="_blank">铁路工程</a><a
+                                                    href="http://www.educity.cn/jianzaoshi/c53.html" target="_blank">通信与广电工程</a><a href="http://www.educity.cn/jianzaoshi/c329.html"
+                                                        target="_blank">考试动态</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/zk/" target="_blank">基础学院</a></dt><dd><a href="http://www.educity.cn/zk/c54.html"
+        target="_blank">毕业论文</a><a href="http://www.educity.cn/zk/c55.html" target="_blank">编译原理</a><a
+            href="http://www.educity.cn/zk/c56.html" target="_blank">操作系统</a><a href="http://www.educity.cn/zk/c57.html"
+                target="_blank">高级语言程序设计</a><a href="http://www.educity.cn/zk/c58.html" target="_blank">管理信息系统</a><a
+                    href="http://www.educity.cn/zk/c59.html" target="_blank">汇编语言</a><a href="http://www.educity.cn/zk/c60.html"
+                        target="_blank">计算机图形学</a><a href="http://www.educity.cn/zk/c61.html" target="_blank">计算机网络</a><a
+                            href="http://www.educity.cn/zk/c62.html" target="_blank">计算机系统结构</a><a href="http://www.educity.cn/zk/c63.html"
+                                target="_blank">计算机应用技术</a><a href="http://www.educity.cn/zk/c64.html" target="_blank">计算机组成原理</a><a
+                                    href="http://www.educity.cn/zk/c65.html" target="_blank">人工智能</a><a href="http://www.educity.cn/zk/c66.html"
+                                        target="_blank">软件工程</a><a href="http://www.educity.cn/zk/c67.html" target="_blank">数据结构与算法</a><a
+                                            href="http://www.educity.cn/zk/c68.html" target="_blank">数据库系统</a><a href="http://www.educity.cn/zk/c69.html"
+                                                target="_blank">数据通信原理</a><a href="http://www.educity.cn/zk/c70.html" target="_blank">数字逻辑</a><a
+                                                    href="http://www.educity.cn/zk/c71.html" target="_blank">微机与接口</a><a href="http://www.educity.cn/zk/c72.html"
+                                                        target="_blank">信号与系统</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/se/" target="_blank">软件工程学院</a></dt><dd><a href="http://www.educity.cn/se/c73.html"
+        target="_blank">CASE工具</a><a href="http://www.educity.cn/se/c74.html" target="_blank">构件与中间件</a><a
+            href="http://www.educity.cn/se/c75.html" target="_blank">软件测试</a><a href="http://www.educity.cn/se/c76.html"
+                target="_blank">软件过程改进</a><a href="http://www.educity.cn/se/c77.html" target="_blank">软件设计</a><a
+                    href="http://www.educity.cn/se/c78.html" target="_blank">软件外包</a><a href="http://www.educity.cn/se/c79.html"
+                        target="_blank">需求分析</a><a href="http://www.educity.cn/se/c80.html" target="_blank">软件质量保证</a><a
+                            href="http://www.educity.cn/se/c81.html" target="_blank">系统分析与建模</a><a href="http://www.educity.cn/se/c82.html"
+                                target="_blank">系统规划</a><a href="http://www.educity.cn/se/c83.html" target="_blank">业界观点</a><a
+                                    href="http://www.educity.cn/se/c245.html" target="_blank">敏捷开发</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/rk/" target="_blank">软考学院</a></dt><dd><a href="http://www.educity.cn/rk/c84.html"
+        target="_blank">程序员</a><a href="http://www.educity.cn/rk/c85.html" target="_blank">电子商务设计师</a><a
+            href="http://www.educity.cn/rk/c86.html" target="_blank">法律法规</a><a href="http://www.educity.cn/rk/c87.html"
+                target="_blank">考试大纲</a><a href="http://www.educity.cn/rk/c88.html" target="_blank">考试政策</a><a
+                    href="http://www.educity.cn/rk/c89.html" target="_blank">历年试题</a><a href="http://www.educity.cn/rk/c90.html"
+                        target="_blank">软件评测师</a><a href="http://www.educity.cn/rk/c91.html" target="_blank">软件设计师</a><a
+                            href="http://www.educity.cn/rk/c92.html" target="_blank">软考英语</a><a href="http://www.educity.cn/rk/c93.html"
+                                target="_blank">数据库系统工程师</a><a href="http://www.educity.cn/rk/c94.html" target="_blank">网络工程师</a><a
+                                    href="http://www.educity.cn/rk/c95.html" target="_blank">网络管理员</a><a href="http://www.educity.cn/rk/c96.html"
+                                        target="_blank">网络规划设计师</a><a href="http://www.educity.cn/rk/c97.html" target="_blank">系统分析师</a><a
+                                            href="http://www.educity.cn/rk/c99.html" target="_blank">系统架构设计师</a><a href="http://www.educity.cn/rk/c100.html"
+                                                target="_blank">信息技术处理员</a><a href="http://www.educity.cn/rk/c101.html" target="_blank">信息系统管理工程师</a><a
+                                                    href="http://www.educity.cn/rk/c102.html" target="_blank">信息系统监理师</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/tx/" target="_blank">通信学院</a></dt><dd><a href="http://www.educity.cn/tx/c104.html"
+        target="_blank">初级通信工程师</a><a href="http://www.educity.cn/tx/c105.html" target="_blank">传输与接入</a><a
+            href="http://www.educity.cn/tx/c106.html" target="_blank">高级通信工程师</a><a href="http://www.educity.cn/tx/c107.html"
+                target="_blank">互联网技术</a><a href="http://www.educity.cn/tx/c108.html" target="_blank">交换技术</a><a
+                    href="http://www.educity.cn/tx/c109.html" target="_blank">考试大纲</a><a href="http://www.educity.cn/tx/c110.html"
+                        target="_blank">考试动态</a><a href="http://www.educity.cn/tx/c111.html" target="_blank">考试题库</a><a
+                            href="http://www.educity.cn/tx/c112.html" target="_blank">设备环境</a><a href="http://www.educity.cn/tx/c113.html"
+                                target="_blank">通信法规</a><a href="http://www.educity.cn/tx/c114.html" target="_blank">终端与业务</a><a
+                                    href="http://www.educity.cn/tx/c115.html" target="_blank">综合能力</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/net/" target="_blank">网络工程学院</a></dt><dd><a href="http://www.educity.cn/net/c119.html"
+        target="_blank">交换技术</a><a href="http://www.educity.cn/net/c120.html" target="_blank">接入技术</a><a
+            href="http://www.educity.cn/net/c121.html" target="_blank">路由技术</a><a href="http://www.educity.cn/net/c122.html"
+                target="_blank">实施案例</a><a href="http://www.educity.cn/net/c124.html" target="_blank">网络布线</a><a
+                    href="http://www.educity.cn/net/c125.html" target="_blank">网络存储</a><a href="http://www.educity.cn/net/c126.html"
+                        target="_blank">网络服务器</a><a href="http://www.educity.cn/net/c127.html" target="_blank">网络管理</a><a
+                            href="http://www.educity.cn/net/c128.html" target="_blank">无线网络</a><a href="http://www.educity.cn/net/c129.html"
+                                target="_blank">系统应用</a><a href="http://www.educity.cn/net/c320.html" target="_blank">网络协议</a><a
+                                    href="http://www.educity.cn/net/c321.html" target="_blank">网络设备</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/pm/" target="_blank">项目管理学院</a></dt><dd><a href="http://www.educity.cn/pm/c98.html"
+        target="_blank">系统集成项目管理工程师</a><a href="http://www.educity.cn/pm/c103.html" target="_blank">信息系统项目管理师</a><a
+            href="http://www.educity.cn/pm/c131.html" target="_blank">CPMP考试</a><a href="http://www.educity.cn/pm/c132.html"
+                target="_blank">IPMP</a><a href="http://www.educity.cn/pm/c133.html" target="_blank">PMP考试</a><a
+                    href="http://www.educity.cn/pm/c134.html" target="_blank">prince2认证</a><a href="http://www.educity.cn/pm/c135.html"
+                        target="_blank">项目采购管理</a><a href="http://www.educity.cn/pm/c136.html" target="_blank">项目成本管理</a><a
+                            href="http://www.educity.cn/pm/c137.html" target="_blank">项目范围管理</a><a href="http://www.educity.cn/pm/c138.html"
+                                target="_blank">项目风险管理</a><a href="http://www.educity.cn/pm/c139.html" target="_blank">项目沟通管理</a><a
+                                    href="http://www.educity.cn/pm/c140.html" target="_blank">项目配置管理</a><a href="http://www.educity.cn/pm/c141.html"
+                                        target="_blank">项目人力资源管理</a><a href="http://www.educity.cn/pm/c142.html" target="_blank">项目时间管理</a><a
+                                            href="http://www.educity.cn/pm/c143.html" target="_blank">项目管理案例</a><a href="http://www.educity.cn/pm/c144.html"
+                                                target="_blank">项目管理动态</a><a href="http://www.educity.cn/pm/c145.html" target="_blank">项目管理工具</a><a
+                                                    href="http://www.educity.cn/pm/c146.html" target="_blank">项目经理</a><a href="http://www.educity.cn/pm/c147.html"
+                                                        target="_blank">项目整合管理</a><a href="http://www.educity.cn/pm/c148.html" target="_blank">项目质量管理</a><a
+                                                            href="http://www.educity.cn/pm/c255.html" target="_blank">项目干系人管理</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/help/" target="_blank">新手教程</a></dt><dd><a href="http://www.educity.cn/help/c150.html"
+        target="_blank">Access教程</a><a href="http://www.educity.cn/help/c153.html" target="_blank">Excel教程</a><a
+            href="http://www.educity.cn/help/c159.html" target="_blank">Powerpoint教程</a><a href="http://www.educity.cn/help/c160.html"
+                target="_blank">Visual Basic(VB教程)</a><a href="http://www.educity.cn/help/c161.html"
+                    target="_blank">Visual FoxPro(VFP教程)</a><a href="http://www.educity.cn/help/c163.html"
+                        target="_blank">Word教程</a><a href="http://www.educity.cn/help/c166.html" target="_blank">网络应用教程</a><a
+                            href="http://www.educity.cn/help/c186.html" target="_blank">WPS教程</a><a href="http://www.educity.cn/help/c203.html"
+                                target="_blank">手机教程</a><a href="http://www.educity.cn/help/c319.html" target="_blank">Visio教程</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/ei/" target="_blank">信息化学院</a></dt><dd><a href="http://www.educity.cn/ei/c168.html"
+        target="_blank">IT运维</a><a href="http://www.educity.cn/ei/c169.html" target="_blank">电子商务</a><a
+            href="http://www.educity.cn/ei/c170.html" target="_blank">电子政务</a><a href="http://www.educity.cn/ei/c171.html"
+                target="_blank">供应链管理</a><a href="http://www.educity.cn/ei/c172.html" target="_blank">解决方案</a><a
+                    href="http://www.educity.cn/ei/c173.html" target="_blank">客户关系管理</a><a href="http://www.educity.cn/ei/c174.html"
+                        target="_blank">企业资源计划</a><a href="http://www.educity.cn/ei/c175.html" target="_blank">商业智能</a><a
+                            href="http://www.educity.cn/ei/c176.html" target="_blank">首席信息官</a><a href="http://www.educity.cn/ei/c178.html"
+                                target="_blank">信息化动态</a><a href="http://www.educity.cn/ei/c180.html" target="_blank">制造业信息化</a><a
+                                    href="http://www.educity.cn/ei/c226.html" target="_blank">办公自动化</a><a href="http://www.educity.cn/ei/c227.html"
+                                        target="_blank">SOA</a><a href="http://www.educity.cn/ei/c228.html" target="_blank">企业架构</a><a
+                                            href="http://www.educity.cn/ei/c229.html" target="_blank">大数据</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/zhicheng/" target="_blank">职称考试学院</a></dt><dd><a
+        href="http://www.educity.cn/zhicheng/c181.html" target="_blank">职称考试题目</a><a href="http://www.educity.cn/zhicheng/c182.html"
+            target="_blank">职称考试指南</a><a href="http://www.educity.cn/zhicheng/c183.html" target="_blank">职称考试资料</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/career/" target="_blank">职业规划学院</a></dt><dd><a
+        href="http://www.educity.cn/career/c192.html" target="_blank">就业指导</a><a href="http://www.educity.cn/career/c193.html"
+            target="_blank">职业道德</a><a href="http://www.educity.cn/career/c194.html" target="_blank">求职陷阱</a><a
+                href="http://www.educity.cn/career/c195.html" target="_blank">签约违约</a><a href="http://www.educity.cn/career/c196.html"
+                    target="_blank">职场动态</a><a href="http://www.educity.cn/career/c197.html" target="_blank">职业规划</a><a
+                        href="http://www.educity.cn/career/c198.html" target="_blank">职业测评</a><a href="http://www.educity.cn/career/c199.html"
+                            target="_blank">职场健康</a><a href="http://www.educity.cn/career/c200.html" target="_blank">面试题库</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/ky/" target="_blank">研究生院</a></dt><dd><a href="http://www.educity.cn/ky/c187.html"
+        target="_blank">考研英语</a><a href="http://www.educity.cn/ky/c188.html" target="_blank">考研题库</a><a
+            href="http://www.educity.cn/ky/c189.html" target="_blank">招生信息</a><a href="http://www.educity.cn/ky/c190.html"
+                target="_blank">就业指导</a><a href="http://www.educity.cn/ky/c191.html" target="_blank">考研经验</a><a
+                    href="http://www.educity.cn/ky/c201.html" target="_blank">考研政治</a><a href="http://www.educity.cn/ky/c202.html"
+                        target="_blank">考研数学</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/labs/" target="_blank">信息安全实验室</a></dt><dd><a
+        href="http://www.educity.cn/labs/c123.html" target="_blank">网络安全</a><a href="http://www.educity.cn/labs/c205.html"
+            target="_blank">黑客教程</a><a href="http://www.educity.cn/labs/c206.html" target="_blank">杀毒防毒</a><a
+                href="http://www.educity.cn/labs/c207.html" target="_blank">安全设置</a><a href="http://www.educity.cn/labs/c208.html"
+                    target="_blank">脚本攻防</a><a href="http://www.educity.cn/labs/c209.html" target="_blank">黑客入侵</a><a
+                        href="http://www.educity.cn/labs/c210.html" target="_blank">工具使用</a><a href="http://www.educity.cn/labs/c211.html"
+                            target="_blank">漏洞分析</a><a href="http://www.educity.cn/labs/c212.html" target="_blank">加密解密</a><a
+                                href="http://www.educity.cn/labs/c213.html" target="_blank">手机安全</a><a href="http://www.educity.cn/labs/c214.html"
+                                    target="_blank">安全技术</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/sheji/" target="_blank">媒体设计学院</a></dt><dd><a
+        href="http://www.educity.cn/sheji/c149.html" target="_blank">3DMax教程</a><a href="http://www.educity.cn/sheji/c151.html"
+            target="_blank">CAD教程</a><a href="http://www.educity.cn/sheji/c154.html" target="_blank">Firework教程</a><a
+                href="http://www.educity.cn/sheji/c155.html" target="_blank">Flash教程</a><a href="http://www.educity.cn/sheji/c158.html"
+                    target="_blank">Photoshop教程</a><a href="http://www.educity.cn/sheji/c185.html" target="_blank">Authorware教程</a><a
+                        href="http://www.educity.cn/sheji/c204.html" target="_blank">CorelDraw教程</a><a href="http://www.educity.cn/sheji/c215.html"
+                            target="_blank">Illustrator教程</a><a href="http://www.educity.cn/sheji/c216.html"
+                                target="_blank">Painter教程</a><a href="http://www.educity.cn/sheji/c217.html" target="_blank">Freehand教程</a><a
+                                    href="http://www.educity.cn/sheji/c278.html" target="_blank">Director教程</a><a href="http://www.educity.cn/sheji/c279.html"
+                                        target="_blank">Maya教程</a><a href="http://www.educity.cn/sheji/c303.html" target="_blank">会声会影教程</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/jianzhan/" target="_blank">网站建设学院</a></dt><dd><a
+        href="http://www.educity.cn/jianzhan/c152.html" target="_blank">Dreamwaver教程</a><a
+            href="http://www.educity.cn/jianzhan/c156.html" target="_blank">HTML教程</a><a href="http://www.educity.cn/jianzhan/c167.html"
+                target="_blank">网站优化</a><a href="http://www.educity.cn/jianzhan/c218.html" target="_blank">Web设计</a><a
+                    href="http://www.educity.cn/jianzhan/c219.html" target="_blank">网站策划</a><a href="http://www.educity.cn/jianzhan/c220.html"
+                        target="_blank">淘宝店铺</a><a href="http://www.educity.cn/jianzhan/c221.html" target="_blank">建站经验</a><a
+                            href="http://www.educity.cn/jianzhan/c222.html" target="_blank">网站运营</a><a href="http://www.educity.cn/jianzhan/c223.html"
+                                target="_blank">CSS教程</a><a href="http://www.educity.cn/jianzhan/c224.html" target="_blank">CMS教程</a><a
+                                    href="http://www.educity.cn/jianzhan/c225.html" target="_blank">Frontpage教程</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/wulianwang/" target="_blank">物联网学院</a></dt><dd><a
+        href="http://www.educity.cn/wulianwang/c230.html" target="_blank">生物识别</a><a href="http://www.educity.cn/wulianwang/c231.html"
+            target="_blank">二维码</a><a href="http://www.educity.cn/wulianwang/c232.html" target="_blank">射频技术</a><a
+                href="http://www.educity.cn/wulianwang/c233.html" target="_blank">传感器</a><a href="http://www.educity.cn/wulianwang/c234.html"
+                    target="_blank">物联网感知层</a><a href="http://www.educity.cn/wulianwang/c235.html" target="_blank">物联网网络层</a><a
+                        href="http://www.educity.cn/wulianwang/c236.html" target="_blank">物联网传输层</a><a href="http://www.educity.cn/wulianwang/c237.html"
+                            target="_blank">物联网应用层</a><a href="http://www.educity.cn/wulianwang/c238.html" target="_blank">物联网标准</a><a
+                                href="http://www.educity.cn/wulianwang/c239.html" target="_blank">物联网前沿技术</a><a href="http://www.educity.cn/wulianwang/c240.html"
+                                    target="_blank">智能生活</a><a href="http://www.educity.cn/wulianwang/c241.html" target="_blank">智慧城市</a><a
+                                        href="http://www.educity.cn/wulianwang/c242.html" target="_blank">物联网案例分析</a><a href="http://www.educity.cn/wulianwang/c243.html"
+                                            target="_blank">云计算</a><a href="http://www.educity.cn/wulianwang/c244.html" target="_blank">虚拟化技术</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/shenghuo/" target="_blank">IT生活</a></dt><dd><a
+        href="http://www.educity.cn/shenghuo/c261.html" target="_blank">互联网</a><a href="http://www.educity.cn/shenghuo/c262.html"
+            target="_blank">电子商务</a><a href="http://www.educity.cn/shenghuo/c263.html" target="_blank">硬件数码</a><a
+                href="http://www.educity.cn/shenghuo/c264.html" target="_blank">电信</a><a href="http://www.educity.cn/shenghuo/c265.html"
+                    target="_blank">手机</a><a href="http://www.educity.cn/shenghuo/c266.html" target="_blank">家电</a><a
+                        href="http://www.educity.cn/shenghuo/c267.html" target="_blank">IT业界</a><a href="http://www.educity.cn/shenghuo/c268.html"
+                            target="_blank">创新创业</a><a href="http://www.educity.cn/shenghuo/c269.html" target="_blank">移动互联</a><a
+                                href="http://www.educity.cn/shenghuo/c270.html" target="_blank">IT生活</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/java/" target="_blank">Java学院</a></dt><dd><a href="http://www.educity.cn/java/c25.html"
+        target="_blank">Javascript教程</a><a href="http://www.educity.cn/java/c271.html" target="_blank">Java教程</a><a
+            href="http://www.educity.cn/java/c272.html" target="_blank">Java核心技术</a><a href="http://www.educity.cn/java/c273.html"
+                target="_blank">Java高级技术</a><a href="http://www.educity.cn/java/c274.html" target="_blank">J2EE教程</a><a
+                    href="http://www.educity.cn/java/c275.html" target="_blank">J2ME教程</a><a href="http://www.educity.cn/java/c276.html"
+                        target="_blank">XML教程</a><a href="http://www.educity.cn/java/c277.html" target="_blank">Java开源技术</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/linux/" target="_blank">Linux学院</a></dt><dd><a
+        href="http://www.educity.cn/linux/c116.html" target="_blank">Linux系统管理</a><a href="http://www.educity.cn/linux/c117.html"
+            target="_blank">Unix教程</a><a href="http://www.educity.cn/linux/c157.html" target="_blank">Linux教程</a><a
+                href="http://www.educity.cn/linux/c280.html" target="_blank">Linux编程</a><a href="http://www.educity.cn/linux/c281.html"
+                    target="_blank">Linux集群</a><a href="http://www.educity.cn/linux/c282.html" target="_blank">Linux内核技术</a><a
+                        href="http://www.educity.cn/linux/c283.html" target="_blank">Linux安全</a><a href="http://www.educity.cn/linux/c284.html"
+                            target="_blank">Linux服务器</a><a href="http://www.educity.cn/linux/c325.html" target="_blank">Solaris教程</a><a
+                                href="http://www.educity.cn/linux/c326.html" target="_blank">AIX教程</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/windows/" target="_blank">Windows学院</a></dt><dd><a
+        href="http://www.educity.cn/windows/c118.html" target="_blank">Windows系统管理</a><a
+            href="http://www.educity.cn/windows/c162.html" target="_blank">Windows教程</a><a href="http://www.educity.cn/windows/c286.html"
+                target="_blank">Windows安全</a><a href="http://www.educity.cn/windows/c287.html" target="_blank">Windows服务器</a><a
+                    href="http://www.educity.cn/windows/c288.html" target="_blank">Windows网络管理</a><a
+                        href="http://www.educity.cn/windows/c289.html" target="_blank">Windows故障</a><a href="http://www.educity.cn/windows/c290.html"
+                            target="_blank">Windows优化</a><a href="http://www.educity.cn/windows/c291.html" target="_blank">Windows动态</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/guanli/" target="_blank">商学院</a></dt><dd><a href="http://www.educity.cn/guanli/c293.html"
+        target="_blank">IT领导力</a><a href="http://www.educity.cn/guanli/c294.html" target="_blank">战略管理</a><a
+            href="http://www.educity.cn/guanli/c295.html" target="_blank">组织运营</a><a href="http://www.educity.cn/guanli/c296.html"
+                target="_blank">市场营销</a><a href="http://www.educity.cn/guanli/c297.html" target="_blank">人力资源</a><a
+                    href="http://www.educity.cn/guanli/c298.html" target="_blank">财务资本</a><a href="http://www.educity.cn/guanli/c299.html"
+                        target="_blank">管理经验</a><a href="http://www.educity.cn/guanli/c300.html" target="_blank">企业文化</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/gongju/" target="_blank">常用工具</a></dt><dd><a href="http://www.educity.cn/gongju/c165.html"
+        target="_blank">软件应用教程</a><a href="http://www.educity.cn/gongju/c304.html" target="_blank">即时通讯</a><a
+            href="http://www.educity.cn/gongju/c305.html" target="_blank">视频播放</a><a href="http://www.educity.cn/gongju/c306.html"
+                target="_blank">网络音乐</a><a href="http://www.educity.cn/gongju/c307.html" target="_blank">图片处理</a><a
+                    href="http://www.educity.cn/gongju/c308.html" target="_blank">文件压缩</a><a href="http://www.educity.cn/gongju/c309.html"
+                        target="_blank">电子邮件</a><a href="http://www.educity.cn/gongju/c310.html" target="_blank">系统优化</a><a
+                            href="http://www.educity.cn/gongju/c311.html" target="_blank">杀毒软件</a><a href="http://www.educity.cn/gongju/c312.html"
+                                target="_blank">下载工具</a><a href="http://www.educity.cn/gongju/c313.html" target="_blank">浏览器</a><a
+                                    href="http://www.educity.cn/gongju/c314.html" target="_blank">输入法</a><a href="http://www.educity.cn/gongju/c315.html"
+                                        target="_blank">驱动程序</a><a href="http://www.educity.cn/gongju/c316.html" target="_blank">网盘</a><a
+                                            href="http://www.educity.cn/gongju/c317.html" target="_blank">微博</a><a href="http://www.educity.cn/gongju/c318.html"
+                                                target="_blank">其他工具</a></dd></dl>
+<dl class="site_map">
+    <dt><a href="http://www.educity.cn/shujuku/" target="_blank">数据库学院</a></dt><dd><a
+        href="http://www.educity.cn/shujuku/c29.html" target="_blank">数据库开发</a><a href="http://www.educity.cn/shujuku/c256.html"
+            target="_blank">Oracle数据库</a><a href="http://www.educity.cn/shujuku/c257.html" target="_blank">MySQL数据库</a><a
+                href="http://www.educity.cn/shujuku/c258.html" target="_blank">Sybase数据库</a><a href="http://www.educity.cn/shujuku/c259.html"
+                    target="_blank">DB2数据库</a><a href="http://www.educity.cn/shujuku/c260.html" target="_blank">SQL
+                        Server数据库</a><a href="http://www.educity.cn/shujuku/c327.html" target="_blank">数据仓库</a><a
+                            href="http://www.educity.cn/shujuku/c328.html" target="_blank">Informix数据库</a></dd></dl>
+
+            </div>
+            <div class="h10">
+            </div>
+        </div>
+        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="menu1" style="margin-top:10px;margin-bottom:20px">
+  <tr>
+    <td align="center"><a href="http://www.educity.cn/" target="_blank">网站首页</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/about.htm" target="_blank">关于希赛</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/job.htm" target="_blank" >工作机会</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/xieyi.htm" target="_blank">服务协议</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/right.htm" target="_blank">免责声明</a>&nbsp;&nbsp;&nbsp;<a href="http://www.educity.cn/hzzx/contact.htm" target="_blank">联系希赛</a><br>
+    希赛网 版权所有 &copy; 2001-2016&nbsp;&nbsp;<a href="http://www.miibeian.gov.cn" target="_blank">湘ICP备10203241号-9</a></td>
+</tr>
+</table>
+
+<!-- 置顶按钮开始 -->
+<link href="/css/to_top.css" rel="stylesheet" type="text/css" />
+<script src="/js/to_top.js" type="text/javascript"></script>
+<!-- 置顶按钮结束 -->
+
+<!-- 图+推广开始 -->
+<script>
+var cpro_id = 'u1605519';
+</script>
+<script src="http://cpro.baidustatic.com/cpro/ui/i.js"></script>
+<!-- 图+推广结束 -->
+
+<!-- 百度统计开始 -->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F555d9dcffdcb317595de82b0fc125cdf' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<!-- 百度统计结束 -->
+
+<!-- 百度分享开始 -->
+<script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=6&amp;pos=right&amp;uid=6819010" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+var bds_config={"bdTop":120};
+document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+</script>
+<!-- 百度分享结束 -->
+    </div>
+
+    <script language="javascript" type="text/javascript" src="/js/imgWidth.js"></script>
+
+</body>
+</html>
