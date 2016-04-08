@@ -1,0 +1,719 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=device-width , initial-scale=1.0 , user-scalable=0 , minimum-scale=1.0 , maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Nginx健康检测及Session保持 | Open&#039;s Galaxy</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="pingback" href="http://opensgalaxy.com/xmlrpc.php" />
+
+<!-- All in One SEO Pack 2.2.7.1 by Michael Torbert of Semper Fi Web Design[232,279] -->
+<meta name="keywords" itemprop="keywords" content="health_check,nginx,nginx健康检查,session保持" />
+
+<link rel="canonical" href="http://opensgalaxy.com/2015/07/22/nginx%e5%81%a5%e5%ba%b7%e6%a3%80%e6%b5%8b%e5%8f%8asession%e4%bf%9d%e6%8c%81/" />
+<!-- /all in one seo pack -->
+<link rel="alternate" type="application/rss+xml" title="Open&#039;s Galaxy &raquo; Feed" href="http://opensgalaxy.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Open&#039;s Galaxy &raquo; 评论Feed" href="http://opensgalaxy.com/comments/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"http:\/\/s.w.org\/images\/core\/emoji\/72x72\/","ext":".png","source":{"concatemoji":"http:\/\/opensgalaxy.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.3.3"}};
+			!function(a,b,c){function d(a){var c=b.createElement("canvas"),d=c.getContext&&c.getContext("2d");return d&&d.fillText?(d.textBaseline="top",d.font="600 32px Arial","flag"===a?(d.fillText(String.fromCharCode(55356,56812,55356,56807),0,0),c.toDataURL().length>3e3):(d.fillText(String.fromCharCode(55357,56835),0,0),0!==d.getImageData(16,16,1,1).data[0])):!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g;c.supports={simple:d("simple"),flag:d("flag")},c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.simple&&c.supports.flag||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<script type='text/javascript' src='http://opensgalaxy.com/wp-includes/js/jquery/jquery.js?ver=1.11.3'></script>
+<script type='text/javascript' src='http://opensgalaxy.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel='prev' title='Nginx+Tomcat实现动静态请求分离' href='http://opensgalaxy.com/2015/07/21/nginxtomcat%e5%ae%9e%e7%8e%b0%e5%8a%a8%e9%9d%99%e6%80%81%e8%af%b7%e6%b1%82%e5%88%86%e7%a6%bb/' />
+<link rel='next' title='Apache Rewrite功能一应用案例' href='http://opensgalaxy.com/2015/07/24/apache-rewrite%e5%8a%9f%e8%83%bd%e4%b8%80%e5%ba%94%e7%94%a8%e6%a1%88%e4%be%8b/' />
+<link rel="stylesheet" type="text/css" href="http://opensgalaxy.com/wp-content/plugins/wp-code-highlight/css/wp-code-highlight.css" media="screen" />
+<script type="text/javascript">(function(){mod_txt = '#'; adminBar = "" || 0})();</script>
+<script type="text/javascript" src="http://opensgalaxy.com/wp-content/themes/frontopen2_v1.5.04.15/frontopen.js?ver=1.5.04.15"></script>
+<script type="text/javascript" src="http://opensgalaxy.com/wp-content/themes/frontopen2_v1.5.04.15/include/lightbox-2.6.min.js"></script>
+<link href="http://opensgalaxy.com/wp-content/themes/frontopen2_v1.5.04.15/lightbox.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="http://opensgalaxy.com/wp-content/themes/frontopen2_v1.5.04.15/style.css?ver=1.5.04.15" />
+<link rel="stylesheet" type="text/css" media="all" href="http://opensgalaxy.com/wp-content/themes/frontopen2_v1.5.04.15/mobile.css?ver=1.5.04.15" />
+<style type="text/css">@media screen and (min-width:1366px){.c-con{height:140px;}}
+</style>
+
+<!--[if lt IE 9]><script src="http://opensgalaxy.com/wp-content/themes/frontopen2_v1.5.04.15/html5.js"></script><![endif]-->
+<link rel="stylesheet" href="http://opensgalaxy.com/wp-content/themes/frontopen2_v1.5.04.15/css/font-awesome.min.css?ver=1.5.04.15">
+<!--[if IE 7]>
+<link rel="stylesheet" href="http://opensgalaxy.com/wp-content/themes/frontopen2_v1.5.04.15/css/font-awesome-ie7.min.css?ver=1.5.04.15">
+<![endif]-->
+</head>
+
+<body class="single single-post postid-484 single-format-standard">
+<div class="loading"></div>
+<div class="web_bod">
+<header class="header marauto">
+    <span class="logo">
+        <a href="http://opensgalaxy.com/" title="Open&#039;s Galaxy" rel="home"><img src="http://opensgalaxy.com/wp-content/uploads/2015/07/opensgalaxy4-300x55.png" alt="OpensGalaxy" /></a>
+        <i>真正的财富，是一种思维方式。</i>
+    </span>
+    <form role="search" method="get" id="searchform" action="http://opensgalaxy.com/">
+      <span class="search">
+        <input name="s" id="s" type="text"  class="input" value="搜你想要的！" onclick="this.value = '';" style="color:#999" onkeypress="javascript:if(event.keyCode == 13){query(this.value);}" x-webkit-speech=""/>
+        <button id="searchsubmit" class="btn">SEARCH</button>
+      </span>
+    </form>
+    <div class="cls"></div>
+</header>
+<div class="nav marauto">
+    <div class="tig">
+      <a href="javascript:;"><span id="rss_open" class="rrs">订阅RSS</span></a><div class="rss_box"><a class="close_rss" href="#"></a><span>邮件订阅</span> - 最后更新：<time>2015-11-12</time><br><div class="ress_btn_box">订阅源：<a target="_blank" href="http://opensgalaxy.com/feed/" rel="alternate" type="application/rss+xml" title="rss Feed">RSS</a> <a target="_blank" rel="external nofollow" href="http://mail.qq.com/cgi-bin/feed?u=http://opensgalaxy.com/feed/">QQ邮箱</a> </div></div>      <div class="gonggao">
+        <ul id="g_box">
+                    </ul>
+      </div>
+    </div>
+<div class="navlist">
+<div class="cls"></div>
+</div>
+</div>
+
+
+<nav class="navcon marauto">
+  <div id="mobile_nav_btn">网站导航</div>
+  <div class="menu-header"><ul id="menu-%e8%8f%9c%e5%8d%95" class="menu"><li id="menu-item-595" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-595"><a href="http://opensgalaxy.com/">首页</a></li>
+<li id="menu-item-173" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor menu-item-has-children menu-item-173"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/">技术银河</a>
+<ul class="sub-menu">
+	<li id="menu-item-762" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-762"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/saltstack/">SaltStack</a></li>
+	<li id="menu-item-763" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-763"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/shell/">Shell</a></li>
+</ul>
+</li>
+<li id="menu-item-206" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-206"><a href="http://opensgalaxy.com/category/%e9%9b%95%e5%88%bb%e6%97%b6%e5%85%89/">雕刻时光</a></li>
+<li id="menu-item-480" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-480"><a href="http://opensgalaxy.com/%e9%93%b6%e6%b2%b3%e6%92%ad%e6%8a%a5/">银河播报</a></li>
+<li id="menu-item-172" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-172"><a href="http://opensgalaxy.com/%e5%85%b3%e4%ba%8eblog/">关于Open&#8217;s Galaxy</a></li>
+</ul></div>  
+  </nav>   
+  <section class="conter marauto"><script type="text/javascript">loading('33%',1000)</script>
+  <div id="container">
+      <div id="content" role="main" style="width:96%">
+      <div class="mbx"><i class="icon-home icon-large" style="font-size:14px;"></i>
+<a href="http://opensgalaxy.com"  class="gray">首页</a>  >  <a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/">技术银河</a>  >  <a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/nginx/">Nginx</a>  >  Nginx健康检测及Session保持</div>
+
+				<div id="post-484" class="post-484 post type-post status-publish format-standard hentry category-nginx tag-health_check tag-nginx tag-session">
+                <div class="c-top2" id="post-55">
+                <div class="datetime">2015<br />07-22</div>
+					<header class="tit"><h1 class="entry-title">Nginx健康检测及Session保持</h1>
+					<aside class="entry-meta iititle2">
+                        <span><i class="icon-user icon-large"></i> <a href="http://opensgalaxy.com/author/zonelan/" title="由久坐尘埃发布" rel="author">久坐尘埃</a></span><span><i class="icon-folder-open icon-large"></i> <a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/nginx/" rel="category tag">Nginx</a></span><span><i class="icon-eye-open icon-large"></i> 围观<i id="number">672</i><script type="text/javascript">jQuery(function($){$.get("http://opensgalaxy.com/fo_ajax?ajax=getPostViews&postID=484",function(data){if(data.length < 10)$('#number').text(data)});})</script>次</span><span><i class="icon-comment-alt icon-large"></i> <a href="http://opensgalaxy.com/2015/07/22/nginx%e5%81%a5%e5%ba%b7%e6%a3%80%e6%b5%8b%e5%8f%8asession%e4%bf%9d%e6%8c%81/#respond">留下评论</a></span><span><i class="icon-pencil icon-large"></i> 编辑日期：<time>2015-07-22</time></span><span><i class="icon-zoom-in icon-large"></i> 字体：<a href="javascript:;" onclick="checkFontSize(18)">大</a> <a href="javascript:;" onclick="checkFontSize(16)">中</a> <a href="javascript:;" onclick="checkFontSize(14)">小</a></span>					</aside>
+                    </header>
+                    <div class="cls"></div>
+		    </div>
+                    <!-- .entry-meta -->
+
+					<article class="entry-content">
+                    
+						<p><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">       Nginx拥有负载均衡和反向代理功能，但默认本身是不具备后端服务器健康检测的功能的，这样的后果是后端服务宕机后，nginx仍将请求发送给它，造成不良的用户体验。但我们可以借助第三方功能模块来实现健康检测、Session保持等功能，使nginx更加完美。</span></p>
+<p><strong><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">1、nginx_upstream_check_module</span></strong></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">淘宝技术团队开发的nginx模快nginx_upstream_check_module，此模块用来实现后端服务器的健康检查功能。</span></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">下载地址：https://codeload.github.com/yaoweibin/nginx_upstream_check_module/zip/master</span></p>
+<p><strong><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">2、nginx-sticky-module nginx-sticky-module</span></strong></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">Nginx 的一个扩展模块，实现了通过 Cookie 的会话保持功能。</span></p>
+<p><span id="more-484"></span></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">下载地址：http://nginx-sticky-module.googlecode.com/svn/trunk/ 【需要翻墙】</span></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">其他下载地址：https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/get/1e96371de59f.zip</span></p>
+<p><strong><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">3、nginx-upstream-fair</span></strong></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">”公平的“Nginx 负载均衡模块，增强了Nginx 提供的round-robin 负载均衡算法，可以跟踪后端服务器的负载来分发请求。</span></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">下载地址：git://github.com/gnosek/nginx-upstream-fair.git</span></p>
+<p><span style="font-family: arial, helvetica, sans-serif; font-size: 14pt;">接下来我们就开始给nginx增加功能。 首先下载3个扩展模块</span></p>
+<pre class="wp-code-highlight prettyprint">cd /usr/local/src
+wget https://codeload.github.com/yaoweibin/nginx_upstream_check_module/zip/master 
+git clone git://github.com/gnosek/nginx-upstream-fair.git
+wget https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/get/1e96371de59f.zip
+
+unzip 1e96371de59f.zip
+unzip master
+cd nginx_upstream_check_module-master
+[root@server07 nginx_upstream_check_module-master]# ll
+total 236
+-rw-r--r-- 1 root root      0 Jul  1 10:32 CHANGES
+-rw-r--r-- 1 root root   5483 Jul  1 10:32 check_1.2.1.patch
+-rw-r--r-- 1 root root   7130 Jul  1 10:32 check_1.2.2+.patch
+-rw-r--r-- 1 root root   7094 Jul  1 10:32 check_1.2.6+.patch
+-rw-r--r-- 1 root root   6791 Jul  1 10:32 check_1.5.12+.patch
+-rw-r--r-- 1 root root   8295 Jul  1 10:32 check_1.7.2+.patch
+-rw-r--r-- 1 root root   8346 Jul  1 10:32 check_1.7.5+.patch
+-rw-r--r-- 1 root root   8509 Jul  1 10:32 check_1.9.2+.patch
+-rw-r--r-- 1 root root   6943 Jul  1 10:32 check.patch
+-rw-r--r-- 1 root root    749 Jul  1 10:32 config
+drwxr-xr-x 2 root root   4096 Jul  1 10:32 doc
+-rw-r--r-- 1 root root   1709 Jul  1 10:32 nginx-sticky-module.patch
+drwxr-xr-x 2 root root   4096 Jul  1 10:32 nginx-tests
+-rw-r--r-- 1 root root 111650 Jul  1 10:32 ngx_http_upstream_check_module.c
+-rw-r--r-- 1 root root    529 Jul  1 10:32 ngx_http_upstream_check_module.h
+-rw-r--r-- 1 root root   2848 Jul  1 10:32 ngx_http_upstream_jvm_route_module.patch
+-rw-r--r-- 1 root root  11509 Jul  1 10:32 README
+drwxr-xr-x 6 root root   4096 Jul  1 10:32 test
+-rw-r--r-- 1 root root   3342 Jul  1 10:32 upstream_fair.patch
+drwxr-xr-x 2 root root   4096 Jul  1 10:32 util
+</pre>
+<p>首先查看README</p>
+<pre class="wp-code-highlight prettyprint">Installation
+    Download the latest version of the release tarball of this module from
+    github (&amp;lt;http://github.com/yaoweibin/nginx_upstream_check_module&amp;gt;)
+
+    Grab the nginx source code from nginx.org (&amp;lt;http://nginx.org/&amp;gt;), for
+    example, the version 1.0.14 (see nginx compatibility), and then build
+    the source with this module:
+        $ wget &#039;http://nginx.org/download/nginx-1.0.14.tar.gz&#039;
+        $ tar -xzvf nginx-1.0.14.tar.gz
+        $ cd nginx-1.0.14/
+        $ patch -p1 &amp;lt; /path/to/nginx_http_upstream_check_module/check.patch
+        $ ./configure --add-module=/path/to/nginx_http_upstream_check_module
+        $ make
+        $ make install
+If you want to add the support for upstream fair module, you can do it
+    like this:
+        $ git clone git://github.com/gnosek/nginx-upstream-fair.git
+        $ cd nginx-upstream-fair
+        $ patch -p2 &amp;lt; /path/to/nginx_http_upstream_check_module/upstream_fair.patch
+        $ cd /path/to/nginx-1.0.14
+        $ ./configure --add-module=/path/to/nginx_http_upstream_check_module --add-module=/path/to/nginx-upstream-fair-module
+        $ make
+        $ make install
+ If you want to add the support for nginx sticky module, you can do it
+    like this:
+        $ svn checkout http://nginx-sticky-module.googlecode.com/svn/trunk/ nginx-sticky-module
+        $ cd nginx-sticky-module
+        $ patch -p0 &amp;lt; /path/to/nginx_http_upstream_check_module/nginx-sticky-module.patch
+        $ cd /path/to/nginx-1.0.14
+        $ ./configure --add-module=/path/to/nginx_http_upstream_check_module --add-module=/path/to/nginx-sticky-module
+        $ make
+        $ make install
+</pre>
+<p><strong><span style="font-size: 14pt; font-family: arial, helvetica, sans-serif;">4、基本上RAEDME已经告诉的很清楚了，所以这里我们准备一起将3个模块都安装上。</span></strong></p>
+<pre class="wp-code-highlight prettyprint">cd /usr/local/src/nginx-1.8.0
+patch -p1 &amp;lt; /usr/local/src/nginx_upstream_check_module-master/check_1.7.5+.patch 
+ ##由于我是1.8版的Nginx所以装heck_1.7.5+.patch ，你可以根据自己的版本选择。
+patch -p0 &amp;lt; /usr/local/src/nginx_upstream_check_module-master/nginx-sticky-module.patch 
+#图1 这里需要输入ngx_http_sticky_module.c的绝对路径
+patch -p2 &amp;lt; /usr/local/src/nginx_upstream_check_module-master/upstream_fair.patch 
+ #图2 这里需要输入ngx_http_upstream_fair_module.c的绝对路径
+
+./configure --sbin-path=/usr/local/nginx/nginx \
+--conf-path=/usr/local/nginx/nginx.conf \
+--pid-path=/usr/local/nginx/nginx.pid \
+--with-http_ssl_module \
+--with-pcre=/usr/local/src/pcre-8.37 \
+--with-zlib=/usr/local/src/zlib-1.2.8 \
+--with-openssl=/usr/local/src/openssl-1.0.1c \
+--add-module=/usr/local/src/nginx_upstream_check_module-master \
+--add-module=/usr/local/src/nginx-upstream-fair \
+--add-module=/usr/local/src/nginx-goodies-nginx-sticky-module-ng-1e96371de59f
+</pre>
+<p><strong>图1</strong></p>
+<p><a href="http://wujianren.com/wp-content/uploads/2015/07/sticky.png" data-lightbox="image_lg"><img title="Nginx健康检测及Session保持 - 第1张  | Open's Galaxy" alt="Nginx健康检测及Session保持 - 第1张  | Open's Galaxy"  class="alignnone size-full wp-image-493"  data-src="http://wujianren.com/wp-content/uploads/2015/07/sticky.png" width="650" height="268" /></a></p>
+<p><strong>图2</strong></p>
+<p><a href="http://wujianren.com/wp-content/uploads/2015/07/fair.png" data-lightbox="image_lg"><img title="Nginx健康检测及Session保持 - 第2张  | Open's Galaxy" alt="Nginx健康检测及Session保持 - 第2张  | Open's Galaxy"  class="alignnone size-full wp-image-492"  data-src="http://wujianren.com/wp-content/uploads/2015/07/fair.png" width="654" height="206" /></a></p>
+<p><strong>5、安装完成后，通过配置实现健康检查，并测试。 这里重点展示健康检查配置，其他可以忽略。</strong></p>
+<pre class="wp-code-highlight prettyprint">worker_processes  1;
+
+error_log  logs/error.log;
+pid        logs/nginx.pid;
+events {
+    worker_connections  1024;
+}
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  &#039;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#039;
+                      &#039;$status $body_bytes_sent &quot;$http_referer&quot; &#039;
+                      &#039;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#039;;
+
+    access_log  logs/access.log  main;
+    sendfile        on;
+    keepalive_timeout  65;
+        upstream test.com {
+            server 100.44.154.150:8080;    ##默认是轮询算法
+            server 100.44.157.233:8080;
+            check interval=5000 rise=2 fall=5 timeout=1000 type=http; 
+##以类型为http的方式检测  interval=5000 rise=2 fall=5 timeout=1000  每5秒检测一次，5次超时就认为失败，2次确认就认为恢复
+           check_http_send &quot;GET /docs/RUNNING.txt HTTP/1.0\r\n\r\n&quot;; ##检测的后端服务器页面 /docs/RUNNING.txt
+}
+    server {
+        listen       80;
+        server_name  test.com;
+        location / {
+                proxy_pass http://test.com;
+        }
+        location /status {
+                check_status;
+           }
+        location = /50x.html {
+            root   html;
+        }
+    }
+
+}
+
+</pre>
+<p><strong>6、登陆 http://test.com/status 查看服务器健康状态  </strong></p>
+<p><a href="http://wujianren.com/wp-content/uploads/2015/07/check1.png" data-lightbox="image_lg"><img title="Nginx健康检测及Session保持 - 第3张  | Open's Galaxy" alt="Nginx健康检测及Session保持 - 第3张  | Open's Galaxy"  class="alignnone size-full wp-image-489"  data-src="http://wujianren.com/wp-content/uploads/2015/07/check1.png" width="787" height="342" /></a></p>
+<p><strong>关闭一台服务器后的状态</strong></p>
+<p><a href="http://wujianren.com/wp-content/uploads/2015/07/check2.png" data-lightbox="image_lg"><img title="Nginx健康检测及Session保持 - 第4张  | Open's Galaxy" alt="Nginx健康检测及Session保持 - 第4张  | Open's Galaxy"  class="alignnone size-full wp-image-490"  data-src="http://wujianren.com/wp-content/uploads/2015/07/check2.png" width="785" height="347" /></a></p>
+<p><strong>7、接下来我们使用nginx-sticky-module 模块实现session保持。</strong></p>
+<pre class="wp-code-highlight prettyprint">  upstream test.com {
+            sticky name=testid;  ##session name可以是任意字符
+            server 100.44.154.150:8080;    ##默认是轮询算法
+            server 100.44.157.233:8080;
+            check interval=5000 rise=2 fall=5 timeout=1000 type=http; 
+           check_http_send &quot;GET /docs/RUNNING.txt HTTP/1.0\r\n\r\n&quot;;
+}
+&lt;strong&gt;8、测试，我们可以在两个服务器上各放置一个html页面，分别标记server01 server02 ,如果是轮询的话，页面刷新会在server01 server02来回切换，但如果是sticky的话 会固定到其中一台服务器上，下图为session名称&lt;/strong&gt;</pre>
+<p><a href="http://wujianren.com/wp-content/uploads/2015/07/session.png" data-lightbox="image_lg"><img title="Nginx健康检测及Session保持 - 第5张  | Open's Galaxy" alt="Nginx健康检测及Session保持 - 第5张  | Open's Galaxy"  class="alignnone size-full wp-image-491"  data-src="http://wujianren.com/wp-content/uploads/2015/07/session.png" width="894" height="186" /></a></p>
+<p>&nbsp;</p>
+<p><span style="font-family: arial, helvetica, sans-serif;"><strong><span style="font-size: 14pt;">9、扩展知识</span></strong></span></p>
+<p>nginx的几种负载均衡算法：</p>
+<p>1、轮询 默认</p>
+<p>2、weight 权重</p>
+<p>3、ip_hash<br />
+每个请求按访问ip的hash结果分配，这样每个访客固定访问一个后端服务器，可以解决session的问题。</p>
+<p>4、fair（第三方）<br />
+按后端服务器的响应时间来分配请求，响应时间短的优先分配</p>
+<p>5、url_hash（第三方）</p>
+<p>按访问url的hash结果来分配请求，使每个url定向到同一个后端服务器，后端服务器为缓存时比较有效。</p>
+<p>6、sticky (第三方) 使用cookie 进行sesson保持</p>
+<p>The &#8220;sticky&#8221; command can take several arguments to control its behaviour:</p>
+<div align="left">  sticky [name=route] [domain=.foo.bar] [path=/] [expires=1h] [hash=index|md5|sha1] [no_fallback];</div>
+<div align="left"></div>
+<div>
+<table border="1" width="533" cellspacing="0" cellpadding="0">
+<colgroup>
+<col width="101" />
+<col width="204" />
+<col width="130" />
+<col width="99" /></colgroup>
+<tbody>
+<tr>
+<td align="left" valign="middle" width="100">
+<div align="left"><strong>Configuration</strong></div>
+</td>
+<td align="left" valign="middle" width="203">
+<div align="left"><strong>Description</strong></div>
+</td>
+<td align="left" valign="middle" width="129">
+<div align="left"><strong>Parameters</strong></div>
+</td>
+<td align="left" valign="middle" width="98">
+<div align="left"><strong>Default Value</strong></div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="middle" width="100">
+<div align="left">name</div>
+</td>
+<td align="left" valign="middle" width="203">
+<div align="left">the name of the cookie used to track the persistant upstream srv</div>
+</td>
+<td align="left" valign="middle" width="129">
+<div align="left">can be any string</div>
+</td>
+<td align="left" valign="middle" width="98">
+<div align="left">&#8220;route&#8221;</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="middle" width="100">
+<div align="left">domain</div>
+</td>
+<td align="left" valign="middle" width="203">
+<div align="left">the domain in which the cookie will be valid</div>
+</td>
+<td align="left" valign="middle" width="129">
+<div align="left">can be any string</div>
+</td>
+<td align="left" valign="middle" width="98">
+<div align="left">nothing. Let the browser handle this.</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="middle" width="100">
+<div align="left">path</div>
+</td>
+<td align="left" valign="middle" width="203">
+<div align="left">the path in which the cookie will      be valid</div>
+</td>
+<td align="left" valign="middle" width="129">
+<div align="left">can be any path</div>
+</td>
+<td align="left" valign="middle" width="98">
+<div align="left">nothing. Let the browser handle this.</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="middle" width="100">
+<div align="left">expires</div>
+</td>
+<td align="left" valign="middle" width="203">
+<div align="left">the validity duration of the cookie</div>
+</td>
+<td align="left" valign="middle" width="129">
+<div align="left">must be a duration greater than one second</div>
+</td>
+<td align="left" valign="middle" width="98">
+<div align="left">nothing. It&#8217;s a session cookie</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="middle" width="100">
+<div align="left">hash</div>
+</td>
+<td align="left" valign="middle" width="203">
+<div align="left">the hash mechanism to encode upstream server. It cant&#8217; be used      with hmac</div>
+</td>
+<td align="left" valign="middle" width="129">
+<div align="left">md5|sha1</div>
+</td>
+<td align="left" valign="middle" width="98">
+<div align="left">md5</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="middle" width="100">
+<div align="left">hmac</div>
+</td>
+<td align="left" valign="middle" width="203">
+<div align="left">The HMAC hash mechanism to encode upstream server. It&#8217;s like      the hash mechanism but it uses hmac_key to secure the hashing.      It can&#8217;t be used with hash.</div>
+</td>
+<td align="left" valign="middle" width="129">
+<div align="left">md5|sha1</div>
+</td>
+<td align="left" valign="middle" width="98">
+<div align="left">none</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="middle" width="100">
+<div align="left">hmac_key</div>
+</td>
+<td align="left" valign="middle" width="203">
+<div align="left">The key to use with hmac. It&#8217;s mandatory when hmac is set.</div>
+</td>
+<td align="left" valign="middle" width="129">
+<div align="left">can be any string</div>
+</td>
+<td align="left" valign="middle" width="98">
+<div align="left">none</div>
+</td>
+</tr>
+<tr>
+<td align="left" valign="middle" width="100">
+<div align="left">no_fallback</div>
+</td>
+<td align="left" valign="middle" width="203">
+<div align="left">When this flag is set, nginx will return a 502 (Bad Gateway orProxy Error) if a request comes      with a cookie and the corresponding backend is unavailable.</div>
+</td>
+<td align="left" valign="middle" width="129">
+<div align="left">no arguments</div>
+</td>
+<td align="left" valign="middle" width="98">
+<div align="left">none</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>&nbsp;</p>
+ 
+ 										                        <div class="loc_link"><ul><li>本文固定链接: <a href="http://opensgalaxy.com/2015/07/22/nginx%e5%81%a5%e5%ba%b7%e6%a3%80%e6%b5%8b%e5%8f%8asession%e4%bf%9d%e6%8c%81/" rel="bookmark" title="Nginx健康检测及Session保持">http://opensgalaxy.com/2015/07/22/nginx健康检测及session保持/</a></li>
+                        <li>转载请注明: <a href="http://opensgalaxy.com/author/zonelan/" title="由久坐尘埃发布" rel="author">久坐尘埃</a> <time>2015年07月22日 </time>于 <a href="http://opensgalaxy.com/" title="访问Open&#039;s Galaxy">Open&#039;s Galaxy</a> 发表</li></ul>
+                        </div>
+                        							<div style="margin-top:10px">
+							<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin","youdao","sqq","douban"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","youdao","sqq","douban"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>							<div class="cls"></div></div>
+													                        <div class="author_info">
+                        	<div class="au_top_bar"><div class="edit_date">最后编辑：<time>2015-07-22</time></div><b>作者：久坐尘埃</b></div>
+                            <div class="avatar"></div>
+                            <div class="type_out"><span class="ttxx">这个作者貌似有点懒，什么都没有留下。</span><div class="au_links"><a href="http://opensgalaxy.com?author=1" class="c1"><i class="icon-home"></i> 站内专栏</a></div></div>
+                        <div class="cls"></div>
+                        </div>
+                        					</article>
+                    
+                    <!-- .entry-content -->
+
+					<!-- .entry-utility -->
+				</div><!-- #post-## -->
+<div class="c-bot">
+    <aside class="cb_bq"><i class="icon-tag icon-large"></i> <a href="http://opensgalaxy.com/tag/health_check/" rel="tag">health_check</a>，<a href="http://opensgalaxy.com/tag/nginx/" rel="tag">nginx</a>，<a href="http://opensgalaxy.com/tag/nginx%e5%81%a5%e5%ba%b7%e6%a3%80%e6%9f%a5/" rel="tag">nginx健康检查</a>，<a href="http://opensgalaxy.com/tag/session%e4%bf%9d%e6%8c%81/" rel="tag">session保持</a></aside>        <div class="cls"></div>
+    </div>
+    <br />
+				<div id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="http://opensgalaxy.com/2015/07/24/apache-rewrite%e5%8a%9f%e8%83%bd%e4%b8%80%e5%ba%94%e7%94%a8%e6%a1%88%e4%be%8b/" rel="next"><span class="meta-nav"><i class="icon-arrow-left"></i></span> Apache Rewrite功能一应用案例 </a></div>
+					<div class="nav-next"><a href="http://opensgalaxy.com/2015/07/21/nginxtomcat%e5%ae%9e%e7%8e%b0%e5%8a%a8%e9%9d%99%e6%80%81%e8%af%b7%e6%b1%82%e5%88%86%e7%a6%bb/" rel="prev">Nginx+Tomcat实现动静态请求分离  <i class="icon-arrow-right"></i></a></div>
+				</div><!-- #nav-below -->
+<div class="cls"></div>
+				                    <div class="ad_2">
+						                    </div>
+                                <div class="relatedposts">
+<h3 class="widget-title"><i class="icon-warning-sign"></i> 您可能还会对这些文章感兴趣！</h3>
+<ul>
+		<li><a href="http://opensgalaxy.com/2015/10/26/nginx-rewrite/" rel="bookmark" title="详细阅读 Nginx Rewrite">Nginx Rewrite</a></li>
+		<li><a href="http://opensgalaxy.com/2015/07/21/nginxtomcat%e5%ae%9e%e7%8e%b0%e5%8a%a8%e9%9d%99%e6%80%81%e8%af%b7%e6%b1%82%e5%88%86%e7%a6%bb/" rel="bookmark" title="详细阅读 Nginx+Tomcat实现动静态请求分离">Nginx+Tomcat实现动静态请求分离</a></li>
+		<li><a href="http://opensgalaxy.com/2015/07/20/nginx%e6%ba%90%e7%a0%81%e5%ae%89%e8%a3%85/" rel="bookmark" title="详细阅读 Nginx源码安装">Nginx源码安装</a></li>
+	</ul>
+<div class="cls"></div>
+</div>
+
+<div id="comments">
+						<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">留下一个回复 <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2015/07/22/nginx%E5%81%A5%E5%BA%B7%E6%A3%80%E6%B5%8B%E5%8F%8Asession%E4%BF%9D%E6%8C%81/#respond" style="display:none;">取消回复</a></small></h3>
+									<form action="http://opensgalaxy.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">你的email不会被公开。</p>							<p class="comment-form-author"><label for="author">姓名 <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required='true' required='required' /></p>
+<p class="comment-form-email"><label for="email">电子邮件 <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" aria-describedby="email-notes" aria-required='true' required='required' /></p>
+<p class="comment-form-url"><label for="url">站点</label> <input id="url" name="url" type="text" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">评论</label> <textarea id="comment" name="comment" cols="45" rows="8"  aria-required="true" required="required"></textarea></p>						
+						<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="发表评论" /> <input type='hidden' name='comment_post_ID' value='484' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>					</form>
+							</div><!-- #respond -->
+			</div><!-- #comments -->
+      </div><!-- #content -->
+  </div><!-- #container -->
+<script type="text/javascript">loading('55%',1000)</script>
+    <aside id="primary" class="side" role="complementary">
+        <ul class="xoxo">
+<li id="text-9" class="widget-container widget_text">			<div class="textwidget"><html>
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记"></a><a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin","youdao","sqq","douban"],"viewText":"分享到：","viewSize":"24"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin","youdao","sqq","douban"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</html></div>
+		</li>		<li id="recent-posts-2" class="widget-container widget_recent_entries">		<h3 class="widget-title">近期文章</h3>		<ul>
+					<li>
+				<a href="http://opensgalaxy.com/2015/11/12/cronolog-%e5%88%86%e5%89%b2-tomcat8-catalina-out%e6%97%a5%e5%bf%97/">Cronolog 分割 Tomcat8 Catalina.out日志</a>
+						</li>
+					<li>
+				<a href="http://opensgalaxy.com/2015/11/04/centos-l2tp-vpn-%e9%85%8d%e7%bd%ae%e5%ae%9e%e4%be%8b/">Centos L2tp Vpn 配置实例</a>
+						</li>
+					<li>
+				<a href="http://opensgalaxy.com/2015/10/28/h3c-comware-v7-ipsecvpn/">H3C Comware V7 IpsecVpn</a>
+						</li>
+					<li>
+				<a href="http://opensgalaxy.com/2015/10/26/nginx-rewrite/">Nginx Rewrite</a>
+						</li>
+					<li>
+				<a href="http://opensgalaxy.com/2015/10/09/%e5%85%b3%e4%ba%8e%e3%80%90%e8%87%aa%e5%8a%a8%e4%b8%8b%e8%bd%bd%e9%98%bf%e9%87%8c%e4%ba%91rds%e6%95%b0%e6%8d%ae%e5%ba%93%e5%a4%87%e4%bb%bd%e3%80%91%e8%ae%a1%e5%88%92%e4%bb%bb%e5%8a%a1%e6%89%a7/">关于【自动下载阿里云RDS数据库备份】计划任务执行报错修复</a>
+						</li>
+					<li>
+				<a href="http://opensgalaxy.com/2015/09/29/oracle-11g-dataguard-%e8%a7%92%e8%89%b2%e8%bd%ac%e6%8d%a2/">Oracle 11G DataGuard 角色转换</a>
+						</li>
+					<li>
+				<a href="http://opensgalaxy.com/2015/09/27/oracle-11g-data-guard%e9%80%9a%e8%bf%87duplicate-from-active-database-%e5%88%9b%e5%bb%ba-standby-database/">Oracle 11G Data Guard通过Duplicate From Active Database 创建 Standby Database</a>
+						</li>
+					<li>
+				<a href="http://opensgalaxy.com/2015/09/25/oracle-%e4%ba%a4%e6%8d%a2%e5%88%86%e5%8c%ba/">Oracle 交换分区</a>
+						</li>
+					<li>
+				<a href="http://opensgalaxy.com/2015/09/23/shell%e5%ae%9e%e6%88%98%e3%80%90%e8%87%aa%e5%8a%a8%e4%b8%8b%e8%bd%bd%e9%98%bf%e9%87%8c%e4%ba%91rds%e6%95%b0%e6%8d%ae%e5%ba%93%e5%a4%87%e4%bb%bd%e3%80%91/">Shell实战【自动下载阿里云RDS数据库备份】</a>
+						</li>
+					<li>
+				<a href="http://opensgalaxy.com/2015/09/21/oracle-%e8%a1%a8%e5%9c%a8%e7%ba%bf%e9%87%8d%e5%ae%9a%e4%b9%89/">Oracle 表在线重定义</a>
+						</li>
+				</ul>
+		</li><li id="tag_cloud-3" class="widget-container widget_tag_cloud"><h3 class="widget-title">标签云</h3><div class="tagcloud"><a href='http://opensgalaxy.com/tag/oracle/' class='tag-link-26' title='9个话题' style='font-size: 14px;'>oracle (9)</a> 
+<a href='http://opensgalaxy.com/tag/linux/' class='tag-link-8' title='8个话题' style='font-size: 14px;'>linux (8)</a> 
+<a href='http://opensgalaxy.com/tag/saltstack/' class='tag-link-101' title='7个话题' style='font-size: 14px;'>saltstack (7)</a> 
+<a href='http://opensgalaxy.com/tag/saltstack%e5%85%a5%e9%97%a8/' class='tag-link-103' title='4个话题' style='font-size: 14px;'>saltstack入门 (4)</a> 
+<a href='http://opensgalaxy.com/tag/rman/' class='tag-link-30' title='4个话题' style='font-size: 14px;'>rman (4)</a> 
+<a href='http://opensgalaxy.com/tag/nginx/' class='tag-link-73' title='4个话题' style='font-size: 14px;'>nginx (4)</a> 
+<a href='http://opensgalaxy.com/tag/shell/' class='tag-link-87' title='3个话题' style='font-size: 14px;'>shell (3)</a> 
+<a href='http://opensgalaxy.com/tag/oracle-rac/' class='tag-link-48' title='3个话题' style='font-size: 14px;'>oracle rac (3)</a> 
+<a href='http://opensgalaxy.com/tag/oracle11g/' class='tag-link-35' title='3个话题' style='font-size: 14px;'>oracle11g (3)</a> 
+<a href='http://opensgalaxy.com/tag/%e4%ba%91%e8%ae%a1%e7%ae%97/' class='tag-link-18' title='3个话题' style='font-size: 14px;'>云计算 (3)</a> 
+<a href='http://opensgalaxy.com/tag/gluster/' class='tag-link-17' title='3个话题' style='font-size: 14px;'>gluster (3)</a> 
+<a href='http://opensgalaxy.com/tag/%e5%88%86%e5%b8%83%e5%bc%8f%e6%96%87%e4%bb%b6%e7%b3%bb%e7%bb%9f/' class='tag-link-19' title='3个话题' style='font-size: 14px;'>分布式文件系统 (3)</a> 
+<a href='http://opensgalaxy.com/tag/ora-16038/' class='tag-link-38' title='2个话题' style='font-size: 14px;'>ORA-16038 (2)</a> 
+<a href='http://opensgalaxy.com/tag/tomcat/' class='tag-link-75' title='2个话题' style='font-size: 14px;'>tomcat (2)</a> 
+<a href='http://opensgalaxy.com/tag/oracle11g-rac/' class='tag-link-50' title='2个话题' style='font-size: 14px;'>oracle11G RAC (2)</a> 
+<a href='http://opensgalaxy.com/tag/ipsec-vpn/' class='tag-link-28' title='2个话题' style='font-size: 14px;'>ipsec vpn (2)</a> 
+<a href='http://opensgalaxy.com/tag/monitor/' class='tag-link-9' title='2个话题' style='font-size: 14px;'>monitor (2)</a> 
+<a href='http://opensgalaxy.com/tag/h3c/' class='tag-link-27' title='2个话题' style='font-size: 14px;'>h3c (2)</a> 
+<a href='http://opensgalaxy.com/tag/haproxy/' class='tag-link-12' title='2个话题' style='font-size: 14px;'>haproxy (2)</a> 
+<a href='http://opensgalaxy.com/tag/mail/' class='tag-link-20' title='2个话题' style='font-size: 14px;'>mail (2)</a> 
+<a href='http://opensgalaxy.com/tag/emos/' class='tag-link-21' title='2个话题' style='font-size: 14px;'>emos (2)</a> 
+<a href='http://opensgalaxy.com/tag/postfix/' class='tag-link-22' title='2个话题' style='font-size: 14px;'>postfix (2)</a> 
+<a href='http://opensgalaxy.com/tag/salt/' class='tag-link-104' title='2个话题' style='font-size: 14px;'>salt (2)</a> 
+<a href='http://opensgalaxy.com/tag/saltstack-pillar/' class='tag-link-115' title='2个话题' style='font-size: 14px;'>saltstack pillar (2)</a> 
+<a href='http://opensgalaxy.com/tag/salt-master%e9%85%8d%e7%bd%ae/' class='tag-link-151' title='2个话题' style='font-size: 14px;'>salt master配置 (2)</a> 
+<a href='http://opensgalaxy.com/tag/duplicate-from-active-database/' class='tag-link-149' title='2个话题' style='font-size: 14px;'>duplicate from active database (2)</a> 
+<a href='http://opensgalaxy.com/tag/oracle-11-2-0-4-0/' class='tag-link-127' title='2个话题' style='font-size: 14px;'>oracle 11.2.0.4.0 (2)</a> 
+<a href='http://opensgalaxy.com/tag/rhel/' class='tag-link-34' title='1个话题' style='font-size: 14px;'>rhel (1)</a> 
+<a href='http://opensgalaxy.com/tag/%e5%a4%87%e4%bb%bd/' class='tag-link-31' title='1个话题' style='font-size: 14px;'>备份 (1)</a> 
+<a href='http://opensgalaxy.com/tag/%e8%bf%81%e7%a7%bb/' class='tag-link-32' title='1个话题' style='font-size: 14px;'>迁移 (1)</a> 
+<a href='http://opensgalaxy.com/tag/ora-00312/' class='tag-link-37' title='1个话题' style='font-size: 14px;'>ORA-00312 (1)</a> 
+<a href='http://opensgalaxy.com/tag/ora-00354/' class='tag-link-36' title='1个话题' style='font-size: 14px;'>ORA-00354 (1)</a> 
+<a href='http://opensgalaxy.com/tag/rac/' class='tag-link-49' title='1个话题' style='font-size: 14px;'>rac (1)</a> 
+<a href='http://opensgalaxy.com/tag/cannot-allocate-new-log/' class='tag-link-47' title='1个话题' style='font-size: 14px;'>cannot allocate new log (1)</a> 
+<a href='http://opensgalaxy.com/tag/redolog/' class='tag-link-39' title='1个话题' style='font-size: 14px;'>REDOLOG (1)</a> 
+<a href='http://opensgalaxy.com/tag/nconf/' class='tag-link-25' title='1个话题' style='font-size: 14px;'>nconf (1)</a> 
+<a href='http://opensgalaxy.com/tag/cisco/' class='tag-link-29' title='1个话题' style='font-size: 14px;'>cisco (1)</a> 
+<a href='http://opensgalaxy.com/tag/keepalive/' class='tag-link-13' title='1个话题' style='font-size: 14px;'>keepalive (1)</a> 
+<a href='http://opensgalaxy.com/tag/weblogic/' class='tag-link-11' title='1个话题' style='font-size: 14px;'>weblogic (1)</a> 
+<a href='http://opensgalaxy.com/tag/zenoss/' class='tag-link-7' title='1个话题' style='font-size: 14px;'>zenoss (1)</a> 
+<a href='http://opensgalaxy.com/tag/nfs/' class='tag-link-14' title='1个话题' style='font-size: 14px;'>nfs (1)</a> 
+<a href='http://opensgalaxy.com/tag/ubuntu/' class='tag-link-15' title='1个话题' style='font-size: 14px;'>ubuntu (1)</a> 
+<a href='http://opensgalaxy.com/tag/nginos/' class='tag-link-24' title='1个话题' style='font-size: 14px;'>nginos (1)</a> 
+<a href='http://opensgalaxy.com/tag/webmail/' class='tag-link-23' title='1个话题' style='font-size: 14px;'>webmail (1)</a> 
+<a href='http://opensgalaxy.com/tag/proftp/' class='tag-link-16' title='1个话题' style='font-size: 14px;'>proftp (1)</a> </div>
+</li><li id="categories-2" class="widget-container widget_categories"><h3 class="widget-title">分类目录</h3>		<ul>
+	<li class="cat-item cat-item-81"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/apache/" title="Apache">Apache</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/cloud/" >Cloud</a>
+</li>
+	<li class="cat-item cat-item-93"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/haproxy/" >Haproxy</a>
+</li>
+	<li class="cat-item cat-item-2"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/linux/" >Linux</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/network/" >Network</a>
+</li>
+	<li class="cat-item cat-item-72"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/nginx/" >Nginx</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/oracle/" >Oracle</a>
+</li>
+	<li class="cat-item cat-item-100"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/saltstack/" >SaltStack</a>
+</li>
+	<li class="cat-item cat-item-111"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/shell/" >Shell</a>
+</li>
+	<li class="cat-item cat-item-64"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/storage/" >Storage</a>
+</li>
+	<li class="cat-item cat-item-141"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/tomcat/" >Tomcat</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://opensgalaxy.com/category/%e6%8a%80%e6%9c%af%e9%93%b6%e6%b2%b3/weblogic/" >Weblogic</a>
+</li>
+	<li class="cat-item cat-item-51"><a href="http://opensgalaxy.com/category/%e9%9b%95%e5%88%bb%e6%97%b6%e5%85%89/%e5%81%a5%e5%ba%b7%e8%bf%90%e5%8a%a8/" >健康运动</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://opensgalaxy.com/category/uncategorized/" >未分类</a>
+</li>
+		</ul>
+</li><li id="calendar-3" class="widget-container widget_calendar"><h3 class="widget-title">日历</h3><div id="calendar_wrap"><table id="wp-calendar">
+	<caption>2015年七月</caption>
+	<thead>
+	<tr>
+		<th scope="col" title="星期一">一</th>
+		<th scope="col" title="星期二">二</th>
+		<th scope="col" title="星期三">三</th>
+		<th scope="col" title="星期四">四</th>
+		<th scope="col" title="星期五">五</th>
+		<th scope="col" title="星期六">六</th>
+		<th scope="col" title="星期日">日</th>
+	</tr>
+	</thead>
+
+	<tfoot>
+	<tr>
+		<td colspan="3" id="prev" class="pad">&nbsp;</td>
+		<td class="pad">&nbsp;</td>
+		<td colspan="3" id="next"><a href="http://opensgalaxy.com/2015/08/">八 &raquo;</a></td>
+	</tr>
+	</tfoot>
+
+	<tbody>
+	<tr>
+		<td colspan="2" class="pad">&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td>
+	</tr>
+	<tr>
+		<td><a href="http://opensgalaxy.com/2015/07/06/" title="世界，你好！
+Zenoss 安装文档
+Haproxy+Keepalived搭建Weblogic高可用负载均衡集群
+Ubuntu server 下配置 NFS 服务
+Ubuntu 12.04下Proftpd FTP服务器配置
+GlusterFS集群文件系统介绍
+Gluster分布式文件系统 使用（初阶篇）
+Gluster分布式文件系统（进阶篇）
+EMOS邮件系统问题及解决方法【更新中】
+EMOS 邮件系统安装部署
+Nagios+Nconf 部署
+Ubuntu server 10.04 32bit 下安装 Oracle 10g
+H3C MSR3016 与Cisco 5510 ipsec vpn互联
+H3C MSR 30-16 路由器更换系统版本［适用MSR20 30 50系列］
+Oracle 10G 归档模式下备份脚本
+Oracle Windows 迁移至Linux 文件复制方式">6</a></td><td>7</td><td>8</td><td><a href="http://opensgalaxy.com/2015/07/09/" title="RHEL6.2_64BIT+Oracle11204安装文档">9</a></td><td><a href="http://opensgalaxy.com/2015/07/10/" title="【ORA-00312】Redo log文件损坏故障解决">10</a></td><td><a href="http://opensgalaxy.com/2015/07/11/" title="Oracle Thread 1 cannot allocate new log 的处理办法">11</a></td><td><a href="http://opensgalaxy.com/2015/07/12/" title="Oracle11G RAC搭建文档【第一部分 基础环境搭建】">12</a></td>
+	</tr>
+	<tr>
+		<td><a href="http://opensgalaxy.com/2015/07/13/" title="慢跑是一种人生态度">13</a></td><td>14</td><td>15</td><td><a href="http://opensgalaxy.com/2015/07/16/" title="【ORA-08102】udump下大量trc文件处理过程">16</a></td><td>17</td><td>18</td><td><a href="http://opensgalaxy.com/2015/07/19/" title="Oracle11G RAC搭建文档【第二部分 RAC环境搭建】">19</a></td>
+	</tr>
+	<tr>
+		<td><a href="http://opensgalaxy.com/2015/07/20/" title="Nginx源码安装">20</a></td><td><a href="http://opensgalaxy.com/2015/07/21/" title="Nginx+Tomcat实现动静态请求分离">21</a></td><td><a href="http://opensgalaxy.com/2015/07/22/" title="Nginx健康检测及Session保持">22</a></td><td>23</td><td><a href="http://opensgalaxy.com/2015/07/24/" title="Apache Rewrite功能一应用案例">24</a></td><td><a href="http://opensgalaxy.com/2015/07/25/" title="阿里云自定义监控配置实例">25</a></td><td>26</td>
+	</tr>
+	<tr>
+		<td>27</td><td><a href="http://opensgalaxy.com/2015/07/28/" title="Oracle11G RAC搭建文档【第三部分 RAC Failover配置】">28</a></td><td><a href="http://opensgalaxy.com/2015/07/29/" title="Oracle Rman将32位数据库转换至64位">29</a></td><td><a href="http://opensgalaxy.com/2015/07/30/" title="EMC LUN迁移">30</a></td><td><a href="http://opensgalaxy.com/2015/07/31/" title="Haproxy ACL控制艺术">31</a></td>
+		<td class="pad" colspan="2">&nbsp;</td>
+	</tr>
+	</tbody>
+	</table></div></li><li id="linkcat-131" class="widget-container widget_links"><h3 class="widget-title">数据库系列博客站</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://blog.csdn.net/tianlesoftware" rel="friend colleague" title="David Dai &#8212; Focus on Oracle" target="_blank">DAVE的博客</a></li>
+<li><a href="http://www.dbdream.com.cn/" rel="friend colleague" title="信春哥，系统稳，闭眼上线不回滚！" target="_blank">春哥博客站</a></li>
+
+	</ul>
+</li>
+<li id="linkcat-133" class="widget-container widget_links"><h3 class="widget-title">程序语言系列博客站</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://blog.csdn.net/zl544434558" rel="acquaintance colleague" title="你究竟是想一辈子卖糖水，还是希望获得改变世界的机会？" target="_blank">向着希望前进</a></li>
+
+	</ul>
+</li>
+<li id="linkcat-182" class="widget-container widget_links"><h3 class="widget-title">运维系列博客站</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://blog.csdn.net/zonelan" rel="acquaintance" target="_blank">久坐尘埃的博客</a></li>
+
+	</ul>
+</li>
+<li id="text-10" class="widget-container widget_text"><h3 class="widget-title">阿里云服务器</h3>			<div class="textwidget"><div id="marguee" style="text-align:center; font-size:14px; color:red">OpensGalaxy 开放的银河系</div>
+<br>
+<div id="marguee" style="text-align:center; font-size:13px; color:red">IT技术分享博客</div>
+<br>
+<div id="marguee" style="text-align:center; font-size:13px; color:red">|开放|包容|探索|分享|</div>
+<br>
+<div align="center"><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DgDWHfrOAk9EcQipKwQzePCperVdZeJviEViQ0P1Vf2kguMN8XjClAoqxbGUuZqQa3vnUzL%2Firp0ZT4kDqswRAF5yCeCgB2hRsdipg6nwKUVrnDmwu5lnPTDVuRn8ddiDsEVVC24eqozcHtRpEUy6RHVyxRO0gvF4QxJtmCgOmCLXl8Q7TEjBF%2BX11FSyvDCnQiv%2BJKjlPObGDmntuH4VtA%3D%3D"><img src="http://img.blog.csdn.net/20150825162714285"></a></div></div>
+		</li><li id="text-11" class="widget-container widget_text"><h3 class="widget-title">阿里云RDS</h3>			<div class="textwidget"><div id="marguee" style="text-align:center; font-size:14px; color:red">OpensGalaxy 开放的银河系</div>
+<br>
+<div id="marguee" style="text-align:center; font-size:13px; color:red">IT技术分享博客</div>
+<br>
+<div id="marguee" style="text-align:center; font-size:13px; color:red">|开放|包容|探索|分享|</div>
+<br>
+<div align="center"><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DClYaPRMqFE8cQipKwQzePCperVdZeJviEViQ0P1Vf2kguMN8XjClArArxW1ekeMC%2B%2BDtWKNw1RUZT4kDqswRAF5yCeCgB2hRsdipg6nwKUXWWckFyDslNjDVuRn8ddiDsEVVC24eqozcHtRpEUy6RHVyxRO0gvF4QxJtmCgOmCLXl8Q7TEjBF%2FKAgNLUle0RTNHcuSwiZDTGDmntuH4VtA%3D%3D"><img src="http://img.blog.csdn.net/20150825162714285"></a></div></div>
+		</li>        </ul>
+    </aside><!-- #primary .widget-area -->
+
+<script type="text/javascript">loading('78%',1000)</script>
+	<!--WP Code Highlight_start-->
+	<script type="text/javascript">
+		window.onload = function(){prettyPrint();};
+	</script>
+	<script type="text/javascript" src="http://opensgalaxy.com/wp-content/plugins/wp-code-highlight/js/wp-code-highlight.js"></script>
+	<!--WP Code Highlight_end-->
+<div class="cls"></div>
+</section><!-- #main -->
+<div class="cls"></div>
+	<footer id="footer" role="contentinfo">
+		<div id="colophon">
+
+<div id="site-info">
+<a href="javascript:void(0)" onClick="goRoll(0)" id="goTop">返回顶部</a> <a href="http://opensgalaxy.com/sitemap.html">网站地图</a> &nbsp; <a href="http://www.miitbeian.gov.cn/" rel="external nofollow">京ICP备15033968号</a> <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255766025'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1255766025%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?437546e4c19983c9637b2389b52f41cc";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1256308495'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1256308495%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script> ©Copyright ©2015 OpensGalaxy.com All rights reserved. | Theme <span id='official'>frontopen2</span></div>
+		</div>	</footer></div><script type='text/javascript' src='http://opensgalaxy.com/wp-includes/js/comment-reply.min.js?ver=4.3.3'></script>
+<div id="float"><a id="float_gotop" class="floatbtn"  href="javascript:void()" onClick="goRoll(0)" title="返回顶部"></a><a class="linbak floatbtn" href="http://opensgalaxy.com/wp-admin/" title="登陆&注册"></a><a id="float_goend" class="floatbtn" href="javascript:void()" onClick="goend()" title="转到底部"></a></div>
+</body>
+</html><script type="text/javascript">loading('100%',1000)</script>

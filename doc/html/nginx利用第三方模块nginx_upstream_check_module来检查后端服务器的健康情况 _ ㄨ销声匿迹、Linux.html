@@ -1,0 +1,394 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=device-width , initial-scale=1.0 , user-scalable=0 , minimum-scale=1.0 , maximum-scale=1.0" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况 | ㄨ销声匿迹、Linux</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="pingback" href="http://www.linuxyan.com/xmlrpc.php" />
+<link rel="alternate" type="application/rss+xml" title="ㄨ销声匿迹、Linux &raquo; Feed" href="http://www.linuxyan.com/feed" />
+<link rel="alternate" type="application/rss+xml" title="ㄨ销声匿迹、Linux &raquo; 评论 Feed" href="http://www.linuxyan.com/comments/feed" />
+<script type='text/javascript' src='http://www.linuxyan.com/wp-includes/js/jquery/jquery.js?ver=1.11.0'></script>
+<script type='text/javascript' src='http://www.linuxyan.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel='prev' title='Error: mysql conflicts with MySQL-server解决办法' href='http://www.linuxyan.com/database/114.html' />
+<link rel='next' title='freeBSD搭建HA' href='http://www.linuxyan.com/freebsd/128.html' />
+<link rel='canonical' href='http://www.linuxyan.com/web-server/90.html' />
+	<link type="text/css" rel="stylesheet" href="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/styles/shCore.css" />
+	<link type="text/css" rel="stylesheet" href="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/styles/shThemeDefault.css" />
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shCore.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushBash.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushCpp.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushCSharp.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushCss.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushDelphi.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushDiff.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushGroovy.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushJava.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushPerl.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushPhp.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushPlain.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushPython.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushRuby.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushScala.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushSql.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushVb.js"></script>
+	<script type="text/javascript" src="http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/shBrushXml.js"></script>
+	<script type="text/javascript">		
+		SyntaxHighlighter.config.clipboardSwf = 'http://www.linuxyan.com/wp-content/plugins/syntax-highlighter-and-code-prettifier/scripts/clipboard.swf';
+		SyntaxHighlighter.all();
+	</script>
+	<script type="text/javascript">(function(){mod_txt = '#'; adminBar = "" || 0})();</script>
+<script type="text/javascript" src="http://www.linuxyan.com/wp-content/themes/frontopen2/frontopen.js?ver=1.4.04.09"></script>
+<script type="text/javascript" src="http://www.linuxyan.com/wp-content/themes/frontopen2/include/lightbox-2.6.min.js"></script>
+<link href="http://www.linuxyan.com/wp-content/themes/frontopen2/lightbox.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" media="all" href="http://www.linuxyan.com/wp-content/themes/frontopen2/style.css?ver=1.4.04.09" />
+<link rel="stylesheet" type="text/css" media="all" href="http://www.linuxyan.com/wp-content/themes/frontopen2/mobile.css?ver=1.4.04.09" />
+<style type="text/css">@media screen and (min-width:1366px){.c-con{height:140px;}}
+</style>
+
+<!--[if lt IE 9]><script src="http://www.linuxyan.com/wp-content/themes/frontopen2/html5.js"></script><![endif]-->
+<link rel="stylesheet" href="http://www.linuxyan.com/wp-content/themes/frontopen2/css/font-awesome.min.css?ver=1.4.04.09">
+<!--[if IE 7]>
+<link rel="stylesheet" href="http://www.linuxyan.com/wp-content/themes/frontopen2/css/font-awesome-ie7.min.css?ver=1.4.04.09">
+<![endif]-->
+</head>
+
+<body class="single single-post postid-90 single-format-standard custom-background">
+<div class="loading"></div>
+<div class="web_bod">
+<header class="header marauto">
+    <span class="logo">
+        <a href="http://www.linuxyan.com/" title="ㄨ销声匿迹、Linux" rel="home"><b class="bclass">ㄨ销声匿迹、Linux</b></a>
+        <i>专注于linux、</i>
+    </span>
+    <form role="search" method="get" id="searchform" action="http://www.linuxyan.com/">
+      <span class="search">
+        <input name="s" id="s" type="text"  class="input" value="搜一下又不会怀孕~" onclick="this.value = '';" style="color:#999" onkeypress="javascript:if(event.keyCode == 13){query(this.value);}" x-webkit-speech=""/>
+        <button id="searchsubmit" class="btn">SEARCH</button>
+      </span>
+    </form>
+    <div class="cls"></div>
+</header>
+<div class="nav marauto">
+    <div class="tig">
+      <a href="javascript:;"><span id="rss_open" class="rrs">订阅RSS</span></a><div class="rss_box"><a class="close_rss" href="#"></a><span>邮件订阅</span> - 最后更新：<time>2015-03-26</time><br><div class="ress_btn_box">订阅源：<a target="_blank" href="http://www.linuxyan.com/feed" rel="alternate" type="application/rss+xml" title="rss Feed">RSS</a> <a target="_blank" rel="external nofollow" href="http://mail.qq.com/cgi-bin/feed?u=http://www.linuxyan.com/feed">QQ邮箱</a> <a target="_blank" rel="external nofollow" href="http://www.xianguo.com/subscribe.php?url=http://www.linuxyan.com/feed">鲜果</a> <a target="_blank" rel="external nofollow" href="http://www.zhuaxia.com/add_channel.php?sourceid=102&url=http://www.linuxyan.com/feed">抓虾</a></div></div>      <div class="gonggao">
+        <ul id="g_box">
+                </ul>
+      </div>
+    </div>
+<div class="navlist">
+<div class="cls"></div>
+</div>
+</div>
+
+
+<nav class="navcon marauto">
+  <div id="mobile_nav_btn">网站导航</div>
+  <div class="menu-header"><ul id="menu-%e5%af%bc%e8%88%aa" class="menu"><li id="menu-item-297" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-297"><a href="http://www.linuxyan.com">首页</a></li>
+<li id="menu-item-403" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-403"><a href="http://xsnjlinux.taobao.com/">联系我</a></li>
+<li id="menu-item-384" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-384"><a href="http://www.linuxyan.com/category/linux-service">Linux Service</a></li>
+<li id="menu-item-385" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-385"><a href="http://www.linuxyan.com/category/web-server">Web Server</a></li>
+<li id="menu-item-386" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-386"><a href="http://www.linuxyan.com/category/shell">shell/python</a></li>
+<li id="menu-item-389" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-389"><a href="http://www.linuxyan.com/category/database">DataBase</a></li>
+<li id="menu-item-390" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-390"><a href="http://www.linuxyan.com/category/cache">Cache</a></li>
+<li id="menu-item-388" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-388"><a href="http://www.linuxyan.com/category/cacti-nagios">监控系统</a></li>
+<li id="menu-item-392" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-392"><a href="http://www.linuxyan.com/category/virtualization">虚拟化</a></li>
+<li id="menu-item-391" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-391"><a href="http://www.linuxyan.com/category/about-life">生活</a></li>
+<li id="menu-item-393" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-393"><a href="http://www.linuxyan.com/about">关于我</a></li>
+</ul></div>  
+  </nav>   
+  <section class="conter marauto">
+<script type="text/javascript">loading('33%',1000)</script>
+  <div id="container">
+      <div id="content" role="main" style="width:96%">
+      <div class="mbx"><i class="icon-home icon-large" style="font-size:14px;"></i>
+<a href="http://www.linuxyan.com"  class="gray">首页</a>  >  <a href="http://www.linuxyan.com/category/web-server" title="查看 Web Server 中的全部文章">Web Server</a>  >  nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况</div>
+
+				<div id="post-90" class="post-90 post type-post status-publish format-standard hentry category-web-server tag-check_module tag-http_upstream tag-nginx tag-nginx_upstream_check_module">
+                <div class="c-top2" id="post-55">
+                <div class="datetime">2012<br />07-18</div>
+					<header class="tit"><h1 class="entry-title">nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况</h1>
+					<aside class="entry-meta iititle2">
+                        <span><i class="icon-user icon-large"></i> <a href="http://www.linuxyan.com/author/admin" title="由 admin 发布" rel="author">admin</a></span><span><i class="icon-folder-open icon-large"></i> <a href="http://www.linuxyan.com/category/web-server" title="查看 Web Server 中的全部文章" rel="category tag">Web Server</a></span><span><i class="icon-eye-open icon-large"></i> 围观<i id="number">10359</i><script type="text/javascript">jQuery(function($){$.get("http://www.linuxyan.com/fo_ajax?ajax=getPostViews&postID=90",function(data){if(data.length < 10)$('#number').text(data)});})</script>次</span><span><i class="icon-comment-alt icon-large"></i> <a href="http://www.linuxyan.com/web-server/90.html#comments" title="《nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况》上的评论">一条评论</a></span><span><i class="icon-pencil icon-large"></i> 编辑日期：<time>2012-07-19</time></span><span><i class="icon-zoom-in icon-large"></i> 字体：<a href="javascript:;" onclick="checkFontSize(18)">大</a> <a href="javascript:;" onclick="checkFontSize(16)">中</a> <a href="javascript:;" onclick="checkFontSize(14)">小</a></span>					</aside>
+                    </header>
+                    <div class="cls"></div>
+		    </div>
+                    <!-- .entry-meta -->
+
+					<article class="entry-content">
+                    
+						<p>大家都知道，前段nginx做反代，如果后端服务器宕掉的话，nginx是不能把这台realserver提出upstream的，所以还会有请求转发到后端的这台realserver上面去，虽然nginx可以在localtion中启用proxy_next_upstream来解决返回给用户的错误页面，方法在：<a href="http://www.linuxyan.com/web-server/67.html">http://www.linuxyan.com/web-server/67.html</a>，大家可以参考一下，但这个还是会把请求转发给这台服务器的，然后再转发给别的服务器，这样就浪费了一次转发，这次借助与淘宝技术团队开发的nginx模快nginx_upstream_check_module来检测后方realserver的健康状态，如果后端服务器不可用，则所以的请求不转发到这台服务器。<br />
+<span id="more-90"></span><br />
+首先去这里下载nginx的模块https://github.com/yaoweibin/nginx_upstream_check_module<br />
+下面是nginx打上模块补丁的安装</p>
+<p>$ wget &#8216;http://nginx.org/download/nginx-1.0.14.tar.gz&#8217;<br />
+$ tar -xzvf nginx-1.0.14.tar.gz<br />
+$ cd nginx-1.0.14/<br />
+$ patch -p1 &lt; /path/to/nginx_http_upstream_check_module/check.patch<br />
+<span style="color: #ff0000;">注：因nginx版本更新，1.2以上版本的nginx，补丁为check_1.2.1+.patch</span><br />
+$ ./configure &#8211;add-module=/path/to/nginx_http_upstream_check_module<br />
+$ make<br />
+$ make install</p>
+<p>之后在nginx.conf配置文件里面的upstream加入健康检查，如下：<br />
+upstream linuxyan {<br />
+server 192.168.0.21:80;<br />
+server 192.168.0.22:80;<br />
+check interval=3000 rise=2 fall=5 timeout=1000;<br />
+}</p>
+<p>这里下面加的这句话我解释下，interval检测间隔时间，单位为毫秒，rsie请求2次正常的话，标记此realserver的状态为up，fall表示请求5次都失败的情况下，标记此realserver的状态为down，timeout为超时时间，单位为毫秒。<br />
+在server段里面可以加入查看realserver状态的页面<br />
+location /nstatus {<br />
+check_status;<br />
+access_log off;<br />
+#allow SOME.IP.ADD.RESS;<br />
+#deny all;<br />
+}</p>
+<p>这个时候打开nstatus这个页面就可以看到当前realserver的状态了，<br />
+如下图：<br />
+1.2台realserver都正常的情况下<br />
+<img title="nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况 - 第1张  | ㄨ销声匿迹、Linux" alt="nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况 - 第1张  | ㄨ销声匿迹、Linux" src="http://www.linuxyan.com/wp-content/uploads/a.jpg" alt="" /></p>
+<p>2.一台realserver故障的情况下<br />
+<img title="nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况 - 第2张  | ㄨ销声匿迹、Linux" alt="nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况 - 第2张  | ㄨ销声匿迹、Linux" src="http://www.linuxyan.com/wp-content/uploads/b.jpg" alt="" /></p>
+<p>更多有关于此模块的信息请查阅：<a href="https://github.com/yaoweibin/nginx_upstream_check_module">https://github.com/yaoweibin/nginx_upstream_check_module</a></p>
+ 
+ 										                        <div class="loc_link"><ul><li>本文固定链接: <a href="http://www.linuxyan.com/web-server/90.html" rel="bookmark" title="nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况">http://www.linuxyan.com/web-server/90.html</a></li>
+                        <li>转载请注明: <a href="http://www.linuxyan.com/author/admin" title="由 admin 发布" rel="author">admin</a> <time>2012年07月18日 </time>于 <a href="http://www.linuxyan.com/" title="访问ㄨ销声匿迹、Linux">ㄨ销声匿迹、Linux</a> 发表</li></ul>
+                        </div>
+                        						                        <div class="author_info">
+                        	<div class="au_top_bar"><div class="edit_date">最后编辑：<time>2012-07-19</time></div><b>作者：admin</b></div>
+                            <div class="avatar"><img alt='' src='http://0.gravatar.com/avatar/c8d0e13e0919804cd540616fa6b9c4c3?s=96&amp;d=&amp;r=G' class='avatar avatar-96 photo' height='96' width='96' /></div>
+                            <div class="type_out"><span class="ttxx">这个作者貌似有点懒，什么都没有留下。</span><div class="au_links"><a href="http://www.linuxyan.com?author=1" class="c1"><i class="icon-home"></i> 站内专栏</a></div></div>
+                        <div class="cls"></div>
+                        </div>
+                        					</article>
+                    
+                    <!-- .entry-content -->
+
+					<!-- .entry-utility -->
+				</div><!-- #post-## -->
+<div class="c-bot">
+    <aside class="cb_bq"><i class="icon-tag icon-large"></i> <a href="http://www.linuxyan.com/tag/check_module" rel="tag">check_module</a>，<a href="http://www.linuxyan.com/tag/http_upstream" rel="tag">http_upstream</a>，<a href="http://www.linuxyan.com/tag/nginx" rel="tag">nginx</a>，<a href="http://www.linuxyan.com/tag/nginx_upstream_check_module" rel="tag">nginx_upstream_check_module</a></aside>        <div class="cls"></div>
+    </div>
+    <br />
+				<div id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="http://www.linuxyan.com/freebsd/128.html" rel="next"><span class="meta-nav"><i class="icon-arrow-left"></i></span> freeBSD搭建HA </a></div>
+					<div class="nav-next"><a href="http://www.linuxyan.com/database/114.html" rel="prev">Error: mysql conflicts with MySQL-server解决办法  <i class="icon-arrow-right"></i></a></div>
+				</div><!-- #nav-below -->
+<div class="cls"></div>
+				                    <div class="ad_2">
+						                    </div>
+                                <div class="relatedposts">
+<h3 class="widget-title"><i class="icon-warning-sign"></i> 您可能还会对这些文章感兴趣！</h3>
+<ul>
+		<li><a href="http://www.linuxyan.com/web-server/348.html" rel="bookmark" title="详细阅读 nginx设置编码(charset)解决网页乱码">nginx设置编码(charset)解决网页乱码</a></li>
+		<li><a href="http://www.linuxyan.com/shell/249.html" rel="bookmark" title="详细阅读 Django项目在nginx上面的部署(django+flup+nginx)">Django项目在nginx上面的部署(django+flup+nginx)</a></li>
+		<li><a href="http://www.linuxyan.com/web-server/104.html" rel="bookmark" title="详细阅读 实时查看php-fpm的状态">实时查看php-fpm的状态</a></li>
+		<li><a href="http://www.linuxyan.com/web-server/88.html" rel="bookmark" title="详细阅读 nginx+keepalived实现nginx双主的高可用">nginx+keepalived实现nginx双主的高可用</a></li>
+		<li><a href="http://www.linuxyan.com/web-server/78.html" rel="bookmark" title="详细阅读 利用nginx的fastcgi_cache模块来做缓存">利用nginx的fastcgi_cache模块来做缓存</a></li>
+		<li><a href="http://www.linuxyan.com/shell/72.html" rel="bookmark" title="详细阅读 一键部署LNMP环境脚本(nginx+mysql+php-fpm)">一键部署LNMP环境脚本(nginx+mysql+php-fpm)</a></li>
+		<li><a href="http://www.linuxyan.com/web-server/67.html" rel="bookmark" title="详细阅读 nginx后端服务器返回给nginx502、504、404、执行超时等错误状态的解决方法">nginx后端服务器返回给nginx502、504、404、执行超时等错误状态的解决方法</a></li>
+		<li><a href="http://www.linuxyan.com/web-server/56.html" rel="bookmark" title="详细阅读 nginx+keepalived来实现nginx服务器的高可用">nginx+keepalived来实现nginx服务器的高可用</a></li>
+	</ul>
+<div class="cls"></div>
+</div>
+
+<div id="comments">
+<h3 id="comments-title">《<em>nginx利用第三方模块nginx_upstream_check_module来检查后端服务器的健康情况</em>》有 1 条评论</h3>
+<ol class="commentlist">
+  	<li class="comment even thread-even depth-1" id="li-comment-37697">
+		<div id="comment-37697">
+		<div class="comment-author vcard">
+			<img alt='' src='http://1.gravatar.com/avatar/d09aa9a7a703dd5429475f708ae41687?s=40&amp;d=&amp;r=G' class='avatar avatar-40 photo' height='40' width='40' />			<cite class="fn"><a href='http://www.80ops.cn' rel='external nofollow' class='url'>桦仔</a></cite> <span class="says">说：</span>		</div><!-- .comment-author .vcard -->
+		
+		<div class="comment-meta commentmetadata"><a href="http://www.linuxyan.com/web-server/90.html#comment-37697">
+			2016 年 1 月 25 日17:06</a>		</div><!-- .comment-meta .commentmetadata -->
+
+		<div class="comment-body"><p>我测试了一下，没有踢走宕机机器，怎么搞</p>
+</div>
+
+		<div class="reply">
+			<a class='comment-reply-link' href='/web-server/90.html?replytocom=37697#respond' onclick='return addComment.moveForm("comment-37697", "37697", "respond", "90")'>回复</a>		</div><!-- .reply -->
+	</div><!-- #comment-##  -->
+
+	</li><!-- #comment-## -->
+</ol>
+								<div id="respond" class="comment-respond">
+				<h3 id="reply-title" class="comment-reply-title">留下一个回复 <small><a rel="nofollow" id="cancel-comment-reply-link" href="/web-server/90.html#respond" style="display:none;">取消回复</a></small></h3>
+									<form action="http://www.linuxyan.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+																			<p class="comment-notes">你的email不会被公开。</p>							<p class="comment-form-author"><label for="author">姓名 <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-email"><label for="email">电子邮件 <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" aria-required='true' /></p>
+<p class="comment-form-url"><label for="url">站点</label> <input id="url" name="url" type="text" value="" size="30" /></p>
+												<p class="comment-form-comment"><label for="comment">评论</label> <textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>												<p class="form-submit">
+							<input name="submit" type="submit" id="submit" value="发表评论" />
+							<input type='hidden' name='comment_post_ID' value='90' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+											</form>
+							</div><!-- #respond -->
+			</div><!-- #comments -->
+      </div><!-- #content -->
+  </div><!-- #container -->
+<script type="text/javascript">loading('55%',1000)</script>
+    <aside id="primary" class="side" role="complementary">
+        <ul class="xoxo">
+<li id="text-4" class="widget-container widget_text">			<div class="textwidget"><a href="http://xsnjlinux.taobao.com/" target="_blank"><img src="http://www.linuxyan.com/download/images/linuxyan.gif"  alt="服务器代维护" /></a></div>
+		</li><li id="categories-3" class="widget-container widget_categories"><h3 class="widget-title">分类目录</h3>		<ul>
+	<li class="cat-item cat-item-5"><a href="http://www.linuxyan.com/category/cache" title="查看 Cache 下的所有文章">Cache</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://www.linuxyan.com/category/database" title="查看 DataBase 下的所有文章">DataBase</a>
+</li>
+	<li class="cat-item cat-item-108"><a href="http://www.linuxyan.com/category/freebsd" title="查看 freebsd 下的所有文章">freebsd</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://www.linuxyan.com/category/linux-service" title="查看 Linux Service 下的所有文章">Linux Service</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://www.linuxyan.com/category/shell" title="查看 shell/python 下的所有文章">shell/python</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.linuxyan.com/category/web-server" title="查看 Web Server 下的所有文章">Web Server</a>
+</li>
+	<li class="cat-item cat-item-9"><a href="http://www.linuxyan.com/category/about-life" title="查看 生活 下的所有文章">生活</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://www.linuxyan.com/category/cacti-nagios" title="查看 监控系统 下的所有文章">监控系统</a>
+</li>
+	<li class="cat-item cat-item-6"><a href="http://www.linuxyan.com/category/virtualization" title="查看 虚拟化 下的所有文章">虚拟化</a>
+</li>
+		</ul>
+</li><li id="archives-3" class="widget-container widget_archive"><h3 class="widget-title">文章归档</h3>		<ul>
+	<li><a href='http://www.linuxyan.com/date/2015/03'>2015 年三月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2014/10'>2014 年十月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2014/09'>2014 年九月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2014/08'>2014 年八月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2014/07'>2014 年七月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2013/05'>2013 年五月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2013/04'>2013 年四月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2013/03'>2013 年三月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2013/02'>2013 年二月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2012/11'>2012 年十一月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2012/10'>2012 年十月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2012/09'>2012 年九月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2012/08'>2012 年八月</a></li>
+	<li><a href='http://www.linuxyan.com/date/2012/07'>2012 年七月</a></li>
+		</ul>
+</li>		<li id="recent-posts-4" class="widget-container widget_recent_entries">		<h3 class="widget-title">近期文章</h3>		<ul>
+					<li>
+				<a href="http://www.linuxyan.com/cacti-nagios/416.html">zabbix的流量汇总</a>
+						</li>
+					<li>
+				<a href="http://www.linuxyan.com/web-server/407.html">Nginx的http和https(ssl)共存</a>
+						</li>
+					<li>
+				<a href="http://www.linuxyan.com/linux-service/405.html">51代维(我要代维)上线啦! 专业Linux运维团队</a>
+						</li>
+					<li>
+				<a href="http://www.linuxyan.com/web-server/398.html">gitlab迁移小记</a>
+						</li>
+					<li>
+				<a href="http://www.linuxyan.com/cacti-nagios/396.html">zabbix利用discovery批量添加端口监控</a>
+						</li>
+				</ul>
+		</li><li id="tag_cloud-4" class="widget-container widget_tag_cloud"><h3 class="widget-title">标签</h3><div class="tagcloud"><a href='http://www.linuxyan.com/tag/nginx' class='tag-link-30' title='11 个话题' style='font-size: 14px;'>nginx (11)</a> 
+<a href='http://www.linuxyan.com/tag/svn' class='tag-link-38' title='4 个话题' style='font-size: 14px;'>svn (4)</a> 
+<a href='http://www.linuxyan.com/tag/python' class='tag-link-148' title='4 个话题' style='font-size: 14px;'>python (4)</a> 
+<a href='http://www.linuxyan.com/tag/freebsd' class='tag-link-108' title='3 个话题' style='font-size: 14px;'>freebsd (3)</a> 
+<a href='http://www.linuxyan.com/tag/mysql' class='tag-link-58' title='3 个话题' style='font-size: 14px;'>mysql (3)</a> 
+<a href='http://www.linuxyan.com/tag/fastcgi' class='tag-link-64' title='2 个话题' style='font-size: 14px;'>fastcgi (2)</a> 
+<a href='http://www.linuxyan.com/tag/svn-co' class='tag-link-97' title='2 个话题' style='font-size: 14px;'>svn co (2)</a> 
+<a href='http://www.linuxyan.com/tag/php-fpm' class='tag-link-59' title='2 个话题' style='font-size: 14px;'>php-fpm (2)</a> 
+<a href='http://www.linuxyan.com/tag/linux' class='tag-link-130' title='2 个话题' style='font-size: 14px;'>linux (2)</a> 
+<a href='http://www.linuxyan.com/tag/php' class='tag-link-115' title='2 个话题' style='font-size: 14px;'>php (2)</a> 
+<a href='http://www.linuxyan.com/tag/gitlab' class='tag-link-175' title='2 个话题' style='font-size: 14px;'>gitlab (2)</a> 
+<a href='http://www.linuxyan.com/tag/flup' class='tag-link-147' title='2 个话题' style='font-size: 14px;'>flup (2)</a> 
+<a href='http://www.linuxyan.com/tag/shell' class='tag-link-10' title='2 个话题' style='font-size: 14px;'>shell/python (2)</a> 
+<a href='http://www.linuxyan.com/tag/vpn%e6%9c%8d%e5%8a%a1%e5%99%a8' class='tag-link-47' title='2 个话题' style='font-size: 14px;'>vpn服务器 (2)</a> 
+<a href='http://www.linuxyan.com/tag/vpn%e7%bf%bb%e5%a2%99' class='tag-link-48' title='2 个话题' style='font-size: 14px;'>vpn翻墙 (2)</a> 
+<a href='http://www.linuxyan.com/tag/keepalived' class='tag-link-34' title='2 个话题' style='font-size: 14px;'>keepalived (2)</a> 
+<a href='http://www.linuxyan.com/tag/xenserver-2' class='tag-link-23' title='2 个话题' style='font-size: 14px;'>xenserver (2)</a> 
+<a href='http://www.linuxyan.com/tag/nginxkeepalived' class='tag-link-35' title='2 个话题' style='font-size: 14px;'>nginx+keepalived (2)</a> 
+<a href='http://www.linuxyan.com/tag/nginx%e9%ab%98%e5%8f%af%e7%94%a8' class='tag-link-36' title='2 个话题' style='font-size: 14px;'>nginx高可用 (2)</a> 
+<a href='http://www.linuxyan.com/tag/vpn' class='tag-link-46' title='2 个话题' style='font-size: 14px;'>vpn (2)</a> 
+<a href='http://www.linuxyan.com/tag/pptpd' class='tag-link-45' title='2 个话题' style='font-size: 14px;'>pptpd (2)</a> 
+<a href='http://www.linuxyan.com/tag/denied' class='tag-link-41' title='2 个话题' style='font-size: 14px;'>denied (2)</a> 
+<a href='http://www.linuxyan.com/tag/zabbix' class='tag-link-196' title='2 个话题' style='font-size: 14px;'>zabbix (2)</a> 
+<a href='http://www.linuxyan.com/tag/script' class='tag-link-11' title='1 个话题' style='font-size: 14px;'>script (1)</a> 
+<a href='http://www.linuxyan.com/tag/host-list' class='tag-link-27' title='1 个话题' style='font-size: 14px;'>host-list (1)</a> 
+<a href='http://www.linuxyan.com/tag/host-forget' class='tag-link-26' title='1 个话题' style='font-size: 14px;'>host-forget (1)</a> 
+<a href='http://www.linuxyan.com/tag/removable' class='tag-link-25' title='1 个话题' style='font-size: 14px;'>Removable (1)</a> 
+<a href='http://www.linuxyan.com/tag/vm-reset-powerstate' class='tag-link-28' title='1 个话题' style='font-size: 14px;'>vm-reset-powerstate (1)</a> 
+<a href='http://www.linuxyan.com/tag/memcache%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae' class='tag-link-29' title='1 个话题' style='font-size: 14px;'>memcache安装配置 (1)</a> 
+<a href='http://www.linuxyan.com/tag/failed' class='tag-link-37' title='1 个话题' style='font-size: 14px;'>failed (1)</a> 
+<a href='http://www.linuxyan.com/tag/nginx%e9%98%b2%e7%9b%97%e9%93%be' class='tag-link-33' title='1 个话题' style='font-size: 14px;'>nginx防盗链 (1)</a> 
+<a href='http://www.linuxyan.com/tag/nginx%e4%bf%a1%e5%8f%b7%e6%8e%a7%e5%88%b6' class='tag-link-32' title='1 个话题' style='font-size: 14px;'>nginx信号控制 (1)</a> 
+<a href='http://www.linuxyan.com/tag/nginx%e5%8d%87%e7%ba%a7' class='tag-link-31' title='1 个话题' style='font-size: 14px;'>nginx升级 (1)</a> 
+<a href='http://www.linuxyan.com/tag/storage' class='tag-link-24' title='1 个话题' style='font-size: 14px;'>storage (1)</a> 
+<a href='http://www.linuxyan.com/tag/rsync%e5%90%8c%e6%ad%a5' class='tag-link-22' title='1 个话题' style='font-size: 14px;'>rsync同步 (1)</a> 
+<a href='http://www.linuxyan.com/tag/nginx%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85' class='tag-link-15' title='1 个话题' style='font-size: 14px;'>nginx编译安装 (1)</a> 
+<a href='http://www.linuxyan.com/tag/mysql%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85' class='tag-link-14' title='1 个话题' style='font-size: 14px;'>mysql编译安装 (1)</a> 
+<a href='http://www.linuxyan.com/tag/linux%e5%bd%95%e5%83%8f' class='tag-link-13' title='1 个话题' style='font-size: 14px;'>linux录像 (1)</a> 
+<a href='http://www.linuxyan.com/tag/scriptreplay' class='tag-link-12' title='1 个话题' style='font-size: 14px;'>scriptreplay (1)</a> 
+<a href='http://www.linuxyan.com/tag/php%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85' class='tag-link-16' title='1 个话题' style='font-size: 14px;'>php编译安装 (1)</a> 
+<a href='http://www.linuxyan.com/tag/php-fpm%e7%bc%96%e8%af%91%e5%ae%89%e8%a3%85' class='tag-link-17' title='1 个话题' style='font-size: 14px;'>php-fpm编译安装 (1)</a> 
+<a href='http://www.linuxyan.com/tag/rsync%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae' class='tag-link-21' title='1 个话题' style='font-size: 14px;'>rsync安装配置 (1)</a> 
+<a href='http://www.linuxyan.com/tag/mysql%e4%b8%bb%e4%bb%8e%e9%85%8d%e7%bd%ae' class='tag-link-20' title='1 个话题' style='font-size: 14px;'>mysql主从配置 (1)</a> 
+<a href='http://www.linuxyan.com/tag/%e7%a3%81%e7%9b%98io' class='tag-link-19' title='1 个话题' style='font-size: 14px;'>磁盘io (1)</a> 
+<a href='http://www.linuxyan.com/tag/cacti' class='tag-link-18' title='1 个话题' style='font-size: 14px;'>cacti (1)</a> </div>
+</li><li id="siteinfowidget-3" class="widget-container widget_links"><h3 class="widget-title">站点信息</h3>     <ul class="xoxo siteInfo">
+      <li>文章总数：69篇</li>
+      <li>分类总数：10个</li>
+      <li>标签总数：198个</li> 
+      <li>评论总数：400条</li>
+      <li>页面总数：4个</li> 
+      <li>网站已运行：1494天</li>
+      </ul>
+	</li><li id="linkcat-2" class="widget-container widget_links"><h3 class="widget-title">链接表</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://51daiwei.com" target="_blank">51代维(我要代维)</a></li>
+<li><a href="http://blog.c1gstudio.com/" title="C1G军火库" target="_blank">C1G军火库</a></li>
+<li><a href="http://www.cosplaybuy.co.uk" target="_blank">cosplay buy</a></li>
+<li><a href="http://www.cosplaykostuem.com" target="_blank">Cosplay Kostüm</a></li>
+<li><a href="http://heylinux.com/" title="Hey! Linux" target="_blank">Hey! Linux</a></li>
+<li><a href="http://54im.com" target="_blank">Ivon Lee</a></li>
+<li><a href="http://www.joker-shirt.com/" target="_blank">joker costume</a></li>
+<li><a href="http://www.xushine.com/" title="OOXX研究院" target="_blank">OOXX研究院</a></li>
+<li><a href="http://www.the5fire.com/" target="_blank">the5fire的技术博客</a></li>
+<li><a href="http://www.dadclab.com" title="大D" target="_blank">大D</a></li>
+<li><a href="http://www.xiaoqin.in/" target="_blank">宁克凡的blog</a></li>
+<li><a href="http://xiaorui.cc" target="_blank">峰云</a></li>
+<li><a href="http://blog.xiaorui.cc/" target="_blank">峰云2</a></li>
+<li><a href="http://www.chenqing.org" target="_blank">庆爷</a></li>
+<li><a href="http://www.furion.info" target="_blank">思聪</a></li>
+<li><a href="http://www.boaifang.com/" title="情侣空间" target="_blank">情侣空间</a></li>
+<li><a href="http://www.shencan.net" target="_blank">灿哥</a></li>
+<li><a href="http://www.iamle.com" target="_blank">理鱼</a></li>
+<li><a href="http://www.xiake.net/" title="站群" target="_blank">站群</a></li>
+<li><a href="http://www.xj123.info/" title="老谢博客" target="_blank">老谢博客</a></li>
+<li><a href="http://www.msits.com/" title="青年怪客" target="_blank">青年怪客</a></li>
+<li><a href="http://www.jsxubar.info/" title="静思学吧" target="_blank">静思学吧</a></li>
+
+	</ul>
+</li>
+<li id="meta-3" class="widget-container widget_meta"><h3 class="widget-title">功能</h3>			<ul>
+			<li><a href="http://www.linuxyan.com/wp-login.php?action=register">注册</a></li>			<li><a href="http://www.linuxyan.com/wp-login.php">登录</a></li>
+			<li><a href="http://www.linuxyan.com/feed" title="使用 RSS 2.0 订阅本站点内容">文章 <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://www.linuxyan.com/comments/feed" title="使用 RSS 订阅本站点的所有文章的近期评论">评论 <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+<li><a href="https://wordpress.org/" title="基于 WordPress，一个优美、先进的个人信息发布平台。">WordPress.org</a></li>			</ul>
+</li>        </ul>
+    </aside><!-- #primary .widget-area -->
+
+<script type="text/javascript">loading('78%',1000)</script>
+<div class="cls"></div>
+</section><!-- #main -->
+<div class="cls"></div>
+	<footer id="footer" role="contentinfo">
+		<div id="colophon">
+
+<div id="site-info">
+<a href="javascript:void(0)" onClick="goRoll(0)" id="goTop">返回顶部</a> <a href="http://www.linuxyan.com/sitemap.xml">网站地图</a> &nbsp; <a href="http://www.miitbeian.gov.cn/" rel="external nofollow">浙ICP备14023083号</a> <script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F2e7e733993aeef01ebd538782f71ef77' type='text/javascript'%3E%3C/script%3E"));
+</script>
+ © - 加载耗时0.280s | Theme <span id='official'>frontopen2</span></div>
+		</div>	</footer></div><script type='text/javascript' src='http://www.linuxyan.com/wp-includes/js/comment-reply.min.js?ver=3.9.11'></script>
+<div id="float"><a id="float_gotop" class="floatbtn"  href="javascript:void()" onClick="goRoll(0)" title="返回顶部"></a><a class="linbak floatbtn" href="http://www.linuxyan.com/wp-admin/" title="登陆&注册"></a><a id="float_goend" class="floatbtn" href="javascript:void()" onClick="goend()" title="转到底部"></a></div>
+</body>
+</html><script type="text/javascript">loading('100%',1000)</script>
