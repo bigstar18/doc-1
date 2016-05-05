@@ -1,0 +1,576 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>M2E plugin execution not covered -  - ITeye技术网站</title>
+    <meta name="description" content="从git上面clone一个项目到本地，经常会遇到 M2E plugin execution not covered的error，此error在eclipse的wiki上已经说明得很清楚了,我来写一下我的理解。 http://wiki.eclipse.org/M2E_plugin_execution_not_covered 出错原因： m2eclipse会自动build pom.xml里面的部分内容， ..." />
+    <meta name="keywords" content="maven M2E plugin execution not covered" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="ITeye" />
+    <link href="/rss" rel="alternate" title="" type="application/rss+xml" />
+    <link href="http://www.iteye.com/stylesheets/blog.css?1462428996" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://www.iteye.com/stylesheets/themes/blog/blue.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://www.iteye.com/javascripts/application.js?1448702469" type="text/javascript"></script>    
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="http://www.iteye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.iteye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/hotkey.js?1448702469" type="text/javascript"></script>
+  <script src="http://www.iteye.com/javascripts/code_favorites.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/weiboshare.js?1448702469" type="text/javascript"></script>
+    
+  </head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">知识库</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="/">xiaohuafyle</a></h1>
+        </div>
+        <div id='fd'></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class='blog_navbar_for'><a href="http://xiaohuafyle.iteye.com"><strong>博客</strong></a></li>
+            <li ><a href="/weibo">微博</a></li>
+            <li ><a href="/album">相册</a></li>
+            <li ><a href="/link">收藏</a></li>
+            <li ><a href="/blog/guest_book">留言</a></li>
+            <li ><a href="/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="" />
+              <input class="submit_search" type="submit" value="" />
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style='display:none'>
+  <a href="http://xiaohuafyle.iteye.com" class="p-author" target="_blank">xiaohuafyle</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="/blog/2118898">M2E plugin execution not covered</a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class='blog_categories'><strong>博客分类：</strong> <li><a href="/category/322435">各种故障</a></li><li><a href="/category/322522">Development Tools</a></li> </ul>
+        <div class='news_tag'><a href="http://www.iteye.com/blogs/tag/maven">maven</a></div>
+    	  
+    	
+    	
+  		
+      </div>
+
+  <div id="blog_content" class="blog_content">
+    从git上面clone一个项目到本地，经常会遇到<br />M2E plugin execution not covered的error，此error在eclipse的wiki上已经说明得很清楚了,我来写一下我的理解。<br /><a href="http://wiki.eclipse.org/M2E_plugin_execution_not_covered" target="_blank">http://wiki.eclipse.org/M2E_plugin_execution_not_covered</a><br /><br />出错原因：<br />m2eclipse会自动build pom.xml里面的部分内容，然后project的配置是基于build 完pom.xml之后的。（按理来说，我们执行mvn命令，都是直接在shell中通过命令行去执行，不会在eclipse里面对项目进行打包，发布等）。不幸的是，m2eclipse有一个长久以来一直存在的bug，就是eclipse在做自动的build pom.xml时会经常无规律的报错，好在m2eclipse提供了quickfix可以用。<br /><br />解决方案：<br />1.推荐的方案：为Plugin加一个configuration标签如下，以做到让eclipse去忽略这个plugin（这个不用自己写，quickfix中选择“permanently mark goal as ignored in eclipse”,注意此修改只影响eclipse，不会影响项目的正常build）<br /><pre class="java" name="code">
+&lt;pluginManagement&gt;
+&lt;plugins&gt;
+&lt;plugin&gt;
+ &lt;groupId&gt;org.eclipse.m2e&lt;/groupId&gt;
+ &lt;artifactId&gt;lifecycle-mapping&lt;/artifactId&gt;
+ &lt;version&gt;1.0.0&lt;/version&gt;
+ &lt;configuration&gt;
+   &lt;lifecycleMappingMetadata&gt;
+     &lt;pluginExecutions&gt;
+       &lt;pluginExecution&gt;
+         &lt;pluginExecutionFilter&gt;
+           &lt;groupId&gt;some-group-id&lt;/groupId&gt;
+           &lt;artifactId&gt;some-artifact-id&lt;/artifactId&gt;
+           &lt;versionRange&gt;[1.0.0,)&lt;/versionRange&gt;
+           &lt;goals&gt;
+             &lt;goal&gt;some-goal&lt;/goal&gt;
+           &lt;/goals&gt;
+         &lt;/pluginExecutionFilter&gt;
+         &lt;action&gt;
+           &lt;ignore /&gt;
+         &lt;/action&gt;
+       &lt;/pluginExecution&gt;
+     &lt;/pluginExecutions&gt;
+   &lt;/lifecycleMappingMetadata&gt;
+ &lt;/configuration&gt;
+&lt;/plugin&gt;
+&lt;/plugins&gt;
+&lt;/pluginManagement&gt;
+</pre><br /><br />2. 增加configuration，里面的execute是告诉eclipse当java类方式修改时是否执行action.这里把它设为否。除非对这个plugin非常了解，的确可以设为false,否则不推荐用此方法。<br /><pre class="java" name="code">&lt;pluginManagement&gt;
+&lt;plugins&gt;
+&lt;plugin&gt;
+ &lt;groupId&gt;org.eclipse.m2e&lt;/groupId&gt;
+ &lt;artifactId&gt;lifecycle-mapping&lt;/artifactId&gt;
+ &lt;version&gt;1.0.0&lt;/version&gt;
+ &lt;configuration&gt;
+   &lt;lifecycleMappingMetadata&gt;
+     &lt;pluginExecutions&gt;
+       &lt;pluginExecution&gt;
+         &lt;pluginExecutionFilter&gt;
+           &lt;groupId&gt;some-group-id&lt;/groupId&gt;
+           &lt;artifactId&gt;some-artifact-id&lt;/artifactId&gt;
+           &lt;versionRange&gt;[1.0.0,)&lt;/versionRange&gt;
+           &lt;goals&gt;
+             &lt;goal&gt;some-goal&lt;/goal&gt;
+           &lt;/goals&gt;
+         &lt;/pluginExecutionFilter&gt;
+         &lt;action&gt;
+           &lt;execute &gt;
+             &lt;runOnIncremental&gt;false&lt;/runOnIncremental&gt;
+           &lt;/execute &gt;
+         &lt;/action&gt;
+       &lt;/pluginExecution&gt;
+     &lt;/pluginExecutions&gt;
+   &lt;/lifecycleMappingMetadata&gt;
+ &lt;/configuration&gt;
+&lt;/plugin&gt;
+&lt;/plugins&gt;
+&lt;/pluginManagement&gt;</pre><br /><br />3. 在eclipse里面设置，首先在Windows -&gt; Preferences -&gt; Maven -&gt; Lifecycle mapping里面选择change mapping file location，在里面配置需要ignore的goal.<br /><pre class="java" name="code">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;lifecycleMappingMetadata&gt;
+	&lt;pluginExecutions&gt;
+		&lt;pluginExecution&gt;
+			&lt;pluginExecutionFilter&gt;
+				&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+				&lt;artifactId&gt;buildnumber-maven-plugin&lt;/artifactId&gt;
+				&lt;goals&gt;
+					&lt;goal&gt;create-timestamp&lt;/goal&gt;
+				&lt;/goals&gt;
+				&lt;versionRange&gt;[0.0,)&lt;/versionRange&gt;
+			&lt;/pluginExecutionFilter&gt;
+			&lt;action&gt;
+				&lt;ignore /&gt;
+			&lt;/action&gt;
+		&lt;/pluginExecution&gt;
+
+		&lt;pluginExecution&gt;
+			&lt;pluginExecutionFilter&gt;
+				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+				&lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+				&lt;goals&gt;
+					&lt;goal&gt;list&lt;/goal&gt;
+				&lt;/goals&gt;
+				&lt;versionRange&gt;[0.0,)&lt;/versionRange&gt;
+			&lt;/pluginExecutionFilter&gt;
+			&lt;action&gt;
+				&lt;ignore /&gt;
+			&lt;/action&gt;
+		&lt;/pluginExecution&gt;
+
+		&lt;pluginExecution&gt;
+			&lt;pluginExecutionFilter&gt;
+				&lt;groupId&gt;org.zeroturnaround&lt;/groupId&gt;
+				&lt;artifactId&gt;jrebel-maven-plugin&lt;/artifactId&gt;
+				&lt;goals&gt;
+					&lt;goal&gt;generate&lt;/goal&gt;
+				&lt;/goals&gt;
+				&lt;versionRange&gt;[0.0,)&lt;/versionRange&gt;
+			&lt;/pluginExecutionFilter&gt;
+			&lt;action&gt;
+				&lt;ignore /&gt;
+			&lt;/action&gt;
+		&lt;/pluginExecution&gt;
+
+		&lt;pluginExecution&gt;
+			&lt;pluginExecutionFilter&gt;
+				&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+				&lt;artifactId&gt;gwt-maven-plugin&lt;/artifactId&gt;
+				&lt;goals&gt;
+					&lt;goal&gt;compile&lt;/goal&gt;
+				&lt;/goals&gt;
+				&lt;versionRange&gt;[0.0,)&lt;/versionRange&gt;
+			&lt;/pluginExecutionFilter&gt;
+			&lt;action&gt;
+				&lt;ignore /&gt;
+			&lt;/action&gt;
+		&lt;/pluginExecution&gt;
+
+		&lt;pluginExecution&gt;
+			&lt;pluginExecutionFilter&gt;
+				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+				&lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+				&lt;goals&gt;
+					&lt;goal&gt;copy-dependencies&lt;/goal&gt;
+					&lt;goal&gt;unpack&lt;/goal&gt;
+				&lt;/goals&gt;
+				&lt;versionRange&gt;[0.0,)&lt;/versionRange&gt;
+			&lt;/pluginExecutionFilter&gt;
+			&lt;action&gt;
+				&lt;ignore /&gt;
+			&lt;/action&gt;
+		&lt;/pluginExecution&gt;
+
+	&lt;/pluginExecutions&gt;
+&lt;/lifecycleMappingMetadata&gt;</pre><br />
+  </div>
+
+  
+
+  <ins data-revive-zoneid="171" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type='sina' href="javascript:;" title="分享到新浪微博"><img src="/images/sina.jpg"></a>
+      <a data-type='qq' href="javascript:;" title="分享到腾讯微博"><img src="/images/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="/blog/2120218" class="next" title="关于try-catch的finally">关于try-catch的finally</a>
+      |
+      <a href="/blog/2118508" class="pre" title="Hibernate java.lang.NoClassDefFoundError: org/dom4j/DocumentException  导入dom4j依然">Hibernate java.lang.NoClassDefFoundError ...</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2014-09-21 15:50</li>
+      <li>浏览 873</li>
+      <li><a href="#comments">评论(0)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/language">编程语言</a></li>      
+      <li class='last'><a href="http://www.iteye.com/wiki/blog/2118898" target="_blank" class="more">相关推荐</a></li>
+    </ul>    
+  </div>
+  
+		    
+		
+<div class="boutique-curr-box blog_comment">
+	  <div class="boutique-curr clearfix">
+	    <h5 class="h3titles">参考知识库</h5>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/25"><img src="http://img.knowledge.csdn.net/upload/base/1462342584443_443.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/25" classs="title">C#知识库</a>
+              <span>
+                 <em>121</em>&nbsp;&nbsp;关注 <i>|</i> <em>302</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/35"><img src="http://img.knowledge.csdn.net/upload/base/1461807587796_796.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/35" classs="title">虚拟现实（VR）知识库</a>
+              <span>
+                 <em>346</em>&nbsp;&nbsp;关注 <i>|</i> <em>166</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/30"><img src="http://img.knowledge.csdn.net/upload/base/1461727345705_705.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/30" classs="title">Node.js知识库</a>
+              <span>
+                 <em>302</em>&nbsp;&nbsp;关注 <i>|</i> <em>246</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/31"><img src="http://img.knowledge.csdn.net/upload/base/1461035533512_512.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/31" classs="title">算法与数据结构知识库</a>
+              <span>
+                 <em>1551</em>&nbsp;&nbsp;关注 <i>|</i> <em>2080</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	  </div>
+</div>
+ 		
+      
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+    
+      <p style='font-weight: bold; margin: 5px 0;'>文章已被作者锁定，不允许评论。</p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 2118898;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', 'M2E plugin execution not covered');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'M2E plugin execution not covered');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href='http://xiaohuafyle.iteye.com'><img alt="xiaohuafyle的博客" class="logo" src="http://www.iteye.com/upload/logo/user/922761/6469a61a-d56f-3cf1-a684-bb613af73072.jpg?1387356321" title="xiaohuafyle的博客: " width="" /></a></div>
+  <div id="blog_owner_name">xiaohuafyle</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 134785 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="http://www.iteye.com/images/icon_minigender_1.gif?1448702469" title="男" /></li>
+              <li>来自: 上海</li>
+              <li><img src='/images/status/offline.gif'/></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style='font-weight:normal;font-size:12px;padding-left:30px;'><a href="/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://201205152502.iteye.com' target='_blank'><img alt="蛋蛋疼的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="蛋蛋疼的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://201205152502.iteye.com' target='_blank' title='蛋蛋疼'>蛋蛋疼</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://milo-ztt.iteye.com' target='_blank'><img alt="milo_ztt的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="milo_ztt的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://milo-ztt.iteye.com' target='_blank' title='milo_ztt'>milo_ztt</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://544564050.iteye.com' target='_blank'><img alt="544564050的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="544564050的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://544564050.iteye.com' target='_blank' title='544564050'>544564050</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://1shou.iteye.com' target='_blank'><img alt="1shou的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="1shou的博客: 1shou" width="48px" /></a></div>
+                <div class="left"><a href='http://1shou.iteye.com' target='_blank' title='1shou'>1shou</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="/">全部博客 (68)</a></li>
+                
+                  <li><a href="/category/267776">Linux Shell (13)</a></li>
+                
+                  <li><a href="/category/308646">金融 (2)</a></li>
+                
+                  <li><a href="/category/322435">各种故障 (4)</a></li>
+                
+                  <li><a href="/category/322517">Core Java (24)</a></li>
+                
+                  <li><a href="/category/322518">DB (8)</a></li>
+                
+                  <li><a href="/category/322520">Framework (5)</a></li>
+                
+                  <li><a href="/category/322521">Design Pattern (1)</a></li>
+                
+                  <li><a href="/category/322522">Development Tools (7)</a></li>
+                
+                  <li><a href="/category/322523">生涯 (3)</a></li>
+                
+                  <li><a href="/category/322526">算法 (4)</a></li>
+                
+                  <li><a href="/category/322529">Server configuration (3)</a></li>
+                
+              </ul>
+            </div>
+            <div id='month_blogs'>
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="/blog/post">我的论坛</a> (5)
+                </li>
+                <li><a href="/blog/answered_problems">我的问答</a> (25)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="/blog/monthblog/2014-10">2014-10</a> (4)</li>
+                
+                  <li><a href="/blog/monthblog/2014-09">2014-09</a> (9)</li>
+                
+                  <li><a href="/blog/monthblog/2014-08">2014-08</a> (1)</li>
+                
+                <li><a href="/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href='http://xander.iteye.com' target='_blank' title='xander'>xander</a>： 
+                  不错，不错 <br />
+                  <a href="/blog/1473335#bc2363461">java String 缓冲池概念的举例说明(面试题)</a>
+                </li>
+                
+                <li>
+                  <a href='http://xiaohuafyle.iteye.com' target='_blank' title='xiaohuafyle'>xiaohuafyle</a>： 
+                  fzfz_902 写道在windows sever 2008上 ...<br />
+                  <a href="/blog/1560777#bc2361879">java 读取CD-ROM 光驱中文件</a>
+                </li>
+                
+                <li>
+                  <a href='http://fzfz-902.iteye.com' target='_blank' title='fzfz_902'>fzfz_902</a>： 
+                  在windows sever 2008上报错！<br />
+                  <a href="/blog/1560777#bc2361829">java 读取CD-ROM 光驱中文件</a>
+                </li>
+                
+                <li>
+                  <a href='http://xiaohuafyle.iteye.com' target='_blank' title='xiaohuafyle'>xiaohuafyle</a>： 
+                  &lt;div class=&quot;quote_title ...<br />
+                  <a href="/blog/2142894#bc2360727">Mybatis-3动态代理来映射配置文件原理</a>
+                </li>
+                
+                <li>
+                  <a href='http://thc1987.iteye.com' target='_blank' title='thc1987'>thc1987</a>： 
+                  不错,是不是可以理解成在实现动态代理过程中,没有调用metho ...<br />
+                  <a href="/blog/2142894#bc2360710">Mybatis-3动态代理来映射配置文件原理</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr/>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br />
+          &copy; 2003-2016 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script>
+
+<script src="http://csdnimg.cn/pubfooter/js/tracking.js?version=20130923164150" type="text/javascript"></script>
+
+    
+    
+    <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>
+<script src="http://c.csdnimg.cn/public/common/libs/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">var $csdn_iteye_jq = jQuery.noConflict();// 解决jq与prototype.js命名空间冲突的问题</script>
+<script src="http://ads.csdn.net/js/tracking.js" type="text/javascript"></script>
+    
+	    
+	    <script src="http://www.iteye.com/javascripts/web-storage-cache.min.js?1461122670" type="text/javascript"></script>
+	    <script src="http://www.iteye.com/javascripts/replace.min.js?1462428995" type="text/javascript"></script>
+    
+    
+  </body>
+</html>

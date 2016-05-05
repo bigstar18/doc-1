@@ -1,0 +1,625 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>解决Maven管理的项目下&quot;Missing artifact xxx bundle&quot;问题  - 技术文档 - ITeye技术网站</title>
+    <meta name="description" content=" 这个问题可能是依赖的项目打包成bundle造成，比如mina就是这样的，打包成bundle,例子：            [html] view plaincopyprint?      &lt;dependency&gt;        &lt;groupId&gt;org.apache.mina&lt;/groupId&gt;        &lt;artifactId&gt;mina-cor ..." />
+    <meta name="keywords" content=" 解决Maven管理的项目下&quot;Missing artifact xxx bundle&quot;问题 " />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="ITeye" />
+    <link href="/rss" rel="alternate" title="技术文档" type="application/rss+xml" />
+    <link href="http://www.iteye.com/stylesheets/blog.css?1461122671" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://www.iteye.com/stylesheets/themes/blog/black.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://www.iteye.com/javascripts/application.js?1448702469" type="text/javascript"></script>    
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="http://www.iteye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.iteye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/hotkey.js?1448702469" type="text/javascript"></script>
+  <script src="http://www.iteye.com/javascripts/code_favorites.js?1448702469" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/weiboshare.js?1448702469" type="text/javascript"></script>
+    
+  </head>
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.iteye.com/" class="homepage">首页</a>
+  <a href="http://www.iteye.com/news">资讯</a>
+  <a href="http://www.iteye.com/magazines">精华</a>
+  <a href="http://www.iteye.com/forums">论坛</a>
+  <a href="http://www.iteye.com/ask">问答</a>
+  <a href="http://www.iteye.com/blogs">博客</a>
+  <a href="http://www.iteye.com/blogs/subjects">专栏</a>
+  <a href="http://www.iteye.com/groups">群组</a>
+  <a href="#" onclick="return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div class="quick_menu" style="display:none;">
+    <a target="_blank" href="http://job.iteye.com/iteye">知识库</a>
+    <a href="http://www.iteye.com/search">搜索</a>
+  </div>
+</div>
+
+      <div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div>
+
+    </div>
+
+    <div id="page">
+      <div id="branding" class="clearfix">
+        <div id="blog_name">
+          <h1><a href="/">技术文档</a></h1>
+        </div>
+        <div id='fd'></div>
+        <div id="blog_navbar">
+          <ul>
+            <li class='blog_navbar_for'><a href="http://ydlmlh.iteye.com"><strong>博客</strong></a></li>
+            <li ><a href="/weibo">微博</a></li>
+            <li ><a href="/album">相册</a></li>
+            <li ><a href="/link">收藏</a></li>
+            <li ><a href="/blog/guest_book">留言</a></li>
+            <li ><a href="/blog/profile">关于我</a></li>
+          </ul>
+    
+          <div class="search">
+            <form action="/blog/search" method="get">
+              <input class="search_text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" value="" />
+              <input class="submit_search" type="submit" value="" />
+            </form>
+          </div> 
+          <div id="fd"></div>         
+        </div>
+      </div>
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style='display:none'>
+  <a href="http://ydlmlh.iteye.com" class="p-author" target="_blank">ydlmlh</a>
+</div>
+
+
+<div class="blog_main">
+  <div class="blog_title">
+    <h3>
+      <a href="/blog/1988573">解决Maven管理的项目下&quot;Missing artifact xxx bundle&quot;问题 </a>
+      <em class="actions">      </em>
+    </h3>
+    <ul class='blog_categories'><strong>博客分类：</strong> <li><a href="/category/227480">maven</a></li> </ul>
+        <div class='news_tag'>&nbsp;</div>
+    	  
+    	
+    	
+  		
+      </div>
+
+  <div id="blog_content" class="blog_content">
+    <div style="font-size: 14px;" class="iteye-blog-content-contain">
+<div style="font-size: 16px; font-family: 'AR PL UKai CN';">这个问题可能是依赖的项目打包成bundle造成，比如mina就是这样的，打包成bundle,例子：</div>
+<div style="font-size: 16px; font-family: 'AR PL UKai CN';"> </div>
+<div style="font-size: 16px; font-family: 'AR PL UKai CN';">
+<div class="dp-highlighter bg_html">
+<div class="bar">
+<div class="tools">
+<strong>[html]</strong> <a title="view plain" class="ViewSource" href="http://blog.csdn.net/jialechan/article/details/6821389">view plain</a><a title="copy" class="CopyToClipboard" href="http://blog.csdn.net/jialechan/article/details/6821389">copy</a><a title="print" class="PrintSource" href="http://blog.csdn.net/jialechan/article/details/6821389">print</a><a title="?" class="About" href="http://blog.csdn.net/jialechan/article/details/6821389">?</a>
+</div>
+</div>
+<ol class="dp-xml">
+<li class="alt">
+<span class="tag">&lt;</span><span class="tag-name">dependency</span><span class="tag">&gt;</span>  </li>
+<li>    <span class="tag">&lt;</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>org.apache.mina<span class="tag">&lt;/</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>  </li>
+<li class="alt">    <span class="tag">&lt;</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>mina-core<span class="tag">&lt;/</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>  </li>
+<li>    <span class="tag">&lt;</span><span class="tag-name">version</span><span class="tag">&gt;</span>2.0.4<span class="tag">&lt;/</span><span class="tag-name">version</span><span class="tag">&gt;</span>  </li>
+<li class="alt">    <span class="tag">&lt;</span><span class="tag-name">type</span><span class="tag">&gt;</span>bundle<span class="tag">&lt;/</span><span class="tag-name">type</span><span class="tag">&gt;</span>  </li>
+<li>    <span class="tag">&lt;</span><span class="tag-name">scope</span><span class="tag">&gt;</span>compile<span class="tag">&lt;/</span><span class="tag-name">scope</span><span class="tag">&gt;</span>  </li>
+<li class="alt">
+<span class="tag">&lt;/</span><span class="tag-name">dependency</span><span class="tag">&gt;</span>  </li>
+</ol>
+</div>
+<pre class="html" name="code">&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.mina&lt;/groupId&gt;
+    &lt;artifactId&gt;mina-core&lt;/artifactId&gt;
+    &lt;version&gt;2.0.4&lt;/version&gt;
+    &lt;type&gt;bundle&lt;/type&gt;
+    &lt;scope&gt;compile&lt;/scope&gt;
+&lt;/dependency&gt;</pre>
+</div>
+<div style="font-size: 16px; font-family: 'AR PL UKai CN';">加入上面依赖出现错误如下：</div>
+<div style="font-size: 16px; font-family: 'AR PL UKai CN';"><span style="font-size: 10px; font-family: 'Courier New'; color: #008080;"> </span></div>
+<div>
+<div style="font-size: 16px; font-family: 'AR PL UKai CN'; color: #008080;"> </div>
+<span style="font-size: 10px; font-family: 'Courier New'; color: #008080;"> </span><br><span style="font-size: 10px; font-family: 'Courier New'; color: #008080;">11-9-26 上午10时21分30秒: Maven Builder: AUTO_BUILD requireFullBuild</span><br><span style="font-size: 10px; font-family: 'Courier New'; color: #008080;">11-9-26 上午10时21分30秒: Build errors for test-http-mina; org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal on project test-http-mina: Could not resolve dependencies for project com.tecno:test-http-mina:jar:0.0.1-SNAPSHOT: Failure to find org.apache.mina:mina-core:bundle:2.0.4 in http://uk.maven.org/maven2/ was cached in the local repository, resolution will not be reattempted until the update interval of uk.maven.org has elapsed or updates are forced</span><br><span style="font-size: 10px; font-family: 'Courier New'; color: #008080;">11-9-26 上午10时22分11秒: Refreshing [/test-http-mina/pom.xml]</span><br><span style="font-size: 10px; font-family: 'Courier New'; color: #008080;">11-9-26 上午10时22分11秒: Missing artifact org.apache.mina:mina-core:bundle:2.0.4:compile</span><br><span style="font-size: 10px; font-family: 'Courier New'; color: #008080;">11-9-26 上午10时22分11秒: Maven Builder: AUTO_BUILD </span>
+<div style="font-size: 16px; font-family: 'AR PL UKai CN'; color: #008080;"> </div>
+</div>
+<div>
+<div>原因</div>
+<div>mina打包为了bundle格式，为此，需要添加插件</div>
+<div>在maven的pom.xml中plugins段中加入plugin即可</div>
+<div>
+<div>
+<div class="dp-highlighter bg_html">
+<div class="bar">
+<div class="tools">
+<strong>[html]</strong> <a title="view plain" class="ViewSource" href="http://blog.csdn.net/jialechan/article/details/6821389">view plain</a><a title="copy" class="CopyToClipboard" href="http://blog.csdn.net/jialechan/article/details/6821389">copy</a><a title="print" class="PrintSource" href="http://blog.csdn.net/jialechan/article/details/6821389">print</a><a title="?" class="About" href="http://blog.csdn.net/jialechan/article/details/6821389">?</a>
+</div>
+</div>
+<ol class="dp-xml">
+<li class="alt">
+<span class="tag">&lt;</span><span class="tag-name">plugin</span><span class="tag">&gt;</span>  </li>
+<li>    <span class="tag">&lt;</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>org.apache.felix<span class="tag">&lt;/</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>  </li>
+<li class="alt">    <span class="tag">&lt;</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>maven-bundle-plugin<span class="tag">&lt;/</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>  </li>
+<li>    <span class="tag">&lt;</span><span class="tag-name">extensions</span><span class="tag">&gt;</span>true<span class="tag">&lt;/</span><span class="tag-name">extensions</span><span class="tag">&gt;</span>  </li>
+<li class="alt">
+<span class="tag">&lt;/</span><span class="tag-name">plugin</span><span class="tag">&gt;</span>  </li>
+</ol>
+</div>
+<pre class="html" name="code">&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.felix&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-bundle-plugin&lt;/artifactId&gt;
+    &lt;extensions&gt;true&lt;/extensions&gt;
+&lt;/plugin&gt;</pre>
+<div> </div>
+其中
+<div class="dp-highlighter bg_html">
+<div class="bar">
+<div class="tools">
+<strong>[html]</strong> <a title="view plain" class="ViewSource" href="http://blog.csdn.net/jialechan/article/details/6821389">view plain</a><a title="copy" class="CopyToClipboard" href="http://blog.csdn.net/jialechan/article/details/6821389">copy</a><a title="print" class="PrintSource" href="http://blog.csdn.net/jialechan/article/details/6821389">print</a><a title="?" class="About" href="http://blog.csdn.net/jialechan/article/details/6821389">?</a>
+</div>
+</div>
+<ol class="dp-xml">
+<li class="alt">
+<span class="tag">&lt;</span><span class="tag-name">extensions</span><span class="tag">&gt;</span>true<span class="tag">&lt;/</span><span class="tag-name">extensions</span><span class="tag">&gt;</span>  </li>
+</ol>
+</div>
+<pre class="html" name="code">&lt;extensions&gt;true&lt;/extensions&gt;</pre>
+是必须的。<br><br>
+</div>
+<div>---------------------------------------------------------------------------------------------------------------------</div>
+<div>今天发现，用这个方法的log4j有问题，不妨可以试试</div>
+<div>
+<div class="dp-highlighter bg_html">
+<div class="bar">
+<div class="tools">
+<strong>[html]</strong> <a title="view plain" class="ViewSource" href="http://blog.csdn.net/jialechan/article/details/6821389">view plain</a><a title="copy" class="CopyToClipboard" href="http://blog.csdn.net/jialechan/article/details/6821389">copy</a><a title="print" class="PrintSource" href="http://blog.csdn.net/jialechan/article/details/6821389">print</a><a title="?" class="About" href="http://blog.csdn.net/jialechan/article/details/6821389">?</a>
+</div>
+</div>
+<ol class="dp-xml">
+<li class="alt">
+<span class="tag">&lt;</span><span class="tag-name">dependency</span><span class="tag">&gt;</span>  </li>
+<li>        <span class="tag">&lt;</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>log4j<span class="tag">&lt;/</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>  </li>
+<li class="alt">        <span class="tag">&lt;</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>log4j<span class="tag">&lt;/</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>  </li>
+<li>        <span class="tag">&lt;</span><span class="tag-name">version</span><span class="tag">&gt;</span>1.2.16<span class="tag">&lt;/</span><span class="tag-name">version</span><span class="tag">&gt;</span>  </li>
+<li class="alt">        <span class="tag">&lt;</span><span class="tag-name">type</span><span class="tag">&gt;</span>jar<span class="tag">&lt;/</span><span class="tag-name">type</span><span class="tag">&gt;</span>  </li>
+<li>        <span class="tag">&lt;</span><span class="tag-name">scope</span><span class="tag">&gt;</span>compile<span class="tag">&lt;/</span><span class="tag-name">scope</span><span class="tag">&gt;</span>  </li>
+<li class="alt">        <span class="tag">&lt;</span><span class="tag-name">exclusions</span><span class="tag">&gt;</span>  </li>
+<li>            <span class="tag">&lt;</span><span class="tag-name">exclusion</span><span class="tag">&gt;</span>  </li>
+<li class="alt">                <span class="tag">&lt;</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>com.sun.jmx<span class="tag">&lt;/</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>  </li>
+<li>                <span class="tag">&lt;</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>jmxri<span class="tag">&lt;/</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>  </li>
+<li class="alt">            <span class="tag">&lt;/</span><span class="tag-name">exclusion</span><span class="tag">&gt;</span>  </li>
+<li>            <span class="tag">&lt;</span><span class="tag-name">exclusion</span><span class="tag">&gt;</span>  </li>
+<li class="alt">                <span class="tag">&lt;</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>com.sun.jdmk<span class="tag">&lt;/</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>  </li>
+<li>                <span class="tag">&lt;</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>jmxtools<span class="tag">&lt;/</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>  </li>
+<li class="alt">            <span class="tag">&lt;/</span><span class="tag-name">exclusion</span><span class="tag">&gt;</span>  </li>
+<li>            <span class="tag">&lt;</span><span class="tag-name">exclusion</span><span class="tag">&gt;</span>  </li>
+<li class="alt">                <span class="tag">&lt;</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>javax.jms<span class="tag">&lt;/</span><span class="tag-name">groupId</span><span class="tag">&gt;</span>  </li>
+<li>                <span class="tag">&lt;</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>jms<span class="tag">&lt;/</span><span class="tag-name">artifactId</span><span class="tag">&gt;</span>  </li>
+<li class="alt">            <span class="tag">&lt;/</span><span class="tag-name">exclusion</span><span class="tag">&gt;</span>  </li>
+<li>        <span class="tag">&lt;/</span><span class="tag-name">exclusions</span><span class="tag">&gt;</span>  </li>
+<li class="alt">    <span class="tag">&lt;/</span><span class="tag-name">dependency</span><span class="tag">&gt;</span>  </li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+  </div>
+
+  
+
+  
+  
+  <IFRAME SRC="/iframe_ggbd/187" SCROLLING=no WIDTH=680 HEIGHT=90 FRAMEBORDER=0></IFRAME>
+  
+  <div id="bottoms" class="clearfix">
+    
+    <div id="share_weibo">分享到：
+      <a data-type='sina' href="javascript:;" title="分享到新浪微博"><img src="/images/sina.jpg"></a>
+      <a data-type='qq' href="javascript:;" title="分享到腾讯微博"><img src="/images/tec.jpg"></a>
+    </div>
+  </div>
+
+  <div class="blog_nav">
+    <div class="pre_next">
+      <a href="/blog/1991882" class="next" title="Ibatis中#和$的区别">Ibatis中#和$的区别</a>
+      |
+      <a href="/blog/1985505" class="pre" title="HttpServletRequest request 相关方法 得到路径">HttpServletRequest request 相关方法 得 ...</a>
+    </div>
+  </div>
+  <div class="blog_bottom">
+    <ul>
+      <li>2013-12-12 14:57</li>
+      <li>浏览 1678</li>
+      <li><a href="#comments">评论(1)</a></li>
+      
+      
+      <li>分类:<a href="http://www.iteye.com/blogs/category/opensource">开源软件</a></li>      
+      <li class='last'><a href="http://www.iteye.com/wiki/blog/1988573" target="_blank" class="more">相关推荐</a></li>
+    </ul>    
+  </div>
+  
+		    
+		
+<div class="boutique-curr-box blog_comment">
+	  <div class="boutique-curr clearfix">
+	    <h5 class="h3titles">参考知识库</h5>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/25"><img src="http://img.knowledge.csdn.net/upload/base/1461034168075_75.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/25" classs="title">C#知识库</a>
+              <span>
+                 <em>3</em>&nbsp;&nbsp;关注 <i>|</i> <em>256</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/35"><img src="http://img.knowledge.csdn.net/upload/base/1461807587796_796.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/35" classs="title">虚拟现实（VR）知识库</a>
+              <span>
+                 <em>263</em>&nbsp;&nbsp;关注 <i>|</i> <em>160</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/30"><img src="http://img.knowledge.csdn.net/upload/base/1461727345705_705.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/30" classs="title">Node.js知识库</a>
+              <span>
+                 <em>225</em>&nbsp;&nbsp;关注 <i>|</i> <em>246</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	    <dl class="dlnewlist">
+	    
+          <dd><a target="_blank" href="http://lib.csdn.net/base/31"><img src="http://img.knowledge.csdn.net/upload/base/1461035533512_512.jpg" width="58" height="58" alt=""></a></dd>
+          <dt>
+              <a target="_blank" href="http://lib.csdn.net/base/31" classs="title">算法与数据结构知识库</a>
+              <span>
+                 <em>1435</em>&nbsp;&nbsp;关注 <i>|</i> <em>2080</em>&nbsp;&nbsp;收录                  
+              </span>
+          </dt>
+      
+	    </dl>
+	    
+	  </div>
+</div>
+ 		
+      
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+    <div id="bc2368552">
+  <div class="comment_title">
+    1 楼
+    <a href='http://thisisvoa.iteye.com' target='_blank' title='thisisvoa'>thisisvoa</a>
+    2015-03-10&nbsp;&nbsp;
+    
+    
+  </div>
+  <div class="comment_content"><img src="/images/smiles/icon_cry.gif" />&nbsp; 我按照你的配置，进行配置mina 2.0.7 不行</div>
+</div>
+
+
+    
+    
+  </div>
+
+  <div class="blog_comment">
+    <h5>发表评论</h5>
+            <p style="text-align:center; margin-top:30px;margin-bottom:0px;"><a href="/login" style="background-color:white;"> <img src="/images/login_icon.png" style="vertical-align:middle; margin-right: 10px;" /></a><a href="/login">  您还没有登录,请您登录后再发表评论 </a></p>
+      </div>
+</div>
+
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  $$('#main .blog_content pre[name=code]').each(function(pre, index){ // blog content
+    var post_id = 1988573;
+    var location = window.location;
+    source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+    pre.writeAttribute('codeable_id', post_id);
+    pre.writeAttribute('codeable_type', "Blog");
+    pre.writeAttribute('source_url', source_url);
+    pre.writeAttribute('pre_index', index);
+    pre.writeAttribute('title', '解决Maven管理的项目下"Missing artifact xxx bundle"问题 ');
+  });
+
+  fix_image_size($$('div.blog_content img'), 700);
+
+  function processComment() {
+    $$('#main .blog_comment > div').each(function(comment){// comment
+      var post_id = comment.id.substr(2);
+      $$("#"+comment.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + comment.id;
+        pre.writeAttribute('codeable_id', post_id);
+        pre.writeAttribute('codeable_type', "BlogComment");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', '解决Maven管理的项目下"Missing artifact xxx bundle"问题 ');
+      });
+    });
+  }
+
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+      parameters: {'id':id, 'type':'BlogComment'},
+      onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);
+        Element.scrollTo(editor.bbcode_editor.textarea.element);}
+    });
+  }
+
+  code_favorites_init();
+  processComment();
+  new WeiboShare({share_buttons: $('share_weibo'), img_scope: $('blog_content')});
+</script>
+
+
+
+
+        </div>
+
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+  <div id="blog_owner_logo"><a href='http://ydlmlh.iteye.com'><img alt="ydlmlh的博客" class="logo" src="http://www.iteye.com/images/user-logo.gif?1448702469" title="ydlmlh的博客: 技术文档" width="" /></a></div>
+  <div id="blog_owner_name">ydlmlh</div>
+</div>
+
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 221858 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="http://www.iteye.com/images/icon_minigender_1.gif?1448702469" title="男" /></li>
+              <li>来自: 北京</li>
+              <li><img src='/images/status/offline.gif'/></li>
+              
+            </ul>
+          </div>
+          <div id="user_visits" class="clearfix">
+            <h5>最近访客 <span style='font-weight:normal;font-size:12px;padding-left:30px;'><a href="/blog/user_visits">更多访客&gt;&gt;</a></span></h5>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://wxz859681117.iteye.com' target='_blank'><img alt="wxz859681117的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="wxz859681117的博客: wxz859681117" width="48px" /></a></div>
+                <div class="left"><a href='http://wxz859681117.iteye.com' target='_blank' title='wxz859681117'>wxz859681117</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://earlyshine.iteye.com' target='_blank'><img alt="Earlyshine的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="Earlyshine的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://earlyshine.iteye.com' target='_blank' title='Earlyshine'>Earlyshine</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://u014411966.iteye.com' target='_blank'><img alt="u014411966的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="u014411966的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://u014411966.iteye.com' target='_blank' title='u014411966'>u014411966</a></div>
+              </div>
+            
+              <div class="user_visit">
+                <div class="logo"><a href='http://mxw666.iteye.com' target='_blank'><img alt="mxw666的博客" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="mxw666的博客: " width="48px" /></a></div>
+                <div class="left"><a href='http://mxw666.iteye.com' target='_blank' title='mxw666'>mxw666</a></div>
+              </div>
+            
+          </div>
+
+          
+
+                      <div id="blog_menu">
+              <h5>文章分类</h5>
+              <ul>
+                <li><a href="/">全部博客 (379)</a></li>
+                
+                  <li><a href="/category/127280">java (68)</a></li>
+                
+                  <li><a href="/category/127055">spring (24)</a></li>
+                
+                  <li><a href="/category/140671">linux (76)</a></li>
+                
+                  <li><a href="/category/133405">mysql (46)</a></li>
+                
+                  <li><a href="/category/160121">tomcat (9)</a></li>
+                
+                  <li><a href="/category/129209">jsp (3)</a></li>
+                
+                  <li><a href="/category/260081">nginx (3)</a></li>
+                
+                  <li><a href="/category/130305">oracle (19)</a></li>
+                
+                  <li><a href="/category/98246">ibatis (11)</a></li>
+                
+                  <li><a href="/category/131218">html (8)</a></li>
+                
+                  <li><a href="/category/137791">js (34)</a></li>
+                
+                  <li><a href="/category/158019">eclipse (23)</a></li>
+                
+                  <li><a href="/category/159566">jms (4)</a></li>
+                
+                  <li><a href="/category/163156">jvm (4)</a></li>
+                
+                  <li><a href="/category/165113">正则表达式 (3)</a></li>
+                
+                  <li><a href="/category/262379">memcache (3)</a></li>
+                
+                  <li><a href="/category/176893">xshell (1)</a></li>
+                
+                  <li><a href="/category/177019">webservice (2)</a></li>
+                
+                  <li><a href="/category/177706">windows (5)</a></li>
+                
+                  <li><a href="/category/196796">jstl (4)</a></li>
+                
+                  <li><a href="/category/204127">android (3)</a></li>
+                
+                  <li><a href="/category/206396">jquery (23)</a></li>
+                
+                  <li><a href="/category/218812">struts2 (1)</a></li>
+                
+                  <li><a href="/category/227480">maven (18)</a></li>
+                
+                  <li><a href="/category/254631">excel (1)</a></li>
+                
+                  <li><a href="/category/263897">python (5)</a></li>
+                
+                  <li><a href="/category/280498">perl (3)</a></li>
+                
+                  <li><a href="/category/298668">redis (2)</a></li>
+                
+                  <li><a href="/category/308530">数据库设计工具 (3)</a></li>
+                
+                  <li><a href="/category/311581">mongodb (6)</a></li>
+                
+                  <li><a href="/category/316354">工具类 (1)</a></li>
+                
+                  <li><a href="/category/337071">Hadoop (1)</a></li>
+                
+                  <li><a href="/category/339046">junit (1)</a></li>
+                
+                  <li><a href="/category/346235">mac (2)</a></li>
+                
+                  <li><a href="/category/348629">css (1)</a></li>
+                
+                  <li><a href="/category/351135">git (1)</a></li>
+                
+                  <li><a href="/category/352905">storm (2)</a></li>
+                
+                  <li><a href="/category/354331">svn (3)</a></li>
+                
+                  <li><a href="/category/355512">scala (1)</a></li>
+                
+              </ul>
+            </div>
+            <div id='month_blogs'>
+              <h5>社区版块</h5>
+              <ul>
+                <li><a href="/blog/news">我的资讯</a> (0)</li>
+                <li>
+                  <a href="/blog/post">我的论坛</a> (15)
+                </li>
+                <li><a href="/blog/answered_problems">我的问答</a> (2)</li>
+              </ul>
+            </div>
+            <div id="month_blogs">
+              <h5>存档分类</h5>
+              <ul>
+                
+                  <li><a href="/blog/monthblog/2016-04">2016-04</a> (1)</li>
+                
+                  <li><a href="/blog/monthblog/2016-03">2016-03</a> (14)</li>
+                
+                  <li><a href="/blog/monthblog/2016-02">2016-02</a> (1)</li>
+                
+                <li><a href="/blog/monthblog_more">更多存档...</a></li>
+              </ul>
+            </div>
+            
+            
+
+            <div id="guest_books">
+              <h5>最新评论</h5>
+              <ul>
+                
+                <li>
+                  <a href='http://thisisvoa.iteye.com' target='_blank' title='thisisvoa'>thisisvoa</a>： 
+                    我按照你的配置，进行配置mina 2.0.7 不行<br />
+                  <a href="/blog/1988573#bc2368552">解决Maven管理的项目下&quot;Missing artifact xxx bundle&quot;问题 </a>
+                </li>
+                
+                <li>
+                  <a href='http://hehaiwen888.iteye.com' target='_blank' title='hehaiwen888'>hehaiwen888</a>： 
+                  [list][b][b][i][u][u]引用引用引用引用[i ...<br />
+                  <a href="/blog/1779320#bc2360971">Tomcat7日志配置</a>
+                </li>
+                
+                <li>
+                  <a href='http://swordshadow.iteye.com' target='_blank' title='SwordShadow'>SwordShadow</a>： 
+                  姓名验证我使用这个 ^([\u4e00-\u9fa5]|\u3 ...<br />
+                  <a href="/blog/1125262#bc2345461">常用正则表达式</a>
+                </li>
+                
+                <li>
+                  <a href='http://di1984hit.iteye.com' target='_blank' title='di1984HIT'>di1984HIT</a>： 
+                  利用定时器呗。<br />
+                  <a href="/blog/1673035#bc2340297">js倒计时跳转</a>
+                </li>
+                
+                <li>
+                  <a href='http://di1984hit.iteye.com' target='_blank' title='di1984HIT'>di1984HIT</a>： 
+                  学习了，真的不错。<br />
+                  <a href="/blog/1672811#bc2340296"> iBatis执行insert后返回主键</a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+
+      <div id="footer" class="clearfix">
+        <div id="copyright">
+          <hr/>
+          声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br />
+          &copy; 2003-2016 ITeye.com.   All rights reserved.  [ 京ICP证110151号  京公网安备110105010620 ]
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script>
+
+<script src="http://csdnimg.cn/pubfooter/js/tracking.js?version=20130923164150" type="text/javascript"></script>
+
+    
+<script type="text/javascript" src="http://js.tongji.linezing.com/2413487/tongji.js"></script>
+      
+    
+    
+	    <script src="http://www.iteye.com/javascripts/jquery-1.11.2.min.js?1461122670" type="text/javascript"></script>
+	    <script src="http://www.iteye.com/javascripts/web-storage-cache.min.js?1461122670" type="text/javascript"></script>
+	    <script src="http://www.iteye.com/javascripts/replace.min.js?1461122670" type="text/javascript"></script>
+    
+  </body>
+</html>
