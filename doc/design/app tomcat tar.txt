@@ -1,0 +1,15 @@
+#tar -zvcf /tmp/tmp/standalone.all.tgz --exclude=logs transforidc tradecore
+
+#tar -zvcf /tmp/tmp/tomcat6.all.tgz --exclude=logs --exclude=temp --exclude=work --exclude=webapps/*.tar --exclude=webapps/*.tgz --exclude=*.tgz  tomcat6_*
+
+tar zcvf front_tc20160507.tgz front_tc --exclude=front_tc/logs  --exclude=front_tc/temp  --exclude=front_tc/work
+
+tar zcvf hqmobile_tradeweb20160507.tgz hqmobile_tradeweb --exclude=hqmobile_tradeweb/logs  --exclude=hqmobile_tradeweb/temp  --exclude=hqmobile_tradeweb/work
+
+tar zcvf mgr_tc_platform20160507.tgz mgr_tc_platform --exclude=mgr_tc_platform/logs  --exclude=mgr_tc_platform/temp  --exclude=mgr_tc_platform/work
+
+tar zcvf proc_tc_platform20160507.tgz proc_tc_platform --exclude=proc_tc_platform/logs  --exclude=proc_tc_platform/temp  --exclude=proc_tc_platform/work
+
+tar zcvf mgr_tc20160507.tgz mgr_tc --exclude=mgr_tc/logs  --exclude=mgr_tc/temp  --exclude=mgr_tc/work
+
+tar zcvf proc_tc_complex20160507.tgz proc_tc_complex --exclude=proc_tc_complex/logs  --exclude=proc_tc_complex/temp  --exclude=proc_tc_complex/work
