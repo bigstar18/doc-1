@@ -1,0 +1,624 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>maven如何将被依赖的工程，打包形成的jar包，解压到当前工程class目录下 - ITeye问答</title>
+    <meta name="description" content="当前系统结构如下：       app-parent              |-- pom.xml (pom)              |              |-- A              | |-- pom.xml (war：jsp、css等)              |              |-- B              | |-- pom.xml (jar：c ..." />
+    <meta name="keywords" content="maven 打包  解压 合并代码 Tech" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="ITeye" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link href="/rss/ask" rel="alternate" title="ITeye问答" type="application/rss+xml" />
+    <script src="http://www.iteye.com/javascripts/application.js?1448702469" type="text/javascript"></script>
+    <link href="http://www.iteye.com/stylesheets/ask.css?1462428996" media="screen" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-535605-1']);
+  _gaq.push(['_setDomainName', 'iteye.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+      <link href="http://www.iteye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1448702469" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.iteye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1448702469" type="text/javascript"></script>
+  <script src="http://www.iteye.com/javascripts/code_favorites.js?1448702469" type="text/javascript"></script>
+  <script type="text/javascript">
+    window.recommend_tags = {"44":"","55":"Ruby, Python, PHP, Flash, C++, .net","39":"Hibernate, Spring, Struts, iBATIS, \u4f01\u4e1a\u5e94\u7528, Lucene, SOA","45":"","46":"","41":"JavaScript, HTML5, jQuery, CSS, ","48":"Android, iOS, wp7","43":"Linux, \u6570\u636e\u5e93, \u654f\u6377\u7f16\u7a0b, \u6570\u636e\u7ed3\u6784, \u8f6f\u4ef6\u6d4b\u8bd5, \u9879\u76ee\u7ba1\u7406"};
+  </script>
+  </head>
+  <body>
+    <div id="page">
+      <div id="header">
+        <div class="clearfix"><div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div>
+</div>
+        <div class="clearfix">
+          <div id="branding">
+            <a href="http://www.iteye.com"><img alt="ITeye3.0" src="http://www.iteye.com/images/logo.gif?1448702469" title="ITeye-最棒的软件开发交流社区" /></a>
+          </div>
+          <div id="gg">
+          	
+          	<ins data-revive-zoneid="169" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+          </div>
+        </div>
+      </div>
+
+      <div id="content" class="clearfix ask_action_handler">
+        <div id="main">
+          
+
+
+
+          
+
+
+<div class="h-entry" style='display:none'>
+  <a href="http://tao160911.iteye.com" class="p-author" target="_blank">tao160911</a>
+</div>
+
+
+<div class="crumbs">
+  <a href="/problems">问答首页</a> <span class="arrow">→</span> <a href="/problems/forums/Tech">综合技术</a>
+</div>
+
+<div class="problem problem_g">
+  <dl>
+    <dt>
+      <div class="vote" id="vote_problem_101395">
+  <span>0</span><a class="vote_up_off" href="#" onclick="this.disabled = true; new Ajax.Request('/problems/101395/votes?type=up', {asynchronous:true, evalScripts:true, method:'post', parameters:'authenticity_token=' + encodeURIComponent('FDjdMqVvhkc36a+f1k07ZleNgsnFkRt/ulM0R1BupMM=')}); return false;" title="支持：这是一个描述清晰的有价值的好问题"></a>
+  <a class="vote_down_off" href="#" onclick="this.disabled = true; new Ajax.Request('/problems/101395/votes?type=down', {asynchronous:true, evalScripts:true, method:'post', parameters:'authenticity_token=' + encodeURIComponent('FDjdMqVvhkc36a+f1k07ZleNgsnFkRt/ulM0R1BupMM=')}); return false;" title="反对：这个问题没有价值或描述不清"></a><span>0</span>
+</div>
+
+    </dt>
+    <dd>
+      <div class="sproblem_right">
+        <h3 class="close"><a href="/problems/101395">maven如何将被依赖的工程，打包形成的jar包，解压到当前工程class目录下</a><span class="score">5</span></h3>
+
+        <div class="new_content"> 
+          &nbsp;&nbsp;&nbsp; 当前系统结构如下：<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; app-parent<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- pom.xml (pom)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- A<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |-- pom.xml (war：jsp、css等)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |-- B<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | |-- pom.xml (jar：class代码)<br /><br />&nbsp;&nbsp;&nbsp;&nbsp; A依赖B，打包后B.jar在A的lib下。<br /><br />&nbsp;&nbsp;&nbsp;&nbsp; 现需要将打包后,A工程lib下的B.jar解压到A工程中，并删除B.jar。<br /><br />&nbsp;&nbsp;&nbsp;&nbsp; 请问各位大神，上述目标通过maven配置该如何实现！<br />
+          
+        </div>
+
+        <div class="ask_label">
+          <div class='tags'><a href="http://www.iteye.com/problems/tags/maven%20%E6%89%93%E5%8C%85%20%20%E8%A7%A3%E5%8E%8B%20%E5%90%88%E5%B9%B6%E4%BB%A3%E7%A0%81">maven 打包  解压 合并代码</a>&nbsp;</div>
+          <span class="gray">2014年5月16日 10:30</span>
+        </div>
+        <div class="user_info fr">
+          <a href="http://tao160911.iteye.com/blog/answered_problems"><img alt="tao160911" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="tao160911" /></a>
+<span class="user_blog"><a href="http://tao160911.iteye.com/blog/answered_problems" title="tao160911">tao160911</a></span>
+<br />
+<span class="score gray" title="问答积分">1</span>
+<br />
+<span class="gold gray" title="金牌">0</span>
+<span class="silver gray" title="银牌">0</span>
+<span class="bronze gray" title="铜牌">2</span>
+
+        </div>
+      </div>
+
+      <div class="clear"></div>
+	  <div id="ask_recommended_q2"><IFRAME SRC="/iframe_ggbd/186" SCROLLING=no WIDTH=468 HEIGHT=60 FRAMEBORDER=0></IFRAME></div>
+      
+
+
+      <div id="problem_action" class="action">
+        <ul>
+          <li class="comment"><a href="javascript:void(0);" class="ask_click_action" data_action_sub_type="comment" data_action_type="dropdown" data_comments_count="0" data_parent_id="problem_101395" data_url="/problems/101395/comments"><img alt="Comment" src="http://www.iteye.com/images/ask/comment.gif?1448702469" />添加评论</a></li>
+
+          
+            <li id="follow_101395"><a href="#" onclick="if($(this).next()){return false;}; $(this).insert({after: '&lt;img src=&quot;/images/spinner.gif&quot; /&gt;'});; new Ajax.Request('/problems/101395/follows', {asynchronous:true, evalScripts:true, method:'post', parameters:'authenticity_token=' + encodeURIComponent('FDjdMqVvhkc36a+f1k07ZleNgsnFkRt/ulM0R1BupMM=')}); return false;"><img src="/images/ask/collect.gif">关注(2)</a></li>
+          
+
+          
+
+          
+            
+          
+        </ul>
+      </div>
+
+    </dd>
+  </dl>
+  <div class="clear"></div>
+</div>
+
+
+<div class="clearfix"></div>
+<div id="solutions" class="solutions">
+  
+    <h3 id="num">3个答案
+      <span style="float:right;margin-left:10px;"><a href="javascript:void(0);" id="sort_time_link" onclick="sortSolutionsByTime()" style="color:#069;font-weight:normal;">按时间排序</a></span>
+      <span style="float:right;margin-left:10px;"><a href="javascript:void(0);" id="sort_vote_link" onclick="sortSolutionsByVote();" style="color:black;font-weight:normal;">按投票排序</a></span>
+    </h3>
+    
+    <dl time="1400212734" votes="0" class="for_sort">
+  <dt>
+    <div class="vote" id="vote_solution_210660">
+  <span>0</span><a class="vote_up_off" href="#" onclick="this.disabled = true; new Ajax.Request('/solutions/210660/votes?type=up', {asynchronous:true, evalScripts:true, method:'post', parameters:'authenticity_token=' + encodeURIComponent('FDjdMqVvhkc36a+f1k07ZleNgsnFkRt/ulM0R1BupMM=')}); return false;" title="支持：好答案"></a>
+  <a class="vote_down_off" href="#" onclick="this.disabled = true; new Ajax.Request('/solutions/210660/votes?type=down', {asynchronous:true, evalScripts:true, method:'post', parameters:'authenticity_token=' + encodeURIComponent('FDjdMqVvhkc36a+f1k07ZleNgsnFkRt/ulM0R1BupMM=')}); return false;" title="反对：没有价值的答案"></a><span>0</span>
+</div>
+  </dt>
+  <dd id="s_210660" class="solution_dd">
+    <div class="sproblem_right">
+      <p>1.&lt;plugin&gt;&nbsp; <br />2.&nbsp;&nbsp;&nbsp; &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;&nbsp; <br />3.&nbsp;&nbsp;&nbsp; &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;&nbsp; <br />4.&nbsp;&nbsp;&nbsp; &lt;executions&gt;&nbsp; <br />5.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;execution&gt;&nbsp; <br />6.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;id&gt;unpack&lt;/id&gt;&nbsp; <br />7.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;phase&gt;generate-resources&lt;/phase&gt;&nbsp; <br />8.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;goals&gt;&nbsp; <br />9.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;goal&gt;unpack&lt;/goal&gt;&nbsp; <br />10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/goals&gt;&nbsp; <br />11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;configuration&gt;&nbsp; <br />12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;artifactItems&gt;&nbsp; <br />13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;artifactItem&gt;&nbsp; <br />14.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;groupId&gt;com.test&lt;/groupId&gt;&nbsp; <br />15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;artifactId&gt;mvn-sample&lt;/artifactId&gt;&nbsp; <br />16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;&nbsp; <br />17.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;type&gt;jar&lt;/type&gt;&nbsp; <br />18.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;overWrite&gt;true&lt;/overWrite&gt;&nbsp; <br />19.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;outputDirectory&gt;${my.classes.folder}&lt;/outputDirectory&gt;&nbsp; <br />20.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;includes&gt;**/*.class,**/*.xml&lt;/includes&gt;&nbsp; <br />21.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/artifactItem&gt;&nbsp; <br />22.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/artifactItems&gt;&nbsp; <br />23.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/configuration&gt;&nbsp; <br />24.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/execution&gt;&nbsp; <br />25.&nbsp;&nbsp;&nbsp; &lt;/executions&gt;&nbsp; <br />26.&lt;/plugin&gt;&nbsp; <br /></p>
+
+      <div class="ask_label"><span class="gray">2014年5月16日 11:58</span></div>
+
+      <div class="user_info fr">
+        <a href="http://beyjht871022.iteye.com/blog/answered_problems"><img alt="beyjht871022" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="beyjht871022" /></a>
+<span class="user_blog"><a href="http://beyjht871022.iteye.com/blog/answered_problems" title="beyjht871022">beyjht871022</a></span>
+<br />
+<span class="score gray" title="问答积分">30</span>
+<br />
+<span class="gold gray" title="金牌">0</span>
+<span class="silver gray" title="银牌">0</span>
+<span class="bronze gray" title="铜牌">0</span>
+
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="action">
+      <ul>
+        <li class="comment"><a href="javascript:void(0);" class="ask_click_action" data_action_sub_type="comment" data_action_type="dropdown" data_comments_count="0" data_parent_id="solution_210660" data_url="/solutions/210660/comments"><img alt="Comment" src="http://www.iteye.com/images/ask/comment.gif?1448702469" />添加评论</a></li>
+        
+        
+      </ul>
+    </div>
+
+  </dd>
+</dl>
+<dl time="1400212710" votes="0" class="for_sort">
+  <dt>
+    <div class="vote" id="vote_solution_210659">
+  <span>0</span><a class="vote_up_off" href="#" onclick="this.disabled = true; new Ajax.Request('/solutions/210659/votes?type=up', {asynchronous:true, evalScripts:true, method:'post', parameters:'authenticity_token=' + encodeURIComponent('FDjdMqVvhkc36a+f1k07ZleNgsnFkRt/ulM0R1BupMM=')}); return false;" title="支持：好答案"></a>
+  <a class="vote_down_off" href="#" onclick="this.disabled = true; new Ajax.Request('/solutions/210659/votes?type=down', {asynchronous:true, evalScripts:true, method:'post', parameters:'authenticity_token=' + encodeURIComponent('FDjdMqVvhkc36a+f1k07ZleNgsnFkRt/ulM0R1BupMM=')}); return false;" title="反对：没有价值的答案"></a><span>0</span>
+</div>
+  </dt>
+  <dd id="s_210659" class="solution_dd">
+    <div class="sproblem_right">
+      <p><img src="/images/smiles/icon_surprised.gif" />&nbsp;<img src="/images/smiles/icon_surprised.gif" />&nbsp;<img src="/images/smiles/icon_surprised.gif" /> </p>
+
+      <div class="ask_label"><span class="gray">2014年5月16日 11:58</span></div>
+
+      <div class="user_info fr">
+        <a href="http://beyjht871022.iteye.com/blog/answered_problems"><img alt="beyjht871022" class="logo" src="http://www.iteye.com/images/user-logo-thumb.gif?1448702469" title="beyjht871022" /></a>
+<span class="user_blog"><a href="http://beyjht871022.iteye.com/blog/answered_problems" title="beyjht871022">beyjht871022</a></span>
+<br />
+<span class="score gray" title="问答积分">30</span>
+<br />
+<span class="gold gray" title="金牌">0</span>
+<span class="silver gray" title="银牌">0</span>
+<span class="bronze gray" title="铜牌">0</span>
+
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="action">
+      <ul>
+        <li class="comment"><a href="javascript:void(0);" class="ask_click_action" data_action_sub_type="comment" data_action_type="dropdown" data_comments_count="0" data_parent_id="solution_210659" data_url="/solutions/210659/comments"><img alt="Comment" src="http://www.iteye.com/images/ask/comment.gif?1448702469" />添加评论</a></li>
+        
+        
+      </ul>
+    </div>
+
+  </dd>
+</dl>
+<dl time="1400211430" votes="0" class="for_sort">
+  <dt>
+    <div class="vote" id="vote_solution_210656">
+  <span>0</span><a class="vote_up_off" href="#" onclick="this.disabled = true; new Ajax.Request('/solutions/210656/votes?type=up', {asynchronous:true, evalScripts:true, method:'post', parameters:'authenticity_token=' + encodeURIComponent('FDjdMqVvhkc36a+f1k07ZleNgsnFkRt/ulM0R1BupMM=')}); return false;" title="支持：好答案"></a>
+  <a class="vote_down_off" href="#" onclick="this.disabled = true; new Ajax.Request('/solutions/210656/votes?type=down', {asynchronous:true, evalScripts:true, method:'post', parameters:'authenticity_token=' + encodeURIComponent('FDjdMqVvhkc36a+f1k07ZleNgsnFkRt/ulM0R1BupMM=')}); return false;" title="反对：没有价值的答案"></a><span>0</span>
+</div>
+  </dt>
+  <dd id="s_210656" class="solution_dd">
+    <div class="sproblem_right">
+      <p><pre name="code" class="java">
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+            &lt;executions&gt;
+                &lt;execution&gt;
+                    &lt;id&gt;unpack&lt;/id&gt;
+                    &lt;phase&gt;generate-resources&lt;/phase&gt;
+                    &lt;goals&gt;
+                        &lt;goal&gt;unpack&lt;/goal&gt;
+                    &lt;/goals&gt;
+                    &lt;configuration&gt;
+                        &lt;artifactItems&gt;
+                            &lt;artifactItem&gt;
+                                &lt;groupId&gt;com.test&lt;/groupId&gt;
+                                &lt;artifactId&gt;mvn-sample&lt;/artifactId&gt;
+                                &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+                                &lt;type&gt;jar&lt;/type&gt;
+                                &lt;overWrite&gt;true&lt;/overWrite&gt;
+                                &lt;outputDirectory&gt;${my.classes.folder}&lt;/outputDirectory&gt;
+                                &lt;includes&gt;**/*.class,**/*.xml&lt;/includes&gt;
+                            &lt;/artifactItem&gt;
+                        &lt;/artifactItems&gt;
+                    &lt;/configuration&gt;
+                &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+
+
+</pre><br />参考 <br />[url]<br />http://stackoverflow.com/questions/13142511/unpack-dependency-and-repack-classes-using-maven<br />[/url]</p>
+
+      <div class="ask_label"><span class="gray">2014年5月16日 11:37</span></div>
+
+      <div class="user_info fr">
+        <a href="http://ipconfig1.iteye.com/blog/answered_problems"><img alt="ipconfig1" class="logo" src="http://www.iteye.com/upload/logo/user/776037/c37e20aa-6a57-3350-9587-17c787de8284-thumb.jpg?1354967586" title="ipconfig1" /></a>
+<span class="user_blog"><a href="http://ipconfig1.iteye.com/blog/answered_problems" title="ipconfig1">ipconfig1</a></span>
+<br />
+<span class="score gray" title="问答积分">68</span>
+<br />
+<span class="gold gray" title="金牌">0</span>
+<span class="silver gray" title="银牌">0</span>
+<span class="bronze gray" title="铜牌">5</span>
+
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="action">
+      <ul>
+        <li class="comment"><a href="javascript:void(0);" class="ask_click_action" data_action_sub_type="comment" data_action_type="dropdown" data_comments_count="0" data_parent_id="solution_210656" data_url="/solutions/210656/comments"><img alt="Comment" src="http://www.iteye.com/images/ask/comment.gif?1448702469" />添加评论</a></li>
+        
+        
+      </ul>
+    </div>
+
+  </dd>
+</dl>
+
+  
+</div>
+
+<div class="clearfix"></div>
+
+
+
+
+
+<script type="text/javascript" language="javascript" charset="utf-8">
+//<![CDATA[
+ window.html_codes = new Hash();
+
+
+
+
+ window.html_codes.set('problem_popup_notice', '<div class=\"#{class_name}\" id=\'problem_popupbox\'>\n  <h2>#{title}<\/h2>\n  #{content}\n<\/div>\n');
+
+ window.check_comment_time = Prototype.emptyFunction;
+ window.check_solution_time = Prototype.emptyFunction;
+
+//]]>
+</script>
+
+
+<script type="text/javascript" language="javascript" charset="utf-8">
+//<![CDATA[
+    dp.SyntaxHighlighter.HighlightAll('code', true, true);
+    
+    $$('#main .problem .sproblem_right pre[name=code]').each(function(pre, index){ // blog content
+      var location = window.location;
+      source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+      pre.writeAttribute('codeable_id', 101395);
+      pre.writeAttribute('codeable_type', "Problem");
+      pre.writeAttribute('source_url', source_url);
+      pre.writeAttribute('pre_index', index);
+      pre.writeAttribute('title', 'maven如何将被依赖的工程，打包形成的jar包，解压到当前工程class目录下');
+    });
+    $$('#main .solution_dd').each(function(solution){// comment
+      var solution_id = solution.id.substr(2);
+      $$("#"+solution.id+" pre[name=code]").each(function(pre, index){
+        var location = window.location;
+        source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+        source_url += "#" + solution.id;
+        pre.writeAttribute('codeable_id', solution_id);
+        pre.writeAttribute('codeable_type', "Solution");
+        pre.writeAttribute('source_url', source_url);
+        pre.writeAttribute('pre_index', index);
+        pre.writeAttribute('title', 'maven如何将被依赖的工程，打包形成的jar包，解压到当前工程class目录下');
+      });
+    });
+    code_favorites_init();
+    
+    fix_image_size($$('div.content img'), 650);
+    function quote_comment(id) {
+      new Ajax.Request('/editor/quote', {
+        parameters: {'id':id, 'type':'Solution'},
+        onSuccess:function(response){
+        $('problem_body_form').show();
+        $('editor_body').value += response.responseText;
+        $('editor_body').focus();
+        Element.scrollTo($('editor_body'));
+        }
+      });
+    }
+//]]>
+</script>
+
+
+
+        </div>
+        <div id="local">
+          
+  <div class="search column">
+  <form action="/problems/search" method="get">
+    <input class="text" id="query" name="query" style="width: 135px;" type="text" value="" />
+    <input class="submit" type="submit" value="搜索问题" />
+  </form> 
+</div>
+
+  <div id="guild">
+  <div class="guild">
+    <ul>
+      <li class="open"><span>  -47 </span><a href="/problems/active">待解决问题</a></li>
+      <li class="close"><span> 26185 </span><a href="/problems/solved">已解决问题</a></li>
+      <li class="hot"><span> 95955 </span> <a href="/problems/hot">热门问题</a></li>
+    </ul>
+  </div>
+</div>
+  <div class="my">
+  <a href="http://ask.csdn.net/" alt="我要提问" target="_blank" title="我要提问"><img alt="Ask-but" src="http://www.iteye.com/images/ask/ask-but.gif?1448702469" /></a>
+  <br />
+  <div class="ask_but">
+    
+      <span class="my_ask"><a href="/login">我的问答</a></span>
+    
+    <span class="help"> <a href="/problems/faq" title="FAQ">FAQ</a> | <a href="/problems/medals">勋章</a></span>
+  </div>
+</div>
+
+  <div class="column">
+  <h3>已解决问题</h3>
+  <ul class="close_ask">
+    
+      <li>
+        <a href="/problems/141596">使用Mybatis执行sql时如何统一校验输入参数?</a>
+      </li>
+    
+      <li>
+        <a href="/problems/141271">js里这种表述式是啥意思？return (y1 - y2 &gt; 0 ? &quot;Up&quot; : &quot;Down&quot;);</a>
+      </li>
+    
+      <li>
+        <a href="/problems/140382">请问基于云架构的J2EE架构应该怎么做？</a>
+      </li>
+    
+      <li>
+        <a href="/problems/137504">spring ,hibernate 都是用到了asm字节码技术，请问它们具体都拿ASM来实现了什么功能？或者说在哪个功能上用到的</a>
+      </li>
+    
+      <li>
+        <a href="/problems/136747">如何判断操作系统是32位还是64位？</a>
+      </li>
+    
+      <li>
+        <a href="/problems/136730">DBA_OBJECTS + ROWNUM 和 DUAL + ROWNUM 一个结果比较的疑问</a>
+      </li>
+    
+      <li>
+        <a href="/problems/136690">ajax缺点？</a>
+      </li>
+    
+      <li>
+        <a href="/problems/134845">判断字符串是否是数字开头</a>
+      </li>
+    
+      <li>
+        <a href="/problems/133335">用java程序监视mysql的变化。求方法</a>
+      </li>
+    
+      <li>
+        <a href="/problems/133330">如何对URL地址栏传参的信息进行加密或保护</a>
+      </li>
+    
+  </ul>
+</div>
+  <div class="column">
+  <h3>未解决问题</h3>
+  <ul class="new_ask">
+    
+  </ul>
+</div>
+  <div class="column">
+  <h3>排行榜</h3>
+  <ul class="blogs_tab">
+    <li class="tab selected" id="blog_hot_tab_week"><a href="javascript:void(0);" onclick="show_hot_blog('week')">周榜</a></li>
+    <li class="tab" id="blog_hot_tab_month"><a href="javascript:void(0);" onclick="show_hot_blog('month')">月榜</a></li>
+    <li class="tab" id="blog_hot_tab_all"><a href="javascript:void(0);" onclick="show_hot_blog('all')">总榜</a></li>
+  </ul>
+
+  <ul class="ask_top" id="blog_hot_week" >
+    
+    <a href="/problems/week_top_users" style="margin: -5px 5px 5px 130px;display:block;">查看全部排名>></a>
+  </ul>
+  <ul class="ask_top" id="blog_hot_month" style="display:none;">
+    
+    <a href="/problems/month_top_users" style="margin: -5px 5px 5px 130px;display:block;">查看全部排名>></a>
+  </ul>
+  <ul class="ask_top" id="blog_hot_all" style="display:none;">
+    
+  <li class="top_1" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      <a href="http://lovewhzlq.iteye.com/blog/answered_problems"><img alt="lovewhzlq" class="logo" src="http://www.iteye.com/upload/logo/user/93841/680e45b7-ce64-375b-9bc8-31a33e5637ab-thumb.jpg?1239624327" title="lovewhzlq" /></a>
+      <span><a href="http://lovewhzlq.iteye.com/blog/answered_problems" title="lovewhzlq">lovewhzlq</a></span>
+      <br />
+      <span class="score" title="问答积分">13934</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+  <li class="top_2" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      <a href="http://jinnianshilongnian.iteye.com/blog/answered_problems"><img alt="jinnianshilongnian" class="logo" src="http://www.iteye.com/upload/logo/user/1122108/c7dd3e08-f305-3aa7-a0ee-888e606701d4-thumb.jpg?1444401766" title="jinnianshilongnian" /></a>
+      <span><a href="http://jinnianshilongnian.iteye.com/blog/answered_problems" title="jinnianshilongnian">jinnianshilongnian</a></span>
+      <br />
+      <span class="score" title="问答积分">7280</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+  <li class="top_3" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      <a href="http://yourgame.iteye.com/blog/answered_problems"><img alt="yourgame" class="logo" src="http://www.iteye.com/upload/logo/user/104021/f5d00197-09d2-34ed-aced-da6281a0699e-thumb.jpg?1242401105" title="yourgame" /></a>
+      <span><a href="http://yourgame.iteye.com/blog/answered_problems" title="yourgame">yourgame</a></span>
+      <br />
+      <span class="score" title="问答积分">5183</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+  <li class="top_4" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      
+      <span><a href="http://huajiang.iteye.com/blog/answered_problems" title="蔡华江">蔡华江</a></span>
+      
+      <span class="score" title="问答积分">3392</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+  <li class="top_5" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      
+      <span><a href="http://suziwen.iteye.com/blog/answered_problems" title="suziwen">suziwen</a></span>
+      
+      <span class="score" title="问答积分">3226</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+  <li class="top_6" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      
+      <span><a href="http://ulinkwo.iteye.com/blog/answered_problems" title="myali88">myali88</a></span>
+      
+      <span class="score" title="问答积分">3108</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+  <li class="top_7" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      
+      <span><a href="http://xiaolongfeixiang.iteye.com/blog/answered_problems" title="xiaolongfeixiang">xiaolongfeixiang</a></span>
+      
+      <span class="score" title="问答积分">3000</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+  <li class="top_8" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      
+      <span><a href="http://lewhwa.iteye.com/blog/answered_problems" title="lewhwa">lewhwa</a></span>
+      
+      <span class="score" title="问答积分">2963</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+  <li class="top_9" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      
+      <span><a href="http://zyn010101.iteye.com/blog/answered_problems" title="zyn010101">zyn010101</a></span>
+      
+      <span class="score" title="问答积分">2795</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+  <li class="top_10" >
+    <span class="ranking"></span>
+    <div class="user_top">
+      
+      <span><a href="http://duyunfei.iteye.com/blog/answered_problems" title="AngelAndAngel">AngelAndAngel</a></span>
+      
+      <span class="score" title="问答积分">2641</span>
+      <span style="display:none"  class="growth_text" title="周增长积分"><img class="growth" src="/images/ask/growth.gif" alt="月增长积分" /></span>
+    </div>
+  </li>
+
+    <a href="/problems/top_users" style="margin: -5px 5px 5px 130px;display:block;">查看全部排名>></a>
+  </ul>
+  
+</div>
+
+<script type="text/javascript">
+  function show_hot_blog(type) {
+    ["week", "month", "all"].each(function(t){
+      $('blog_hot_' + t).hide();
+      $('blog_hot_tab_' + t).removeClassName("selected");
+    });
+    $('blog_hot_' + type).show();
+    $('blog_hot_tab_' + type).addClassName("selected");
+  }
+</script> 
+
+        </div>
+        <div id="nav">
+  <div class="wrapper">
+    <ul>
+            <li><a href="http://www.iteye.com/">首页</a></li>
+      <li><a href="http://www.iteye.com/news">资讯</a></li>
+      <li><a href="http://www.iteye.com/magazines">精华</a></li>
+      <li><a href="http://www.iteye.com/forums">论坛</a></li>
+      <li><a href="http://www.iteye.com/ask" class='selected'>问答</a></li>
+      <li><a href="http://www.iteye.com/blogs">博客</a></li>
+      <li><a href="http://www.iteye.com/blogs/subjects">专栏</a></li>
+      <li><a href="http://www.iteye.com/groups">群组</a></li>
+      <!-- <li><a target="_blank" href="http://job.iteye.com/iteye">招聘</a></li>-->
+      <li><a target="_blank" href="http://lib.csdn.net">知识库</a></li>
+      <li class="last"><a href="http://www.iteye.com/search">搜索</a></li>
+    </ul>
+  </div>
+</div>
+      </div>
+      <div id="footer">
+  <div id="site_nav">
+    <ul>
+      <li><a href="/index/service">广告服务</a></li>
+      <li><a href="http://webmaster.iteye.com">ITeye黑板报</a></li>
+      <li><a href="/index/contactus">联系我们</a></li>
+      <li class="last"><a href="/index/friend_links">友情链接</a></li>
+    </ul>
+  </div>
+  <div id="copyright">
+    &copy; 2003-2016 ITeye.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证070598号</a>  京公网安备11010502027441 ]<br/>
+    北京创新乐知信息技术有限公司 版权所有<br />
+  </div>
+</div>
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=' width='0' height='0' />");
+</script>
+
+<script src="http://csdnimg.cn/pubfooter/js/tracking.js?version=20130923164150" type="text/javascript"></script>
+
+    
+    <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>
+<script src="http://c.csdnimg.cn/public/common/libs/jquery/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script type="text/javascript">var $csdn_iteye_jq = jQuery.noConflict();// 解决jq与prototype.js命名空间冲突的问题</script>
+<script src="http://ads.csdn.net/js/tracking.js" type="text/javascript"></script>
+  </body>
+</html>

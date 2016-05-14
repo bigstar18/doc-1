@@ -1,0 +1,668 @@
+<!DOCTYPE html PUBliC "-//W3C//dtD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/dtD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<link rel="stylesheet" href="http://statics.2cto.com/css/article.css" type="text/css" />
+
+<link href="http://statics.2cto.com/css/dialog.css" rel="stylesheet" type="text/css" />
+<title>深入理解maven与应用（二）：灵活的构建 - 其他 - 红黑联盟</title>
+<meta http-equiv="mobile-agent" content="format=html5;url=http://m.2cto.com/os/201407/313825.html" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="keywords" content="深入理解maven与应用（二）：灵活的构建" />
+<meta name="description" content="深入理解maven及应用（一）：生命周期和插件参考官方url：http:  maven apache org guides index html 一个优秀的构建系统必须足够灵活，应该能够让项目在不同的环境下都能成功构建。maven为了支持构建的灵活   " />
+<script type="text/javascript" src="http://statics.2cto.com/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://statics.2cto.com/js/jquery.sgallery.js"></script>
+<script type="text/javascript" src="http://statics.2cto.com/js/search_common.js"></script>
+<script type="text/javascript" src="http://statics.2cto.com/js/json.js"></script>
+<script language="javascript" type="text/javascript" src="http://statics.2cto.com/js/dialog.js"></script>
+<script src="http://dup.baidustatic.com/js/ds.js"></script>
+<script src="http://siteapp.baidu.com/static/webappservice/uaredirect.js" type="text/javascript"></script>
+<script type="text/javascript">uaredirect("http://m.2cto.com/os/201407/313825.html");</script>
+
+</head>
+
+<body>
+<div class="line_top_box">
+	<dl class="top_box_left">
+		<dd class="left_logo"><a href="/"></a></dd>
+		<dd class="left_menu_link">
+																<a class='Channel' href='/News/'>资讯</a>
+													<a class='Channel' href='/Article/'>安全</a>
+													<a class='Channel' href='http://bbs.2cto.com'>论坛</a>
+													<a class='Channel' href='/Soft/'>下载</a>
+													<a class='Channel' href='http://book.2cto.com'>读书</a>
+													<a class='Channel' href='/kf/'>程序开发</a>
+													<a class='Channel' href='/database/'>数据库</a>
+													<a class='Channel' href='/os/'>系统</a>
+													<a class='Channel' href='/net/'>网络</a>
+													<a class='Channel' href='/ebook/'>电子书</a>
+													<a class='Channel' href='/weixin/'>微信学院</a>
+													<a class='Channel' href='http://zz.2cto.com/'>站长学院</a>
+													<a class='Channel' href='/QQ/'>QQ</a>
+													<a class='Channel' href='http://www.2cto.com/sj/'>手机软件</a>
+													<a class='Channel last' href='/px/'>考试</a>
+														</dd>
+	</dl>
+</div>
+<div class="line_top_lmbox">
+	<dl class="lmpic"></dl>
+	<dl class="lmlinkbox"><dd>
+										<a class='Channel' href='http://www.2cto.com/os/linux/'>Linux</a>|
+							<a class='Channel' href='http://www.2cto.com/os/windows/'>Windows</a>|
+							<a class='Channel' href='http://www.2cto.com/os/dos/'>Dos命令行</a>|
+							<a class='Channel' href='http://www.2cto.com/os/liulanqi/'>浏览器</a>|
+							<a class='Channel' href='http://www.2cto.com/os/xuniji/'>虚拟机</a>|
+							<a class='Channel' href='http://www.2cto.com/os/qita/'>其他</a>|
+								</dd></dl>
+	<dl class="LoginBox"><dd><script type="text/javascript">document.write('<iframe src="http://www.2cto.com/index.php?m=member&c=index&a=mini&forward='+encodeURIComponent(location.href)+'&siteid=1" allowTransparency="true"  width="150" height="32" frameborder="0" scrolling="no"></iframe>')</script></dd></dl>
+</div>
+<div class="divline8"></div>
+<div class="ibox">
+<!-- 广告位：2cto_通栏 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467095',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+</div>
+
+
+<div class="divline8"></div>
+<div class="it165_box">
+	<div class="box_left">
+		
+		<dl class="box_p">
+			<dd class="pRight"><a href="http://www.2cto.com">首页</a><span> > </span><a href="http://www.2cto.com/os/">系统</a> > <a href="http://www.2cto.com/os/qita/">其他</a> >  正文</dd>
+			</dl>
+		<dl class="box_t"><dd>深入理解maven与应用（二）：灵活的构建</dd></dl>
+																										<dl class="box_INFO">
+			<dd class="frinfo line_blue">2014-07-04  &nbsp;&nbsp;&nbsp;&nbsp;
+
+<a class="num" href="#SOHUCS" id="changyan_count_unit"></a><a href="#SOHUCS">&nbsp;个评论</a>
+<script type="text/javascript" src="http://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+
+&nbsp;&nbsp;  来源：[置顶]        深入理解maven与应用（二）：灵活的构建&nbsp;&nbsp;  </dd>
+			<dd class="frsize line_blue">
+			<span id='favorite'>
+				<a href="javascript:;" onclick="add_favorite('深入理解maven与应用（二）：灵活的构建');" class="t6">收藏</a>
+			</span>&nbsp;&nbsp;
+				<a target="_blank" href="http://www.2cto.com/index.php?m=member&c=content&a=publish&modid=1&siteid=1"><img border="0" src="http://www.2cto.com/statics/images/dl.jpg" />我要投稿</a>
+			</dd>
+			
+		</dl>
+<div class="cont_ibox">
+<!-- 广告位：2cto_左一 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467122',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+</div>
+		<dl class="box_body" id="fontzoom"><dd id="Article">
+		<p>深入理解maven及应用（一）：生命周期和插件</p>
+<p>参考官方url：http://maven.apache.org/guides/index.<a href="http://www.2cto.com/kf/qianduan/css/" target="_blank" class="keylink">html</a></p>
+<p>一个优秀的构建系统必须足够灵活，应该能够让项目在不同的环境下都能成功构建。maven为了支持构建的灵活性，内置了三大特性，即：<strong>属性、profile和资源过滤</strong>。</p>
+<h2>1、maven属性</h2>
+<p>maven属性分6类：<br />
+1、内置属性：如${basedir}表示项目根目录，${version}表示项目版本<br />
+2、POM属性：用户可以引用pom文件中对应的值。如：<br />
+${basedir} 项目根目录<br />
+${project.build.directory} 构建目录，缺省为target<br />
+${project.build.outputDirectory} 构建过程输出目录，缺省为target/classes<br />
+${project.build.finalName} 产出物名称，缺省为${project.artifactId}-${project.version}<br />
+${project.packaging} 打包类型，缺省为jar<br />
+${project.xxx} 当前pom文件的任意节点的内容<br />
+3、自定义属性:用户可以在pom的&lt;properties&gt;元素下自定义maven属性。<br />
+4、setting属性：用户可以使用以settings开头的属性引用settings.xml中xml元素的值，如${settings.localRepository}指向用户本地仓库的地址。<br />
+5、java系统属性：maven可以使用当前java系统的属性，如${user.home}指向了用户目录。<br />
+6、环境变量属性：所有环境变量都可以使用以env.开头的属性。如：${env.JAVA_HOE}。</p>
+<h2>2、资源过滤</h2>
+<p>这里所谓的资源：也就就是指src/main/resources和src/test/resources文件下的所有文件，默认情况下，这些文件会被复制到classpath下面，即target/classes下面。<br />
+所谓资源过滤，就是过滤这些文件夹下面的文件里面的内容，看里面的maven变量是否需要替换。默认情况下，只有pom.xml里面的变量才会被替换，资源文件是不会被过滤的，但是可以设置，如下：</p>
+<pre class="brush:java;">
+&lt;build&gt;
+		&lt;finalName&gt;agentmanager&lt;/finalName&gt;
+		&lt;sourceDirectory&gt;src/main/java&lt;/sourceDirectory&gt;
+		&lt;resources&gt;
+			&lt;!-- 控制资源文件的拷贝 --&gt;
+			&lt;resource&gt;
+				&lt;directory&gt;src/main/resources&lt;/directory&gt;
+				&lt;excludes&gt;
+					&lt;exclude&gt;**/jre.zip&lt;/exclude&gt;
+					&lt;exclude&gt;**/jre.tar&lt;/exclude&gt;
+					&lt;exclude&gt;agentmanager.jsmooth&lt;/exclude&gt;
+					&lt;exclude&gt;assembly.xml&lt;/exclude&gt;
+				&lt;/excludes&gt;
+				&lt;targetPath&gt;${project.build.directory}&lt;/targetPath&gt;
+			&lt;/resource&gt;
+			&lt;resource&gt;
+				&lt;directory&gt;src/main/resources/conf&lt;/directory&gt;
+				&lt;targetPath&gt;${basedir}/conf&lt;/targetPath&gt;
+				&lt;filtering&gt;true&lt;/filtering&gt;
+			&lt;/resource&gt;
+		&lt;/resources&gt;
+	&lt;/build&gt;</pre>
+<p>&nbsp;</p>
+<p>如jdbc.properties</p>
+<pre class="brush:java;">
+jdbc.driverClassName=${db.driver}
+jdbc.url=${db.url}
+jdbc.username=${db.user}
+jdbc.password=${db.pwd}</pre>
+<p>&nbsp;</p>
+<p>profile文件</p>
+<pre class="brush:java;">
+&lt;profiles&gt;
+ &lt;profile&gt;
+  &lt;id&gt;dev&lt;/id&gt;
+  &lt;properties&gt;
+   &lt;db.driver&gt;oracle.jdbc.driver.<a href="http://www.2cto.com/database/Oracle/" target="_blank" class="keylink">Oracle</a>Driver&lt;/db.driver&gt;
+   &lt;db.url&gt;jdbc:oracle:thin:@10.252.48.3:1521:dbname&lt;/db.url&gt;
+   &lt;db.user&gt;username&lt;/db.user&gt;
+   &lt;db.pwd&gt;userpwd&lt;/db.pwd&gt;
+  &lt;/properties&gt;
+ &lt;/profile&gt;
+ &lt;profile&gt;
+  &lt;id&gt;test&lt;/id&gt;
+  &lt;properties&gt;
+   &lt;db.driver&gt;oracle.jdbc.driver.OracleDriver&lt;/db.driver&gt;
+   &lt;db.url&gt;jdbc:oracle:thin:@10.252.48.3:1521:testdbname&lt;/db.url&gt;
+   &lt;db.user&gt;testusername&lt;/db.user&gt;
+   &lt;db.pwd&gt;testuserpwd&lt;/db.pwd&gt;
+  &lt;/properties&gt;
+ &lt;/profile&gt;
+&lt;/profiles&gt;
+</pre>
+<p><br />
+<br />
+在构建时可以使用-P参数激活一个或多个profile，多个之间用逗号分隔<br />
+如 <strong>mvn clean install -Pdev</strong></p>
+<h2>3、maven profile</h2>
+<p>上面例子应该可以看出profile是做什么的，其实就相当于定义了一系列的profile变量，在具体构建时可用使用其中的某个profile去变量替换资源文件。<br />
+<strong>激活profile的方式有很多，如命令行激活（上面），settings文件显式激活、<a href="http://www.2cto.com/os/" target="_blank" class="keylink">系统</a>属性激活、操作系统环境激活、默认激活、文件存在与否激活等，具体可以参考官网资料</strong>。</p>
+<h3><br />
+3.1 profile的种类</h3>
+<p>根据需要，可以在以下文件声明profile。<br />
+1、<strong>pom.xml</strong> 针对当前项目<br />
+2、<strong>用户 settings.xml </strong>用户目录下的.m2/settings.xml， 对当前用户的所有项目有效。<br />
+3、<strong>全局 settings.xml</strong> 即maven安装目录下的conf/settings.xml。对本机上的所有项目有效。</p>
+<h2>4、web资源过滤</h2>
+<p>在maven的web项目里面，除了上面所说的资源文件(src/main/resources)之外，还有一类叫做web资源目录，即<strong>src/main/webapp</strong>下面的js、css等等。默认情况下，这些目录是不被资源过滤的，开启的命令如下：</p>
+<h2>&nbsp;</h2>
+<pre class="brush:java;">
+  &lt;plugin&gt;
+	&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+	&lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+	&lt;version&gt;2.1.1&lt;/version&gt;
+	&lt;configuration&gt;
+	    &lt;webResources&gt;
+		&lt;resource&gt;
+			&lt;directory&gt;src/main/webapp&lt;/directory&gt;
+		    &lt;filtering&gt;true&lt;/filtering&gt;
+		    &lt;includes&gt;
+			&lt;include&gt;**/*.css&lt;/include&gt;
+			&lt;include&gt;**/*.js&lt;/include&gt;
+		    &lt;/includes&gt;                          
+		&lt;/resource&gt;    
+	    &lt;/webResources&gt;
+	&lt;/configuration&gt;
+&lt;/plugin&gt;</pre>
+<br />
+<br />
+						</dd></dl>
+		<script type="text/javascript">
+		<!--
+		$(function(){
+		  $('#Article img').LoadImage(true, 630, 560,'http://statics.2cto.com/images/s_nopic.gif');    
+		})
+		
+		//-->
+		</script>
+	<div id="pages" class="box_body" id="fontzoom">	</div>
+<dl class="cont_ibox">
+		<dd><!-- 广告位：2cto_左二 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467125',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+</dd>
+	</dl>
+	<dl class="box_Nsc">
+		<dd class="lcopy"><a class="ckcopy" onclick="copyToClipBoard()">点击复制链接 与好友分享!</a><a class="ckhome" href="http://www.2cto.com/">回本站首页</a></dd>
+		<script> 
+		function copyToClipBoard(){ 
+		var clipBoardContent=document.title + '\r\n' + document.location; 
+		clipBoardContent+='\r\n'; 
+		window.clipboardData.setData("Text",clipBoardContent); 
+		alert("恭喜您！复制成功"); 
+		} 
+		</script>
+
+		<div class="Article-Tool">
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+                                
+	  </div>
+
+		
+		</dd>
+		 
+	</dl>
+	<dl class="box_NPre">
+		<dd class="TLineX"><strong>上一篇：</strong><a href="http://www.2cto.com/os/201407/313824.html">Shell命令行快捷键</a></dd>
+		<dd><strong>下一篇：</strong><a href="http://www.2cto.com/os/201407/313826.html">nginx-gridfs的安装</a></dd>
+	</dl>
+	<dl class="linetb"></dl>
+
+	<dl class="about"><dd>相关文章</dd></dl>
+				<dl class="linetb"></dl>
+	<dl class="cont_ibox h60">
+		<dd><!-- 广告位：2cto_左三 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467127',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script></dd>
+	</dl>
+
+	
+	<dl class="linetb"></dl>
+	<dl class="about"><dd>图文推荐</dd></dl>
+	<div class="picbox">
+						<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201604/499224.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20160415/20160415090246713.jpg'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201604/499224.html">【RAID】基本结构</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201604/499222.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20160415/20160415090250723.png'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201604/499222.html">操作系统的基础知识</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201604/498504.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20160413/20160413090301233.jpg'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201604/498504.html">VGA,DVI,RS232,UART,</a></dd>
+		</dl>
+				<dl class="wbox">
+			<dd class="npicbox"><a target="_blank" href="http://www.2cto.com/os/201604/498503.html"><img src='http://www.2cto.com/uploadfile/Collfiles/20160413/20160413090307249.bmp'  width='126' height='90' border='0' /></a></dd>
+			<dd class="npictext"><a href="http://www.2cto.com/os/201604/498503.html">secureCRT,永久设置,</a></dd>
+		</dl>
+				        <div class="clear"></div>
+	</div>
+<dl class="cont_ibox">
+		<dd><!-- 广告位：2cto_左四 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467132',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+</dd>
+	</dl>
+<!--高速版，加载速度快，使用前需测试页面的兼容性-->
+<div id="SOHUCS"></div>
+<script>
+  (function(){
+    var appid = 'cyrBEfE7C',
+    conf = 'prod_830794cf494da8b808afb2994cfe0fee';
+    var doc = document,
+    s = doc.createElement('script'),
+    h = doc.getElementsByTagName('head')[0] || doc.head || doc.documentElement;
+    s.type = 'text/javascript';
+    s.charset = 'utf-8';
+    s.src =  'http://assets.changyan.sohu.com/upload/changyan.js?conf='+ conf +'&appid=' + appid;
+    h.insertBefore(s,h.firstChild);
+    window.SCS_NO_IFRAME = true;
+  })()
+</script> 
+
+	</div>
+	<div class="box_right">
+		<div class="side-ibox h250">
+<!-- 广告位：2cto_右一 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467140',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+</div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="box_right_box">
+			<dl class="bTitle">
+				<dd onmousemove="m_tabs(1)" id="ArticlesW" class="tablinkschecked">文章</dd>
+				<dd onmousemove="m_tabs(3)" id="BookW" class="tablinkscheck">读书</dd>
+			</dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="Articles">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="Win2000下关闭无用端口" href="http://www.2cto.com/Article/200410/1.html">Win2000下关闭无用端口</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="禁止非法用户登录综合设置 [win9x篇]" href="http://www.2cto.com/Article/200410/2.html">禁止非法用户登录综合设置 [win9x篇]</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="关上可恶的后门——消除NetBIOS隐患" href="http://www.2cto.com/Article/200410/3.html">关上可恶的后门——消除NetBIOS隐患</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="网络入侵检测系统" href="http://www.2cto.com/Article/200410/4.html">网络入侵检测系统</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="潜伏在Windows默认设置中的陷井" href="http://www.2cto.com/Article/200410/5.html">潜伏在Windows默认设置中的陷井</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="调制解调器的不安全" href="http://www.2cto.com/Article/200410/6.html">调制解调器的不安全</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="构建Windows 2000服务器的安全防护林" href="http://www.2cto.com/Article/200410/7.html">构建Windows 2000服务器的安全防护林</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="SQL Server 2000的安全配置" href="http://www.2cto.com/Article/200410/8.html">SQL Server 2000的安全配置</a></dd>
+														</dl>
+				<dl class="index" id="Book" style="display:none">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="黑客攻防技术宝典：Web实战篇（第2版）" href="http://book.2cto.com/201206/20.html">黑客攻防技术宝典：Web实战篇（第2版）</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="超级网管员——网络安全" href="http://book.2cto.com/201207/43.html">超级网管员——网络安全</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="代码大全（第二版）" href="http://book.2cto.com/201207/64.html">代码大全（第二版）</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="软件之道:软件开发争议问题剖析" href="http://book.2cto.com/201207/68.html">软件之道:软件开发争议问题剖析</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CSS插件工具箱" href="http://book.2cto.com/201207/78.html">CSS插件工具箱</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CSS入门经典(第3版)" href="http://book.2cto.com/201207/139.html">CSS入门经典(第3版)</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="C#并行编程高级教程：精通.NET 4 Parallel Extension" href="http://book.2cto.com/201207/169.html">C#并行编程高级教程：精通.NET 4 Pa</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="CMMI+敏捷整合开发" href="http://book.2cto.com/201207/190.html">CMMI+敏捷整合开发</a></dd>
+														</dl>
+			</div>
+			
+		</div>
+			<script type="text/javascript">
+			<!--
+				function m_tab(index)
+				{
+					if (index == 1){
+						document.getElementById("indexW").className = "tablinkschecked";
+						document.getElementById("hotW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "block";
+						document.getElementById("hot").style.display = "none";
+					}
+					else{
+						document.getElementById("hotW").className = "tablinkschecked";
+						document.getElementById("indexW").className = "tablinkscheck";
+						document.getElementById("index").style.display = "none";
+						document.getElementById("hot").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+			
+		</div>
+		<div class="rightlineT"><div class="rxline"></div></div>
+		<div class="side-ibox h250">
+		<!-- 广告位：2cto_右二 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467141',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+		</div>
+
+		<div class="rightlineNo"></div>
+		<div class="box_right_box">
+			<dl class="bTitle hot">
+				<dd onmousemove="m_tabs(1)" id="ArticlesW" class="tablinkschecked">热门新闻</dd>
+			</dl>
+		</div>
+		<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="Articles">
+					<dd class="picline"></dd>
+															<dd class="list">·&nbsp;<a target="_blank" title="Win7开启远程桌面——图文详解" href="http://www.2cto.com/os/201412/362650.html">Win7开启远程桌面——图文详解</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="linux下打开、关闭tomcat，实时查看tomcat运行日志" href="http://www.2cto.com/os/201404/294392.html">linux下打开、关闭tomcat，实时查看to</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="面向新手的Web服务器搭建（一）——IIS的搭建" href="http://www.2cto.com/os/201405/300927.html">面向新手的Web服务器搭建（一）&mdash;&mdash;II</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="logstash快速入门" href="http://www.2cto.com/os/201411/352015.html">logstash快速入门</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="pycharm快捷键及一些常用设置" href="http://www.2cto.com/os/201410/341542.html">pycharm快捷键及一些常用设置</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="一台nginx服务器多域名配置" href="http://www.2cto.com/os/201411/355366.html">一台nginx服务器多域名配置</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="linux下查看硬盘型号、大小等信息（含Raid）" href="http://www.2cto.com/os/201501/370316.html">linux下查看硬盘型号、大小等信息（含</a></dd>
+										<dd class="list">·&nbsp;<a target="_blank" title="关于linux系统端口查看和占用的解决方案" href="http://www.2cto.com/os/201411/355959.html">关于linux系统端口查看和占用的解决方</a></dd>
+														</dl>
+			</div>
+		</div>
+        <div class="rightlineT"><div class="rxline">
+
+
+
+</div></div>
+
+		<div class="side-ibox h250">
+<!-- 广告位：2cto_右三 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467142',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+ </div>
+		<div class="box_right_line"><div class="xline"></div></div>
+		<script type="text/javascript">
+			<!--
+				function m_tabs(index)
+				{
+					if (index == 1){
+						document.getElementById("ArticlesW").className = "tablinkschecked";
+						document.getElementById("BookW").className = "tablinkscheck";
+						document.getElementById("Articles").style.display = "block";
+						document.getElementById("Book").style.display = "none";
+					}
+					else if (index == 2){
+						document.getElementById("ArticlesW").className = "tablinkscheck";
+						document.getElementById("BookW").className = "tablinkscheck";
+						document.getElementById("Articles").style.display = "none";
+						document.getElementById("Book").style.display = "none";
+					}
+					else{
+						document.getElementById("ArticlesW").className = "tablinkscheck";
+						document.getElementById("BookW").className = "tablinkschecked";
+						document.getElementById("Articles").style.display = "none";
+						document.getElementById("Book").style.display = "block";
+					}
+				}
+			//-->
+			</script>
+<div class="box_right_box">
+			<div class="paddingbox">
+				<dl class="index" id="Articles">
+					<dd class="picline">
+
+
+
+</dd>
+<!-- 代码1：放在页面需要展示的位置  -->
+<!-- 如果您配置过sourceid，建议在div标签中配置sourceid、cid(分类id)，没有请忽略  -->
+<div id="cyHotnews" role="cylabs" data-use="hotnews"></div>
+<!-- 代码2：用来读取评论框配置，此代码需放置在代码1之后。 -->
+<!-- 如果当前页面有评论框，代码2请勿放置在评论框代码之前。 -->
+<!-- 如果页面同时使用多个实验室项目，以下代码只需要引入一次，只配置上面的div标签即可 -->
+<script type="text/javascript" charset="utf-8" src="http://changyan.itc.cn/js/??lib/jquery.js,changyan.labs.js?appid=cyrBEfE7C"></script>					 
+				</dl>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+		<div class="box_right_line"><div class="xline"></div></div>
+		<div class="side-ibox h250">
+<!-- 广告位：2cto_右四 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467143',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>			
+</div>
+		<div class="box_right_line"><div class="xline"></div></div>
+	</div>
+</div>
+<script type="text/javascript">
+<!--
+function showLogin(){
+	window.art.dialog({id:'Login',iframe:'http://www.2cto.com/index.php?m=member&c=index&a=login&tupe=mini', title:'快捷登陆', width:'450', height:'310', lock:true}, function(){var d = window.art.dialog({id:'Login'}).data.iframe;var form = d.document.getElementById('dosubmit');form.click();return false;}, function(){window.art.dialog({id:'Login'}).close()});void(0);
+}
+function add_favorite(title) {
+		$.getJSON('http://www.2cto.com/api.php?op=add_favorite&title='+encodeURIComponent(title)+'&url='+encodeURIComponent(location.href)+'&'+Math.random()+'&callback=?', function(data){
+			if(data.status==1)	{
+				$("#favorite").html('收藏成功');
+			} else {
+				alert('请登陆');
+				window.location.href='http://home.2cto.com/?forward='+encodeURIComponent(location.href);
+			}
+		});
+	}
+//-->
+</script>
+<script language="JavaScript" src="http://www.2cto.com/api.php?op=count&id=313825&modelid=1"></script>
+
+
+<div class="ibox p8">
+<!-- 广告位：2cto_通栏2 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2471021',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+</div>
+<div class="ibox p8">
+<!-- 广告位：2cto_通栏3 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2471250',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+</div>
+<div class="foot">
+<p>
+<a target="_blank" href="http://www.2cto.com/about">关于我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/contact.html">联系我们</a> |
+<a target="_blank" href="http://www.2cto.com/about/ads.html">广告服务</a> |
+<a target="_blank" href="http://www.2cto.com/about/touzi.html">投资合作</a> |
+<a target="_blank" href="http://www.2cto.com/about/Copyright.html">版权申明</a> |
+<a target="_blank" href="http://www.2cto.com/about/faq.html">在线帮助</a> |
+<a target="_blank" href="http://www.2cto.com/about/map.html">网站地图</a> |
+<a target="_blank" href="http://www.2cto.com/about/tg.html">作品发布</a> |
+<a target="_blank" href="http://vip.2cto.com/"><span style="COLOR: red">Vip技术培训</span></a>
+<br />
+<span class="style4">版权所有: <a href="http://www.2cto.com" target="_blank">红黑联盟</a>--致力于做最好的IT技术学习网站<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258398875'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D1258398875' type='text/javascript'%3E%3C/script%3E"));</script>    
+</span>
+
+<!-- 广告位：2cto_图加 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467148',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+
+<!-- 广告位：2cto_视窗 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467147',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+
+<!-- 广告位：2cto_对联 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '2467144',
+        container: s,
+        size: '1000,90',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+</div></body>
+
+</html>

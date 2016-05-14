@@ -1,0 +1,1398 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>   
+   
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>使用maven-war-plugin 对Maven项目进行动态打包 - zgmzyr的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="^欢迎使用^20130529....DataNotFound...zlbangInfo;zlZID:580819918643; zlZID:382419940380;zlZID:339529939195;zlZID:396139945676;zlCZID:5323416951327751050624-1075053569z29957ddffd324b5181ef9cc912c737" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="http://static.blog.csdn.net/scripts/jquery-version.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/light_blue/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/zgmzyr/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+</head>
+<body>
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/zgmzyr">zgmzyr的专栏</a></h2>
+            <h3>耐心厚积，静待薄发</h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/zgmzyr?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/zgmzyr?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/zgmzyr/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "zgmzyr";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/zgmzyr";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://ask.csdn.net/subjects/3
+">
+<font color=red>【专家问答】郭神驾到
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/blogdevteam/article/details/51198465">
+<font color=blue>有奖试读—漫话程序员面试求职、升职加薪、创业与生活</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://edu.csdn.net/huiyiCourse/detail/126">
+<font color=red>【免费公开课】Python黑客编程之局域网嗅探和敏感信息探测</font></a>
+&nbsp;&nbsp;&nbsp;
+
+
+</font></a>
+</div>                        </div>
+                        
+
+
+
+<!-- 广告位开始 -->
+<ins data-revive-zoneid="72" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<!-- 广告位结束 -->
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+ <script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/replace.min.js"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/zgmzyr/article/details/8691470">
+        使用maven-war-plugin 对Maven项目进行动态打包            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_r">
+            <span class="link_postdate">2013-03-19 14:10</span>
+            <span class="link_view" title="阅读次数">13438人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(0)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('使用maven-war-plugin 对Maven项目进行动态打包','8691470');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(8691470,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody"  style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            var lib = eval("("+$("#lib").attr("value")+")");
+            var html = "";
+            if (lib.err == 0) {
+                $.each(lib.data, function (i) {
+                    var obj = lib.data[i];
+                    //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                    html += ' <a href="' + obj.url + '" target="_blank">';
+                    html += ' <img src="' + obj.logo + '">';
+                    html += ' <em><b>' + obj.name + '</b></em>';
+                    html += ' </a>';
+                });
+                if (html != "") {
+                    setTimeout(function () {
+                        $("#lib").html(html);
+                        /*
+                        var testhtml = "";
+                        testhtml += '<a href="#">';
+                        testhtml += '<img src="http://img.knowledge.csdn.net/upload/base/1455589744328_328.jpg">';
+                        testhtml += '<em>Android知识库</em>';
+                        testhtml += '</a>';
+                        $(".embody_c").html(testhtml);
+                        */
+                        $("#embody").show();
+                    }, 100);
+                }
+            }          
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('908999','zgmzyr','top','8691470');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">maven<em>（14）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/zgmzyr/article/category/908999"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_908999">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">转载于：http://nileader.blog.51cto.com/1381108/449956</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px"><br>
+</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">在进行项目发布的时候,可能会碰到这样的情况, 希望在保持项目源代码不变的前提下,希望能够针对不同的运行环境获得相应的运行包.(比如war包)</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">那么使用配置文件是可以解决这个问题的.可以将项目中和运行环境相关的一些参数放到配置文件中, 每个环境一份,这样,在打包前只要指定这次打包我需要指定这次打包需要哪个配置文件即可,于是就可以使运行包与环境相对应了.但是这样的做法有个不好的是, 配置文件的选择需要人为干涉——如果碰到这样的情况:某某,你给我**环境的包. 这个时候, 采用平时的做法就是马上回忆我要去改下哪个地方, 让项目知道我要用什么配置了.</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">现在有另一个做法, 使用maven-war-plugin这个插件可以在执行打包命令的时候指定我要打哪个环境的包, 而不需要去关注我现在要用什么配置文件了.当然只适用于Maven项目.</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">例如: maven package –P &nbsp;youEnvName &nbsp; 这样你就可以打出一个youEnvName环境的的运行包了.</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px"><span style="padding:0px; margin:0px">第1步</span></span><span style="padding:0px; margin:0px">&nbsp;还是要为不同环境准备不同的运行参数: 这里在src/main/resources 目录下建两个文件,分别用来配置两个环境的一些不同参数.注意,配置文件需要是一个合法的properties文件:如:</span></span></p>
+<pre style="padding:0px; margin-top:0px; margin-bottom:1em; background-color:rgb(247,247,247); font-family:'Courier New',monospace; overflow:auto; width:712.7916870117188px; color:rgb(44,44,44)"><ol class="dp-xml" style="padding:5px 0px; color:rgb(92,92,92); list-style-position:initial; border-left-width:3px; border-style:none none none solid; border-left-color:rgb(20,107,0); margin:0px 0px 1px 3em!important"><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">src/main/resources/IProject-test.properties&nbsp;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">src/main/resources/IProject-real.properties&nbsp;</span></span></li></ol></pre>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px">&nbsp;<span style="padding:0px; margin:0px">分别对应测试和正式两个环境. 里面的内容当然就是两个key一个value不一个的key-value对了.</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px"><span style="padding:0px; margin:0px">src/main/resources/IProject-test.properties 中的内容通常是这样(仅仅是样例)</span><br type="_moz" style="padding:0px; margin:0px">
+</span></span></p>
+<pre style="padding:0px; margin-top:0px; margin-bottom:1em; background-color:rgb(247,247,247); font-family:'Courier New',monospace; overflow:auto; width:712.7916870117188px; color:rgb(44,44,44)"><ol class="dp-xml" style="padding:5px 0px; color:rgb(92,92,92); list-style-position:initial; border-left-width:3px; border-style:none none none solid; border-left-color:rgb(20,107,0); margin:0px 0px 1px 3em!important"><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="attribute" style="padding:0px; margin:0px; border:none; color:red; background-color:inherit">system.envid</span>=real&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="attribute" style="padding:0px; margin:0px; border:none; color:red; background-color:inherit">method.version</span>=1.0.0.&nbsp;release&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">………&nbsp;&nbsp;</span></span></li></ol></pre>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px"><span style="padding:0px; margin:0px">第 2 步</span></span><span style="padding:0px; margin:0px">&nbsp;,在src/main下面新建一个目录,例如:src/main/packageFilter</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">然后将你要用到这个几个参数的那一个或多个配置文件文件找出来(通常这些配置文件是在WEB-INF目录中的),将他们移动到src/main/packageFilter目录中去.(这个时候你可能会问:配置文件换地方了,项目懂吗? 先不着急.)df&nbsp;</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px">这些配置到src/main/packageFilter目录中后,要对其中的使用上面配置的那几个参数作一下修改(仅仅是样例)</span><span style="padding:0px; margin:0px"><br type="_moz" style="padding:0px; margin:0px">
+</span></span></p>
+<pre style="padding:0px; margin-top:0px; margin-bottom:1em; background-color:rgb(247,247,247); font-family:'Courier New',monospace; overflow:auto; width:712.7916870117188px; color:rgb(44,44,44)"><ol class="dp-xml" style="padding:5px 0px; color:rgb(92,92,92); list-style-position:initial; border-left-width:3px; border-style:none none none solid; border-left-color:rgb(20,107,0); margin:0px 0px 1px 3em!important"><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">bean</span>&nbsp;<span class="attribute" style="padding:0px; margin:0px; border:none; color:red; background-color:inherit">id</span>=<span class="attribute-value" style="padding:0px; margin:0px; border:none; color:blue; background-color:inherit">&quot;myService&quot;</span>&nbsp;<span class="attribute" style="padding:0px; margin:0px; border:none; color:red; background-color:inherit">class</span>=<span class="attribute-value" style="padding:0px; margin:0px; border:none; color:blue; background-color:inherit">&quot;com.nileader.MyService&quot;</span>&nbsp;<span class="attribute" style="padding:0px; margin:0px; border:none; color:red; background-color:inherit">init-method</span>=<span class="attribute-value" style="padding:0px; margin:0px; border:none; color:blue; background-color:inherit">&quot;init&quot;</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">property</span>&nbsp;<span class="attribute" style="padding:0px; margin:0px; border:none; color:red; background-color:inherit">name</span>=<span class="attribute-value" style="padding:0px; margin:0px; border:none; color:blue; background-color:inherit">&quot;version&quot;</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">value</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>${&nbsp;system.envid&nbsp;}<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">value</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">property</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">bean</span>&gt;&nbsp;</span></span></li></ol></pre>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px; color:rgb(92,92,92); font-family:'Courier New',monospace; line-height:15px; white-space:pre; background-color:rgb(247,247,247)">这里看到了吧, 参数已经用一个</span><span style="padding:0px; margin:0px; color:rgb(92,92,92); font-family:'Courier New',monospace; line-height:15px; white-space:pre; background-color:rgb(247,247,247)">${key}</span><span style="padding:0px; margin:0px; color:rgb(92,92,92); font-family:'Courier New',monospace; line-height:15px; white-space:pre; background-color:rgb(247,247,247)">
+ 的占位符.&nbsp;</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px"><span style="padding:0px; margin:0px">第3步</span></span><span style="padding:0px; margin:0px">&nbsp;,在pom文件添加打包插件的依赖:</span><span style="padding:0px; margin:0px"><br type="_moz" style="padding:0px; margin:0px">
+</span></span></p>
+<pre style="padding:0px; margin-top:0px; margin-bottom:1em; background-color:rgb(247,247,247); font-family:'Courier New',monospace; overflow:auto; width:712.7916870117188px; color:rgb(44,44,44)"><ol class="dp-xml" style="padding:5px 0px; color:rgb(92,92,92); list-style-position:initial; border-left-width:3px; border-style:none none none solid; border-left-color:rgb(20,107,0); margin:0px 0px 1px 3em!important"><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filters</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filter</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>&nbsp;src/main/resources/IProject-test.properties&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filter</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filters</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">plugin</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">groupId</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>org.apache.maven.plugins<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">groupId</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">artifactId</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>maven-war-plugin<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">artifactId</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">configuration</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">webResources</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">resource</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">directory</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>src/main/packageFilter<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">directory</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filtering</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>true<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filtering</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">targetPath</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>WEB-INF<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">targetPath</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">resource</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">webResources</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">configuration</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">plugin</span>&gt;&nbsp;</span></span></li></ol></pre>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">这里就可以解决刚才提到的那个问题了,配置文件看上去已经移动了,但是并不需要告诉你的项目,其实在项目加载配置文件的时候,我们已经将一个完整的,不包含任何占位符的配置放在了项目本应该放的位置 ,这里由下面这段配置实现的:</span></span></p>
+<pre style="padding:0px; margin-top:0px; margin-bottom:1em; background-color:rgb(247,247,247); font-family:'Courier New',monospace; overflow:auto; width:712.7916870117188px; color:rgb(44,44,44)"><ol class="dp-xml" style="padding:5px 0px; color:rgb(92,92,92); list-style-position:initial; border-left-width:3px; border-style:none none none solid; border-left-color:rgb(20,107,0); margin:0px 0px 1px 3em!important"><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">resource</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">directory</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>src/main/packageFilter<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">directory</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filtering</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>true<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filtering</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">targetPath</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>WEB-INF<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">targetPath</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">resource</span>&gt;&nbsp;</span></span></li></ol></pre>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">这段配置的意思是: 在打包的时候,要将&lt;directory&gt;src/main/packageFilter&lt;/directory&gt;中的文件全部搬到</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">&nbsp;&nbsp;&lt;targetPath&gt;WEB-INF&lt;/targetPath&gt;</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">目录中去,并且这个过程是覆盖的. &nbsp; 同时&lt;filtering&gt;true&lt;/filtering&gt;指定了在这个”搬运”过程中,需要进行过滤.</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">另外,这里还有个标签: &lt;filters&gt;….&lt;/filters&gt; 先不讲</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px">好了,新的问题出来了,什么是过滤.现在进入最后一个步骤.&nbsp;</span><span style="padding:0px; margin:0px"><br style="padding:0px; margin:0px">
+</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px"><span style="padding:0px; margin:0px">第4步</span></span><span style="padding:0px; margin:0px">&nbsp;, 还是在pom.xml文件中, 配置如下信息:</span></span></p>
+<pre style="padding:0px; margin-top:0px; margin-bottom:1em; background-color:rgb(247,247,247); font-family:'Courier New',monospace; overflow:auto; width:712.7916870117188px; color:rgb(44,44,44)"><ol class="dp-xml" style="padding:5px 0px; color:rgb(92,92,92); list-style-position:initial; border-left-width:3px; border-style:none none none solid; border-left-color:rgb(20,107,0); margin:0px 0px 1px 3em!important"><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">profiles</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;profile&nbsp;for&nbsp;bulid&nbsp;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">profile</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">id</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>test<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">id</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">build</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filters</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filter</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>&nbsp;src/main/resources/IProject-test.properties<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filter</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filters</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">build</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">profile</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">profile</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">id</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>real<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">id</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">build</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filters</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filter</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>&nbsp;src/main/resources/IProject-real.properties<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filter</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filters</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">build</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">profile</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">profiles</span>&gt;&nbsp;&nbsp;</span></span></li></ol><span style="font-size:18px"><span style="padding:0px; margin:0px"><br type="_moz" style="padding:0px; margin:0px"></span><br style="padding:0px; margin:0px"></span></pre>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">好了,现在知道了吧, 根据单词filter可以猜到这个配置是干嘛了.他的工作过程就是在打包的时候,</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">使用命令</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="padding:0px; margin:0px"><span style="font-size:18px">mvn package –P real.</span></span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px">那么他就会找到&lt;id&gt;real&lt;/id&gt;对应的那个参数信息src/main/resources/IProject- real.properties, 然后用其中的key-value对来过滤&lt;directory&gt;src/main/packageFilter&lt; /directory&gt;</span><span style="padding:0px; margin:0px">中的文件,并将填充完整后的配置文件全部搬运到&lt;targetPath&gt;WEB-INF&lt;/targetPath&gt;</span><span style="padding:0px; margin:0px">中去.</span><span style="padding:0px; margin:0px">另外,由于配置&lt;plugin&gt;的时候留下一个标签</span><span style="padding:0px; margin:0px"><br type="_moz" style="padding:0px; margin:0px">
+</span></span></p>
+<pre style="padding:0px; margin-top:0px; margin-bottom:1em; background-color:rgb(247,247,247); font-family:'Courier New',monospace; overflow:auto; width:712.7916870117188px; color:rgb(44,44,44)"><ol class="dp-xml" style="padding:5px 0px; color:rgb(92,92,92); list-style-position:initial; border-left-width:3px; border-style:none none none solid; border-left-color:rgb(20,107,0); margin:0px 0px 1px 3em!important"><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filters</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filter</span><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&gt;</span>&nbsp;src/main/resources/IProject-test.properties&nbsp;<span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filter</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;/</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">filters</span>&gt;&nbsp;&nbsp;</span></span></li><li style="margin-left:20px; line-height:1.3em; border:none; padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; list-style:decimal-leading-zero outside!important"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px"><span class="tag" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">&lt;</span><span class="tag-name" style="padding:0px; margin:0px; border:none; color:rgb(0,102,153); background-color:inherit; font-weight:bold">plugin</span>&gt;&nbsp;&nbsp;</span></span></li><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">……..&nbsp;&nbsp;</span></span></li></ol></pre>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px">这个就是所谓的默认参数,也就是当你执行 mvn package,他默认使用这个文件中的参数来过滤,相当于执行&nbsp;</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px"><span style="padding:0px; margin:0px">mvn package –P test.</span>&nbsp;</span><span style="padding:0px; margin:0px"><br style="padding:0px; margin:0px">
+</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="padding:0px; margin:0px"><span style="font-size:18px">如何调试.</span></span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="font-size:18px"><span style="padding:0px; margin:0px">&nbsp;&nbsp; &nbsp;</span>&nbsp;从这里介绍的方法可以看出, 配置文件中的参数是在打包的时候才会被真正填充进去的, 那么对于那种希望在Eclipse中调试的项目怎么办.(例如用Jetty插件来调试Maven项目的时候, 并不会将项目打包后来执行, 而是直接运行src/main/webapp作为项目root路径.)&nbsp;</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px">&nbsp;&nbsp; &nbsp;上面已经提到了,maven-war-plugin 在工作过程中是把&nbsp;</span><span style="padding:0px; margin:0px">&lt;directory&gt;src/main/packageFilter&lt;/directory&gt;&nbsp;</span><span style="padding:0px; margin:0px">中的文件全部搬到</span><span style="padding:0px; margin:0px">&lt;targetPath&gt;WEB-INF&lt;/targetPath&gt;下,并且是覆盖.</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px">所以可以这样处理,在开发 调试的时候,可以在配置文件的目录中放上完整的配置文件,里面的填充需要的参数,这位就可以顺利进行调试了, 并且不影响打包.&nbsp;</span><span style="padding:0px; margin:0px"><br style="padding:0px; margin:0px">
+</span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="padding:0px; margin:0px"><span style="padding:0px; margin:0px"><span style="font-size:18px">注意事项</span></span></span></p>
+<p style="padding-top:0px; padding-bottom:15px; margin-top:0px; margin-bottom:0px; color:rgb(44,44,44); font-family:宋体,'Arial Narrow',arial,serif; line-height:18.66666603088379px">
+<span style="font-size:18px"><span style="padding:0px; margin:0px">&nbsp;&nbsp; &nbsp; 现在可以调试了,但是要注意, 在开发调试过程中,如果对这个配置文件有改动,一定要反映到模板文件中去,所以建议在这个需要被填充的配置中添加上一些注释,可以提醒自己:</span><span style="padding:0px; margin:0px"><br type="_moz" style="padding:0px; margin:0px">
+</span></span></p>
+<pre style="padding:0px; margin-top:0px; margin-bottom:1em; background-color:rgb(247,247,247); font-family:'Courier New',monospace; overflow:auto; width:712.7916870117188px; color:rgb(44,44,44)"><ol class="dp-xml" style="padding:5px 0px; color:rgb(92,92,92); list-style-position:initial; border-left-width:3px; border-style:none none none solid; border-left-color:rgb(20,107,0); margin:0px 0px 1px 3em!important"><li class="alt" style="padding:0px 3px 0px 10px!important; margin-top:0px!important; margin-right:0px!important; margin-bottom:0px!important; margin-left:20px; list-style:decimal-leading-zero outside!important; color:inherit; line-height:1.3em; border:none"><span style="padding:0px; margin:0px; border:none; color:black; background-color:inherit"><span style="font-size:18px">&lt;!--&nbsp;注意,对这个文件的任何修改必须同步到文件:src/main/packageFilter/****.xml,否则白改了.&nbsp;--&gt;&nbsp;&nbsp;</span></span></li></ol></pre>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.12-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" ArticleId="8691470" >
+            <dl id="btnDigg" class="digg digg_disable"  onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable"  onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/zgmzyr/article/details/8691053';">上一篇</span><a href="/zgmzyr/article/details/8691053" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Maven Help插件的使用</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/zgmzyr/article/details/8693064';">下一篇</span><a href="/zgmzyr/article/details/8693064" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">牛刀小试YUI compressor</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('908999','zgmzyr','foot','8691470');">maven<em>（14）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('908999', 'zgmzyr','foot','8691470');
+        });
+    </script>
+      
+</div>
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/zgmzyr/svc/GetSuggestContent/8691470",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="http://static.blog.csdn.net/css/replace.css"/>
+<div id="relate" data-mod="popu_218"  class="tracking-ad">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+    <div class="embody embody_b" id="libkeyparent"  style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "8691470",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = '使用maven-war-plugin 对Maven项目进行动态打包' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+    <div id="ad_cen">        
+<!-- 广告位开始 -->
+<ins data-revive-zoneid="71" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<!-- 广告位结束 -->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '8691470';
+    var commentscount = 0;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/zgmzyr/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>      
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/zgmzyr" target="_blank">
+    <img src="http://avatar.csdn.net/7/5/2/1_zgmzyr.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/zgmzyr" class="user_name" target="_blank">zgmzyr</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=zgmzyr','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>1200425次</span></li>
+    <li>积分：<span>12735</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog7.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：12735 </div>
+        </span>  </li>
+    <li>排名：<span>第603名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>28篇</span></li>
+    <li>转载：<span>818篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>120条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/zgmzyr/article/category/823724" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Android</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/775898" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Apache</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/661647" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">cms</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1170477" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ConcurrencyProgram</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/723525" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">compass</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/683162" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">CSS</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/671778" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">database</a><span>(18)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/673215" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Eclipse</a><span>(42)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/657409" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Excel</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/688055" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">FCKeditor</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/808147" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">FreeMarker</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/658383" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Hibernate</a><span>(51)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/661645" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">html</a><span>(17)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/657285" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">java</a><span>(115)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/693034" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JAVA</a><span>(26)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/740777" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JavaEE</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/685748" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">joram</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/683165" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JQuery</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/660063" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">js</a><span>(49)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/672756" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JSON</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/686109" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">junit</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/720936" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JVM</a><span>(20)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/709122" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Linux</a><span>(30)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/732416" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">log</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/669189" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">oracle</a><span>(100)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/805559" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">optimize</a><span>(12)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/825811" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">php</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/658183" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">POI</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/736247" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">RSS</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/687442" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Spring</a><span>(16)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/822913" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">spring security</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/698480" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">SQL</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/710957" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">encrypt</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/729795" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">SQL Server</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/673343" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">SSO (Single Sign On)</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/659532" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Struts2</a><span>(20)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/682784" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">SVN</a><span>(31)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/766846" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">specialty common sense</a><span>(17)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/701523" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Tool</a><span>(18)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/679264" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Tomcat</a><span>(35)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/710532" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">webservice</a><span>(12)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/660048" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">encoding</a><span>(13)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/709472" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">open source</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/656984" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">regular expression</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/671994" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">browser</a><span>(20)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/699652" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">live common sense</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/710958" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">decryption</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/692598" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">design</a><span>(9)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/723546" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">software architecture</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/691727" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">文章</a><span>(30)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/701519" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">学习方法</a><span>(17)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/672295" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">在线文档</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/724779" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">伪静态</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/854264" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">security</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/723729" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">面试</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/723542" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">项目管理</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/900080" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">VMware</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/900081" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">vim</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/900877" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ubuntu</a><span>(9)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/905677" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">server</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/907342" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">iBatis</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/908999" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">maven</a><span>(15)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/910536" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JBoss</a><span>(7)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/917334" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">proxy</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/926537" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Hudson</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/952366" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Hadoop</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/952367" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">design pattern</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/905680" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">网站建设</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/954496" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Test</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1082422" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">cache</a><span>(4)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1101793" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Emacs</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1102457" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Debug</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1104546" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Bash</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1106565" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Algorithms</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1111291" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">UML</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1251340" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">MyBatis</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1118685" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Shell</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1321239" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">FastJSON</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1125639" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">Hessian</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1392027" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">REST</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1401565" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">API</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1457449" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">web</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1553911" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">http</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/1918599" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">SOA</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/zgmzyr/article/category/5808843" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">mq</a><span>(1)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/zgmzyr/article/month/2016/03">2016年03月</a><span>(3)</span></li><li><a href="/zgmzyr/article/month/2015/11">2015年11月</a><span>(9)</span></li><li><a href="/zgmzyr/article/month/2015/09">2015年09月</a><span>(4)</span></li><li><a href="/zgmzyr/article/month/2014/09">2014年09月</a><span>(1)</span></li><li><a href="/zgmzyr/article/month/2014/03">2014年03月</a><span>(2)</span></li><li><a href="/zgmzyr/article/month/2014/02">2014年02月</a><span>(1)</span></li><li><a href="/zgmzyr/article/month/2013/12">2013年12月</a><span>(2)</span></li><li><a href="/zgmzyr/article/month/2013/09">2013年09月</a><span>(1)</span></li><li><a href="/zgmzyr/article/month/2013/08">2013年08月</a><span>(4)</span></li><li><a href="/zgmzyr/article/month/2013/07">2013年07月</a><span>(1)</span></li><li><a href="/zgmzyr/article/month/2013/06">2013年06月</a><span>(10)</span></li><li><a href="/zgmzyr/article/month/2013/05">2013年05月</a><span>(4)</span></li><li><a href="/zgmzyr/article/month/2013/04">2013年04月</a><span>(8)</span></li><li><a href="/zgmzyr/article/month/2013/03">2013年03月</a><span>(16)</span></li><li><a href="/zgmzyr/article/month/2013/02">2013年02月</a><span>(6)</span></li><li><a href="/zgmzyr/article/month/2013/01">2013年01月</a><span>(7)</span></li><li><a href="/zgmzyr/article/month/2012/12">2012年12月</a><span>(13)</span></li><li><a href="/zgmzyr/article/month/2012/11">2012年11月</a><span>(23)</span></li><li><a href="/zgmzyr/article/month/2012/10">2012年10月</a><span>(10)</span></li><li><a href="/zgmzyr/article/month/2012/09">2012年09月</a><span>(11)</span></li><li><a href="/zgmzyr/article/month/2012/08">2012年08月</a><span>(7)</span></li><li><a href="/zgmzyr/article/month/2012/07">2012年07月</a><span>(17)</span></li><li><a href="/zgmzyr/article/month/2012/06">2012年06月</a><span>(14)</span></li><li><a href="/zgmzyr/article/month/2012/05">2012年05月</a><span>(11)</span></li><li><a href="/zgmzyr/article/month/2012/04">2012年04月</a><span>(32)</span></li><li><a href="/zgmzyr/article/month/2012/03">2012年03月</a><span>(30)</span></li><li><a href="/zgmzyr/article/month/2012/02">2012年02月</a><span>(20)</span></li><li><a href="/zgmzyr/article/month/2012/01">2012年01月</a><span>(17)</span></li><li><a href="/zgmzyr/article/month/2011/12">2011年12月</a><span>(28)</span></li><li><a href="/zgmzyr/article/month/2011/11">2011年11月</a><span>(22)</span></li><li><a href="/zgmzyr/article/month/2011/10">2011年10月</a><span>(59)</span></li><li><a href="/zgmzyr/article/month/2011/09">2011年09月</a><span>(19)</span></li><li><a href="/zgmzyr/article/month/2011/08">2011年08月</a><span>(17)</span></li><li><a href="/zgmzyr/article/month/2011/07">2011年07月</a><span>(7)</span></li><li><a href="/zgmzyr/article/month/2011/06">2011年06月</a><span>(8)</span></li><li><a href="/zgmzyr/article/month/2011/05">2011年05月</a><span>(12)</span></li><li><a href="/zgmzyr/article/month/2011/04">2011年04月</a><span>(11)</span></li><li><a href="/zgmzyr/article/month/2011/03">2011年03月</a><span>(9)</span></li><li><a href="/zgmzyr/article/month/2011/01">2011年01月</a><span>(30)</span></li><li><a href="/zgmzyr/article/month/2010/12">2010年12月</a><span>(16)</span></li><li><a href="/zgmzyr/article/month/2010/11">2010年11月</a><span>(18)</span></li><li><a href="/zgmzyr/article/month/2010/10">2010年10月</a><span>(14)</span></li><li><a href="/zgmzyr/article/month/2010/09">2010年09月</a><span>(68)</span></li><li><a href="/zgmzyr/article/month/2010/08">2010年08月</a><span>(64)</span></li><li><a href="/zgmzyr/article/month/2010/07">2010年07月</a><span>(31)</span></li><li><a href="/zgmzyr/article/month/2010/06">2010年06月</a><span>(23)</span></li><li><a href="/zgmzyr/article/month/2010/05">2010年05月</a><span>(50)</span></li><li><a href="/zgmzyr/article/month/2010/04">2010年04月</a><span>(26)</span></li><li><a href="/zgmzyr/article/month/2010/03">2010年03月</a><span>(27)</span></li><li><a href="/zgmzyr/article/month/2010/02">2010年02月</a><span>(2)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/zgmzyr/article/details/49837077" title="深入学习微框架：Spring Boot">深入学习微框架：Spring Boot</a><span>(44974)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/8044980" title="Spring整合MyBatis错误：Mapped Statements collection does not contain value for">Spring整合MyBatis错误：Mapped Statements collection does not contain value for</a><span>(32938)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/8267072" title="日志组件logback的介绍及配置使用方法">日志组件logback的介绍及配置使用方法</a><span>(30337)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/5725818" title="SVN的错误：Error: Can&#39;t connect to host &#39;&#39;: 由于目标机器积极拒绝，无法连接">SVN的错误：Error: Can&#39;t connect to host &#39;&#39;: 由于目标机器积极拒绝，无法连接</a><span>(26563)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/6095336" title="JAVA 对 URL 进行 编码与解码">JAVA 对 URL 进行 编码与解码</a><span>(25237)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/6567239" title="SVN中文提示">SVN中文提示</a><span>(22015)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/8718873" title="JBoss Web和 Tomcat的区别">JBoss Web和 Tomcat的区别</a><span>(17369)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/5715612" title="如何同步播放asf和vga文件的教学视频 ">如何同步播放asf和vga文件的教学视频 </a><span>(13966)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/8691470" title="使用maven-war-plugin 对Maven项目进行动态打包">使用maven-war-plugin 对Maven项目进行动态打包</a><span>(13387)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/6074371" title="字号、pt、px、inch、cm 之间的关系及对照表">字号、pt、px、inch、cm 之间的关系及对照表</a><span>(13082)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/zgmzyr/article/details/5741383" title="SVN 签出源码 Struts Spring Hibernate">SVN 签出源码 Struts Spring Hibernate</a><span>(11)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/5621348" title="JAVA程序员之路">JAVA程序员之路</a><span>(9)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/6886440" title="m2eclipse:Network connection problems encountered during search">m2eclipse:Network connection problems encountered during search</a><span>(5)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/5551884" title="Working copy not locked;this is probably a bug,please report ">Working copy not locked;this is probably a bug,please report </a><span>(4)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/5882073" title="hibernate FetchType理解">hibernate FetchType理解</a><span>(4)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/6920989" title="将项目从tomcat 迁移到JBoss">将项目从tomcat 迁移到JBoss</a><span>(3)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/8044980" title="Spring整合MyBatis错误：Mapped Statements collection does not contain value for">Spring整合MyBatis错误：Mapped Statements collection does not contain value for</a><span>(3)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/8674533" title="JAX-WS：背后的技术JAXB及传递Map">JAX-WS：背后的技术JAXB及传递Map</a><span>(3)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/5340889" title="strut2重复提交">strut2重复提交</a><span>(2)</span>
+</li>
+<li>
+<a href="/zgmzyr/article/details/5777070" title="QQ">QQ</a><span>(2)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/evan_man/article/details/51328628" 
+target="_blank">*EventBus的使用与深入学习</a></li>
+<li><a href="http://blog.csdn.net/xuehuayous/article/details/51324656" 
+target="_blank">*Android 拍照、选择图片并裁剪</a></li>
+<li><a href="http://blog.csdn.net/u013831257/article/details/50784565" 
+
+target="_blank">* 安卓自定义View进阶-Path基本操作</a></li>
+<li><a 
+
+href="http://blog.csdn.net/je930502/article/details/50650231"target="_blank">*Ceph架构</a></li>
+<li><a href="http://blog.csdn.net/gj19890923/article/details/51333899" 
+target="_blank">*neutron-server的启动流程(一)</a></li>
+<li><a href="http://blog.csdn.net/xueshanhaizi/article/details/51321382" target="_blank">*Android事件分发机制浅析</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/zgmzyr/article/details/5901170#comments">自动生成Rss</a>
+    <p style="margin:0px;"><a href="/KcCoO" class="user_name">KcCoO</a>:
+下次别来抄人家东西，你这三篇RSS的文章，好多问题！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/zgmzyr/article/details/5901177#comments">基于java的RSS在线订阅demo</a>
+    <p style="margin:0px;"><a href="/KcCoO" class="user_name">KcCoO</a>:
+Channel channel = new Channel(&quot;rss_2.0&quot;); 里面不能填写字符...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/zgmzyr/article/details/7913791#comments">单击 label 触发 checkbox，checkbox 触发 click</a>
+    <p style="margin:0px;"><a href="/qq_21461669" class="user_name">qq_21461669</a>:
+感谢分享
+    </p>
+    </li>
+    <li>
+   
+         <a href="/zgmzyr/article/details/8044980#comments">Spring整合MyBatis错误：Mapped Statements collection does not contain value for</a>
+    <p style="margin:0px;"><a href="/Hold_Z" class="user_name">Hold_Z</a>:
+感谢楼主分享！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/zgmzyr/article/details/8044980#comments">Spring整合MyBatis错误：Mapped Statements collection does not contain value for</a>
+    <p style="margin:0px;"><a href="/muzi1314_" class="user_name">muzi1314_</a>:
+不错，看看。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/zgmzyr/article/details/6302694#comments">海量数据性能优化措施</a>
+    <p style="margin:0px;"><a href="/huazhu60400" class="user_name">huazhu60400</a>:
+支持一下 学习了60400.com
+    </p>
+    </li>
+    <li>
+   
+         <a href="/zgmzyr/article/details/49837077#comments">深入学习微框架：Spring Boot</a>
+    <p style="margin:0px;"><a href="/onepieceshin" class="user_name">onepieceshin</a>:
+学些了，
+    </p>
+    </li>
+    <li>
+   
+         <a href="/zgmzyr/article/details/49837077#comments">深入学习微框架：Spring Boot</a>
+    <p style="margin:0px;"><a href="/cactu5" class="user_name">cactu5</a>:
+好像时infoq上的文章，感觉这一篇写得更加简单易懂：http://tianmaying.com/t...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/zgmzyr/article/details/5800813#comments">关于实现序列化的类提示没有定义serialVersionUID域 </a>
+    <p style="margin:0px;"><a href="/qq_31889833" class="user_name">qq_31889833</a>:
+66666666
+    </p>
+    </li>
+    <li>
+   
+         <a href="/zgmzyr/article/details/6972516#comments">Struts target is null for setProperty(null, &quot;x&quot;, [Ljava.lang.String;@179da9f)</a>
+    <p style="margin:0px;"><a href="/a1b2c3d4123456" class="user_name">a1b2c3d4123456</a>:
+感谢分享
+    </p>
+    </li>
+</ul>
+</div>
+
+
+<div id="custom_column_990862" class="panel">
+<ul class="panel_head"><span>database</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://database.51cto.com/col/587/" target=_blank>51CTO</a></li></ul>
+</ul>
+</div>
+
+<div id="custom_column_990863" class="panel">
+<ul class="panel_head"><span>JAVA</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://www.cnblogs.com/RicCC/" target=_blank>Richie博客园 </a></li><li><a href="http://blog.csdn.net/program_think/" target=_blank>编程随想】的技术博客</a></li><li><a href="http://www.open-open.com/" target=_blank>Java开源大全</a></li></ul>
+</ul>
+</div>
+
+<div id="custom_column_990864" class="panel">
+<ul class="panel_head"><span>js</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://www.cnblogs.com/my97/archive/2009/09/29/1576620.html" target=_blank>My97DatePicker</a> (<a href="http://www.cnblogs.com/my97/rss" target=_blank>RSS</a>)</li></ul>
+</ul>
+</div>
+
+<div id="custom_column_990865" class="panel">
+<ul class="panel_head"><span>NB</span></ul>
+<ul class="panel_body">
+
+<ul>
+<li><a href="http://blog.chinaunix.net/u3/114157/" target="_blank">windj_cu 的blog</a>
+</li><li><a href="http://blog.csdn.net/Java2King/archive/2009/08/04/4407531.aspx" target="_blank">yiihsia的学习阵地</a>
+</li><li><a href="http://www.cnblogs.com/syveen/" target="_blank">Targeted novice </a>
+</li><li><a href="http://www.jdon.com/jivejdon/blog/banq" target="_blank">板桥里人的blog</a>
+</li><li><a href="http://blog.csdn.net/zhangxiaoxiang" target="_blank">张孝祥专栏</a> </li><li><a href="http://blog.csdn.net/MoreExpert.html" target="_blank">CSDN Blog 所有专家</a>
+</li><li><a href="http://blog.csdn.net/v_JULY_v/archive/2011/04/06/6305212.aspx" target="_blank">July的blog</a>
+</li><li><a href="http://blog.csdn.net/yuanmeng001" target="_blank">袁萌专栏</a> </li><li><a href="http://caoyanbao.iteye.com/category/73734" target="_blank">读过几年书blog</a>
+</li></ul>
+<li><a href="http://blog.csdn.net/v_JULY_v" target="_blank">结构之法 算法之道</a>
+<ul>
+</ul>
+</li><li><a href="http://blog.csdn.net/robinson_0612/article/category/668350" target="_blank">Oracle</a>
+<ul>
+</ul>
+</li>
+</ul>
+</div>
+
+<div id="custom_column_990866" class="panel">
+<ul class="panel_head"><span>SSO (Single Sign On)</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://www.po-soft.com/blog/single/67.html" target=_blank>CAS SSO单点登录基础实践,配置CAS 服务器和CAS客户端</a></li><li><a href="http://www.ja-sig.org/wiki/display/CAS/Proxy+CAS+Walkthrough" target=_blank>Proxy CAS Walkthrough (CAS流程)</a></li><li><a href="http://boogie.javaeye.com/blog/26913" target=_blank>利用CAS实现SSO技术</a></li></ul>
+</ul>
+</div>
+
+<div id="custom_column_990867" class="panel">
+<ul class="panel_head"><span>工具</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://www.mytju.com/classCode/tools/urldecode_utf8.asp" target=_blank>编码与解码</a></li><li><a href="http://www.haokucn.com/tools/" target=_blank>在线工具大全</a></li></ul>
+</ul>
+</div>
+
+<div id="custom_column_990868" class="panel">
+<ul class="panel_head"><span>书籍url</span></ul>
+<ul class="panel_body">
+<ul><li><a href="http://book.51cto.com/art/200709/55070.htm" target=_blank>循序渐进Oracle </a></li><li><a href="http://www.svn8.com/svnsy/20080202/30.html" target=_blank>SVN</a></li></ul>
+</ul>
+</div>
+
+<div id="custom_column_990895" class="panel">
+<ul class="panel_head"><span>学习网址</span></ul>
+<ul class="panel_body">
+
+<ul>
+<li><a href="http://www.java2s.com/CN/Code/Java/CatalogJava.htm" target="_blank">Java相关应用</a>
+</li><li><a href="http://www.svn8.com/" target="_blank">svn中文网</a> </li><li><a href="http://stackoverflow.com/" target="_blank">stackoverflow</a> </li><li><a href="http://jm.taobao.org/" target="_blank">中间件</a> </li></ul>
+
+</ul>
+</div>    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=436787"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+</body>
+</html>   
+ 
