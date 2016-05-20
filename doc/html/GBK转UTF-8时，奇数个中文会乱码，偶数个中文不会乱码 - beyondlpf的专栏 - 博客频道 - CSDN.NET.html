@@ -1,0 +1,1265 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+    <html xmlns="http://www.w3.org/1999/xhtml">
+    
+<head>   
+   
+
+    <script type="text/javascript" src="http://c.csdnimg.cn/pubfooter/js/tracking.js" charset="utf-8"></script>  
+
+    <script type="text/javascript">
+        var protocol = window.location.protocol;
+        document.write('<script type="text/javascript" src="' + protocol + '//csdnimg.cn/pubfooter/js/repoAddr2.js?v=' + Math.random() + '"></' + 'script>');
+    </script>
+
+  
+ <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+
+    <title>GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码 - beyondlpf的专栏
+        - 博客频道 - CSDN.NET</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="项目执行阶段：&#160; 　&#160; 项目执行阶段，配置工作真正深入到了项目中，工作主要表现为：　&#160; 1、维护配置库&#160;&#160;&#160; 配置库维护包括维护配置库结构、日常权限的设置、帐户的增加与删除、工作区维护、配置库备份等； &#160;&#160;&#160; 维护时要注意：对配置库的备份要与配置机分开，以确保安全性； &#160;&#160;&#160; 配置库中帐户的管理要注意定期维护，避免帐户不断增加，出现垃圾帐户的问题； &#160;&#160;&#160; 工作区的维护" />
+    <script src="http://static.blog.csdn.net/scripts/jquery.js" type="text/javascript"></script>
+      <script type="text/javascript" src="http://static.blog.csdn.net/scripts/jquery-version.js"></script>
+    <script type="text/javascript" src="http://static.blog.csdn.net/scripts/ad.js?v=1.1"></script>
+        <!--new top-->
+               <link rel="stylesheet" href="http://c.csdnimg.cn/public/common/toolbar/css/index.css">        <!--new top-->
+    
+      <!-- ad begin -->
+         <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/tracking.js"></script>
+    <!-- ad end-->
+
+    <link rel="Stylesheet" type="text/css" href="http://static.blog.csdn.net/skin/light_blue/css/style.css?v=1.1" />
+    <link id="RSSLink" title="RSS" type="application/rss+xml" rel="alternate" href="/beyondlpf/rss/list" />
+    <link rel="shortcut icon" href="http://c.csdnimg.cn/public/favicon.ico" />
+    <link type="text/css" rel="stylesheet" href="http://static.blog.csdn.net/scripts/SyntaxHighlighter/styles/default.css" />
+ 
+
+
+</head>
+<body>
+    <!-- 广告位开始 -->
+        <ins data-revive-zoneid="149" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+    <!-- 广告位结束 -->
+
+    
+   
+      <!--new top-->
+    <script id="toolbar-tpl-scriptId" fixed="true" prod="blog" skin="black" src="http://c.csdnimg.cn/public/common/toolbar/js/html.js" type="text/javascript"></script>
+     <!--new top-->
+    <div id="container">
+        <div id="header">
+    <div class="header">
+        <div id="blog_title">
+            <h2>
+                <a href="http://blog.csdn.net/beyondlpf">beyondlpf的专栏</a></h2>
+            <h3></h3>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+</div>
+<div id="navigator">
+    <div class="navigator_bg">
+    </div>
+    <div class="navigator">
+        <ul>
+            
+                <li id="btnContents"><a href="http://blog.csdn.net/beyondlpf?viewmode=contents"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_mulu'])">
+                    <img src="http://static.blog.csdn.net/images/ico_list.gif">目录视图</span></a></li>
+                <li id="btnView"><a href="http://blog.csdn.net/beyondlpf?viewmode=list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_zhaiyao'])">
+                    <img src="http://static.blog.csdn.net/images/ico_summary.gif">摘要视图</span></a></li>
+                <li id="btnRss"><a href="http://blog.csdn.net/beyondlpf/rss/list"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_RSS'])">
+                    <img src="http://static.blog.csdn.net/images/ico_rss.gif">订阅</span></a></li>                
+            
+
+            </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var username = "beyondlpf";
+    var _blogger = username;
+    var blog_address = "http://blog.csdn.net/beyondlpf";
+    var static_host = "http://static.blog.csdn.net";
+    var currentUserName = "";  
+</script>
+
+        <div id="body">
+            <div id="main">
+                <div class="main">
+                        <div class="ad_class">
+<div class="notice tracking-ad" data-mod='popu_3' > 
+
+<a href="http://ask.csdn.net/subjects/5
+">
+<font color=red>【专家问答】阿里陈康贤：探讨大型网站之架构
+</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/blogdevteam/article/details/51423859">
+<font color=blue>走进VR开发世界——我们离开发一款VR大作还有多远？</font></a>
+&nbsp;&nbsp;&nbsp;
+<a href="http://blog.csdn.net/robbin2015/article/details/51446176">
+<font color=red>CSDN发福利啦！C币、京东卡、现金任你选
+</font></a>
+&nbsp;&nbsp;&nbsp;
+
+
+</font></a>
+</div>                        </div>
+                        
+
+
+
+<!-- 广告位开始 -->
+<ins data-revive-zoneid="72" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<!-- 广告位结束 -->
+
+  
+<link href="http://static.blog.csdn.net/css/comment1.css" type="text/css" rel="stylesheet" />
+<link href="http://static.blog.csdn.net/css/style1.css" type="text/css" rel="stylesheet" />
+<script language='JavaScript' type='text/javascript' src='http://download.csdn.net/js/jquery.cookie.js'></script>
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/search-service/main.js"></script>
+<link rel="stylesheet" href="http://static.blog.csdn.net/public/res-min/markdown_views.css?v=1.0" />
+<link rel="stylesheet" href="http://static.blog.csdn.net/css/category.css?v=1.0" />
+<script type="text/javascript" src="http://static.blog.csdn.net/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
+
+ <script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/web-storage-cache.min.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/replace.min.js"></script>
+
+  <script type="text/ecmascript">
+      window.quickReplyflag = true;
+           
+            var isBole = false;
+            
+          
+    </script>
+<div id="article_details" class="details">
+    <div class="article_title">   
+         <span class="ico ico_type_Repost"></span>
+
+
+    <h1>
+        <span class="link_title"><a href="/beyondlpf/article/details/7519786">
+        GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码            
+        </a></span>
+    </h1>
+</div>
+
+   
+
+        <div class="article_manage clearfix">
+        <div class="article_l">
+            <span class="link_categories">
+            标签：
+              <a href='http://www.csdn.net/tag/java' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">java</a><a href='http://www.csdn.net/tag/string' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">string</a><a href='http://www.csdn.net/tag/byte' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">byte</a><a href='http://www.csdn.net/tag/c' target=_blank onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_tag']);">c</a>
+            </span>
+        </div>
+        <div class="article_r">
+            <span class="link_postdate">2012-04-28 13:30</span>
+            <span class="link_view" title="阅读次数">4532人阅读</span>
+            <span class="link_comments" title="评论次数"> <a href="#comments" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_pinglun'])">评论</a>(4)</span>
+            <span class="link_collect tracking-ad" data-mod="popu_171"> <a href="javascript:void(0);" onclick="javascript:collectArticle('GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码','7519786');return false;" title="收藏">收藏</a></span>
+             <span class="link_report"> <a href="#report" onclick="javascript:report(7519786,2);return false;" title="举报">举报</a></span>
+
+        </div>
+    </div>
+    <div class="embody"  style="display:none" id="embody">
+        <span class="embody_t">本文章已收录于：</span>
+        <div class="embody_c" id="lib" value="{&quot;err&quot;:0,&quot;msg&quot;:&quot;ok&quot;,&quot;data&quot;:[]}"></div>
+    </div>
+    <style type="text/css">        
+            .embody{
+                padding:10px 10px 10px;
+                margin:0 -20px;
+                border-bottom:solid 1px #ededed;                
+            }
+            .embody_b{
+                margin:0 ;
+                padding:10px 0;
+            }
+            .embody .embody_t,.embody .embody_c{
+                display: inline-block;
+                margin-right:10px;
+            }
+            .embody_t{
+                font-size: 12px;
+                color:#999;
+            }
+            .embody_c{
+                font-size: 12px;
+            }
+            .embody_c img,.embody_c em{
+                display: inline-block;
+                vertical-align: middle;               
+            }
+             .embody_c img{               
+                width:30px;
+                height:30px;
+            }
+            .embody_c em{
+                margin: 0 20px 0 10px;
+                color:#333;
+                font-style: normal;
+            }
+    </style>
+    <script  type="text/javascript">
+        $(function () {
+            var lib = eval("("+$("#lib").attr("value")+")");
+            var html = "";
+            if (lib.err == 0) {
+                $.each(lib.data, function (i) {
+                    var obj = lib.data[i];
+                    //html += '<img src="' + obj.logo + '"/>' + obj.name + "&nbsp;&nbsp;";
+                    html += ' <a href="' + obj.url + '" target="_blank">';
+                    html += ' <img src="' + obj.logo + '">';
+                    html += ' <em><b>' + obj.name + '</b></em>';
+                    html += ' </a>';
+                });
+                if (html != "") {
+                    setTimeout(function () {
+                        $("#lib").html(html);
+                        /*
+                        var testhtml = "";
+                        testhtml += '<a href="#">';
+                        testhtml += '<img src="http://img.knowledge.csdn.net/upload/base/1455589744328_328.jpg">';
+                        testhtml += '<em>Android知识库</em>';
+                        testhtml += '</a>';
+                        $(".embody_c").html(testhtml);
+                        */
+                        $("#embody").show();
+                    }, 100);
+                }
+            }          
+            
+        });
+    </script>
+      <div class="category clearfix">
+        <div class="category_l">
+           <img src="http://static.blog.csdn.net/images/category_icon.jpg">
+            <span>分类：</span>
+        </div>
+        <div class="category_r">
+                    <label  onclick="GetCategoryArticles('829199','beyondlpf','top','7519786');">
+                        <span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_fenlei']);">JAVA<em>（24）</em></span>
+                      <img class="arrow-down" src="http://static.blog.csdn.net/images/arrow_triangle _down.jpg" style="display:inline;">
+                      <img class="arrow-up" src="http://static.blog.csdn.net/images/arrow_triangle_up.jpg" style="display:none;">
+                        <div class="subItem">
+                            <div class="subItem_t"><a  href="http://blog.csdn.net/beyondlpf/article/category/829199"  target="_blank">作者同类文章</a><i class="J_close">X</i></div>
+                            <ul class="subItem_l" id="top_829199">                            
+                            </ul>
+                        </div>
+                    </label>                    
+        </div>
+    </div>
+    <script   type="text/javascript" src="http://static.blog.csdn.net/scripts/category.js"></script>  
+
+  
+
+  
+  
+     
+
+<div id="article_content" class="article_content">
+
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+问题出现：GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码。<br>
+三个中文</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; background-color:rgb(239,239,239); width:766px; overflow-x:auto; overflow-y:auto; margin-left:9px; padding-top:1px; padding-right:1px; padding-bottom:1px; padding-left:1px; word-break:break-all; word-wrap:break-word; line-height:25px; text-align:left">
+<div class="bar">
+<div class="tools" style="padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; font-weight:bold">
+Java代码&nbsp;&nbsp;<a href="http://www.iteye.com/topic/1097560" title="收藏这段代码" style="color:rgb(0,102,153)"><img class="star" src="http://www.iteye.com/images/icon_star.png" alt="收藏代码" style="border-top-width:0px; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; border-style:initial; border-color:initial"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin-top:0px; margin-right:0px; margin-bottom:1px; margin-left:0px; padding-top:2px; padding-right:0px; padding-bottom:2px; padding-left:0px; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(209,215,220); border-right-color:rgb(209,215,220); border-bottom-color:rgb(209,215,220); border-left-color:rgb(209,215,220); list-style-position:initial; background-color:rgb(255,255,255); color:rgb(43,145,175)">
+<li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="keyword" style="color:rgb(127,0,85); font-weight:bold">public</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">static</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">void</span>&nbsp;encodeError()&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">throws</span>&nbsp;UnsupportedEncodingException&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;gbk&nbsp;=&nbsp;<span class="string" style="color:blue">&quot;我来了&quot;</span>;&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;utf8&nbsp;=&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;String(gbk.getBytes(<span class="string" style="color:blue">&quot;UTF-8&quot;</span>));&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="color:rgb(0,130,0)">//模拟UTF-8编码的网站显示</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;String(utf8.getBytes(),<span class="string" style="color:blue">&quot;UTF-8&quot;</span>));&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">/*</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">我来??</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">*/</span>&nbsp;&nbsp;</span></li></ol>
+</div>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+&nbsp;前面三个中文，后面一个中文，都是奇数</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; background-color:rgb(239,239,239); width:766px; overflow-x:auto; overflow-y:auto; margin-left:9px; padding-top:1px; padding-right:1px; padding-bottom:1px; padding-left:1px; word-break:break-all; word-wrap:break-word; line-height:25px; text-align:left">
+<div class="bar">
+<div class="tools" style="padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; font-weight:bold">
+Java代码&nbsp;&nbsp;<a href="http://www.iteye.com/topic/1097560" title="收藏这段代码" style="color:rgb(0,102,153)"><img class="star" src="http://www.iteye.com/images/icon_star.png" alt="收藏代码" style="border-top-width:0px; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; border-style:initial; border-color:initial"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin-top:0px; margin-right:0px; margin-bottom:1px; margin-left:0px; padding-top:2px; padding-right:0px; padding-bottom:2px; padding-left:0px; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(209,215,220); border-right-color:rgb(209,215,220); border-bottom-color:rgb(209,215,220); border-left-color:rgb(209,215,220); list-style-position:initial; background-color:rgb(255,255,255); color:rgb(43,145,175)">
+<li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="keyword" style="color:rgb(127,0,85); font-weight:bold">public</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">static</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">void</span>&nbsp;encodeError2()&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">throws</span>&nbsp;UnsupportedEncodingException&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;gbk&nbsp;=&nbsp;<span class="string" style="color:blue">&quot;今年是2011年&quot;</span>;&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;utf8&nbsp;=&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;String(gbk.getBytes(<span class="string" style="color:blue">&quot;UTF-8&quot;</span>));&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="color:rgb(0,130,0)">//模拟UTF-8编码的网站显示</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;String(utf8.getBytes(),<span class="string" style="color:blue">&quot;UTF-8&quot;</span>));&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">/*</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">今年??011??</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">*/</span>&nbsp;&nbsp;</span></li></ol>
+</div>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+原因：为什么只有奇数个中文才乱码，偶数个却不乱码？下面来分析原因</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; background-color:rgb(239,239,239); width:766px; overflow-x:auto; overflow-y:auto; margin-left:9px; padding-top:1px; padding-right:1px; padding-bottom:1px; padding-left:1px; word-break:break-all; word-wrap:break-word; line-height:25px; text-align:left">
+<div class="bar">
+<div class="tools" style="padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; font-weight:bold">
+Java代码&nbsp;&nbsp;<a href="http://www.iteye.com/topic/1097560" title="收藏这段代码" style="color:rgb(0,102,153)"><img class="star" src="http://www.iteye.com/images/icon_star.png" alt="收藏代码" style="border-top-width:0px; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; border-style:initial; border-color:initial"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin-top:0px; margin-right:0px; margin-bottom:1px; margin-left:0px; padding-top:2px; padding-right:0px; padding-bottom:2px; padding-left:0px; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(209,215,220); border-right-color:rgb(209,215,220); border-bottom-color:rgb(209,215,220); border-left-color:rgb(209,215,220); list-style-position:initial; background-color:rgb(255,255,255); color:rgb(43,145,175)">
+<li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="keyword" style="color:rgb(127,0,85); font-weight:bold">public</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">static</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">void</span>&nbsp;analyze()&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">throws</span>&nbsp;UnsupportedEncodingException&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;gbk&nbsp;=&nbsp;<span class="string" style="color:blue">&quot;我来了&quot;</span>;&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;utf8&nbsp;=&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;String(gbk.getBytes(<span class="string" style="color:blue">&quot;UTF-8&quot;</span>));&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">for</span>&nbsp;(<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">byte</span>&nbsp;b&nbsp;:&nbsp;gbk.getBytes(<span class="string" style="color:blue">&quot;UTF-8&quot;</span>))&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(b&nbsp;&#43;&nbsp;<span class="string" style="color:blue">&quot;&nbsp;&quot;</span>);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;System.out.println();&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">for</span>&nbsp;(<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">byte</span>&nbsp;b&nbsp;:&nbsp;utf8.getBytes())&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(b&nbsp;&#43;&nbsp;<span class="string" style="color:blue">&quot;&nbsp;&quot;</span>);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">/*</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">-26&nbsp;-120&nbsp;-111&nbsp;-26&nbsp;-99&nbsp;-91&nbsp;-28&nbsp;-70&nbsp;-122&nbsp;</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">-26&nbsp;-120&nbsp;-111&nbsp;-26&nbsp;-99&nbsp;-91&nbsp;-28&nbsp;-70&nbsp;63&nbsp;</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">*/</span>&nbsp;&nbsp;</span></li></ol>
+</div>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+&nbsp;注意最后一个字节不同，上面一行才是正确的UTF-8编码。那么为什么下面一行最后一个字节是63，而不是-122呢？这就是导致乱码的原因所在。<br>
+GBK编码是一个中文2个字节，而UTF-8编码是一个中文3个字节，当我们调用getBytes(&quot;UTF-8&quot;)方法时，会通过计算来增加字节，使得从GBK的2个字节变成UTF-8对应的3个字节。因此，上例3个中文输出了9个字节。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+这里讲一下怎么通过计算增加字节，不深究的读者可以跳过此段。为了醒目，直接用代码讲解</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; background-color:rgb(239,239,239); width:766px; overflow-x:auto; overflow-y:auto; margin-left:9px; padding-top:1px; padding-right:1px; padding-bottom:1px; padding-left:1px; word-break:break-all; word-wrap:break-word; line-height:25px; text-align:left">
+<div class="bar">
+<div class="tools" style="padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; font-weight:bold">
+Java代码&nbsp;&nbsp;<a href="http://www.iteye.com/topic/1097560" title="收藏这段代码" style="color:rgb(0,102,153)"><img class="star" src="http://www.iteye.com/images/icon_star.png" alt="收藏代码" style="border-top-width:0px; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; border-style:initial; border-color:initial"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin-top:0px; margin-right:0px; margin-bottom:1px; margin-left:0px; padding-top:2px; padding-right:0px; padding-bottom:2px; padding-left:0px; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(209,215,220); border-right-color:rgb(209,215,220); border-bottom-color:rgb(209,215,220); border-left-color:rgb(209,215,220); list-style-position:initial; background-color:rgb(255,255,255); color:rgb(43,145,175)">
+<li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="keyword" style="color:rgb(127,0,85); font-weight:bold">public</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">static</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">void</span>&nbsp;gbk2Utf()&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">throws</span>&nbsp;UnsupportedEncodingException&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;gbk&nbsp;=&nbsp;<span class="string" style="color:blue">&quot;我来了&quot;</span>;&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">char</span>[]&nbsp;c&nbsp;=&nbsp;gbk.toCharArray();&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">byte</span>[]&nbsp;fullByte&nbsp;=&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">byte</span>[<span class="number" style="color:rgb(192,0,0)">3</span>*c.length];&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">for</span>&nbsp;(<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">int</span>&nbsp;i=<span class="number" style="color:rgb(192,0,0)">0</span>;&nbsp;i&lt;c.length;&nbsp;i&#43;&#43;)&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;binary&nbsp;=&nbsp;Integer.toBinaryString(c[i]);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StringBuffer&nbsp;sb&nbsp;=&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;StringBuffer();&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">int</span>&nbsp;len&nbsp;=&nbsp;<span class="number" style="color:rgb(192,0,0)">16</span>&nbsp;-&nbsp;binary.length();&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="color:rgb(0,130,0)">//前面补零</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">for</span>(<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">int</span>&nbsp;j=<span class="number" style="color:rgb(192,0,0)">0</span>;&nbsp;j&lt;len;&nbsp;j&#43;&#43;){&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(<span class="string" style="color:blue">&quot;0&quot;</span>);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.append(binary);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="color:rgb(0,130,0)">//增加位，达到到24位3个字节</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.insert(<span class="number" style="color:rgb(192,0,0)">0</span>,&nbsp;<span class="string" style="color:blue">&quot;1110&quot;</span>);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.insert(<span class="number" style="color:rgb(192,0,0)">8</span>,&nbsp;<span class="string" style="color:blue">&quot;10&quot;</span>);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sb.insert(<span class="number" style="color:rgb(192,0,0)">16</span>,&nbsp;<span class="string" style="color:blue">&quot;10&quot;</span>);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fullByte[i*<span class="number" style="color:rgb(192,0,0)">3</span>]&nbsp;=&nbsp;Integer.valueOf(sb.substring(<span class="number" style="color:rgb(192,0,0)">0</span>,&nbsp;<span class="number" style="color:rgb(192,0,0)">8</span>),&nbsp;<span class="number" style="color:rgb(192,0,0)">2</span>).byteValue();<span class="comment" style="color:rgb(0,130,0)">//二进制字符串创建整型</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fullByte[i*<span class="number" style="color:rgb(192,0,0)">3</span>&#43;<span class="number" style="color:rgb(192,0,0)">1</span>]&nbsp;=&nbsp;Integer.valueOf(sb.substring(<span class="number" style="color:rgb(192,0,0)">8</span>,&nbsp;<span class="number" style="color:rgb(192,0,0)">16</span>),&nbsp;<span class="number" style="color:rgb(192,0,0)">2</span>).byteValue();&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fullByte[i*<span class="number" style="color:rgb(192,0,0)">3</span>&#43;<span class="number" style="color:rgb(192,0,0)">2</span>]&nbsp;=&nbsp;Integer.valueOf(sb.substring(<span class="number" style="color:rgb(192,0,0)">16</span>,&nbsp;<span class="number" style="color:rgb(192,0,0)">24</span>),&nbsp;<span class="number" style="color:rgb(192,0,0)">2</span>).byteValue();&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="color:rgb(0,130,0)">//模拟UTF-8编码的网站显示</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;String(fullByte,<span class="string" style="color:blue">&quot;UTF-8&quot;</span>));&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">}&nbsp;&nbsp;</span></li></ol>
+</div>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+现在我们来找出最后一个字节是63，而不是-122的原因。</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; background-color:rgb(239,239,239); width:766px; overflow-x:auto; overflow-y:auto; margin-left:9px; padding-top:1px; padding-right:1px; padding-bottom:1px; padding-left:1px; word-break:break-all; word-wrap:break-word; line-height:25px; text-align:left">
+<div class="bar">
+<div class="tools" style="padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; font-weight:bold">
+Java代码&nbsp;&nbsp;<a href="http://www.iteye.com/topic/1097560" title="收藏这段代码" style="color:rgb(0,102,153)"><img class="star" src="http://www.iteye.com/images/icon_star.png" alt="收藏代码" style="border-top-width:0px; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; border-style:initial; border-color:initial"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin-top:0px; margin-right:0px; margin-bottom:1px; margin-left:0px; padding-top:2px; padding-right:0px; padding-bottom:2px; padding-left:0px; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(209,215,220); border-right-color:rgb(209,215,220); border-bottom-color:rgb(209,215,220); border-left-color:rgb(209,215,220); list-style-position:initial; background-color:rgb(255,255,255); color:rgb(43,145,175)">
+<li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="keyword" style="color:rgb(127,0,85); font-weight:bold">public</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">static</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">void</span>&nbsp;analyze2()&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">throws</span>&nbsp;UnsupportedEncodingException&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;gbk&nbsp;=&nbsp;<span class="string" style="color:blue">&quot;我来了&quot;</span>;&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">byte</span>[]&nbsp;utfBytes&nbsp;=&nbsp;gbk.getBytes(<span class="string" style="color:blue">&quot;UTF-8&quot;</span>);<span class="comment" style="color:rgb(0,130,0)">//得到9个字节</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;utf8&nbsp;=&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;String(utfBytes);<span class="comment" style="color:rgb(0,130,0)">//问题就出在这</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(utf8);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">/*</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">鎴戞潵浜?</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">*/</span>&nbsp;&nbsp;</span></li></ol>
+</div>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+&nbsp;因为文件是GBK编码，new String(utfBytes)默认就是new String(utfBytes,&quot;GBK&quot;)。它会2个字节2个字节地转换成字符，当字节是奇数时最后1个字节转字符就会计算错误，然后直接赋予最后这个字符为?，对应ASCII代码就是63。</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+&nbsp;</p>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+解决问题<br>
+保证字节正确才是硬道理。当调用getBytes(&quot;UTF-8&quot;)转换成字节数组后，创建ISO-8859-1编码的字符串，ISO-8859-1编码是一个字节对应一个字符，因此不会使最后一个字节错误。</p>
+<div class="dp-highlighter" id="" style="font-family:Monaco,'DejaVu Sans Mono','Bitstream Vera Sans Mono',Consolas,'Courier New',monospace; background-color:rgb(239,239,239); width:766px; overflow-x:auto; overflow-y:auto; margin-left:9px; padding-top:1px; padding-right:1px; padding-bottom:1px; padding-left:1px; word-break:break-all; word-wrap:break-word; line-height:25px; text-align:left">
+<div class="bar">
+<div class="tools" style="padding-top:3px; padding-right:3px; padding-bottom:3px; padding-left:3px; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:0px; font-weight:bold">
+Java代码&nbsp;&nbsp;<a href="http://www.iteye.com/topic/1097560" title="收藏这段代码" style="color:rgb(0,102,153)"><img class="star" src="http://www.iteye.com/images/icon_star.png" alt="收藏代码" style="border-top-width:0px; border-right-width:0px; border-bottom-width:0px; border-left-width:0px; border-style:initial; border-color:initial"></a></div>
+</div>
+<ol start="1" class="dp-j" style="font-size:1em; line-height:1.4em; margin-top:0px; margin-right:0px; margin-bottom:1px; margin-left:0px; padding-top:2px; padding-right:0px; padding-bottom:2px; padding-left:0px; border-top-width:1px; border-right-width:1px; border-bottom-width:1px; border-left-width:1px; border-top-style:solid; border-right-style:solid; border-bottom-style:solid; border-left-style:solid; border-top-color:rgb(209,215,220); border-right-color:rgb(209,215,220); border-bottom-color:rgb(209,215,220); border-left-color:rgb(209,215,220); list-style-position:initial; background-color:rgb(255,255,255); color:rgb(43,145,175)">
+<li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="keyword" style="color:rgb(127,0,85); font-weight:bold">public</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">static</span>&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">void</span>&nbsp;correctEncode()&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">throws</span>&nbsp;UnsupportedEncodingException&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;gbk&nbsp;=&nbsp;<span class="string" style="color:blue">&quot;我来了&quot;</span>;&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;iso&nbsp;=&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;String(gbk.getBytes(<span class="string" style="color:blue">&quot;UTF-8&quot;</span>),<span class="string" style="color:blue">&quot;ISO-8859-1&quot;</span>);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">for</span>&nbsp;(<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">byte</span>&nbsp;b&nbsp;:&nbsp;iso.getBytes(<span class="string" style="color:blue">&quot;ISO-8859-1&quot;</span>))&nbsp;{&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(b&nbsp;&#43;&nbsp;<span class="string" style="color:blue">&quot;&nbsp;&quot;</span>);&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;System.out.println();&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment" style="color:rgb(0,130,0)">//模拟UTF-8编码的网站显示</span>&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;System.out.println(<span class="keyword" style="color:rgb(127,0,85); font-weight:bold">new</span>&nbsp;String(iso.getBytes(<span class="string" style="color:blue">&quot;ISO-8859-1&quot;</span>),<span class="string" style="color:blue">&quot;UTF-8&quot;</span>));&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black">}&nbsp;&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">/*</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">-26&nbsp;-120&nbsp;-111&nbsp;-26&nbsp;-99&nbsp;-91&nbsp;-28&nbsp;-70&nbsp;-122&nbsp;</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">我来了</span>&nbsp;</span></li><li style="font-size:1em; margin-top:0px; margin-right:0px; margin-bottom:0px; margin-left:38px; padding-top:0px; padding-right:0px; padding-bottom:0px; padding-left:10px; border-left-width:1px; border-left-style:solid; border-left-color:rgb(209,215,220); background-color:rgb(250,250,250); line-height:18px">
+<span style="color:black"><span class="comment" style="color:rgb(0,130,0)">*/</span>&nbsp;&nbsp;</span></li></ol>
+</div>
+<span style="font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">&nbsp;</span>
+<p style="margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px; font-family:Helvetica,Tahoma,Arial,sans-serif; font-size:14px; line-height:25px; text-align:left; background-color:rgb(239,239,239)">
+&nbsp;</p>
+   
+</div>
+
+
+
+
+<!-- Baidu Button BEGIN -->
+
+
+
+
+<div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="#" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+<!-- Baidu Button END -->
+
+   <link rel="stylesheet" href="http://static.blog.csdn.net/css/blog_detail.css" />
+
+    
+<!--172.16.140.13-->
+
+<!-- Baidu Button BEGIN -->
+<script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=1536434" ></script>
+<script type="text/javascript" id="bdshell_js"></script>
+<script type="text/javascript">
+    document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+</script>
+<!-- Baidu Button END -->
+
+ 
+
+        <div id="digg" ArticleId="7519786" >
+            <dl id="btnDigg" class="digg digg_disable"  onclick="btndigga();">
+               
+                 <dt>顶</dt>
+                <dd>0</dd>
+            </dl>
+           
+              
+            <dl id="btnBury" class="digg digg_disable"  onclick="btnburya();">
+              
+                  <dt>踩</dt>
+                <dd>0</dd>               
+            </dl>
+            
+        </div>
+     <div class="tracking-ad" data-mod="popu_222"><a href="javascript:void(0);" >&nbsp;</a>   </div>
+    <div class="tracking-ad" data-mod="popu_223"> <a href="javascript:void(0);" >&nbsp;</a></div>
+    <script type="text/javascript">
+                function btndigga() {
+                    $(".tracking-ad[data-mod='popu_222'] a").click();
+                }
+                function btnburya() {
+                    $(".tracking-ad[data-mod='popu_223'] a").click();
+                }
+            </script>
+
+   <ul class="article_next_prev">
+                <li class="prev_article"><span  onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian']);location.href='/beyondlpf/article/details/7513248';">上一篇</span><a href="/beyondlpf/article/details/7513248" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_shangyipian'])">Linux操作系统中内存buffer和cache的区别 &amp;&amp; free 参数说明</a></li>
+                <li class="next_article"><span onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian']);location.href='/beyondlpf/article/details/7532071';">下一篇</span><a href="/beyondlpf/article/details/7532071" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_xiayipian'])">cout的格式化输出</a></li>
+    </ul>
+
+    <div style="clear:both; height:10px;"></div>
+
+
+        <div class="similar_article"  style="display:none">
+                <h4>我的同类文章</h4>
+                <div class="similar_c"style="margin:20px 0px 0px 0px">
+                    <div class="similar_c_t">
+                                <label class="similar_cur">
+                                    <span  style="cursor:pointer"  onclick="GetCategoryArticles('829199','beyondlpf','foot','7519786');">JAVA<em>（24）</em></span>
+                                </label>
+                    </div>
+                   
+                    <div class="similar_wrap tracking-ad" data-mod="popu_141"  style="max-height:195px;">
+                        <a href="http://blog.csdn.net" style="display:none">http://blog.csdn.net</a>
+                        <ul class="similar_list fl">                          
+                        </ul>
+
+                        <ul class="similar_list fr">                           
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+    <script  type="text/javascript">
+        $(function () {
+            GetCategoryArticles('829199', 'beyondlpf','foot','7519786');
+        });
+    </script>
+      
+</div>
+<div id="suggest"></div>
+         <script  language="javascript" type='text/javascript'>     
+             $(function(){
+                 $.get("/beyondlpf/svc/GetSuggestContent/7519786",function(data){
+                     $("#suggest").html(data);
+                 });     
+             });             
+         </script>  
+
+
+<style>
+.blog-ass-articl dd {
+color: #369;
+width: 99%; /*修改行*/
+float: left;
+overflow: hidden;
+font: normal normal 12px/23px "SimSun";
+height: 23px;
+margin: 0;
+padding: 0 0 0 10px;
+margin-right: 30px;
+background: url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;
+}
+</style>
+
+ <link rel="stylesheet" href="http://static.blog.csdn.net/css/replace.css"/>
+<div id="relate" data-mod="popu_218"  class="tracking-ad">
+        <div class="relate_t">
+            <h3><span>参考知识库</span></h3>
+        </div>
+        <div class="relate_c">
+        </div>
+</div>
+ 
+
+<dl class="blog-ass-articl" id="res-relatived" > 
+    <div class="embody embody_b" id="libkeyparent"  style="display:none">
+            <span class="embody_t">更多资料请参考：</span>
+            <div class="embody_c" id="libkey"></div>
+    </div>
+
+
+     <dt><span>猜你在找</span></dt>    
+
+
+   
+
+
+    <div id="adCollege" style="width: 42%;float: left;"> 
+        <script src="http://csdnimg.cn/jobreco/job_reco.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            csdn.position.showEdu({
+                sourceType: "blog",
+                searchType: "detail",
+                searchKey: "7519786",
+                username: "",
+                recordcount: "5",
+                containerId: "adCollege" //容器DIV的id。 
+            });
+        </script> 
+    </div>  
+
+    
+     <div id="res"  data-mod="popu_36"  class="tracking-ad" style="width: 42%;float: left;margin-right: 30px;"></div>
+   
+</dl>
+
+
+<script type="text/javascript">
+    $(function () {
+        setTimeout(function () {
+            var searchtitletags = 'GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码' + ',' + $("#tags").html();
+            searchService({
+                index: 'blog',
+                query: searchtitletags,
+                from: 5,
+                size: 5,
+                appendTo: '#res',
+                url: 'recommend',
+                his: 2,
+                client: "blog_cf_enhance",
+                tmpl: '<dd style="background:url(http://static.blog.csdn.net/skin/default/images/blog-dot-red3.gif) no-repeat 0 10px;"><a href="#{ url }" title="#{ title }" strategy="#{ strategy }">#{ title }</a></dd>'
+            });
+        }, 500);
+    });    
+
+ </script>  
+
+    <div id="ad_cen">        
+<!-- 广告位开始 -->
+<ins data-revive-zoneid="71" data-revive-id="8c38e720de1c90a6f6ff52f3f89c4d57"></ins>
+<!-- 广告位结束 -->    </div>  
+
+<div class="comment_class">
+    <div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span><a name="comments"></a></div>
+    <div id="comment_list">
+    </div>
+    <div id="comment_bar">
+    </div>
+    <div id="comment_form">
+    </div>
+    <div class="announce">
+        * 以上用户言论只代表其个人观点，不代表CSDN网站的观点或立场<a name="reply"></a><a name="quote"></a></div>
+</div>
+
+<script type="text/javascript">
+    var fileName = '7519786';
+    var commentscount = 4;
+    var islock = false
+</script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/comment.js"></script>
+    <div id="ad_bot">
+    </div>
+<div id="report_dialog">
+</div>
+
+<div id="d-top"  style="bottom:60px;">
+        <a id="quick-reply" class="btn btn-top q-reply" title="快速回复" style="display:none;">
+            <img src="http://static.blog.csdn.net/images/blog-icon-reply.png" alt="快速回复">
+        </a>    
+
+    <a id="d-top-a" class="btn btn-top backtop"  style="display: none;" title="返回顶部" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_huidaodingbu'])" style="">         
+         <img src="http://static.blog.csdn.net/images/top.png" alt="TOP">
+    </a>
+</div>
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#ad_frm_0").height("90px");
+        
+        setTimeout(function(){
+            $("#ad_frm_2").height("200px");
+        },1000);    
+    });
+  
+</script>
+<style type="text/css">
+    .tag_list
+    {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 1px solid #D7CBC1;
+        color: #000000;
+        font-size: 12px;
+        line-height: 20px;
+        list-style: none outside none;
+        margin: 10px 2% 0 1%;
+        padding: 1px;
+    }
+    .tag_list h5
+    {
+        background: none repeat scroll 0 0 #E0DBD3;
+        color: #47381C;
+        font-size: 12px;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 5px;
+        margin: 0;
+    }
+    .tag_list h5 a
+    {
+        color: #47381C;
+    }
+    .classify
+    {
+        margin: 10px 0;
+        padding: 4px 12px 8px;
+    }
+    .classify a
+    {
+        margin-right: 20px;
+        white-space: nowrap;
+    }
+</style>
+
+
+<div class="tag_list" style="display:none"></div>
+  <script  language="javascript" type='text/javascript'>     
+      $(function(){
+              setTimeout(function(){
+                  $.get("/beyondlpf/svc/GetTagContent",function(data){
+                      $(".tag_list").html(data).show();
+                  });     
+              });
+          },500);                       
+ </script> 
+
+
+<div id="pop_win" style="display:none ;position: absolute; z-index: 10000; border: 1px solid rgb(220, 220, 220); top: 222.5px; left: 630px; opacity: 1; background: none 0px 0px repeat scroll rgb(255, 255, 255);">
+    
+</div>
+<div id="popup_mask"></div>
+<style>
+    #popup_mask
+    {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        z-index: 9999;
+        left: 0px;
+        top: 0px;
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+        display: none;
+    }
+
+</style>
+
+
+
+
+<script type="text/javascript">
+    $(function(){
+        setTimeout(function(){
+            $(".comment_body:contains('回复')").each(function(index,item){
+                var u=$(this).text().split('：')[0].toString().replace("回复","")
+                var thisComment=$(this);
+                if(u)
+                {
+                    $.getJSON("https://passport.csdn.net/get/nick?callback=?", {users: u}, function(a) {
+                        if(a!=null&&a.data!=null&&a.data.length>0)
+                        {
+                            nick=a.data[0].n; 
+                            if(u!=nick)
+                            {
+                                thisComment.text(thisComment.text().replace(u,nick));  
+                            }
+                        }       
+                    });  
+                }
+            });         
+
+        },200);  
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },5000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },10000);
+
+        setTimeout(function(){
+            $(".math").each(function(index,value){$(this).find("span").last().css("color","#fff"); })
+        },15000);
+        
+        setTimeout(function(){
+            $("a img[src='http://js.tongji.linezing.com/stats.gif']").parent().css({"position":"absolute","left":"50%"});
+        },300);
+    });
+
+    function loginbox(){
+        var $logpop=$("#pop_win");
+        $logpop.html('<iframe src="https://passport.csdn.net/account/loginbox?service=http://static.blog.csdn.net/callback.htm" frameborder="0" height="600" width="400" scrolling="no"></iframe>');
+
+        $('#popup_mask').css({
+            opacity: 0.5,
+            width: $( document ).width() + 'px',
+            height:  $( document ).height() + 'px'
+        });
+        $('#popup_mask').css("display","block");
+ 
+        $logpop.css( {
+            top: ($( window ).height() - $logpop.height())/ 2  + $( window 
+       ).scrollTop() + 'px',
+            left:($( window ).width() - $logpop.width())/ 2
+        } );
+ 
+        setTimeout( function () {
+            $logpop.show();
+            $logpop.css( {
+                opacity: 1
+            } );
+        }, 200 );
+ 
+        $('#popup_mask').unbind("click");
+        $('#popup_mask').bind("click", function(){
+            $('#popup_mask').hide();
+            var $clopop = $("#pop_win");
+            $("#common_ask_div_sc").css("display","none");
+            $clopop.css( {
+                opacity: 0
+            } );
+            setTimeout( function () {
+                $clopop.hide();
+            }, 350 );
+            return false;
+        });
+    }   
+
+</script>
+ <script language="javascript" type="text/javascript" src="http://ads.csdn.net/js/async_new.js"></script>      
+
+
+                        <div class="clear">
+                        </div>
+                    </div>                   
+                
+            </div>
+                   
+           <div id="side">
+    <div class="side">
+<div id="panel_Profile" class="panel">
+<ul class="panel_head"><span>个人资料</span></ul>
+<ul class="panel_body profile">
+<div id="blog_userface">
+    <a href="http://my.csdn.net/beyondlpf" target="_blank">
+    <img src="http://avatar.csdn.net/A/E/B/1_beyondlpf.jpg" title="访问我的空间" style="max-width:90%"/>
+    </a>
+    <br />
+    <span><a href="http://my.csdn.net/beyondlpf" class="user_name" target="_blank">beyondlpf</a></span>
+</div>
+<div class="interact">
+
+    <a href="javascript:void(0);" class="attent" id="span_add_follow" title="[加关注]"></a>
+
+ <a href="javascript:void(0);" class="letter"  title="[发私信]" onclick="window.open('http://msg.csdn.net/letters/model?receiver=beyondlpf','_blank','height=350,width=700');_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_sixin'])"></a>  
+</div>
+<div id="blog_medal">
+                <div id="bms_box">
+               </div>
+</div>
+<ul id="blog_rank">
+    <li>访问：<span>449254次</span></li>
+    <li>积分：<span>5448</span> </li>    
+    <li >等级： <span style="position:relative;display:inline-block;z-index:1" >
+            <img src="http://c.csdnimg.cn/jifen/images/xunzhang/jianzhang/blog6.png" alt="" style="vertical-align: middle;" id="leveImg">
+            <div id="smallTittle" style=" position: absolute;  left: -24px;  top: 25px;  text-align: center;  width: 101px;  height: 32px;  background-color: #fff;  line-height: 32px;  border: 2px #DDDDDD solid;  box-shadow: 0px 2px 2px rgba (0,0,0,0.1);  display: none;   z-index: 999;">
+            <div style="left: 42%;  top: -8px;  position: absolute;  width: 0;  height: 0;  border-left: 10px solid transparent;  border-right: 10px solid transparent;  border-bottom: 8px solid #EAEAEA;"></div>
+            积分：5448 </div>
+        </span>  </li>
+    <li>排名：<span>第3000名</span></li>
+</ul>
+<ul id="blog_statistics">
+    <li>原创：<span>53篇</span></li>
+    <li>转载：<span>382篇</span></li>
+    <li>译文：<span>0篇</span></li>
+    <li>评论：<span>22条</span></li>
+</ul>
+</ul>
+</div>
+
+
+<div class="panel" id="panel_Search">
+    <ul class="panel_head"><span>文章搜索</span></ul>
+    <ul class="panel_body">
+        <form id="frmSearch" action="http://so.csdn.net/search" class="form_search" target="_blank">
+        <span><input id="inputSearch" type="text" class="blogsearch" title="请输入关键字" /></span>
+        <input id="btnSubmit" type="button" value="搜索" title="search in blog" />
+        <input type="hidden" name="q" id="inputQ" />
+        <input type="hidden" name="t" value="blog" />
+        <a id="btnSearchBlog" target="_blank"></a>
+        </form>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {           
+            search();
+        });
+
+        $("#frmSearch").submit(function () {
+            search();
+            return false;
+        });
+
+        function search()
+        {
+            var url = "http://so.csdn.net/so/search/s.do?q=" + encodeURIComponent($("#inputSearch").val()) + "&u=" + username + "&t=blog";
+            window.location.href = url;
+        }   
+    });
+</script><div id="panel_Category" class="panel">
+<ul class="panel_head"><span>文章分类</span></ul>
+<ul class="panel_body">    
+                 <li>
+                    <a href="/beyondlpf/article/category/829201" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C#</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/829198" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">C/C++</a><span>(56)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/829199" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">JAVA</a><span>(25)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/829202" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">MFC</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/912525" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">linux</a><span>(118)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/912529" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">mysql</a><span>(68)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/913421" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">php</a><span>(39)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/913423" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">perl</a><span>(37)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/913793" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ftp</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/921418" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">办公</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/925487" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">sqlserver</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/926162" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">oracle</a><span>(23)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/926733" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">html</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/931434" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">nokia</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/947098" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">windows</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/952825" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">tomcat</a><span>(6)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/959489" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">wow</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/1064103" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">计算机知识</a><span>(8)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/1114089" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">svn</a><span>(2)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/1123244" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">python</a><span>(11)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/1123248" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">p</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/1146527" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">shell</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/1199333" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">apache</a><span>(3)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/1297102" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">nginx</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/1350177" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">LOL</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/2213427" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">正则表达式</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/2304695" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ip</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/2304697" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">iptables</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/2339757" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">j</a><span>(0)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/2339759" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">jdbc</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/2555047" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">lvs</a><span>(5)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/2803741" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">hive</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/4988769" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">PostgreSQL</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/4999327" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">hadoop</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/5643761" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">实时计算</a><span>(10)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/6204874" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">yum</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/6206533" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">ruby</a><span>(1)</span>
+                </li>
+                 <li>
+                    <a href="/beyondlpf/article/category/6206572" onclick="_gaq.push(['_trackEvent','function', 'onclick', 'blog_articles_wenzhangfenlei']); ">redis-cluster</a><span>(1)</span>
+                </li>
+</ul>
+</div><div id="panel_Archive" class="panel">
+<ul class="panel_head"><span>文章存档</span></ul>
+<ul class="panel_body">
+<div id="archive_list">
+<!--归档统计-->
+<li><a href="/beyondlpf/article/month/2016/04">2016年04月</a><span>(4)</span></li><li><a href="/beyondlpf/article/month/2015/11">2015年11月</a><span>(1)</span></li><li><a href="/beyondlpf/article/month/2015/10">2015年10月</a><span>(1)</span></li><li><a href="/beyondlpf/article/month/2015/09">2015年09月</a><span>(1)</span></li><li><a href="/beyondlpf/article/month/2015/07">2015年07月</a><span>(12)</span></li><li><a href="/beyondlpf/article/month/2015/06">2015年06月</a><span>(12)</span></li><li><a href="/beyondlpf/article/month/2015/04">2015年04月</a><span>(1)</span></li><li><a href="/beyondlpf/article/month/2015/02">2015年02月</a><span>(1)</span></li><li><a href="/beyondlpf/article/month/2015/01">2015年01月</a><span>(1)</span></li><li><a href="/beyondlpf/article/month/2014/12">2014年12月</a><span>(6)</span></li><li><a href="/beyondlpf/article/month/2014/11">2014年11月</a><span>(9)</span></li><li><a href="/beyondlpf/article/month/2014/10">2014年10月</a><span>(1)</span></li><li><a href="/beyondlpf/article/month/2014/09">2014年09月</a><span>(2)</span></li><li><a href="/beyondlpf/article/month/2014/08">2014年08月</a><span>(3)</span></li><li><a href="/beyondlpf/article/month/2014/07">2014年07月</a><span>(3)</span></li><li><a href="/beyondlpf/article/month/2014/06">2014年06月</a><span>(2)</span></li><li><a href="/beyondlpf/article/month/2014/04">2014年04月</a><span>(5)</span></li><li><a href="/beyondlpf/article/month/2014/03">2014年03月</a><span>(4)</span></li><li><a href="/beyondlpf/article/month/2014/02">2014年02月</a><span>(3)</span></li><li><a href="/beyondlpf/article/month/2014/01">2014年01月</a><span>(3)</span></li><li><a href="/beyondlpf/article/month/2013/12">2013年12月</a><span>(4)</span></li><li><a href="/beyondlpf/article/month/2013/09">2013年09月</a><span>(9)</span></li><li><a href="/beyondlpf/article/month/2013/08">2013年08月</a><span>(22)</span></li><li><a href="/beyondlpf/article/month/2013/07">2013年07月</a><span>(14)</span></li><li><a href="/beyondlpf/article/month/2013/06">2013年06月</a><span>(10)</span></li><li><a href="/beyondlpf/article/month/2013/05">2013年05月</a><span>(9)</span></li><li><a href="/beyondlpf/article/month/2013/04">2013年04月</a><span>(13)</span></li><li><a href="/beyondlpf/article/month/2013/03">2013年03月</a><span>(5)</span></li><li><a href="/beyondlpf/article/month/2013/02">2013年02月</a><span>(6)</span></li><li><a href="/beyondlpf/article/month/2013/01">2013年01月</a><span>(5)</span></li><li><a href="/beyondlpf/article/month/2012/12">2012年12月</a><span>(16)</span></li><li><a href="/beyondlpf/article/month/2012/11">2012年11月</a><span>(15)</span></li><li><a href="/beyondlpf/article/month/2012/10">2012年10月</a><span>(15)</span></li><li><a href="/beyondlpf/article/month/2012/09">2012年09月</a><span>(7)</span></li><li><a href="/beyondlpf/article/month/2012/08">2012年08月</a><span>(21)</span></li><li><a href="/beyondlpf/article/month/2012/07">2012年07月</a><span>(5)</span></li><li><a href="/beyondlpf/article/month/2012/06">2012年06月</a><span>(2)</span></li><li><a href="/beyondlpf/article/month/2012/05">2012年05月</a><span>(11)</span></li><li><a href="/beyondlpf/article/month/2012/04">2012年04月</a><span>(14)</span></li><li><a href="/beyondlpf/article/month/2012/03">2012年03月</a><span>(21)</span></li><li><a href="/beyondlpf/article/month/2012/02">2012年02月</a><span>(4)</span></li><li><a href="/beyondlpf/article/month/2012/01">2012年01月</a><span>(5)</span></li><li><a href="/beyondlpf/article/month/2011/12">2011年12月</a><span>(36)</span></li><li><a href="/beyondlpf/article/month/2011/11">2011年11月</a><span>(41)</span></li><li><a href="/beyondlpf/article/month/2011/10">2011年10月</a><span>(38)</span></li><li><a href="/beyondlpf/article/month/2011/08">2011年08月</a><span>(3)</span></li><li><a href="/beyondlpf/article/month/2011/06">2011年06月</a><span>(8)</span></li>
+</div>
+</ul>
+</div>
+<div id="hotarticls" class="panel">
+<ul class="panel_head">
+    <span>       
+阅读排行    </span>
+</ul>
+
+<ul class="panel_body itemlist">
+<li>
+<a href="/beyondlpf/article/details/7794028" title="PHP的内存限制 Allowed memory size of 134217728 bytes exhausted (tried to allocate 1099 bytes) in">PHP的内存限制 Allowed memory size of 134217728 bytes exhausted (tried to allocate 1099 bytes) in</a><span>(18146)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/6922261" title="linux下tree指令的用法">linux下tree指令的用法</a><span>(13746)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/7546120" title="退出telnet 命令">退出telnet 命令</a><span>(9181)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/8592089" title="如何将jar包加入到Maven本地仓库">如何将jar包加入到Maven本地仓库</a><span>(8237)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/6959139" title="oracle 中插入date类型字段">oracle 中插入date类型字段</a><span>(6977)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/7024730" title="awk的二维数组使用">awk的二维数组使用</a><span>(6287)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/17963907" title="ipvsadm 安装配置">ipvsadm 安装配置</a><span>(6136)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/6959179" title="php 清空数组方法">php 清空数组方法</a><span>(6043)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/7030441" title="Linux sqlplus执行*.sql文件">Linux sqlplus执行*.sql文件</a><span>(5844)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/7000559" title="SHELL循环遍历两个日期作为参数执行命令">SHELL循环遍历两个日期作为参数执行命令</a><span>(5289)</span>
+</li>
+</ul>
+</div>
+<div id="hotarticls2" class="panel">
+<ul class="panel_head"><span>评论排行</span></ul>
+<ul class="panel_body itemlist">
+<li>
+<a href="/beyondlpf/article/details/7519786" title="GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码">GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码</a><span>(4)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/7161964" title="c++ DES加密代码">c++ DES加密代码</a><span>(4)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/7794028" title="PHP的内存限制 Allowed memory size of 134217728 bytes exhausted (tried to allocate 1099 bytes) in">PHP的内存限制 Allowed memory size of 134217728 bytes exhausted (tried to allocate 1099 bytes) in</a><span>(2)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/6978174" title="zeroDateTimeBehavior=convertToNull">zeroDateTimeBehavior=convertToNull</a><span>(2)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/7440965" title="mysql 根据指定日期取 周一至周日 本月第一天 最后一天">mysql 根据指定日期取 周一至周日 本月第一天 最后一天</a><span>(2)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/7412506" title="undefined reference to `curl_easy_init&#39;">undefined reference to `curl_easy_init&#39;</a><span>(2)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/8592089" title="如何将jar包加入到Maven本地仓库">如何将jar包加入到Maven本地仓库</a><span>(1)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/7482335" title="php中的$_REQUEST">php中的$_REQUEST</a><span>(1)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/8012107" title="awk 二维数据使用">awk 二维数据使用</a><span>(1)</span>
+</li>
+<li>
+<a href="/beyondlpf/article/details/6901532" title="mysql 查询创建存储过程">mysql 查询创建存储过程</a><span>(1)</span>
+</li>
+</ul>
+</div>
+<div id="homepageArticles" class="panel tracking-ad" data-mod="popu_4">
+<ul class="panel_head"><span>推荐文章</span></ul>
+<ul class="panel_body" id="ad_commend">
+<ul>
+<li><a href="http://blog.csdn.net/evan_man/article/details/51328628" 
+target="_blank">*EventBus的使用与深入学习</a></li>
+<li><a href="http://blog.csdn.net/xuehuayous/article/details/51324656" 
+target="_blank">*Android 拍照、选择图片并裁剪</a></li>
+<li><a href="http://blog.csdn.net/lw_ghy/article/details/51420027" 
+
+target="_blank">*spark性能调优：开发调优</a></li>
+<li><a 
+
+href="http://blog.csdn.net/u013064109/article/details/51416389"target="_blank">*浅谈android中图片处理之色彩特效处理ColorMatrix(三)</a></li>
+<li><a href="http://blog.csdn.net/gj19890923/article/details/51333899" 
+target="_blank">*neutron-server的启动流程(一)</a></li>
+<li><a href="http://blog.csdn.net/hastar521/article/details/51397274" target="_blank">* iOS 网络资源汇总之动画</a></li>
+
+</ul></ul>
+</div>
+
+
+<div id="newcomments" class="panel">
+<ul class="panel_head"><span>最新评论</span></ul>
+<ul class="panel_body itemlist">
+    <li>
+   
+         <a href="/beyondlpf/article/details/9092967#comments">Statement cancelled due to timeout or client request 异常的修复</a>
+    <p style="margin:0px;"><a href="/angelafanfan0329" class="user_name">angelafanfan0329</a>:
+postgresql用的时候也有可能碰到类似的错误：postgresql error: cancel...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/beyondlpf/article/details/9343781#comments">FTP Client enterLocalPassiveMode</a>
+    <p style="margin:0px;"><a href="/cheetah747" class="user_name">cheetah747</a>:
+抄来抄去没意思，请问你试过吗？这个方法跟局域网里自己搭的FTP服务器是没问题。。。但如果用云主机的话...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/beyondlpf/article/details/7161964#comments">c++ DES加密代码</a>
+    <p style="margin:0px;"><a href="/duxingzhe307087558" class="user_name">duxingzhe307087558</a>:
+求Sinodes.h 和cpp文件
+    </p>
+    </li>
+    <li>
+   
+         <a href="/beyondlpf/article/details/8592089#comments">如何将jar包加入到Maven本地仓库</a>
+    <p style="margin:0px;"><a href="/sxdtzhaoxinguo" class="user_name">sxdtzhaoxinguo</a>:
+看了，有用！
+    </p>
+    </li>
+    <li>
+   
+         <a href="/beyondlpf/article/details/6978174#comments">zeroDateTimeBehavior=convertToNull</a>
+    <p style="margin:0px;"><a href="/It_Zhang0Yang" class="user_name">It_Zhang0Yang</a>:
+不错，。。。
+    </p>
+    </li>
+    <li>
+   
+         <a href="/beyondlpf/article/details/6978174#comments">zeroDateTimeBehavior=convertToNull</a>
+    <p style="margin:0px;"><a href="/It_Zhang0Yang" class="user_name">It_Zhang0Yang</a>:
+不错
+    </p>
+    </li>
+    <li>
+   
+         <a href="/beyondlpf/article/details/7519786#comments">GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码</a>
+    <p style="margin:0px;"><a href="/beyondlpf" class="user_name">beyondlpf</a>:
+@xyg165:http://blog.csdn.net/lijizh1013/article/de...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/beyondlpf/article/details/7519786#comments">GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码</a>
+    <p style="margin:0px;"><a href="/xyg165" class="user_name">xyg165</a>:
+我试过啊，没试过我敢说吗？这样的给字符串3个汉字可以，我所有的编码都是UTF-8,从前台传到后台的中...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/beyondlpf/article/details/7519786#comments">GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码</a>
+    <p style="margin:0px;"><a href="/beyondlpf" class="user_name">beyondlpf</a>:
+@xyg165:亲身试过的，你一定是JAVA代码里就是UTF8的，所以再转UTF8没问题，你把代码改...
+    </p>
+    </li>
+    <li>
+   
+         <a href="/beyondlpf/article/details/7519786#comments">GBK转UTF-8时，奇数个中文会乱码，偶数个中文不会乱码</a>
+    <p style="margin:0px;"><a href="/xyg165" class="user_name">xyg165</a>:
+咱能不能不抄。。亲身试一下再抄好吗。这个就是胡乱搞的代码，我草，误导了大批新手
+    </p>
+    </li>
+</ul>
+</div>
+    </div>
+    <div class="clear">
+    </div>
+ </div>   
+            <div class="clear">
+            </div>
+        </div>
+
+        
+
+<script type="text/javascript" src="http://c.csdnimg.cn/rabbit/cnick/cnick.js"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/newblog.min.js"></script>
+
+
+<script type="text/javascript" src="http://medal.blog.csdn.net/showblogmedal.ashx?blogid=1069329"></script>
+<script type="text/javascript" src="http://static.blog.csdn.net/scripts/JavaScript1.js"></script>
+
+    <script type="text/javascript" src="http://passport.csdn.net/content/loginbox/login.js"></script>
+<script type="text/javascript">document.write("<img src=http://counter.csdn.net/pv.aspx?id=24 border=0 width=0 height=0>");</script>
+<script type="text/javascript" src="http://www.csdn.net/ui/scripts/Csdn/counter.js"></script>
+<script type="text/javascript" src="http://ad.csdn.net/scripts/ad-blog.js"></script>
+<script type="text/javascript">
+    $(function () {
+        function __get_code_toolbar(snippet_id) {
+            return $("<span class='tracking-ad' data-mod='popu_167'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "' target='_blank' title='在CODE上查看代码片'  style='text-indent:0;'><img src='https://code.csdn.net/assets/CODE_ico.png' width=12 height=12 alt='在CODE上查看代码片' style='position:relative;top:1px;left:2px;'/></a></span>"
+                    + "<span class='tracking-ad' data-mod='popu_170'><a href='https://code.csdn.net/snippets/"
+                    + snippet_id
+                    + "/fork' target='_blank' title='派生到我的代码片' style='text-indent:0;'><img src='https://code.csdn.net/assets/ico_fork.svg' width=12 height=12 alt='派生到我的代码片' style='position:relative;top:2px;left:2px;'/></a></span>");
+        }
+        
+        $("[code_snippet_id]").each(function () {
+            __s_id = $(this).attr("code_snippet_id");
+            if (__s_id != null && __s_id != "" && __s_id != 0 && parseInt(__s_id) > 70020) {
+                __code_tool = __get_code_toolbar(__s_id);
+                $(this).prev().find(".tools").append(__code_tool);
+            }
+        });
+
+        $(".bar").show();
+    });
+</script>
+
+
+
+
+    </div>
+      <!--new top-->
+    
+    <script id="csdn-toolbar-id" btnId="header_notice_num" wrapId="note1" count="5" subCount="5" type="text/javascript" src="http://c.csdnimg.cn/public/common/toolbar/js/toolbar.js"></script>     <!--new top-->
+   
+    <link href="http://c.csdnimg.cn/comm_ask/css/ask_float_block.css" type="text/css" rel="stylesheet" />
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/wmd.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/showdown.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/libs/prettify.js'></script>
+    <script language='JavaScript' type='text/javascript' src='http://c.csdnimg.cn/comm_ask/js/apps/ask_float_block.js'></script>
+   
+
+  <div id="a52b5334d" style="width: 1px; height: 1px; display: none;">
+                    <script id="adJs52b5334"></script>
+                    <script>document.getElementById("adJs52b5334").src = "http://ads.csdn.net/js/opt/52b5334.js?t=" + Math.random();</script>
+   </div>
+
+</body>
+</html>   
+ 
