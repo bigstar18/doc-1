@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Log4J日志配置详解 - 牛奶、不加糖 - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=umTYGJ1Xbo61obX_Gqsil3krUSBXOilTLax6nesdN401"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/coffee/bundle-coffee.css?v=H7P3zU3_M529NtLVh9kKULJaZLDGv9Qz_L_VdgyN1P41"/>
+<link type="text/css" rel="stylesheet" href="/blog/customcss/115420.css?v=AiVZovz6%2fG%2bJ3w9Yni1g2A8WWIU%3d"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/ITtangtang/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/ITtangtang/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/ITtangtang/wlwmanifest.xml"/>
+<script src="http://common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'ITtangtang', cb_enable_mathjax=false;</script>
+<script src="/bundles/blog-common.js?v=XKoehlJN5H21FBVcSKsnT53hGsKVYw1yJ99ZTW__hhA1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/ITtangtang/"><img id="blogLogo" src="/Skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/ITtangtang/">哼哼哈嘿</a></h1>
+<h2>每天多一篇博客，生活多一份收获！</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		<div id="navigator">
+			
+<ul id="navList">
+	<li><a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a></li>
+	<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/ITtangtang/">首页</a></li>
+	<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li><a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://msg.cnblogs.com/send/%E7%89%9B%E5%A5%B6%E3%80%81%E4%B8%8D%E5%8A%A0%E7%B3%96">联系</a></li>
+	<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+	<li>
+	</li>
+</ul>
+
+
+			<div class="blogStats">
+				
+				
+<!--done-->
+随笔- 77&nbsp;
+文章- 0&nbsp;
+评论- 78&nbsp;
+
+				
+			</div><!--end: blogStats -->
+		</div><!--end: navigator 博客导航栏 -->
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/ITtangtang/p/3926665.html">Log4J日志配置详解</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">一、Log4j简介</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">Log4j有三个主要的组件：Loggers(记录器)，Appenders (输出源)和Layouts(布局)。这里可简单理解为日志类别，日志要输出的地方和日志以何种形式输出。综合使用这三个组件可以轻松地记录信息的类型和级别，并可以在运行时控制日志输出的样式和位置。</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">1、Loggers</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">Loggers组件在此系统中被分为五个级别：DEBUG、INFO、WARN、ERROR和FATAL。这五个级别是有顺序的，DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL，分别用来指定这条日志信息的重要程度，明白这一点很重要，Log4j有一个规则：只输出级别不低于设定级别的日志信息，假设Loggers级别设定为INFO，则INFO、WARN、ERROR和FATAL级别的日志信息都会输出，而级别比INFO低的DEBUG则不会输出。</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">2、Appenders</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">禁用和使用日志请求只是Log4j的基本功能，Log4j日志系统还提供许多强大的功能，比如允许把日志输出到不同的地方，如控制台（Console）、文件（Files）等，可以根据天数或者文件大小产生新的文件，可以以流的形式发送到其它地方等等。</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">常使用的类如下：</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">org.apache.log4j.ConsoleAppender（控制台）</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">org.apache.log4j.FileAppender（文件）</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">配置模式：</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.appenderName = className</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.appenderName.Option1 = value1</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&hellip;</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.appenderName.OptionN = valueN</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">3、Layouts</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">有时用户希望根据自己的喜好格式化自己的日志输出，Log4j可以在Appenders的后面附加Layouts来完成这个功能。Layouts提供四种日志输出样式，如根据HTML样式、自由指定样式、包含日志级别与信息的样式和包含日志时间、线程、类别等信息的样式。</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">常使用的类如下：</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">org.apache.log4j.HTMLLayout（以HTML表格形式布局）</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">org.apache.log4j.PatternLayout（可以灵活地指定布局模式）</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">org.apache.log4j.SimpleLayout（包含日志信息的级别和信息字符串）</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等信息）</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">配置模式：</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.appenderName.layout =className</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.appenderName.layout.Option1 = value1</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&hellip;</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.appenderName.layout.OptionN = valueN</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">二、配置详解<br /><br />在实际应用中，要使Log4j在系统中运行须事先设定配置文件。配置文件事实上也就是对Logger、Appender及Layout进行相应设定。Log4j支持两种配置文件格式，一种是XML格式的文件，一种是properties属性文件。下面以properties属性文件为例介绍log4j.properties的配置。<br /><br />1、配置根Logger：<br />log4j.rootLogger = [ level ] , appenderName1, appenderName2, &hellip;<br />log4j.additivity.org.apache=false：表示Logger不会在父Logger的appender里输出，默认为true。<br />level ：设定日志记录的最低级别，可设的值有OFF、FATAL、ERROR、WARN、INFO、DEBUG、ALL或者自定义的级别，Log4j建议只使用中间四个级别。通过在这里设定级别，您可以控制应用程序中相应级别的日志信息的开关，比如在这里设定了INFO级别，则应用程序中所有DEBUG级别的日志信息将不会被打印出来。<br />appenderName：就是指定日志信息要输出到哪里。可以同时指定多个输出目的地，用逗号隔开。<br />例如：log4j.rootLogger＝INFO,A1,B2,C3<br /><br />2、配置日志信息输出目的地（appender）：<br />log4j.appender.appenderName = className<br />appenderName：自定义appderName，在log4j.rootLogger设置中使用；<br />className：可设值如下：<br />(1)org.apache.log4j.ConsoleAppender（控制台）<br />(2)org.apache.log4j.FileAppender（文件）<br />(3)org.apache.log4j.DailyRollingFileAppender（每天产生一个日志文件）<br />(4)org.apache.log4j.RollingFileAppender（文件大小到达指定尺寸的时候产生一个新的文件）<br />(5)org.apache.log4j.WriterAppender（将日志信息以流格式发送到任意指定的地方）<br />(1)ConsoleAppender选项：<br />Threshold=WARN：指定日志信息的最低输出级别，默认为DEBUG。<br />ImmediateFlush=true：表示所有消息都会被立即输出，设为false则不输出，默认值是true。<br />Target=System.err：默认值是System.out。<br />(2)FileAppender选项：<br />Threshold=WARN：指定日志信息的最低输出级别，默认为DEBUG。<br />ImmediateFlush=true：表示所有消息都会被立即输出，设为false则不输出，默认值是true。<br />Append=false：true表示消息增加到指定文件中，false则将消息覆盖指定的文件内容，默认值是true。<br />File=D:/logs/logging.log4j：指定消息输出到logging.log4j文件中。<br />(3)DailyRollingFileAppender选项：<br />Threshold=WARN：指定日志信息的最低输出级别，默认为DEBUG。<br />ImmediateFlush=true：表示所有消息都会被立即输出，设为false则不输出，默认值是true。<br />Append=false：true表示消息增加到指定文件中，false则将消息覆盖指定的文件内容，默认值是true。<br />File=D:/logs/logging.log4j：指定当前消息输出到logging.log4j文件中。<br />DatePattern='.'yyyy-MM：每月滚动一次日志文件，即每月产生一个新的日志文件。当前月的日志文件名为logging.log4j，前一个月的日志文件名为logging.log4j.yyyy-MM。<br />另外，也可以指定按周、天、时、分等来滚动日志文件，对应的格式如下：<br />1)'.'yyyy-MM：每月<br />2)'.'yyyy-ww：每周<br />3)'.'yyyy-MM-dd：每天<br />4)'.'yyyy-MM-dd-a：每天两次<br />5)'.'yyyy-MM-dd-HH：每小时<br />6)'.'yyyy-MM-dd-HH-mm：每分钟<br />(4)RollingFileAppender选项：<br />Threshold=WARN：指定日志信息的最低输出级别，默认为DEBUG。<br />ImmediateFlush=true：表示所有消息都会被立即输出，设为false则不输出，默认值是true。<br />Append=false：true表示消息增加到指定文件中，false则将消息覆盖指定的文件内容，默认值是true。<br />File=D:/logs/logging.log4j：指定消息输出到logging.log4j文件中。<br />MaxFileSize=100KB：后缀可以是KB, MB 或者GB。在日志文件到达该大小时，将会自动滚动，即将原来的内容移到logging.log4j.1文件中。<br />MaxBackupIndex=2：指定可以产生的滚动文件的最大数，例如，设为2则可以产生logging.log4j.1，logging.log4j.2两个滚动文件和一个logging.log4j文件。<br /><br />3、配置日志信息的输出格式（Layout）：<br />log4j.appender.appenderName.layout=className<br />className：可设值如下：<br />(1)org.apache.log4j.HTMLLayout（以HTML表格形式布局）<br />(2)org.apache.log4j.PatternLayout（可以灵活地指定布局模式）<br />(3)org.apache.log4j.SimpleLayout（包含日志信息的级别和信息字符串）<br />(4)org.apache.log4j.TTCCLayout（包含日志产生的时间、线程、类别等等信息）<br />(1)HTMLLayout选项：<br />LocationInfo=true：输出java文件名称和行号，默认值是false。<br />Title=My Logging： 默认值是Log4J Log Messages。<br />(2)PatternLayout选项：<br />ConversionPattern=%m%n：设定以怎样的格式显示消息。<br /><br />格式化符号说明：<br /><br />%p：输出日志信息的优先级，即DEBUG，INFO，WARN，ERROR，FATAL。<br />%d：输出日志时间点的日期或时间，默认格式为ISO8601，也可以在其后指定格式，如：%d{yyyy/MM/dd HH:mm:ss,SSS}。<br />%r：输出自应用程序启动到输出该log信息耗费的毫秒数。<br />%t：输出产生该日志事件的线程名。<br />%l：输出日志事件的发生位置，相当于%c.%M(%F:%L)的组合，包括类全名、方法、文件名以及在代码中的行数。例如：test.TestLog4j.main(TestLog4j.java:10)。<br />%c：输出日志信息所属的类目，通常就是所在类的全名。<br />%M：输出产生日志信息的方法名。<br />%F：输出日志消息产生时所在的文件名称。<br />%L:：输出代码中的行号。<br />%m:：输出代码中指定的具体日志信息。<br />%n：输出一个回车换行符，Windows平台为"rn"，Unix平台为"n"。<br />%x：输出和当前线程相关联的NDC(嵌套诊断环境)，尤其用到像java servlets这样的多客户多线程的应用中。<br />%%：输出一个"%"字符。<br />另外，还可以在%与格式字符之间加上修饰符来控制其最小长度、最大长度、和文本的对齐方式。如：<br />1) c：指定输出category的名称，最小的长度是20，如果category的名称长度小于20的话，默认的情况下右对齐。<br />2)%-20c："-"号表示左对齐。<br />3)%.30c：指定输出category的名称，最大的长度是30，如果category的名称长度大于30的话，就会将左边多出的字符截掉，但小于30的话也不会补空格。</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></p>
+<div><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">附：Log4j比较全面的配置</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">Log4j配置文件实现了输出到控制台、文件、回滚文件、发送日志邮件、输出到数据库日志表、自定义标签等全套功能。</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.rootLogger=DEBUG,console,dailyFile,im</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.additivity.org.apache=true</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># 控制台(console)</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.console=org.apache.log4j.ConsoleAppender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.console.Threshold=DEBUG</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.console.ImmediateFlush=true</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.console.Target=System.err</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.console.layout=org.apache.log4j.PatternLayout</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.console.layout.ConversionPattern=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># 日志文件(logFile)</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logFile=org.apache.log4j.FileAppender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logFile.Threshold=DEBUG</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logFile.ImmediateFlush=true</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logFile.Append=true</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logFile.File=D:/logs/log.log4j</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logFile.layout=org.apache.log4j.PatternLayout</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logFile.layout.ConversionPattern=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># 回滚文件(rollingFile)</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.rollingFile=org.apache.log4j.RollingFileAppender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.rollingFile.Threshold=DEBUG</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.rollingFile.ImmediateFlush=true</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.rollingFile.Append=true</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.rollingFile.File=D:/logs/log.log4j</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.rollingFile.MaxFileSize=200KB</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.rollingFile.MaxBackupIndex=50</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.rollingFile.layout=org.apache.log4j.PatternLayout</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.rollingFile.layout.ConversionPattern=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># 定期回滚日志文件(dailyFile)</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.dailyFile=org.apache.log4j.DailyRollingFileAppender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.dailyFile.Threshold=DEBUG</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.dailyFile.ImmediateFlush=true</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.dailyFile.Append=true</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.dailyFile.File=D:/logs/log.log4j</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.dailyFile.DatePattern='.'yyyy-MM-dd</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.dailyFile.layout=org.apache.log4j.PatternLayout</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.dailyFile.layout.ConversionPattern=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># 应用于socket</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.socket=org.apache.log4j.RollingFileAppender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.socket.RemoteHost=localhost</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.socket.Port=5001</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.socket.LocationInfo=true</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># Set up for Log Factor 5</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.socket.layout=org.apache.log4j.PatternLayout</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.socket.layout.ConversionPattern=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># Log Factor 5 Appender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.LF5_APPENDER=org.apache.log4j.lf5.LF5Appender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.LF5_APPENDER.MaxNumberOfRecords=2000</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># 发送日志到指定邮件</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.mail=org.apache.log4j.net.SMTPAppender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.mail.Threshold=FATAL</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.mail.BufferSize=10</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.mail.From = xxx@mail.com</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.mail.SMTPHost=mail.com</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.mail.Subject=Log4J Message</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.mail.To= xxx@mail.com</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.mail.layout=org.apache.log4j.PatternLayout</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.mail.layout.ConversionPattern=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># 应用于数据库</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.database=org.apache.log4j.jdbc.JDBCAppender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.database.URL=jdbc:mysql://localhost:3306/test</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.database.driver=com.mysql.jdbc.Driver</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.database.user=root</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.database.password=</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.database.sql=INSERT INTO LOG4J (Message) VALUES('=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n')</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.database.layout=org.apache.log4j.PatternLayout</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.database.layout.ConversionPattern=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n</span><br /><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"># 自定义Appender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.im = net.cybercorlin.util.logger.appender.IMAppender</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.im.host = mail.cybercorlin.net</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.im.username = username</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.im.password = password</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.im.recipient = corlin@cybercorlin.net</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.im.layout=org.apache.log4j.PatternLayout</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.im.layout.ConversionPattern=[%-5p] %d(%r) --&gt; [%t] %l: %m %x %n</span></div>
+<div><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></div>
+<div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j的强大功能无可置疑，但实际应用中免不了遇到某个功能需要输出独立的日志文件的情况，怎样才能把所需的内容从原有日志中分离，形成单独的日志文件呢？其实只要在现有的log4j基础上稍加配置即可轻松实现这一功能。</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">先看一个常见的log4j.properties文件，它是在控制台和myweb.log文件中记录日志：</span></p>
+<div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.rootLogger=DEBUG, stdout, logfile</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.category.org.springframework=ERROR</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.category.org.apache=INFO</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.stdout=org.apache.log4j.ConsoleAppender</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.stdout.layout.ConversionPattern=%d %p [%c] - %m%n</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logfile=org.apache.log4j.RollingFileAppender</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logfile.File=${myweb.root}/WEB-INF/log/myweb.log</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logfile.MaxFileSize=512KB</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logfile.MaxBackupIndex=5</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logfile.layout=org.apache.log4j.PatternLayout</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.logfile.layout.ConversionPattern=%d %p [%c] - %m%n</span></p>
+
+
+</div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">　　</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">如果想对不同的类输出不同的文件(以<span style="color: #ff0000;">cn.com.Test</span>为例)，先要在Test.java中定义:</span></p>
+<div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">private static Log logger = LogFactory.getLog(<span style="color: #ff0000;">Test.class</span>);</span></p>
+
+
+</div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">　　然后在log4j.properties中加入:</span></p>
+<div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.logger.<span style="color: #ff0000;">cn.com.Test</span>= DEBUG,&nbsp;<span style="color: #3366ff;"><strong>test</strong></span></span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<strong><span style="color: #3366ff;">test</span></strong>=org.apache.log4j.FileAppender</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test</span>.File=${myweb.root}/WEB-INF/log/<span style="color: #339966;"><strong>test.log</strong></span></span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test</span>.layout=org.apache.log4j.PatternLayout</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test</span>.layout.ConversionPattern=%d %p [%c] - %m%n</span></p>
+
+
+</div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">　　也就是让cn.com.Test中的logger使用log4j.appender.test所做的配置。</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">　　但是，如果在同一类中需要输出多个日志文件呢？其实道理是一样的，先在Test.java中定义:</span></p>
+<div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">private static Log logger1 = LogFactory.getLog("<span style="color: #ff0000;">myTest1</span>");</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">private static Log logger2 = LogFactory.getLog("<span style="color: #ff0000;">myTest2</span>");</span></p>
+
+
+</div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">　　然后在log4j.properties中加入:</span></p>
+<div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.logger.<span style="color: #ff0000;">myTest1</span>= DEBUG,&nbsp;<span style="color: #3366ff;">test1</span></span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test1</span>=org.apache.log4j.FileAppender</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test1</span>.File=${myweb.root}/WEB-INF/log/<strong>test1.log</strong></span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test1</span>.layout=org.apache.log4j.PatternLayout</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test1</span>.layout.ConversionPattern=%d %p [%c] - %m%n</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">　　</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.logger.<span style="color: #ff0000;">myTest2</span>= DEBUG,&nbsp;<span style="color: #3366ff;">test2</span></span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test2</span>=org.apache.log4j.FileAppender</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test2</span>.File=${myweb.root}/WEB-INF/log/<strong>test2.log</strong></span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test2</span>.layout=org.apache.log4j.PatternLayout</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.appender.<span style="color: #3366ff;">test2</span>.layout.ConversionPattern=%d %p [%c] - %m%n</span></p>
+
+
+</div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">　　也就是在用logger时给它一个自定义的名字(如这里的"myTest1")，然后在log4j.properties中做出相应配置即可。别忘了不同日志要使用不同的logger(如输出到<strong>test1.log</strong>的要用<strong>logger1</strong>.info("abc"))。</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">　　还有一个问题，就是这些自定义的日志默认是同时输出到log4j.rootLogger所配置的日志中的，<strong>如何能只让它们输出到自己指定的日志中呢？</strong>别急，这里有个开关：</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.<span style="color: #ff0000;"><strong>additivity</strong></span>.myTest1&nbsp;= false</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">　　它用来设置是否同时输出到log4j.rootLogger所配置的日志中，设为false就不会输出到其它地方啦！注意这里的"myTest1"是你在程序中给logger起的那个自定义的名字！</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">如果你说，我只是不想同时输出这个日志到log4j.rootLogger所配置的logfile中，stdout里我还想同时输出呢！那也好办，把你的log4j.logger.myTest1 = DEBUG, test1改为下式就OK啦！</span></p>
+<div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">log4j.logger.myTest1=DEBUG, test1</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&nbsp;</span></p>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">下面是文件上传时记录文件类型的log日志，并输出到指定文件的配置</span></p>
+<div class="cnblogs_code">
+<pre><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"><span style="color: #008080;"> 1</span> log4j.rootLogger=<span style="color: #000000;">INFO, stdout
+</span><span style="color: #008080;"> 2</span> <span style="color: #000000;">######################### logger ##############################
+</span><span style="color: #008080;"> 3</span> 
+<span style="color: #008080;"> 4</span> log4j.appender.stdout =<span style="color: #000000;"> org.apache.log4j.ConsoleAppender
+</span><span style="color: #008080;"> 5</span> log4j.appender.stdout.layout =<span style="color: #000000;"> org.apache.log4j.PatternLayout
+</span><span style="color: #008080;"> 6</span> log4j.appender.stdout.layout.conversionPattern = %d [%t] %-5p %c - %m%<span style="color: #000000;">n
+</span><span style="color: #008080;"> 7</span> log4j.logger.<span style="color: #ff0000;">extProfile</span>=<span style="color: #000000;">INFO, <span style="color: #ff0000;">extProfile</span>#日志级别是INFO,标签是extProfile
+</span><span style="color: #008080;"> 8</span> log4j.additivity.<span style="color: #ff0000;">extProfile</span>=<span style="color: #0000ff;">false</span><span style="color: #000000;">;#输出到指定文件extProfile.log中
+</span><span style="color: #008080;"> 9</span> 
+<span style="color: #008080;">10</span> <span style="color: #000000;">#userProfile log\uff08\u8bb0\u5f55\u4fee\u6539\u5bc6\u7801\uff0c\u627e\u56de\u5bc6\u7801\uff0c\u4fee\u6539\u90ae\u7bb1\uff0c\u4fee\u6539\u624b\u673a\u53f7\uff09
+</span><span style="color: #008080;">11</span> log4j.appender.<span style="color: #ff0000;">extProfile</span>=<span style="color: #000000;">org.apache.log4j.RollingFileAppender
+</span><span style="color: #008080;">12</span> log4j.appender.<span style="color: #ff0000;">extProfile</span>.File=logs/<span style="color: #000000;">extProfile.log#输出到resin根目录的logs文件夹,<strong>log4j会自动生成目录和文件
+</strong></span><span style="color: #008080;">13</span> log4j.appender.<span style="color: #ff0000;">extProfile</span>.MaxFileSize=<span style="color: #000000;">20480KB#超过20M就重新创建一个文件
+</span><span style="color: #008080;">14</span> log4j.appender.<span style="color: #ff0000;">extProfile</span>.MaxBackupIndex=10
+<span style="color: #008080;">15</span> log4j.appender.<span style="color: #ff0000;">extProfile</span>.layout=<span style="color: #000000;">org.apache.log4j.PatternLayout
+</span><span style="color: #008080;">16</span> log4j.appender.<span style="color: #ff0000;">extProfile</span>.layout.ConversionPattern=%d [%t] %-5p %c - %m%n</span></pre>
+</div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">Java端控制代码</span></p>
+<div class="cnblogs_code">
+<pre><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">&lt;%@page contentType="text/html" session="false" pageEncoding="UTF-8"%&gt;&lt;%<span style="color: #000000;">@page
+...
+org.apache.commons.logging.Log,
+org.apache.commons.logging.LogFactory
+</span>"%&gt;
+<span style="color: #000000;">...
+Log extProfile  </span>= LogFactory.getLog("<span style="color: #ff0000;">extProfile</span>"<span style="color: #000000;">);
+...
+</span><span style="color: #0000ff;">if</span> (!<span style="color: #000000;">item.isFormField()) {
+       String fileExt </span>= StringUtils.substringAfterLast(item.getName(), "."<span style="color: #000000;">).toLowerCase();
+       <span style="color: #ff0000;">extProfile.info</span>(</span>"upfile type is : [ "+fileExt +" ]"<span style="color: #000000;">);
+}</span></span></pre>
+</div>
+<p><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;">参考：</span><br /><span style="font-family: 'comic sans ms', sans-serif; font-size: 16px;"><a href="http://www.cnblogs.com/ITEagle/archive/2010/04/23/1718365.html">http://www.cnblogs.com/ITEagle/archive/2010/04/23/1718365.html</a></span></p>
+<p><span style="color: #0000ff; font-family: 'comic sans ms', sans-serif; font-size: 16px;"><a href="http://blog.csdn.net/anlina_1984/article/details/5313023" target="_blank"><span style="color: #0000ff;">http://blog.csdn.net/anlina_1984/article/details/5313023</span></a></span></p>
+
+
+</div>
+
+
+</div></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2014-08-21 10:54</span> <a href='http://www.cnblogs.com/ITtangtang/'>牛奶、不加糖</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="http://i.cnblogs.com/EditPosts.aspx?postid=3926665" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3926665);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=115420,cb_entryId=3926665,cb_blogApp=currentBlogApp,cb_blogUserGuid='977fd6f0-948a-e111-aa3f-842b2b196315',cb_entryCreatedDate='2014/8/21 10:54:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='ad_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='ad_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+$(function () {
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);    
+});
+</script>
+</div>
+
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<DIV id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</DIV>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2016 牛奶、不加糖
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+</body>
+</html>
